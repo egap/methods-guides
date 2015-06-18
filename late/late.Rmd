@@ -42,16 +42,35 @@ With the exclusion restriction and the no Defiers assumption we can calculate th
 
 The LATE estimate is equivalent to an instrumental variables estimate. This is most easily illustrated following a set of regressions. Say that 100 individuals from a population of 200 are randomly assigned to treatment. Regressing treatment status (T) on the treatment assignment (Z) gives the share of compliers: 80%. The ITT is obtained by regressing outcome Y on the assignment to treatment (Z). Again, LATE is calculated by the dividing the estimate of the latter by the first. A researcher will get exactly the same results when running a 2SLS regression in which the outcome (Y) is regressed on the treatment (T), using the assignment to treatment as an instrumental variable (Z). This is shown in the code below.
 
-```{r eval=FALSE}
+```{r include=FALSE, cache=FALSE}
+library(AER)
+```
+
+```{r}
+
 set.seed(1) 
-Z T Y # Share of compliers = 0.8. 
-lm(T~Z) 
-# ITT = 0.403 
-lm(Y~Z) # LATE = ITT/ share of compliers = 0.504 
-0.403/0.8 
-library(AER) 
-# Estimate 2SLS = 0.504 
-summary(ivreg(Y~T | Z)) 
+T <- rep(0:1,50)
+D <- T
+D[1:10]  <- 0    # 10 Never Takers
+D[11:20] <- 1    # 10 Always Takers
+Y        <- 50*D
+Y[1:10]  <- 100  # Never takers have high Y
+Y[11:20] <- 0    # Always takers have low Y
+
+
+# Share of compliers 
+ITTD <- coef(lm(T~D))[2] 
+
+# Intention to treat effect
+ITT  <- coef(lm(Y~T))[2] 
+
+# LATE
+LATE <- ITT / ITTD
+
+cbind(Y_1 = mean(Y[T==1]), Y_0=mean(Y[T==0]), ITTD, ITT, LATE)
+
+# library(AER) 
+summary(ivreg(Y~ D | T)) 
 
 ```
 

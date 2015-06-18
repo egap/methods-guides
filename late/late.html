@@ -99,14 +99,47 @@ img {
 <h1>4 The LATE is an instrumental variables estimate</h1>
 <p>The LATE estimate is equivalent to an instrumental variables estimate. This is most easily illustrated following a set of regressions. Say that 100 individuals from a population of 200 are randomly assigned to treatment. Regressing treatment status (T) on the treatment assignment (Z) gives the share of compliers: 80%. The ITT is obtained by regressing outcome Y on the assignment to treatment (Z). Again, LATE is calculated by the dividing the estimate of the latter by the first. A researcher will get exactly the same results when running a 2SLS regression in which the outcome (Y) is regressed on the treatment (T), using the assignment to treatment as an instrumental variable (Z). This is shown in the code below.</p>
 <pre class="r"><code>set.seed(1) 
-Z T Y # Share of compliers = 0.8. 
-lm(T~Z) 
-# ITT = 0.403 
-lm(Y~Z) # LATE = ITT/ share of compliers = 0.504 
-0.403/0.8 
-library(AER) 
-# Estimate 2SLS = 0.504 
-summary(ivreg(Y~T | Z)) </code></pre>
+T &lt;- rep(0:1,50)
+D &lt;- T
+D[1:10]  &lt;- 0    # 10 Never Takers
+D[11:20] &lt;- 1    # 10 Always Takers
+Y        &lt;- 50*D
+Y[1:10]  &lt;- 100  # Never takers have high Y
+Y[11:20] &lt;- 0    # Always takers have low Y
+
+
+# Share of compliers 
+ITTD &lt;- coef(lm(T~D))[2] 
+
+# Intention to treat effect
+ITT  &lt;- coef(lm(Y~T))[2] 
+
+# LATE
+LATE &lt;- ITT / ITTD
+
+cbind(Y_1 = mean(Y[T==1]), Y_0=mean(Y[T==0]), ITTD, ITT, LATE)</code></pre>
+<pre><code>##   Y_1 Y_0 ITTD ITT LATE
+## D  50  10  0.8  40   50</code></pre>
+<pre class="r"><code># library(AER) 
+summary(ivreg(Y~ D | T)) </code></pre>
+<pre><code>## 
+## Call:
+## ivreg(formula = Y ~ D | T)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+##    -55     -5     -5     -5     95 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    5.000      5.660   0.883    0.379    
+## D             50.000      8.839   5.657 1.53e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 35.36 on 98 degrees of freedom
+## Multiple R-Squared: -0.1136, Adjusted R-squared: -0.125 
+## Wald test:    32 on 1 and 98 DF,  p-value: 1.528e-07</code></pre>
 </div>
 <div id="the-late-only-estimates-the-treatment-effect-for-the-compliers" class="section level1">
 <h1>5 The LATE only estimates the treatment effect for the compliers</h1>
