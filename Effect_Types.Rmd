@@ -1,0 +1,28 @@
+---
+Author: NA
+Title: 10 Types of Treatment Effect You Should Know About
+output: pdf_document
+---
+
+
+Abstract
+==
+This guide 1 for more formal discussion of independence and the assumptions necessary to estimate causal effects. describes ten distinct types of causal effect researchers can be interested in estimating. As discussed in our guide to causal inference, simple randomization allows one to produce estimates of the average of the unit level causal effects in a sample. This average causal effect or average treatment effect (ATE) is a powerful concept because it is one solution to the problem of not observing all relevant counterfactuals. Yet, it is not the only productive engagement with this problem. In fact, there are many different types of quantities of causal interest. The goal of this guide is to help you choose estimands (a parameter of interest) and estimators (procedures for calculating estimates of those parameters) that are appropriate and meaningful for your data.
+
+
+Average Treatment Effects
+==
+We begin by reviewing how, with randomization, a simple difference-of-means provides an unbiased estimate of the ATE. We take extra time to introduce some common statistical concepts and notation used throughout this guide.
+
+First we define a treatment effect for an individual observation (a person, household, city, etc.) as the difference between that unit’s behavior under treatment $(Y_i(1))$ and control $(Y_i(0))$ :
+
+
+
+
+```{r, echo = F, results = 'asis'}
+library(xtable)
+x <- sample(c(0, 1), 100, replace = T)
+y <- sample(c(0, 1), 100, replace = T)
+print(xtable(table(x, y)))
+```
+
