@@ -1,0 +1,39 @@
+---
+Author: NA
+title: 10 Things You Need to Know About Multiple Comparisons
+output: pdf_document
+---
+
+
+Abstract
+==
+The “Multiple Comparisons Problem” is the problem  that standard statistical procedures can be misleading when researchers conduct a large group of hypothesis. When a research has multiple “bites at the apple,” the chances are that some finding will appear “significant” even when there’s nothing going on.
+
+Classical hypothesis tests assess statistical significance by calculating the probability under a null hypothesis of obtaining estimates as large or larger as the observed estimate. When multiple tests are conducted, however, classical p-values are incorrect — they no longer reflect the true probability under the null.
+
+This guide will help you guard against drawing false conclusions from your experiments. We focus on the big ideas and provide examples and tools that you can use in R.
+
+
+Almost every social science experiment faces a multiple comparisons problem
+==
+Typically, researchers are not interested in just one treatment versus control comparison per experiment. There are three main ways that comparisons proliferate:
+
+1. **Multiple treatment arms.** When an experiment has n treatment arms, there are n(n-1)/2 possible comparisons.
+2. **Heterogeneous treatment effects.** Often, we are interested in whether the treatment has different impacts on different subgroups.  For example, a treatment might be more effective for women than for men.
+3. **Multiple estimators.** Often, experimenters will apply multiple estimators to the same dataset: for example, difference-in-means and covariate adjustment.
+There is of course nothing wrong with employing multiple treatment arms, exploring treatment effect heterogeneity, or using multiple estimators of the treatment effect.  However, these design and analysis choices sometimes require that researchers correct their statistical tests to account for multiple comparisons.
+
+These concerns are especially problematic when making a “family claim,” that is, when you are summarizing a series of results.  For example, a family claim might be that treatments A, B, C, and D had no effect, but treatment E did.  Or, similarly, the treatment had no effect among group 1, group 2, or group 3, but had a strong effect among group 4.
+
+The multiple comparisons problem is related to, but different from, the problem of “fishing”.  Fishing occurs when an unscrupulous analyst conducts many tests but only reports the “interesting” ones. In essence, fishing withholds the necessary information we would need in order to correct for multiple comparisons.
+
+2 Why multiple comparisons are a problem
+==
+In classical hypothesis testing, the “alpha level” describes how willing the researcher is to make a certain kind of mistake — a so-called Type I error. A Type I error occurs when a researcher falsely concludes that an observed difference is “real,” when in fact there is no difference. In many social science applications, the alpha level, or Type I error rate, is set to 0.05. This means that the researcher is willing to commit a Type I error 5% of the time.
+
+But when we move to the world of multiple comparisons, this simple testing framework is no longer sufficient. We are trying to avoid the scientific error of falsely concluding that an effect is practically or substantively meaningful — but if we apply the classical hypothesis testing framework without addressing multiple comparisons, we are much more likely to commit such an error.
+
+In this guide, we will describe three main approaches for addressing the multiple comparisons problem:
+1. p-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the Family-Wise Error Rate (FWER) or the False Discovery Rate (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
+2. Pre-analysis plans. These plans are a powerful design-based tool for “calling your shot” so to speak.
+3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a blind application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
