@@ -1,7 +1,7 @@
 ---
 Author: NA
 Title: 10 Types of Treatment Effect You Should Know About
-output: pdf_document
+output: html_document
 ---
 
 

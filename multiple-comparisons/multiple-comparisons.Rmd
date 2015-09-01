@@ -1,7 +1,7 @@
 ---
+title: "10 Things You Need to Know About Multiple Comparisons"
+output: html_document
 Author: NA
-title: 10 Things You Need to Know About Multiple Comparisons
-output: pdf_document
 ---
 
 
@@ -34,6 +34,15 @@ In classical hypothesis testing, the “alpha level” describes how willing the
 But when we move to the world of multiple comparisons, this simple testing framework is no longer sufficient. We are trying to avoid the scientific error of falsely concluding that an effect is practically or substantively meaningful — but if we apply the classical hypothesis testing framework without addressing multiple comparisons, we are much more likely to commit such an error.
 
 In this guide, we will describe three main approaches for addressing the multiple comparisons problem:
-1. p-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the Family-Wise Error Rate (FWER) or the False Discovery Rate (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
+
+1. *p*-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the *Family-Wise Error Rate* (FWER) or the *False Discovery Rate* (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
 2. Pre-analysis plans. These plans are a powerful design-based tool for “calling your shot” so to speak.
 3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a blind application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
+
+3 Don't mix up the FWER and FDR!
+==
+In the world of multiple testing, the Type I error rate might refer to one of two things: the Family-Wise Error Rate (FWER) or the False Discovery Rate (FDR).
+
+The FWER is the probability of incorrectly rejecting even one null hypothesis. Suppose we have three null hypotheses, all of which are true. When the null hypothesis is true, but we nevertheless reject it in favor of some alternative, we commit a Type I error. If we set alpha (the Type I error rate) to be 0.05, we have a [$1−(1−0.05)3=14.2%$] chance of rejecting at least one of them. In order to control the FWER (i.e., reduce it from 14.2% back down to 5%), we need to employ a correction. We’ll explore three ways to control the FWER (Bonferroni, Holm, and simulation ) in the sections below.
+
+The FDR is subtly different. It is the proportion of false discoveries among all tested (true) null hypotheses. For example, if you are testing 60 hypotheses, a procedure that controls the FDR (at alpha=0.05) will ensure that no more than 3 hypotheses are falsely rejected. The FDR is less stringent than the FWER, but may be more appropriate in some research situations.
