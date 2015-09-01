@@ -46,3 +46,24 @@ In the world of multiple testing, the Type I error rate might refer to one of tw
 The FWER is the probability of incorrectly rejecting even one null hypothesis. Suppose we have three null hypotheses, all of which are true. When the null hypothesis is true, but we nevertheless reject it in favor of some alternative, we commit a Type I error. If we set alpha (the Type I error rate) to be 0.05, we have a [$1−(1−0.05)3=14.2%$] chance of rejecting at least one of them. In order to control the FWER (i.e., reduce it from 14.2% back down to 5%), we need to employ a correction. We’ll explore three ways to control the FWER (Bonferroni, Holm, and simulation ) in the sections below.
 
 The FDR is subtly different. It is the proportion of false discoveries among all tested (true) null hypotheses. For example, if you are testing 60 hypotheses, a procedure that controls the FDR (at alpha=0.05) will ensure that no more than 3 hypotheses are falsely rejected. The FDR is less stringent than the FWER, but may be more appropriate in some research situations.
+
+4 The Bonferroni correction is too extreme
+==
+The Bonferroni correction is a commonly-used approach for addressing the multiple comparisons problem, partly because of its simplicity. If you conduct k tests, the target significance level should be alpha/k, or, equivalently, you multiply your *p*-values by k, and apply the standard alpha level. (The trouble with multiplying the *p*-values is sometimes you end up with values over one, rendering the interpretation of the *p*-values incoherent.)
+
+For example, suppose you conduct an experiment that has 3 dependent variables. You conduct three difference-in-means tests that yield the following classical *p*-values: 0.004, 0.020, and 0.122. If your alpha level is the standard 0.05 threshold, then you would usually declare the first two tests statistically significant and the last test insignificant. The Bonferroni correction, however, adjusts the target *p*-value to 0.05/3 = 0.016. We then declare only the first test to be statistically significant.
+
+The Bonferroni correction works under the most extreme circumstances, that is, when all k tests are independent from one another. To see how this works, imagine we are testing three true null hypotheses using a classical alpha level of 0.05. Each test, therefore has a 5% chance of yielding the wrong answer that the null hypothesis is false.
+
+But our chances of making at least one mistake are much greater than 5% because we have three chances to get it wrong. As above, this probability is in fact  [$1 - (1 - 0.05)^3 = 14.2%$] . If we use the Bonferroni correction, however, our chances of getting it wrong fall back to our target alpha value:  [$1 - (1 - 0.05/3)^3 \approx 0.05$] .
+
+This correction works in the worst-case scenario that all tests are independent. But in most cases, tests are not independent. That is, if your treatment moves outcome A, it probably moves outcome B too, at least a little. So what tends to happen is, researchers report that their results “withstand” Bonferroni when they are extremely strong, but decry Bonferroni as too extreme when the results are weaker.
+
+Instead of using the Bonferroni correction, you can use the Holm correction.  It is strictly more powerful than Bonferroni, and is valid under the same assumptions. It also controls the FWER. Suppose you have  [m]  *p*-values.  Order them from smallest to largest. Find the smallest p-value that satisfies this condition: $pk>\frac{α}{m+1−k}$, where  k is the *p*-value’s index. This and all larger *p*-values are insignificant; all smaller *p*-values are significant.
+
+Taking our three *p*-values from above: 0.004, 0.020, and 0.122:
+$$0.004<\frac{0.05}{3+1−1}=0.017$$
+$$0.020<\frac{0.05}{3+1−2}=0.025$$
+$$0.122>\frac{0.05}{3+1−3}=0.050$$
+
+Under the Holm correction, the first two tests are significant, but the last test is not.
