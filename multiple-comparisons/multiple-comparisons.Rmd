@@ -35,7 +35,7 @@ But when we move to the world of multiple comparisons, this simple testing frame
 
 In this guide, we will describe three main approaches for addressing the multiple comparisons problem:
 
-1. *p*-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the *Family-Wise Error Rate* (FWER) or the *False Discovery Rate* (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
+1. p-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the *Family-Wise Error Rate* (FWER) or the *False Discovery Rate* (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
 2. Pre-analysis plans. These plans are a powerful design-based tool for “calling your shot” so to speak.
 3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a blind application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
 
@@ -49,9 +49,9 @@ The FDR is subtly different. It is the proportion of false discoveries among all
 
 4 The Bonferroni correction is too extreme
 ==
-The Bonferroni correction is a commonly-used approach for addressing the multiple comparisons problem, partly because of its simplicity. If you conduct k tests, the target significance level should be alpha/k, or, equivalently, you multiply your *p*-values by k, and apply the standard alpha level. (The trouble with multiplying the *p*-values is sometimes you end up with values over one, rendering the interpretation of the *p*-values incoherent.)
+The Bonferroni correction is a commonly-used approach for addressing the multiple comparisons problem, partly because of its simplicity. If you conduct k tests, the target significance level should be alpha/k, or, equivalently, you multiply your p-values by k, and apply the standard alpha level. (The trouble with multiplying the p-values is sometimes you end up with values over one, rendering the interpretation of the p-values incoherent.)
 
-For example, suppose you conduct an experiment that has 3 dependent variables. You conduct three difference-in-means tests that yield the following classical *p*-values: 0.004, 0.020, and 0.122. If your alpha level is the standard 0.05 threshold, then you would usually declare the first two tests statistically significant and the last test insignificant. The Bonferroni correction, however, adjusts the target *p*-value to 0.05/3 = 0.016. We then declare only the first test to be statistically significant.
+For example, suppose you conduct an experiment that has 3 dependent variables. You conduct three difference-in-means tests that yield the following classical p-values: 0.004, 0.020, and 0.122. If your alpha level is the standard 0.05 threshold, then you would usually declare the first two tests statistically significant and the last test insignificant. The Bonferroni correction, however, adjusts the target p-value to 0.05/3 = 0.016. We then declare only the first test to be statistically significant.
 
 The Bonferroni correction works under the most extreme circumstances, that is, when all k tests are independent from one another. To see how this works, imagine we are testing three true null hypotheses using a classical alpha level of 0.05. Each test, therefore has a 5% chance of yielding the wrong answer that the null hypothesis is false.
 
@@ -59,11 +59,141 @@ But our chances of making at least one mistake are much greater than 5% because 
 
 This correction works in the worst-case scenario that all tests are independent. But in most cases, tests are not independent. That is, if your treatment moves outcome A, it probably moves outcome B too, at least a little. So what tends to happen is, researchers report that their results “withstand” Bonferroni when they are extremely strong, but decry Bonferroni as too extreme when the results are weaker.
 
-Instead of using the Bonferroni correction, you can use the Holm correction.  It is strictly more powerful than Bonferroni, and is valid under the same assumptions. It also controls the FWER. Suppose you have  [m]  *p*-values.  Order them from smallest to largest. Find the smallest p-value that satisfies this condition: $pk>\frac{α}{m+1−k}$, where  k is the *p*-value’s index. This and all larger *p*-values are insignificant; all smaller *p*-values are significant.
+Instead of using the Bonferroni correction, you can use the Holm correction.  It is strictly more powerful than Bonferroni, and is valid under the same assumptions. It also controls the FWER. Suppose you have  $m$  p-values.  Order them from smallest to largest. Find the smallest p-value that satisfies this condition: $p_{k}>\frac{α}{m+1−k}$, where $k$ is the p-value’s index. This and all larger p-values are insignificant; all smaller p-values are significant.
 
-Taking our three *p*-values from above: 0.004, 0.020, and 0.122:
+Taking our three p-values from above: 0.004, 0.020, and 0.122:
 $$0.004<\frac{0.05}{3+1−1}=0.017$$
 $$0.020<\frac{0.05}{3+1−2}=0.025$$
 $$0.122>\frac{0.05}{3+1−3}=0.050$$
 
 Under the Holm correction, the first two tests are significant, but the last test is not.
+
+5 Control the FDR with Benjamini-Hochberg
+==
+The Benjamini–Hochberg procedure controls the FDR. Like the Holm correction, you also begin by ordering $m$ p-values. Then you find the largest p-value that satisfies:  $p_{k}≤\frac{k}{m}α$. This test, and all tests with smaller p-values are declared significant.
+
+$$0.004<\frac{1}{3}0.05=0.017$$
+$$0.020<\frac{2}{3}0.05=0.033$$
+$$0.122>\frac{3}{3}0.05=0.050$$
+
+Using the Benjamini–Hochberg procedure, the first two tests are significant, but the third is not.
+
+6 It’s easy to implement these procedures in R
+==
+In R, the p.adjust() function contains many of the corrections devised by statisticians to address the multiple comparisons problem. The p.adjust() function is in base R, so no additional packages are required.
+```{r}
+# Set seed for reproducibility
+set.seed(343)
+ 
+# Generate 50 test statistics
+# Half are drawn from a normal with mean 0
+# The other half are drawn from a normal with mean 3
+x <- rnorm(50, mean = c(rep(0, 25), rep(3, 25)))
+ 
+# Obtain 50 p-values
+p <- round(2*pnorm(sort(-abs(x))), 3)
+ 
+# Choose alpha level
+alpha <- 0.05
+ 
+# Without any corrections
+sig <- p < alpha
+ 
+# Conduct three corrections
+# and compare to target alpha
+bonferroni_sig <- p.adjust(p, "bonferroni") < alpha
+holm_sig <- p.adjust(p, "holm") < alpha
+BH_sig <- p.adjust(p, "BH") <alpha
+```
+
+The results of this simulation are presented in the table and figure below.
+
+Significance                  | No Correction | Benjamini-Hochberg | Holm | Bonferroni
+------------------------------|---------------|--------------------|------|-------------
+Statistically Significant     |	25	          |22                  |11    |8
+Not Statistically Significant |	25            |28                  |39    |42
+
+INSERT FIGURE 1 HERE
+
+Of the 25 null hypotheses that would be rejected if no correction were made, the Bonferroni correction only rejects 8, the Holm procedure rejects 11, and the Benjamini–Hochberg procedure rejects 22. Of these three corrections, Bonferroni is the most stringent while Benjamini–Hochberg is the most lenient.
+
+7 A better way to control the FWER is simulation
+==
+The trouble with the corrections above is that they struggle to address the extent to which the multiple comparisons are correlated with one another. A straightforward method of addressing this problem is simulation under the sharp null hypothesis of no effect for any unit on any dependent variable. Note that this is a **family-wise** sharp null.
+
+If the treatment has no effect at all on anything, then we observe all potential outcomes for all subjects. We can re-randomize the experiment 1000 or more times and conduct all k hypothesis tests each time. We know for sure that all k null hypotheses are true, because the treatment has no effect by construction.
+
+The next step is picking the right threshold value below which results are deemed statistically significant. If alpha is 0.05, we need to find the target p-value that, across all simulations under the sharp null, yields 5% significant hypothesis tests.
+
+Once we have the right threshold value, it’s as easy as comparing the uncorrected p-values to the threshold value — those below the threshold are deemed significant.
+
+```{r}
+# Control the FWER through simulation
+rm(list=ls())
+library(mvtnorm)
+library(randomizr)
+
+# Helper functions
+do_t_test <- function(Y, Z){
+  t.test(Y[Z==1], Y[Z==0])$p.value
+}
+
+permute_treat <- function(){
+  treatment_sim <- complete_ra(n, m=n/2)
+  ps_sim <- apply(outcomes, 2, do_t_test, Z = treatment_sim)
+  return(ps_sim)
+}
+
+threshold_finder<- function(threshold){
+  mean(apply(many_ps, 2, x <- function(x) sum(x <= threshold) > 0 ))
+}
+
+# Set a seed
+set.seed(343)
+
+# Generate correlated outcomes
+# Outcomes are unrelated to treatment
+# All null hypotheses are true
+
+n <- 1000
+k <- 100; r <- .7; s <- 1
+sigma <- matrix(s*r, k,k)
+diag(sigma) <- s
+outcomes <- rmvnorm(n=n, mean=rep(0, k), sigma=sigma)
+
+# Complete Random Assignment
+treatment <- complete_ra(n, m=n/2)
+
+# Conduct k hypothesis tests
+p_obs <- apply(outcomes, 2, do_t_test, Z = treatment)
+
+# Simulate under the sharp null
+many_ps <- replicate(1000, permute_treat(), simplify = TRUE)
+
+# Obtain the Type I error rate for a series of thresholds
+thresholds <- seq(0, 0.05, length.out = 1000)
+type_I_rate <- sapply(thresholds, threshold_finder)
+
+# Find the largest threshold that yields an alpha type I error rate
+target_p_value <- thresholds[max(which(type_I_rate <=0.05))]
+
+# Apply target p_value to observed p_values
+sig_simulated <- p_obs <= target_p_value
+
+# Compare to raw p-values
+sig <- p_obs <= 0.05
+```
+
+The target p-value obtained by the simulation is 0.002 — hypothesis tests with raw p-values below 0.002 are deemed significant.  Compare this with the Bonferroni method, which would require a p-value below 0.05/100 = 0.0005, an order of magnitude smaller.  The closer the correlation of the tests (the parameter “r” in the code above) is to zero, the closer the two methods will be.
+
+The flexibility of the simulation method is both an advantage and a disadvantage. The advantage is that it can accommodate any set of estimation procedures, returning a study-specific correction that will generally be more powerful than other methods to control the FWER. The disadvantage is that it requires the researcher to code up a simulation — there are no prewritten functions that will apply across research contexts.
+
+Here are some guidelines and tips for writing your own simulation.
+
+1. Follow the original random assignment procedure as exactly as possible.  For example, if you block-randomized your experiment, make sure your simulations permute the treatment assignment according to the same blocks.
+2. Each simulation should return a set of p-values. (this was accomplished in the permute_treat() function above.)
+3. Be sure to count up the number of simulations in which at least one test was deemed significant, not the average number of tests across all simulations deemed significant.
+
+8 You can use this calculator to adjust your p-values
+==
+This calculator works best in Firefox. To use full-screen, go [here] (https://acoppock.shinyapps.io/MC_app).
