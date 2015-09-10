@@ -113,7 +113,53 @@ Correction Type               | No Correction | Benjamini-Hochberg | Holm | Bonf
 Statistically Significant     |	25	          |22                  |11    |8
 Not Statistically Significant |	25            |28                  |39    |42
 
-INSERT FIGURE 1 HERE
+```{r, echo=FALSE}
+library(ggplot2)
+# Set seed for reproducibility
+set.seed(343)
+
+n_tests <- 50
+# Generate 50 test statistics
+x <- rnorm(n_tests, mean = c(rep(0, 25), rep(3, 25)))
+#x <- rnorm(n_tests, mean = c(rep(0, 50)))
+
+# Obtain 50 p-values
+p <- round(2*pnorm(sort(-abs(x))), 3)
+
+# Choose alpha level
+alpha <- 0.05
+
+# Without any corrections
+sig <- p < alpha
+
+# Conduct three corrections
+bonferroni_sig <- p.adjust(p, "bonferroni") < alpha
+holm_sig <- p.adjust(p, "holm") < alpha
+BH_sig <- p.adjust(p, "BH") <alpha
+
+# Compare corrected and uncorrected
+# table(bonferroni_sig, sig)
+# table(holm_sig, sig)
+# table(BH_sig, sig)
+
+p = rep(p,4)
+correction <- rep(c("No Correction", "Benjamini-Hochberg","Bonferroni", "Holm"), each=n_tests)
+correction = factor(correction,
+                    levels=c("Bonferroni", "Holm", "Benjamini-Hochberg", "No Correction"),
+                    ordered=TRUE)
+Significant = c(sig, BH_sig, bonferroni_sig, holm_sig)
+Significant <- ifelse(Significant, "Statistically Significant", "Not Statistically Signifiant")
+Significant <- factor(Significant, levels= c("Statistically Significant", "Not Statistically Signifiant"),
+                      ordered=TRUE)
+
+for_gg <- data.frame(p, correction, Significant)
+g <- ggplot(for_gg, aes(x=p, y=correction, color=Significant)) + 
+  geom_point(alpha = .8, size=3, position=position_jitter(height=.2, width=0)) + 
+  xlim(0,.05) + theme_bw() + scale_color_manual(values=c("#45DBC6","#5E56FF")) +
+  ylab("") + xlab("Uncorrected p-values") + theme(legend.position="bottom",legend.title=element_blank()) +
+  ggtitle("Multiple Comparisons Corrections Compared")
+g
+```
 
 Of the 25 null hypotheses that would be rejected if no correction were made, the Bonferroni correction only rejects 8, the Holm procedure rejects 11, and the Benjamini–Hochberg procedure rejects 22. Of these three corrections, Bonferroni is the most stringent while Benjamini–Hochberg is the most lenient.
 
