@@ -11,8 +11,9 @@ The “Multiple Comparisons Problem” is the problem  that standard statistical
 
 Classical hypothesis tests assess statistical significance by calculating the probability under a null hypothesis of obtaining estimates as large or larger as the observed estimate. When multiple tests are conducted, however, classical p-values are incorrect — they no longer reflect the true probability under the null.
 
-This guide will help you guard against drawing false conclusions from your experiments. We focus on the big ideas and provide examples and tools that you can use in R.
+This guide [^1] will help you guard against drawing false conclusions from your experiments. We focus on the big ideas and provide examples and tools that you can use in R.
 
+[^1]: Originating author: Alex Coppock, 18 Feb 2015. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide
 
 Almost every social science experiment faces a multiple comparisons problem
 ==
