@@ -9,7 +9,7 @@ Abstract
 ==
 This guide [^1] for more formal discussion of independence and the assumptions necessary to estimate causal effects. describes ten distinct types of causal effect researchers can be interested in estimating. As discussed in our guide to causal inference, simple randomization allows one to produce estimates of the average of the unit level causal effects in a sample. This average causal effect or average treatment effect (ATE) is a powerful concept because it is one solution to the problem of not observing all relevant counterfactuals. Yet, it is not the only productive engagement with this problem. In fact, there are many different types of quantities of causal interest. The goal of this guide is to help you choose estimands (a parameter of interest) and estimators (procedures for calculating estimates of those parameters) that are appropriate and meaningful for your data.
 
-[^1]: See Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+[^1]: See Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
 
 1 Average Treatment Effects
 ==
@@ -19,7 +19,9 @@ First we define a treatment effect for an individual observation (a person, hous
 
 $$τ_{i}=Y_{i}(1)−Y_{i}(0)$$
 
-Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatment effect is unknowable. Now let $D_{i}$ be an indicator for whether we observe an observation under treatment or control. If treatment is randomly assigned, $D_{i}$ is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes $((Y_{i}(1),Y_{i}(0),X_{i}⊥⊥D_{i}))$.[^1]
+Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatment effect is unknowable. Now let $D_{i}$ be an indicator for whether we observe an observation under treatment or control. If treatment is randomly assigned, $D_{i}$ is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes $((Y_{i}(1),Y_{i}(0),X_{i}⊥⊥D_{i}))$.[^2]
+
+[^2]: See Holland and Angrist & Pischke again for more formal discussion of independence and the assumptions necessary to estimate causal effects.
 
 Suppose our design involves m units under treatment and N−m under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations. 2 Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
 

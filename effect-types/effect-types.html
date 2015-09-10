@@ -81,14 +81,14 @@ img {
 <p>A linear model regressing the observed outcome Yi on a treatment indicator Di provides a convenient estimator of the ATE (and with some additional adjustments, the variance of the ATE):</p>
 <p>Yi=Yi(0)∗(1−Di)+Yi(1)∗Di=β0+β1Di+u</p>
 <p>since we can rearrange terms so that β0 estimates the average among control observations (Yi(0)∣Di=0) and β1 estimates the differences of means (Yi(1)∣Di=1)–(Yi(1)∣Di=0). In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference 5. Finally, we also demonstrate the unbiasedness of these estimators through simulation.</p>
-% latex table generated in R 3.1.2 by xtable 1.7-4 package % Thu Sep 10 17:15:13 2015
+% latex table generated in R 3.1.2 by xtable 1.7-4 package % Thu Sep 10 17:44:26 2015
 
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>See Holland (1986) and Angrist and Pischke Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.<a href="#fnref1">↩</a></p></li>
-<li id="fn2"><p>See Holland (1986) and Angrist and Pischke Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.<a href="#fnref2">↩</a></p></li>
+<li id="fn2"><p>See Holland and Angrist &amp; Pischke again for more formal discussion of independence and the assumptions necessary to estimate causal effects.<a href="#fnref2">↩</a></p></li>
 </ol>
 </div>
 
