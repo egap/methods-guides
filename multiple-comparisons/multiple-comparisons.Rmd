@@ -113,7 +113,7 @@ Correction Type               | No Correction | Benjamini-Hochberg | Holm | Bonf
 Statistically Significant     |	25	          |22                  |11    |8
 Not Statistically Significant |	25            |28                  |39    |42
 
-```{r, echo=FALSE}
+```{r, warning=FALSE, echo=FALSE}
 library(ggplot2)
 # Set seed for reproducibility
 set.seed(343)
@@ -173,7 +173,7 @@ The next step is picking the right threshold value below which results are deeme
 
 Once we have the right threshold value, it’s as easy as comparing the uncorrected p-values to the threshold value — those below the threshold are deemed significant.
 
-```{r}
+```{r, warning=FALSE}
 # Control the FWER through simulation
 rm(list=ls())
 library(mvtnorm)
