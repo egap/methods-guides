@@ -276,4 +276,4 @@ The figure below shows the results of the experiment and replication.  Study 1 f
 
 The replication, however, shows the same pattern of treatment effects: smaller effects for Organization accounts than for others on the “Signed” DV, but similar treatment effects on the “Tweeted” DV.  Any doubt that the different response on the two different dependent variables was due to sampling variability are assuaged by the replication.
 
-INSERT FIGURE 2 HERE
+![](https://raw.githubusercontent.com/egap/methods-guides/master/multiple-comparisons/multiple-comparisons_fig2.png)
