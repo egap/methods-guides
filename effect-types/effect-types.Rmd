@@ -23,7 +23,11 @@ Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatme
 
 [^2]: See Holland and Angrist & Pischke again for more formal discussion of independence and the assumptions necessary to estimate causal effects.
 
-Suppose our design involves m units under treatment and N−m under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations. 2 Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
+Suppose our design involves $m$ units under treatment and $N−m$ under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations.[^3] Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
+
+[^3]:  That is $\(𝔼(Y_{i}(1)∣D=1)=𝔼(Y_{i}(1)∣D=0)=𝔼(Y_{i}(1)) and 𝔼(Y_{i}(0)∣D=1)=𝔼(Y_{i}(0)∣D=0)=𝔼(Y_{i}(0)))\)$
+
+LEFT OFF HERE
 
 ATE≡(1/N)∑Ni=1τi=∑N1Yi(1)N−∑N1Yi(0)N
 

@@ -71,7 +71,7 @@ img {
 <p>First we define a treatment effect for an individual observation (a person, household, city, etc.) as the difference between that unit’s behavior under treatment <span class="math">\((Y_{i}(1))\)</span> and control <span class="math">\((Y_{i}(0))\)</span>:</p>
 <p><span class="math">\[τ_{i}=Y_{i}(1)−Y_{i}(0)\]</span></p>
 <p>Since we can only observe either <span class="math">\(Y_{i}(1)\)</span> or <span class="math">\(Y_{i}(0)\)</span> the individual treatment effect is unknowable. Now let <span class="math">\(D_{i}\)</span> be an indicator for whether we observe an observation under treatment or control. If treatment is randomly assigned, <span class="math">\(D_{i}\)</span> is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes <span class="math">\(((Y_{i}(1),Y_{i}(0),X_{i}⊥⊥D_{i}))\)</span>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
-<p>Suppose our design involves m units under treatment and N−m under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations. 2 Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.</p>
+<p>Suppose our design involves <span class="math">\(m\)</span> units under treatment and <span class="math">\(N−m\)</span> under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.</p>
 <p>ATE≡(1/N)∑Ni=1τi=∑N1Yi(1)N−∑N1Yi(0)N</p>
 <p>And we often estimate the ATE using the observed difference in means:3</p>
 <p>ATEˆ=∑m1ZiYim−∑Nm+1(1−Zi)YiN−m</p>
@@ -81,14 +81,15 @@ img {
 <p>A linear model regressing the observed outcome Yi on a treatment indicator Di provides a convenient estimator of the ATE (and with some additional adjustments, the variance of the ATE):</p>
 <p>Yi=Yi(0)∗(1−Di)+Yi(1)∗Di=β0+β1Di+u</p>
 <p>since we can rearrange terms so that β0 estimates the average among control observations (Yi(0)∣Di=0) and β1 estimates the differences of means (Yi(1)∣Di=1)–(Yi(1)∣Di=0). In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference 5. Finally, we also demonstrate the unbiasedness of these estimators through simulation.</p>
-% latex table generated in R 3.1.2 by xtable 1.7-4 package % Thu Sep 10 17:44:26 2015
+% latex table generated in R 3.1.2 by xtable 1.7-4 package % Thu Sep 10 17:50:13 2015
 
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p>See Holland (1986) and Angrist and Pischke Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.<a href="#fnref1">↩</a></p></li>
+<li id="fn1"><p>See Holland (1986) and Angrist and Pischke Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>See Holland and Angrist &amp; Pischke again for more formal discussion of independence and the assumptions necessary to estimate causal effects.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>That is <span class="math">\(\(𝔼(Y_{i}(1)∣D=1)=𝔼(Y_{i}(1)∣D=0)=𝔼(Y_{i}(1)) and 𝔼(Y_{i}(0)∣D=1)=𝔼(Y_{i}(0)∣D=0)=𝔼(Y_{i}(0)))\)\)</span><a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
 
