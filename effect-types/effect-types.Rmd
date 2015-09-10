@@ -15,11 +15,11 @@ This guide [^1] for more formal discussion of independence and the assumptions n
 ==
 We begin by reviewing how, with randomization, a simple difference-of-means provides an unbiased estimate of the ATE. We take extra time to introduce some common statistical concepts and notation used throughout this guide.
 
-First we define a treatment effect for an individual observation (a person, household, city, etc.) as the difference between that unit’s behavior under treatment (Yi(1)) and control (Yi(0)) :
+First we define a treatment effect for an individual observation (a person, household, city, etc.) as the difference between that unit’s behavior under treatment $(Y_{i}(1))$ and control $(Y_{i}(0))$:
 
-τi=Yi(1)−Yi(0)
+$$τ_{i}=Y_{i}(1)−Y_{i}(0)$$
 
-Since we can only observe either Yi(1) or Yi(0) the individual treatment effect is unknowable. Now let Di be an indicator for whether we observe an observation under treatment or control. If treatment is randomly assigned, Di is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes ((Yi(1),Yi(0),Xi⊥⊥Di)).1
+Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatment effect is unknowable. Now let $D_{i}$ be an indicator for whether we observe an observation under treatment or control. If treatment is randomly assigned, $D_{i}$ is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes $((Y_{i}(1),Y_{i}(0),X_{i}⊥⊥D_{i}))$.[^1]
 
 Suppose our design involves m units under treatment and N−m under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations. 2 Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
 
