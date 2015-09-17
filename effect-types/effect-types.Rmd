@@ -25,35 +25,44 @@ Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatme
 
 Suppose our design involves $m$ units under treatment and $N−m$ under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations.[^3] Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
 
-[^3]:  That is $\(𝔼(Y_{i}(1)∣D=1)=𝔼(Y_{i}(1)∣D=0)=𝔼(Y_{i}(1)) and 𝔼(Y_{i}(0)∣D=1)=𝔼(Y_{i}(0)∣D=0)=𝔼(Y_{i}(0)))\)$
+[^3]:  That is $(𝔼(Y_{i}(1)∣D=1)=𝔼(Y_{i}(1)∣D=0)=𝔼(Y_{i}(1))$ and $𝔼(Y_{i}(0)∣D=1)=𝔼(Y_{i}(0)∣D=0)=𝔼(Y_{i}(0)))$
 
-LEFT OFF HERE
+$$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑^{N}_{1}Y_{i}(0)}{N}$$
 
-ATE≡(1/N)∑Ni=1τi=∑N1Yi(1)N−∑N1Yi(0)N
+And we often estimate the ATE using the observed difference in means:[^4]
 
-And we often estimate the ATE using the observed difference in means:3
+[^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, of target of our estimation that is unobserved. Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity. See Gerber and Green (2012) for concise introduction to this distinction and Imbens and Wooldridge (2007) for a thorough treatment of these concepts.
 
-ATEˆ=∑m1ZiYim−∑Nm+1(1−Zi)YiN−m
+$$\widehat{ATE} =\frac{∑^{m}_{1}Z_{i}Y_{i}}{m}−\frac{∑^{N}_{m+1}(1−Z_{i})Y_{i}}{N−m}$$
 
 Statistical inference about the estimated ATE requires that we know how it will vary across randomizations. It turns out that we can write the variance of the ATE across randomizations as follows:
 
-V(ATE)=NN−1[V(Yi(1))m+V(Yi(0))N−m]−1N−1[V(Yi(1))+V(Yi(0))−2∗Cov(Yi(1),Yi(0))]
+$$V(ATE) = \frac{N}{N−1} [\frac{V(Y_{i}(1))}{m}+\frac{V(Y_{i}(0))}{N−m}]−\frac{1}{N−1}[V(Y_{i}(1))+V(Y_{i}(0))−2∗Cov(Y_{i}(1),Y_{i}(0))]$$
 
-and estimate this quantity from the sample estimates of the variance in each group.4
+and estimate this quantity from the sample estimates of the variance in each group.[^5]
 
-A linear model regressing the observed outcome Yi on a treatment indicator Di provides a convenient estimator of the ATE (and with some additional adjustments, the variance of the ATE):
+[^5]: The covariance of $Y_{i}(1),Y_{i}(0)$ is impossible to observe but the “Neyman” estimator of the variance omitting the covariance term provides a conservative (too large) estimate of the true sample variance because we tend to assume that the covariance is positive. Since we are generally worried about minimizing type I error rate (incorrectly rejecting true null hypothesis), we prefer using conservative estimates of the variance. See also Dunning (2010) and Gerber and Green (2012) for justification of the conservative variance estimator.
 
-Yi=Yi(0)∗(1−Di)+Yi(1)∗Di=β0+β1Di+u
+A linear model regressing the observed outcome $Y_{i}$ on a treatment indicator $D_{i}$ provides a convenient estimator of the ATE (and with some additional adjustments, the variance of the ATE):
 
-since we can rearrange terms so that β0 estimates the average among control observations (Yi(0)∣Di=0) and β1 estimates the differences of means (Yi(1)∣Di=1)–(Yi(1)∣Di=0). In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference 5. Finally, we also demonstrate the unbiasedness of these estimators through simulation.
+$$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
+since we can rearrange terms so that $β_{0}$ estimates the average among control observations $(Y_{i}(0)∣D_{i}=0)$ and $β_{1}$ estimates the differences of means $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$. In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference[^6]. Finally, we also demonstrate the unbiasedness of these estimators through simulation.
 
+[^6]: Lin (2013)
+```{r}
+set.seed(1234) # For replication 
+N = 1000 # Population size 
+Y0 = runif(N) # Potential outcome under control condition 
+Y1 = Y0 + 1 # Potential outcome under treatment condition 
+D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise Y = D*Y1 + (1-D)*Y0 # Outcome in population samp = data.frame(D,Y) 
 
+ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0])) 
 
-```{r, echo = F, results = 'asis'}
-library(xtable)
-x <- sample(c(0, 1), 100, replace = T)
-y <- sample(c(0, 1), 100, replace = T)
-print(xtable(table(x, y)))
+# SATE with Neyman/Randomization Justified Standard Errors 
+# which are the same as OLS standard errors when no covariates or blocking 
+library(lmtest) 
+library(sandwich) 
+fit<-lm(Y~D,data=samp) 
+coef(summary(fit))["D",1:2]
 ```
-
