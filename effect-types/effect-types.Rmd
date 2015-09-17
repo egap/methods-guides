@@ -33,7 +33,7 @@ And we often estimate the ATE using the observed difference in means:[^4]
 
 [^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, of target of our estimation that is unobserved. Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity. See Gerber and Green (2012) for concise introduction to this distinction and Imbens and Wooldridge (2007) for a thorough treatment of these concepts.
 
-$$\widehat{ATE} =\frac{∑^{m}_{1}Z_{i}Y_{i}}{m}−\frac{∑^{N}_{m+1}(1−Z_{i})Y_{i}}{N−m}$$
+$$\widehat{ATE} =\frac{∑^m_1Z_{i}Y_{i}}{m}−\frac{∑^{N}_{m+1}(1−Z_{i})Y_{i}}{N−m}$$
 
 Statistical inference about the estimated ATE requires that we know how it will vary across randomizations. It turns out that we can write the variance of the ATE across randomizations as follows:
 
@@ -51,19 +51,69 @@ since we can rearrange terms so that $β_{0}$ estimates the average among contro
 
 [^6]: Lin (2013)
 
+INSERT CODE CHUNKS HERE
+
+2 Conditional Average Treatment Effects
+==
+The problem with looking at average treatment effects only is that it takes attention away from the fact that treatment effects might be very different for different sorts of people. While the “fundamental problem of causal inference” suggests that measuring causal effects for individual units is impossible, making inferences on groups of units is not.
+
+Random assignment ensures that treatment is independent of potential outcomes and any (observed and unobserved) covariates. Sometimes, however, we have additional information about the experimental units as they existed before the experiment was fielded, say $X_{i}$, and this information can can help us understand how treatment effects vary across subgroups. For example, we may suspect that men and women respond differently to treatment, and we can test for this hetorogeneity by estimating conditional ATE for each subgroup separately $(CATE=E(Y_{i}(1)−Y_{i}(0)∣D_{i},X_{i}))$. If our covariate is continous, we can test its moderating effects by interacting the continous variable with the treatment. Note, however, that the treatment effect is now conditional on both treatment status and the value of the conditioning variable at which the effect is evaluated and so we must adjust our interpretation and standard errors accordingly.[^7]
+
+[^7]: Brambor, Clark, and Golder (2006)
+
+A word of warning: looking at treatment effects across dimensions that are themselves affected by treatment is a dangerous business and can lead to incorrect inferences. For example if you wanted to see how administering a drug led to health improvements you could look separately for men and women, but you could not look separately for those that in fact took the drug and those that did not (this is an example of inference for compliers which requires separate techniques described in point 4 below).
+
+3 Intent-to-Treat Effects
+==
+Outside of a controlled laboratory setting, the subjects we assign to treatment often are not the same as the subjects who actually receive the treatment. When some subjects assigned to treatment fail to receive it, we call this an experiment with one-sided non-compliance. When additionally, some subjects assigned to control also receive the treatment, we say there is two-sided non-compliance. For example, in a get-out-the-vote experiment, some people assigned to receive a mailer may not receive it. Perhaps they’ve changed addresses or never check their mail. Similarly, some observations assigned to control may receive the treatment. Perhaps they just moved in, and the previous tenant’s mail is still arriving.
+
+When non-compliance occurs, the receipt of treatment is no longer independent of potential outcomes and confounders. The people who actually read their mail probably differ in a number of ways from the people who throw their mail away (or read their neighbors’ mail) and these differences likely also effect their probability of voting. The difference-of-means between subjects assigned to treatment and control no longer estimates the ATE, but instead estimates what is called an intent-to-treat effect (ITT). We often interpret the ITT as the effect of giving someone the opportunity to receive treatment. The ITT is particularly relevant then for assessing programs and interventions with voluntary participation.
+
+In the code below, we create some simple data with one-sided non-compliance. Although the true treatment effect for people who actually received the treatment is 2, our estimated ITT is smaller (about 1) because only some of the people assigned to treatment actually receive it.
+
 ```{r}
-set., warning=FALSE, echo=FALSEseed(1234) # For replication 
-N = 1000 # Population size 
-Y0 = runif(N) # Potential outcome under control condition 
-Y1 = Y0 + 1 # Potential outcome under treatment condition 
-D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise Y = D*Y1 + (1-D)*Y0 # Outcome in population samp = data.frame(D,Y) 
+set.seed(1234) # For replication
+n = 1000 # Population size 
+Y0 = runif(n) # Potential outcome under control condition 
+C = sample((1:n)%%2) # Whether someone is a complier or not 
+Y1 = Y0 + 1 +C # Potential outcome under treatment 
+Z = sample((1:n)%%2) # Treatment assignment 
+D = Z*C # Treatment Uptake 
+Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+samp = data.frame(Z,Y)
+ITT<-coef(lm(Y~Z,data=samp))[2]
+```
 
-ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0])) 
+4 Complier Average Treatment Effects
+==
+What if you are interested in figuring out the effects of a treatment on those people who actually took up the treatment and not just those people that were administered the treatment? For example what is the effect of radio ads on voting behavior for those people that actually hear the ads?
 
-# SATE with Neyman/Randomization Justified Standard Errors 
-# which are the same as OLS standard errors when no covariates or blocking 
-library(lmtest) 
-library(sandwich) 
-fit<-lm(Y~D,data=samp) 
-coef(summary(fit))["D",1:2]
+This turns out to be a hard problem (for more on this see this guide). The reasons for non-compliance with treatment can be thought of as an omitted variable. While the receipt of treatment is no-longer independent of potential outcomes, the assignment of treatment status is. As long as random assignment had some positive effect on the probability of receiving treatment, we can use it as an instrument to identify the effects of treatment on the sub-population of subjects who comply with treatment assignment.
+
+Following the notation of Angrist and Pischke[^8], let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicate whether that subject actually received the treatment. Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
+
+[^8]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+
+[^9]: We typically assume monotonicity, meaning there are no defiers or people who only take the treatment when assigned to control ($D_{i}=1$ when $Z_i=0$) and refuse the treatment when assigned to treatment ($D_{i}=0$ when $Z_{i}=1$).
+
+$$CACE= \frac{Effect of Z on Y}{Effect of Z on D}=\frac{𝔼(Y_i∣Z_i=1)−𝔼(Y_i∣Z_i=0)}{𝔼(D_i∣Z_i=1)−𝔼(D_i∣Z_i=0)}$$
+
+The estimator above highlights the fact that the ITT and CACE converge as we approach full compliance. Constructing standard errors for ratios is somewhat cumbersome and so we usually estimate a CACE using two-stage-least-squares regression with random assignment, $Z_i$, serving as instrument for treatment receipt $D_i$ in the first stage of the model. This approach simplifies the estimation of standard errors and allows for the inclusion of covariates as additional instruments. We demonstrate both strategies in the code below for data with two-sided non-compliance. Note, however, that when instruments are weak (e.g. random assignment had only a small effect on the receipt of treatment), instrumental variable estimators and their standard errors can be biased and inconsistent.[^10]
+
+[^10]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
+
+```{r}
+set.seed(1234) # For replication 
+n = 1000 # Population size 
+Y0 = runif(n) # Potential outcome under control condition 
+Y1 = Y0 + 1 # Potential outcome under treatment 
+Z = sample((1:n)%%2) # Treatment assignment 
+pD<-pnorm(-1+rnorm(n,mean=2*Z)) # Non-compliance 
+D<-rbinom(n,1,pD) # Treatment receipt with non-compliance 
+Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+samp = data.frame(Z,D,Y) 
+
+# IV estimate library(AER) CACE = coef(ivreg(Y ~ D | Z, data = samp))[2] 
+
+# Wald Estimator ITT<-coef(lm(Y~Z,data=samp))[2] ITT.D<-coef(lm(D~Z,data=samp))[2] CACE.wald<-ITT/ITT.D
 ```
