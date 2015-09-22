@@ -206,3 +206,51 @@ Imai and colleagues propose an approach to mediation analysis that allows resear
 [^21]:  See for example Imai, Keele, and Yamamoto (2010), Imai et al. (2011), Imai, Tingley, and Yamamoto (2013), Imai and Yamamoto (2013). Also see the discussion of Imai, Tingley, and Yamamoto (2013) for different perspectives on the desirability of addressing mediation-type claims with sensitivity or bounds-style analyses.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
+
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+set.seed(1234) # Replication 
+n = 1000 # Sample size 
+Y0 = runif(n) # Potential outcome under control condition 
+D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
+X<-rnorm(n) # Covariate 
+M<-rnorm(n=n,mean=D+rnorm(n)) # Mediator influenced by Treatment 
+Y1 = Y0 + 1 + M # Potential outcome under treatment 
+Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+samp<-data.frame(D,M,Y) 
+
+library(mediation) 
+med.f<-lm(M~D+X,data=samp) # Model for mediator 
+out.f<-lm(Y~M+D+X,data=samp) # Model for outcome 
+
+#Estimate ACME and ADE 
+library(mediation) 
+med.out<-
+mediate(med.f,out.f,treat="D",mediator="M",robustSE=T,sims=1000) 
+# Sensitivity of ACME to unobserved pre-treatment confounder 
+s.out<-medsens(med.out) 
+
+plot(s.out) # Plot sensistivity bounds 
+```
+
+```{r}
+# Structural equations estimates of ACME ADE 
+# f1<-formula(Y~D+X) 
+# f2<-formula(M~D+X) 
+# f3<-formula(Y~D+M+X) 
+# 
+# med.sys<-systemfit(list(f1,f2,f3),data=samp) 
+# ACME<-coef(med.sys)["eq1_D"]-coef(med.sys)["eq3_D"] 
+# ADE<-coef(med.sys)["eq3_D"]
+```
+
+9 Log-Odds Treatment Effects
+==
+Average treatment effects seem a bit hard to interpret when outcomes are not continuous. For example, a very common binary outcome in the study of elections is coded as 1 when subjects voted, and 0 when they did not. The average effect might be 0.2, but what does it really mean to say that a treatment increased my voting by 0.2? Estimating causal effects for dichotomous outcomes requires some additional care, particularly when including covariates. A common quantity of causal interest for dichotomous outcomes is our treatment’s effect on the log-odds of success, defined for the experimental pool as:
+
+$$\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}$$
+
+Freedman (2008b) shows that logistic regression adjusting for covariates in a randomized experiments produces biased estimates of this causal effect. The basic intuition for Freedman’s argument comes from the fact that taking the log of averages is not the same as taking the average of logs and so the treatment coefficient estimated from a logistic regression conditioning on covariates will not provide a consistent estimator of log-odds of success. Instead, Freedman recommends taking the predicted probabilities varying subjects’ treatment status but maintaining their observed covariate profiles to produce a consistent estimator of the log-odds.
+
+The basic procedure is outlined in the code below. The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.
+
+INSERT CODE CHUNK HERE
