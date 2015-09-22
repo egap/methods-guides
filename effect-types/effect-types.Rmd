@@ -205,3 +205,4 @@ Imai and colleagues propose an approach to mediation analysis that allows resear
 
 [^21]:  See for example Imai, Keele, and Yamamoto (2010), Imai et al. (2011), Imai, Tingley, and Yamamoto (2013), Imai and Yamamoto (2013). Also see the discussion of Imai, Tingley, and Yamamoto (2013) for different perspectives on the desirability of addressing mediation-type claims with sensitivity or bounds-style analyses.
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
