@@ -25,7 +25,7 @@ Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatme
 
 Suppose our design involves $m$ units under treatment and $N−m$ under control. Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list. The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations.[^3] Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
 
-[^3]:  That is $(𝔼(Y_{i}(1)∣D=1)=𝔼(Y_{i}(1)∣D=0)=𝔼(Y_{i}(1))$ and $𝔼(Y_{i}(0)∣D=1)=𝔼(Y_{i}(0)∣D=0)=𝔼(Y_{i}(0)))$
+[^3]:  That is $(E(Y_i(1)|D=1)=E(Y_i(1)|D=0)=E(Y_i(1)))$ and $(E(Y_i(0)|D=1)=E(Y_i(0)|D=0)=E(Y_i(0)))$
 
 $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑^{N}_{1}Y_{i}(0)}{N}$$
 
@@ -96,7 +96,7 @@ Following the notation of Angrist and Pischke[^8], let $Z$ be an indicator for w
 
 [^9]: We typically assume monotonicity, meaning there are no defiers or people who only take the treatment when assigned to control ($D_{i}=1$ when $Z_i=0$) and refuse the treatment when assigned to treatment ($D_{i}=0$ when $Z_{i}=1$).
 
-$$CACE= \frac{Effect of Z on Y}{Effect of Z on D}=\frac{𝔼(Y_i∣Z_i=1)−𝔼(Y_i∣Z_i=0)}{𝔼(D_i∣Z_i=1)−𝔼(D_i∣Z_i=0)}$$
+$$CACE= \frac{Effect of Z on Y}{Effect of Z on D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
 The estimator above highlights the fact that the ITT and CACE converge as we approach full compliance. Constructing standard errors for ratios is somewhat cumbersome and so we usually estimate a CACE using two-stage-least-squares regression with random assignment, $Z_i$, serving as instrument for treatment receipt $D_i$ in the first stage of the model. This approach simplifies the estimation of standard errors and allows for the inclusion of covariates as additional instruments. We demonstrate both strategies in the code below for data with two-sided non-compliance. Note, however, that when instruments are weak (e.g. random assignment had only a small effect on the receipt of treatment), instrumental variable estimators and their standard errors can be biased and inconsistent.[^10]
 
@@ -117,3 +117,81 @@ samp = data.frame(Z,D,Y)
 
 # Wald Estimator ITT<-coef(lm(Y~Z,data=samp))[2] ITT.D<-coef(lm(D~Z,data=samp))[2] CACE.wald<-ITT/ITT.D
 ```
+
+5 Population and Sample Average Treatment Effects
+==
+Often we want to generalize from our sample to make statements about some broader population of interest.[^11] Let $S_i$ be an indicator for whether an subject is in our sample. The sample average treatment effect (SATE) is defined simply as $E(Y_i(1)−Y_i(0)|S_i=1)$ and the population $E(Y_i(1)−Y_i(0))$. With a large random sample from a well-defined population with full compliance with treatment, our SATE are PATE are equal in expectation and so a good estimate for one (like a difference of sample means) will be a good estimate for the other.[^12]
+
+[^11]: See Imai, King, and Stuart (2008) for a more detailed review of the issues discussed in this section.
+
+[^12]: Imbens, Guido, and Jeffrey M Wooldridge. 2007. What’s New in Econometrics? NBER.
+
+In practice, the experimental pool may consist of a group of units selected in an unknown manner from a vaguely defined population of such units and compliance with treatment assignment may be less than complete. In such cases our SATE may diverge from the PATE and recovering estimates of each becomes more complicated. Imai, King, and Stuart (2008) decompose the divergence between these estimates into error that arises from sample selection and treatment imbalance. Error from sample selection arises from different distributions of (observed and unobserved) covariates in our sample and population. For example people in a medical trial often differ from the population for whom the drug would be available. Error from treatment imbalance reflects differences in covariates between treatment and control groups in our sample, perhaps because of non-random assignment and/or non-compliance.
+
+While there are no simple solutions to the problems created by such error, there are steps you can take in both the design of your study and the analysis of your data to address these challenges to estimating the PATE or CACE/LATE. For example, including a placebo intervention provides additional information on the probability of receiving treatment, that can be used to re-weight the effect of actually receiving it (e.g Nickerson (2008)) in the presence of non-compliance. One could also use a model to re-weighting observations to adjust for covariate imbalance and the unequal probability of receiving the treatment, both within the sample and between a sample and the population of interest.[^13]
+
+[^13]: Angrist and Pischke (2008) provide a brief introduction of topics covered in more detail by Hirano, Imbens, and Ridder (2003), Aronow and Middleton (2013), Glynn and Quinn (2010), and Hartman et al. (forthcoming)
+
+In the code below, we demonstrate several approaches to estimating these effects implemented in the CausalGAM package for R.[^14] Specifically, the package produces regression, inverse-propensity weighting (IPW), and augmented inverse-propensity weighting estimates of the ATE. Combining regression adjustment with IPW, the AIPW has the feature of being “doubly robust” in that the estimate is still consistent even if we have incorrectly specified either the regression model or the propensity score for the probability weighting.
+
+[^14]: Glynn, Adam N, and Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
+
+INSERT CODE CHUNK HERE
+
+6 Average Treatment Effects on the Treated and the Control
+==
+To evaluate the policy implications of a particular intervention, we often need to know the effects of the treatment not just on the whole population but specifically for those to whom the treatment is administered We define the average effects of treatment among the treated (ATT) and the control (ATC) as simple counter-factual comparisons:
+
+$$ATT=E(Y_i(1)-Y_i(0)|D_i=1)=E(Y_i(1)|D_i=1)-E(Y_i(0)|D_i=1)$$
+$$ATC=E(Y_i(1)-Y_i(0)|D_i=0)=E(Y_i(1)|D_i=0)-E(Y_i(0)|D_i=0)$$
+
+Informally, the ATT is the effect for those that we treated; ATC is what the effect *would* be for those we did not treat.
+
+When treatment is randomly assigned and there is full compliance, the $ATE=ATT=ATC$, since $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ and $E(Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$ Often either because of the nature of the intervention or specific concerns about cost and ethnics, treatment compliance is incomplete and the ATE will not in general equal the ATT or ATC. In such instances, we saw in the previous section that we could re-weight observations by their probability of receiving the treatment to recover estimates of the ATE. The same logic can be extended to produce estimates of the ATT and ATC in both our sample and the population.[^15]
+
+[^15]: See Hartman et al. (forthcoming) for an example of efforts to combine experimental and observational data to move from a sample ATE to an estimate of a population ATT.
+
+Below, we create an case where the probability of receiving treatment varies and but can be estimated using a propensity score model.[^16] The predicted probabilities from this model are then used as weights to recover the estimates of the ATE, ATT, and ATC. Inverse propensity score weighting attempts to balance the distribution of covariates between treatment and control groups when estimating the ATE. For the ATT, this weighting approach treats subjects in the the treated group as a sample from the target population (people who received the treatment) and weights subjects in the control by their odds of receiving the treatment. In a similar fashion, the estimate of the ATC weights treated observations to look like controls. The quality (unbiasedness) of these estimates is inherently linked to the quality of our models for predicting the receipt of treatment. Inverse propensity score weighting and other procedures produce balance between treatment and control groups on observed covariates, but unless we have the “true model” (and we almost never know the true model) the potential for bias from unobserved covariates remains and should lead us to interpret our the estimated ATT or ATC in light of the quality of the model that produced it.
+
+[^16]: Rosenbaum and Rubin (1983)
+
+INSERT CODE CHUNK HERE
+
+7 Quantile Average Treatment Effects
+==
+The ATE focuses on the middle, in a way on the effect for a typical person, but we often also care about the distributional consequences of our treatment. We want to know not just whether our treatment raised average income, but also whether it made the distribution of income in the study more or less equal.
+
+Claims about distributions are difficult. Even though we can estimate the ATE from a difference of sample means, in general, we cannot make statements about the joint distribution of potential outcomes $(F(Yi(1),Yi(0)))$ without further assumptions. Typically, these assumptions either limit our analysis to a specific sub-population[^17] or require us to assume some form of rank invariance in the distribution of responses to treatment effects[^18] and Frölich and Melly (2010) for fairly concise discussions of these issues and Abbring and Heckman (Abbring, Jaap H, and James J Heckman. 2007. “Econometric Evaluation of Social Programs, Part III: Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation.” Handbook of Econometrics 6. Elsevier: 5145–5303.) (2007) for a thorough overview.
+
+[^17]: Abadie, Angrist, and Imbens (2002)
+
+[^18]:Chernozhukov and Hansen (2005). That is, treatment can have heterogeneous effects but the ordering of potential outcomes is preserved. See Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+
+If these assumptions are justified for our data, we can obtain consistent estimates of quantile treatment effects (QTE) using quantile regression.[^19] Just as linear regression estimates the ATE as a difference in means (or, when covariates are used in the model, from a conditional mean), quantile regression fits a linear model to a conditional quantile and this model can then be used to estimates the effects of treatment for that particular quantile of the outcome. The approach can be extended to include covariates and instruments for non-compliance. Note that the interpretation of the QTE is for a given quantile, not an individual at that quantile.
+
+[^19]: See Koenker, Roger, and Kevin Hallock. 2001. “Quantile Regression: An Introduction.” Journal of Economic Perspectives 15 (4): 43–56. for a concise overview of quantile regression
+
+Below we show a case where the ATE is 0, but the treatment effect is negative for low quantiles of the response and positive for high quantiles. Estimating quantile treatment effects provide another tool for detecting heterogeneous effects and allow us to describe distributional consequences of our intervention. These added insights come at the cost of requiring more stringent statistical assumptions of our data and more nuanced interpretations of our results.
+
+```{r, warning=FALSE, error=FALSE, message=FALSE}
+set.seed(1234) # For replication
+n = 1000 # Population size
+Y0 = runif(n) # Potential outcome under control condition
+Y1= Y0 
+Y1[Y0 <.5] = Y0[Y0 <.5]-rnorm(length(Y0[Y0 <.5])) 
+Y1[Y0 >.5] = Y0[Y0 >.5]+rnorm(length(Y0[Y0 >.5])) 
+D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
+Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+samp = data.frame(D,Y) 
+library(quantreg) 
+ATE = coef(lm(Y~D,data=samp))[2] 
+QTE = rq(Y~D,tau = 
+seq(.05,.95,length.out=10),data=samp,method = "fn") 
+
+plot(summary(QTE),parm=2,main="",ylab="QTE",xlab="Quantile",mar = c(5.1, 4.1, 2.1, 2.1)) 
+```
+
+8 Mediation Effects
+==
+Sometimes we want to describe not just the magnitude and significance of an observed causal effect, but also the mechanism (or mechanisms) that produced it. Did our intervention raise turnout in the treatment group, in part, by increasing these subjects’ sense of political efficacy? If so, how much of that total effect can be attributed to the mediated effects of our treatment on efficacy and efficacy on turnout?
+
