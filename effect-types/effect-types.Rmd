@@ -254,3 +254,29 @@ Freedman (2008b) shows that logistic regression adjusting for covariates in a ra
 The basic procedure is outlined in the code below. The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.
 
 INSERT CODE CHUNK HERE
+
+10 Attributable Effects
+==
+We conclude with a brief discussion of an alternative quantity of causal interest that may be particularly useful with binary outcomes: the attributable effect (Rosenbaum 2010). Consider a simple case with a dichotomous outcome and treatment. Let $A$ be the number of outcomes attributable to treatment, that is, the number of cases in which $Y_i$ equaled 1 among treated subjects which would not have occurred had these units been assigned to control. For a range of $A$’s, we adjust the observed contingency table of outcomes among the treated, and compare this resulting distribution to a known null distribution (the distribution of outcomes we would have observed had treatment had no effect). The resulting range of $A$’s for which our test continues to reject the null hypothesis of no effect provides a range of effects that are attributable to our treatment.
+
+Table 1|$D=1$              |$D=0$
+-------|-------------------|--------------
+$Y=1$  |$\sum Y_iD_i-A$    |$(1-Y_i)(D_i)$
+$Y=0$  |$\sum Y_i(1-D_i)+A$|$\sum (1-Y_i)(1-D_i)$
+
+Rosenbaum (2002) shows extensions of this concept to different types of outcomes (such as continuous variables). A similar logic can also be applied to detecting uncommon but dramatic responses to treatment (Rosenbaum and Silber 2008).
+
+Hansen and Bowers (2009) use this approach to identify the number of additional votes attributable to different interventions in get-out-the-vote experiment with clustered treatment assignment and one-sided non-compliance. They show that, in large samples, one can approximate the confidence interval for attributable effects without assessing each attribution. Here is an example of that approach where covariates are used to increase precision.
+
+First, we define an attributable effect as $A=∑_iZ_iτ_i$, where $τ_i=Y_i(1)−Y_i(0)$ and $y∈0,1$ following Rosenbaum (2002). That is, the attributable effect is the number of “yes” or “success” or other “1” responses among those treated that we would not have seen if they had been assigned control.
+
+Second, notice that if we write the set $U$ as the experimental pool, and the set of control units is a subset of the whole pool, $C⊆U$, then we can write $∑_{i∈C}Y_i−Y_i(0)=0$. This means that we can represent $A$ using totals:
+
+$$A = ∑_{i=1}^NZ_iτ_i=∑_{i=1}^NZ_i(Y_i(1)−Y_i(0))=∑_{i∉C}y_i(1)−∑_{i∉C}y_i(0)$$
+$$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U−t_C$$
+<center>
+= observed total overall (fixed and observed) - total outcome under control (unobserved, to estimate)
+</center>
+
+Third, this representation allows us to produce a design-based confidence interval for A^ by drawing on the survey sampling literature about statistical inference for sample totals because the observed total outcomes, tU, is fixed across randomizations. We can use covariates to increase precision here because the survey regression estimator allows us to estimate the total that we would have see in the control group: $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+\sum_{i∈U}(Y_i-\hat{Y}_i)$ with $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999). 
+PARAGRAPH NOT OVER

@@ -208,9 +208,44 @@ plot(s.out) # Plot sensistivity bounds </code></pre>
 <div id="log-odds-treatment-effects" class="section level1">
 <h1>9 Log-Odds Treatment Effects</h1>
 <p>Average treatment effects seem a bit hard to interpret when outcomes are not continuous. For example, a very common binary outcome in the study of elections is coded as 1 when subjects voted, and 0 when they did not. The average effect might be 0.2, but what does it really mean to say that a treatment increased my voting by 0.2? Estimating causal effects for dichotomous outcomes requires some additional care, particularly when including covariates. A common quantity of causal interest for dichotomous outcomes is our treatment’s effect on the log-odds of success, defined for the experimental pool as:</p>
-<p><span class="math">\[\delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}\]</span></p>
+<p><span class="math">\[\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}\]</span></p>
 <p>Freedman (2008b) shows that logistic regression adjusting for covariates in a randomized experiments produces biased estimates of this causal effect. The basic intuition for Freedman’s argument comes from the fact that taking the log of averages is not the same as taking the average of logs and so the treatment coefficient estimated from a logistic regression conditioning on covariates will not provide a consistent estimator of log-odds of success. Instead, Freedman recommends taking the predicted probabilities varying subjects’ treatment status but maintaining their observed covariate profiles to produce a consistent estimator of the log-odds.</p>
 <p>The basic procedure is outlined in the code below. The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.</p>
+<p>INSERT CODE CHUNK HERE</p>
+</div>
+<div id="attributable-effects" class="section level1">
+<h1>10 Attributable Effects</h1>
+<p>We conclude with a brief discussion of an alternative quantity of causal interest that may be particularly useful with binary outcomes: the attributable effect (Rosenbaum 2010). Consider a simple case with a dichotomous outcome and treatment. Let <span class="math">\(A\)</span> be the number of outcomes attributable to treatment, that is, the number of cases in which <span class="math">\(Y_i\)</span> equaled 1 among treated subjects which would not have occurred had these units been assigned to control. For a range of <span class="math">\(A\)</span>’s, we adjust the observed contingency table of outcomes among the treated, and compare this resulting distribution to a known null distribution (the distribution of outcomes we would have observed had treatment had no effect). The resulting range of <span class="math">\(A\)</span>’s for which our test continues to reject the null hypothesis of no effect provides a range of effects that are attributable to our treatment.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Table 1</th>
+<th align="left"><span class="math">\(D=1\)</span></th>
+<th align="left"><span class="math">\(D=0\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math">\(Y=1\)</span></td>
+<td align="left"><span class="math">\(\sum Y_iD_i-A\)</span></td>
+<td align="left"><span class="math">\((1-Y_i)(D_i)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math">\(Y=0\)</span></td>
+<td align="left"><span class="math">\(\sum Y_i(1-D_i)+A\)</span></td>
+<td align="left"><span class="math">\(\sum (1-Y_i)(1-D_i)\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Rosenbaum (2002) shows extensions of this concept to different types of outcomes (such as continuous variables). A similar logic can also be applied to detecting uncommon but dramatic responses to treatment (Rosenbaum and Silber 2008).</p>
+<p>Hansen and Bowers (2009) use this approach to identify the number of additional votes attributable to different interventions in get-out-the-vote experiment with clustered treatment assignment and one-sided non-compliance. They show that, in large samples, one can approximate the confidence interval for attributable effects without assessing each attribution. Here is an example of that approach where covariates are used to increase precision.</p>
+<p>First, we define an attributable effect as <span class="math">\(A=∑_iZ_iτ_i\)</span>, where <span class="math">\(τ_i=Y_i(1)−Y_i(0)\)</span> and <span class="math">\(y∈0,1\)</span> following Rosenbaum (2002). That is, the attributable effect is the number of “yes” or “success” or other “1” responses among those treated that we would not have seen if they had been assigned control.</p>
+<p>Second, notice that if we write the set <span class="math">\(U\)</span> as the experimental pool, and the set of control units is a subset of the whole pool, <span class="math">\(C⊆U\)</span>, then we can write <span class="math">\(∑_{i∈C}Y_i−Y_i(0)=0\)</span>. This means that we can represent <span class="math">\(A\)</span> using totals:</p>
+<span class="math">\[A = ∑_{i=1}^NZ_iτ_i=∑_{i=1}^NZ_i(Y_i(1)−Y_i(0))=∑_{i∉C}y_i(1)−∑_{i∉C}y_i(0)\]</span> <span class="math">\[  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U−t_C\]</span>
+<center>
+= observed total overall (fixed and observed) - total outcome under control (unobserved, to estimate)
+</center>
+<p>Third, this representation allows us to produce a design-based confidence interval for A^ by drawing on the survey sampling literature about statistical inference for sample totals because the observed total outcomes, tU, is fixed across randomizations. We can use covariates to increase precision here because the survey regression estimator allows us to estimate the total that we would have see in the control group: <span class="math">\(\hat{t}_c=\sum_{i∈U}\hat{Y}_i+\sum_{i∈U}(Y_i-\hat{Y}_i)\)</span> with <span class="math">\(\hat{Y}_i=f(X_i,\beta)\)</span> (Lohr 1999). PARAGRAPH NOT OVER</p>
 </div>
 <div class="footnotes">
 <hr />
