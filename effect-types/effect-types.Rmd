@@ -51,7 +51,52 @@ since we can rearrange terms so that $β_{0}$ estimates the average among contro
 
 [^6]: Lin (2013)
 
-INSERT CODE CHUNKS HERE
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+set.seed(1234) # For replication 
+N = 1000 # Population size 
+Y0 = runif(N) # Potential outcome under control condition 
+Y1 = Y0 + 1 # Potential outcome under treatment condition 
+D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
+Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+samp = data.frame(D,Y) 
+
+ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0])) 
+
+# SATE with Neyman/Randomization Justified Standard Errors 
+# which are the same as OLS standard errors when no covariates or blocking 
+library(lmtest) 
+library(sandwich) 
+fit<-lm(Y~D,data=samp) 
+coef(summary(fit))["D",1:2]
+
+ATE.se<-coeftest(fit,vcovHC(fit,type="HC2"))["D",2] 
+# same as with(samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D))) 
+
+# Assess unbiasedness and simulate standard errors 
+getATE<-function() {
+  D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
+  Y = D*Y1 + (1-D)*Y0 
+  coef(lm(Y~D))[["D"]] 
+} 
+
+manyATEs<-replicate(10000,getATE()) 
+
+## Unbiasedness: 
+c(ATE=mean(Y1)-mean(Y0), ExpEstATE=mean(manyATEs)) 
+
+## Standard Error 
+### True SE formula 
+V<-var(cbind(Y0,Y1)) 
+varc<-V[1,1] 
+vart<-V[2,2] 
+covtc<-V[1,2] 
+n<-sum(D) 
+m<-N-n 
+varestATE<-((N-n)/(N-1))*(vart/n) + ((N-m)/(N-1))* (varc/m) + (2/(N-1)) * covtc 
+
+### Compare SEs 
+c(SimulatedSE= sd(manyATEs), TrueSE=sqrt(varestATE), ConservativeSE=ATE.se) 
+```
 
 2 Conditional Average Treatment Effects
 ==
@@ -281,4 +326,60 @@ $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U�
 Third, this representation allows us to produce a design-based confidence interval for A^ by drawing on the survey sampling literature about statistical inference for sample totals because the observed total outcomes, tU, is fixed across randomizations. We can use covariates to increase precision here because the survey regression estimator allows us to estimate the total that we would have see in the control group: $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+\sum_{i∈U}(Y_i-\hat{Y}_i)$ with $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999). The survey sampling literature shows that as $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$. So, one can calculate $\widehat{SE}(\hat{t}_c)$ from standard sampling theory and then the $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t}_c)$.
 
 In the code below, we provide an illustration using simulated data for a binary response and treatment. In 85 percent of the treatment group, $Y=1$ compared to 52 percent in the control. A difference of this size is consistent with our treatment having caused $Y=1$ for between 92 and 138 of subjects, for whom $Y$ would have otherwise equaled 0 had they not received the treatment. The regression estimator, which leverage precision gained from including covariates, produces tighter confidence intervals (98.8 to 135.1) for the attributable effects.
+
+```{r, error=FALSE, message=FALSE, warning=FALSE}
+set.seed(1234) # For replication 
+n = 1000 # Sample size 
+X1 = rnorm(n) # Covariates 
+X2 = rnorm(n) 
+p = pnorm(-0.5 + 0.75*X2) # Unequal probability of treatment 
+D = rbinom(n, 1, p) 
+p0 = pnorm(rnorm(n)) # Potential outcomes for binary response 
+p1 = pnorm(X1 + X2+1) 
+Y0 = rbinom(n, 1, p0) 
+Y1 = rbinom(n, 1, p1) 
+Y = D*Y1 + (1-D)*Y0 # Observed outcome 
+samp = data.frame(D,Y,X1,X2) # Data frame 
+
+attribute<-function(treat,out,A,data){ 
+  # Contingency Table of Treatment Status and Outcome 
+  attr.tab<-with(data,table(treat,out)) # 
+  # Matrix of p-values for Attributable effects, A 
+  attr.ps<-
+    matrix(NA,nc=2,nr=A,dimnames=list(NULL,c("A","p"))) 
+  for(i in 1:A){ 
+    attr.ps[i,]<-
+      c(i,fisher.test(attr.tab+matrix(c(0,i,0,-i),2,2))$p) 
+    }
+  # Find range of effects 
+  get.bounds<-function(){ 
+    diffs<-ifelse(.05-attr.ps[,"p"]>0,.05-
+                    attr.ps[,"p"],99) 
+    index<-(diffs %in% 
+              c(min(diffs),min(diffs[diffs>min(diffs)]))) 
+    index 
+    }
+  # Return range of effects 
+  return (attr.ps[get.bounds(),])
+  } 
+with(samp,table(D,Y))
+with(samp,apply(table(D,Y),1,prop.table)) 
+attribute(treat = D, out= Y, A=200,data=samp) 
+# Regression estimator 
+fit1<-lm(Y~X1+X2,data=samp,subset=D==0) 
+hatYcU<-predict(fit1,newdata=samp) 
+ec<-Y[D==0]-hatYcU[D==0] ## same as residuals(fit1) 
+hatTotYc<-sum(hatYcU)+sum(ec) 
+N<-length(Y) 
+nctrls<-sum(1-D) 
+thefpc<- (1 - (nctrls/N)) 
+varhattC<-N*thefpc*var(Y[D==0]) 
+alpha<-c(.05, 1/3) 
+alpha<-sort(c(alpha/2, 1-alpha/2)) 
+ciTotYc<-hatTotYc+sqrt(varhattC)*qnorm(alpha) 
+ciAE<-sort(sum(Y) - ciTotYc ) 
+names(ciAE)<-c("lower 95%","lower 
+66%","upper 66%","upper 95%") 
+print(ciAE) 
+```
 
