@@ -79,3 +79,56 @@ You can check the mean of the variable on which you blocked for treatment and co
 ==
 Suppose there are multiple components of a treatment that you want to test. For example, you may want to evaluate the impact of a microfinance program. Two specific treatments might be lending money to women and providing them with training. A factorial design looks at all possible combinations of these treatments: (1) Loans, (2) Training, (3) Loans + Training, and (4) Control. Subjects are then randomly assigned to one of these four conditions.
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/factorial-table.png)
+
+Factorial designs are especially useful when evaluating interventions that include a package of treatments. As in the example above, many development interventions come with several arms, and it is sometimes difficult to tell which arms are producing the observed effect. A factorial design separates out these different treatments and also allows us to see the interaction between them.
+
+The following code shows you how to randomize for a factorial design.
+
+```{r, results='hide'}
+# a simple way to do a factorial design is to define your different treatment arms
+# and specify the number you would like to treat with each treatment arm
+my.arms <- c("Loan", "Training")
+my.n.arms <- c(40, 40)
+factorial.ra <- function(N,arms,n.arms){
+  assign <- matrix(NA, nrow=N, ncol=length(arms))
+  for (i in 1:length(arms)) {
+    assign[,i] <- ifelse(1:N %in% sample(1:N,n.arms[i]),1,0)
+  }
+  colnames(assign) <- my.arms
+  return(assign)
+}
+assign <- factorial.ra(100,my.arms,my.n.arms)
+sum(assign[,"Loan"]==1 & assign[,"Training"]==1)
+sum(assign[,"Loan"]==1 & assign[,"Training"]==0)
+sum(assign[,"Loan"]==0 & assign[,"Training"]==1)
+sum(assign[,"Loan"]==0 & assign[,"Training"]==0)
+ 
+# the following code will allow you to specify the number of subjects you would
+# like to receive each combination of treatment arms.
+# whereas previously we conceived of two treatment arms--loans and training--
+# here we conceive of four treatment arms--loans+training, loans, training, and control.
+groupsizes = c(20, 20, 20, 40)
+multiple.arms.ra <- function(n, num_arms, groupsizes=NULL){
+  indices <- 1:n
+  assign <- rep(NA, n)
+  if (is.null(groupsizes)){
+    for (i in 1:num_arms){
+      chosen  <- sample(indices, (n/num_arms))
+      assign[chosen] <- paste0("T",i)
+      indices <- indices[!indices %in% chosen]
+    }
+    return(assign)
+  }
+  for (i in 1:length(groupsizes)){
+    chosen <- sample(indices, groupsizes[i])
+    assign[chosen] <- paste0("T",i)
+    indices <- indices[!indices %in% chosen]
+  }
+  return(assign)
+}
+multiple.arms.ra(100, num_arms=4, groupsizes)
+# we would assign loans+training to "T1", loans to "T2", training to "T3", and control to "T4"
+# in expectation, the factorial randomization code and the multiple arms code will produce identical results
+```
+
