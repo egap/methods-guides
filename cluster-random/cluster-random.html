@@ -82,9 +82,9 @@ img {
 <p>Cluster randomized experiments have at least two units of analysis: We commonly see a few large assignment units (<span class="math">\(J\)</span>), each containing some outcome units (<span class="math">\(n_j\)</span>) and thus the total sample size depends on both assignment and outcome units <span class="math">\(N=∑^J_{j=1}n_j\)</span>.</p>
 <p>Cluster randomized experiments raise two new questions for analysts. The first question is about weighting, or how to combine information from different experimental clusters into one quantity. If clusters are not all the same size (i.e. <span class="math">\(n_j≠n_k\)</span> for <span class="math">\(j≠k\)</span> ), then an average treatment effect must be defined in a weighted fashion and the resulting estimation should also involve weights. What weights should one use? On what basis should one choose weights? One component of weights should account for the size of the cluster (larger clusters tell us more about the treatment effect than smaller clusters, all other things equal). Another component would add that homogeneous clusters (where all villagers behave in the same way in response to treatment) tell us less about the treatment effect than heterogeneous clusters (where each villager acts as if she were more or less independent of the others). If the study is blocked, then an analyst need to choose a block-weighting scheme and cluster-weighting scheme. Hansen and Bowers (2008) discuss optimal weights for precise testing in blocked and cluster-randomized designs. Imai, King, and Nall (2009) discuss weighting schemes for estimation in paired and cluster-randomizied designs.</p>
 <p>The second question is about information. We commonly summarize the information content of a study using the total number of participants, <span class="math">\(N\)</span>. For example, we tend to imagine that a study with 10 people has less information about the experimental intervention than a study with 100 people. Yet, two studies with <span class="math">\(J=10\)</span> villages and <span class="math">\(n_j=100\)</span> people per village may have different information about the treatment effect on individuals if, in one study, individuals within a village are more or less independent of each other versus more or less dependent. If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level. Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 × 100=1000 pieces of information. For a given variable, we can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the intracluster correlation coefficient. For a given variable, <span class="math">\(x\)</span>, we can write the intracluster correlation coefficient like so:</p>
-<p><span class="math">\[ρ ≡ \frac{variance between clusters in x}{total variance in x} ≡ \frac{τ^2_x}{τ^2_x+σ^2_x}\]</span></p>
+<p><span class="math">\[ρ ≡ \frac{\text{variance between clusters in x}}{\text{total variance in x}} ≡ \frac{τ^2_x}{τ^2_x+σ^2_x}\]</span></p>
 <p>where <span class="math">\(σ^2_x\)</span> is the variance within clusters and <span class="math">\(τ^2_x\)</span> is the variance across clusters. For example, Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):</p>
-<p><span class="math">\[effective N = \frac{N}{1+(n_j−1)ρ} = \frac{J_n}{1+(n−1)ρ}\]</span></p>
+<p><span class="math">\[\text{effective N} = \frac{N}{1+(n_j−1)ρ} = \frac{J_n}{1+(n−1)ρ}\]</span></p>
 <p>where the second term follows if all of the clusters are the same size (<span class="math">\(n_1=…=n_J≡n\)</span>).</p>
 <p>If 1000 observations arose from 10 clusters with 20 individuals within each cluster where 50% of the variation could be attributed to cluster-to-cluster differences (and not to differences within a cluster), Kish’s formula would suggest that we have the equivalent of about 19 pieces of independent information not 10 × 20=200 pieces.</p>
 <p>The inflation in the standard errors for estimators of the average treatment effect depends on <span class="math">\(ρ\)</span> as well. In this simple case with 10 clusters all the same size of 20 and <span class="math">\(ρ=.5\)</span>, the standard error of the estimator accounting for <span class="math">\(ρ\)</span> is <span class="math">\(1+(n−1)ρ=10.5\)</span> times larger than the standard error that a simple t-test from a linear regression would provide: if <span class="math">\(Var(\hat{\bar{Y}}_{z_{ij=1}})=\frac{s^2}{n}\)</span> then accounting for clustered assignment with same size clusters would give us <span class="math">\(Var(\hat{\bar{Y}}_{z_{ij=1}})=\frac{s}{(J_n)(1−(n−1)ρ)}\)</span>.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
@@ -122,7 +122,7 @@ simEstAte&lt;-function(Z,y1,y0){
 set.seed(12345)
 simpleResults&lt;-replicate(100000,simEstAte(Z=Zrealized,y1=y1,y0=y0))
 sd(simpleResults) ## The standard error of the estimate of the ATE.</code></pre>
-<pre><code>## [1] 0.2098918</code></pre>
+<pre><code>## [1] 0.1940964</code></pre>
 <p>Although this preceding standard error is intuitive (it is merely the standard deviation of the distribution arising from repeating the experiment), more statistics-savvy readers will recognize closed-form expressions for the standard error like the following (see Gerber and Green (2012) and Dunning (2012) for easy to read explanations and derivations of the design-based standard error of the simple estimator of the average treatment effect). If we write T as the set of all treated units and C as the set of all non treated units, we might write</p>
 <p><span class="math">\[\widehat{Var}(\hat{τ}) = s^2(Y_{i,i_∈T})/m+s^2(Y_{i,i∈C}/(n−m))\]</span></p>
 <p>where <span class="math">\(m\)</span> is the number assigned to treatment and <span class="math">\(s^2(x)=(1/n−1)∑^n_{i=1}(x_i–\bar{x})^2\)</span>. Here we compare the results of the simulation to this most common standard error as well as to the “true” version (which requires that we know the potential outcomes so as to calculate their covariance):</p>
@@ -159,7 +159,7 @@ NeymanSE&lt;-sqrt(diag(vcovHC(lm1,type=&quot;HC2&quot;)))[[&quot;Zrealized&quot;
 
 c(simSE=sd(simpleResults),feasibleSE=estSEEstATE, trueSE=seEstATE, olsIIDSE=iidSE, NeymanDesignSE=NeymanSE)</code></pre>
 <pre><code>##          simSE     feasibleSE         trueSE       olsIIDSE NeymanDesignSE 
-##      0.2098918      0.2110470      0.2111960      0.2099891      0.2099891</code></pre>
+##      0.1940964      0.1951110      0.1950855      0.1941330      0.1941330</code></pre>
 <p>We see that the feasible SE (also known as the conservative SE) and the true SE are the same to 3 digits here, where as the OLS versions are a bit smaller and the simulated standard error is also very close. These standard errors will diverge when covariates are introduced into the linear model. And, of course, the true version is rarely calculable since we don’t have access to the true potential outcomes.</p>
 </div>
 <div id="standard-errors-reflecting-cluster-assignment-of-treatment" class="section level2">
@@ -293,6 +293,244 @@ with(clusterDat,hbtest(x=Yj,z=Zj,m0=m0))</code></pre>
 <div id="individual-level-analysis-accounting-for-clustering" class="section level2">
 <h2>3.4 Individual Level Analysis accounting for clustering</h2>
 <p>Alternatively, one could adjust the IID standard error for clustering. If all clusters are the same size, <span class="math">\(n_1=…=n_J=n\)</span>, and the experiment has no blocking, the formula that summarizes this repetition is:</p>
+<p><span class="math">\[\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)\]</span></p>
+<p>where <span class="math">\(\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} – \bar{Y}_{ij})^2\)</span> (following Arceneaux and Nickerson (2009)).</p>
+<p>This adjustment is commonly known as the “Robust Clustered Standard Error” or RCSE. Here we demonstrate how the RCSE relates to the standard error calculated by (1) ignoring the clustering and (2) repeating the experiment using known potential outcomes.</p>
+<p>If we repeat the experiment we can see the variation in the treatment effect calculated at the individual level induced by re-assignment of treatment to clusters.</p>
+<pre class="r"><code>rcse &lt;- function(model, cluster){
+  ## clustered standard errors from http://drewdimmery.com/robust-ses-in-r/
+  ##require(sandwich)
+  ##require(lmtest)
+  M &lt;- length(unique(cluster))
+  N &lt;- length(cluster)
+  K &lt;- model$rank
+  dfc &lt;- (M/(M - 1)) * ((N - 1)/(N - K))
+  uj &lt;- apply(estfun(model), 2, function(x) tapply(x, cluster, sum));
+  rcse.cov &lt;- dfc * sandwich(model, meat = crossprod(uj)/N)
+  rcse.se &lt;- coeftest(model, rcse.cov)
+  return(list(rcse.cov, rcse.se))
+}
+
+## Yet another way to calculate a mean difference:
+lm2&lt;-lm(Y~Zi,data=pretendDat)
+lm2rcse&lt;-rcse(lm2,pretendDat$J)
+iidSE2&lt;- sqrt(diag(vcov(lm2)))[[&quot;Zi&quot;]]
+rcSE2&lt;-sqrt(diag(lm2rcse[[1]]))[[&quot;Zi&quot;]]
+
+
+## Now benchmark these analytic results against what we would see if we knew the potential outcomes and could repeat the design.
+simEstAteClustered&lt;-function(J,y1,y0){
+  ## Equal sized clusters and equal numbers of treated and control clusters
+  z.sim &lt;- sample(1:max(J), max(J)/2)
+  Znew &lt;- ifelse(J %in% z.sim == TRUE, 1, 0)
+  Y&lt;-Znew*y1+(1-Znew)*y0
+  estate&lt;-fastmean(Y[Znew==1])-fastmean(Y[Znew==0])
+  return(estate)
+}
+
+set.seed(12345)
+clusterResults&lt;-replicate(10000,
+              simEstAteClustered(J=pretendDat$J,
+                         y1=pretendDat$y1,
+                         y0=pretendDat$y0))
+
+
+c(simClusterSE=sd(clusterResults),
+  rcSE=rcSE2,
+  iidSE2=iidSE2)</code></pre>
+<pre><code>## simClusterSE         rcSE       iidSE2 
+##   0.11379911   0.11436347   0.08237972</code></pre>
+<p>When we ignore the clustered-assignment, the standard error is small. The RCSE and the directly simulated version agree, within simulation error, to three digits. Now, one question is whether the RCSE is a good approximation directly repeating the experiment if the experiment is small. (We set aside questions of whether the coverage of confidence intervals for the next section.)</p>
+<p>Here we show that the RCSE is sensitive to the number of clusters.</p>
+<pre class="r"><code>## And now showing that the simulated and rcse results become the same
+## once the number of clusters is large (revealing that the rcse is consistent in the number of clusters).
+##  require(ICC)
+compareClusterSEs&lt;-function(J,n,tau){
+  set.seed(12345)
+  pretendDat3&lt;-ClusteredData(J,n,tau,.1)
+  ##theicc&lt;-ICCbare(y=Y,x=J,data=pretendDat3)
+  set.seed(12345)
+  clusterResults3&lt;-replicate(10000,
+                 simEstAteClustered(J=pretendDat3$J,
+                        y1=pretendDat3$y1,
+                        y0=pretendDat3$y0))
+  lm3&lt;-lm(Y~Zi,data=pretendDat3)
+  lm3rcse&lt;-rcse(lm3,pretendDat3$J)
+  iidSE3&lt;- sqrt(diag(vcov(lm3)))[[&quot;Zi&quot;]]
+  rcSE3&lt;-sqrt(diag(lm3rcse[[1]]))[[&quot;Zi&quot;]]
+  return(c(##ICC=theicc[[1]],
+       simClusterSE=sd(clusterResults3),
+       rcSE=rcSE3,
+       iidSE2=iidSE3))
+}
+
+compareClusterSEs(4,10,.25)</code></pre>
+<pre><code>## simClusterSE         rcSE       iidSE2 
+##    0.4808502    0.3364660    0.4481711</code></pre>
+<pre class="r"><code>compareClusterSEs(30,10,.25)</code></pre>
+<pre><code>## simClusterSE         rcSE       iidSE2 
+##    0.1853421    0.1868212    0.1580460</code></pre>
+<pre class="r"><code>compareClusterSEs(100,10,.25)</code></pre>
+<pre><code>## simClusterSE         rcSE       iidSE2 
+##   0.11379911   0.11436347   0.08237972</code></pre>
+<pre class="r"><code>compareClusterSEs(1000,10,.25)</code></pre>
+<pre><code>## simClusterSE         rcSE       iidSE2 
+##   0.03503508   0.03608135   0.02643706</code></pre>
+<p>Standard errors accounting for clustering (the <code>rcSE</code>) and the simulation based standard error (<code>simClusterSE</code>) come to resemble one another more and more as the number of clusters increases. Meanwhile, the standard error ignoring clustering tends to be smaller than either of the other standard errors. This raises the question about when tests and confidence intervals based on these standard errors will perform well and when they will perform poorly: the fact that some standard errors are smaller than others does not tell us that we should avoid the small ones. Thus, in the next section we assess the false positive rate of tests based on these standard errors.</p>
+<p>Notice that by holding cluster size fixed, we can assume that the size of the cluster is unrelated to the potential outcomes. If cluster sizes do vary then Middleton (2008) and Middleton and Aronow (2011) teach us about how to adjust standard errors and estimates of the ATE to avoid bias. See also Small, Ten Have, and Rosenbaum (2008) and Hansen and Bowers (2009) for flexible approaches to design-based tests of causal effects in experiments with cluster-assignment and non-compliance, unequal sized clusters, and covariates used to increase precision.</p>
+</div>
+<div id="design-based-performance-of-different-methods-of-accounting-for-clustered-assignment." class="section level2">
+<h2>3.5 Design-based performance of different methods of accounting for clustered assignment.</h2>
+<p>Here we show that the false positive rate of tests based on RCSE standard errors tends to be incorrect when the number of clusters is small. The individual-level plus cluster-correction approach becomes valid only when the number of clusters is large.<a href="#fn5" class="footnoteRef" id="fnref5"><sup>5</sup></a></p>
+<pre class="r"><code>confint.HC&lt;-function (b, df, level = 0.95, thevcov, ...) {
+  ## CI for lm with custom vcov 
+  ## a stripped down copy of the confint.lm function adding &quot;thevcov&quot; argument
+  a &lt;- (1 - level)/2
+  a &lt;- c(a, 1 - a)
+  fac &lt;- qt(a, df)
+  ses &lt;- sqrt(diag(thevcov))
+  b + ses %o% fac
+}
+
+simAteZeroClustered&lt;-function(J,Y){
+  ## Make the true relationship equal zero by shuffling Z but not revealing new potential outcomes
+  z.sim &lt;- sample(1:max(J), max(J)/2)
+  Znew &lt;- ifelse(J %in% z.sim == TRUE, 1, 0)
+  lm1&lt;-lm(Y~Znew)
+  lm1rcse&lt;-rcse(lm1,J)
+  lm1ci&lt;-confint.HC(b=coef(lm1), thevcov=lm1rcse[[1]], lm1$df.residual)[&quot;Znew&quot;,]
+  ### is zero in the CI?
+  zeroInCIlm&lt;- 0 &gt;= lm1ci[1] &amp; 0 &lt;= lm1ci[2]
+  ## Make cluster level data following Hansen and Bowers 2008
+  Yj&lt;-tapply(Y,J,sum)
+  Zj&lt;-tapply(Znew,J,fastmean)
+  m0&lt;-unique(table(J))
+  ## Do hbtest
+  zeroNotRej&lt;-hbtest(x=Yj,z=Zj,m0=m0)&gt;=.05
+  return(c(estate=coef(lm1)[&quot;Znew&quot;],zeroInCIlm=zeroInCIlm,zeroNotRej=zeroNotRej))
+}
+
+set.seed(12345)
+pretendDatJ4&lt;-ClusteredData(4,10,.25,.1)
+set.seed(12345)
+pretendDatJ10&lt;-ClusteredData(10,10,.25,.1)
+set.seed(12345)
+pretendDatJ30&lt;-ClusteredData(30,10,.25,.1)
+set.seed(12345)
+pretendDatJ100&lt;-ClusteredData(100,10,.25,.1)
+
+J4res&lt;-replicate(10000, simAteZeroClustered(J=pretendDatJ4$J, Y=pretendDatJ4$Y))
+J4error&lt;-apply(J4res,1,mean)[2:3]
+
+J10res&lt;-replicate(10000, simAteZeroClustered(J=pretendDatJ10$J, Y=pretendDatJ10$Y))
+J10error&lt;-apply(J10res,1,mean)[2:3]
+
+J30res&lt;-replicate(10000, simAteZeroClustered(J=pretendDatJ30$J, Y=pretendDatJ30$Y))
+J30error&lt;-apply(J30res,1,mean)[2:3]
+
+J100res&lt;-replicate(10000, simAteZeroClustered(J=pretendDatJ100$J, Y=pretendDatJ100$Y))
+J100error&lt;-apply(J100res,1,mean)[2:3]
+desmat&lt;-rbind(J4error,
+      J10error,
+      J30error,
+      J100error)
+colnames(desmat)&lt;-c(&quot;OLS+RCSE&quot;,&quot;Cluster-level&quot;)
+print(desmat)</code></pre>
+<pre><code>##           OLS+RCSE Cluster-level
+## J4error     0.6624        1.0000
+## J10error    0.9107        0.9601
+## J30error    0.9349        0.9489
+## J100error   0.9423        0.9457</code></pre>
+<p>When the number of clusters is very small (<span class="math">\(J=4\)</span>) the cluster-level approach is conservative but the individual-level approach is overly liberal: the 95% CI would exclude the truth 100-66=34% of the time rather than only 100-95=5% of the time (or 0% of the time in the case of the cluster-level approach). As the number of clusters increases, the performance of both design-based statistical inference procedures improves although the RCSE approach continues to be liberal compared to the cluster-level approach.</p>
+</div>
+</div>
+<div id="statistical-inference-for-the-average-treatment-effect-in-cluster-randomized-experiments-part-2-model-based-approaches" class="section level1">
+<h1>4 Statistical inference for the average treatment effect in cluster randomized experiments part 2: Model-Based Approaches</h1>
+<div id="why-call-an-approach-model-based-versus-design-based" class="section level2">
+<h2>4.1 Why call an approach Model-Based versus Design-Based?</h2>
+<p>We have shown two approaches to statistical inference about the average treatment effect which require that (1) that treatment was randomized as planned and (2) that the treatment assigned to one unit did not change the potential outcomes for any other unit. To clarify concepts and code we also assumed no blocking, no covariates (which could be used to increase precision), continuous outcomes, no missing outcomes, and equal sized clusters. We also focused on the “intent to treat” effect. The design-based approach can be extended to handle more complex designs.<a href="#fn6" class="footnoteRef" id="fnref6"><sup>6</sup></a> For a nice example of that approach see the the <a href="https://egap.shinyapps.io/Power_Calculator">EGAP Power Calculator</a> for Simple and Clustered Designs which uses the design-based approach from Hayes and Moulton, 2009 Chap 7.</p>
+<p>When designs are more complicated, deriving the expressions for standard errors can become difficult. An alternative approach is to directly model both the outcome (often, when continuous outcomes, as a Normal random variable) and the cluster-to-cluster differences in the outcome in the control group (often, as a Normal random variable, too) using a multilevel model like the following. We can write this model in matrix form as follows with <span class="math">\(Y\)</span>, the vector of observed outcomes which depends on individual level covariates in the matrix, and <span class="math">\(X\)</span>, a variance-covariance matrix representing relationships among individuals within clusters of <span class="math">\(Σ^Y\)</span>, and another model of the cluster-to-cluster variation in the coefficients <span class="math">\(β\)</span> (which, here, depends on cluster-level variables and another variance-covariance matrix describing relations among clusters). Raudenbush (1997) and Raudenbush and Liu (2000), Hong and Raudenbush (2006) and Raudenbush, Martinez, and Spybrook (2007) all grapple with issues of design and causal inference under model-based approaches to the study of cluster-randomized trials in the context of education.</p>
+<p><span class="math">\[Y|X,\beta,\Sigma_Y \sim N(X\beta,\Sigma_Y)\]</span> <span class="math">\[\beta|Z,\gamma,\Sigma_\beta \sim N(Z\gamma,\Sigma_\beta)\]</span></p>
+<p>We can write a piece of this model in scalar form to show that, in our simple designs here, <span class="math">\(X=1\)</span>, <span class="math">\(β\)</span> only refers to the cluster-specific intercept, and <span class="math">\(\gamma\)</span> refers to the overall intercept and treatment effect estimate.</p>
+<p><span class="math">\[Y_{ij}=β_{0j}+ε_{ij}\]</span> <span class="math">\[β_{0j}=γ_{00}+γ_{01}Z_j+ν_{0j}\]</span></p>
+<p>These kinds of Bayesian-inspired models imply a particular kind of weighting across clusters and blocks which arises as a by-product of Bayes Rule.<a href="#fn7" class="footnoteRef" id="fnref7"><sup>7</sup></a> In particular, in this Normal-likelihood and Normal-cluster-prior model, the weights take the following form, where, as we can see below, the distribution of the <span class="math">\(β\)</span> depends on the different relationships at both the individual and cluster-level.</p>
+<p><span class="math">\[y|X,\beta,\Sigma_Y,\gamma,Z,\Sigma_\beta \sim N(XZ_\gamma,\Sigma_Y+X\Sigma_{\beta}X^\tau)\]</span> <span class="math">\[\beta|y,Z,\gamma,\Sigma_{\beta},\Sigma_{\gamma},\Sigma_Y \sim N\left( (X^{\tau}\Sigma^{-1}_YX+\Sigma^{-1}_{\beta})^{-1}(X^{\tau}\Sigma^{-1}_{\gamma}y+\Sigma^{-1}_{\beta}Z_{\gamma}),(X^{\tau}\Sigma^{-1}_YX+\Sigma^{-1}_{\beta})^{-1} \right)\]</span></p>
+<p>Notice that the flavor of these expressions differs from those we discussed above. In the design-based approach we referred to repetitions of the experiment to derive and check expressions for the variance of estimates that accounted for cluster-level assignment. In the model-based approach we state that the outcomes were generated according to a probability model (here a Normal model) and that the cluster-level relationships also follow a probability model (here, also a Normal model). It is sometimes simpler to state such models — even if we do not believe the models as scientific descriptions of a known process — and then assess their characteristics (say, their error rates and power) than it is to derive new expressions for design-based estimators when designs are complex. Furthermore, in some situations where clusters (like schools) are many and are a random sample of a population of such clusters, the Normal models may describe the outcomes and cluster-to-cluster variation process well.<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a></p>
+</div>
+<div id="how-can-we-estimate-model-based-estimates-of-the-ate" class="section level2">
+<h2>4.2 How can we estimate model-based estimates of the ATE?</h2>
+<p>Here we show that the estimated effect is the same whether we use a simple difference of means (via OLS) or a multilevel model in our very simplified cluster randomized trial setup.</p>
+<pre class="r"><code>library(lme4)
+
+lm4&lt;-lm(Y~Zi,data=pretendDatJ30)
+lmer1&lt;-lmer(Y~Zi+(1|J),data=pretendDatJ30, control=lmerControl(optimizer='bobyqa'),REML=TRUE)
+
+c(OLS=coef(lm4)[&quot;Zi&quot;],Multilevel=fixef(lmer1)[&quot;Zi&quot;])</code></pre>
+<pre><code>##        OLS.Zi Multilevel.Zi 
+##     0.5601954     0.5601954</code></pre>
+<p>The confidence intervals differ even though the estimates as the same — and there is more than one way to calculate confidence intervals and hypothesis tests for multilevel models. The software in R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) includes three methods by default and Gelman and Hill (2007) recommend MCMC sampling from the implied posterior. Here we focus on the Wald method only because it is the fastest to compute. Other methods might show other performance when we evaluate these methods below.</p>
+<pre class="r"><code>lm4ci&lt;-confint.HC(b=coef(lm4), thevcov=rcse(lm4,pretendDatJ30$J)[[1]], lm4$df.residual)[&quot;Zi&quot;,]
+lmer1ciWald&lt;-lme4:::confint.merMod(lmer1,parm=&quot;Zi&quot;,method=&quot;Wald&quot;)[&quot;Zi&quot;,]
+lmer1ciProfile&lt;-lme4:::confint.merMod(lmer1,parm=4,method=&quot;profile&quot;)[&quot;Zi&quot;,]
+
+rbind(DesignBasedCI=lm4ci,
+      ModelBasedWaldCI=lmer1ciWald,
+      ModelBasedProfileCI=lmer1ciProfile)</code></pre>
+<pre><code>##                         2.5 %    97.5 %
+## DesignBasedCI       0.1925395 0.9278513
+## ModelBasedWaldCI    0.1881751 0.9322157
+## ModelBasedProfileCI 0.1889707 0.9314201</code></pre>
+<p>We can calculate an estimate of the ICC directly from the model quantities (the variance of the Normal prior that represents the cluster-to-cluster differences in the intercept over the total variance of the Normal posterior).</p>
+<pre class="r"><code>VC&lt;-as.data.frame(lme4:::VarCorr.merMod(lmer1))
+VC$vcov[1]/sum(VC$vcov)</code></pre>
+<pre><code>## [1] 0.0486785</code></pre>
+</div>
+<div id="how-do-model-based-approaches-perform-validity" class="section level2">
+<h2>4.3 How do model-based approaches perform? Validity</h2>
+<p>We showed that the large-sample/Normal theory design-based statistical inference did not produce valid confidence intervals and statistical tests until at least 30 if not more clusters. Here we compare the design-based approach to the model-based approach (using the Wald method for calculating confidence intervals). Although the outcome-model based approach is Bayesian in structure, we can evaluate its properties across repetitions of the design. We do this here.</p>
+<pre class="r"><code>simAteZeroLmer&lt;-function(J,Y){
+  ## Make the true relationship equal zero by shuffling Z but not revealing new potential outcomes
+  z.sim &lt;- sample(1:max(J), max(J)/2)
+  Znew &lt;- ifelse(J %in% z.sim == TRUE, 1, 0)
+  thelmer&lt;-lmer(Y~Znew+(1|J), control=lmerControl(optimizer='bobyqa'),REML=FALSE)
+  lmer1ciWald&lt;-lme4:::confint.merMod(thelmer,parm=&quot;Znew&quot;,method=&quot;Wald&quot;)
+  ## lmer1ciProfile&lt;-lme4:::confint.merMod(thelmer,parm=4,method=&quot;profile&quot;)
+  ### is zero in the CI?
+  zeroInCIWald &lt;- 0 &gt;= lmer1ciWald[1] &amp; 0 &lt;= lmer1ciWald[2]
+  ## zeroInCIProfile &lt;- 0 &gt;= lmer1ciProfile[1] &amp; 0 &lt;= lmer1ciProfile[2]
+  return(c(estate=fixef(thelmer)[&quot;Znew&quot;],
+       zeroInCIWald=zeroInCIWald #, zeroInCIProfile=zeroInCIProfile
+       ))
+}
+
+
+J4resLmer&lt;-replicate(1000, simAteZeroLmer(J=pretendDatJ4$J, Y=pretendDatJ4$Y))
+J4errorMLM&lt;-apply(J4resLmer,1,mean)
+
+J10res&lt;-replicate(1000, simAteZeroLmer(J=pretendDatJ10$J, Y=pretendDatJ10$Y))
+J10errorMLM&lt;-apply(J10res,1,mean)
+
+J30res&lt;-replicate(1000, simAteZeroLmer(J=pretendDatJ30$J, Y=pretendDatJ30$Y))
+J30errorMLM&lt;-apply(J30res,1,mean)
+
+J100res&lt;-replicate(1000, simAteZeroLmer(J=pretendDatJ100$J, Y=pretendDatJ100$Y))
+J100errorMLM&lt;-apply(J100res,1,mean)</code></pre>
+<p>Here are the error rates for the three approaches to statistical inference in cluster-randomized experiments as the number of clusters increases in our simple example study. Recall that valid tests would have error rates within 2 simulation standard errors of .95 — this would mean that a correct null hypothesis would be rejected no more than 5% of the time.</p>
+<pre class="r"><code>twosimse&lt;-2*sqrt( .05*.95/1000)
+print(twosimse)</code></pre>
+<pre><code>## [1] 0.01378405</code></pre>
+<pre class="r"><code>mat&lt;-cbind(&quot;Multilevel&quot;= c(J4errorMLM[2], J10errorMLM[2],
+         J30errorMLM[2], J100errorMLM[2]),
+       desmat
+       )
+row.names(mat)&lt;-paste(&quot;J=&quot;,c(4,10,30,100),sep=&quot;&quot;)
+mat</code></pre>
+<pre><code>##       Multilevel OLS+RCSE Cluster-level
+## J=4        1.000   0.6624        1.0000
+## J=10       0.909   0.9107        0.9601
+## J=30       0.939   0.9349        0.9489
+## J=100      0.945   0.9423        0.9457</code></pre>
+<p>In our simple setup, the individual-level approaches behave about the same way: neither the design-based nor the model-based approach produces valid statistical inferences until the number of clusters is at least 30. This makes sense: both approaches rely on central limit theorems so that a Normal law can describe the distribution of the test statistic under the null hypothesis. The cluster-level approach is always valid, but sometimes produces overly large confidence intervals (when the number of clusters is small). When the number of clusters is large (say, 100), then all approaches are equivalent in terms of their error rates. Designs with few clusters should consider either the cluster-level approach using the normal approximation shown here or even direct permutation based approaches to statistical inference. Of course, the code in this guide can be used to assess concerns about test validity at different numbers of clusters.</p>
 </div>
 </div>
 <div class="footnotes">
@@ -302,6 +540,10 @@ with(clusterDat,hbtest(x=Yj,z=Zj,m0=m0))</code></pre>
 <li id="fn2"><p>See the following pieces for more discussion in general of the problems that arise from clustered designs in the study of politics L. Stoker and Bowers (2002), Laura Stoker and Bowers (2002), Green and Vavreck (2007), Arceneaux and Nickerson (2009)<a href="#fnref2">↩</a></p></li>
 <li id="fn3"><p>See <a href="http://egap.org/methods-guides/10-types-treatment-effect-you-should-know-about" class="uri">http://egap.org/methods-guides/10-types-treatment-effect-you-should-know-about</a> for a demonstration that the difference of means in the observed treatment and control groups is an unbiased estimator of the average treatment effect itself and what it means to be unbiased.<a href="#fnref3">↩</a></p></li>
 <li id="fn4"><p>Code available on the github repository shows that the ICC will increase as an additive cluster-level treatment effect increases. See Mathieu et al. (2012a) and Mathieu et al. (2012b) for some code that inspired the code we use here.<a href="#fnref4">↩</a></p></li>
+<li id="fn5"><p>A valid test is one with an error rate less than or equal to the declared level of the test – here pegged at α=.05. Valid tests may be overly conservative, but not overly liberal.<a href="#fnref5">↩</a></p></li>
+<li id="fn6"><p>For example, Hansen and Bowers (2009) analyze a cluster-randomized field experiment with one-sided non-compliance and a binary outcome using a design-based approach. And Small, Ten Have, and Rosenbaum (2008) show how to handle more complex hypotheses about effects in cluster-randomized trial with a small number of clusters, covariance adjustment, and non-compliance.<a href="#fnref6">↩</a></p></li>
+<li id="fn7"><p>Gelman and Hill (2007) for an introduction to multilevel models, including in the context of statistical inference for counterfactual causal effects, and Gelman et al. (2013) (Chap 8) for an account linking Bayesian approaches to statistical inference to design and especially randomization.<a href="#fnref7">↩</a></p></li>
+<li id="fn8"><p>See Barnard et al. (2003) for an example of an application of this approach when we have other problems such as missing outcomes, or complex non-compliance.<a href="#fnref8">↩</a></p></li>
 </ol>
 </div>
 
