@@ -65,6 +65,13 @@ img {
 <h4 class="author"><em>Methods Guide Author: Lindsay Dolan</em></h4>
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#some-ways-are-better-than-others">1 Some ways are better than others</a></li>
+<li><a href="#block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced">2. Block randomization: You can fix it so that treatment and control groups are balanced</a></li>
+</ul>
+</div>
 
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
@@ -75,9 +82,48 @@ img {
 <p>There are many ways to randomize. The simplest is to flip a coin each time you want to determine whether a given subject gets treatment or not. This ensures that each subject has a .5 probability of receiving the treatment and a .5 probability of not receiving it. Done this way, whether one subject receives the treatment in no way affects whether the next subject receives the treatment, every subject has an equal chance of getting the treatment, and the treatment will be uncorrelated with all confounding factors — at least in expectation.</p>
 <p>This is not a bad approach but it has shortcomings. First, using this method, you cannot know in advance how many units will be in treatment and how many in control. If you want to know this, you need some way to do selections so that the different draws are not statistically independent from each other (like drawing names from a hat). Second, you may want to assert control over the exact share of units assigned to treatment and control. That’s hard to do with a coin. Third, you might want to be able to replicate your randomization to show that there was no funny business. That’s hard to do with coins and hats. Finally, as we show below, there are all sorts of ways to do randomization to improve power and ensure balance in various ways that are very hard to achieve using coins and hats.</p>
 <p>Fortunately though, flexible replicable randomization is very easy to do with freely available software. The following simple R code can, for example, be used to generate a random assignment, specifying the number of units to be treated. Here, N is the number of units you have and m is the number you want to treat. The “seed” makes it possible to replicate the same draw each time you run the code (or you can change the seed for a different draw).<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a></p>
+<pre class="r"><code>ra &lt;- function(N,m,seed){
+ set.seed(seed)
+ assign &lt;- cbind(1:N, 1:N %in% sample(1:N,m))
+ return(assign)
+ }
+ra(100,34,seed=1000)</code></pre>
 </div>
-<div id="blah-blah-blah" class="section level1">
-<h1>2 Blah Blah Blah</h1>
+<div id="block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced" class="section level1">
+<h1>2. Block randomization: You can fix it so that treatment and control groups are balanced</h1>
+<p>It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.</p>
+<p>This means that it is possible to specify, for example, that your treatment and control groups contain equal ratios of men to women. In other words, this avoids any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.</p>
+<p>Why is this desirable? Not because our estimate of the average treatment effect would otherwise be biased, but because it could be really noisy. Suppose that a random assignment happened to generate a very male treatment group and a very female control group. We would observe a correlation between gender and treatment status. If we were to estimate a treatment effect, that treatment effect would still be unbiased because gender did not cause treatment status. However, it would be more difficult to reject the null hypothesis that it was not our treatment but gender that was producing the effect. In short, the imbalance produces a noisy estimate, which makes it more difficult for us to be confident in our estimates.</p>
+<p>Block (sometimes called stratified) randomization helps us to rig our experiment so that our treatment and control groups are balanced along important dimensions but are still randomly assigned. Essentially, this type of randomization design constructs multiple mini-experiments: for example, it might take women and randomly assign half to treatment and half to control, and then it would assign half of men to treatment and half to control. This guarantees a gender balance when treatment and control groups are pooled.</p>
+<p>The <a href="https://cran.r-project.org/web/packages/blockTools/index.html">blockTools package</a> is a useful package for conducting block randomization. Let’s start by generating a fake data set for 60 subjects, 36 of whom are male and 24 of whom are female.</p>
+<p>Suppose we would like to block on gender. Based on our data, blockTools will generate the smallest possible blocks, each a grouping of two units with the same gender, one of which will be assigned to treatment, and one to control.</p>
+<pre class="r"><code>rm(list=ls())
+library(blockTools)
+id &lt;- seq(1:60)
+female &lt;- sample(c(rep(0, 36), rep(1, 24)))
+dta &lt;- as.data.frame(cbind(id, female))
+head(dta)
+ 
+set.seed(20140404)
+block.out &lt;- block(data = dta, n.tr = 2,id.vars =&quot;id&quot;, algorithm=&quot;randGreedy&quot;,
+                   block.vars = &quot;female&quot;, verbose=TRUE) # blocks on female
+assign.out &lt;- assignment(block.out) # reports treatment assignment
+assign.out
+ 
+# now we need to extract, for each unit, its treatment status and block ID
+dta$Z &lt;- as.numeric(is.element(1:length(id), as.numeric(as.character(unlist(assign.out$assg[[1]][&quot;Treatment 1&quot;]))))) # creates a vector of treatment assignments
+dta$block &lt;- createBlockIDs(block.out, dta, id.var = &quot;id&quot;) # creates a vector of block IDs
+head(dta)
+ 
+# we can see that we have 30 blocks of 2 in which both units are of the same gender
+# and one is assigned to each treatment status
+head(table(dta$block, dta$female))
+head(table(dta$block, dta$Z))
+ 
+# finally, we can see that there is a gender balance in treatment assignment
+table(dta$Z, dta$female)
+summary(lm(dta$Z ~ dta$female)) # our p-value is 1</code></pre>
+<p>You can check the mean of the variable on which you blocked for treatment and control to see that treatment and control groups are in fact perfectly balanced on gender.</p>
 </div>
 <div class="footnotes">
 <hr />
