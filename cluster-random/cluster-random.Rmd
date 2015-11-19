@@ -1,0 +1,46 @@
+---
+title: "6+ Thing You Need to Know About Cluster Randomization"
+author: "Methods Guide Author: Jake Bowers"
+output: html_document
+---
+
+Abstract
+==
+This guide[^1] and all of the code it contains is available for copying at https://github.com/bowers-illinois-edu/EgapMethodsGuides. We encourage you to copy and improve the guide. See https://guides.github.com/activities/forking/ for one workflow in which you copy the guide, make your own changes, and then request that we include your changes in the main guide.
+
+This guide involves a lot of R code R Core Team (2014) that we use to show how things work and to enable you to experiment and also to adapt it for your own particular purposes.
+
+[^1]: Originating author: Jake Bowers and Ashlea Rundlett, 22 Nov 2014. The guide is a live document and subject to updating by EGAP members at any time. Bowers and Rundlett are not responsible for subsequent edits or errors introduced to this guide.
+
+1 What it is, what it isn’t, and why we use it.
+==
+Cluster randomized experiments allocate treatments across groups of individuals as opposed to single individuals. Nonetheless, such studies still typically measure outcomes at the level of the individual. A study randomly assigning villages to receive different development programs but measuring individual level outcomes and a study randomly assigning households to receive different voter mobilization messages but measuring the vote turnout of individuals are both cluster randomized experiments: villages and households are the assignment units and individuals are the outcome units. A study which samples villages from the experimental pool, and then randomly assigns some of the people in each village to a treatment is not a cluster randomized experiment: in this study, both the units of assignment and outcome are the individual. A study which randomly assigned villages to an intervention and then measures village level responses is also not a cluster randomized study: it is a village level study, the units of assignment and outcome are the same.
+
+Cluster randomization should not be confused with block randomization. If an experimenter believes that baseline outcomes vary based on pre-treatment covariates _and/or_ that treatment effects will differ in substantively important ways between subgroups (also based on pre-treatment covariates), she may divide the experimental pool into groups that are homogeneous on those covariates (like gender or village size) and randomize within those blocks — effectively turning one large experiment into multiple mini-experiments. Cluster randomization can, however, be combined with block randomization. For example, one can collect clusters of individuals (villages, classrooms, schools, households, etc.) into blocks based on cluster-level covariates and then run a blocked cluster randomized experiment in order to learn about subgroup differences in treatment effects and, at the same time, increase the precision of statistical tests. In this guide, we ignore such blocking in order to focus on cluster-lever or group-level treatment assignment with individual-level measurement.
+
+Researchers might choose to utlize cluster randomization for a number of reasons. For example, a researcher may be interested in village/school/household-level interventions in and of themselves, possibly because they want to know the effect of every individual in a given cluster being assigned to the same treatment category. Often, however, treatments are randomly assigned at the cluster level because it is too expensive or even impossible to randomize at the individual level (radio signals, for example, either go to a geographical area or don't—you can't vary reception on an individual level).
+
+2 Why Cluster Randomization can cause problems
+==
+Cluster randomized experiments have at least two units of analysis: We commonly see a few large assignment units ($J$), each containing some outcome units ($n_j$) and thus the total sample size depends on both assignment and outcome units $N=∑^J_{j=1}n_j$.
+
+Cluster randomized experiments raise two new questions for analysts. The first question is about weighting, or how to combine information from different experimental clusters into one quantity. If clusters are not all the same size  (i.e. $n_j≠n_k$  for $j≠k$ ), then an average treatment effect must be defined in a weighted fashion and the resulting estimation should also involve weights. What weights should one use? On what basis should one choose weights? One component of weights should account for the size of the cluster (larger clusters tell us more about the treatment effect than smaller clusters, all other things equal). Another component would add that homogeneous clusters (where all villagers behave in the same way in response to treatment) tell us less about the treatment effect than heterogeneous clusters (where each villager acts as if she were more or less independent of the others). If the study is blocked, then an analyst need to choose a block-weighting scheme and cluster-weighting scheme. Hansen and Bowers (2008) discuss optimal weights for precise testing in blocked and cluster-randomized designs. Imai, King, and Nall (2009) discuss weighting schemes for estimation in paired and cluster-randomizied designs.
+
+The second question is about information. We commonly summarize the information content of a study using the total number of participants, $N$. For example, we tend to imagine that a study with 10 people has less information about the experimental intervention than a study with 100 people. Yet, two studies with $J=10$  villages and $n_j=100$  people per village may have different information about the treatment effect on individuals if, in one study, individuals within a village are more or less independent of each other versus more or less dependent. If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level. Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 × 100=1000 pieces of information. For a given variable, we can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the intracluster correlation coefficient. For a given variable, $x$, we can write the intracluster correlation coefficient like so:
+
+$$ρ ≡ \frac{variance between clusters in x}{total variance in x} ≡ \frac{τ^2_x}{τ^2_x+σ^2_x}$$
+
+where $σ^2_x$ is the variance within clusters and $τ^2_x$ is the variance across clusters. For example, Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
+
+$$effective N = \frac{N}{1+(n_j−1)ρ} = \frac{J_n}{1+(n−1)ρ}$$
+
+where the second term follows if all of the clusters are the same size ($n_1=…=n_J≡n$).
+
+If 1000 observations arose from 10 clusters with 20 individuals within each cluster where 50% of the variation could be attributed to cluster-to-cluster differences (and not to differences within a cluster), Kish’s formula would suggest that we have the equivalent of about 19 pieces of independent information not 10 × 20=200 pieces.
+
+The inflation in the standard errors for estimators of the average treatment effect depends on $ρ$ as well. In this simple case with 10 clusters all the same size of 20 and $ρ=.5$, the standard error of the estimator accounting for $ρ$ is $1+(n−1)ρ=10.5$ times larger than the standard error that a simple t-test from a linear regression would provide: if $Var(\hat{\bar{Y}}_{z_{ij=1}})=\frac{s^2}{n}$ then accounting for clustered assignment with same size clusters would give us $Var(\hat{\bar{Y}}_{z_{ij=1}})=\frac{s}{(J_n)(1−(n−1)ρ)}$.[^2]
+
+[^2]: See the following pieces for more discussion in general of the problems that arise from clustered designs in the study of politics L. Stoker and Bowers (2002), Laura Stoker and Bowers (2002), Green and Vavreck (2007), Arceneaux and Nickerson (2009)
+
+The fact that most clustered designs contain less information than observations can lead to invalid statistical inferences. If, for example, the true standard error is ten times the estimated standard error, then our confidence intervals and statistical tests will be wildly invalid — we will be rejecting the null of no effects much too often. Without accounting for the design, we will be mislead by reports that we have ample information to reject a null of no effects: we will claim that a result is “statistically significant” when it is not.
+
