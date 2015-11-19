@@ -179,7 +179,35 @@ samp = data.frame(Z,D,Y)
 <p>In practice, the experimental pool may consist of a group of units selected in an unknown manner from a vaguely defined population of such units and compliance with treatment assignment may be less than complete. In such cases our SATE may diverge from the PATE and recovering estimates of each becomes more complicated. Imai, King, and Stuart (2008) decompose the divergence between these estimates into error that arises from sample selection and treatment imbalance. Error from sample selection arises from different distributions of (observed and unobserved) covariates in our sample and population. For example people in a medical trial often differ from the population for whom the drug would be available. Error from treatment imbalance reflects differences in covariates between treatment and control groups in our sample, perhaps because of non-random assignment and/or non-compliance.</p>
 <p>While there are no simple solutions to the problems created by such error, there are steps you can take in both the design of your study and the analysis of your data to address these challenges to estimating the PATE or CACE/LATE. For example, including a placebo intervention provides additional information on the probability of receiving treatment, that can be used to re-weight the effect of actually receiving it (e.g Nickerson (2008)) in the presence of non-compliance. One could also use a model to re-weighting observations to adjust for covariate imbalance and the unequal probability of receiving the treatment, both within the sample and between a sample and the population of interest.<a href="#fn13" class="footnoteRef" id="fnref13"><sup>13</sup></a></p>
 <p>In the code below, we demonstrate several approaches to estimating these effects implemented in the CausalGAM package for R.<a href="#fn14" class="footnoteRef" id="fnref14"><sup>14</sup></a> Specifically, the package produces regression, inverse-propensity weighting (IPW), and augmented inverse-propensity weighting estimates of the ATE. Combining regression adjustment with IPW, the AIPW has the feature of being “doubly robust” in that the estimate is still consistent even if we have incorrectly specified either the regression model or the propensity score for the probability weighting.</p>
-<p>INSERT CODE CHUNK HERE</p>
+<pre class="r"><code># Example adapted from ?estimate.ATE 
+library(CausalGAM) </code></pre>
+<pre><code>## ##
+## ## CausalGAM Package
+## ## Copyright (C) 2009 Adam Glynn and Kevin Quinn</code></pre>
+<pre class="r"><code>set.seed(1234) # For replication 
+n = 1000 # Sample size 
+X1 = rnorm(n) # Pre-treatment covariates 
+X2 = rnorm(n) 
+p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
+D = rbinom(n, 1, p) # Treatment 
+Y0 = rnorm(n) # Potential outcomes 
+Y1 = Y0 + 1 + X1 + X2 
+Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
+samp = data.frame(X1,X2,D,Y) 
+
+# Estimate ATE with AIPW, IPW, Regression weights 
+ATE.out &lt;- estimate.ATE(pscore.formula = D ~ X1 +X2, 
+                        pscore.family = binomial, 
+                        outcome.formula.t = Y ~ X1 
+                        +X2, 
+                        outcome.formula.c = Y ~ X1 
+                        +X2, 
+                        outcome.family = gaussian, 
+                        treatment.var = &quot;D&quot;, 
+                        data=samp, 
+                        divby0.action=&quot;t&quot;, 
+                        divby0.tol=0.001, 
+                        var.gam.plot=FALSE, nboot=50)</code></pre>
 </div>
 <div id="average-treatment-effects-on-the-treated-and-the-control" class="section level1">
 <h1>6 Average Treatment Effects on the Treated and the Control</h1>
@@ -188,7 +216,30 @@ samp = data.frame(Z,D,Y)
 <p>Informally, the ATT is the effect for those that we treated; ATC is what the effect <em>would</em> be for those we did not treat.</p>
 <p>When treatment is randomly assigned and there is full compliance, the <span class="math">\(ATE=ATT=ATC\)</span>, since <span class="math">\(E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)\)</span> and <span class="math">\(E(Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)\)</span> Often either because of the nature of the intervention or specific concerns about cost and ethnics, treatment compliance is incomplete and the ATE will not in general equal the ATT or ATC. In such instances, we saw in the previous section that we could re-weight observations by their probability of receiving the treatment to recover estimates of the ATE. The same logic can be extended to produce estimates of the ATT and ATC in both our sample and the population.<a href="#fn15" class="footnoteRef" id="fnref15"><sup>15</sup></a></p>
 <p>Below, we create an case where the probability of receiving treatment varies and but can be estimated using a propensity score model.<a href="#fn16" class="footnoteRef" id="fnref16"><sup>16</sup></a> The predicted probabilities from this model are then used as weights to recover the estimates of the ATE, ATT, and ATC. Inverse propensity score weighting attempts to balance the distribution of covariates between treatment and control groups when estimating the ATE. For the ATT, this weighting approach treats subjects in the the treated group as a sample from the target population (people who received the treatment) and weights subjects in the control by their odds of receiving the treatment. In a similar fashion, the estimate of the ATC weights treated observations to look like controls. The quality (unbiasedness) of these estimates is inherently linked to the quality of our models for predicting the receipt of treatment. Inverse propensity score weighting and other procedures produce balance between treatment and control groups on observed covariates, but unless we have the “true model” (and we almost never know the true model) the potential for bias from unobserved covariates remains and should lead us to interpret our the estimated ATT or ATC in light of the quality of the model that produced it.</p>
-<p>INSERT CODE CHUNK HERE</p>
+<pre class="r"><code>set.seed(1234) # For replication
+n = 1000 # Sample size 
+X1 = rnorm(n) # Pre-treatment covariates 
+X2 = rnorm(n) 
+p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
+D = rbinom(n, 1, p) # Treatment 
+Y0 = rnorm(n) # Potential outcomes 
+Y1 = Y0 +1 +X1 +X2 
+Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
+samp = data.frame(X1,X2,D,Y) 
+# Propensity score model 
+samp$p.score&lt;-
+predict(glm(D~X1+X2,samp,family=binomial),type=&quot;response&quot;) 
+
+
+# Inverse Propability Weights 
+samp$W.ipw&lt;-with(samp, ifelse(D==1,1/p.score,1/(1-p.score))) 
+samp$W.att&lt;-with(samp, ifelse(D==1,1,p.score/(1-p.score))) 
+samp$W.atc&lt;-with(samp, ifelse(D==1,(1-p.score)/p.score,1)) 
+
+# IPW: ATE, ATT, ATC 
+ATE.ipw&lt;-coef(lm(Y~D,data=samp,weights=W.ipw))[2]
+ATT.ipw&lt;-coef(lm(Y~D,data=samp,weights=W.att))[2] 
+ATC.ipw&lt;-coef(lm(Y~D,data=samp,weights=W.atc))[2]</code></pre>
 </div>
 <div id="quantile-average-treatment-effects" class="section level1">
 <h1>7 Quantile Average Treatment Effects</h1>
@@ -258,7 +309,34 @@ plot(s.out) # Plot sensistivity bounds </code></pre>
 <p><span class="math">\[\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}\]</span></p>
 <p>Freedman (2008b) shows that logistic regression adjusting for covariates in a randomized experiments produces biased estimates of this causal effect. The basic intuition for Freedman’s argument comes from the fact that taking the log of averages is not the same as taking the average of logs and so the treatment coefficient estimated from a logistic regression conditioning on covariates will not provide a consistent estimator of log-odds of success. Instead, Freedman recommends taking the predicted probabilities varying subjects’ treatment status but maintaining their observed covariate profiles to produce a consistent estimator of the log-odds.</p>
 <p>The basic procedure is outlined in the code below. The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.</p>
-<p>INSERT CODE CHUNK HERE</p>
+<pre class="r"><code>set.seed(1234) # For replication 
+n = 1000 # Sample size 
+U = runif(n) 
+X = runif(n) # Observed Covariate 
+Y0 = ifelse(U&gt;.5,1,0) # Potential Outcomes 
+Y1 = ifelse(U+X&gt;.75,1,0) 
+D = rbinom(n,1,.75) # Randomly assign 3/4 to treatment 
+Y = D*Y1+Y0*(1-D) 
+samp = data.frame(X,D,Y) 
+aT&lt;-with(samp, mean(Y[D==1])) 
+aC&lt;-with(samp, mean(Y[D==0])) 
+
+# Unconditional log odds 
+log.odds&lt;-log(aT/(1-aT))-log(aC/(1-aC)) 
+
+# Logistic regression conditioning on X overestimates log odds 
+fit&lt;-glm(Y~D+X,data=samp,binomial(&quot;logit&quot;)) 
+log.odds.logit&lt;-
+  coef(glm(Y~D+X,data=samp,binomial(&quot;logit&quot;)))[2] 
+
+# Dataframes using original covariates for predicted probabilities 
+D1&lt;-data.frame(D=1,samp[,c(&quot;X&quot;)]) 
+D0&lt;-data.frame(D=0,samp[,c(&quot;X&quot;)]) 
+#Adjusted log-odds produces consisted estimator of log-odds 
+aT.adj&lt;-predict(fit,newdata=D1,type=&quot;response&quot;) 
+aC.adj&lt;-predict(fit,newdata=D0,type=&quot;response&quot;) 
+log.odds.adj&lt;-log(mean(aT.adj)/(1-mean(aT.adj)))-
+  log(mean(aC.adj)/(1-mean(aC.adj)))</code></pre>
 </div>
 <div id="attributable-effects" class="section level1">
 <h1>10 Attributable Effects</h1>
@@ -360,6 +438,39 @@ names(ciAE)&lt;-c(&quot;lower 95%&quot;,&quot;lower
 print(ciAE) </code></pre>
 <pre><code>##   lower 95% lower \n66%   upper 66%   upper 95% 
 ##    98.78637   107.97975   125.90114   135.09451</code></pre>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Aronow, Peter M, and Joel A Middleton. 2013. “A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments.” Journal of Causal Inference 1 (1): 135–54.</p>
+<p>Aronow, Peter M, and Cyrus Samii. 2014. “Does Regression Produce Representative Estimates of Causal Effects?” In EPSA 2013 Annual General Conference Paper. Vol. 585.</p>
+<p>Baron, Reuben M, and David A Kenny. 1986. “The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations.” Journal of Personality and Social Psychology 51 (6). American Psychological Association: 1173.</p>
+<p>Bound, John, David A Jaeger, and Regina M Baker. 1995. “Problems with Instrumental Variables Estimation When the Correlation Between the Instruments and the Endogenous Explanatory Variable Is Weak.” Journal of the American Statistical Association 90 (430). Taylor &amp; Francis: 443–50.</p>
+<p>Brambor, Thomas, William R. Clark, and Matt Golder. 2006. “Understanding Interaction Models: Improving Empirical Analyses.” Political Analysis 14 (1): 63–82.</p>
+<p>Bullock, John G, Donald P Green, and Shang E Ha. 2010. “Yes, but What’s the Mechanism?(don’t Expect an Easy Answer).” Journal of Personality and Social Psychology 98 (4). American Psychological Association: 550.</p>
+<p>Chernozhukov, Victor, and Christian Hansen. 2005. “An IV Model of Quantile Treatment Effects.” Econometrica 73 (1). Wiley Online Library: 245–61.</p>
+<p>Dunning, Thad. 2010. “Design-Based Inference: Beyond the Pitfalls of Regression Analysis?” Rethinking Social Inquiry: Diverse Tools, Shared Standards. 2nd Ed. Lanham, Md.: Rowman and Littlefield.</p>
+<p>Freedman, David A. 2008a. “On Regression Adjustments to Experimental Data.” Advances in Applied Mathematics 40 (2). Elsevier: 180–93. ———. 2008b. “Randomization Does Not Justify Logistic Regression.” Statistical Science 23 (2). Institute of Mathematical Statistics: 237–49.</p>
+<p>Frölich, Markus, and Blaise Melly. 2010. “Estimation of Quantile Treatment Effects with Stata.” Stata Journal 10 (3): 423.</p>
+<p>Gerber, Alan S, and Donald P Green. 2012. Field Experiments: Design, Analysis, and Interpretation. WW Norton.</p>
+<p>Green, Donald P. 2009. “Regression Adjustments to Experimental Data: Do David Freedman’s Concerns Apply to Political Science?” In 26th Annual Meeting of the Society for Political Methodology, Yale University, July, 23–25.</p>
+<p>Hansen, Ben, and Jake Bowers. 2009. “Attributing Effects to a Cluster-Randomized Get-Out-the-Vote Campaign.” Journal of the American Statistical Association 104 (487). Taylor &amp; Francis: 873–85.</p>
+<p>Hartman, Erin, RD Grieve, R Ramsahai, and Jasjeet S Sekhon. forthcoming. “From SATE to PATT: Combining Experimental with Observational Studies.” Journal of the Royal Statistical Society.</p>
+<p>Hirano, Keisuke, Guido W Imbens, and Geert Ridder. 2003. “Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score.” Econometrica 71 (4). Wiley Online Library: 1161–89.</p>
+<p>Holland, Paul W. 1986. “Statistics and Causal Inference.” Journal of the American Statistical Association 81 (396). Taylor &amp; Francis: 945–60.</p>
+<p>Imai, K., L. Keele, D. Tingley, and T. Yamamoto. 2011. “Unpacking the Black Box of Causality: Learning About Causal Mechanisms from Experimental and Observational Studies.” American Political Science Review 105 (4). Cambridge Univ Press: 765–89.</p>
+<p>Imai, Kosuke, and Teppei Yamamoto. 2013. “Identification and Sensitivity Analysis for Multiple Causal Mechanisms: Revisiting Evidence from Framing Experiments.” Political Analysis 21 (2). SPM-PMSAPSA: 141–71.</p>
+<p>Imai, Kosuke, Luke Keele, and Teppei Yamamoto. 2010. “Identification, Inference and Sensitivity Analysis for Causal Mediation Effects.” Statistical Science. JSTOR, 51–71.</p>
+<p>Imai, Kosuke, Gary King, and Elizabeth A Stuart. 2008. “Misunderstandings Between Experimentalists and Observationalists About Causal Inference.” Journal of the Royal Statistical Society: series A (Statistics in Society) 171 (2). Wiley Online Library: 481–502.</p>
+<p>Imai, Kosuke, Dustin Tingley, and Teppei Yamamoto. 2013. “Experimental Designs for Identifying Causal Mechanisms.” Journal of the Royal Statistical Society: Series A (Statistics in Society) 176 (1). Wiley Online Library: 5–51.</p>
+<p>Lin, Winston. 2013. “Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman’s Critique.” The Annals of Applied Statistics 7 (1). Institute of Mathematical Statistics: 295–318.</p>
+<p>Lohr, Sharon L. 1999. “Sampling: DesignandAnalysis.” Pacific Grove, CA: Brooks/Cole.</p>
+<p>Neyman, Jerzy. 1990 [1923]. “On the Application of Probability Theory to Agricultural Experiments. Essay on Principles. Section 9.” Statistical Science 5 (4). Institute of Mathematical Statistics: 465–72 (Translated by D.M. Dabrowska and T.P. Speed from the original Polish).</p>
+<p>Nickerson, D.W. 2008. “Is Voting Contagious? Evidence from Two Field Experiments.” American Political Science Review 102 (1). Cambridge Univ Press: 49.</p>
+<p>Rosenbaum, Paul. 2002. “Attributing Effects to Treatment in Matched Observational Studies.” Journal of the American Statistical Association 97 (457). Taylor &amp; Francis: 183–92.</p>
+<p>Rosenbaum, Paul R. 2002. Observational Studies. Springer.</p>
+<p>Rosenbaum, Paul, and Donald B. Rubin. 1983. “The Central Role of the Propensity Score in Observational Studies for Causal Effects.” Biometrika 70 (1). Biometrika Trust: 41–55.</p>
+<p>Rosenbaum, Paul, and Jeffrey H Silber. 2008. “Aberrant Effects of Treatment.” Journal of the American Statistical Association 103 (481). Taylor &amp; Francis: 240–47.</p>
+<p>Rosenbaum, PR. 2010. “Design of Observational Studies.” Springer Series in Statistics. New York [etc.]: Springer. Tingley, Dustin, Teppei Yamamoto, Kentaro Hirose, Luke Keele, and Kosuke Imai. 2014. “mediation: R Package for Causal Mediation Analysis.” Journal of Statistical Software 59 (5): 1–38. <a href="http://www.jstatsoft.org/v59/i05/" class="uri">http://www.jstatsoft.org/v59/i05/</a>.</p>
 </div>
 <div class="footnotes">
 <hr />
