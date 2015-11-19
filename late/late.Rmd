@@ -1,10 +1,12 @@
 ---
 title: "10 Things You Need to Know About the Local Average Treatment Effect"
 author: "Methods Guide Author: Peter van der Windt"
-output: html_document
+output: 
+  html_document:
+    toc: true
 ---
 
-#1 What it is.
+#1 What it is
 
 When subjects do not receive the treatment to which they were assigned, the experimenter faces a "non-compliance" problem. Some subjects may need the treatment so badly that they will always take up treatment, irrespective of whether they are assigned to the treatment or to the control group. These are called "Always-Takers". Other subjects may not take the treatment even if they are assigned to the treatment group: the "Never-Takers". Some subjects are "Compliers". These are the subjects that do what they are supposed to do: they are treated when assigned to the treatment group, and they are not treated when they are assigned to the control group. Finally, some subjects do the exact opposite of what they are supposed to do. They are called "Defiers". Table 1 shows these four different types of subjects in the population.
 
