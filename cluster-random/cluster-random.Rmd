@@ -638,6 +638,8 @@ The expressions we used above allow researchers to quickly assess many different
 
 The general idea should be familiar: first create a dataset to represent the design, relationships and variability you expect to see in your study, then test hypotheses which are both consistent with the data (to assess error rate) and inconsistent with the data (to assess power). If you have access to baseline data, or data on outcomes like the outcomes that you expect to gather, we encourage you to use them rather than the normally distributed random variables that we use here. For example, we expect power and validity will require larger studies if the outcomes are binary or very skewed.
 
+SOMETHING IN THESE CHUNKS TAKES FOREVER--LOOK INTO IT
+
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 testH0andHtrue<-function(tau,totJ,n,rho) {
   ## Make data:
