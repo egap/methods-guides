@@ -122,7 +122,7 @@ simEstAte&lt;-function(Z,y1,y0){
 set.seed(12345)
 simpleResults&lt;-replicate(100000,simEstAte(Z=Zrealized,y1=y1,y0=y0))
 sd(simpleResults) ## The standard error of the estimate of the ATE.</code></pre>
-<pre><code>## [1] 0.1940964</code></pre>
+<pre><code>## [1] 0.1987746</code></pre>
 <p>Although this preceding standard error is intuitive (it is merely the standard deviation of the distribution arising from repeating the experiment), more statistics-savvy readers will recognize closed-form expressions for the standard error like the following (see Gerber and Green (2012) and Dunning (2012) for easy to read explanations and derivations of the design-based standard error of the simple estimator of the average treatment effect). If we write T as the set of all treated units and C as the set of all non treated units, we might write</p>
 <p><span class="math">\[\widehat{Var}(\hat{τ}) = s^2(Y_{i,i_∈T})/m+s^2(Y_{i,i∈C}/(n−m))\]</span></p>
 <p>where <span class="math">\(m\)</span> is the number assigned to treatment and <span class="math">\(s^2(x)=(1/n−1)∑^n_{i=1}(x_i–\bar{x})^2\)</span>. Here we compare the results of the simulation to this most common standard error as well as to the “true” version (which requires that we know the potential outcomes so as to calculate their covariance):</p>
@@ -159,7 +159,7 @@ NeymanSE&lt;-sqrt(diag(vcovHC(lm1,type=&quot;HC2&quot;)))[[&quot;Zrealized&quot;
 
 c(simSE=sd(simpleResults),feasibleSE=estSEEstATE, trueSE=seEstATE, olsIIDSE=iidSE, NeymanDesignSE=NeymanSE)</code></pre>
 <pre><code>##          simSE     feasibleSE         trueSE       olsIIDSE NeymanDesignSE 
-##      0.1940964      0.1951110      0.1950855      0.1941330      0.1941330</code></pre>
+##      0.1987746      0.2006865      0.2000352      0.1996805      0.1996805</code></pre>
 <p>We see that the feasible SE (also known as the conservative SE) and the true SE are the same to 3 digits here, where as the OLS versions are a bit smaller and the simulated standard error is also very close. These standard errors will diverge when covariates are introduced into the linear model. And, of course, the true version is rarely calculable since we don’t have access to the true potential outcomes.</p>
 </div>
 <div id="standard-errors-reflecting-cluster-assignment-of-treatment" class="section level2">
@@ -531,6 +531,83 @@ mat</code></pre>
 ## J=30       0.939   0.9349        0.9489
 ## J=100      0.945   0.9423        0.9457</code></pre>
 <p>In our simple setup, the individual-level approaches behave about the same way: neither the design-based nor the model-based approach produces valid statistical inferences until the number of clusters is at least 30. This makes sense: both approaches rely on central limit theorems so that a Normal law can describe the distribution of the test statistic under the null hypothesis. The cluster-level approach is always valid, but sometimes produces overly large confidence intervals (when the number of clusters is small). When the number of clusters is large (say, 100), then all approaches are equivalent in terms of their error rates. Designs with few clusters should consider either the cluster-level approach using the normal approximation shown here or even direct permutation based approaches to statistical inference. Of course, the code in this guide can be used to assess concerns about test validity at different numbers of clusters.</p>
+</div>
+</div>
+<div id="designing-powerful-cluster-randomized-studies-more-small-clusters-are-better-than-fewer-larger-ones" class="section level1">
+<h1>5 Designing powerful cluster randomized studies: more small clusters are better than fewer larger ones</h1>
+<p>We want designs which enable statistical tests to strongly discount hypotheses consistent with the data rarely and reject hypotheses inconsistent with the data often. Textbooks often say this by referring to the desire to reject false hypothesis often (a desire for powerful tests) and to not-reject true hypotheses rarely (a desire for valid tests). We’ve seen that clustered designs with few clusters can cause statistical tests to reject data-consistent hypotheses too frequently. That is, the assumptions required for the validity of common tests (typically, large numbers of observations, or large quantities of information in general) are challenged by clustered designs, and the tests which account for clustering can be invalid if the number of clusters is small (or information is low at the cluster level in general). We’ve also seen that we can produce valid statistical tests for hypotheses about the average treatment effect using either Robust Clustered Standard Errors (RCSE) or Multilevel models or using the cluster-level approach described by Hansen and Bowers (2008). Valid tests are a precondition for thinking about powerful tests. Since we know how to produce valid statistical inferences, we can then ask whether we can enhance our ability to detect average treatment effects (to distinguish them from zero) using design.</p>
+<p>The most important rule regarding the statistical power of clustered designs is that more small clusters are better than fewer larger ones. We will demonstrate this here. However, for some intuition consider again the formula for the effective sample size with equal sized clusters and no blocking.</p>
+<p><span class="math">\[\text{effective N} = \frac{J_n}{1+(n−1)ρ}\]</span></p>
+<p>Note that the size of each cluster <span class="math">\(n\)</span> is present in both the numerator and denominator, the number of clusters <span class="math">\(J\)</span> is only present in the numerator. The size of each cluster, then, will do very little to increase our power unless the within-cluster dependence (<span class="math">\(ρ\)</span>) is very small.</p>
+<p>Here we demonstrate two approaches to calculating the power of cluster-randomized research designs: a fast approach based on closed-form expressions for the power of tests from multilevel models and a slow approach based on simulation. A closed-form approach based on the expressions from the RCSE and the cluster-level approaches would also be possible. We do not provide those expressions for now, since the Multilevel approach appears both more complex in terms of deriving power formulas and roughly equivalent to the RCSE approach in terms of validity based on our previous simulations presented above.</p>
+<div id="analytic-model-based-power-analysis" class="section level2">
+<h2>5.1 Analytic Model-Based Power Analysis</h2>
+<p>Raudenbush and Liu (2000) and Raudenbush (1997) provide an expression for the power of a multilevel-model based test that enables quick evaluation of different multilevel design proposals defined by expected intracluster correlation (<span class="math">\(ρ\)</span>), the fixed false positive rate (<span class="math">\(α\)</span>), the effect size (Cohen’s <span class="math">\(d\)</span>)(which is a standardized measure of the treatment effect that is common in psychology and educational research — it is roughly twice the standardized difference of means or standardized OLS <span class="math">\(β\)</span>), the number of outcome units (<span class="math">\(n\)</span>), and the number of assignment units (<span class="math">\(J\)</span>). See Spybrook et al. (2011) for detailed explanations of these expressions.</p>
+<pre class="r"><code>crtpow2&lt;-function(alpha, d, rho, n, J){
+  # Raudenbush (1997) power function see for details: http://hlmsoft.net/od/od-manual-20111016-v300.pdf
+  ## rho=intraclass correlation [i.e. homogeneity within level-2 units]
+  ## alpha=alpha level (here, power=power to detect an effect size of d at a=.05--&gt;95% confidence level)
+  ## d=effect size [note: d=.2 is like standardized OLS beta=.1, see Snijders and Bosker(1999), page 147 and below]
+  ## n=number of level-1 units per level-2 unit
+  ## J=number of level-2 units
+  cpow &lt;- 1 - pt(q=qt(1 - alpha, J -2), df=J - 2, ncp=d/(sqrt((4 * (rho + (1 - rho)/ n))/J)))
+  cpow
+}</code></pre>
+<p>This function uses quantities that we have already discussed. However, the effect size is defined as the difference of means standardized by the sample standard deviation of the outcome. Here we explore how this effect size relates to other quantities in order to provide some intuition to guide use of the formula:</p>
+<pre class="r"><code>## About effect sizes measured as Cohen's d. How do they relate to a standardized mean difference?
+## The unstandardized effect is the simple difference of means:
+lmtemp&lt;-lm(Y~Zi,data=pretendDat)
+coef(lmtemp)[&quot;Zi&quot;]</code></pre>
+<pre><code>##        Zi 
+## 0.1666761</code></pre>
+<pre class="r"><code>## Simple estATE
+with(pretendDat,{ mean(Y[Zi==1]) - mean(Y[Zi==0]) })</code></pre>
+<pre><code>## [1] 0.1666761</code></pre>
+<pre class="r"><code>## Here are two ways to think of the standardized effect size used in crtpow2()
+## Cohen's d is this standardized effect
+my.pooled.sd&lt;-function(x,z){
+  ## x is the numeric variable
+  ## z is binary treatment
+  ### the.vars &lt;- tapply(x, z, var, na.rm = TRUE)
+  ### the.pooled.sd &lt;- sqrt(sum(the.vars)/2)
+  ## this next is faster and taken from pairwise.t.test
+  s &lt;- tapply(x, z, sd, na.rm = TRUE)
+  nobs &lt;- tapply(!is.na(x), z, sum)
+  degf &lt;- nobs - 1
+  total.degf &lt;- sum(degf)
+  return(sqrt(sum(s^2 * degf)/total.degf))
+ }
+
+thed&lt;-with(pretendDat,{ ( mean(Y[Zi==1])-mean(Y[Zi==0]) ) / my.pooled.sd(Y,Zi) })
+thed</code></pre>
+<pre><code>## [1] 0.1279626</code></pre>
+<pre class="r"><code>## or following  Section 7 in Spybrook et al 2011
+with(pretendDat,{ ( mean(Y[Zi==1])-mean(Y[Zi==0]) ) / sd(Y) })</code></pre>
+<pre><code>## [1] 0.1277649</code></pre>
+<pre class="r"><code>## This standardized effect is different from the standardized regression coefficient in which treatment itself is standardized
+## Standardized diff of means (regression beta)
+lm.beta&lt;-function(obj,term){
+  ## from QuantPsyc
+  b &lt;- coef(obj)[term]
+  sx &lt;- sd(obj$model[[term]])
+  sy &lt;- sd(model.response(obj$model))
+  beta &lt;- b * sx/sy
+  return(beta)
+}
+
+thetau&lt;-lm.beta(lmtemp,&quot;Zi&quot;)
+thetau</code></pre>
+<pre><code>##         Zi 
+## 0.06391444</code></pre>
+<pre class="r"><code>## Another version of the standardized regression coef:
+coef(lm(scale(Y)~scale(Zi),data=pretendDat))[2]</code></pre>
+<pre><code>##  scale(Zi) 
+## 0.06391444</code></pre>
+<pre class="r"><code>## So, a d of about .128 is a standardized reg coef of about .064
+(thed/thetau)[[1]]</code></pre>
+<pre><code>## [1] 2.002093</code></pre>
+<pre class="r"><code>## So to use this function thinking in terms of standardized regression coefficients, one would double the desired coefficient.
+## crtpow2(alpha=.05,d=.5,rho=0.3,n=10,J=50)</code></pre>
 </div>
 </div>
 <div class="footnotes">
