@@ -1,6 +1,6 @@
 ---
 title: "10 Things You Need to Know About Causal Inference"
-author: NA
+author: "Methods Guide Author: Macartan Humphreys"
 output: html_document
 ---
 
@@ -9,3 +9,23 @@ Abstract
 The philosopher David Lewis described causation as "something that makes a difference, and the difference it makes must be a difference from what would have happened without it."[^1] This is more or less the interpretation given to causality by most experimentalists. It is a simple definition but it has many implications that can trip you up. Here are ten ideas implied by this notion of causality that matter for research strategies.
 
 [^1]: Lewis, David. "Causation." The journal of philosophy (1973): 556-567.
+
+1 A causal claim is a statement about what didn't happen.
+==
+For most experimentalists the statement that "X caused Y" means that Y is present but Y would not have been present if X were not present. This is the "counterfactual" (or sometimes "difference making") approach to causality and it can be distinguished from the "production" approach (which focuses on the idea of a causal connection between A and B) 1. Under this approach there is no notion that just because X caused Y that X is the main reason or the only reason why Y happened, or even that X is "responsible" for Y.
+
+__Technical Note:__ Statisticians employ the "potential outcomes" framework to describe these counterfactual relations. In this framework we let $Y_i(1)$ denote the outcome for unit i that would be observed in condition 1 (e.g. treatment) and $Y_i(0)$ the outcome that would be observed, all else held constant, in condition 0 (e.g. control). The causal effect is then $τ_i=Y_i(1)−Y_i(0)$. A treatment has a (positive or negative) causal effect on Y if $Y_i(1)≠Y_i(0)$.[^2]
+
+[^2]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
+
+2 There is a fundamental problem of causal inference.
+==
+If causal effects are statements about the difference between what happened and what could have happened, then causal effects cannot be measured. That's the bad news. Prospectively, you can arrange things so you can see what happens if someone gets a treatment and if they do not get a treatment, but you cannot see both of these things and so you cannot see the difference between these two things. Technically this is called the fundamental problem of causal inference.
+
+3. You can estimate average causal effects even if you cannot observe any individual causal effects.
+==
+The fundamental problem notwithstanding, even if you cannot observe whether X caused Y in any given case, it can still be possible to figure out if X causes Y on average. The key insight here is that the average causal effect is the same as the difference between the average potential outcome for all units when they are in the control condition and the average potential outcome for all units when they are in the treatment condition. Many strategies for causal identification (see 10 Strategies for Causal Identification) focus on ways to figure out these average potential outcomes.
+
+__Technical Note:__ The key technical insight is that the difference of averages is the same as the average of differences. That is, using the "expectations operator," $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$. The terms inside the expectations operator in the second quantity can not be estimated, but the terms inside the expectations operators in the third quantity can be.[^3] See illustration here.
+
+[^3]: 
