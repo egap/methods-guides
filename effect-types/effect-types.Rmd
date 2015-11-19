@@ -1,9 +1,8 @@
 ---
-Author: NA
-Title: 10 Types of Treatment Effect You Should Know About
+title: "10 Types of Treatment Effect You Should Know About"
+author: "Methods Guide Author: Paul Testa"
 output: html_document
 ---
-
 
 Abstract
 ==

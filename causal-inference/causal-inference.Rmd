@@ -1,0 +1,11 @@
+---
+title: "10 Things You Need to Know About Causal Inference"
+author: NA
+output: html_document
+---
+
+Abstract
+==
+The philosopher David Lewis described causation as "something that makes a difference, and the difference it makes must be a difference from what would have happened without it."[^1] This is more or less the interpretation given to causality by most experimentalists. It is a simple definition but it has many implications that can trip you up. Here are ten ideas implied by this notion of causality that matter for research strategies.
+
+[^1]: Lewis, David. "Causation." The journal of philosophy (1973): 556-567.
