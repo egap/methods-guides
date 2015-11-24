@@ -132,8 +132,8 @@ When it comes to statistical power, the only thing that that’s under your cont
 
 However, the number of subjects is not the only design choice that has consequences for power. There are two broad classes of design choices that are especially important in this regard.
 
-*Choice of estimator. Are you using difference-in-means? Will you be doing some transformation, such as a logit or a probit? Will you be controlling for covariates? Will you be using some kind of robust standard error estimator? All of these choices will make a difference for the statistical significance of your results, and therefore for the power of your experiment. One easy way to think about this is to imagine what command you’ll be running in R or Stata after the experiment has come back; that’s your estimator!
-*Randomization Protocol. What kind of randomization will you be employing? Simple randomization gives all subjects an equal probability of being in the treatment group, and then performs a (possibly weighted) coin flip for each. Complete randomization is similar, but it ensures that exactly a certain number will be assigned to treatment. Block randomization is even more powerful — it ensures that a certain number within a subgroup will be assigned to treatment. A restricted random assignment rejects some random assignments based on some set of criteria — lack of balance perhaps. These various types of random assignment can dramatically increase the power of an experiment at no extra cost. Read up on randomization protocols here.
+* Choice of estimator. Are you using difference-in-means? Will you be doing some transformation, such as a logit or a probit? Will you be controlling for covariates? Will you be using some kind of robust standard error estimator? All of these choices will make a difference for the statistical significance of your results, and therefore for the power of your experiment. One easy way to think about this is to imagine what command you’ll be running in R or Stata after the experiment has come back; that’s your estimator!
+* Randomization Protocol. What kind of randomization will you be employing? Simple randomization gives all subjects an equal probability of being in the treatment group, and then performs a (possibly weighted) coin flip for each. Complete randomization is similar, but it ensures that exactly a certain number will be assigned to treatment. Block randomization is even more powerful — it ensures that a certain number within a subgroup will be assigned to treatment. A restricted random assignment rejects some random assignments based on some set of criteria — lack of balance perhaps. These various types of random assignment can dramatically increase the power of an experiment at no extra cost. Read up on randomization protocols here.
 
 There are too many choices to cover in this short article, but check out the Simulation for Power Analysis code page for some ways to get started. But to give a flavor of the simulation approach, consider how you would conduct a power analysis if you wanted to include covariates in your analysis.
 
@@ -141,13 +141,43 @@ If the covariates you include as control variables are strongly related to the o
 
 The answer is simulation.
 
-*Suppose we’re studying the effect of an educational intervention on income
-*Suppose we have good data on the relationship between two covariates and income: age and gender. In this economy, men earn more than women, and older people earn more than younger people.
-*Run a regression of income on age and gender and record the coefficients, using pre-existing survey data (better yet: use baseline data from future participants in your experiment!) *Generate fake covariate data — N total subjects, but broken up by age and gender in a way that reflects your experimental subject pool.
-*Generate fake control data — where the outcome is a function of age and gender according to your regression estimates
-*Hypothesize a treatment effect to generate fake treatment data
-*Run the experiment 10,000 times, and record how often, using a regression with controls, your experiment turns up significant.
+* Suppose we’re studying the effect of an educational intervention on income
+* Suppose we have good data on the relationship between two covariates and income: age and gender. In this economy, men earn more than women, and older people earn more than younger people.
+* Run a regression of income on age and gender and record the coefficients, using pre-existing survey data (better yet: use baseline data from future participants in your experiment!) *Generate fake covariate data — N total subjects, but broken up by age and gender in a way that reflects your experimental subject pool.
+* Generate fake control data — where the outcome is a function of age and gender according to your regression estimates
+* Hypothesize a treatment effect to generate fake treatment data
+* Run the experiment 10,000 times, and record how often, using a regression with controls, your experiment turns up significant.
 
 Here’s a graph that compares the power of an experiment that does control for background attributes to one that does. The R-square of the regression relating income to age and gender is pretty high — around .66 — meaning that the covariates that we have gathered (generated) are highly predictive. For a rough comparison, sigma, the level of background noise that the unadjusted model is dealing with, is around 33. This graph shows that at any N, the covariate-adjusted model has more power — so much so that the unadjusted model would need 1500 subjects to achieve what the covariate-adjusted model can do with 500.
 
-![]()
+![](https://raw.githubusercontent.com/egap/methods-guides/master/power/powergraph21.png)
+
+This approach doesn’t rely on a formula to come up with the probability of getting a statistically significant result: it relies on brute force! And because simulation lets you specify every step of the experimental design, you do a far more nuanced power analysis than simply considering the number of subjects.
+
+8 Power Analysis for Multiple Treatments
+==
+Many experiments employ multiple treatments which are compared both to each other and to a control group. This added complication changes what we mean when we say the “power” of an experiment. In the single treatment group case, power is just the probability of getting a statistically significant result. In the multiple treatment case, it can mean a variety of things: A) the probability of at least one of the treatments turning up significant, B) the probability of all the treatments turning up significant (versus control) or C) the probability that the treatments will be ranked in the hypothesized order, and that those ranks will be statistically significant.
+
+This question of multiple treatment arms is related to the problem of multiple comparisons. Standard significance testing is based on the premise that you’re conducting a single test for statistical significance, and the p-values derived from these tests reflect the probability under the null of seeing such a larger (or larger) treatment effect. If, however, you are conducting multiple tests, this probability is no longer correct. Within a suite of tests, the probability that at least one of the tests will turn up significant even when the true effect is zero is higher, essentially because you have more attempts. A commonly cited (if not commonly used) solution is to use the Bonferroni correction: specify the number of comparisons you will be making in advance, then divide your significance level (alpha) by that number.
+
+If you are going to be using a Bonferroni correction, then standard power calculators will be more complicated to use: you’ll have to specify your Bonferroni-corrected alpha levels and calculate the power of each separate comparison. To calculate the probability that all the tests are significant, multiply all the separate powers together. To calculate the probability that at least one of the tests is significant, calculate the probability that none are, then subtract from one.
+
+Or you can use simulation. An example of a power calculation done in R is available on the simulations page.
+
+9 How to Think About Power for Clustered Designs
+==
+When an experiment has to assign whole groups of people to treatment rather than individually, we say that the experiment is clustered. This is common in educational experiments, where whole classrooms of children are assigned to treatment or control, or in development economics, where whole villages of individuals are assigned to treatment or control.
+
+As a general rule, clustering decreases your power. If you can avoid clustering your treatments, that is preferable for power. Unless you face concerns related to spillover, logistics, or ethics, take the variation down to the lowest level that you can.
+
+The best case scenario for a cluster-level design is when which cluster a subject is in provides very little information about their outcomes. Suppose subjects were randomly assigned to clusters — the cluster wouldn’t help to predict outcomes at all. If the cluster is not predictive of the outcome, then we haven’t lost too much power to clustering.
+
+Where clustering really causes trouble is when there is a strong relationship between the cluster and the outcome. To take the villages example, suppose that some villages are, as a whole, much richer than others. Then the clusters might be quite predictive of educational attainment. Clustering can reduce your effective sample size from the total number of individuals to the total number of clusters.
+
+There are formulas that can help you understand the consequences of clustering — see Gelman/Hill page 447-449 for an extended discussion. While these formulas can be useful, they can also be quite cumbersome to work with. The core insight however is a simple one: you generally get more power from increasing the number of clusters than you do from increasing the number of subjects within clusters. Better to have 100 clusters with 10 subjects in each than 10 clusters with 100 subjects in each.
+
+Again, a more flexible approach to power analysis when dealing with clusters is simulation. See the simulations page [Link here] for starter code, or continue reading Gelman/Hill page 450-453 for another simulation approach.
+
+10 Good Power Analysis Makes Preregistration Easy
+==
+When you deal with power you focus on what you cannot control (noise) and what you can control (design). If you use the simulation approach to power analysis then you will be forced to imagine how your data will look and how you will handle it when it comes in. You will get a chance to specify all of your hunches and best guesses in advance, so that you can launch your experiments with clear expectations of what they can and cannot show. That’s some work but the good news is that if you really do it you are most of the way to putting together a comprehensive and registerable pre-analysis plan.
