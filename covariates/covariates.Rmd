@@ -10,3 +10,93 @@ This guide[^1] will help you think through when it makes sense to try to “cont
 
 [^1]: Lead author: Lindsay Dolan. Dolan is not responsible to subsequent edits to this document.
 
+1 What it is
+==
+“Covariates” are other characteristics (besides treatment) of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables you expect to change as a result of your intervention, e.g. expenditure decisions, attitudes toward democracy, contribution to a public good in a lab experiment. But it’s also a good idea to collect data on characteristics of subjects before they received the treatment, e.g. gender, level of education, ethnic group. If you do this you can explore how treatment effects are different across different types of subjects (see 10 Things about Heterogeneous Treatment Effects, forthcoming). But doing this also lets you perform covariate adjustment.
+
+You do covariate adjustment when you include this extra data on potentially explanatory variables when estimating treatment effects. Often this is done to improve precision. The outcomes you may be interested in, such as attitudes toward democracy, are likely to be influenced by other factors beside your treatment, even when there is a treatment effect. Accounting for variables like gender will allow you to set aside the variation in your dependent variable (your outcome) that is predicted by these background characteristics, so that you can identify the relationship between your treatment and your dependent variable with greater precision. When your findings are more precise, you can have greater confidence in your estiamtes of treatment effects.
+
+Because improving the precision of your estimate of a treatment effect is so desirable, researchers often collect extensive data on covariates. These are frequently gathered in the form of a baseline survey, which is issued before an experimental intervention takes place. Baseline surveys can ask individuals who are about to be assigned to either treatment or control about a number of factors that, in addition to their treatment status, are expected to influence the outcomes that will later be observed. A similar exercise is a pre-test. When a treatment is expected to influence an individual’s performance on a certain task, measuring their performance before treatment can provide a useful predictive source of data (so long as the occurrence of the pre-test does not itself affect a subject’s performance on a similar test administered after the treatment is or is not administered — see “7. When not to do it”).
+
+2 How to do it at the design stage (blocking)
+==
+The best way to control for covariates is to use block randomization to do it at the design stage even before you start your experiment. Block randomization enables you to create treatment and control groups that are balanced on certain covariates. For example, you might expect that gender and income predict the outcome variable in your experiment. If you use block randomization, it will ensure that treatment and control groups have equal proportions of female/high-income, female/low-income, male/high-income, and male/low-income populations. Specifying this means that it will be impossible to find a correlation between gender or income and your treatment, so there will be no reason to control for gender or income when you are analyzing your results.
+
+If you want more information on blocking and how to implement this in R, see [here](http://egap.org/methods-guides/10-things-you-need-know-about-randomization#2block).
+
+A word of caution: if your probability of assignment to treatment varies by block, then you need to control for the block in your analysis.
+
+3 How to do it in a regression
+==
+Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment has already been determined) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error. You can still adjust for covariates on the back end by using multiple regression. Remember that in a simple regression — when you regress your outcome on just your treatment indicator — the coefficient on your treatment indicator is just a difference-in-means: it’s the average effect your treatment has on the outcome. When we add covariates to the model, the coefficient on your treatment indicator is still your difference-in-means representing the treatment effect, but it is the estimated difference-in-means once we’ve predicted what our outcomes should look like for different individuals given their covariates. In other words, by using our knowledge of subjects’ background characteristics, we are better able to predict what their outcomes should be independent of treatment and therefore better estimate the overall average treatment effect.
+
+To adjust for covariates through multiple regression, use the model:
+
+$$Y_i = \alpha + \beta D_i + \gamma X_i + \epsilon_i$$
+
+where $Y_i$ is your outcome variable, $D_i$ is your treatment variable, and $X_i$ is your covariate. The remainder, $ϵ_i$ is your disturbance term — the leftover unexplained noise.
+
+Even better (see Lin 2013) include interactions with your treatment (and for ease of interpretation normalize the covariate to have zero mean):
+
+$$Y_i = \alpha + \beta D_i + \gamma X_i + \delta X_I*D_i + \epsilon_i$$
+
+Recall that in the blocked design described above, it was important to account for varying probabilities of assignment to treatment by block. Analogously, if subjects received different probabilities of assignment to treatment based on their covariates, then our multiple regression model would need to account for this. Suppose you encounter an experiment in which subjects received different probabilities of assignment to treatment based on their covariates. First ask yourself: did these different probabilities of assignment to treatment result from a design in which the experiments blocked on covariates and had probabilities that varied by block? If so, you should calculate each unit’s individual probability of assignment to treatment based on its block, then calculate the inverse of these probabilities, and use these as the weights in a weighted regression. In R, this is done by specifying weights= as an argument in the command lm().
+
+4 Why to do it
+==
+Collecting and adjusting for covariates is not necessary for an unbiased estimator, but under some conditions, which will be described below, it improves precision.[^2] In addition it can also help with conditional unbiasedness (see point 6 below).
+
+[^2]:  A brief review of these concepts: Our goal in an experiment is to estimate a treatment effect that is unbiased and precise. We reduce bias in our experiment by focusing on how we go about calculating the treatment effect; for example, we make sure that treatment was randomly assigned, and if it hadn’t been, we’d know that our difference-in-means estimator will be biased because it’s reflecting the factors that caused individuals to select into or to be selected into treatment. In other words, if we repeated the experiment a thousand times, we would find that our treatment effect on average is higher or lower than the actual underlying treatment effect. An unbiased estimator (which we get when we correct our experiment and reestablish random assignment!) can produce individual estimates of the treatment effect that are too high or too low, but when we take the average of a thousand treatment effects across a thousand experiments, we will recover the true one. But we also like our estimates to be precise. Precision refers to how variable our estimates of the treatment effect are across those thousand experimental replications. We would say that our estimator is precise if we get lots of estimates of the treatment effect that are close to the true treatment effect, and imprecise if we see a wide spread. Imagine that you are throwing a dart at a dart board. If you hit the center of the dart board on average but your shots are often frequently far from the mark, you have an unbiased but imprecise estimator. If you hit the center of the dart board every single time, your estimator is both unbiased and extremely precise.
+
+When treatment is randomly assigned, the difference-in-means estimator is an unbiased estimator of the treatment effect, because the only thing that should systematically differentiate your treatment and control groups is the assignment of treatment. For this reason, it is never necessary to conduct a baseline survey or to have data on covariates in order to estimate an unbiased treatment effect.
+
+However, different random assignments can produce different compositions of treatment and control groups along background covariates. In some random assignments, subjects with similar covariates that are predictive of their outcomes may randomly clump together in treatment or control groups. You might get several young unemployed men in one group and several older conservative women in another group. For this reason, the estimate of the treatment effect will be subject to “sampling variability,” meaning you’ll get estimates of the treatment effect that were generated from an unbiased estimator, but happened to miss the mark quite severely.[^3] A high sampling variability contributes to noise (imprecision), not bias.
+
+[^3]: “Sampling variability” refers to the spread of estimates that will be produced just because of the different random assignments that could have been drawn–will this spread be large or will it produce balanced treatment and control groups consistently? When the luck of the draw on random assignment produces a treatment group with several As in it and a control group with several Bs in it, it is more difficult to separate background characteristics (A and B) from treatment assignment as the predictor of the observed outcomes.
+
+Controlling for these covariates, which are known to be predictive of potential outcomes, corrects for this. Take a look at the following example, which is loosely based on the Gine and Mansuri experiment on female voting behavior in Pakistan. In this experiment, the authors randomized an information campaign to women in Pakistan to study its effects on their turnout behavior, the independence of their candidate choice, and their political knowledge. They carried out a baseline survey which provided them with several covariates.
+
+The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates potential outcomes (the outcome an individual would show if she were treated versus the outcome she would show if untreated) for a continuous measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. In other words, when we regress the observed outcome on treatment assignment, we should see a coefficient of 1 on “Z.” To figure out whether our estimator is biased or not, we simulate 10,000 possible treatment assignments, and then regress the 10,000 simulations of outcomes we would observe on those treatment assignments, with and without controlling for covariates. If the average of the 10,000 coefficients on our treatment variable is 1, then our coefficient must be unbiased, because although each individual randomization may be higher or lower than one, on average, we observe a treatment effect of 1.
+
+```{r, error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
+rm(list=ls())
+
+set.seed(20140714)
+N <- 2000
+id <- seq(from=1,to=N)
+
+# define pre-treatment covariates
+ownsidcard <- rbinom(n=N,size=1,prob=.18)
+hasformalschooling <- rbinom(n=N,size=1,prob=.6)
+age <- round(rnorm(n=N, mean=37, sd=16))
+age[age<18] <- 18
+age[age>65] <- 65
+TVaccess <- rbinom(n=N,size=1,prob=.7)
+
+#define potential outcomes correlated with pre-treatment covariates
+indepchoiceY0 <- round(ownsidcard+2*hasformalschooling+3*TVaccess+log(age))
+indepchoiceY1 <- indepchoiceY0+1
+
+#assign treatment 10000 times
+Z_mat <- replicate(10000,ifelse(1:N %in% sample(1:N,1000),1,0))
+
+#observe 10000 simulations of potential outcomes
+indepchoice_mat <- indepchoiceY1*Z_mat+indepchoiceY0*(1-Z_mat)
+
+#estimate ATE on indepchoice
+ate <- function(Y,Z) summary(lm(Y~Z))$coef[2,1]
+ate.covs <- function(Y,Z)
+  summary(lm(Y~Z+ownsidcard+hasformalschooling+age+TVaccess))$coef[2,1]
+dist <- rep(NA, 10000)
+dist.covs <- rep(NA, 10000)
+for (i in 1:10000) {
+  dist[i] <- ate(indepchoice_mat[,i],Z_mat[,i])
+  dist.covs[i] <- ate.covs(indepchoice_mat[,i],Z_mat[,i])}
+
+#look at bias and precision in our results
+mean(dist) # unbiased!
+mean(dist.covs) # unbiased!
+sd(dist) # less precise
+sd(dist.covs) #more precise
+```
+
