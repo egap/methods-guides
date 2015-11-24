@@ -638,8 +638,6 @@ The expressions we used above allow researchers to quickly assess many different
 
 The general idea should be familiar: first create a dataset to represent the design, relationships and variability you expect to see in your study, then test hypotheses which are both consistent with the data (to assess error rate) and inconsistent with the data (to assess power). If you have access to baseline data, or data on outcomes like the outcomes that you expect to gather, we encourage you to use them rather than the normally distributed random variables that we use here. For example, we expect power and validity will require larger studies if the outcomes are binary or very skewed.
 
-SOMETHING IN THESE CHUNKS TAKES FOREVER--LOOK INTO IT
-
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 testH0andHtrue<-function(tau,totJ,n,rho) {
   ## Make data:
@@ -697,6 +695,7 @@ testH0andHtrue<-function(tau,totJ,n,rho) {
 
 This next code chunk evaluates that preceding function 1000 times for each triple of $n$, $J$, and $τ$ (holding the ICC at .2).
 
+PROBLEMS WITH THIS CODE CHUNK
 ```{r, error=FALSE, warning=FALSE, message=FALSE}
 theJ<-c(4,8,10,20,30,50,80,100,200)
 thenj<-c(4,8,10,20,30,50,80,100)
@@ -739,3 +738,111 @@ results$hb.zero<-1-results$hb.zero
 
 This next plot shows how the error rates change depending on the number of clusters. The vertical variability in the points plotted reflects the different effect sizes and cluster sizes. The dashed lines show the bounds that we would expect for simulation-to-simulation variability around the .95 line. We see that the OLS+RCSE and Multilevel model approaches do not produce valid tests in these scenarios until the the number of clusters is at least 30 if not 50.
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/cluster-random/errorplots-1.png)
+
+This next plot shows how power to detect an effect of $τ$ changes for the three approaches to statistical inference in cluster-randomized designs when (1) the number of clusters increases (within each plot on the x-axis) and the (2) effect size ($τ$) increases from .1 to 1 (different plots running from left to right on each row). The different lines on each plot show different cluster sizes. The cluster-sizes with the minimum and maximum power are labelled for each $J$. We compare the three approaches to statistical inference used here: the Cluster-level approach, the OLS+RCSE approach, and the Multilevel model approach. We see that as the effect size increases power increases and that increasing cluster size matters much less than increasing the number of clusters. All three approaches provide more or less the same power for a given collection of $J$, $n_j$, effect size and $ρ$. We do not show power for $J<30$ for the OLS+RCSE and the Multilevel approaches given the problems with error rates in those procedures that we discovered above.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/cluster-random/powerplots-1.png)
+
+6 Randomization Checks in Clustered Designs
+==
+##6.1 Why check randomization in a randomized experiment?
+
+There are two reasons to check randomization after treatment has been assigned. First, in small experiments, like those in which the cost of administering a treatment to another cluster is high, a background covariate of substantive importance may have an accidental and unlucky relationship with treatment assignment. Imagine that neighborhoods with highly educated households end up particularly prevalent in the treatment group during a study of voter turnout. A comparison of treated to untreated neighborhoods would then reflect both the differences in education between neighborhoods and as well as the treatment itself. If the covariate were available during the design stage of the study, one could use randomization tests to ensure balance at that stage by doing re-randomization (although blocking would make the analysis simpler — see Morgan and Rubin (2012)). Second, and more rarely, a randomization test can detect errors in the administration of treatment. Finding that the treatment was disproportionately allocated to highly educated neighborhoods might lead a researcher to take a second look at what happened in the field after treatment was assigned.
+
+##6.2 How to check randomization?
+
+Randomization checks in clustered designs follow the same form as the preceding discussion. A valid test for a treatment effect is a valid test for placebo or covariate balance. The only difference from our preceding discussion is that one uses a background covariate or baseline outcome — some variable putatively uninfluenced by the treatment — in place of the outcome itself. So, randomization tests with small numbers of clusters may be too quick to declare an experiment ill-randomized if the analyst is not aware of the methods of error-rate analysis that we described above.
+
+One new problem does arise in the context of randomization tests. Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself. And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare “imbalance” when $p<.05$ would do so falsely for one in every twenty variables tested. For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the Hansen and Bowers (2008) $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly. However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
+
+Since cluster randomized experiments tend to have cluster-level covariates (say, village size, etc..), balance checks at the cluster level make sense and do not require explicit changes to account for clustered-assignment. Hansen and Bowers (2008) develop such a test and provide software to implement it. So, for example, if we had 10 covariates measured at the village level, and we had a large number of villages, we could assess an omnibus balance hypothesis using this design-based but large-sample tool.
+
+Here we show only the omnibus test results. The one-by-one assessments that make up the omnibus test are also available in the `xb1` object. Here, the omnibus test tell us that we have little information against the null that these observations arose from a randomized study.
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+library(RItools)
+options(digits=3)
+
+## Make a village level dataset
+villageDat<-aggregate(pretendDat,by=list(village=pretendDat$J),mean)
+
+## Generate 40 fake covariates
+set.seed(12345)
+villageDat[paste("x",1:40,sep="")]<-matrix(rnorm(nrow(villageDat)*40),ncol=40)
+balfmla<-reformulate(paste("x",1:40,sep=""),response="Zi")
+## Do a design-based, Large sample balance test.
+xb1<-xBalance(balfmla, 
+              strata=list(noblocks=NULL),
+              data=villageDat,
+              report=c("std.diffs","z.scores","adj.means",
+                    "adj.mean.diffs", "chisquare.test","p.values"))
+## print(xb1$results) ### to see the one-by-one tests
+
+## Show the 10 of 40 one-by-one tests with the lowest p-values
+kable(xb1$results[order(xb1$results[,"p",]),,][1:10,])
+
+## Show the overall omnibus p-value
+kable(xb1$overall)
+
+## Plot the standardized differences
+plot(xb1)
+```
+
+In this case, we cannot reject the omnibus hypotheses of balance even though, as we expected, we have a few covariates with falsely low p-values. One way to interpret this omnibus result is to say that such imbalances on a few covariates would not appreciably change any statistical inferences we make about treatment effects as long as these covariates did not strongly predict outcomes in the control group. Alternatively, we could say that any large experiment can tolerate chance imbalance on a few covariates (no more than roughly 5% if we are using $α=.05$ as our threshold to reject hypotheses).
+
+References
+==
+Arceneaux, Kevin, and David W Nickerson. 2009. “Modeling Certainty with Clustered Data: A Comparison of Methods.” Political Analysis 17 (2). SPM-PMSAPSA: 177–90.
+
+Barnard, J., C.E. Frangakis, J.L. Hill, and D.B. Rubin. 2003. “Principal Stratification Approach to Broken Randomized Experiments: A Case Study of School Choice Vouchers in New York City.” Journal of the American Statistical Association 98 (462). American Statistical Association: 299–324.
+
+Bates, Douglas, Martin Maechler, Ben Bolker, and Steven Walker. 2014a. lme4: Linear Mixed-Effects Models Using Eigen and S4. http://CRAN.R-project.org/package=lme4.
+
+Bates, Douglas, Martin Maechler, Benjamin M. Bolker, and Steven Walker. 2014b. “lme4: Linear Mixed-Effects Models Using Eigen and S4.” http://arxiv.org/abs/1406.5823.
+
+Dunning, Thad. 2012. Natural Experiments in the Social Sciences: A Design-Based Approach. Cambridge University Press.
+
+Gelman, A., and J. Hill. 2007. Data Analysis Using Regression and Multilevel/Hierarchical Models. Cambridge University Press.
+
+Gelman, Andrew, John B Carlin, Hal S Stern, David B Dunson, Aki Vehtari, and Donald B Rubin. 2013. Bayesian Data Analysis. CRC press.
+
+Gerber, A.S., and D.P. Green. 2012. Field Experiments: Design, Analysis, and Interpretation. WW Norton.
+
+Green, D.P., and L. Vavreck. 2007. “Analysis of Cluster-Randomized Experiments: A Comparison of Alternative Estimation Approaches.” Political Analysis. SPM-PMSAPSA.
+
+Hansen, B, and J Bowers. 2009. “Attributing Effects to a Cluster Randomized Get-Out-the-Vote Campaign.” Journal of the American Statistical Association 104 (487): 873—885. doi:10.1198/jasa.2009.ap06589.
+
+Hansen, B., and J. Bowers. 2008. “Covariate Balance in Simple, Stratified and Clustered Comparative Studies.” Statistical Science 23 (2): 219–36.
+
+Hong, Guanglei, and Stephen W Raudenbush. 2006. “Evaluating Kindergarten Retention Policy.” Journal of the American Statistical Association 101 (475).
+
+Imai, K., G. King, and C. Nall. 2009. “The Essential Role of Pair Matching in Cluster-Randomized Experiments, with Application to the Mexican Universal Health Insurance Evaluation (with Discussion).” Statistical Science 24 (1): 29–72.
+
+Kish, L. 1965. Survey Sampling. New York, NY: John Wiley; Sons.
+
+Mathieu, John E, Herman Aguinis, Steven A Culpepper, and Gilad Chen. 2012a. “Understanding and Estimating the Power to Detect Cross-Level Interaction Effects in Multilevel Modeling.” Journal of Applied Psychology 97 (5). American Psychological Association: 951.
+
+———. 2012b. “‘Understanding and Estimating the Power to Detect Cross-Level Interaction Effects in Multilevel Modeling’: Correction to Mathieu, Aguinis, Culpepper, and Chen (2012).” Journal of Applied Psychology. American Psychological Association.
+
+Middleton, J.A. 2008. “Bias of the Regression Estimator for Experiments Using Clustered Random Assignment.” Statistics & Probability Letters 78 (16). Elsevier: 2654–59.
+
+Middleton, Joel A, and Peter M Aronow. 2011. “Unbiased Estimation of the Average Treatment Effect in Cluster-Randomized Experiments.” Available at SSRN 1803849.
+
+Morgan, Kari Lock, and Donald B Rubin. 2012. “Rerandomization to Improve Covariate Balance in Experiments.” The Annals of Statistics 40 (2). Institute of Mathematical Statistics: 1263–82.
+
+R Core Team. 2014. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. http://www.R-project.org/.
+
+Raudenbush, S.W. 1997. “Statistical analysis and optimal design for cluster randomized trials.” Psychological Methods 2 (2): 173–85.
+
+Raudenbush, S.W., and X. Liu. 2000. “Statistical power and optimal design for multisite randomized trials.” Psychological Methods 5 (2): 199–213.
+
+Raudenbush, Stephen W, Andres Martinez, and Jessaca Spybrook. 2007. “Strategies for Improving Precision in Group-Randomized Experiments.” Educational Evaluation and Policy Analysis 29 (1). Sage Publications: 5–29.
+
+Small, D.S., T.R. Ten Have, and P.R. Rosenbaum. 2008. “Randomization Inference in a Group Randomized Trial of Treatments for Depression: Covariate Adjustment, Noncompliance, and Quantile Effects.” Journal of the American Statistical Association 103 (481). American Statistical Association: 271–79.
+
+Spybrook, Jessaca, Howard Bloom, Richard Congdon, Carolyn Hill, Andres Martinez, Stephen Raudenbush, and APPLIES TO. 2011. “Optimal Design Plus Empirical Evidence: Documentation for the Optimal Design Software.” William T. Grant Foundation. Retrieved on November 5: 2012.
+
+Stoker, L., and J. Bowers. 2002. “Erratum to ‘Designing Multi-Level Studies: Sampling Voters and Electoral Contexts’ [Electoral Studies 21 (2002) 235-267].” Electoral Studies 21 (3): 535–36. doi:10.1016/S0261-3794(02)00011-2.
+
+Stoker, Laura, and Jake Bowers. 2002. “Designing Multi-Level Studies: Sampling Voters and Electoral Contexts.” Electoral Studies 21 (2): 235–67.
