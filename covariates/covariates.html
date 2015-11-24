@@ -138,6 +138,8 @@ mean(dist) # unbiased!
 mean(dist.covs) # unbiased!
 sd(dist) # less precise
 sd(dist.covs) #more precise</code></pre>
+<p>Indeed, both models–with and without covariates–yield the true treatment effect of 1. When we ran this regression without covariates, our estimated average treatment effect was 1.00085, and with covariates, it was 1.00013.</p>
+<p>The real gains come in the precision of our estimates. The standard error, or the standard deviation of the sampling distribution, of our treatment effect when we ignore covariates was .076. When we include covariates in the model, though, our estimate becomes much tighter: the standard error of the treatment effect is .013. Because our covariates were prognostic of our outcome, including them in the regression explained some noise in our data so that we could tighten our estimate of the treatment effect.</p>
 </div>
 <div class="footnotes">
 <hr />
