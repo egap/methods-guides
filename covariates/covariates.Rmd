@@ -1,0 +1,12 @@
+---
+title: "10 Things to Know About Covariate Adjustment"
+author: 'Methods Guide Author: Lindsay Dolan'
+output: html_document
+---
+
+Abstract
+==
+This guide[^1] will help you think through when it makes sense to try to “control for other things” when estimating treatment effects. Economists control a lot, medical science use controls less, and political scientists control less clearly. We focus on the big ideas and provide examples and tools you can use in R.
+
+[^1]: Lead author: Lindsay Dolan. Dolan is not responsible to subsequent edits to this document.
+
