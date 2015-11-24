@@ -115,6 +115,48 @@ img {
   return(beta) 
   } </code></pre>
 </div>
+<div id="when-to-believe-your-power-analysis" class="section level1">
+<h1>5 When to Believe Your Power Analysis</h1>
+<p>From some perspectives the whole idea of power analysis makes no sense. You want to figure out the size of some treatment effect but first you need to do a power analysis which requires that you already know your treatment effect and a lot more besides.</p>
+<p>So in most power analyses you are in fact seeing what happens with numbers that are to some extent made up. The good news is that it is easy to find out how much your conclusions depend on your assumptions: simply vary your assumptions and see how the conclusions on power vary.</p>
+<p>This is most easily seen by thinking about how power varies with the number of subjects. A power analysis that looks at power for different study sizes simply plugs in a range of values in for N and seeing how β changes.</p>
+<p>Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.</p>
+<iframe height="150" src="https://egap.shinyapps.io/Power_Calculator/" style="border: none; width: 440px; height: 500px;" width="300">
+</iframe>
+</div>
+<div id="how-to-use-simulation-to-estimate-power" class="section level1">
+<h1>6 How to Use Simulation to Estimate Power</h1>
+<p>Power is a measure of how often, given assumptions, we would obtain statistically significant results, if we were to conduct our experiment thousands of times. The power calculation formula takes assumptions and return an analytic solution. However, due to advances in modern computing, we don’t have to rely on analytic solutions for power analysis. We can tell our computers to literally run the experiment thousands of times and simply count how frequently our experiment comes up significant.</p>
+<p>The code block below shows how to conduct this simulation in R.</p>
+<pre class="r"><code>possible.ns &lt;- seq(from=100, to=2000, by=50) # The sample sizes we'll be considering 
+powers &lt;- rep(NA, length(possible.ns)) # Empty object to collect simulation estimates 
+alpha &lt;- 0.05 # Standard significance level 
+sims &lt;- 500 # Number of simulations to conduct for each N 
+
+#### Outer loop to vary the number of subjects #### 
+for (j in 1:length(possible.ns)){ N &lt;- possible.ns[j] # Pick the jth value for N 
+                                  
+significant.experiments &lt;- rep(NA, sims) # Empty object to count significant experiments 
+                                  
+  #### Inner loop to conduct experiments &quot;sims&quot; times over for each N #### 
+  for (i in 1:sims){ 
+        Y0 &lt;- rnorm(n=N, mean=60, sd=20) # control potential outcome 
+        tau &lt;- 5 # Hypothesize treatment effect 
+        Y1 &lt;- Y0 + tau # treatment potential outcome 
+        Z.sim &lt;- rbinom(n=N, size=1, prob=.5) # Do a random assignment 
+        Y.sim &lt;- Y1*Z.sim + Y0*(1-Z.sim) # Reveal outcomes according to assignment 
+        fit.sim &lt;- lm(Y.sim ~ Z.sim) # Do analysis (Simple regression) 
+        p.value &lt;- summary(fit.sim)$coefficients[2,4] # Extract p-values 
+        significant.experiments[i] &lt;- (p.value &lt;= alpha) # Determine significance according to p &lt;= 0.05
+        }
+  powers[j] &lt;- mean(significant.experiments) # store average success rate (power) for each N 
+  } 
+powers </code></pre>
+<pre><code>##  [1] 0.228 0.366 0.434 0.490 0.588 0.682 0.694 0.754 0.780 0.822 0.858
+## [12] 0.906 0.916 0.946 0.956 0.944 0.958 0.968 0.990 0.976 0.982 0.984
+## [23] 0.992 0.996 0.996 0.998 0.996 1.000 0.998 1.000 1.000 1.000 1.000
+## [34] 1.000 1.000 1.000 1.000 1.000 1.000</code></pre>
+</div>
 <div class="footnotes">
 <hr />
 <ol>

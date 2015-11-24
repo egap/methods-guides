@@ -75,3 +75,48 @@ power_calculator <- function(mu_t, mu_c, sigma, alpha=0.05, N){
   } 
 ```
 
+5 When to Believe Your Power Analysis
+==
+From some perspectives the whole idea of power analysis makes no sense. You want to figure out the size of some treatment effect but first you need to do a power analysis which requires that you already know your treatment effect and a lot more besides.
+
+So in most power analyses you are in fact seeing what happens with numbers that are to some extent made up. The good news is that it is easy to find out how much your conclusions depend on your assumptions: simply vary your assumptions and see how the conclusions on power vary.
+
+This is most easily seen by thinking about how power varies with the number of subjects. A power analysis that looks at power for different study sizes simply plugs in a range of values in for N and seeing how β changes.
+
+Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.
+
+<iframe height="150" src="https://egap.shinyapps.io/Power_Calculator/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+
+6 How to Use Simulation to Estimate Power
+==
+Power is a measure of how often, given assumptions, we would obtain statistically significant results, if we were to conduct our experiment thousands of times. The power calculation formula takes assumptions and return an analytic solution. However, due to advances in modern computing, we don’t have to rely on analytic solutions for power analysis. We can tell our computers to literally run the experiment thousands of times and simply count how frequently our experiment comes up significant.
+
+The code block below shows how to conduct this simulation in R.
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+possible.ns <- seq(from=100, to=2000, by=50) # The sample sizes we'll be considering 
+powers <- rep(NA, length(possible.ns)) # Empty object to collect simulation estimates 
+alpha <- 0.05 # Standard significance level 
+sims <- 500 # Number of simulations to conduct for each N 
+
+#### Outer loop to vary the number of subjects #### 
+for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Pick the jth value for N 
+                                  
+significant.experiments <- rep(NA, sims) # Empty object to count significant experiments 
+                                  
+  #### Inner loop to conduct experiments "sims" times over for each N #### 
+  for (i in 1:sims){ 
+        Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
+        tau <- 5 # Hypothesize treatment effect 
+        Y1 <- Y0 + tau # treatment potential outcome 
+        Z.sim <- rbinom(n=N, size=1, prob=.5) # Do a random assignment 
+        Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Reveal outcomes according to assignment 
+        fit.sim <- lm(Y.sim ~ Z.sim) # Do analysis (Simple regression) 
+        p.value <- summary(fit.sim)$coefficients[2,4] # Extract p-values 
+        significant.experiments[i] <- (p.value <= alpha) # Determine significance according to p <= 0.05
+        }
+  powers[j] <- mean(significant.experiments) # store average success rate (power) for each N 
+  } 
+powers 
+```
+
