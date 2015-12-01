@@ -9,3 +9,6 @@ Abstract
 This guide gives basic information to help you understand how to interpret the results of the regression techniques that are now commonly used in social science research. The guide focuses on regression, but also includes information on confidence intervals. This guide uses the statistical programming tool R in all of its examples. To learn more about R and to download it, click [here](https://www.r-project.org).
 
 The table below that will be used throughout this methods guide is from a study done by EGAP members Miriam Golden, Eric Kramon and their colleagues called Protecting the Polls: The Effect of Observers on Election Fraud. The authors perform a field experiment in Ghana in 2012 to test the effectiveness of domestic election observers on combating two common electoral fraud problems: ballot stuffing and overvoting. Overvoting occurs when more votes are cast at a polling station than reflects the number of voters registered and ballot stuffing occurs when more ballots are found in a ballot box than are known to have been distributed to voters. This table contains a multiple regression (this is a concept that will be further explained below) from their experiment that explores the effects of domestic election observers on ballot stuffing.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/reg-table/reg.png)
+
