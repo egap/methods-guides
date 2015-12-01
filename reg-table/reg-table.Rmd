@@ -12,3 +12,99 @@ The table below that will be used throughout this methods guide is from a study 
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/reg-table/reg.png)
 
+1 What a regression is 
+==
+Regression is a method for calculating the line of best fit. Given any treatment (or “independent variable”) it provides a way of making as good a guess as possible about an outcome (or “dependent variable”). The dependent variable represents the output or effect, or it is the variable that is tested to see if it is the actual effect. The independent variable represents the inputs or causes, or they are the variables that are tested to see if they are the causes.
+
+Independent and dependent variables have many synonyms and it is helpful to be familiar with them. They are the input and output variable, right hand side and left hand side variables, explanans and explanadum, exogenous and endogenous variables, regressor and regressand, predictor variable and the criterion variable, controlled variable and the measured variable, among many others. The first thing you need to do when you see a regression table is to figure out what the dependent variable is- this is often written at the top of the column. Afterwards identify the most important independent variables. You will base your interpretation on these.
+
+A positive relationship in a regression means that when the independent variable increases, the dependent variable (or at least the best guess of the dependent variable) increases linearly. A negative relationship means that when independent variable decreases, the dependent variable increases equivalently or vice versa. Regressions can be run to test many different relations. You might run a regression to determine how much more money you would predictably earn for every additional year of education or you might run a regression to determine the likelihood of success based on hours practiced in a given sport.
+
+Use the app below to get a feel for what a regression is and what it does. Below we will talk through the output of the regression Table. For the app below put in values for x and for y and then look to see how the “best fit” line changes to capture the average relation between x and y. As the line changes so too does the key information in the regression table.
+
+<iframe height="150" src="https://egap.shinyapps.io/Regression101/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+
+2 What the underlying equation is 
+==
+This is the formula for a regression that contains only two variables:
+
+$$Y=α+βX+ε$$
+
+The Y on the left side of the equation is the dependent variable. The α is the alpha and it represents the intercept, which is where the line hits the y-axis, i.e. where Y equals 0, of the graph. The β, the Beta coefficient, is called the slope coefficient and it represents the change in the dependent variable for one unit of change in the independent variable (Beta coefficient) while holding other predictors (aka variables) in the model constant.
+
+It’s really all about Beta. Whether or not the Beta coefficient is positive or negative indicates the type of relationship between the variables. The Beta coefficient represents either an increase or a decrease in the rate of ballot stuffing when paired with the independent variable. For instance (see the Table), when the presence of observers increases by one unit, the occurrence of ballot stuffing decreases by -.037 units and for every one unit increase in competition, there was a .019 unit increase in ballot stuffing. Note implicitly there is an assumed linear relationship (though different models can relax this): when X goes up by so much, $Y$ goes up by so much. The ε is the epsilon and this represents the error of the equation.
+
+Why would you want to fit a line to data? Perhaps because you think that there is a linear relationship and you want to estimate it; but maybe you just want a way to summarize a relationship.
+
+When there is one dependent variable and many independent variables, it is called a multiple regression. This type of regression is very commonly used. It is a statistical tool used to derive the value of the dependent variable from several other independent variables.
+
+The example table (see above) looks at how the dependent variable, fraud in the form of ballot stuffing, is affected by the presence of the following factors/independent variables: election observers, how saturated the area is, the electoral competition in the area, and the density. The regression will show if any of these independent variables have an effect on the dependent variable.
+
+3 What the purpose of a regression is: testing and estimation
+==
+Regressions can be run for two distinct purposes: testing and estimation.
+
+Before a researcher runs a regression, they first form a hypothesis. In the example, the researchers hypothesize that an increase in the presence of domestic election observers will correlate with a decrease in ballot stuffing. All hypotheses are structured in the same way: with an alternative and a null hypothesis. The alternative hypothesis states what the researcher is trying to prove; the null hypothesis states the opposite. For instance, the null hypothesis of the program seeing a decrease in ballot stuffing would be that the rates either decreased or remained the same demonstrating that program has had no effect. Support for the alternative hypothesis is obtained by rejecting the null hypothesis and the researcher does this by running a regression and interpreting the results found in the regression table.
+
+Regressions also help to estimate relationships between variables. Why would you want to do this?
+
+4 The difference between population and sample 
+==
+The goal of statistics is to learn from the observed properties of a sample (n) about the unknown properties of a larger population (N). In order for results to be reliable, a bigger N is usually better (usually). Large-n studies are generally more precise.
+
+In the table we are examining, n is listed as “Observations” and it is 2,004. The researchers observed a sample of 2,004 polling stations in Ghana.
+
+5 What the standard errors, p-values, degrees of freedom and t-statistics are 
+==
+__Standard Error__
+
+The standard error (SE) is an estimate of the standard deviation of an average; here it represents the amount of uncertainty in the estimate of a coefficient. It is most typically found in parenthesis next to or below the coefficient in the regression table. It can be thought of as a measure of the precision with which the regression coefficient is measured. And the smaller the SE value, the more precisely the model is able to estimate the coefficient.
+
+In the Golden and Kramon example table, they use __robust standard error__, which is different than regular standard error and slightly more complicated. Robust standard error is used when the regression violates the classic assumptions behind linear regression. The data is neither linear nor valid, normal, independent, nor do the errors have equal variance.
+
+__p-Value__
+
+What does the p-value do? It tells you whether some estimated relationship is statistically significant. It is the probability of seeing such a strong relationship, if in fact some null hypothesis is true (e.g. the probability that we would estimate an effect of 3 or more if indeed there were no relationship between X and Y). These p-values help us determine if an effect is statistically significant or if we can reject the null hypothesis. Statistical significance means that a result is probably not due to chance. Critical values for the p-values are generally set to three different “alpha levels,” .01, .05, and .1. When a researcher decides to use one of these values they are setting that threshold to determine significance. In social sciences, the alpha level of .05 is most commonly used. If a p-value is below the alpha level of .05, it means the effects are statistically significant and an asterisk is usually printed next to the value on the table.
+
+In the table, all of the p-values except for that of the constant (aka intercept) are not statistically significant because only one of them is less than the designated alpha threshold of .05. This is made clear in the table because where the p-value is less than .05, the coefficient it is marked with two asterisks. There is a legend that tells you this is at the bottom of the table and also shows what symbols/asterisks will be used for p-values when the alpha level is set at .01 or .1. What does it mean that the constant is significant? The constant is the value of the Y when X equals zero (aka the baseline measure of the ballot stuffing). In this case it does not mean much, nor does its interpretation add much meaning to the regression. Overall this table shows a weak model where ballot stuffing is poorly predicted by the independent variables.
+
+__Degrees of Freedom__
+
+The fit of a model depends on the the number of independent pieces of information available to generate estimates, or the "degrees of freedom,"  or "df." This information can be seen in the output related to the F statistic. The model df is the number of coefficients estimated minus 1. The residual degrees of freedom is the df total (60; based on the number of constituencies they chose for blocking) minus the df model minus the df model, 59 - 4 =55. The model and the residual degrees of freedom are sometimes reported in the description of the F test which is used to assess the overall fit of the model (or more precisely to test whether it is plausible we see data like we do if none of the explanatory variables were relevant).
+
+F (5;59)= 1.43
+
+The 1.43 value given here is the F-statistic, which is the Mean Square Model divided by the Mean Square Residual and used to perform the F test. The p-value associated with the F-statistic is .223, which is above alpha significance levels, showing that the model featured here isn't strong.
+
+__t-Statistic__
+
+The t-statistic is also used to reveal whether the averages of two groups are statistically different from each other. If there is a difference, we can assume that the treatment has had an effect. The top of the ratio contains the obtained difference between the sample average and the hypothesized population average. The bottom of the ratio is the standard error, which measures how much difference is expected by chance. In fact t-statistics carry the same information as p values so usually you only see one or other of them reported. Generally a high t means a low p and vice versa.
+
+6 What the  R²  means
+==
+R² is the squared multiple correlation coefficient, which is also known as the Coefficient of Determination. In per cent form, R² gives the variability of the dependent variable explained by the regression. The larger the R² is, the better the fit of the regression model. And a model fits the data well if the differences between the actual values and the values predicted by the regression are small and unbiased. The R² is generally of secondary importance, unless your main concern is using the regression equation to make accurate predictions. It is always between 0 and 1 so if the independent variables are strong predictors, the R² will be closer to 1. It is possible however that a statistically strong relationship between X and Y is found even if the R² is low; this just means that we are confident in the relation between X and Y, but also know that X does not explain a lot of the variation in Y.
+
+In the example table, the R² value is .0011 showing that in this case, the independent variable does not account for a lot of the variation in the dependent variable. Theoretically, if a model could explain all of the variance, the values predicted by the regression would always equal the actual values observed and, therefore, all the data points would fall on the fitted regression line and the R² would be 1.
+
+__What about the adjusted R²?__ 
+
+The adjusted R² is a modified version of R² that has been adjusted for the number of predictors (aka variables) in the model. Sometimes this is included in the regression. This figure only becomes relevant when more than one variable is used in the model, such as in our multiple regression. The adjusted R² increases only if the new variable improves the model more than would be expected by chance. It decreases when a variable improves the model by less than statistical significance. The adjusted R² is always lower than the R². This can help you determine which variables in your multiple regression add nothing and can be removed. Adjusted R² isn’t included in this table, but we can make an educated guess as to what the value would be based upon the rest of the model. It is likely that this would be negative.
+
+7  What the confidence intervals mean
+==
+Confidence intervals are frequently seen in social science research papers and occasionally are included in regression tables. What do they do? They help you to put the estimate from the coefficient into perspective by seeing how much the value could vary over repeated tries. These are also done based upon either an alpha level of .1, .05, or .01. The most commonly used alpha value for confidence intervals is also .05. The confidence interval should be read as “there is 95% confidence that, after numerous repeated tries, the results will fall in between the following intervals.” An alpha level of .01 would imply a smaller interval because you would be using 99% confidence and an alpha level of .1 would imply a larger interval because you are using 90% (less) confidence. You can know that a confidence interval has statistically significant results when the interval does not include zero. If one of the possible results is zero, this means that the results are likely not significant.
+
+In the regression table we are examining, confidence intervals are featured in the right-hand column. The confidence intervals are bolded where a possible result does not equal zero and in this case that is only in one instance. So by looking at the confidence intervals alone, we can see that only the constant has a statistically significant relationship with ballot stuffing.
+
+9 How to compare coefficients
+==
+If one coefficient is bigger than another does that mean that the outcome is more sensitive to that one? No — the interpretation of coefficients depends on the scale the dependent variable is measured on. If you convert a variable from miles to feet, the coefficient will go flying up, without that meaning any real change.
+
+10 When a regression is to be believed
+==
+Just because you use a regression to estimate a relationship does not mean that the relationship you estimate truly captures the relationship between variables. In fact there are many different types of biases that might affect the results and you should keep these in mind when reading these regression tables:
+
+* __Omitted-variable bias__ is the bias that appears when an independent variable that should be in the model is not included.
+* __Selection bias__ involves certain individuals being more likely to be selected for study than others, biasing the sample.
+* __Detection bias__ occurs when a phenomenon is more likely to be observed for a particular set of study subjects. For instance, the syndemic involving obesity and diabetes may mean doctors are more likely to look for diabetes in obese patients than in thinner patients, leading to an inflation in diabetes among obese patients because of skewed detection efforts.
+* __Measurement bias__ arises when the data used to estimate relationships is wrong in some way. Even if it is not systematically wrong measurement error can cause systematic bias — for example errors on measures of the dependent variable can lead to small an estimate. Reporting bias involves a skew in the availability of data, such that observations of a certain kind are more likely to be reported.
