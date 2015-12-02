@@ -33,3 +33,44 @@ These examples share some features:
 
 The network is a crucial feature of any spillover analysis. For each unit, it describes the set of other units whose treatment assignments “matter.” To take the education example: it may matter to me if you treat another student in my classroom, but it probably doesn’t matter if you treat a student in a different city. I’m connected to the other students in my classroom, but not to students in other cities.
 
+2. If ignored, spillovers “bias” treatment effect estimates
+==
+If unaddressed, spillovers “bias” standard estimates of treatment effects (e.g. differences-in-means or OLS regression). “Bias” is in scare quotes because those estimators will return unbiased estimates of causal effects, just not the causal effects that most researchers are interested in.
+
+Imagine an experiment in which there are 50 villages. A treatment is randomly administered to some villages but not others. Let’s assume that a village receives spillovers if there is another village within a 5km radius that receives treatment. If we naively compare treated villages to untreated villages, we will not recover an unbiased estimate of the true treatment effect. Instead, we’ll recover an unbiased estimate of the average difference between treated and untreated villages, when some number are treated. As it turns out how many villages are treated can make a big difference.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/spillovers/spilloverbias.jpg)
+
+The graph considers a situation in which the true treatment effect on a given unit is 1, and shows how estimated treatment effects can be higher or lower than 1 depending on the direction and size of spillovers as well as the number of units treated.
+
+In this case, positive spillovers cause a negative bias and vice-versa. This is because when spillovers are positive, the control group mean is inflated, so the difference-in-means is smaller than it otherwise would have been.[^3] The extent of the bias, however, depends on the number of units treated as well as the magnitude of the spillover effect. In this example, the more units are treated, the smaller the bias resulting from spillovers. This is because when more units are treated, both the treatment and control group means are similarly inflated by positive spillovers and deflated by negative spillovers.
+
+[^3]: Note though, it is generally very difficult to guess the direction of the bias that would be induced by spillover. Claims like, “spillover would only make our treatment effects appear stronger” usually depend on assumptions of treatment (and spillover) effect homogeneity.
+
+Often, evaluators are trying to estimate what would happen if a program were rolled out to everyone. Evidence from an RCT that ignores spillover could greatly over or underestimate the total effects of the intervention.
+
+3. Most experimental analyses implicitly or explicitly assume that there are no spillovers.
+==
+The assumption that there are no spillovers is known as the __non-interference assumption__; it is part of a somewhat more elaborate assumption sometimes referred to as the __Stable Unit Treatment Value Assumption__ (or SUTVA) that is generally invoked in the analysis of experimental data.
+
+What does the non-interference assumption mean? Subjects can only reveal one of two “potential outcomes”: either their treated outcome or their untreated outcome. Which of these they reveal depends on their own treatment status only. The treatment status of all the other subjects in the experiment doesn’t matter at all.
+
+We can state the non-interference assumption more formally using potential outcomes notation:  $[y_i(z_i,Z)=y_i(z′_i,Z′)$, if $z_i=z′_i]$, where  $[Z]$ and $[Z′]$ represent any two possible random assignment vectors. In words, this expression states that the other units’ treatment assignments do not affect $[Y_i]$.
+
+How reasonable is the non-interference assumption? The answer depends on the domain. Every study that finds a statistically significant impact of spillovers is providing evidence that the assumption is incorrect in that particular application. Most papers discussing spillovers tend to focus on examples in which the non-interference assumption is false. But other studies suggest that spillovers are sometimes surprisingly weak. Sinclair, McConnell, and Green (2012) for example find no evidence of within-zip code spillovers of experimental encouragements to vote, bolstering the non-interference claims made by the dozens of previous turnout experiments.
+
+4. You need some kind of non-interference assumption whenever you try to estimate spillover effects
+==
+The usual non-interference assumption is very strong: it says that there are no spillover effects. When you try to estimate spillovers, you are replacing this strong assumption with a (slightly) weaker one. Perhaps you think that spillovers take place in geographic space — the treatment status of one location may influence the outcomes of nearby units. Allowing spillovers to take place in geographic space requires the assumption that they do not also occur in, for example, social space. This assumption would be violated if the treatment status of, say, Facebook friends in faraway places affects which potential outcome is revealed. To restate this point more generally: When you relax the non-interference assumption, you replace it with a new assumption: no unmodeled spillovers. The modeling of spillovers itself requires strong, often untestable assumptions about how spillovers can and cannot occur.
+
+Suppose we were to model spillovers in the following way. Every unit has four potential outcomes, which we’ll write as $[Y(Z_i,Z_j)]$, where $[Z_i]$ refers to a units own treatment assignment, and $[Z_j]$ refers to the treatment assignment of neighboring units within a specified radius.  $[Z_j=1]$ when any of the units within the radius are treated and zero otherwise.
+
+* $[Y(Z_i=0,Z_j=0)]$ — Pure Control, abbreviated $[Y_{00}]$
+* $[Y(Z_i=1,Z_j=0)]$ — Directly treated, no spillover, abbreviated $[Y_{10}]$
+* $[Y(Z_i=0,Z_j=1)]$ — Untreated, with spillover, abbreviated $[Y_{01}]$
+* $[Y(Z_i=1,Z_j=1)]$ — Directly treated, with spillover, abbreviated $[Y_{11}]$
+
+What assumptions are we invoking here? First, we are stipulating that the treatment assignment of units outside the radius do not alter a unit’s potential outcomes. Second, we are modeling spillovers as a binary event: either some unit within the radius is treated, or not — we are ignoring the number of treated units, and indeed, their relative proximity.
+
+This potential outcome space is already twice as complex as the one allowed by the conventional non-interference assumption. However, it is important to bear in mind that this potential outcome space can be incorrect in the sense that it does not accurately reflect the underlying social process at work in the experiment.
+
