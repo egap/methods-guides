@@ -4,3 +4,32 @@ author: 'Methods Guide Author: Alexander Coppock'
 output: html_document
 ---
 
+Abstract
+==
+This guide[^1] helps you think through how to design and analyze experiments when there is a risk of “interference” between units. This has been an important area of research in recent years and there have been real gains in our understanding of how to estimate spillovers in a defensible way. Spillover problems arise whenever one unit is affected by the treatment status of another unit.[^2] Spillovers make it difficult to work out causal effects (we say why below) . Experimentalists worry a lot about them, but the problem is not unique to randomized experiments. It is a universal problem for assessing causal effects. However, spillover analysis is difficult enough when the design is in the direct control of the researcher; it is orders of magnitude more difficult when units are assigned to treatment by some unknown process.
+
+[^1]: Originating author: Alex Coppock, 31 Jul 2014. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide.
+[^2]: Although we describe spillovers as a problem here, they are not necessarily substantively a  problem — for example if a treatment has a positive effect on individuals plus their friends then the spillover effects on the friends are an extra benefit
+
+1. What they are
+==
+Spillovers are the effects of a treatment assigned to one unit on outcomes for another unit.
+
+Here are some examples of how spillovers (or  “interference”) might occur in an experiment.
+
+* __Public Health:__ Providing an infectious disease vaccine to some individuals may decrease the probability that nearby individuals become ill.
+* __Criminology:__ Increased enforcement may displace crime to nearby areas.
+* __Education:__ Students may share newly acquired knowledge with friends.
+* __Marketing:__ Advertisements displayed to one person may increase product recognition among her work colleagues.
+* __Politics:__ Election monitoring at some polling stations may displace fraud to neighboring polling stations.
+* __Economics:__ Lowering the cost of production for one firm may change the market price faced by other firms.
+* __Within-subjects experiments across many domains:__ the possibility that treatment effects persist or that treatments are anticipated can be modeled as a kind of spillover.
+
+These examples share some features:
+
+* An _intervention_: the vaccine, increased enforcement, election monitoring;
+* An _outcome_: incidence of disease, crime rates, electoral fraud; and
+* A “_network_” that links units together: face-to-face social interaction, geographic proximity within a city, road distance between polling stations.
+
+The network is a crucial feature of any spillover analysis. For each unit, it describes the set of other units whose treatment assignments “matter.” To take the education example: it may matter to me if you treat another student in my classroom, but it probably doesn’t matter if you treat a student in a different city. I’m connected to the other students in my classroom, but not to students in other cities.
+
