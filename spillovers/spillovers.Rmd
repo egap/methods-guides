@@ -127,3 +127,85 @@ prob11 <- rowMeans(cond_mat=="11")
 
 We can display the resulting probabilities plotted below against the number of units within the 5km radius. The further from the center a unit is, the higher the probability of not being in the spillover condition.
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/spillovers/spilloverprobabilities.jpg)
+
+We must account for these differential probabilities of assignment using IPW. Below is a block of R code that shows how to include IPWs in a regression context.
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+# Define helper functions
+get_prob <- function(cond,prob00,prob01,prob10, prob11){
+  prob <- prob00
+  prob[cond=="10"] <- prob10[cond=="10"]
+  prob[cond=="01"] <- prob01[cond=="01"]
+  prob[cond=="11"] <- prob11[cond=="11"]
+  return(prob)
+}
+ 
+get_Y <- function(cond, Y00, Y01, Y10, Y11){
+  Y <- Y00
+  Y[cond=="10"] <- Y10[cond=="10"]
+  Y[cond=="01"] <- Y01[cond=="01"]
+  Y[cond=="11"] <- Y11[cond=="11"]
+  return(Y)
+}
+ 
+# Generate potential outcomes as a function of position
+Y00 <- rnorm(N)
+ 
+# Treatment Effects
+t10 <- 10   # direct effect
+t01 <- -3   # indirect effect
+t11 <- 5    # direct + indirect
+ 
+Y01 <- Y00 + t01
+Y10 <- Y00 + t10
+Y11 <- Y00 + t11
+ 
+# Randomly generate treatment assignment
+assign <- complete_ra(N, m)
+ 
+# Reveal true conditions
+cond <- get_condition(assign = assign, adjmat = true_adjmat)
+ 
+# Reveal potential outcomes
+Y <- get_Y(cond = cond, Y00 = Y00, Y01=Y01, Y10=Y10, Y11=Y11)
+ 
+# calculate weights
+weights <- 1/get_prob(cond=cond, prob00=prob00,prob01=prob01,prob10=prob10,prob11=prob11)
+ 
+# combine data into a dataframe
+df <- data.frame(Y, cond, weights, prob00, prob01, prob10, prob11)
+ 
+# conduct estimation comparing the spillover condition to the pure control
+fit <- lm(Y ~ cond=="01", weights=weights,
+          data = subset(df, prob00 >0 & prob00 <1 & prob01 >0 & prob01 < 1 & cond %in% c("00", "01")))
+```
+
+There are two very important things to remember when using IPW:
+
+* Only include units that have a non-zero and non-one probability of being in all conditions being compared. The code above only compares the pure control condition to the untreated spillover condition (see the subsetting in the lm call).
+* Remember the IPW mantra: units are weighted by the inverse of the probability of being in the condition that they are in.
+
+7. Choosing the wrong interference assumption will yield incorrect estimates
+==
+You might be tempted to simply construct a model for a particular type of spillover and estimate it. But unfortunately, just as spillovers can produce biased estimates of treatment effects, incorrectly modeled spillovers can create biased estimates of spillover effects (as well as treatment effects).
+
+To get some intuition for the problem, the simulator below lets you pick an interference assumption: the radius beyond which spilloverscannot occur. As in point (4) we are assuming that there are only 4 potential outcomes – the three causal effects we are interested are the average differences as compared with $Y_{00}$. The tension in the simulator is between the true (in principle, unknown) spillover network that generates outcomes and the assumed spillover network used for estimation.
+
+The causal effect estimates are only correct when the spillover assumption is correct. The potential outcomes were generated under a true radius of 5km. When any radius other than 5km is selected, some if not all of the estimates are biased. This simulator underlines a discouraging point about spillover analysis: it is generally not possible to know if you’ve got the “correct” model of spillovers. Short of doing so, the answers yielded by the model will be incorrect.
+
+<iframe height="150" src="https://egap.shinyapps.io/spillover-app/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+[Download R code for the above Shiny App](https://github.com/egap/shiny/tree/master/gotv-app) from github
+
+Most applied researchers have settled on two responses to the “unknowability” of the spillover network. First, they specify “theoretically-driven” models of spillover. Usually, this involves the careful application of qualitative information from the experimental context. Second, researchers tend to present estimates under a series of spillover assumptions, for example the estimates under increasing radii.
+
+8. Sometimes you can avoid spillovers with “buffer rows”
+==
+One approach to addressing the problem of spillovers is to ensure that other units’ treatment assignments cannot interfere with potential outcomes by including “buffer rows” between experimental units. The buffer row analogy comes from agricultural studies in which experimental crop rows were physically separated by non-experimental rows that presumably prevented interference due to local changes in soil nitrogen content, insect behavior, or water usage.
+
+The analogous design choice in our villages experiment would be to sample a set of 50 experimental villages from a larger set of villages, such that all 50 experimental villages were a healthy distance away from each other – say, separated by a minimum of 75km. Of course, we still must make a non-interference assumption along the lines of: “No spillovers between villages that are 75km or more apart.” This assumption also rules out spillovers that might take place over non-geographic networks, such as an information network via radio, telephone, or internet.
+
+The main advantage of buffer-row-inspired design is the massive reduction in complexity. You can get a clean estimate of a direct treatment effect using standard analytic techniques, without needing to posit complicated assumptions about the possible avenues for spillover.
+
+The main disadvantage of this design, however, is that by design you cannot estimate natural spillover patterns — which could be critical in understanding normal social processes. (Note: if you do do a buffer design, don’t ignore the buffers themselves — data on these can give you a better handle on spillover effects even though they are never going to receive treatment directly.)
+
