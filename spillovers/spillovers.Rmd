@@ -74,3 +74,56 @@ What assumptions are we invoking here? First, we are stipulating that the treatm
 
 This potential outcome space is already twice as complex as the one allowed by the conventional non-interference assumption. However, it is important to bear in mind that this potential outcome space can be incorrect in the sense that it does not accurately reflect the underlying social process at work in the experiment.
 
+5. Spillovers are only indirectly “randomly assigned”
+==
+The beauty of randomized experiments is that treatment assignments are directly under the control of the researcher. Interestingly in an experiment, spillovers are also randomly determined by the treatment assignment – after all, you’re assigning some unit’s neighbor to treatment or control on a random basis. The trouble is that the probability that a unit is in a spillover condition is no longer directly under the control of the experimenter. Units that are close to many other units, for example, might be more likely to be in the spillover condition than units that are off on their own.
+
+Take a look at the graph below of 50 units arrayed in geographic space. The 10 red units (both filled and unfilled) were randomly selected for direct treatment and yellow units for control. A filled point represents a unit in a spillover condition, whereas an unfilled point represent a unit that has no treated neighbors within the 5km radius. Notice that the units closer to the center of the graph have a much higher chance of being in a spillover condition than do units towards the edges.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/spillovers/spilloversradius.jpg)
+
+6. To estimate spillovers you need to account for differential probabilities of assignment to the spillover
+==
+When we estimate causal effects, we have to take account of the probability with which units are assigned to a given treatment condition. Sometimes this is done through matching; sometimes it is done using inverse probability weighting (IPW).
+
+Sometimes, the only practical way to calculate assignment probabilities is through computer simulation (though analytic probabilities can be calculated for some designs). For example you could conduct 10,000 simulated random assignments and count up how often each unit is in each of the four conditions described in the previous section. In R:
+
+```{r, message=FALSE, error=FALSE, warning=FALSE}
+# Define two helper functions
+complete_ra <- function(N,m){
+  assign <- ifelse(1:N %in% sample(1:N,m),1,0)
+  return(assign)
+}
+ 
+get_condition <- function(assign, adjmat){
+  exposure <-  adjmat %*% assign
+  condition <- rep("00", length(assign))
+  condition[assign==1 & exposure==0] <- "10"
+  condition[assign==0 & exposure>0] <- "01"
+  condition[assign==1 & exposure>0] <- "11"
+  return(condition)
+}
+ 
+N <- 50  # total units
+m <- 20  # Number to be treated
+ 
+# Generate adjacency matrix
+set.seed(343)
+coords <- matrix(rnorm(N*2)*10, ncol = 2)
+distmat <- as.matrix(dist(coords))
+true_adjmat <- 1 * (distmat<=5) # true radius = 5
+diag(true_adjmat) <-0
+ 
+# Run simulation 10000 times
+Z_mat <- replicate(10000, complete_ra(N = N, m = m))
+cond_mat <- apply(Z_mat, 2, get_condition, adjmat=true_adjmat)
+ 
+# Calculate assignment probabilities
+prob00 <- rowMeans(cond_mat=="00")
+prob01 <- rowMeans(cond_mat=="01")
+prob10 <- rowMeans(cond_mat=="10")
+prob11 <- rowMeans(cond_mat=="11")
+```
+
+We can display the resulting probabilities plotted below against the number of units within the 5km radius. The further from the center a unit is, the higher the probability of not being in the spillover condition.
+
