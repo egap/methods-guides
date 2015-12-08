@@ -58,7 +58,7 @@ Controlling for these covariates, which are known to be predictive of potential 
 
 The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates potential outcomes (the outcome an individual would show if she were treated versus the outcome she would show if untreated) for a continuous measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. In other words, when we regress the observed outcome on treatment assignment, we should see a coefficient of 1 on “Z.” To figure out whether our estimator is biased or not, we simulate 10,000 possible treatment assignments, and then regress the 10,000 simulations of outcomes we would observe on those treatment assignments, with and without controlling for covariates. If the average of the 10,000 coefficients on our treatment variable is 1, then our coefficient must be unbiased, because although each individual randomization may be higher or lower than one, on average, we observe a treatment effect of 1.
 
-```{r, error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
+```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())
 
 set.seed(20140714)
@@ -138,8 +138,6 @@ plot(n, E, type = "l", ylab = "RMSE", xlim = c(min(n),max(n)), ylim = c(0,.5))
   lines(n, E2, col ="red")
   legend(700, y=.4, c("No controls", expression(paste(rho, "=0")), expression(paste(rho, "=0.5")), expression(paste(rho, "0=.9"))),
   col=c("black", "yellow","orange", "red"), lty = 1, lwd=2)
- 
-png("n.png", width = 600, height = 480, res=100, units="px")
 ```
 
 The black line shows the MSE when we don’t adjust for a covariate. The red line shows the MSE when we adjust for a highly prognostic covariate, one that strongly predicts our outcomes. You can see that the red line is always below the black line, meaning that the MSE is always lower when you adjust for a prognostic covariate. The orange line represents the MSE when we adjust for our covariate, but that covariate is less predictive of our outcomes. We still are getting gains in precision relative to the black line, but not as much as we did with the red line. Finally, the yellow line shows what happens if you control for your covariate, but it’s not at all predictive of your outcomes. The yellow line is almost identical to the black line: you received no improvement in precision by controlling for a non-prognostic covariate. This exercise demonstrates that you’ll get the most gains in precision by controlling for covariates that strongly predict outcomes. Identifying whether covariates are “prognostic” of outcomes is sometimes more art than science, precisely because we cannot observe both the treated and the untreated potential outcome for each subject! You may want to regress your outcome on your covariate in just the treatment group or just the control group and see whether a clear story emerges: does this covariate seem to significantly affect your outcome in either group? If there is a strong literature on your topic of interest, you can also use previous works that have identified strong correlations in a variety of contexts to back your claim that a covariate is prognostic, but you will need to make the case for why this is true of your particular population as well.
@@ -191,7 +189,6 @@ return(out)
  
 simulation = cond.bias()
  
-jpeg("cb.jpg", width = 700, height = 480, res=100, units="px")
 with(simulation,{
   plot(x = covariate.corr,y = uncond.ate,col=rgb(0,0,1,.5),pch=16,cex=.5,
        xlab = "Correlation between covariate and treatment",
@@ -204,11 +201,37 @@ with(simulation,{
   segments(max(covariate.corr),      quantile(cond.ate, c(.025,  .975)),max(covariate.corr)+0.06,  quantile(cond.ate, c(.025, .975)), col = "red")
   legend(.12, y=.8, c("Controlling for Covariate", "No controls"), col=c("red","blue"), pch = 19)
 })
-dev.off()
 ```
 
 Here, treatment is randomly assigned which means that we do not expect any particular correlation between the treatment and the covariate. However if we do not control for the covariate then our estimate of the treatment effect is very sensitive to whatever the correlation happens to be. If it is large we will estimate too large a treatment effect; if it is small we will estimate too small a treatment effect. In expectation we will get the right answer, but we don’t expect to get the right answer if we condition our expectations on the correlation between the treatment allocation and the background variable. The figure also shows how introducing a control removes this problem — the expected effect no longer depends on any accidental correlation between treatment and the covariate, and, for this reason, it is more precise to boot.
 
 When do you know if your experiment suffers from imbalance? Many experimenters advocate the practice of presenting a table of descriptive statistics (means and standard deviations on all covariates for each group) and “balance tests.” Including descriptive statistics comparing treatment and control groups is an excellent way to describe the population of your experiment. “Balance tests” calculate the probability that we would have seen a random draw in which treatment and control groups were this balanced or imbalanced. Balance tests are often used as a check to make sure that randomization was done correctly, which can be especially helpful if you are not in control of the random assignment, but remember that a perfectly executed randomization can still fail a balance test 5 percent of the time and yet be correct. Put differently, a balance test does not actually test balance, it tests the hypothesis that there was randomization in the first place (which is something you should know already). An alternative way of capturing the degree of imbalance in your table of descriptive statistics is to look at the size of the deviation in group means along covariates, not the probability that we would have seen this particular draw.
 
-PROBLEMS WITH CODE CHUNK BEFORE THESE PARAGRAPHS
+7 When not to do it
+==
+There are two scenarios in which you would not want to adjust for covariates.
+
+First, you generally never want to adjust for covariates when you think those covariates could have been influenced by your treatment. This is one of the reasons that many covariates are collected from baseline surveys; sometimes covariates that are collected from surveys after intervention could reflect the effects of the treatment rather than underlying characteristics of the subject. While adjusting for “pre-treatment” covariates can lead to more precision in your estimate of a treatment effect, adjusting for covariates that are affected by the treatment — “post-treatment” covariates — can cause bias.4
+
+Suppose, for example, that Gine and Mansuri had collected data on how many political rallies a woman attended after receiving the treatment. In estimating the treatment effect on independence of political choice, you may be tempted to include this data as a control in your regression. But including this data, even if it strongly predicts your outcome of independence of candidate choice, will not serve to explain non-treatment variation in the dependent variable as it did with pre-treatment covariates because it will capture the variation that results from your treatment effect too! A woman’s attendance of political rallies, like her independence of candidate choice, is likely affected by the treatment itself.
+
+Let’s create this fake variable, which is correlated (like the independence of candidate choice measure) with baseline covariates and also with treatment. Here, by construction, the treatment effect on number of political rallies attended is 2. When we include the rallies variable as a control, the treatment effect on independence of candidate choice tanks from 1 to .277. This is severe bias, all because we controlled for a post-treatment covariate! This bias results from the fact that this variable is correlated with treatment.
+
+```{r, error=FALSE, warning=FALSE, message=FALSE}
+# define post-treatment covariates correlated with pre-treatment covariates
+ralliesY0 <- round(.5*ownsidcard+hasformalschooling+1.5*TVaccess+log(age))
+ralliesY1 <- ralliesY0+2
+rallies_mat <- ralliesY1*Z_mat+ralliesY0(1-Z_mat)
+ 
+# estimate ATE with new model
+ate.post.covs <- function(Y,Z,X)
+summary(lm(Y~Z+X+ownsidcard+hasformalschooling+age+TVaccess))$coef[2,1]
+dist.post.covs <- rep(NA, 10000)
+for (i in 1:10000) {
+dist.post.covs[i] <-
+ate.post.covs (indepchoice_mat[,i],Z_mat[,i],rallies_mat[,i])
+}
+ 
+mean(dist.post.covs) # biased!
+```
+
