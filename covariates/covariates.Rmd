@@ -217,7 +217,7 @@ Suppose, for example, that Gine and Mansuri had collected data on how many polit
 
 Let’s create this fake variable, which is correlated (like the independence of candidate choice measure) with baseline covariates and also with treatment. Here, by construction, the treatment effect on number of political rallies attended is 2. When we include the rallies variable as a control, the treatment effect on independence of candidate choice tanks from 1 to .277. This is severe bias, all because we controlled for a post-treatment covariate! This bias results from the fact that this variable is correlated with treatment.
 
-```{r, error=FALSE, warning=FALSE, message=FALSE, results='hide'}
+```{r, error=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 # define post-treatment covariates correlated with pre-treatment covariates
 ralliesY0 <- round(.5*ownsidcard+hasformalschooling+1.5*TVaccess+log(age))
 ralliesY1 <- ralliesY0+2
@@ -269,3 +269,29 @@ Both difference-in-difference estimators and difference-in-means estimators are 
 It is possible, however, because of sampling variability, that you might get a treatment group that happens to have less constitutional knowledge. If this is the case, it is possible that at the end of your intervention, you do not see much of a difference between the outcomes of your treatment and control groups, even though the treatment did serve to elevate the scores of the treatment group to those of the control group. A difference-in-differences estimator could address this issue because it would take into account the lower scores of your treatment group and would reflect a positive treatment effect on the difference in scores. Note that the original difference-in-means estimator is not biased, but because of sampling variability, it will be less precise than the difference-in-differences estimator. The difference-in-differences estimator improves your precision for the same reason that controlling for prognostic covariates typically improves your precision, except the difference-in-differences approach can often be even more precise than controlling for covariates because it essentially controls for all background characteristics that could have influenced a subject’s pre-intervention performance and not just the ones you thought to include in your regression.
 
 There are several ways to model difference-in-differences. The simplest approach, described above, is to put the change in scores on the left-hand side of your regression, as follows:
+
+$$Y_{i2}−Y_{i1}=α+βD_i+ϵ_{i2}$$
+
+where $Y_{i2}$ is the post-test for subject $i$ at time period 2, $Y_{i1}$ is the pre-test for subject $i$ at time period 1, and $D_i$ is an indicator for whether subject $i$ receives treatment.
+
+While this is an intuitive way to conceptualize a difference-in-differences approach, a more flexible specification is to simply regress the post-test score on treatment and the lagged (pre-test) score:
+
+$$Y_{i2}=α+βD_i+γY_{i1}+ϵ_{i2}$$
+
+Equation 3 is more flexible than equation 2 because equation 2 constrains the coefficient on the lagged score to be 1. Equation 3, in contrast, gets to calculate a treatment effect by also controlling for where the pre-test score started, whereas equation 2 looks only at the net difference between the post-test and the pre-test scores. Why does this matter? Suppose that people with high pre-test scores started slacking off and got lower post-test scores, while people with low pre-test scores were just beginning their period of putting in effort, giving them higher post-test scores.[^10} This pattern is often called “regression to the mean,” and if it characterizes whatever it is you’re measuring, then you’re likely to see big changes for people with lower pre-test scores and smaller changes for people with higher pre-test scores. Equation 2, therefore, means that your outcome variable will be more related to individuals’ pre-test scores than it will be related to the treatment. Equation 3 gets around this by using multiple regression to control for both treatment and the pre-test scores, just as we do when we adjust for other covariates.
+
+[^10]:  Allison, Paul D. “Change Scores as Dependent Variables in Regression Analysis.” Sociological Methodology 20(1990): 93-114. http://www.statisticalhorizons.com/wp-content/uploads/Allison.SM90.pdf
+
+A final model stacks your observations of test scores on the left-hand side, stacks your observations of treatment on the right-hand side, and includes a time variable and interaction. It works like this:
+
+$$Y_{it}=α+βD_{it}+θT_t+λ(D_{it}⋅T_t)$$
+
+where $Y_{it}$ is your complete set of outcomes across time, stacked, $D_{it}$ is your complete set of treatment assignments across time, stacked, and $T_t$ is a variable for the time period the observation is in.
+
+10 How to make your covariate adjustment decisions transparent
+==
+In the interests of transparency, report unadjusted models and pre-specify covariate adjustment.
+
+This exercise has demonstrated that results may change slightly or not-so-slightly depending on which covariates you choose to include in your model. We’ve highlighted some rules of thumb here: include only pre-treatment covariates and those that are predictive of outcomes. Decisions about which covariates to include, though, is often a subjective rather than an objective enterprise, so another rule of thumb is to be totally transparent about your covariate decisions. Always include the simplest model–the simple regression of outcome on treatment without controlling for covariates–in your paper or appendix to supplement the findings of your model including covariates.
+
+Another way to minimize your readers’ concern that you went fishing for the particular combination of covariates that produced a treatment effect favorable to your hypotheses is to pre-specify your models in a pre-analysis plan. This gives you the opportunity to explain before you see the findings which pre-treatment covariates you expect are relevant in explaining variation in the outcome data you will collect. You can even write these regressions out in R using fake data, as used here, so that when your results from the field arrive, all you need to do is run your code on the real data. These efforts are a useful way of binding your own hands as a researcher and improving your credibility.
