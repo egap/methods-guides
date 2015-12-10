@@ -217,7 +217,7 @@ Suppose, for example, that Gine and Mansuri had collected data on how many polit
 
 Let’s create this fake variable, which is correlated (like the independence of candidate choice measure) with baseline covariates and also with treatment. Here, by construction, the treatment effect on number of political rallies attended is 2. When we include the rallies variable as a control, the treatment effect on independence of candidate choice tanks from 1 to .277. This is severe bias, all because we controlled for a post-treatment covariate! This bias results from the fact that this variable is correlated with treatment.
 
-```{r, error=FALSE, warning=FALSE, message=FALSE}
+```{r, error=FALSE, warning=FALSE, message=FALSE, results='hide'}
 # define post-treatment covariates correlated with pre-treatment covariates
 ralliesY0 <- round(.5*ownsidcard+hasformalschooling+1.5*TVaccess+log(age))
 ralliesY1 <- ralliesY0+2
