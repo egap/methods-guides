@@ -121,7 +121,7 @@ img {
 <p>So in most power analyses you are in fact seeing what happens with numbers that are to some extent made up. The good news is that it is easy to find out how much your conclusions depend on your assumptions: simply vary your assumptions and see how the conclusions on power vary.</p>
 <p>This is most easily seen by thinking about how power varies with the number of subjects. A power analysis that looks at power for different study sizes simply plugs in a range of values in for N and seeing how β changes.</p>
 <p>Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.</p>
-<iframe height="150" src="https://egap.shinyapps.io/Power_Calculator/" style="border: none; width: 440px; height: 500px;" width="300">
+<iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850">
 </iframe>
 </div>
 <div id="how-to-use-simulation-to-estimate-power" class="section level1">
@@ -152,9 +152,9 @@ significant.experiments &lt;- rep(NA, sims) # Empty object to count significant 
   powers[j] &lt;- mean(significant.experiments) # store average success rate (power) for each N 
   } 
 powers </code></pre>
-<pre><code>##  [1] 0.228 0.362 0.434 0.500 0.558 0.684 0.700 0.772 0.796 0.840 0.868
-## [12] 0.874 0.902 0.944 0.954 0.950 0.956 0.966 0.978 0.976 0.994 0.990
-## [23] 0.996 0.996 0.996 0.992 0.998 1.000 0.996 1.000 1.000 1.000 0.998
+<pre><code>##  [1] 0.198 0.304 0.436 0.510 0.570 0.648 0.706 0.732 0.786 0.826 0.880
+## [12] 0.886 0.896 0.912 0.934 0.954 0.970 0.958 0.976 0.978 0.994 0.982
+## [23] 0.988 0.992 0.990 0.996 0.996 1.000 0.998 0.998 1.000 1.000 1.000
 ## [34] 1.000 0.998 1.000 1.000 1.000 1.000</code></pre>
 <p>The code for this simulation and others is available <a href="http://egap.org/content/power-analysis-simulations-r">here</a>. Simulation is a far more flexible, and far more intuitive way to think about power analysis. Even the smallest tweaks to an experimental design are difficult to capture in a formula (adding a second treatment group, for example), but are relatively straightforward to include in a simulation.</p>
 <p>In addition to counting up how often your experiments come up statistically significant, you can directly observe the distribution of p-values you’re likely to get. The graph below shows that under these assumptions, you can get expect to get quite a few p-values in the 0.01 range, but that 80% will be below 0.05.</p>
