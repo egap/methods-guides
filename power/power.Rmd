@@ -85,7 +85,7 @@ This is most easily seen by thinking about how power varies with the number of s
 
 Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.
 
-<iframe height="150" src="https://egap.shinyapps.io/Power_Calculator/" style="border: none; width: 440px; height: 500px;" width="850"></iframe>
+<iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850"></iframe>
 
 6 How to Use Simulation to Estimate Power
 ==
