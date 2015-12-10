@@ -235,3 +235,37 @@ ate.post.covs (indepchoice_mat[,i],Z_mat[,i],rallies_mat[,i])
 mean(dist.post.covs) # biased!
 ```
 
+Just because you should not adjust for post-treatment covariates does not mean you cannot collect covariate data post-treatment, but you must exercise caution. Several variables could be collected post-treatment but are pretty clearly unaffected by treatment — obvious examples include age and gender, but others too. Be careful of evaluation-driven effects, though, in this data collection: treated women may be more acutely aware of the expectation of political participation and may retrospectively report that they were more politically active than they actually were several years prior.
+
+Second, you want to avoid adjusting for covariates that are not predictive of your outcome variable. Sometimes researchers are inclined to include a “kitchen sink” of covariates without theoretical justification or previous empirical evidence that these variables are related to outcomes. Adding non-prognostic covariates does little to help the precision of your estimate, and sometimes it can actually hurt it in very small samples. This is because adding covariates uses up “degrees of freedom.” This pathology tends to be fairly minor, particularly in large samples.[^5] It can also hurt when non prognostic covariates are selected because they are correlated with treatment since in this case a true treatment effect can be hard to distinguish from a spurious correlation with a covariate. The more important reason to avoid adjusting for non-prognostic covariates is that researchers should judiciously match their regression models to their theories in order to avoid “fishing” for significant results (see “10. How to make your covariate adjustment decisions transparent”).
+
+[^5]: Gerber and Green 2012, p.105
+
+8 When you should be wary of doing it
+==
+One scenario in which you should avoid adjusting for covariates is in very small samples. In this situation, using multiple regression (that is, estimating the coefficient on the treatment effect while controlling for covariates) will produce a biased estimate of the treatment effect. [^6]
+
+[^6]: Freedman, David A. “On regression adjustments to experimental data.” Advances in Applied Mathematics 40(2): 2008. 180-193. http://www.sciencedirect.com/science/article/pii/S019688580700005X  
+
+Remember that we would call an estimator biased if on average (using multiple random assignments) it retrieves an incorrect treatment effect. When your n is quite small, the number of possible random assignments is also very small. Using multiple regression to estimate your treatment effect across each possible random assignment will produce an estimate that depends on how correlated your treatment and your covariate happen to be. The average of these limited number of treatment effect estimates will not produce the true treatment effect.[^7]
+
+[^7]: Green, Donald P. and Aronow, Peter M., Analyzing Experimental Data Using Regression: When is Bias a Practical Concern? (March 7, 2011). Working paper: http://ssrn.com/abstract=1466886
+
+As a rule of thumb, the number beyond which you don’t need to worry about this “Freedman bias” is twenty, although in some cases, the bias will disappear much earlier. In the following graph, the model that adjusts for covariates (the red line) is biased, whereas the model that simply regresses the outcome on treatment without covariate adjustment (the dark green line) is unbiased for all n.[^8] The Freedman bias depicted in the red line, though, quickly disappears. In this case, it disappears after about n=10. In these simulations, the covariate that is adjusted for is correlated with outcomes, but Freedman bias will also plague cases in which the covariate is not correlated with outcomes.[^9]
+
+[^8]: Here bias is calculated as the absolute value of the difference between the average estimate and 1, the true treatment effect.
+[^9]: To see the code, click [here](https://raw.githubusercontent.com/egap/methods-guides/master/covariates/freedmanbias.R)
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/covariates/freedman_bias.png)
+
+Realistically, if your sample is small enough that adjusting covariates will bias your estimator, you should be looking for ways to increase your sample size anyway in order to improve your statistical power (see [10 Things You Need to Know about Statistical Power](http://egap.org/methods-guides/10-things-you-need-know-about-statistical-power)).
+
+9 How to do it with difference-in-differences
+==
+A difference-in-differences estimation is when your dependent variable is not just the outcome measured after an experimental intervention, but the change in that same outcome measure between before the intervention and after it. In other words, your dependent variable is a difference. Suppose you wanted to evaluate an intervention, similar to Gine and Mansuri’s, that educated female voters about their constitutional rights. One approach would be to deliver an identical test of constitutional knowledge before and after treatment. The dependent variable would be a participant’s change in knowledge of the constitution.
+
+Both difference-in-difference estimators and difference-in-means estimators are unbiased. This is because, in expectation, there will be no systematic differences in the pre-test scores of your treatment and control groups because of random assignment, so difference-in-differences and difference-in-means should capture the same causal effect of your treatment.
+
+It is possible, however, because of sampling variability, that you might get a treatment group that happens to have less constitutional knowledge. If this is the case, it is possible that at the end of your intervention, you do not see much of a difference between the outcomes of your treatment and control groups, even though the treatment did serve to elevate the scores of the treatment group to those of the control group. A difference-in-differences estimator could address this issue because it would take into account the lower scores of your treatment group and would reflect a positive treatment effect on the difference in scores. Note that the original difference-in-means estimator is not biased, but because of sampling variability, it will be less precise than the difference-in-differences estimator. The difference-in-differences estimator improves your precision for the same reason that controlling for prognostic covariates typically improves your precision, except the difference-in-differences approach can often be even more precise than controlling for covariates because it essentially controls for all background characteristics that could have influenced a subject’s pre-intervention performance and not just the ones you thought to include in your regression.
+
+There are several ways to model difference-in-differences. The simplest approach, described above, is to put the change in scores on the left-hand side of your regression, as follows:
