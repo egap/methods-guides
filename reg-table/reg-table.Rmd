@@ -1,5 +1,5 @@
 ---
-title: "10 Things to Know About Reading a Regression Table"
+title: "9 Things to Know About Reading a Regression Table"
 author: 'Methods Guide Author: Abby Long'
 output: html_document
 ---
@@ -96,11 +96,11 @@ Confidence intervals are frequently seen in social science research papers and o
 
 In the regression table we are examining, confidence intervals are featured in the right-hand column. The confidence intervals are bolded where a possible result does not equal zero and in this case that is only in one instance. So by looking at the confidence intervals alone, we can see that only the constant has a statistically significant relationship with ballot stuffing.
 
-9 How to compare coefficients
+8 How to compare coefficients
 ==
 If one coefficient is bigger than another does that mean that the outcome is more sensitive to that one? No — the interpretation of coefficients depends on the scale the dependent variable is measured on. If you convert a variable from miles to feet, the coefficient will go flying up, without that meaning any real change.
 
-10 When a regression is to be believed
+9 When a regression is to be believed
 ==
 Just because you use a regression to estimate a relationship does not mean that the relationship you estimate truly captures the relationship between variables. In fact there are many different types of biases that might affect the results and you should keep these in mind when reading these regression tables:
 
