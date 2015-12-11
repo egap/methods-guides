@@ -1,6 +1,7 @@
+<!-- title: "10 Things You Need to Know about Spillovers" -->
+<!-- author: 'Methods Guide Author: Alexander Coppock' -->
+
 ---
-title: "10 Things You Need to Know about Spillovers"
-author: 'Methods Guide Author: Alexander Coppock'
 output: html_document
 ---
 
@@ -194,7 +195,7 @@ To get some intuition for the problem, the simulator below lets you pick an inte
 
 The causal effect estimates are only correct when the spillover assumption is correct. The potential outcomes were generated under a true radius of 5km. When any radius other than 5km is selected, some if not all of the estimates are biased. This simulator underlines a discouraging point about spillover analysis: it is generally not possible to know if you’ve got the “correct” model of spillovers. Short of doing so, the answers yielded by the model will be incorrect.
 
-<iframe height="150" src="https://egap.shinyapps.io/spillover-app/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+<iframe height="500" src="https://egap.shinyapps.io/spillover-app/" width="850"></iframe>
 [Download R code for the above Shiny App](https://github.com/egap/shiny/tree/master/gotv-app) from github
 
 Most applied researchers have settled on two responses to the “unknowability” of the spillover network. First, they specify “theoretically-driven” models of spillover. Usually, this involves the careful application of qualitative information from the experimental context. Second, researchers tend to present estimates under a series of spillover assumptions, for example the estimates under increasing radii.
