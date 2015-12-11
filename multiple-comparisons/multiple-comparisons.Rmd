@@ -1,6 +1,7 @@
+<!-- title: "10 Things You Need to Know About Multiple Comparisons" -->
+<!-- author: "Methods Guide Author: Alexander Coppock" -->
+
 ---
-title: "10 Things You Need to Know About Multiple Comparisons"
-author: "Methods Guide Author: Alexander Coppock"
 output: html_document
 ---
 
@@ -245,7 +246,7 @@ Here are some guidelines and tips for writing your own simulation.
 ==
 This calculator works best in Firefox. To use full-screen, go [here](https://acoppock.shinyapps.io/MC_app).
 
-<iframe height="150" src="https://egap.shinyapps.io/multiple-comparisons-app/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+<iframe height="500" src="https://egap.shinyapps.io/multiple-comparisons-app/" width="850"></iframe>
 
 9 Creating an index is a way to get a single comparison out of many.
 ==
