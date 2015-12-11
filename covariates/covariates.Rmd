@@ -1,6 +1,7 @@
+<!-- title: "10 Things to Know About Covariate Adjustment" -->
+<!-- author: "Methods Guide Author: Lindsay Dolan" -->
+
 ---
-title: "10 Things to Know About Covariate Adjustment"
-author: 'Methods Guide Author: Lindsay Dolan'
 output: html_document
 ---
 

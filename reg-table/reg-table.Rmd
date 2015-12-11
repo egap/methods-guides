@@ -1,6 +1,7 @@
+<!-- title: "9 Things to Know About Reading a Regression Table" -->
+<!-- author: 'Methods Guide Author: Abby Long' -->
+
 ---
-title: "9 Things to Know About Reading a Regression Table"
-author: 'Methods Guide Author: Abby Long'
 output: html_document
 ---
 
