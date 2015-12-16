@@ -1,6 +1,7 @@
+<!-- title: "10 Strategies for Figuring out if X Caused Y" -->
+<!-- author: "Methods Guide Author: Macartan Humphreys" -->
+
 ---
-title: "10 Strategies for Figuring out if X Caused Y"
-author: "Methods Guide Author: Macartan Humphreys"
 output: html_document
 ---
 
