@@ -1,6 +1,7 @@
+<!-- title: "10 Things You Need to Know About the Local Average Treatment Effect" -->
+<!-- author: "Methods Guide Author: Peter van der Windt" -->
+
 ---
-title: "10 Things You Need to Know About the Local Average Treatment Effect"
-author: "Methods Guide Author: Peter van der Windt"
 output: 
   html_document:
     toc: true
