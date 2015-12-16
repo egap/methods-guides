@@ -1,6 +1,7 @@
+<!-- title: "10 Things You Need to Know About Causal Inference" -->
+<!-- author: "Methods Guide Author: Macartan Humphreys" -->
+
 ---
-title: "10 Things You Need to Know About Causal Inference"
-author: "Methods Guide Author: Macartan Humphreys"
 output: html_document
 ---
 
