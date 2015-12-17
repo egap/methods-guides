@@ -1,11 +1,11 @@
-<!-- title: "10 Things You Need to Know About Randomization" -->
-<!-- author: "Methods Guide Author: Lindsay Dolan" -->
-
 ---
 output: 
   html_document:
     toc: true
 ---
+
+<!-- title: "10 Things You Need to Know About Randomization" -->
+<!-- author: "Methods Guide Author: Lindsay Dolan" -->
 
 Abstract
 ==
@@ -31,7 +31,7 @@ ra <- function(N,m,seed){
 ra(100,34,seed=1000)
 ```
 
-2. Block randomization: You can fix it so that treatment and control groups are balanced
+2 Block randomization: You can fix it so that treatment and control groups are balanced
 ==
 It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.
 

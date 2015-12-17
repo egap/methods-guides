@@ -60,6 +60,21 @@ img {
 
 
 
+<div id="TOC">
+<ul>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#some-ways-are-better-than-others">1 Some ways are better than others</a></li>
+<li><a href="#block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced">2 Block randomization: You can fix it so that treatment and control groups are balanced</a></li>
+<li><a href="#factorial-designs-you-can-randomize-multiple-treatments-at-the-same-time-without-using-up-power">3 Factorial designs: You can randomize multiple treatments at the same time without using up power</a></li>
+<li><a href="#you-can-randomize-whole-clusters-together-but-the-bigger-your-clusters-the-weaker-your-power">4 You can randomize whole clusters together (but the bigger your clusters, the weaker your power!)</a></li>
+<li><a href="#you-can-randomize-in-a-way-that-makes-it-easier-to-see-if-there-are-spillovers">5 You can randomize in a way that makes it easier to see if there are spillovers</a></li>
+<li><a href="#different-units-can-be-assigned-to-treatment-with-different-probabilities">6 Different units can be assigned to treatment with different probabilities</a></li>
+<li><a href="#restricted-randomization-if-you-dont-like-what-you-get-you-can-start-over">7 Restricted randomization: If you don’t like what you get you can start over</a></li>
+<li><a href="#write-randomization-code-that-lets-you-simulate-many-possible-randomizations">8 Write randomization code that lets you simulate many possible randomizations</a></li>
+<li><a href="#you-can-do-randomization-as-you-go-along">9 You can do randomization as you go along</a></li>
+<li><a href="#randomization-can-sometimes-be-an-ethical-way-of-assigning-a-treatment-but-sometimes-it-isnt">10 Randomization can sometimes be an ethical way of assigning a treatment, but sometimes it isn’t</a></li>
+</ul>
+</div>
 
 <!-- title: "10 Things You Need to Know About Randomization" -->
 <!-- author: "Methods Guide Author: Lindsay Dolan" -->
@@ -80,7 +95,7 @@ img {
 ra(100,34,seed=1000)</code></pre>
 </div>
 <div id="block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced" class="section level1">
-<h1>2. Block randomization: You can fix it so that treatment and control groups are balanced</h1>
+<h1>2 Block randomization: You can fix it so that treatment and control groups are balanced</h1>
 <p>It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.</p>
 <p>This means that it is possible to specify, for example, that your treatment and control groups contain equal ratios of men to women. In other words, this avoids any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.</p>
 <p>Why is this desirable? Not because our estimate of the average treatment effect would otherwise be biased, but because it could be really noisy. Suppose that a random assignment happened to generate a very male treatment group and a very female control group. We would observe a correlation between gender and treatment status. If we were to estimate a treatment effect, that treatment effect would still be unbiased because gender did not cause treatment status. However, it would be more difficult to reject the null hypothesis that it was not our treatment but gender that was producing the effect. In short, the imbalance produces a noisy estimate, which makes it more difficult for us to be confident in our estimates.</p>
