@@ -23,7 +23,7 @@ A positive relationship in a regression means that when the independent variable
 
 Use the app below to get a feel for what a regression is and what it does. Below we will talk through the output of the regression Table. For the app below put in values for x and for y and then look to see how the “best fit” line changes to capture the average relation between x and y. As the line changes so too does the key information in the regression table.
 
-<iframe height="150" src="https://egap.shinyapps.io/Regression101/" style="border: none; width: 440px; height: 500px;" width="300"></iframe>
+<iframe height="500" src="https://egap.shinyapps.io/Regression101/" width="850"></iframe>
 
 2 What the underlying equation is 
 ==
