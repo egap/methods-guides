@@ -1,10 +1,9 @@
-<!-- title: "10 Things You Need to Know About Multiple Comparisons" -->
-<!-- author: "Methods Guide Author: Alexander Coppock" -->
-
 ---
 output: html_document
 ---
 
+<!-- title: "10 Things You Need to Know About Multiple Comparisons" -->
+<!-- author: "Methods Guide Author: Alexander Coppock" -->
 
 Abstract
 ==
