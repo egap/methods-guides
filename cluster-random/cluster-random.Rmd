@@ -13,9 +13,11 @@ library(knitr)
 
 1 What clustering is 
 ==
-Cluster randomized experiments allocate treatments to groups, 
+Cluster randomized[^1] experiments allocate treatments to groups, 
 but measure outcomes at the level of the individuals that compose the groups.
 It is this divergence between the level at which the intervention is assigned and the level at which outcomes are defined that classifies an experiment as cluster randomized.
+
+[^1]: This guide was originally written by Jake Bowers and Ashlea Rundlett (22 Nov 2014). Updates made by Jasper Cooper (25 Aug 2015).
 
 Consider a study that randomly assigns villages to receive different development programs, where the well-being of households in the village is the outcome of interest. This is a clustered design because, while the treatment is assigned to the village as a whole, we are interested in outcomes defined at the household level. Or consider a study that randomly assigns certain households to receive different get-out-the-vote messages, where we are interested in the voting behavior of individuals. Because the unit of assignment for the message is the household, but the outcome is defined as individual behavior, this study is cluster randomized.
 
