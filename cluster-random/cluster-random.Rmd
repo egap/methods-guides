@@ -6,9 +6,10 @@ output:
 
 <!-- title: "10 Things You Need To Know About Cluster Randomization" -->
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, message=FALSE}
 rm(list = ls())
 library(knitr)
+library(lme4)
 ```
 
 1 What clustering is 
@@ -70,6 +71,16 @@ ever produces two ways of combining people to estimate an effect.
 
 Throughout this guide, we will illustrate points using examples written in `R` code. You can copy and paste this into your own `R` program to see how it works.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(12345)
 # Define the sample average treatment effect (SATE)
@@ -101,7 +112,19 @@ treatment_effects_V1 <-
 standard_error_V1 <- sd(treatment_effects_V1)
 # Plot the histogram of all possible estimates of the treatment effect
 hist(treatment_effects_V1,xlim = c(-1,2.5),breaks = 20)
+```
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # Version 2 - Cluster randomized
 # Generate all possible assignments of treatment when clustering by hair color (Z)
 clustered_assignments     <- combn(x = unique(hair_color),m = 1)
@@ -132,6 +155,16 @@ treatment conditions.
 This has important implications for the standard error of the 
 estimator. 
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r}
 # Compare the standard errors
 kable(round(data.frame(standard_error_V1,standard_error_V2),2))
@@ -196,6 +229,16 @@ To begin, we will create a function which simulates a cluster
 randomized experiment with fixed intracluster correlation, and use it 
 to simulate some data from a simple cluster-randomized design.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 make_clustered_data <- function(J = 10, n = 100, treatment_effect = .25, ICC = .1){
      ## Inspired by Mathieu et al, 2012, Journal of Applied Psychology
@@ -222,6 +265,16 @@ by simulating every possible permutation
 of the treatment and calculating the estimate each time.
 The standard deviation of this distribution is the standard error of the estimator.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Define the number of clusters
 J <- length(unique(pretend_data$j))
@@ -262,6 +315,16 @@ where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (followin
 This adjustment to the IID standard error 
 is commonly known as the “Robust Clustered Standard Error” or RCSE. 
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T, error=FALSE, message=FALSE, warning=FALSE}
 
 ATE_estimate <- lm(Y ~ Z,data = pretend_data)
@@ -308,6 +371,16 @@ To illustrate the point further, we can compare a simulation of the true standar
 error generated through random permutations of the treatment to the IID and RC
 standard errors.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 
 compare_SEs <- function(data) {
@@ -352,6 +425,16 @@ The smaller the estimate of the standard error is, the more precise the estimate
 Another way to approach the problems that clustering introduces into the calculation of standard errors is to analyze the data at the level of the cluster. In this approach, we take averages or sums of the outcomes within the clusters, and then treat the study as though it only took place at the level of the cluster. 
 Hansen and Bowers (2008) show that we can characterize the distribution of the difference of means using what we know about the distribution of the *sum* of the outcome in the treatment group, which varies from one assignment of treatment to another.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ````{r,cache=T}
 # Aggregate the unit-level data to the cluster level
 # Sum outcome to cluster level
@@ -395,6 +478,16 @@ We can estimate the variance of this random component through permutation
 of the assignment vector or through an approximation of the variance, assuming 
 that the sampling distribution follows a normal distribution.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ````{r,cache=T}
 # Approximating variance using normality assumptions
 normal_sampling_variance <-
@@ -411,7 +504,6 @@ ses <- data.frame(sampling_variance = c(sqrt(normal_sampling_variance),sd(sampli
 rownames(ses) <- c("Assuming Normality","Permutations")
 
 knitr::kable(ses)
-
 ```
 
 This cluster-level approach has the advantage of correctly characterizing uncertainty about 
@@ -437,7 +529,16 @@ firms ranging in size from one-person entrepreneurs to large outfits with over
 500 employees. Half of the firms are assigned to the treatment, and the other 
 half are assigned to control. Outcomes are defined at the employee level. 
  
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
 
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(1000)
 # Number of firms
@@ -467,10 +568,21 @@ Y1 <- Y0 + cluster_ATE[j]
 
 # True sample average treatment effect 
 (true_SATE <- mean(Y1-Y0))
+```
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # Correlation between firm size and effect size 
 cor(n_j,cluster_ATE)
-
 ```
 
 As we see, there is high correlation in the treatment effect and cluster size.
@@ -478,7 +590,16 @@ Now let us simulate 1000 analyses of this experiment, permuting the treatment
 assignment vector each time, and taking the unweighted difference in means as 
 an estimate of the sample average treatment effect.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
 
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(1234)
 # Unweighted SATE
@@ -509,6 +630,16 @@ the clusters in the calculation of the treatment effect.
 However, in this situation, taking the difference in the weighted average of the outcome among 
 treated and control clusters is not enough to provide an unbiased estimator.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(1234)
 # Weighted cluster-averages
@@ -595,7 +726,16 @@ potential outcomes.
 We demonstrate this approach below using the same data as we examined in the
 example of a hypothetical firm-randomized employee productivity experiment.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
 
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(1234)
 # Make a function that matches pairs based on size
@@ -645,7 +785,19 @@ hist(SATE_estimate_paired,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
 abline(v=mean(SATE_estimate_paired),col="purple")
 # And add the true SATE
 abline(v=true_SATE,col="red")
+```
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # The paired estimator is much closer to the true SATE
 kable(round(data.frame(true_SATE = true_SATE,
   paired_SATE = mean(SATE_estimate_paired),
@@ -721,6 +873,16 @@ $Y_{110} = Y_1$ and $Y_{000} = Y_{001} = Y_0$, whereas
 $Y_{111} \neq Y_1$.
 To understand how this matters, let us simulate such an experiment.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 # Create experimental data
 N <- 10
@@ -814,7 +976,16 @@ the researcher can recover the true individual treatment effect
 by forming clusters that are not 
 susceptible to spillover.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
 
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 form_matched_pairs <- function(ID,types){
   pair_list <- lapply(unique(types),function(type){
@@ -889,6 +1060,16 @@ the assumptions underlying them are correct.
 
 Here we show that the estimated effect is the same whether we use a simple difference of means (via OLS) or a multilevel model in our very simplified cluster randomized trial setup.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T, error=FALSE, warning=FALSE, message=FALSE}
 library(lme4)
 
@@ -905,6 +1086,16 @@ kable(round(data.frame(
 
 The confidence intervals differ even though the estimates are the same — and there is more than one way to calculate confidence intervals and hypothesis tests for multilevel models. The software in R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) includes three methods by default and Gelman and Hill (2007) recommend MCMC sampling from the implied posterior. Here we focus on the Wald method only because it is the fastest to compute. 
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T, error=FALSE, message=FALSE, warning=FALSE}
 # This function calculates confidence intervals for linear models 
 # with custom variance-covariance marices
@@ -939,6 +1130,16 @@ knitr::kable(round(rbind(
 
 We can calculate an estimate of the ICC directly from the model quantities (the variance of the Normal prior that represents the cluster-to-cluster differences in the intercept over the total variance of the Normal posterior).
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 VC <- as.data.frame(lme4:::VarCorr.merMod(multilevel))
 round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
@@ -956,7 +1157,17 @@ tests whether 0 is in the 95% confidence interval for each of the three approach
 as it should be. 
 Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.
 
-```{r,cache = T}
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache = T, message=FALSE}
 # Make a function for checking whether 0 is in the confidence interval of 
 # the RCSE, cluster-aggregated, and multilevel estimation approaches 
 
@@ -999,6 +1210,7 @@ sim_0_ate <- function(J,Y) {
   multilevel_fit <- lmer(Y ~ Z_new + (1 | J),
                          control = lmerControl(optimizer = 'bobyqa'),
                          REML = FALSE)
+  
   multilevel_CI <- lme4:::confint.merMod(
     multilevel_fit,parm = "Z_new",method = "Wald")
   # Check if the confidence interval bounds 0
@@ -1054,7 +1266,16 @@ We want designs that are likely to reject hypotheses inconsistent with the data,
 
 The most important rule regarding the statistical power of clustered designs is that more small clusters are better than fewer larger ones. This can be demonstrated through simulated experiments. Generally speaking, the most flexible way to evaluate the power of a design is through simulation, as it allows for complex clustering and blocking schemes, and can incorporate covariates. In the following we use the OLS estimator with Robust Clustered Standard Errors, in order to save on computation time, but the same analysis can be achieved using any estimator and test statistic. 
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
 
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 
 # A function to test the null hypothesis and the true hypothesis
@@ -1104,6 +1325,16 @@ We look both at the power - how often we correctly reject the null of no effect 
 as well as at the error - how often we incorrectly reject the null of no effect when there really isn't an effect. Typically we want the power to be around .8 and the error rate to 
 be around .5 (when using a 95% confidence level).
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # The numbers of clusters we will consider
 Js <- c(8,20,40,80,160,320)
@@ -1146,7 +1377,19 @@ axis(side = 1,labels = rownames(power_J_n),at = 1:6)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
 legend("top", legend = colnames(power_J_n),col = 1:6 ,pch=1,horiz = TRUE) 
+```
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # Plot the error rate under the different scenarios
 matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
 axis(side = 1,labels = rownames(error_J_n),at = 1:6)
@@ -1167,6 +1410,16 @@ Next, we can evaluate how the intra-cluster correlation affects power. We will h
 the structure of the sample size constant at $J=80,n_j=80$ and $J=160,n_j=160$,
 and compare across a range of ICC values, from low (.01) to high (.6).
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 J_njs <- c(80,160)
 ICCs <- seq(0,.6,.1)+c(.01,0,0,0,0,0,0)
@@ -1204,7 +1457,19 @@ axis(side = 1,labels = rownames(power_ICC),at = 1:7)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
 legend("top", legend = colnames(power_ICC),col = 1:2 ,pch=1,horiz = TRUE) 
+```
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # Plot the error rate under the different scenarios
 matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
 axis(side = 1,labels = rownames(error_ICC),at = 1:7)
@@ -1227,6 +1492,16 @@ Since cluster randomized experiments tend to have cluster-level covariates (say,
 
 Here we show only the omnibus test results. The one-by-one assessments that make up the omnibus test are also available in the `balance_test` object. Here, the omnibus test tell us that we have little information against the null that these observations arose from a randomized study.
 
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 library(RItools)
 options(digits=3)
@@ -1247,7 +1522,19 @@ balance_test <-xBalance(balance_formula,
 
 # The results of the 1-by-1 balance tests
 kable(round(balance_test$results,2),align = "c") 
- 
+```
+
+<style>
+div.hidecode + pre {display: none}
+</style>
+<script>
+doclick=function(e){
+e.nextSibling.nextSibling.style.display="block";
+}
+</script>
+
+<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+```{r,cache=T}
 # The overall omnibus p-value
 kable(round(balance_test$overall,2),align = "c")
 ```
