@@ -51,7 +51,7 @@ Regressions also help to estimate relationships between variables. Why would you
 
 4 The difference between population and sample 
 ==
-The goal of statistics is to learn from the observed properties of a sample (n) about the unknown properties of a larger population (N). In order for results to be reliable, a bigger N is usually better (usually). Large-n studies are generally more precise.
+The goal of statistics is to learn from the observed properties of a sample (n) about the unknown properties of a larger population (N). In order for results to be reliable, a bigger n is usually better (usually). Large-n studies are generally more precise.
 
 In the table we are examining, n is listed as “Observations” and it is 2,004. The researchers observed a sample of 2,004 polling stations in Ghana.
 
