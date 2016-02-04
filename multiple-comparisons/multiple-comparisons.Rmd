@@ -26,7 +26,7 @@ There is of course nothing wrong with employing multiple treatment arms, explori
 
 These concerns are especially problematic when making a “family claim,” that is, when you are summarizing a series of results.  For example, a family claim might be that treatments A, B, C, and D had no effect, but treatment E did.  Or, similarly, the treatment had no effect among group 1, group 2, or group 3, but had a strong effect among group 4.
 
-The multiple comparisons problem is related to, but different from, the problem of “fishing”.  Fishing occurs when an unscrupulous analyst conducts many tests but only reports the “interesting” ones. In essence, fishing withholds the necessary information we would need in order to correct for multiple comparisons.
+The multiple comparisons problem is related to, but different from, the problem of “fishing.”  Fishing occurs when an unscrupulous analyst conducts many tests but only reports the “interesting” ones. In essence, fishing withholds the necessary information we would need in order to correct for multiple comparisons.
 
 2 Why multiple comparisons are a problem
 ==
