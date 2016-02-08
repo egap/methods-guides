@@ -61,7 +61,7 @@ img {
 
 
 
-<!-- title: "9 Things to Know About Reading a Regression Table" -->
+<!-- title: "10 Things to Know About Reading a Regression Table" -->
 <!-- author: 'Methods Guide Author: Abby Long' -->
 <div id="abstract" class="section level1">
 <h1>Abstract</h1>
@@ -139,6 +139,20 @@ img {
 <li><strong>Detection bias</strong> occurs when a phenomenon is more likely to be observed for a particular set of study subjects. For instance, the syndemic involving obesity and diabetes may mean doctors are more likely to look for diabetes in obese patients than in thinner patients, leading to an inflation in diabetes among obese patients because of skewed detection efforts.</li>
 <li><strong>Measurement bias</strong> arises when the data used to estimate relationships is wrong in some way. Even if it is not systematically wrong measurement error can cause systematic bias — for example errors on measures of the dependent variable can lead to small an estimate. Reporting bias involves a skew in the availability of data, such that observations of a certain kind are more likely to be reported.</li>
 </ul>
+</div>
+<div id="meet-the-whole-family" class="section level1">
+<h1>10 Meet the whole family</h1>
+<p>Everything in here is strictly speaking about “Ordinary Least Squares” (OLS) regression, which is one of the most commonly used regression techniques in social sciences, but in fact there are many different types of regression that vary mostly in terms of the underlying equation that is being estimated. These include weighted least squares regressions, generalized least squares regressions, as well as all sorts of models for non-linear (curved) relationships or for situations where the outcome variable is restricted to take on particular values, such as being binary (0/1), categorical (A,B,C,…), count (0,1,2,…) and so on.</p>
+<ul>
+<li>Authors might use a weighted least square regression when the variation of the observations are not equal (this is called heteroskedasticity, which generally looks something like this- include a graph).</li>
+<li>You might see a logit or a probit regression when the dependent variable is binary, meaning it has only two options: yes/no, 0/1, or True/False. Logit and probit differe in terms of the assumptions about the underlying data generating process, but they tend to yield similar results and often deciding between the two is often a matter of author preference.</li>
+<li>Ordinal logit and ordinal probit models are used when there are multiple ordered categories (such as “strongly disagree,” “disagree,” “agree,” “strongly agree”).</li>
+<li>Multinomial logit or multinomial probit models are used when there are multiple unordered categories (“Labour,” “Conservative,” “Lib Dem”).</li>
+<li>Poisson or Negative Binomial models when the outcome is a count (“how many riots this year”).</li>
+<li>Tobit models, when the dependent variable is non-negative (“How much time spent working this month”)</li>
+<li>and many more…</li>
+</ul>
+<p>For the simple linear case, the coefficient tells you how big a change in Y you get for a unit change in X, but for non-linear regressions the interpretation can be much more difficult. For non-linear models you should generally expect authors to provide substantive interpretations of the coefficients. The program <a href="http://gking.harvard.edu/clarify">Clarify</a> by Gary King and colleagues helps with this for Stata users; the <a href="http://zeligproject.org/">Zelig package for R</a> (also by King and coauthors) supports analysis and interpretation of these models in R.</p>
 </div>
 
 
