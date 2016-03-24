@@ -157,5 +157,70 @@ Training sections:
 
 Training usually takes several more days than you expect. See below for a rough guide to realistic training schedules. 
 
-![](https://github.com/egap/methods-guides/raw/master/implementation/trainingdays.pdf)
+![](https://raw.githubusercontent.com/egap/methods-guides/master/implementation/trainingdays.jpg)
 
+List of documents needed for training:
+
+* Instrument + translated instrument
+* [Question by question guide](INSERT LINK)
+* [Manual](INSERT LINK) with expectations, instructions for filling responses, tips on interviewing etc.
+* Protocol for sampling, consent, reporting, and unforeseen contingencies
+
+Before being deployed to the field, each enumerator must:
+
+* Be able to correctly list, sample and interview individuals in the enumeration area
+* Understand their role
+* Understand and correctly follow interviewing protocols
+* Be informed about oversight procedures
+* Complete an IRB-approved module on human subjects protection
+
+Data from mock surveys must be individually assessed and feedback given to each enumerator. You can check whether certain enumerators are entering data differently than their peers, for example by entering lots of “Don’t know” or “Refuse” answers, finding low prevalence of sensitive behaviors, or entering data that is logically inconsistent. However, there is a lot that you can’t tell from the data alone. Spending a lot of time observing enumerators while they run surveys can greatly increase the quality of the data by improving their training, allowing you to select the best enumerators more accurately, and allowing you to understand how the questions are being implemented in the field. 
+
+8 Employee incentives
+==
+To a large extent, the quality of the data collected is determined by the behavior the enumerators. Throughout the hiring, training, and field stages of the survey it is important to get the incentives right so that enumerators are motivated to do high quality work.
+
+##Expectations and Quality Control
+Expectations should be laid out clearly during training, in a manual, and reiterated in clearly worded contracts (signed after training).
+
+Basic expectations of enumerators:
+
+* Being on time
+* Adhering to within-EA sampling and replacement scheme
+* Getting informed consent
+* Building rapport with subjects
+* Accurately recording responses
+* Communication with supervisors
+
+##Contracts and Payment
+As much as possible, make payment dependent on delivery. Enumerators have less and less incentive to stick with the project towards the end of fieldwork. The marginal returns are lower and they may be concerned about finding new work. In order to offset this, it is good practice to withhold a portion of their total salary (+/- 30%) until the end of fieldwork, and sometimes until data has been thoroughly reviewed if using paper instruments that need to be entered manually. At the same time, enumerators are often living paycheck to paycheck and may have expenses to cover during their long absence in the field.  It is important to pay an advance up front to allow enumerators to take care of personal expenses that may otherwise make them anxious and unhappy during fieldwork. Having a strong local manager who understands the enumerators financial situations can help you create incentives while still making sure that they perceive the compensation structure as fair and adequate.    
+
+##Soft Incentives
+Soft incentives help to keep teams happy and motivated throughout work. Some examples are:
+
+* *Performance-based bonuses*: Allowing managers to give performance-based bonuses for exceptional performance on a daily or weekly basis. 
+* *Certificates*: Survey trainings often involve learning portable skills, like the use of tablets or PDAs. Certificates can help enumerators prove to new employers that that they have these skills.
+* *Letters of Recommendation*
+* *Recommendations to other survey firms, NGOs, etc.*
+* *Wrap party*
+
+9 Map out your routes 
+==
+Make route plans that set the order in which enumeration areas [EAs] will be covered, and then assign teams to routes. The basic idea is to minimize transportation costs while taking into account regional differences in languages or dialects that could mean that only some teams can work in certain areas. 
+
+A good way to visualize route plans is to mark sampled EAs on a map, using different colors to indicate different languages spoken in each EA. [SAMPLE PHOTO HERE]. Rely on team leaders to gauge travel time between sampled points and to suggest best routes.
+
+10 Checking the data
+==
+Write code to clean data and check for errors, and run it on available data as soon as possible. This code should check for nonsensical responses or patterns, both within and across instruments (enumerator error). 
+
+If you are using tablets or PDAs, you should begin to run the cleaning and error script on the incoming data as soon as interviewing begins. If you are not using PDAs/tablets, you’ll need to develop a procedure for checking the paper instruments in the field (the job of the team leader), and also begin checking and cleaning of entered data as soon as possible. 
+
+##Checking data entered from paper instruments
+After interviewing the team leader needs to review all instruments for completeness and accuracy. If there are missing data or other inconsistencies, the team leader should send the enumerator back to revisit the respondent to correct all problems before leaving the area.
+
+Once instruments are collected, data entry should commence as soon as possible. All data should be entered twice, and any discrepancies should be checked by a supervisor against the paper instrument. 
+
+##Checking data gathered using PDAs or tablets
+When using tablets or PDAs, checking the data is the responsibility of the RA and PIs. 
+In addition to using a script that checks for patterns and outliers, it is also best practice to record selected portions of the interview and listen to a subsample of responses, both for errors and quality.
