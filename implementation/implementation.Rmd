@@ -156,3 +156,6 @@ Training sections:
 * Field practice-- at least one day of training (or more for complicated or long surveys) should be spent interviewing real people who are similar to the survey subjects
 
 Training usually takes several more days than you expect. See below for a rough guide to realistic training schedules. 
+
+![](https://github.com/egap/methods-guides/raw/master/implementation/trainingdays.pdf)
+
