@@ -41,5 +41,36 @@ Per diems cover enumerator’s expenses associated with doing fieldwork. This me
 It’s important to, ex ante, be as accurate as possible in estimating the full cost of transportation as this is frequently both least flexible and most variable cost. Typically, it is good practice to build in contingency on the cost of fuel, as the price can change over the several months it takes to go from the grant application stage to the implementation stage. If you are budgeting before drawing your sample, pay particular attention to hard-to-reach areas in your population (islands, places without road access) and pad your transport line for the possibility you randomly sample enumeration areas that carry these higher costs.
 
 ##Equipment
-Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection [link to section]. PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
+Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection (see section 3). PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
+
+3 Should you use PDAs or tablets? 
+=
+##Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)
+Use of a PDA/tablet allows the collection of more accurate and detailed data (Goldstein, 2012) because of:
+
+* Automated skip patterns
+* More detail, e.g. the ability to program a multi-stage code list
+* The ability to program some randomization algorithms (permuted block randomization, for example)
+* Sensitive questions can be recorded by the respondent themselves on the tablet (instead of the enumerator). There are even ways, using sound and video playback, to do this with illiterate respondents. 
+
+PDAs/tablets have lower error rates than paper-based surveys (Caeyers, 2010) and have exceedingly superior quality control options including: 
+
+* Real-time data upload
+* Real-time survey modification in the case of error or oversight in terms of questions included
+* Audio recording of portions of surveys to verify enumerator delivery
+* Timers that measure how long respondents spend on the entire survey and each individual question
+* Real-time validation checks to make sure numerical questions don't have answers that are nonsensical
+* The ability to generate several orthogonal treatments within a single survey (either for multiple experiments or for conjoint experiments) 
+
+##Tips for PDA or tablet use
+* Always buy extra equipment – chargers, battery packs, power strips, and tablets can go missing, be stolen, or get broken. In many countries you can’t buy extra equipment, even in capital cities, and it’s often more expensive and lower quality than what you can get at your home base. Buying 10-20% more equipment than you need can be expensive, but it is usually far cheaper than the salaries that you will have to pay for enumerators with equipment problems who do not have backups.
+* Pay close attention to battery life when you buy your equipment. If you want full days of enumeration, some of the cheaper tablets will not work. 
+* Budget for extra battery packs for your enumerators to carry in the field, particularly if they will travel to rural areas where they may not always be able to charge the tablets every night.
+* Forecast how frequently teams will be able to upload recorded data. The PDAs/tablets need to be able to store data from completed interviews until uploading is possible. In rural environments this can mean quite a lot of memory is needed, particularly if the survey is long and/or complex.
+* Budget extra costs for charging of the PDAs or tablets in the field (i.e. paying for extra generator time from hotels) and for potential delays because of lack of power. 
+* Budget extra time for exhaustive testing of the PDA/tablet once the survey is fully coded. Code failures can be disastrous the more complex the code/randomization becomes. Run through as many different responses to the survey as you can yourself, and do a "fake" pre-test during training in which you collect data and inspect it to make sure there are no errors. 
+* Have someone available to make on-the-spot changes to the code in case problems are discovered in the field that stall enumeration until the change is implemented. In addition, give your enumerators enough paper versions of the survey to last for one or more days to serve as a holdover until the code is remedied.
+* If possible, name your variables in the survey software to avoid a really laborious process of manually re-naming later. This also makes it easier to inspect the data in real-time. 
+* Code answer values (i.e. the values that will be outputted into the dataset) in advance so that you can standardize scales and easily clean the data (for example, use different negative numbers for "don't know" and "refuse" options so a 10-character command in R can clean the whole dataset). 
+* Take advantage of having more space for text by giving enumerators directions for complicated items in the displayed question text itself. 
 

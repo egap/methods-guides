@@ -71,6 +71,10 @@ img {
 <li><a href="#transportation">Transportation</a></li>
 <li><a href="#equipment">Equipment</a></li>
 </ul></li>
+<li><a href="#should-you-use-pdas-or-tablets">3 Should you use PDAs or tablets?</a><ul>
+<li><a href="#why-personal-digital-assistants-pdas-or-tablets-are-better-if-you-have-the-budget">Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)</a></li>
+<li><a href="#tips-for-pda-or-tablet-use">Tips for PDA or tablet use</a></li>
+</ul></li>
 </ul>
 </div>
 
@@ -109,7 +113,44 @@ img {
 </div>
 <div id="equipment" class="section level2">
 <h2>Equipment</h2>
-<p>Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection [link to section]. PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers.</p>
+<p>Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection (see section 3). PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers.</p>
+</div>
+</div>
+<div id="should-you-use-pdas-or-tablets" class="section level1">
+<h1>3 Should you use PDAs or tablets?</h1>
+<div id="why-personal-digital-assistants-pdas-or-tablets-are-better-if-you-have-the-budget" class="section level2">
+<h2>Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)</h2>
+<p>Use of a PDA/tablet allows the collection of more accurate and detailed data (Goldstein, 2012) because of:</p>
+<ul>
+<li>Automated skip patterns</li>
+<li>More detail, e.g. the ability to program a multi-stage code list</li>
+<li>The ability to program some randomization algorithms (permuted block randomization, for example)</li>
+<li>Sensitive questions can be recorded by the respondent themselves on the tablet (instead of the enumerator). There are even ways, using sound and video playback, to do this with illiterate respondents.</li>
+</ul>
+<p>PDAs/tablets have lower error rates than paper-based surveys (Caeyers, 2010) and have exceedingly superior quality control options including:</p>
+<ul>
+<li>Real-time data upload</li>
+<li>Real-time survey modification in the case of error or oversight in terms of questions included</li>
+<li>Audio recording of portions of surveys to verify enumerator delivery</li>
+<li>Timers that measure how long respondents spend on the entire survey and each individual question</li>
+<li>Real-time validation checks to make sure numerical questions don’t have answers that are nonsensical</li>
+<li>The ability to generate several orthogonal treatments within a single survey (either for multiple experiments or for conjoint experiments)</li>
+</ul>
+</div>
+<div id="tips-for-pda-or-tablet-use" class="section level2">
+<h2>Tips for PDA or tablet use</h2>
+<ul>
+<li>Always buy extra equipment – chargers, battery packs, power strips, and tablets can go missing, be stolen, or get broken. In many countries you can’t buy extra equipment, even in capital cities, and it’s often more expensive and lower quality than what you can get at your home base. Buying 10-20% more equipment than you need can be expensive, but it is usually far cheaper than the salaries that you will have to pay for enumerators with equipment problems who do not have backups.</li>
+<li>Pay close attention to battery life when you buy your equipment. If you want full days of enumeration, some of the cheaper tablets will not work.</li>
+<li>Budget for extra battery packs for your enumerators to carry in the field, particularly if they will travel to rural areas where they may not always be able to charge the tablets every night.</li>
+<li>Forecast how frequently teams will be able to upload recorded data. The PDAs/tablets need to be able to store data from completed interviews until uploading is possible. In rural environments this can mean quite a lot of memory is needed, particularly if the survey is long and/or complex.</li>
+<li>Budget extra costs for charging of the PDAs or tablets in the field (i.e. paying for extra generator time from hotels) and for potential delays because of lack of power.</li>
+<li>Budget extra time for exhaustive testing of the PDA/tablet once the survey is fully coded. Code failures can be disastrous the more complex the code/randomization becomes. Run through as many different responses to the survey as you can yourself, and do a “fake” pre-test during training in which you collect data and inspect it to make sure there are no errors.</li>
+<li>Have someone available to make on-the-spot changes to the code in case problems are discovered in the field that stall enumeration until the change is implemented. In addition, give your enumerators enough paper versions of the survey to last for one or more days to serve as a holdover until the code is remedied.</li>
+<li>If possible, name your variables in the survey software to avoid a really laborious process of manually re-naming later. This also makes it easier to inspect the data in real-time.</li>
+<li>Code answer values (i.e. the values that will be outputted into the dataset) in advance so that you can standardize scales and easily clean the data (for example, use different negative numbers for “don’t know” and “refuse” options so a 10-character command in R can clean the whole dataset).</li>
+<li>Take advantage of having more space for text by giving enumerators directions for complicated items in the displayed question text itself.</li>
+</ul>
 </div>
 </div>
 
