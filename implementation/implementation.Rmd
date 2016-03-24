@@ -1,0 +1,49 @@
+---
+output: 
+  html_document:
+    toc: true
+---
+
+<!-- title: "10 Steps to Implementing a Survey" -->
+
+1 Decide whether or not to work with a local firm
+==
+There are two discrete skill sets needed on the ground when implementing a survey. The first skill set is focused on administration/logistics, and the second skill set is focused on research design. The first set of skills is needed for administration: budgeting, creating route plans, recruitment, and management of staff.  Administration requires a level of familiarity with local conditions; for example, the ability to quickly estimate costs and troubleshoot logistical issues are important here. The second skill set requires knowledge of research methods to ensure that survey implementation is consistent with the research design. Researchers must be able to recognize any deviations from the protocol and address them in a way that leads to as little bias as possible. Important here is a deep understanding of the survey protocols and possible alternatives, in the case that changes need to be made on the ground. 
+
+If you will not be present during survey administration, you will need to either hire a firm or individuals who can work together to cover both sets of needs. There are clear advantages to hiring a firm if you have the budget, the biggest being that firms coordinate internally and balance both sets of needs, ensuring that logistics accommodate the design and vice versa. A possible drawback is that firms frequently have their own protocols, and these default procedures are usually at a lower standard than the latest protocol being used in academia. Upgrading protocols is a costly process and firms may push back against the use of stricter, or simply different, practices.
+
+If you will be present during enumeration but you have a small budget, or do not feel you could manage the entire implementation (administration and design) yourself, a good alternative is to hire a field coordinator from a survey or research firm on a consultant basis. This person can help with administration while you take on the design-related work. Additionally, hiring someone for administration locally can do a lot to help with cross-cultural management. The types of management procedures that might work to motivate or sanction employees in the US may not work in another context, so someone who knows what is acceptable and effective can add a lot of value.
+
+##Contracts with local firms
+When setting up contracts with local firms it is important to get the incentives right—thorough and good work should also be the most profitable for the firm. You can do a lot to set expectations and incentives in the contract. For example, pay on delivery where possible (although it is customary to pay some costs upfront to cover fixed expenses like transport and early salaries). You can also choose to impose financial penalties for late or low-quality data, but be sure to make these requirements clear up front and provide specific rules for what constitutes low-quality work and how late penalties will be assigned. 
+
+In addition to direct costs, it is reasonable for a local firm to charge overhead. This can vary from context to context, and it is best to check against the budgets of other similar projects to make sure the rate is reasonable. 
+
+2 Budgeting 
+==
+As you prepare to begin survey implementation, the first and most important part of the survey is budgeting expected costs. It’s important to be thorough and detailed in putting together your budget; it will be critical throughout implementation and will be closely considered by potential funders. 
+
+The total cost of a survey is the sum of fixed costs, like transportation and equipment costs, and variable expenses like salaries, per diems, and administration costs. See the attached budget template for an overview of typical costs and notes on how to estimate them. [LINK: BUDGET TEMPLATE] 
+
+Salaries
+Estimating total salary costs before drawing the sample (needed in order to determine the teams and route plans) requires a bit of guesswork. One approach is to estimate the work-hours needed to conduct the survey (survey length x sample size) and divide by some estimated number of enumerators to come up with the number of enumerator days you will need to pay. The per diem may need to cover food and lodging, and make this clear to enumerators so they can plan accordingly. For surveys that will require long fieldwork, it is good practice to pay salary on a rest day each week although some enumerators prefer to work continuously in order to finish sooner and return home. This choice is context-specific. 
+
+Per Diems
+Per diems cover enumerator’s expenses associated with doing fieldwork. This means lodging for overnight stays, all meals, and sometimes also transportation. Per diems should also be paid on rest days that fall in between work days. In the case that the variation in lodging and food costs is low, it is not important to change the per diem rate according to location. Teams will know when to save and when to spend. 
+
+
+[BELOW TO BE FIELDS TO BE FILLED ON THE SITE]
+
+Quick calculator:
+
+((Survey length * sample size)/workable hours in a day)/# of enumerators = # of days (survey length)
+
+(# of days * (daily rate + per diem)+ supervisors = approx. total salary cost
+
+
+Transportation
+It’s important to, ex ante, be as accurate as possible in estimating the full cost of transportation as this is frequently both least flexible and most variable cost. Typically, it is good practice to build in contingency on the cost of fuel, as the price can change over the several months it takes to go from the grant application stage to the implementation stage. If you are budgeting before drawing your sample, pay particular attention to hard-to-reach areas in your population (islands, places without road access) and pad your transport line for the possibility you randomly sample enumeration areas that carry these higher costs.
+
+Equipment
+Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection [link to section]. PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
+
