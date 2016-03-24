@@ -23,27 +23,23 @@ In addition to direct costs, it is reasonable for a local firm to charge overhea
 ==
 As you prepare to begin survey implementation, the first and most important part of the survey is budgeting expected costs. It’s important to be thorough and detailed in putting together your budget; it will be critical throughout implementation and will be closely considered by potential funders. 
 
-The total cost of a survey is the sum of fixed costs, like transportation and equipment costs, and variable expenses like salaries, per diems, and administration costs. See the attached budget template for an overview of typical costs and notes on how to estimate them. [LINK: BUDGET TEMPLATE] 
+The total cost of a survey is the sum of fixed costs, like transportation and equipment costs, and variable expenses like salaries, per diems, and administration costs. See the attached [budget template](INSERT LINK) for an overview of typical costs and notes on how to estimate them.
 
-Salaries
+##Salaries
 Estimating total salary costs before drawing the sample (needed in order to determine the teams and route plans) requires a bit of guesswork. One approach is to estimate the work-hours needed to conduct the survey (survey length x sample size) and divide by some estimated number of enumerators to come up with the number of enumerator days you will need to pay. The per diem may need to cover food and lodging, and make this clear to enumerators so they can plan accordingly. For surveys that will require long fieldwork, it is good practice to pay salary on a rest day each week although some enumerators prefer to work continuously in order to finish sooner and return home. This choice is context-specific. 
 
-Per Diems
+##Per Diems
 Per diems cover enumerator’s expenses associated with doing fieldwork. This means lodging for overnight stays, all meals, and sometimes also transportation. Per diems should also be paid on rest days that fall in between work days. In the case that the variation in lodging and food costs is low, it is not important to change the per diem rate according to location. Teams will know when to save and when to spend. 
 
-
-[BELOW TO BE FIELDS TO BE FILLED ON THE SITE]
-
-Quick calculator:
-
+####Quick calculator:
 ((Survey length * sample size)/workable hours in a day)/# of enumerators = # of days (survey length)
 
 (# of days * (daily rate + per diem)+ supervisors = approx. total salary cost
 
 
-Transportation
+##Transportation
 It’s important to, ex ante, be as accurate as possible in estimating the full cost of transportation as this is frequently both least flexible and most variable cost. Typically, it is good practice to build in contingency on the cost of fuel, as the price can change over the several months it takes to go from the grant application stage to the implementation stage. If you are budgeting before drawing your sample, pay particular attention to hard-to-reach areas in your population (islands, places without road access) and pad your transport line for the possibility you randomly sample enumeration areas that carry these higher costs.
 
-Equipment
+##Equipment
 Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection [link to section]. PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
 
