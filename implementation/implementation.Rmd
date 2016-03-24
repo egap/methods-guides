@@ -36,17 +36,18 @@ Per diems cover enumerator’s expenses associated with doing fieldwork. This me
 
 (# of days * (daily rate + per diem)+ supervisors = approx. total salary cost
 
-
 ##Transportation
 It’s important to, ex ante, be as accurate as possible in estimating the full cost of transportation as this is frequently both least flexible and most variable cost. Typically, it is good practice to build in contingency on the cost of fuel, as the price can change over the several months it takes to go from the grant application stage to the implementation stage. If you are budgeting before drawing your sample, pay particular attention to hard-to-reach areas in your population (islands, places without road access) and pad your transport line for the possibility you randomly sample enumeration areas that carry these higher costs.
 
 ##Equipment
 Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection (see section 3). PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
 
-3 Should you use PDAs or tablets? 
+3 Should you use PDAs or tablets?[^1] 
 =
 ##Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)
 Use of a PDA/tablet allows the collection of more accurate and detailed data (Goldstein, 2012) because of:
+
+[^1]: Thanks to [Brandon de la Cuesta](https://www.princeton.edu/politics/people/display_person.xml?netid=bjmiller&display=All) for help with this section
 
 * Automated skip patterns
 * More detail, e.g. the ability to program a multi-stage code list
