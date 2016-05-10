@@ -102,14 +102,14 @@ sims <- 500 # Number of simulations to conduct for each N
 
 #### Outer loop to vary the number of subjects #### 
 for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Pick the jth value for N 
-                                  
-significant.experiments <- rep(NA, sims) # Empty object to count significant experiments 
+
+  Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
+  tau <- 5 # Hypothesize treatment effect 
+  Y1 <- Y0 + tau # treatment potential outcome                                   
+  significant.experiments <- rep(NA, sims) # Empty object to count significant experiments 
                                   
   #### Inner loop to conduct experiments "sims" times over for each N #### 
-  for (i in 1:sims){ 
-        Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
-        tau <- 5 # Hypothesize treatment effect 
-        Y1 <- Y0 + tau # treatment potential outcome 
+  for (i in 1:sims){
         Z.sim <- rbinom(n=N, size=1, prob=.5) # Do a random assignment 
         Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Reveal outcomes according to assignment 
         fit.sim <- lm(Y.sim ~ Z.sim) # Do analysis (Simple regression) 
