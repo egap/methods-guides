@@ -32,7 +32,7 @@ The example introduced above is termed one-sided non-compliance: 80% of the popu
 
 Before we can calculate the LATE under one-sided noncompliance we need to make an assumption. The exclusion restriction (also called "excludability") stipulates that potential outcomes respond to treatments, not treatment assignments. In normal words this simply means that the outcome for a Never-Taker is the same regardless of whether they are assigned to the treatment or control group: in both cases the subject is not treated, and that is what matters.
 
-Because the treatment was randomly assigned, we know that if there are 20% Never-Takers in the treatment group (left column) there are also 20% Never-Takers in the control group. Because of the exclusion restriction, the Never-Takers have the same outcome under both assignment conditions, and thus the difference in average outcomes (40) cannot be attributed to the Never-Takers. We can thus leave them out of the analysis altogether, and focus on the Compliers. The LATE is therefore equal to the ITT divided by the share of Compliers: 40/0.8 = 50.
+Because the treatment was randomly assigned, we know that if there are 20% Never-Takers in the treatment group (left column) there are also 20% Never-Takers in the control group. Because of the exclusion restriction, the Never-Takers have the same outcome under both assignment conditions, and thus the difference in average outcomes (40) cannot be attributed to the Never-Takers. We can thus leave them out of the analysis altogether, and focus on the Compliers. The LATE is therefore the ITT divided by the share of Compliers: 40/0.8 = 50.
 
 # 3 The LATE can be calculated for two-sided non-compliance assuming both the exclusion restriction and a "no defiers" assumption
 
@@ -40,7 +40,7 @@ The experimenter may also face two-sided non-compliance. In this case, some subj
 
 ![](figs/Table3pvdw.png) 
 
-With the exclusion restriction and the no Defiers assumption we can calculate the LATE. Because of the exclusion restriction we do not have to take into account Never-Takers and Always-Takers. Given that we know the ITT (4), what remains is to estimate the share of Compliers in the population. Because there are no Defiers we can calculate the share of Never-Takers in the treatment group (left column): 10 people. Because the treatment was assigned randomly we know there are also 10 Never-Takers in the control group. From this we are able to calculate the share of Compliers: 0.8. As a result, the LATE is equal to 40/0.8=50.
+With the exclusion restriction and the no Defiers assumption we can calculate the LATE. Because of the exclusion restriction we do not have to take into account Never-Takers and Always-Takers. Given that we know the ITT (40), what remains is to estimate the share of Compliers in the population. Because there are no Defiers we can calculate the share of Never-Takers in the treatment group (left column): 10 people. Because the treatment was assigned randomly we know there are also 10 Never-Takers in the control group. From this we are able to calculate the share of Compliers: 0.8. As a result, the LATE is equal to 40/0.8=50.
 
 #4 The LATE is an instrumental variables estimate
 
