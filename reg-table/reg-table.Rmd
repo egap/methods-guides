@@ -1,7 +1,9 @@
 ---
-output: 
+output:
   html_document:
-    toc: true
+    toc: yes
+  pdf_document:
+    toc: yes
 ---
 
 <!-- title: "10 Things to Know About Reading a Regression Table" -->
@@ -9,7 +11,7 @@ output:
 
 Abstract
 ==
-This guide^[Originating author: Abby Long. Revisions: Winston Lin, 30 June 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.] gives basic information to help you understand how to interpret the results of the regression techniques that are now commonly used in social science research. The guide focuses on regression, but also includes information on confidence intervals.
+This guide^[Originating author: Abby Long. Revisions: Winston Lin, 30 June 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits. Thanks to Don Green, Macartan Humphreys, and Tod Mijanovich for helpful discussions.] gives basic information to help you understand how to interpret the results of the regression techniques that are now commonly used in social science research. The guide focuses on regression, but also includes information on confidence intervals.
 
 The table below that will be used throughout this methods guide is from a study done by EGAP members Miriam Golden, Eric Kramon and their colleagues (J. Asunka et al., ["Protecting the Polls: The Effect of Observers on Election Fraud"](https://web.archive.org/web/20160418155726/http://cega.berkeley.edu/assets/miscellaneous_files/Asunka_etal_Protecting_the_Polls.pdf)). The authors performed a field experiment in Ghana in 2012 to test the effectiveness of domestic election observers on combating two common electoral fraud problems: ballot stuffing and overvoting. Ballot stuffing occurs when more ballots are found in a ballot box than are known to have been distributed to voters. Overvoting occurs when more votes are cast at a polling station than the number of voters registered. This table reports a multiple regression (this is a concept that will be further explained below) from their experiment that explores the effects of domestic election observers on ballot stuffing. The sample consists of 2,004 polling stations.
 
@@ -126,7 +128,7 @@ Although R² summarizes how well the model fits the data, any single-number summ
 
 9 Be careful when comparing coefficients
 ==
-If one coefficient is bigger than another, does that mean the outcome is more sensitive to that explanatory variable? No---the interpretation of coefficients depends on the scales the variables are measured on. If you convert an explanatory variable from miles to feet, the coefficient will go flying up, without that meaning any real change.
+If one coefficient is bigger than another, does that mean the outcome is more sensitive to that explanatory variable? No---the interpretation of coefficients depends on the scales the variables are measured on. If you convert an explanatory variable from feet to miles, the coefficient will go flying up, without that meaning any real change.
 
 10 Meet the whole family
 ==
