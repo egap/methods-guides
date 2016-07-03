@@ -7,16 +7,16 @@ output: html_document
 
 Abstract
 ==
-This guide[^1] helps you think through how to design and analyze experiments when there is a risk of “interference” between units. This has been an important area of research in recent years and there have been real gains in our understanding of how to estimate spillovers in a defensible way. Spillover problems arise whenever one unit is affected by the treatment status of another unit.[^2] Spillovers make it difficult to work out causal effects (we say why below) . Experimentalists worry a lot about them, but the problem is not unique to randomized experiments. It is a universal problem for assessing causal effects. However, spillover analysis is difficult enough when the design is in the direct control of the researcher; it is orders of magnitude more difficult when units are assigned to treatment by some unknown process.
+This guide[^1] helps you think through how to design and analyze experiments when there is a risk of “interference” between units. This has been an important area of research in recent years and there have been real gains in our understanding of how to detect spillover effects. Spillovers arise whenever one unit is affected by the treatment status of another unit. Spillovers make it difficult to work out causal effects (we say why below). Experimentalists worry a lot about them, but the complications that spillovers create are not unique to randomized experiments.  
 
 [^1]: Originating author: Alex Coppock, 31 Jul 2014. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide.
-[^2]: Although we describe spillovers as a problem here, they are not necessarily substantively a  problem — for example if a treatment has a positive effect on individuals plus their friends then the spillover effects on the friends are an extra benefit
+
 
 1. What they are
 ==
-Spillovers are the effects of a treatment assigned to one unit on outcomes for another unit.
+Spillovers refer to a broad class of instances in which a given subject is influenced by whether other subjects are treated.
 
-Here are some examples of how spillovers (or  “interference”) might occur in an experiment.
+Here are some examples of how spillovers (or  “interference”) might occur:
 
 * __Public Health:__ Providing an infectious disease vaccine to some individuals may decrease the probability that nearby individuals become ill.
 * __Criminology:__ Increased enforcement may displace crime to nearby areas.
@@ -32,21 +32,23 @@ These examples share some features:
 * An _outcome_: incidence of disease, crime rates, electoral fraud; and
 * A “_network_” that links units together: face-to-face social interaction, geographic proximity within a city, road distance between polling stations.
 
-The network is a crucial feature of any spillover analysis. For each unit, it describes the set of other units whose treatment assignments “matter.” To take the education example: it may matter to me if you treat another student in my classroom, but it probably doesn’t matter if you treat a student in a different city. I’m connected to the other students in my classroom, but not to students in other cities.
+The network is a crucial feature of any spillover analysis. For each unit, it describes the set of other units whose treatment assignments “matter.” To take the education example: it may matter to me if you treat another student in my classroom, but it probably doesn’t matter if you treat a student in a different city. I’m connected to the other students in my classroom but not to students in other cities.
 
-2. If ignored, spillovers “bias” treatment effect estimates
+2. If ignored, spillovers may “bias” treatment effect estimates
 ==
-If unaddressed, spillovers “bias” standard estimates of treatment effects (e.g. differences-in-means or OLS regression). “Bias” is in scare quotes because those estimators will return unbiased estimates of causal effects, just not the causal effects that most researchers are interested in.
+If unaddressed, spillovers “bias” standard estimates of treatment effects (e.g., differences-in-means). “Bias” is in scare quotes because those estimators will return unbiased estimates of causal effects, just not the causal effects that most researchers are interested in.
 
-Imagine an experiment in which there are 50 villages. A treatment is randomly administered to some villages but not others. Let’s assume that a village receives spillovers if there is another village within a 5km radius that receives treatment. If we naively compare treated villages to untreated villages, we will not recover an unbiased estimate of the true treatment effect. Instead, we’ll recover an unbiased estimate of the average difference between treated and untreated villages, when some number are treated. As it turns out how many villages are treated can make a big difference.
+Imagine an experiment in which there are 50 villages. A treatment (such as a health clinic) is randomly assigned to some villages but not others. Let’s assume that a village receives spillovers if there is another village within a 5km radius that receives treatment. Imagine the outcome is some measure of health, such as infant mortality  If we naively compare treated villages to untreated villages, we will not recover an unbiased estimate of the average treatment effect of receiving a health clinic in one's own village.  The reason is that some members of the control group are partially treated by a nearby clinic, and the some members of the treatment group are also partially treated by a nearby clinic.
+
+In order to see how spillovers can distort estimates of the average treatment effect (defined as the average difference between subjects' treated and untreated potential outcomes), consider the graph below:
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/spillovers/spilloverbias.jpg)
 
 The graph considers a situation in which the true treatment effect on a given unit is 1, and shows how estimated treatment effects can be higher or lower than 1 depending on the direction and size of spillovers as well as the number of units treated.
 
-In this case, positive spillovers cause a negative bias and vice-versa. This is because when spillovers are positive, the control group mean is inflated, so the difference-in-means is smaller than it otherwise would have been.[^3] The extent of the bias, however, depends on the number of units treated as well as the magnitude of the spillover effect. In this example, the more units are treated, the smaller the bias resulting from spillovers. This is because when more units are treated, both the treatment and control group means are similarly inflated by positive spillovers and deflated by negative spillovers.
+In this case, positive spillovers cause a negative bias and vice-versa. This is because when spillovers are positive, the control group mean is inflated, so the difference-in-means is smaller than it otherwise would have been.[^2] The extent of the bias, however, depends on the number of units treated as well as the magnitude of the spillover effect. In this example, the more units are treated, the smaller the bias resulting from spillovers. This is because when more units are treated, both the treatment and control group means are similarly inflated by positive spillovers and deflated by negative spillovers.
 
-[^3]: Note though, it is generally very difficult to guess the direction of the bias that would be induced by spillover. Claims like, “spillover would only make our treatment effects appear stronger” usually depend on assumptions of treatment (and spillover) effect homogeneity.
+[^2]: Note though, it is generally very difficult to guess the direction of the bias that would be induced by spillover. Claims like, “spillover would only make our treatment effects appear stronger” usually depend on assumptions of treatment (and spillover) effect homogeneity.
 
 Often, evaluators are trying to estimate what would happen if a program were rolled out to everyone. Evidence from an RCT that ignores spillover could greatly over or underestimate the total effects of the intervention.
 
