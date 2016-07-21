@@ -9,7 +9,7 @@ Abstract
 ==
 This guide[^1] helps you think through how to design and analyze experiments when there is a risk of “interference” between units. This has been an important area of research in recent years and there have been real gains in our understanding of how to detect spillover effects. Spillovers arise whenever one unit is affected by the treatment status of another unit. Spillovers make it difficult to work out causal effects (we say why below). Experimentalists worry a lot about them, but the complications that spillovers create are not unique to randomized experiments.  
 
-[^1]: Originating author: Alex Coppock, 31 Jul 2014. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide.
+[^1]: Originating author: Alex Coppock, 31 Jul 2014. Minor revisions: Don Green and Winston Lin, 20 July 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.
 
 
 1. What they are
@@ -38,15 +38,15 @@ The network is a crucial feature of any spillover analysis. For each unit, it de
 ==
 If unaddressed, spillovers “bias” standard estimates of treatment effects (e.g., differences-in-means). “Bias” is in scare quotes because those estimators will return unbiased estimates of causal effects, just not the causal effects that most researchers are interested in.
 
-Imagine an experiment in which there are 50 villages. A treatment (such as a health clinic) is randomly assigned to some villages but not others. Let’s assume that a village receives spillovers if there is another village within a 5km radius that receives treatment. Imagine the outcome is some measure of health, such as infant mortality  If we naively compare treated villages to untreated villages, we will not recover an unbiased estimate of the average treatment effect of receiving a health clinic in one's own village.  The reason is that some members of the control group are partially treated by a nearby clinic, and the some members of the treatment group are also partially treated by a nearby clinic.
+Imagine an experiment in which there are 50 villages. A treatment (such as a vaccination program) is randomly assigned to some villages but not others. Let’s assume that a village receives spillovers if another village within a 5km radius is treated. Imagine the outcome is some measure of health (such as the prevalence of an infectious disease). If we naively compare treated villages to untreated villages, we may not recover an unbiased estimate of the direct effect of treating a village. The reason is that each village's outcome is affected not only by whether that village is treated, but also by whether neighboring villages are treated.
 
-In order to see how spillovers can distort estimates of the average treatment effect (defined as the average difference between subjects' treated and untreated potential outcomes), consider the graph below:
+In order to see how spillovers can distort estimated treatment effects, consider the graph below:
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/spillovers/spilloverbias.jpg)
 
-The graph considers a situation in which the true treatment effect on a given unit is 1, and shows how estimated treatment effects can be higher or lower than 1 depending on the direction and size of spillovers as well as the number of units treated.
+The graph considers a situation in which the true direct effect of treating a village is 1, and shows how estimated treatment effects can be higher or lower than 1 depending on the direction and size of spillovers as well as the number of villages treated.
 
-In this case, positive spillovers cause a negative bias and vice-versa. This is because when spillovers are positive, the control group mean is inflated, so the difference-in-means is smaller than it otherwise would have been.[^2] The extent of the bias, however, depends on the number of units treated as well as the magnitude of the spillover effect. In this example, the more units are treated, the smaller the bias resulting from spillovers. This is because when more units are treated, both the treatment and control group means are similarly inflated by positive spillovers and deflated by negative spillovers.
+In this case, positive spillovers cause a negative bias and vice-versa. This is because when spillovers are positive, the control group mean is inflated, so the difference-in-means is smaller than it otherwise would have been.[^2] The extent of the bias, however, depends on the number of villages treated as well as the magnitude of the spillover effect. In this example, the more villages are treated, the smaller the bias resulting from spillovers. This is because when more villages are treated, both the treatment and control group means are similarly inflated by positive spillovers and deflated by negative spillovers.
 
 [^2]: Note though, it is generally very difficult to guess the direction of the bias that would be induced by spillover. Claims like, “spillover would only make our treatment effects appear stronger” usually depend on assumptions of treatment (and spillover) effect homogeneity.
 
@@ -54,11 +54,11 @@ Often, evaluators are trying to estimate what would happen if a program were rol
 
 3. Most experimental analyses implicitly or explicitly assume that there are no spillovers.
 ==
-The assumption that there are no spillovers is known as the __non-interference assumption__; it is part of a somewhat more elaborate assumption sometimes referred to as the __Stable Unit Treatment Value Assumption__ (or SUTVA) that is generally invoked in the analysis of experimental data.
+The assumption that there are no spillovers is known as the __non-interference assumption__; it is part of a somewhat more elaborate assumption sometimes referred to as the __Stable Unit Treatment Value Assumption__ (or SUTVA) that is usually invoked in causal inference.
 
 What does the non-interference assumption mean? Subjects can only reveal one of two “potential outcomes”: either their treated outcome or their untreated outcome. Which of these they reveal depends on their own treatment status only. The treatment status of all the other subjects in the experiment doesn’t matter at all.
 
-We can state the non-interference assumption more formally using potential outcomes notation:  $[y_i(z_i,Z)=y_i(z′_i,Z′)$, if $z_i=z′_i]$, where  $[Z]$ and $[Z′]$ represent any two possible random assignment vectors. In words, this expression states that subject i is unaffected by other units’ treatment assignments.
+We can state the non-interference assumption more formally using potential outcomes notation:  $y_i(z_i,Z)=y_i(z′_i,Z′)$, if $z_i=z′_i$, where  $Z$ and $Z′$ represent any two possible random assignment vectors. In words, this expression states that subject $i$ is unaffected by other subjects’ treatment assignments.
 
 How reasonable is the non-interference assumption? The answer depends on the domain. Every study that finds a statistically significant impact of spillovers is providing evidence that the assumption is incorrect in that particular application. Most papers discussing spillovers tend to focus on examples in which the non-interference assumption is false. But other studies suggest that spillovers are sometimes surprisingly weak. Sinclair, McConnell, and Green (2012) for example find no evidence of within-zip code spillovers of experimental encouragements to vote, bolstering the non-interference claims made by the dozens of previous turnout experiments.
 
@@ -66,14 +66,14 @@ How reasonable is the non-interference assumption? The answer depends on the dom
 ==
 The usual non-interference assumption is very strong: it says that there are no spillover effects. When you try to estimate spillovers, you are replacing this strong assumption with a (slightly) weaker one. Perhaps you think that spillovers take place in geographic space — the treatment status of one location may influence the outcomes of nearby units. Allowing spillovers to take place in geographic space requires the assumption that they do not also occur in, for example, social space. This assumption would be violated if the treatment status of, say, Facebook friends in faraway places affects which potential outcome is revealed. To restate this point more generally: When you relax the non-interference assumption, you replace it with a new assumption: no unmodeled spillovers. The modeling of spillovers itself requires strong, often untestable assumptions about how spillovers can and cannot occur.
 
-Suppose we were to model spillovers in the following way. Every unit has four potential outcomes, which we’ll write as $[Y(Z_i,Z_j)]$, where $[Z_i]$ refers to a units own treatment assignment, and $[Z_j]$ refers to the treatment assignment of neighboring units within a specified radius.  $[Z_j=1]$ when any of the units within the radius are treated and zero otherwise.
+Suppose we were to model spillovers in the following way. Every unit has four potential outcomes, which we’ll write as $Y(Z_i,Z_j)$, where $Z_i$ refers to a unit's own treatment assignment, and $Z_j$ refers to the treatment assignment of neighboring units (i.e., other units within a specified radius).  $Z_j=1$ when any neighboring units are treated and $Z_j=0$ otherwise.
 
-* $[Y(Z_i=0,Z_j=0)]$ — Pure Control, abbreviated $[Y_{00}]$
-* $[Y(Z_i=1,Z_j=0)]$ — Directly treated, no spillover, abbreviated $[Y_{10}]$
-* $[Y(Z_i=0,Z_j=1)]$ — Untreated, with spillover, abbreviated $[Y_{01}]$
-* $[Y(Z_i=1,Z_j=1)]$ — Directly treated, with spillover, abbreviated $[Y_{11}]$
+* $Y_{00} \equiv Y(Z_i=0,Z_j=0)$: Pure Control
+* $Y_{10} \equiv Y(Z_i=1,Z_j=0)$: Directly treated, no spillover
+* $Y_{01} \equiv Y(Z_i=0,Z_j=1)$: Untreated, with spillover
+* $Y_{11} \equiv Y(Z_i=1,Z_j=1)$: Directly treated, with spillover
 
-What assumptions are we invoking here? First, we are stipulating that the treatment assignment of units outside the radius do not alter a unit’s potential outcomes. Second, we are modeling spillovers as a binary event: either some unit within the radius is treated, or not — we are ignoring the number of treated units, and indeed, their relative proximity.
+What assumptions are we invoking here? First, we are stipulating that the treatment assignments of non-neighboring units do not alter a unit’s potential outcomes. Second, we are modeling spillovers as a binary event: either some neighboring unit is treated, or not — we are ignoring the _number_ of neighboring units that are treated, and indeed, their relative proximity.
 
 This potential outcome space is already twice as complex as the one allowed by the conventional non-interference assumption. However, it is important to bear in mind that this potential outcome space can be incorrect in the sense that it does not accurately reflect the underlying social process at work in the experiment.
 
@@ -193,18 +193,18 @@ There are two very important things to remember when using IPW:
 ==
 You might be tempted to simply construct a model for a particular type of spillover and estimate it. But unfortunately, just as spillovers can produce biased estimates of treatment effects, incorrectly modeled spillovers can create biased estimates of spillover effects (as well as treatment effects).
 
-To get some intuition for the problem, the simulator below lets you pick an interference assumption: the radius beyond which spillovers cannot occur. As in point (4) we are assuming that there are only 4 potential outcomes – the three causal effects we are interested are the average differences as compared with $Y_{00}$. The tension in the simulator is between the true (in principle, unknown) spillover network that generates outcomes and the assumed spillover network used for estimation.
+To get some intuition for the problem, the simulator below lets you pick an interference assumption: the radius beyond which spillovers cannot occur. As in section 4, we assume there are only 4 potential outcomes. The three causal effects that interest us are the average differences between $Y_{00}$ and the other three potential outcomes. The tension in the simulator is between the true (in principle, unknown) spillover network that generates outcomes and the assumed spillover network used for estimation.
 
 The causal effect estimates are only correct when the spillover assumption is correct. The potential outcomes were generated under a true radius of 5km. When any radius other than 5km is selected, some if not all of the estimates are biased. This simulator underlines a discouraging point about spillover analysis: it is generally not possible to know if you’ve got the “correct” model of spillovers. Short of doing so, the answers yielded by the model will be incorrect.
 
 <iframe height="500" src="https://egap.shinyapps.io/spillover-app/" width="850"></iframe>
 [Download R code for the above Shiny App](https://github.com/egap/shiny/tree/master/gotv-app) from github
 
-Most applied researchers have settled on two responses to the “unknowability” of the spillover network. First, they specify “theoretically-driven” models of spillover. Usually, this involves the careful application of qualitative information from the experimental context. Second, researchers conduct robustness checks: they present estimates under a series of spillover assumptions, for example the estimates under increasing radii.
+Applied researchers often favor two responses to the “unknowability” of the spillover process. First, they specify “theoretically-driven” models of spillover. Usually, this involves the careful application of qualitative information from the experimental context. Second, researchers conduct robustness checks: they present estimates under a series of spillover assumptions, for example the estimates under increasing radii.
 
 8. Sometimes you can avoid spillovers with “buffer rows”
 ==
-One approach to addressing the problem of spillovers is to ensure that other units’ treatment assignments cannot interfere with potential outcomes by including “buffer rows” between experimental units. The buffer row analogy comes from agricultural studies in which experimental crop rows were physically separated by non-experimental rows that presumably prevented interference due to local changes in soil nitrogen content, insect behavior, or water usage.
+One approach to addressing the problem of spillovers is to ensure that other units’ treatment assignments cannot interfere with potential outcomes, by including “buffer rows” between experimental units. The buffer row analogy comes from agricultural studies in which experimental crop rows were physically separated by non-experimental rows that presumably prevented interference due to local changes in soil nitrogen content, insect behavior, or water usage.
 
 The analogous design choice in our villages experiment would be to sample a set of 50 experimental villages from a larger set of villages, such that all 50 experimental villages were a healthy distance away from each other – say, separated by a minimum of 75km. Of course, we still must make a non-interference assumption along the lines of: “No spillovers between villages that are 75km or more apart.” This assumption also rules out spillovers that might take place over non-geographic networks, such as an information network via radio, telephone, or internet.
 
@@ -228,12 +228,31 @@ What are the disadvantages? As ever, the difficulty is that the non-interference
 
 10. Even if a treatment is binary, spillovers might not be. The right model might require dealing with “dosage”
 ==
-We’ve explored a non-parametric approach to estimating spillover effects. (See Aronow and Samii 2014 for a fuller treatment of this method as well as a conservative variance estimator in the presence of spillovers.) Units were randomly assigned to one of four conditions with a complex (but knowable) probability. Our estimates of causal effects were calculated as the average differences between the treatment conditions. This approach has the advantage of making IPW estimation easy – simply weight each observation by the inverse of the probability of it being in the condition that it’s in.
+We’ve explored a non-parametric approach to estimating spillover effects. (See Aronow and Samii 2015 for a fuller treatment of this method as well as a conservative variance estimator in the presence of spillovers.) Units were randomly assigned to one of four conditions with a complex (but knowable) probability. Our estimates of causal effects were calculated as differences in weighted average outcomes between the treatment conditions. This approach has the advantage of making IPW estimation easy – simply weight each observation by the inverse of the probability of it being in the condition that it’s in.
 
 But what about “dosage”? Perhaps in fact spillovers work as a decreasing function of the distance to every other treated unit or in some other more complex way. The spillover is then a continuous variable that describes the “dosage” of exposure to spillovers. The non-parametric IPW approach would require us to chop up the continuous variable in to bins and then calculate average outcomes according to the bin. The IPW estimator quickly becomes quite noisy, as fewer and fewer units occupy each bin.
 
-Bowers, Frederickson, and Panagopoulos (2013) propose a framework that can accommodate any causal model that maps treatment assignments into potential outcomes. The potential outcomes can be in discrete categories (as we’ve been assuming for most of this guide) or a continuous function of the dosage of spillovers.
+Bowers, Fredrickson, and Panagopoulos (2013) propose a framework that can accommodate any causal model that maps treatment assignments into potential outcomes. The potential outcomes can be in discrete categories (as we’ve been assuming for most of this guide) or a continuous function of the dosage of spillovers.
 
 A schematic sketch of their method is as follows. Suppose the causal model has two parameters: $\beta_1$, the direct treatment effect and $\beta_2$, the indirect effect of a single unit of spillover dosage. A joint test of the hypothesis that $\beta_1 = \beta_2 = 0$ is equivalent to a test of the sharp null hypothesis of no effect. Such a test yields a p-value — the probability that the observed data were generated according to the causal model in which $\beta_1 = \beta_2 = 0$.
 
-But we aren’t restricted to only obtaining p-values for the hypothesis that $\beta_1 = \beta_2 = 0$. Those parameters could take on any value, and we could associate a p-value with any pair of parameters. The essence of their proposed estimation method is to pick the set of parameters that generates the highest p-value by searching through the set of plausible combinations of parameters.
+But we aren’t restricted to only obtaining p-values for the hypothesis that $\beta_1 = \beta_2 = 0$. Those parameters could take on any values, and we could associate a p-value with any hypothesized pair of values. The essence of their proposed estimation method is to pick the pair that generates the highest p-value by searching through the set of plausible pairs.
+
+For further reading
+==
+Aronow, Peter M., and Cyrus Samii (2015). "Estimating Average Causal Effects Under Interference Between Units." [arXiv](http://arxiv.org/abs/1305.6156)
+
+Athey, Susan, and Guido W. Imbens (2016a). "The Econometrics of Randomized Experiments." [arXiv](http://arxiv.org/abs/1607.00698)
+
+Athey, Susan, and Guido W. Imbens (2016b). "The State of Applied Econometrics: Causality and Policy
+Evaluation." [arXiv](https://arxiv.org/abs/1607.00699)
+
+Bowers, Jake, Mark M. Fredrickson, and Costas Panagopoulos (2013). "Reasoning about Interference Between Units: A General Framework." _Political Analysis_ 21: 97--124.
+
+Gerber, Alan S., and Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapter 8.
+
+Glennerster, Rachel, and Kudzai Takavarasha (2013). _Running Randomized Evaluations: A Practical Guide_, modules 4.2, 7.3, and 8.2.
+
+Paluck, Elizabeth Levy, Hana Shepherd, and Peter M. Aronow (2016). "Changing Climates of Conflict: A Social Network Experiment in 56 Schools." _Proceedings of the National Academy of Sciences_ 113: 566--571.
+
+Sinclair, Betsy, Margaret McConnell, and Donald P. Green (2012). "Detecting Spillover Effects: Design and Analysis of Multilevel Experiments." _American Journal of Political Science_ 56: 1055--1069.
