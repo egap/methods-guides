@@ -10,9 +10,9 @@ output:
 Abstract
 ==
 Sometimes a treatment or a program is delivered but for some reason or another only some individuals or groups actually take the treatment. In this case it can be hard to estimate treatment effects for the whole population. For example maybe people for whom the treatment would have had a big effect decided not to take up the treatment. In these cases it is still possible to estimate what's called the "Local Average Treatment Effect," or LATE. This guide[^1] discusses the LATE: what it is, how to estimate it, and how to interpret it.^[For more extensive overviews, see: J. D. Angrist, G. W. Imbens, and D. B. Rubin (1996), "Identification of Causal Effects Using Instrumental Variables" (with discussion), Journal of the American Statistical Association 91: 444-472; J. D. Angrist (2006), "Instrumental Variables Methods in Experimental Criminological
-Research: What, Why and How," Journal of Experimental Criminology 2: 23-44; J. D. Angrist and J.-S. Pischke (2009), _Mostly Harmless Econometrics_, sections 4.4-4.6 and 6.2; M. Baiocchi, J. Cheng, and D. S. Small (2014), "Instrumental Variable Methods for Causal Inference," Statistics in Medicine 33: 2297-2340 (with correction in Statistics in Medicine 33: 4859-4860).]
+Research: What, Why and How," Journal of Experimental Criminology 2: 23-44; J. D. Angrist and J.-S. Pischke (2009), _Mostly Harmless Econometrics_, sections 4.4-4.6 and 6.2; T. Dunning (2012), _Natural Experiments in the Social Sciences_; M. Baiocchi, J. Cheng, and D. S. Small (2014), "Instrumental Variable Methods for Causal Inference," Statistics in Medicine 33: 2297-2340 (with correction in Statistics in Medicine 33: 4859-4860).]
 
-[^1]: Originating author: Peter van der Windt, 20 October 2014. Revisions: Winston Lin, 24 June 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits. Thanks to Albert Fang for point 10.
+[^1]: Originating author: Peter van der Windt, 20 October 2014. Revisions: Winston Lin, 22 August 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits. Thanks to Albert Fang for point 10.
 
 #1 What it is
 
