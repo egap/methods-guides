@@ -1,7 +1,9 @@
 ---
-output: 
+output:
   html_document:
-    toc: true
+    toc: yes
+  pdf_document:
+    toc: yes
 ---
 
 <!-- title: "10 Steps to Implementing a Survey" -->
