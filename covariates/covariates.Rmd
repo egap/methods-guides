@@ -1,298 +1,284 @@
 ---
-output: html_document
+output:
+  html_document:
+    toc: true
 ---
 
-<!-- title: "10 Things to Know About Covariate Adjustment" -->
+<!-- title: "10 Things to Know About Controlling for Covariates in RCTs” -->
 <!-- author: "Methods Guide Author: Lindsay Dolan" -->
 
 Abstract
 ==
-This guide[^1] will help you think through when it makes sense to try to “control for other things” when estimating treatment effects. Economists control a lot, medical science use controls less, and political scientists control less clearly. We focus on the big ideas and provide examples and tools you can use in R.
+This guide[^1] will help you think through when it makes sense to try to “control for other things” when estimating treatment effects using experimental data. We focus on the big ideas and provide examples in R.
 
-[^1]: Lead author: Lindsay Dolan. Dolan is not responsible to subsequent edits to this document.
+[^1]: Originating author: Lindsay Dolan. Revisions: Don Green and Winston Lin, 1 Nov 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits. Thanks to Macartan Humphreys and Diana Mutz for helpful discussions.
 
-1 What it is
+1 What is covariate adjustment?
 ==
-“Covariates” are other characteristics (besides treatment) of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables you expect to change as a result of your intervention, e.g. expenditure decisions, attitudes toward democracy, contribution to a public good in a lab experiment. But it’s also a good idea to collect data on characteristics of subjects before they received the treatment, e.g. gender, level of education, ethnic group. If you do this you can explore how treatment effects are different across different types of subjects (see 10 Things about Heterogeneous Treatment Effects, forthcoming). But doing this also lets you perform covariate adjustment.
+“Covariates” are baseline characteristics of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables that your intervention may affect, e.g. expenditure decisions, attitudes toward democracy, or contributions for a public good in a lab experiment. But it’s also a good idea to collect data on baseline characteristics of subjects before treatment assignment occurs, e.g. gender, level of education, or ethnic group. If you do this you can explore how treatment effects vary with these characteristics (see 10 Things about Heterogeneous Treatment Effects, forthcoming). But doing this also lets you perform covariate adjustment.
 
-You do covariate adjustment when you include this extra data on potentially explanatory variables when estimating treatment effects. Often this is done to improve precision. The outcomes you may be interested in, such as attitudes toward democracy, are likely to be influenced by other factors beside your treatment, even when there is a treatment effect. Accounting for variables like gender will allow you to set aside the variation in your dependent variable (your outcome) that is predicted by these background characteristics, so that you can identify the relationship between your treatment and your dependent variable with greater precision. When your findings are more precise, you can have greater confidence in your estiamtes of treatment effects.
+Covariate adjustment is another name for controlling for baseline variables when estimating treatment effects. Often this is done to improve precision. Subjects' outcomes are likely to have some correlation with variables that can be measured before random assignment. Accounting for variables like gender will allow you to set aside the variation in outcomes that is predicted by these baseline variables, so that you can isolate the effect of treatment on outcomes with greater precision and power.
 
-Because improving the precision of your estimate of a treatment effect is so desirable, researchers often collect extensive data on covariates. These are frequently gathered in the form of a baseline survey, which is issued before an experimental intervention takes place. Baseline surveys can ask individuals who are about to be assigned to either treatment or control about a number of factors that, in addition to their treatment status, are expected to influence the outcomes that will later be observed. A similar exercise is a pre-test. When a treatment is expected to influence an individual’s performance on a certain task, measuring their performance before treatment can provide a useful predictive source of data (so long as the occurrence of the pre-test does not itself affect a subject’s performance on a similar test administered after the treatment is or is not administered — see “7. When not to do it”).
+Covariate adjustment can be a cheaper route to improved precision than increasing the number of subjects in the experiment. Partly for that reason, researchers often collect extensive data on covariates before random assignment. Pre-tests (measures that are analogous to the outcome variable but are restricted to time periods before random assignment) may be especially valuable for predicting outcomes, and baseline surveys can ask subjects about other background characteristics.
 
-2 How to do it at the design stage (blocking)
+2 Controlling for covariates at the design stage (blocking)
 ==
-The best way to control for covariates is to use block randomization to do it at the design stage even before you start your experiment. Block randomization enables you to create treatment and control groups that are balanced on certain covariates. For example, you might expect that gender and income predict the outcome variable in your experiment. If you use block randomization, it will ensure that treatment and control groups have equal proportions of female/high-income, female/low-income, male/high-income, and male/low-income populations. Specifying this means that it will be impossible to find a correlation between gender or income and your treatment, so there will be no reason to control for gender or income when you are analyzing your results.
+The best way to control for covariates is to use block randomization to do it at the design stage even before you start your experiment. Block randomization enables you to create treatment and control groups that are balanced on certain covariates. For example, you might expect that gender and income help predict the outcome variable. Block randomization can ensure that the treatment and control groups have equal proportions of female/high-income, female/low-income, male/high-income, and male/low-income populations. When the blocking variables help predict outcomes, blocking improves precision by preventing chance correlations between treatment assignment and baseline covariates.
 
-If you want more information on blocking and how to implement this in R, see [here](http://egap.org/methods-guides/10-things-you-need-know-about-randomization#2block).
+For more information on blocking and how to implement it in R, see [10 Things You Need to Know About Randomization](http://egap.org/methods-guides/10-things-you-need-know-about-randomization). The precision gains from blocking (relative to covariate adjustment without blocking) tend to be greatest when sample sizes are small.^[Miratrix, Luke W., Jasjeet S. Sekhon, and Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
 
-A word of caution: if your probability of assignment to treatment varies by block, then you need to control for the block in your analysis.
+When blocking is done to improve precision, estimated standard errors should take the blocking into account. (Otherwise, the SEs will tend to be conservative because they won't give you credit for the precision improvement that blocking achieved.) One simple and commonly used method is to regress the outcome on the treatment assignment dummy variable as well as block dummies. When the probability of assignment to treatment is constant across blocks, including the block dummies in the regression doesn't change the estimated treatment effect, but tends to give a more accurate estimate of the SE.^[See, e.g., pages 217--219 of Miriam Bruhn and David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
+
+If the probability of assignment to treatment varies by block, then you need to control for these unequal probabilities in order to get unbiased estimates of average treatment effects. [10 Things You Need to Know About Randomization](http://egap.org/methods-guides/10-things-you-need-know-about-randomization) discusses ways to do this.
 
 3 How to do it in a regression
 ==
-Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment has already been determined) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error. You can still adjust for covariates on the back end by using multiple regression. Remember that in a simple regression — when you regress your outcome on just your treatment indicator — the coefficient on your treatment indicator is just a difference-in-means: it’s the average effect your treatment has on the outcome. When we add covariates to the model, the coefficient on your treatment indicator is still your difference-in-means representing the treatment effect, but it is the estimated difference-in-means once we’ve predicted what our outcomes should look like for different individuals given their covariates. In other words, by using our knowledge of subjects’ background characteristics, we are better able to predict what their outcomes should be independent of treatment and therefore better estimate the overall average treatment effect.
+Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment occurs) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error. You can still adjust for covariates on the back end by using multiple regression. Remember that in a bivariate regression---when you regress your outcome on just your treatment indicator---the coefficient on treatment is just a difference-in-means.  This simple method gives an unbiased estimate of the average treatment effect (ATE). When we add baseline covariates that are correlated with outcomes to the model, the coefficient on treatment is an approximately unbiased estimate of the ATE that tends to be more precise than bivariate regression.
 
 To adjust for covariates through multiple regression, use the model:
 
-$$Y_i = \alpha + \beta D_i + \gamma X_i + \epsilon_i$$
+$$Y_i = \alpha + \beta Z_i + \gamma X_i + \epsilon_i$$
 
-where $Y_i$ is your outcome variable, $D_i$ is your treatment variable, and $X_i$ is your covariate. The remainder, $ϵ_i$ is your disturbance term — the leftover unexplained noise.
+where $Y_i$ is the outcome variable, $Z_i$ is the treatment indicator, and $X_i$ is a vector of one or more covariates. The remainder $\epsilon_i$ is your disturbance term---the leftover unexplained noise.
 
-Even better (see Lin 2013) include interactions with your treatment (and for ease of interpretation normalize the covariate to have zero mean):
+When the treatment and control groups are of unequal size, the precision gains from covariate adjustment may be greater if you include interactions between treatment and the covariates (see [this blog post](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) for more discussion). For ease of interpretation, recenter the covariates to have zero mean:
 
-$$Y_i = \alpha + \beta D_i + \gamma X_i + \delta X_I*D_i + \epsilon_i$$
+$$Y_i = \alpha + \beta Z_i + \gamma W_i + \delta Z_i*W_i + \epsilon_i$$
 
-Recall that in the blocked design described above, it was important to account for varying probabilities of assignment to treatment by block. Analogously, if subjects received different probabilities of assignment to treatment based on their covariates, then our multiple regression model would need to account for this. Suppose you encounter an experiment in which subjects received different probabilities of assignment to treatment based on their covariates. First ask yourself: did these different probabilities of assignment to treatment result from a design in which the experiments blocked on covariates and had probabilities that varied by block? If so, you should calculate each unit’s individual probability of assignment to treatment based on its block, then calculate the inverse of these probabilities, and use these as the weights in a weighted regression. In R, this is done by specifying weights= as an argument in the command lm().
+where $W_i = X_i - \overline{X}$ and $\overline{X}$ is the mean value of $X_i$ for the entire sample.
+
+If subjects receive different probabilities of assignment to treatment based on their covariates, then our estimation method needs to account for this (again, see [10 Things You Need to Know About Randomization](http://egap.org/methods-guides/10-things-you-need-know-about-randomization) for details).
 
 4 Why to do it
 ==
-Collecting and adjusting for covariates is not necessary for an unbiased estimator, but under some conditions, which will be described below, it improves precision.[^2] In addition it can also help with conditional unbiasedness (see point 6 below).
+It isn't absolutely necessary to control for covariates when estimating the average treatment effect in an RCT that assigns every subject the same probability of receiving the treatment. The unadjusted treatment--control difference in mean outcomes is an unbiased estimator of the ATE. However, covariate adjustment tends to improve precision if the covariates are good predictors of the outcome.^[A brief review of bias and precision: Imagine replicating the experiment many times (without changing the experimental sample and conditions, but re-doing random assignment each time). An unbiased estimator may overestimate or underestimate the ATE on any given replication, but its expected value (the average over all possible replications) will equal the true ATE. We usually prefer unbiased or approximately unbiased estimators, but we also value precision (which is formally defined as the inverse of the variance). Imagine you're throwing a dart at a dartboard. If you hit the center of the dartboard on average but your shots are often far from the mark, you have an unbiased but imprecise estimator. If you hit close to the center every time, your estimator is more precise. A researcher may choose to accept a small bias in return for a large improvement in precision. One possible criterion for evaluating estimators is the [mean squared error](https://en.wikipedia.org/wiki/Mean_squared_error), which equals the variance plus the square of the bias. See, e.g., Sharon Lohr (2010), _Sampling: Design and Analysis_, 2nd ed., pp. 31--32.]
 
-[^2]:  A brief review of these concepts: Our goal in an experiment is to estimate a treatment effect that is unbiased and precise. We reduce bias in our experiment by focusing on how we go about calculating the treatment effect; for example, we make sure that treatment was randomly assigned, and if it hadn’t been, we’d know that our difference-in-means estimator will be biased because it’s reflecting the factors that caused individuals to select into or to be selected into treatment. In other words, if we repeated the experiment a thousand times, we would find that our treatment effect on average is higher or lower than the actual underlying treatment effect. An unbiased estimator (which we get when we correct our experiment and reestablish random assignment!) can produce individual estimates of the treatment effect that are too high or too low, but when we take the average of a thousand treatment effects across a thousand experiments, we will recover the true one. But we also like our estimates to be precise. Precision refers to how variable our estimates of the treatment effect are across those thousand experimental replications. We would say that our estimator is precise if we get lots of estimates of the treatment effect that are close to the true treatment effect, and imprecise if we see a wide spread. Imagine that you are throwing a dart at a dart board. If you hit the center of the dart board on average but your shots are often frequently far from the mark, you have an unbiased but imprecise estimator. If you hit the center of the dart board every single time, your estimator is both unbiased and extremely precise.
+In large samples, random assignment tends to produce treatment and control groups with similar baseline characteristics. Still, by the "luck of the draw," one group may be slightly more educated, or one group may have slightly higher voting rates in previous elections, or one group may be slightly older on average. For this reason, the estimated ATE is subject to “sampling variability,” meaning you’ll get estimates of the ATE that were produced by an unbiased method but happened to miss the mark.[^3] A high sampling variability contributes to noise (imprecision), not bias.
 
-When treatment is randomly assigned, the difference-in-means estimator is an unbiased estimator of the treatment effect, because the only thing that should systematically differentiate your treatment and control groups is the assignment of treatment. For this reason, it is never necessary to conduct a baseline survey or to have data on covariates in order to estimate an unbiased treatment effect.
+[^3]: “Sampling variability” refers to the spread of estimates that will be produced just because of the different random assignments that could have been drawn. When the luck of the draw of random assignment produces a treatment group with more As and a control group with more Bs, it is more difficult to separate background characteristics (A and B) from treatment assignment as the predictor of the observed outcomes.
 
-However, different random assignments can produce different compositions of treatment and control groups along background covariates. In some random assignments, subjects with similar covariates that are predictive of their outcomes may randomly clump together in treatment or control groups. You might get several young unemployed men in one group and several older conservative women in another group. For this reason, the estimate of the treatment effect will be subject to “sampling variability,” meaning you’ll get estimates of the treatment effect that were generated from an unbiased estimator, but happened to miss the mark quite severely.[^3] A high sampling variability contributes to noise (imprecision), not bias.
+Controlling for these covariates tends to improve precision if the covariates are predictive of potential outcomes. Take a look at the following example, which is loosely based on the Giné and Mansuri experiment on female voting behavior in Pakistan.^[Giné, Xavier, and Ghazala Mansuri (2012). ["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)] In this experiment, the authors randomized an information campaign to women in Pakistan to study its effects on their turnout behavior, the independence of their candidate choice, and their political knowledge. They carried out a baseline survey which provided them with several covariates.
 
-[^3]: “Sampling variability” refers to the spread of estimates that will be produced just because of the different random assignments that could have been drawn–will this spread be large or will it produce balanced treatment and control groups consistently? When the luck of the draw on random assignment produces a treatment group with several As in it and a control group with several Bs in it, it is more difficult to separate background characteristics (A and B) from treatment assignment as the predictor of the observed outcomes.
-
-Controlling for these covariates, which are known to be predictive of potential outcomes, corrects for this. Take a look at the following example, which is loosely based on the Gine and Mansuri experiment on female voting behavior in Pakistan. In this experiment, the authors randomized an information campaign to women in Pakistan to study its effects on their turnout behavior, the independence of their candidate choice, and their political knowledge. They carried out a baseline survey which provided them with several covariates.
-
-The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates potential outcomes (the outcome an individual would show if she were treated versus the outcome she would show if untreated) for a continuous measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. In other words, when we regress the observed outcome on treatment assignment, we should see a coefficient of 1 on “Z.” To figure out whether our estimator is biased or not, we simulate 10,000 possible treatment assignments, and then regress the 10,000 simulations of outcomes we would observe on those treatment assignments, with and without controlling for covariates. If the average of the 10,000 coefficients on our treatment variable is 1, then our coefficient must be unbiased, because although each individual randomization may be higher or lower than one, on average, we observe a treatment effect of 1.
+The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates two [potential outcomes](http://egap.org/methods-guides/10-things-you-need-know-about-causal-inference) (the outcomes that would occur if she were assigned to treatment and if not) for a measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. To figure out whether our estimator is biased or not, we simulate 10,000 replications of our experiment. On each replication, we randomly assign treatment and then regress the observed outcome $Y$ on the treatment indicator $Z$, with and without controlling for covariates. Thus, we are simulating two methods (unadjusted and covariate-adjusted) for estimating the ATE. To estimate the bias of each method, we take the difference between the average of the 10,000 simulated estimates and the "true" treatment effect.
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())
 
 set.seed(20140714)
-N <- 2000
-id <- seq(from=1,to=N)
+N = 2000
+N.treated = 1000
+Replications = 10000
 
-# define pre-treatment covariates
-ownsidcard <- rbinom(n=N,size=1,prob=.18)
-hasformalschooling <- rbinom(n=N,size=1,prob=.6)
-age <- round(rnorm(n=N, mean=37, sd=16))
-age[age<18] <- 18
-age[age>65] <- 65
-TVaccess <- rbinom(n=N,size=1,prob=.7)
+true.treatment.effect = 1
 
-#define potential outcomes correlated with pre-treatment covariates
-indepchoiceY0 <- round(ownsidcard+2*hasformalschooling+3*TVaccess+log(age))
-indepchoiceY1 <- indepchoiceY0+1
+# Create pre-treatment covariates
+owns.id.card = rbinom(n = N, size = 1, prob = .18)
+has.formal.schooling = rbinom(n = N, size = 1, prob = .6)
+age = round(rnorm(n = N, mean = 37, sd = 16))
+age[age<18] = 18
+age[age>65] = 65
+TV.access = rbinom(n = N, size = 1, prob = .7)
+epsilon = rnorm(n = N, mean = 0, sd = 2)
 
-#assign treatment 10000 times
-Z_mat <- replicate(10000,ifelse(1:N %in% sample(1:N,1000),1,0))
+# Create potential outcomes correlated with pre-treatment covariates
+Y0 = round(owns.id.card + 2*has.formal.schooling + 3*TV.access + log(age) + epsilon)
+Y1 = Y0 + true.treatment.effect
 
-#observe 10000 simulations of potential outcomes
-indepchoice_mat <- indepchoiceY1*Z_mat+indepchoiceY0*(1-Z_mat)
+# Assign treatment repeatedly
+Z.mat = replicate(Replications, ifelse(1:N %in% sample(1:N, N.treated), 1, 0))
 
-#estimate ATE on indepchoice
-ate <- function(Y,Z) summary(lm(Y~Z))$coef[2,1]
-ate.covs <- function(Y,Z)
-  summary(lm(Y~Z+ownsidcard+hasformalschooling+age+TVaccess))$coef[2,1]
-dist <- rep(NA, 10000)
-dist.covs <- rep(NA, 10000)
-for (i in 1:10000) {
-  dist[i] <- ate(indepchoice_mat[,i],Z_mat[,i])
-  dist.covs[i] <- ate.covs(indepchoice_mat[,i],Z_mat[,i])}
+# Generate observed outcomes
+Y.mat = Y1 * Z.mat + Y0 * (1 - Z.mat)
 
-#look at bias and precision in our results
-mean(dist) # unbiased!
-mean(dist.covs) # unbiased!
-sd(dist) # less precise
-sd(dist.covs) #more precise
+diff.in.means = function(Y, Z) {
+  coef(lm(Y ~ Z))[2]
+}
+
+ols.adjust = function(Y, Z) {
+  coef(lm(Y ~ Z + owns.id.card + has.formal.schooling + age + TV.access))[2]
+}
+
+unadjusted.estimates = rep(NA, Replications)
+adjusted.estimates   = rep(NA, Replications)
+
+for (i in 1:Replications) {
+  unadjusted.estimates[i]  =  diff.in.means(Y.mat[,i], Z.mat[,i])
+  adjusted.estimates[i]    =  ols.adjust(Y.mat[,i], Z.mat[,i])
+}
+
+# Estimated variability (standard deviation) of each estimator
+sd.of.unadj = sd(unadjusted.estimates)
+sd.of.unadj
+sd.of.adj   = sd(adjusted.estimates)
+sd.of.adj
+
+# Estimated bias of each estimator
+mean(unadjusted.estimates) - true.treatment.effect
+mean(adjusted.estimates) - true.treatment.effect
+
+# Margin of error (at 95% confidence level) for each estimated bias
+1.96 * sd.of.unadj / sqrt(Replications)
+1.96 * sd.of.adj   / sqrt(Replications)
 ```
 
-Indeed, both models–with and without covariates–yield the true treatment effect of 1. When we ran this regression without covariates, our estimated average treatment effect was 1.00085, and with covariates, it was 1.00013.
+Both methods---with and without covariates---yield the true treatment effect of 1 on average. When we ran the regression without covariates, our estimated ATE averaged 1.0008 across the 10,000 replications, and with covariates, it averaged 1.0003.  Notice that the regression-adjusted estimate is essentially unbiased even though our regression model is misspecified---we control for age linearly when the true data generating process involves the log of age.^[The estimated bias is 0.0003 with a margin of error (at the 95% confidence level) of 0.0018.]
 
-The real gains come in the precision of our estimates. The standard error, or the standard deviation of the sampling distribution, of our treatment effect when we ignore covariates was .076. When we include covariates in the model, though, our estimate becomes much tighter: the standard error of the treatment effect is .013. Because our covariates were prognostic of our outcome, including them in the regression explained some noise in our data so that we could tighten our estimate of the treatment effect.
+The real gains come in the precision of our estimates. The standard error (the standard deviation of the sampling distribution) of our estimated ATE when we ignore covariates is 0.121. When we include covariates in the model, our estimate becomes a bit tighter: the standard error is 0.093. Because our covariates were prognostic of our outcome, including them in the regression explained some noise in our data so that we could tighten our estimate of ATE.  
 
-5 How it can help with precision
+5 When will it help?
 ==
 When is adjusting for covariates most likely to improve precision?
 
-Covariate adjustment will be most helpful when your covariates are strongly predictive (or “prognostic”) of your outcomes. Covariate adjustment essentially enables you make use of your knowledge of strong relationships between background characteristics and your outcome so that you can better identify the relationship between your treatment and your outcome. But if those relationships between background characteristics and your outcome are fairly weak, covariate adjustment won’t do you much good. The covariates you will want to adjust for are the ones that are strongly correlated with outcomes.
+Covariate adjustment will be most helpful when your covariates are strongly predictive (or “prognostic”) of your outcomes. Covariate adjustment essentially enables you to make use of information about relationships between baseline characteristics and your outcome so that you can better identify the relationship between treatment and the outcome. But if the baseline characteristics are only weakly correlated with the outcome, covariate adjustment won’t do you much good. The covariates you will want to adjust for are the ones that are strongly correlated with outcomes.
 
-The following graph demonstrates the relationship between how prognostic your covariate is and the gains you get from adjusting for it. On the y-axis is the mean squared error (MSE), which measures the average of the squares of the difference between the estimator and what is estimated. We want our MSE to be small, and covariate adjustment should help us do this. 
+The following graph demonstrates the relationship between how prognostic your covariate is and the gains you get from adjusting for it. On the x-axis is the sample size, and on the y-axis is the [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation) (RMSE), the square root of the average squared difference between the estimator and the true ATE. We want our RMSE to be small, and covariate adjustment should help us reduce it.
 
-```{r, message=FALSE, warning=FALSE, error=FALSE}
-mse = function(n, rho=0, sims = 10000, control = TRUE) {
-  t = 1*(sample((1:n)<=(n/2)))
-  e =sapply(1:sims, function(j) {
-    Y0 = rnorm(n)
-    X = rho*Y0+sqrt(1-rho^2)*rnorm(n)
-    if(!control) X=rep(1,n)
-    Y = Y0 + t
-    return( (1-coef(lm(Y~t+X))["t"])^2)
-  })
-  return(mean(e)^.5)
+
+```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
+rm(list=ls())
+library(MASS)  # for mvrnorm()
+set.seed(1234567)
+num.reps = 10000
+
+# True treatment effect is 0 for every unit
+
+adj.est = function(n, cov.matrix, treated) {
+    Y.and.X  =  mvrnorm(n, mu = c(0, 0), Sigma = cov.matrix)
+    Y   =  Y.and.X[, 1]  
+    X   =  Y.and.X[, 2]
+    coef(lm(Y ~ treated + X))[2]
 }
- 
-n = (6 + 2^(1:10))
- 
-E  = sapply(n, mse, control =FALSE)
-E0 = sapply(n, mse)
-E1 = sapply(n, mse, rho=(.5))
-E2 = sapply(n, mse, rho=(.9))
- 
-plot(n, E, type = "l", ylab = "RMSE", xlim = c(min(n),max(n)), ylim = c(0,.5))
-  lines(n, E0, col = "yellow")
-  lines(n, E1, col = "orange")
-  lines(n, E2, col ="red")
-  legend(700, y=.4, c("No controls", expression(paste(rho, "=0")), expression(paste(rho, "=0.5")), expression(paste(rho, "0=.9"))),
-  col=c("black", "yellow","orange", "red"), lty = 1, lwd=2)
+
+unadj.est = function(n, treated) {
+    Y = rnorm(n)
+    coef(lm(Y ~ treated))[2]
+}
+
+rmse = function(half.n, rho = 0, control = TRUE) {
+    treated  =  rep(c(0, 1), half.n)
+    n = 2 * half.n
+
+    if (control) {
+        cov.matrix  =  matrix(c(1, rho, rho, 1), nrow = 2, ncol = 2)
+        return( sqrt(mean(replicate(num.reps, adj.est(n, cov.matrix, treated)) ^ 2)) )
+    }
+    else {
+        return( sqrt(mean(replicate(num.reps, unadj.est(n, treated)) ^ 2)) )
+    }
+}
+
+half.n = c(5, 7, 11, 19, 35, 67, 131)
+n = 2 * half.n 
+E  = sapply(half.n, rmse, control = FALSE)
+E0 = sapply(half.n, rmse, rho = 0)
+E1 = sapply(half.n, rmse, rho = 0.5)
+E2 = sapply(half.n, rmse, rho = 0.9)
+
+plot(n, E, type = "l", ylab = "RMSE", xlim = c(min(n),max(n)), ylim = c(0,.75))
+lines(n, E0, col = "yellow")
+lines(n, E1, col = "orange")
+lines(n, E2, col = "red")
+legend(x = 'topright',
+       c("No controls",
+         expression(paste(rho, "=0")), expression(paste(rho, "=0.5")),
+         expression(paste(rho, "=0.9"))),
+         col=c("black", "yellow","orange", "red"), lty = 1, lwd=2)
 ```
 
-The black line shows the MSE when we don’t adjust for a covariate. The red line shows the MSE when we adjust for a highly prognostic covariate, one that strongly predicts our outcomes. You can see that the red line is always below the black line, meaning that the MSE is always lower when you adjust for a prognostic covariate. The orange line represents the MSE when we adjust for our covariate, but that covariate is less predictive of our outcomes. We still are getting gains in precision relative to the black line, but not as much as we did with the red line. Finally, the yellow line shows what happens if you control for your covariate, but it’s not at all predictive of your outcomes. The yellow line is almost identical to the black line: you received no improvement in precision by controlling for a non-prognostic covariate. This exercise demonstrates that you’ll get the most gains in precision by controlling for covariates that strongly predict outcomes. Identifying whether covariates are “prognostic” of outcomes is sometimes more art than science, precisely because we cannot observe both the treated and the untreated potential outcome for each subject! You may want to regress your outcome on your covariate in just the treatment group or just the control group and see whether a clear story emerges: does this covariate seem to significantly affect your outcome in either group? If there is a strong literature on your topic of interest, you can also use previous works that have identified strong correlations in a variety of contexts to back your claim that a covariate is prognostic, but you will need to make the case for why this is true of your particular population as well.
+![](rmse.png)
 
-6 How it can help with bias
+The black line shows the RMSE when we don’t adjust for a covariate. The red line shows the RMSE when we adjust for a highly prognostic covariate (the correlation between the covariate and the outcome is 0.9). You can see that the red line is always below the black line, which is to say that the RMSE is lower when you adjust for a prognostic covariate. The orange line represents the RMSE when we adjust for a moderately prognostic covariate (the correlation between the covariate and the outcome is 0.5). We still are getting gains in precision relative to the black line, but not nearly as much as we did with the red line. Finally, the yellow line shows what happens if you control for a covariate that is not at all predictive of the outcome. The yellow line is almost identical to the black line.  You received no improvement in precision by controlling for a non-prognostic covariate; in fact, you paid a slight penalty because you wasted a degree of freedom, which is especially costly when the sample size is small. This exercise demonstrates that you’ll get the most gains in precision by controlling for covariates that strongly predict outcomes. 
+
+How can you know which covariates are likely to be prognostic before launching your experiment?  Prior experiments or even observational studies can offer guidance about which baseline characteristics best predict outcomes. 
+
+6 Control for prognostic covariates regardless of whether they show imbalances 
 ==
-Though surprising, if a randomly assigned treatment is correlated with your covariates, this does not introduce (unconditional) bias. This is because we know that random assignment, in expectation, will produce treatment and control groups that are “balanced” along various characteristics; there is no systematic difference between the two groups except for the receipt of treatment.
 
-But in practice, we often get a draw that produces imbalance on one or more characteristics between the two groups. Perhaps one group is slightly more educated, or one group votes at a slightly higher rate, or one group is slightly more altruistic. It is likely that in these conditions we will observe a treatment effect that is “wrong” in one direction or the other — too low or too high, depending on how the imbalance tilts. Remember that because of random assignment, we would not, ex ante, call our estimator biased because in expectation, over several replications of the same experiment, we will retrieve on average the right treatment effect. But often, we are observing only one iteration of our experiment, so is that single estimation of the treatment effect considered to be biased?
+Covariates should generally be chosen on the basis of their expected ability to help predict outcomes, regardless of whether they show "imbalances" (i.e., regardless of whether there are any noteworthy differences between the treatment group and control group in average values or other aspects of covariate distributions). There are two reasons for this recommendation:
 
-Ex post, we would call that estimation of the treatment effect “conditionally biased.” In other words, conditional on the type of draw we got, our expected estimate of the treatment effect does not correspond to the true average treatment effect. For example, we might worry about conditional bias if we only observed experiments in which the treatment group was significantly more educated from the control group.
+1. Frequentist statistical inference (standard errors, confidence intervals, p-values, etc.) assumes that the analysis follows a pre-specified strategy. Choosing covariates on the basis of observed imbalances makes it more difficult to obtain inferences that reflect your actual strategy. For example, suppose you choose not to control for gender because the treatment and control groups have similar gender composition, but you _would have_ controlled for gender if there'd been a noticeable imbalance. Typical methods for estimating standard errors will incorrectly assume that you'd never control for gender no matter how much imbalance you saw.
 
-The good news is that if the bias results from an imbalanced draw and not because of some feature that un-randomized our assignment, we will be able to retrieve the unbiased estimate of the treatment effect so long as we control for the covariate on which we observe imbalance.[^4] The figure below illustrates conditional and unconditional bias and how including covariates can help address conditional bias. In the example there is a background covariate that is highly correlated with potential outcomes. The true treatment effect is 1 but we see that unless a control is introduced the estimated treatment effect depends on the (accidental) correlation between the covariate and the treatment.
+2. Adjusting for a highly prognostic covariate tends to improve precision, as we explained above. To receive due credit for this precision improvement, you should adjust for the covariate even if there's no imbalance. For example, suppose gender is highly correlated with your outcome, but it happens that the treatment group and control group have exactly the same gender composition. In this case, the unadjusted estimate of the ATE will be exactly the same as the adjusted estimate from a regression of the outcome on treatment and gender, but their standard errors will differ. The SE of the unadjusted estimate tends to be larger because it assumes that even if the treatment and control groups had very different gender compositions, you'd still use the unadjusted treatment--control difference in mean outcomes (which would likely be far from the true ATE in that case). If you pre-specify that you'll adjust for gender regardless of how much or how little imbalance you see, you'll tend to get smaller SEs, tighter confidence intervals, and more powerful significance tests.
 
-[^4]: Gerber, Alan S. and Donald P. Green. Field Experiments: Design, Analysis and Interpretation. New York: Norton,  2012, p. 109
+Assuming that random assignment was implemented correctly, should examination of imbalances play _any_ role in choosing which covariates to adjust for? Here's a sampling of views:
 
-```{r, message=FALSE, error=FALSE, warning=FALSE}
-# Define function to apply over treatment assignments ---------------------
-ATE.est <- function(Z, X, Y0, Y1){
-  Y = Z*Y1 + (1-Z)*Y0
-  return(c(
-    covariate.corr = cor(X,Z),
-    uncond.ate = as.numeric(lm(Y ~ Z)$coefficients[2]),     
-    cond.ate = as.numeric(lm(Y ~ Z + X)$coefficients[2]),  
-    true.ate = mean(Y1-Y0)
-  ))
-}
- 
-# Start function ----------------------------------------------------------
-cond.bias <- function(N=40,sims=8000,seed=1000){
-  set.seed(seed)  
-  if(N%%2!=0)stop(print("Please enter an even number for N."))
-  
-  # Generate ate on new data, same DGP  -----------------------------------------------------------
-  ate = function(i){
-    X  = runif(N)
-    Y0 = X+.14*rnorm(N)
-    Y1 = X+1+.14*rnorm(N)
-    Z  = sample(rep(0:1,N/2))
-    return(ATE.est(Z, X, Y0, Y1))
-  }
- 
-  
-  # Do many times ----------------------------------------------
-    out <- data.frame(t(sapply(1:sims, ate)))
-  
-return(out)
-}
- 
-simulation = cond.bias()
- 
-with(simulation,{
-  plot(x = covariate.corr,y = uncond.ate,col=rgb(0,0,1,.5),pch=16,cex=.5,
-       xlab = "Correlation between covariate and treatment",
-       ylab = "Estimated ATE | True ATE = 1")
-  abline(a=1, b=0)
-  points(x=covariate.corr,y = cond.ate,col=rgb(1,0,0,.5),pch=16,cex=.5)
-  rug(x = uncond.ate,side = 2,col = rgb(0,0,1,.05))
-  rug(x = cond.ate,side = 4,col = rgb(1,0,0,.05))
-  segments(min(covariate.corr)-.06,      quantile(uncond.ate, c(.025, .975)),min(covariate.corr), quantile(uncond.ate, c(.025, .975)), col = "blue")
-  segments(max(covariate.corr),      quantile(cond.ate, c(.025,  .975)),max(covariate.corr)+0.06,  quantile(cond.ate, c(.025, .975)), col = "red")
-  legend(.12, y=.8, c("Controlling for Covariate", "No controls"), col=c("red","blue"), pch = 19)
-})
-```
+- Mutz, Pemantle, and Pham (2016) argue that, unless there is differential attrition, the practice of selecting covariates on the basis of observed imbalances is "not only unnecessary" but "not even helpful ... and may in fact be damaging," because it invalidates confidence intervals, worsens precision (relative to pre-specified adjustment for prognostic covariates), and opens the door to fishing.^[Diana C. Mutz, Robin Pemantle, and Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
 
-Here, treatment is randomly assigned which means that we do not expect any particular correlation between the treatment and the covariate. However if we do not control for the covariate then our estimate of the treatment effect is very sensitive to whatever the correlation happens to be. If it is large we will estimate too large a treatment effect; if it is small we will estimate too small a treatment effect. In expectation we will get the right answer, but we don’t expect to get the right answer if we condition our expectations on the correlation between the treatment allocation and the background variable. The figure also shows how introducing a control removes this problem — the expected effect no longer depends on any accidental correlation between treatment and the covariate, and, for this reason, it is more precise to boot.
+- Permutt (1990), using theory and simulations to study specific scenarios, finds that when a balance test is used to decide whether to adjust for a covariate, the significance test for the treatment effect is conservative (i.e., it has a true Type I error probability below its nominal level). He writes, "Greater power can be achieved by always adjusting for a covariate that is highly correlated with the response regardless of its distribution between groups." However, he doesn't completely rule out considering observed imbalances: "Choosing covariates on the basis of the difference between the means in the treatment and control groups is not irrational. After all, some type I errors may be more serious than others. Reporting a significant difference in outcome which can be explained away as the effect of a covariate may be a more embarrassing error than reporting one that happens to go away on replication but without an easy explanation. Similar considerations may apply to type II errors. A positive result that depends on adjustment for a covariate may be seen as less convincing than a positive two-sample test anyway, so that the error of failing to draw such a positive conclusion may be less serious. These justifications, however, come from outside the formal theory of testing hypotheses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
 
-When do you know if your experiment suffers from imbalance? Many experimenters advocate the practice of presenting a table of descriptive statistics (means and standard deviations on all covariates for each group) and “balance tests.” Including descriptive statistics comparing treatment and control groups is an excellent way to describe the population of your experiment. “Balance tests” calculate the probability that we would have seen a random draw in which treatment and control groups were this balanced or imbalanced. Balance tests are often used as a check to make sure that randomization was done correctly, which can be especially helpful if you are not in control of the random assignment, but remember that a perfectly executed randomization can still fail a balance test 5 percent of the time and yet be correct. Put differently, a balance test does not actually test balance, it tests the hypothesis that there was randomization in the first place (which is something you should know already). An alternative way of capturing the degree of imbalance in your table of descriptive statistics is to look at the size of the deviation in group means along covariates, not the probability that we would have seen this particular draw.
+- Altman (2005) writes, "It seems far preferable to choose which variables to adjust for without regard to the actual data set to hand." He recommends controlling for highly prognostic covariates, as well as any that were used in blocking. However, he also discusses a dilemma: "In practice, imbalance may arise when the possible need for adjustment has not been anticipated. What should the researchers do? They might choose to ignore the imbalance; as noted, this would be entirely proper. The difficulty then is one of credibility. Readers of their paper (including reviewers and editors) may question whether the observed finding has been influenced by the unequal distribution of one or more baseline covariates. It is still possible, and arguably advisable, to carry out an adjusted analysis, but now with the explicit acknowledgment that this is an exploratory rather than definitive analysis, and that the unadjusted analysis should be taken as the primary one. Obviously, if the simple and adjusted analyses yield substantially the same result, then there is no difficulty of interpretation. This will usually be the case. However, if the results of the two analyses differ, then there is a real problem. The existence of such a discrepancy must cast some doubt on the veracity of the overall (unadjusted) result. The situation is similar to the difficulties of interpretation that arise with unplanned subgroup comparisons. One suggestion in such circumstances is to try to mimic what would have been done if the problem had been anticipated, namely to adjust not for variables that are observed to be unbalanced, but for all variables that would have been identified in advance as prognostic. An independent source could be used to identify such variables. Alternatively, the trial data could be used to determine which variables are prognostic. This strategy too could be prespecified in the study protocol. Because this analysis would be performed conditionally on the observed imbalance, it does not remove bias and thus cannot be considered fully satisfactory."^[Douglas G. Altman (2005), ["Covariate Imbalance, Adjustment for,"](http://doi.org/10.1002/0470011815.b2a01015) in _Encyclopedia of Biostatistics_.]
+
+- Tukey (1991) notes that observed imbalances may justify adjustment as a robustness check: Although "most statisticians" would accept an analysis of a randomized clinical trial that doesn't adjust for covariates, "Some clinicians, and some statisticians it would seem, would like to be more sceptical, (perhaps as a supplemental analysis) asking for an analysis that takes account of observed imbalances in these recorded covariates. Feeling more secure about the results of such an analysis is indeed appropriate, since the degree of protection against either the consequences of inadequate randomization or the (random) occurrence of an unusual randomization is considerably increased by adjustment. _Greater security, rather than increased precision ... will often be the basic reason for covariance adjustment in a randomized trial._ ... The main purpose of allowing [adjusting] for covariates in a _randomized_ trial is defensive: to make it clear that analysis has met its scientific obligations."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italics in the original.]
+
+- Some statisticians argue that our inferences should be conditional on a measure of covariate imbalance---in other words, when assessing the bias, variance, and mean squared error of a point estimate or the coverage probability of a confidence interval, instead of considering all possible randomizations, it may be more relevant to consider only those randomizations that would yield a covariate imbalance similar to the one we observe. From this perspective, observed imbalances may be relevant to the choice of estimator.^[See, e.g.: D. R. Cox and N. Reid (2000), _The Theory of the Design of Experiments_, pp. 29--32; D. Holt and T. M. F. Smith (1979), "Post Stratification," _Journal of the Royal Statistical Society, Series A (General)_ 142: 33--46; Richard M. Royall (1976), "Current Advances in Sampling Theory: Implications for Human Observational Studies," _American Journal of Epidemiology_ 104: 463--474. For an introduction to philosophical disagreements about statistical inference, see Bradley Efron (1978), ["Controversies in the Foundations of Statistics,"](http://www.maa.org/programs/maa-awards/writing-awards/controversies-in-the-foundations-of-statistics) _American Mathematical Monthly_ 85: 231--246.]
+
+- Lin, Green, and Coppock (2016) write: "Covariates should generally be chosen on the basis of their expected ability to help predict outcomes, regardless of whether they appear well-balanced or imbalanced across treatment arms. But there may be occasions when the covariate list specified in the PAP [pre-analysis plan] omitted a potentially important covariate (due to either an oversight or the need to keep the list short when N is small) with a nontrivial imbalance. Protection against ex post bias (conditional on the observed imbalance) is then a legitimate concern." However, they recommend that if observed imbalances are allowed to influence the choice of covariates, "the balance checks and decisions about adjustment should be finalized before we see unblinded outcome data," "the _direction_ of the observed imbalance (e.g., whether the treatment group or the control group appears more advantaged at baseline) should not be allowed to influence decisions about adjustment," and the originally pre-specified estimator should "always be reported and labeled as such, even if alternative estimates are also reported."^[Winston Lin, Donald P. Green, and Alexander Coppock (2016), ["Standard Operating Procedures for Don Green’s Lab at Columbia,"](https://github.com/acoppock/Green-Lab-SOP) version 1.05, June 7. Italics in the original.]
 
 7 When not to do it
 ==
-There are two scenarios in which you would not want to adjust for covariates.
+It is a bad idea to adjust for covariates when you think those covariates could have been influenced by your treatment. This is one of the reasons that many covariates are collected from baseline surveys; sometimes covariates that are collected from surveys after intervention could reflect the effects of the treatment rather than underlying characteristics of the subject. Adjusting for covariates that are affected by the treatment---“post-treatment” covariates---can cause bias.
 
-First, you generally never want to adjust for covariates when you think those covariates could have been influenced by your treatment. This is one of the reasons that many covariates are collected from baseline surveys; sometimes covariates that are collected from surveys after intervention could reflect the effects of the treatment rather than underlying characteristics of the subject. While adjusting for “pre-treatment” covariates can lead to more precision in your estimate of a treatment effect, adjusting for covariates that are affected by the treatment — “post-treatment” covariates — can cause bias.4
+Suppose, for example, that Giné and Mansuri had collected data on how many political rallies a woman attended after receiving the treatment. In estimating the treatment effect on independence of political choice, you may be tempted to include this variable as a covariate in your regression. But including this variable, even if it strongly predicts the outcome, may distort the estimated effect of the treatment.
 
-Suppose, for example, that Gine and Mansuri had collected data on how many political rallies a woman attended after receiving the treatment. In estimating the treatment effect on independence of political choice, you may be tempted to include this data as a control in your regression. But including this data, even if it strongly predicts your outcome of independence of candidate choice, will not serve to explain non-treatment variation in the dependent variable as it did with pre-treatment covariates because it will capture the variation that results from your treatment effect too! A woman’s attendance of political rallies, like her independence of candidate choice, is likely affected by the treatment itself.
-
-Let’s create this fake variable, which is correlated (like the independence of candidate choice measure) with baseline covariates and also with treatment. Here, by construction, the treatment effect on number of political rallies attended is 2. When we include the rallies variable as a control, the treatment effect on independence of candidate choice tanks from 1 to .277. This is severe bias, all because we controlled for a post-treatment covariate! This bias results from the fact that this variable is correlated with treatment.
+Let’s create this fake variable, which is correlated (like the outcome measure) with baseline covariates and also with treatment. Here, by construction, the treatment effect on number of political rallies attended is 2. When we included the rallies variable as a covariate, the estimated average treatment effect on independence of candidate choice averaged 0.54 across the 10,000 replications. Recall that the true treatment effect on this outcome is 1. This is severe bias, all because we controlled for a post-treatment covariate!^[The estimated bias is $-$ 0.459 with a margin of error (at the 95% confidence level) of 0.002.] This bias results from the fact that the covariate is correlated with treatment.
 
 ```{r, error=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
-# define post-treatment covariates correlated with pre-treatment covariates
-ralliesY0 <- round(.5*ownsidcard+hasformalschooling+1.5*TVaccess+log(age))
-ralliesY1 <- ralliesY0+2
-rallies_mat <- ralliesY1*Z_mat+ralliesY0(1-Z_mat)
+# Create post-treatment covariate that's correlated with pre-treatment covariates
+rallies0 = round(.5*owns.id.card + has.formal.schooling + 1.5*TV.access + log(age))
+rallies1 = rallies0 + 2
+rallies.mat = rallies1 * Z.mat + rallies0 * (1-Z.mat)
  
-# estimate ATE with new model
-ate.post.covs <- function(Y,Z,X)
-summary(lm(Y~Z+X+ownsidcard+hasformalschooling+age+TVaccess))$coef[2,1]
-dist.post.covs <- rep(NA, 10000)
-for (i in 1:10000) {
-dist.post.covs[i] <-
-ate.post.covs (indepchoice_mat[,i],Z_mat[,i],rallies_mat[,i])
+# Estimate ATE with new model that includes the post-treatment covariate
+
+adjust.for.post = function(Y, Z, X) {
+  coef(lm(Y ~ Z + X + owns.id.card + has.formal.schooling + age + TV.access))[2]
 }
- 
-mean(dist.post.covs) # biased!
+
+post.adjusted.estimates = rep(NA, Replications)
+
+for (i in 1:Replications) {
+  post.adjusted.estimates[i]  =  adjust.for.post(Y.mat[,i], Z.mat[,i], rallies.mat[,i])
+}
+
+# Estimated bias of the new estimator
+mean(post.adjusted.estimates) - true.treatment.effect
+
+# Margin of error (at 95% confidence level) for the estimated bias
+1.96 * sd(post.adjusted.estimates) / sqrt(Replications)
 ```
 
-Just because you should not adjust for post-treatment covariates does not mean you cannot collect covariate data post-treatment, but you must exercise caution. Several variables could be collected post-treatment but are pretty clearly unaffected by treatment — obvious examples include age and gender, but others too. Be careful of evaluation-driven effects, though, in this data collection: treated women may be more acutely aware of the expectation of political participation and may retrospectively report that they were more politically active than they actually were several years prior.
+Just because you should not adjust for post-treatment covariates does not mean you cannot collect covariate data post-treatment, but you must exercise caution. Some measures could be collected post-treatment but are unlikely to be affected by treatment (e.g., age and gender). Be careful about measures that may be subject to evaluation-driven effects, though: for example, treated women may be more acutely aware of the expectation of political participation and may retrospectively report that they were more politically active than they actually were several years prior.
 
-Second, you want to avoid adjusting for covariates that are not predictive of your outcome variable. Sometimes researchers are inclined to include a “kitchen sink” of covariates without theoretical justification or previous empirical evidence that these variables are related to outcomes. Adding non-prognostic covariates does little to help the precision of your estimate, and sometimes it can actually hurt it in very small samples. This is because adding covariates uses up “degrees of freedom.” This pathology tends to be fairly minor, particularly in large samples.[^5] It can also hurt when non prognostic covariates are selected because they are correlated with treatment since in this case a true treatment effect can be hard to distinguish from a spurious correlation with a covariate. The more important reason to avoid adjusting for non-prognostic covariates is that researchers should judiciously match their regression models to their theories in order to avoid “fishing” for significant results (see “10. How to make your covariate adjustment decisions transparent”).
-
-[^5]: Gerber and Green 2012, p.105
-
-8 When you should be wary of doing it
+8 Concerns about small-sample bias
 ==
-One scenario in which you should avoid adjusting for covariates is in very small samples. In this situation, using multiple regression (that is, estimating the coefficient on the treatment effect while controlling for covariates) will produce a biased estimate of the treatment effect. [^6]
+In small samples, regression adjustment may produce a biased estimate of the average treatment effect.^[David A. Freedman (2008), "On Regression Adjustments in Experiments with Several Treatments," _Annals of Applied Statistics_ 2: 176--196. See also Winston Lin's blog posts ([part I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) and [part II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849)) discussing his response to Freedman.] Some simulations have suggested that this bias tends to be negligible when the number of randomly assigned units is greater than twenty.[^7] If you’re working with a small sample, you may want to use an unbiased covariate adjustment method such as post-stratification (splitting the sample into subgroups based on the values of one or more baseline covariates, computing the treatment--control difference in mean outcomes for each subgroup, and taking a weighted average of these subgroup-specific treatment effect estimates, with weights proportional to sample size).^[Miratrix, Sekhon, and Yu (2013), cited above.]
 
-[^6]: Freedman, David A. “On regression adjustments to experimental data.” Advances in Applied Mathematics 40(2): 2008. 180-193. http://www.sciencedirect.com/science/article/pii/S019688580700005X  
+[^7]: Green, Donald P. and Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Working paper: http://ssrn.com/abstract=1466886
 
-Remember that we would call an estimator biased if on average (using multiple random assignments) it retrieves an incorrect treatment effect. When your n is quite small, the number of possible random assignments is also very small. Using multiple regression to estimate your treatment effect across each possible random assignment will produce an estimate that depends on how correlated your treatment and your covariate happen to be. The average of these limited number of treatment effect estimates will not produce the true treatment effect.[^7]
-
-[^7]: Green, Donald P. and Aronow, Peter M., Analyzing Experimental Data Using Regression: When is Bias a Practical Concern? (March 7, 2011). Working paper: http://ssrn.com/abstract=1466886
-
-As a rule of thumb, the number beyond which you don’t need to worry about this “Freedman bias” is twenty, although in some cases, the bias will disappear much earlier. In the following graph, the model that adjusts for covariates (the red line) is biased, whereas the model that simply regresses the outcome on treatment without covariate adjustment (the dark green line) is unbiased for all n.[^8] The Freedman bias depicted in the red line, though, quickly disappears. In this case, it disappears after about n=10. In these simulations, the covariate that is adjusted for is correlated with outcomes, but Freedman bias will also plague cases in which the covariate is not correlated with outcomes.[^9]
-
-[^8]: Here bias is calculated as the absolute value of the difference between the average estimate and 1, the true treatment effect.
-[^9]: To see the code, click [here](https://raw.githubusercontent.com/egap/methods-guides/master/covariates/freedmanbias.R)
-
-![](https://raw.githubusercontent.com/egap/methods-guides/master/covariates/freedman_bias.png)
-
-Realistically, if your sample is small enough that adjusting covariates will bias your estimator, you should be looking for ways to increase your sample size anyway in order to improve your statistical power (see [10 Things You Need to Know about Statistical Power](http://egap.org/methods-guides/10-things-you-need-know-about-statistical-power)).
-
-9 How to do it with difference-in-differences
+9 How to make your covariate adjustment decisions transparent
 ==
-A difference-in-differences estimation is when your dependent variable is not just the outcome measured after an experimental intervention, but the change in that same outcome measure between before the intervention and after it. In other words, your dependent variable is a difference. Suppose you wanted to evaluate an intervention, similar to Gine and Mansuri’s, that educated female voters about their constitutional rights. One approach would be to deliver an identical test of constitutional knowledge before and after treatment. The dependent variable would be a participant’s change in knowledge of the constitution.
+In the interests of transparency, if you adjust for covariates, pre-specify your models and report both unadjusted and covariate-adjusted estimates.
 
-Both difference-in-difference estimators and difference-in-means estimators are unbiased. This is because, in expectation, there will be no systematic differences in the pre-test scores of your treatment and control groups because of random assignment, so difference-in-differences and difference-in-means should capture the same causal effect of your treatment.
+The simulations above have demonstrated that results may change slightly or not-so-slightly depending on which covariates you choose to include in your model. We’ve highlighted some rules of thumb here: include only pre-treatment covariates that are predictive of outcomes. Deciding which covariates to include, though, is often a subjective rather than an objective enterprise, so another rule of thumb is to be totally transparent about your covariate decisions. Always include the simplest model---the simple regression of outcome on treatment without controlling for covariates---in your paper or appendix to supplement the findings of your model including covariates.
 
-It is possible, however, because of sampling variability, that you might get a treatment group that happens to have less constitutional knowledge. If this is the case, it is possible that at the end of your intervention, you do not see much of a difference between the outcomes of your treatment and control groups, even though the treatment did serve to elevate the scores of the treatment group to those of the control group. A difference-in-differences estimator could address this issue because it would take into account the lower scores of your treatment group and would reflect a positive treatment effect on the difference in scores. Note that the original difference-in-means estimator is not biased, but because of sampling variability, it will be less precise than the difference-in-differences estimator. The difference-in-differences estimator improves your precision for the same reason that controlling for prognostic covariates typically improves your precision, except the difference-in-differences approach can often be even more precise than controlling for covariates because it essentially controls for all background characteristics that could have influenced a subject’s pre-intervention performance and not just the ones you thought to include in your regression.
+Another way to minimize your readers’ concern that you went fishing for the particular combination of covariates that gave results favorable to your hypotheses is to pre-specify your models in a pre-analysis plan.^[For more discussion of pre-analysis plans, see, e.g., Benjamin A. Olken (2015), ["Promises and Perils of Pre-Analysis Plans,"](http://doi.org/10.1257/jep.29.3.61) _Journal of Economic Perspectives_ 29 (3): 61--80.] This gives you the opportunity to explain before you see the findings which pre-treatment covariates you expect to be predictive of the outcome. You can even write these regressions out in R using fake data, as done here, so that when your results from the field arrive, all you need to do is run your code on the real data. These efforts are a useful way of binding your own hands as a researcher and improving your credibility.
 
-There are several ways to model difference-in-differences. The simplest approach, described above, is to put the change in scores on the left-hand side of your regression, as follows:
-
-$$Y_{i2}−Y_{i1}=α+βD_i+ϵ_{i2}$$
-
-where $Y_{i2}$ is the post-test for subject $i$ at time period 2, $Y_{i1}$ is the pre-test for subject $i$ at time period 1, and $D_i$ is an indicator for whether subject $i$ receives treatment.
-
-While this is an intuitive way to conceptualize a difference-in-differences approach, a more flexible specification is to simply regress the post-test score on treatment and the lagged (pre-test) score:
-
-$$Y_{i2}=α+βD_i+γY_{i1}+ϵ_{i2}$$
-
-Equation 3 is more flexible than equation 2 because equation 2 constrains the coefficient on the lagged score to be 1. Equation 3, in contrast, gets to calculate a treatment effect by also controlling for where the pre-test score started, whereas equation 2 looks only at the net difference between the post-test and the pre-test scores. Why does this matter? Suppose that people with high pre-test scores started slacking off and got lower post-test scores, while people with low pre-test scores were just beginning their period of putting in effort, giving them higher post-test scores.[^10} This pattern is often called “regression to the mean,” and if it characterizes whatever it is you’re measuring, then you’re likely to see big changes for people with lower pre-test scores and smaller changes for people with higher pre-test scores. Equation 2, therefore, means that your outcome variable will be more related to individuals’ pre-test scores than it will be related to the treatment. Equation 3 gets around this by using multiple regression to control for both treatment and the pre-test scores, just as we do when we adjust for other covariates.
-
-[^10]:  Allison, Paul D. “Change Scores as Dependent Variables in Regression Analysis.” Sociological Methodology 20(1990): 93-114. http://www.statisticalhorizons.com/wp-content/uploads/Allison.SM90.pdf
-
-A final model stacks your observations of test scores on the left-hand side, stacks your observations of treatment on the right-hand side, and includes a time variable and interaction. It works like this:
-
-$$Y_{it}=α+βD_{it}+θT_t+λ(D_{it}⋅T_t)$$
-
-where $Y_{it}$ is your complete set of outcomes across time, stacked, $D_{it}$ is your complete set of treatment assignments across time, stacked, and $T_t$ is a variable for the time period the observation is in.
-
-10 How to make your covariate adjustment decisions transparent
+10 Covariates can help you investigate the integrity of the random assignment
 ==
-In the interests of transparency, report unadjusted models and pre-specify covariate adjustment.
+Sometimes it is unclear whether random assignment actually occurred (or whether it occurred using the procedure that the researcher envisions).  For example, when scholars analyze naturally occurring random assignments (e.g., those conducted by a government agency), it is useful to assess statistically whether the degree of imbalance between the treatment and control groups is within the expected margin of error.  One statistical test is to regress treatment assignment on all of the covariates and calculate the F-statistic.  The significance of this statistic can be assessed by simulating a large number of random assignments and for each one calculating the F-statistic; the resulting distribution can be used to calculate the p-value of the observed F-statistic.  For example, if 10,000 simulations are conducted, and just 30 simulations generate an F-statistic larger than what one actually obtained from the data, the p-value is 0.003, which suggests that the observed level of imbalance is highly unusual. In such cases, one may wish to investigate the randomization procedure more closely.
 
-This exercise has demonstrated that results may change slightly or not-so-slightly depending on which covariates you choose to include in your model. We’ve highlighted some rules of thumb here: include only pre-treatment covariates and those that are predictive of outcomes. Decisions about which covariates to include, though, is often a subjective rather than an objective enterprise, so another rule of thumb is to be totally transparent about your covariate decisions. Always include the simplest model–the simple regression of outcome on treatment without controlling for covariates–in your paper or appendix to supplement the findings of your model including covariates.
+For further reading
+==
+Athey, Susan, and Guido W. Imbens (2016). "The Econometrics of Randomized Experiments." [arXiv](http://arxiv.org/abs/1607.00698)
 
-Another way to minimize your readers’ concern that you went fishing for the particular combination of covariates that produced a treatment effect favorable to your hypotheses is to pre-specify your models in a pre-analysis plan. This gives you the opportunity to explain before you see the findings which pre-treatment covariates you expect are relevant in explaining variation in the outcome data you will collect. You can even write these regressions out in R using fake data, as used here, so that when your results from the field arrive, all you need to do is run your code on the real data. These efforts are a useful way of binding your own hands as a researcher and improving your credibility.
+Gerber, Alan S., and Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapter 4.
+
+Hennessy, Jonathan, Tirthankar Dasgupta, Luke Miratrix, Cassandra Pattanayak, and Pradipta Sarkar (2016). "A Conditional Randomization Test to Account for Covariate Imbalance in Randomized Experiments." _Journal of Causal Inference_ 4: 61--80.
+
+Judkins, David R., and Kristin E. Porter (2016). "Robustness of Ordinary Least Squares in Randomized Clinical Trials." _Statistics in Medicine_ 35: 1763--1773.
+
+Lin, Winston (2012). "Regression Adjustment in Randomized Experiments: Is the Cure Really Worse than the Disease?" Development Impact blog post, [part I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) and [part II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849).
+
+Raudenbush, Stephen W. (1997). "Statistical Analysis and Optimal Design for Cluster Randomized Trials." _Psychological Methods_ 2: 173--185.
+
+Wager, Stefan, Wenfei Du, Jonathan Taylor, and Robert Tibshirani (2016). "High-Dimensional Regression Adjustments in Randomized Experiments." [arXiv](https://arxiv.org/abs/1607.06801)
