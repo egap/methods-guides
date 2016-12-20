@@ -1,5 +1,7 @@
 ---
-output: html_document
+output:
+  html_document:
+    toc: yes
 ---
 
 <!-- title: "10 Things about Mechanisms" -->
