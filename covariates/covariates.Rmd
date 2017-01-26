@@ -269,7 +269,7 @@ Sometimes it is unclear whether random assignment actually occurred (or whether 
 
 For further reading
 ==
-Athey, Susan, and Guido W. Imbens (2016). "The Econometrics of Randomized Experiments." [arXiv](http://arxiv.org/abs/1607.00698)
+Athey, Susan, and Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." In _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
 
 Gerber, Alan S., and Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapter 4.
 
@@ -281,4 +281,4 @@ Lin, Winston (2012). "Regression Adjustment in Randomized Experiments: Is the Cu
 
 Raudenbush, Stephen W. (1997). "Statistical Analysis and Optimal Design for Cluster Randomized Trials." _Psychological Methods_ 2: 173--185.
 
-Wager, Stefan, Wenfei Du, Jonathan Taylor, and Robert Tibshirani (2016). "High-Dimensional Regression Adjustments in Randomized Experiments." [arXiv](https://arxiv.org/abs/1607.06801)
+Wager, Stefan, Wenfei Du, Jonathan Taylor, and Robert Tibshirani (2016). "High-Dimensional Regression Adjustments in Randomized Experiments." _Proceedings of the National Academy of Sciences_ 113: 12673--12678. [arXiv](https://arxiv.org/abs/1607.06801) [DOI](http://doi.org/10.1073/pnas.1614732113)
