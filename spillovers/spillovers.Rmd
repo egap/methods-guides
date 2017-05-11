@@ -242,10 +242,10 @@ For further reading
 ==
 Aronow, Peter M., and Cyrus Samii (2015). "Estimating Average Causal Effects Under Interference Between Units." [arXiv](http://arxiv.org/abs/1305.6156)
 
-Athey, Susan, and Guido W. Imbens (2016a). "The Econometrics of Randomized Experiments." [arXiv](http://arxiv.org/abs/1607.00698)
+Athey, Susan, and Guido W. Imbens (2017a). "The Econometrics of Randomized Experiments." In _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
 
-Athey, Susan, and Guido W. Imbens (2016b). "The State of Applied Econometrics: Causality and Policy
-Evaluation." [arXiv](https://arxiv.org/abs/1607.00699)
+Athey, Susan, and Guido W. Imbens (2017b). ["The State of Applied Econometrics: Causality and Policy
+Evaluation."](http://doi.org/10.1257/jep.31.2.3) _Journal of Economic Perspectives_ 31(2): 3--32.
 
 Bowers, Jake, Mark M. Fredrickson, and Costas Panagopoulos (2013). "Reasoning about Interference Between Units: A General Framework." _Political Analysis_ 21: 97--124.
 
