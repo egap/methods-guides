@@ -114,3 +114,47 @@ In the case that you use one of these methods, you may also want to include dire
 LINKS TO LIST EXPERIMENT RESOURCES:
 http://imai.princeton.edu/projects/sensitive.html
 
+7 If social desirability bias and/or risk to respondents are not concerns: then use attitudinal measures with these qualities
+==
+High-quality measures share two main characteristics; they are valid and reliable. A valid measure measures the underlying concept it is intended to capture. A reliable measure produces the same measurements when a given quantity is assessed repeatedly.
+
+Experiments should be “replicable” in the sense that other scientists could run the same experiment in the same context and get the same results. Having a survey with valid and reliable measures is essential to making this possible.
+
+## How do you construct questions that accomplish these goals?
+
+1. Use the simplest possible form of each question, using the most widely-understood words. Avoid jargon or technical terms, and be straightforward and brief. 
+2. Be specific, such that if the question were to be lifted from the section and asked without context you would get the same response. 
+3. It helps to begin the question by providing a context. For example, you can prime a time period (“Thinking of the last year: has your income been better, the same, or worse?”), or a place (“Thinking of people in this village: have people earned more or less this year as compared to last year?”)
+4. Avoid measuring multiple things at once. For example, the following question measures attitudes about both the president and government concurrently, making it difficult to draw a clear conclusion from the data: “Do you think the president and the government are doing a good job in terms of protecting basic freedoms?”
+5. When constructing response categories, be as comprehensive as possible. Include all possible responses. You don’t want to record a lot of “don’t know” responses and miss important information. See below for a discussion of scales.
+6. Keep in mind the concerns with social desirability discussed above; the wording of the question shouldn’t lead the respondent towards a certain response.
+
+8 Question ordering & instrument length matter
+==
+Responding to a survey is costly for the respondent. They are volunteering their time and being asked to think in ways that may be new or unfamiliar to them, often for long periods of time. Keeping this in mind, keep your questionnaire as short and as engaging as possible. If you have a large enough sample, you can shorten a questionnaire by randomly assigning some of the respondents to different forms.
+
+Split your instrument into sections by topic. Give your questionnaire a logical flow as you move from one section to another, starting with general questions and moving to more complex topics. 
+
+Start your questionnaire with an introduction that makes the respondent feel informed and safe. Ask sensitive questions towards the end of the survey; respondents will (hopefully) feel more comfortable as the interview goes on, and if the respondent ends the interview you still have most of your data. Be aware that priming in earlier sections will affect the responses to later questions. 
+
+9 Make sure response rates do not differ as a function of treatment assignment
+==
+If response rates are related to treatment status, your survey data can yield biased estimates. For example, let’s say you are conducting a study of an intervention that involves testing study participants for health problems and informing those in the treatment group of their diagnosis. This is a sensitive intervention and may cause people in the treatment group to become more apprehensive about answering a survey than those in the control group. Simply analyzing the data without accounting for differential response rates would yield data that was biased away from the true treatment effect—we lack data on those with the highest potential outcomes, those subjects who have been exposed to the strongest version of the treatment.
+
+One way to deal with this in the design of your survey (not the design of the treatment or in analysis alone [e.g., using bounded treatment effects[^6]]), is to track a subsample of individuals from the hard-to-reach group. Choose a subset of missing respondents and invest in tracking and reaching them. At the analysis stage you have the option of weighting the data from this subsample in order to account for attrition.
+
+[^6]: This approach involves estimating the upper and lower "bounds," which are the largest and smallest ATEs we would obtain if the missing information were filled in with the highest and lowest outcomes that appear in the data we have.
+
+10 Pilot!
+==
+It is absolutely essential to pre-test your survey instrument after you have designed it. The purpose of a pre-test (or pilot) is to make sure your instrument works in the real world. This means that, by the time you implement your survey in the field, you are confident that:
+
+1. Respondents will understand the questions 
+2. Respondents will be comfortable responding
+3. The questions are not leading
+4. The questions produce enough variation in the data
+5. That you have included all relevant response categories (and you won’t get a lot of non-response)
+6. The instrument is not too long
+
+The [survey implementation](http://egap.org/content/10-things-know-about-survey-implementation) guide explains about how to set up and carry out a pre-test. 
+
