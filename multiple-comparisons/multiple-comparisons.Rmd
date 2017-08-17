@@ -257,7 +257,7 @@ Suppose[^2] a researcher measures $k>1$ dependent variables. Indexing allows the
 - Unlike the other methods of addressing the multiple comparisons problem, the indexing approach may reward researchers for *increasing* the number of dependent variables. Imagine that a researcher collects $k=50$ outcome variables and that the treatment does not cause significant differences for any of them, but all the point estimates are in the same direction. If we were to apply a multiple comparisons correction to our 50 tests, our results would get even murkier. However, if we combine all 50 dependent variables into a single index, the resulting dependent variable may in fact exhibit significant differences. 
 - In the presence of limited amounts of attrition across outcomes, these methods *may* provide some leverage for dealing with missingness on some dependent variables (but not for units for which outcome variables are entirely unobserved).
 
-There are two principle indexing methods in the literature:
+There are two principal indexing methods in the literature:
 
 ###Mean Effects Index
 
