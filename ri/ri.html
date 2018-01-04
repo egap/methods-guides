@@ -130,6 +130,7 @@ $(document).ready(function () {
 <li><a href="#randomization-inference-can-be-used-to-address-issues-of-multiple-comparisons6">8. Randomization inference can be used to address issues of multiple comparisons</a></li>
 <li><a href="#randomization-inference-cannot-be-applied-without-additional-assumptions-to-inferences-about-quantities-such-as-complier-average-causal-effects">9. Randomization inference cannot be applied without additional assumptions to inferences about quantities such as complier average causal effects</a></li>
 <li><a href="#in-some-applications-randomization-inference-may-not-be-worth-the-trouble">10. In some applications, randomization inference may not be worth the trouble</a></li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 
@@ -297,6 +298,12 @@ t.test(Y~Z,
 <h1>10. In some applications, randomization inference may not be worth the trouble</h1>
 <p>Old-fashioned approximate methods work well when the assumptions on which the approximations rest are sound. For example, when an experiment involves random assignment of individual subjects, outcomes are distributed more or less symmetrically around the mean, and the number of subjects is greater than 100, the difference between conventional p-values and RI p-values may be negligible. Randomization inference may still be useful as the final word, but it rarely changes inferences substantively under these circumstances. The method is valuable primarily for nonstandard applications in which outcomes are skewed, subject pools are small, or the method of assignment is complex.</p>
 <p>Note on available software for implementing randomization. For the latest R package for randomization inference, see <a href="http://alexandercoppock.com/ri2/articles/ri2_vignette.html">here</a>. For randomization inference code specifically tailored to the special features of binary outcomes, see <a href="https://cran.r-project.org/web/packages/RI2by2/index.html">here</a>. Stata users may find an all-purpose package <a href="https://github.com/simonheb/ritest">here</a>.</p>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<p>Chung, EunYi and Joseph P. Romano. 2013. “Exact and asymptotically robust permutation tests.” Ann. Statist., 41(2), 484-507.</p>
+<p>Gerber, Alan S., and Donald P. Green. 2012. <em>Field Experiments: Design, Analysis, and Interpretation</em>. New York: W.W. Norton.</p>
+<p>Small, Dylan S., Thomas R. Ten Have, and Paul R. Rosenbaum. 2008. “Randomization Inference in a Group–Randomized Trial of Treatments for Depression: Covariate Adjustment, Noncompliance, and Quantile Effects.” Journal of the American Statistical Association, 103(481), 271-279.</p>
 </div>
 <div class="footnotes">
 <hr />
