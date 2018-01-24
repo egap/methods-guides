@@ -179,10 +179,9 @@ $(document).ready(function () {
 <p>From some perspectives the whole idea of power analysis makes no sense. You want to figure out the size of some treatment effect but first you need to do a power analysis which requires that you already know your treatment effect and a lot more besides.</p>
 <p>So in most power analyses you are in fact seeing what happens with numbers that are to some extent made up. The good news is that it is easy to find out how much your conclusions depend on your assumptions: simply vary your assumptions and see how the conclusions on power vary.</p>
 <p>This is most easily seen by thinking about how power varies with the number of subjects. A power analysis that looks at power for different study sizes simply plugs in a range of values in for N and seeing how β changes.</p>
-<p>Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.</p>
+<p>Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a></p>
 <iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850">
 </iframe>
-<p>For an additional online power visualization tool, see Kristoffer Magnusson’s <a href="http://rpsychologist.com/d3/NHST/">R Psychologist blog</a>.</p>
 </div>
 <div id="how-to-use-simulation-to-estimate-power" class="section level1">
 <h1>6 How to Use Simulation to Estimate Power</h1>
@@ -212,10 +211,10 @@ for (j in 1:length(possible.ns)){ N &lt;- possible.ns[j] # Pick the jth value fo
   powers[j] &lt;- mean(significant.experiments) # store average success rate (power) for each N 
   } 
 powers </code></pre>
-<pre><code>##  [1] 0.224 0.334 0.456 0.456 0.564 0.598 0.674 0.766 0.768 0.844 0.852
-## [12] 0.886 0.892 0.896 0.954 0.974 0.966 0.980 0.980 0.986 0.990 0.996
-## [23] 0.986 0.992 0.994 1.000 0.998 1.000 0.992 0.998 1.000 1.000 0.998
-## [34] 1.000 1.000 1.000 1.000 1.000 0.998</code></pre>
+<pre><code>##  [1] 0.218 0.364 0.406 0.458 0.634 0.580 0.754 0.816 0.772 0.846 0.836
+## [12] 0.900 0.930 0.924 0.926 0.952 0.958 0.966 0.964 0.992 0.990 0.994
+## [23] 0.986 0.992 0.994 0.992 0.988 1.000 0.996 0.996 0.998 1.000 1.000
+## [34] 0.996 1.000 1.000 1.000 1.000 0.998</code></pre>
 <p>The code for this simulation and others is available <a href="http://egap.org/content/power-analysis-simulations-r">here</a>. Simulation is a far more flexible, and far more intuitive way to think about power analysis. Even the smallest tweaks to an experimental design are difficult to capture in a formula (adding a second treatment group, for example), but are relatively straightforward to include in a simulation.</p>
 <p>In addition to counting up how often your experiments come up statistically significant, you can directly observe the distribution of p-values you’re likely to get. The graph below shows that under these assumptions, you can get expect to get quite a few p-values in the 0.01 range, but that 80% will be below 0.05.</p>
 <div class="figure">
@@ -274,6 +273,7 @@ powers </code></pre>
 <ol>
 <li id="fn1"><p>Originating author: Alex Coppock, 20 Nov 2013. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide<a href="#fnref1">↩</a></p></li>
 <li id="fn2"><p>Reproduced from Gerber and Green 2012, page 93<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p>For an additional online power visualization tool, see Kristoffer Magnusson’s <a href="http://rpsychologist.com/d3/NHST/">R Psychologist blog</a>.<a href="#fnref3">↩</a></p></li>
 </ol>
 </div>
 
