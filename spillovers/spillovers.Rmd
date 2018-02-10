@@ -1,5 +1,8 @@
 ---
-output: html_document
+output: 
+  html_document:
+    toc: true
+    theme: journal
 ---
 
 <!-- title: "10 Things You Need to Know about Spillovers" -->
