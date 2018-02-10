@@ -2,6 +2,7 @@
 output: 
   html_document:
     toc: true
+    theme: journal
 ---
 
 <!-- title: "10 Strategies for Figuring out if X Caused Y" -->
