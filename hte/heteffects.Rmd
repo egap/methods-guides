@@ -2,6 +2,7 @@
 output:
   html_document:
     toc: yes
+    theme: journal
   pdf_document:
     toc: yes
 ---
