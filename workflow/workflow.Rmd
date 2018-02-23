@@ -1,5 +1,4 @@
 ---
-title: "10 Things to Know About Project Workflow"
 output:
   html_document:
     theme: journal
@@ -54,3 +53,85 @@ Coding and communication can be linked even tighter by combining them in the sam
 
 [^4]: There are many ways to type text that includes code such that parenthesis are automatically closed, spelling is checked, or even help is provided about the code itself. RStudio is an integrated development environment (IDE) that includes a nice editor. Some of us use older tools that are more widespread such as vim, or eMacs. Others any of the contemporary improvements on those old tools such as Atom.
 
+4.	A useful tool for combining code and writeup: R Markdown
+==
+R Markdown is a format for making documents within R using a plain text format. When compiled, these text formats end up looking like nice, formatted PDFs. You can use Markdown on Windows and Mac OSX, and you can also edit the file in an ordinary text editor. 
+
+For more information, see the [Metaketa III committee R Markdown Manual](https://github.com/egap/methods-guides/blob/master/workflow/metaketa3_Rmarkdown.pdf).
+
+5.	Data analysis requires clear routes between inputs and outputs
+==
+Nearly every script begins by calling in the relevant data for analysis. This should be done with a line that produces the same output on every computer. This, in turn, requires that collaborators need to have access to a shared file structure for storing project materials, about which more in section 7.
+
+Within that shared file structure, the organization of files can be a very helpful map for identifying what went where. Nagler [^5] outlines the principle of modularity, which suggest that you separate files by function (namely making data cleaning/processing/recoding/merging distinct from analysis). Storing the original data file in a folder labeled “raw” and the cleaned/recoded datafile in one marked “clean” tells you and your collaborators where to find each without searching too hard. If the folder structure starts to get overly complicated, consider using a README file (a brief text file) to explain where the relevant input and output files for your analysis are stored.
+
+[^5]: Nagler, Jonathan. 1995. “Coding Style and Good Computing Practices”. PS: Political Science and Politics 28(3): 488-92.
+
+6.	Version control keeps track of who did what and when, and makes sure that work is not overwritten
+==
+Even teams with perfect file structure in their shared folder can run into issues without effective version control. Version control allows teams to:
+
+* Determine what changed between different versions of the same document;
+* Experiment within a document, delete the parts that did not work, and merge in the parts that did;
+* Produce multiple versions of the same document (such as one for a journal and one for a conference);
+* Work on a file without undoing the work that someone else on your team happened to do at the same time
+
+One way to practice effective version control is to use the “track changes” function within word processors. This allows one author to make edits in a way that others can quickly identify, review, and “accept” or “reject.” In Google Docs[^6], this feature (which Google calls “suggestion” mode) can be combined with the ability for multiple authors to work on the document at once time (assuming that everyone has a reliable internet connection).
+
+[^6]: https://docs.google.com
+
+In situations with less reliable internet access, Dropbox[^7] can provide shared access to a folder or series of folders where project materials are stored. One author can make an edit and sync their account, and then another can view the latest version. Authors cannot make changes at the same time, but they can hand off to each other with greater ease. This can be aided by adopting a file naming structure that tells you when the latest changes were made. Naming a file ```document.docx``` does not communicate this; naming it ```yyyymmdd_document.docx``` does (it also allows you to sort the folder by name and see the most recently edited version first. If the versions start to pile up, consider creating an archive subfolder to store all but the most recent version.
+
+[^7]: https://www.dropbox.com
+
+7.	A useful tool for version control: GitHub
+==
+When collaboration involves plain text files (i.e., code or files that combine code and prose), we recommend following the best practices of community of software developers (who make a living from working together in teams to write reliable code in an efficient way). Currently, the standard tool to enable this collaboration is Github.
+
+GitHub is a code hosting platform to streamline issues related to version control and working as a group. It lets you and others work together on projects from anywhere. The core GitHub workflow includes each user copying, or “cloning”, a version of a folder (or folder structure) to their own desktop, so that the latest version from the repository is on a local device, making changes to the desired files, and pushing those files to the shared repository. At the beginning of a work session one “pulls” or “synchronizes” any changes made by other team members online with the local copy. The git system tracks all changes, and contains functionality to revert back to previous versions as needed.
+
+For more information, see [Metaketa III committee GitHub Manual](https://github.com/egap/methods-guides/blob/master/workflow/metaketa3_github.pdf).
+
+8.	Your future self--and others--will want to be able to access your data
+==
+Science involves learning from the work of others in addition to remembering about the past work of oneself. If one works in such a way that a future self can remember, then, often that work will be easy to use by others as they themselves attempt to extend the science or even just learn how to apply your good ideas to their own context.[^8] There are a number of tools to make storing and sharing files for replication easier, including GitHub and the Center for Open Science’s Open Science Framework (OSF). OSF recently ran a [replication project](http://www.socialsciencesreplicationproject.com) aimed at understanding “predictors of reproducibility of research results, and how low reproducibility may inhibit efficient accumulation of knowledge.”
+
+Data should be stored in places like a Dataverse or the ICPSR or other places with a plan for daily backups band also a plan for data to be preserved and made available for many years into the future (in contrast to your favorite homemade website).
+
+[^8]: King, Gary. 1995. “Replication, Replication”. PS: Political Science and Politics 28(3): 444-452.  
+
+9.	To minimize error, built testing into the code
+==
+Testing ensures that errors from bugs and typos are caught before it is too late, and including that testing in your coding makes sure that it is done.
+
+Below is a simple example of this testing on a function designed to multiply a number by 2. 
+
+```{r, eval=FALSE}
+##  The test function:
+test.times.2.fn <- function(){
+    ##  This function tests times.2.fn
+    if (times.2.fn(thenumber = 4) == 8 &
+        times.2.fn(thenumber = -4) == -8) {
+        print(“It works!”)
+        } else { print(“It does not work!”)
+}
+}
+##  The actual function is:
+times.2.fn <- function(thenumber){
+    ##  This function multiplies a scalar number by 2
+    ##  thenumber is a scalar number
+    thenumber+2
+```
+
+What happens when running the test function?
+
+```{r, eval=FALSE}
+test.times.2.fn()
+[1] “It does not work!”
+```
+
+This tells you to go back and review the function, where we see a + instead of a *. Testing can be even more effective if we code the script to stop when an error occurs instead of generating an error message. In R, the stopifnot function will do just that.
+
+10.	Research should remove speculation
+==
+Ultimately, the point of doing research is to move things from the realm of opinion into the realm of knowledge. Thus, effective research should have findings that are not a matter of opinion, and at which others can arrive. If, in the future, somebody disagrees with your analysis, you can hand them the raw data files and analysis scripts and watch them arrive at the same result.
