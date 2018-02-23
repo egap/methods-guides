@@ -34,3 +34,38 @@ There is no guarantee that adaptive design will be superior in terms of speed or
 For instance, consider the following scenario in which all but one of the arms have a 0.10 probability of success, and the superior arm has a 0.12 probability of success (with the same trial design as in the previous example). The design eventually settles on the truly superior arm but only after more than 200 periods (N = 23,810). Even after 50 periods, the results provide no clear sense that any of the arms is superior.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig2.pdf)
+
+A further disadvantage of adaptive designs is they may produce biased estimates of the average treatment effect of the apparent best arm vis-à-vis the control group. Bias arises because the trial stops when the best arm crosses a threshold suggesting optimality; this stopping rule tends to favor lucky draws that suggest the efficacy of the winning arm. Conversely, when adaptive algorithms associate sampling probability with observed history, under-estimation for inferior arms, including the control group, may persist until stopping time (Nie et al., 2017).  
+
+For example, in the first scenario described above in which all arms have a 0.10 probability of success except for the best arm, which is 0.20, the average estimated success probability for the truly best arm is 0.202 across 1000 simulated experiments, while the control group average is found to 0.083. The average estimated difference in success probabilities (i.e., the average treatment effect) is 0.119, as compared to the true value of 0.10.    
+
+In the second scenario, in which the best arm’s success probability is just 0.12, the average estimated success probability for the best arm is 0.121, and the average estimated ATE is 0.027, as compared to the true ATE of 0.02. Bias in this case is relatively small on a percentage point scale due to the very large size of the average experiment.
+
+4. What kinds of experiments lend themselves to adaptive design?
+==
+Adaptive designs require multiple periods of treatment and outcome assessment.  
+Adaptive designs are well suited to survey, on-line, and lab experiments, where participants are treated and outcomes measured in batches over time. 
+
+Some field experiments are conducted in stages, although the logistics of changing treatment arms may be cumbersome, as discussed below. One possible opportunity for adaptive design in a field context occurs when a given experiment is to be deployed over time in a series of different regions. This allows for adaptation based on region-by-region interim analyses.
+
+Adaptive designs are ill-suited to one-shot interventions with outcomes measured at a single point in time. For example, experiments designed to increase voter turnout in a given election do not lend themselves to adaptive design because everyone’s outcome is measured at the same time, leaving no opportunity for adaptation.
+
+5. What is the connection between adaptive designs and “multi-arm bandit problems”? 
+==
+The multi-arm bandit problem (Scott 2010) is a metaphor for the following optimization problem. Imagine that you could drop a coin in one of several slot machines that may pay off at different rates. (Slot machines are sometimes nicknamed “one-arm bandits,” hence the name.) You would like to make as much money as possible. The optimization problem may be characterized as a trade off between learning about the relative merits of the various slot machines – exploration – and reaping the benefits of employing the best arm –
+exploitation. A static design may be viewed as an extreme case of allocating subjects solely for exploration.  
+
+As applied to RCTs, the aim is to explore the merits of the various treatment arms while at the same time reaping the benefits of the best arm or arms. Although the MAB problem is not specifically about estimating treatment effects, one could adjust the optimization objective so that the aim is to find the treatment arm with the greatest apparent superiority over the control group.
+
+6. What are some widely used algorithms for automating “adaptation”?
+==
+The most commonly used methods employ some form of “Thompson sampling” (Thompson 1933). Interim results are assessed periodically, and in the next period subjects are assigned to treatment arms in proportion to the posterior probability that a given arm is best. The more likely an arm is to be “best,” the more subjects it receives.
+
+Many variations on this basic assignment routine have been proposed, and some are designed to make it less prone to bias. If an adaptive trial is rolled out during a period in which success rates tend to be growing, increasing allocation of subjects to the best arm will tend to exaggerate that arm’s efficacy relative to the other arms, which receive fewer subjects during the high-yield period. In order to assess bias and correct for it, it may be useful to allocate some subjects in every period according to a static design. In this case, inverse probability weights for each period may be used to obtain unbiased estimates of the average treatment effect. (See Gerber and Green 2012 on the use of inverse probability weights for estimation of average treatment effects when the probability of assignment varies from block to block.)
+
+7. What are the symptoms of futile search?
+==
+Although it is impossible to know for sure whether a drawn out search reflects an unlucky start or an underlying reality in which no arm is superior, the longer an adaptive trial goes, the more cause for concern. The following graphs summarize the distribution of stopping times for three scenarios. Stopping was dictated by at 10% value remaining criterion. Specifically, the trial stopped when the top of the 95% confidence interval showed that no other arm was likely to offer at least a 10 percent (not percentage point) gain in success rate. The first two scenarios were described above; the third scenario considers a case in which there are two superior arms. The graph illustrates how adaptive trials tend to conclude faster when the superiority of the best arm(s) is more clear-cut.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig3.pdf)
+
