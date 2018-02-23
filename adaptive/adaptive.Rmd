@@ -11,17 +11,26 @@ output:
 
 1.	What is an “adaptive” design?
 ==
-A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial.  In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.  
+A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial. In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.  
 
-Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results.  In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
+Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results. In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
 
 2. What are the potential advantages of an adaptive design?
 ==
-Adaptive designs have the potential to detect the best-performing experimental arm(s) more quickly than a static design (i.e., with fewer data-collection sessions and fewer subjects).  When these efficiencies are realized, resources may be reallocated to achieve other research objectives.  
+Adaptive designs have the potential to detect the best-performing experimental arm(s) more quickly than a static design (i.e., with fewer data-collection sessions and fewer subjects). When these efficiencies are realized, resources may be reallocated to achieve other research objectives.  
 
-Adaptive designs also have the potential to lessen the ethical concerns that arise when subjects are allocated to inferior treatment arms.   For therapeutic interventions, adaptive designs may reduce subjects’ exposure to inferior treatments; for interventions designed to further broad societal objectives, adaptive designs may hasten the discovery of superior interventions.
+Adaptive designs also have the potential to lessen the ethical concerns that arise when subjects are allocated to inferior treatment arms. For therapeutic interventions, adaptive designs may reduce subjects’ exposure to inferior treatments; for interventions designed to further broad societal objectives, adaptive designs may hasten the discovery of superior interventions.
 
-To illustrate the potential advantages of adaptive design, we simulate an RCT involving a control group and eight treatment arms.  We administer treatments and gather 100 outcomes during each “period.”  The simulation assumes that each subject’s outcome is binary (e.g., good versus bad).  The adaptive allocation of subjects is based on interim analyses conducted at the end of each period.   We allocate next period’s subjects according to posterior probabilities that a given treatment arm is best (see below).  The simulation assumes that the probability of success is 0.10 for all arms except one, which is 0.20.  The stopping rule is that the RCT is halted when one arm is found to have a 95% posterior probability of being best.  
+To illustrate the potential advantages of adaptive design, we simulate an RCT involving a control group and eight treatment arms. We administer treatments and gather 100 outcomes during each "period." The simulation assumes that each subject’s outcome is binary (e.g., good versus bad). The adaptive allocation of subjects is based on interim analyses conducted at the end of each period. We allocate next period’s subjects according to posterior probabilities that a given treatment arm is best (see below). The simulation assumes that the probability of success is 0.10 for all arms except one, which is 0.20.  The stopping rule is that the RCT is halted when one arm is found to have a 95% posterior probability of being best.  
 
 In the adaptive trial depicted below, the best arm (the red line) is correctly identified, and the trial is halted after 23 periods (total N=2300).  
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig1.pdf)
+
+3.	What are the potential disadvantages of adaptive designs?
+==
+There is no guarantee that adaptive design will be superior in terms of speed or accuracy. For example, adaptive designs may result in a lengthy trial in cases where all of the arms are approximately equally effective. Even when one arm is truly superior, adaptive searches have some probability of resulting in long, circuitous searches (and considerable expense) if by chance they get off to a bad start (i.e., one of the inferior arms appears to be better than the other based on an initial round of results). 
+
+For instance, consider the following scenario in which all but one of the arms have a 0.10 probability of success, and the superior arm has a 0.12 probability of success (with the same trial design as in the previous example). The design eventually settles on the truly superior arm but only after more than 200 periods (N = 23,810). Even after 50 periods, the results provide no clear sense that any of the arms is superior.
+
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig2.pdf)
