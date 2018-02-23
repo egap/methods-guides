@@ -5,7 +5,7 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things You Need to Know About Adaptive Experimental Design" -->
+<!-- title: "10 Things to Know About Adaptive Experimental Design" -->
 <!-- author: "Methods Guide Author: Don Green & Molly Offer-Westort" -->
 
 1.	What is an “adaptive” design?
