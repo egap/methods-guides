@@ -8,9 +8,11 @@ output:
 <!-- title: "10 Things to Know About Adaptive Experimental Design" -->
 <!-- author: "Methods Guide Author: Don Green & Molly Offer-Westort" -->
 
-1.	What is an “adaptive” design?
+1.	What is an “adaptive”[^1] design?
 ==
 A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial. In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.  
+
+[^1]: This guide originally authored by Donald Green (Columbia University) and Molly Offer-Westort (Yale University) and published on February 23, 2018.
 
 Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results. In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
 
