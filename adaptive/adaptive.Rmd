@@ -1,0 +1,27 @@
+---
+title: "10 Things to Know About Adaptive Experimental Design"
+output: 
+  html_document:
+    toc: true
+    theme: journal
+---
+
+<!-- title: "10 Things You Need to Know About Adaptive Experimental Design" -->
+<!-- author: "Methods Guide Author: Don Green & Molly Offer-Westort" -->
+
+1.	What is an “adaptive” design?
+==
+A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial.  In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.  
+
+Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results.  In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
+
+2. What are the potential advantages of an adaptive design?
+==
+Adaptive designs have the potential to detect the best-performing experimental arm(s) more quickly than a static design (i.e., with fewer data-collection sessions and fewer subjects).  When these efficiencies are realized, resources may be reallocated to achieve other research objectives.  
+
+Adaptive designs also have the potential to lessen the ethical concerns that arise when subjects are allocated to inferior treatment arms.   For therapeutic interventions, adaptive designs may reduce subjects’ exposure to inferior treatments; for interventions designed to further broad societal objectives, adaptive designs may hasten the discovery of superior interventions.
+
+To illustrate the potential advantages of adaptive design, we simulate an RCT involving a control group and eight treatment arms.  We administer treatments and gather 100 outcomes during each “period.”  The simulation assumes that each subject’s outcome is binary (e.g., good versus bad).  The adaptive allocation of subjects is based on interim analyses conducted at the end of each period.   We allocate next period’s subjects according to posterior probabilities that a given treatment arm is best (see below).  The simulation assumes that the probability of success is 0.10 for all arms except one, which is 0.20.  The stopping rule is that the RCT is halted when one arm is found to have a 95% posterior probability of being best.  
+
+In the adaptive trial depicted below, the best arm (the red line) is correctly identified, and the trial is halted after 23 periods (total N=2300).  
+
