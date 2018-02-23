@@ -1,0 +1,11 @@
+---
+title: "10 Things to Know About Project Workflow"
+output:
+  html_document:
+    theme: journal
+    toc: true
+---
+
+<!-- title: "10 Things You Need to Know About Project Workflow" -->
+<!-- author: "Methods Guide Author: Matthew Lisiecki" -->
+

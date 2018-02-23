@@ -1,5 +1,4 @@
 ---
-title: "10 Things to Know About Adaptive Experimental Design"
 output: 
   html_document:
     toc: true
@@ -25,7 +24,7 @@ To illustrate the potential advantages of adaptive design, we simulate an RCT in
 
 In the adaptive trial depicted below, the best arm (the red line) is correctly identified, and the trial is halted after 23 periods (total N=2300).  
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig1.pdf)
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig1.png)
 
 3.	What are the potential disadvantages of adaptive designs?
 ==
@@ -33,7 +32,7 @@ There is no guarantee that adaptive design will be superior in terms of speed or
 
 For instance, consider the following scenario in which all but one of the arms have a 0.10 probability of success, and the superior arm has a 0.12 probability of success (with the same trial design as in the previous example). The design eventually settles on the truly superior arm but only after more than 200 periods (N = 23,810). Even after 50 periods, the results provide no clear sense that any of the arms is superior.
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig2.pdf)
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig2.png)
 
 A further disadvantage of adaptive designs is they may produce biased estimates of the average treatment effect of the apparent best arm vis-à-vis the control group. Bias arises because the trial stops when the best arm crosses a threshold suggesting optimality; this stopping rule tends to favor lucky draws that suggest the efficacy of the winning arm. Conversely, when adaptive algorithms associate sampling probability with observed history, under-estimation for inferior arms, including the control group, may persist until stopping time (Nie et al., 2017).  
 
@@ -67,5 +66,34 @@ Many variations on this basic assignment routine have been proposed, and some ar
 ==
 Although it is impossible to know for sure whether a drawn out search reflects an unlucky start or an underlying reality in which no arm is superior, the longer an adaptive trial goes, the more cause for concern. The following graphs summarize the distribution of stopping times for three scenarios. Stopping was dictated by at 10% value remaining criterion. Specifically, the trial stopped when the top of the 95% confidence interval showed that no other arm was likely to offer at least a 10 percent (not percentage point) gain in success rate. The first two scenarios were described above; the third scenario considers a case in which there are two superior arms. The graph illustrates how adaptive trials tend to conclude faster when the superiority of the best arm(s) is more clear-cut.
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig3.pdf)
+![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig3.png)
 
+8. What implications do adaptive designs have for pre-analysis plans?
+==
+The use of adaptive designs introduces additional decisions, which ideally should be addressed ex ante so as to limit researcher bias. For example, the researcher should specify which algorithms will be used for allocation. It is especially important to specify the stopping rule. Depending on the researcher’s objectives, this rule may focus on achieving a desired posterior probability, or it may use a “value remaining” criterion that considers whether one or more arms have shown themselves to be good enough vis-à-vis the alternative arms. Other hybrid stopping criteria may also be specified. The pre-analysis plan should also describe the analytic steps that will be taken to correct for bias.
+
+9. Are multi-arm bandit trials frequently used in social science?
+==
+Many of the applications to date have taken place in commercial settings, such as website design for high-volume e-commerce, or in settings such as on-line fundraising. Relatively few applications have been written up in detail for a scholarly audience.  Surprisingly rare are applications in biomedical research. As Villar et al. (2015, p.200) note, “Despite this apparent near-perfect fit between a real-world problem and a mathematical theory, the MABP has yet to be applied to an actual clinical trial.”
+
+Putting aside the use of multi-arm bandit approaches, the use of adaptive trials is gradually winning acceptance in biomedical research. For details, see Chin (2016).
+
+10. What other considerations should inform the decision to use adaptive design?
+==
+As noted above, adaptive designs add to the complexity of the research design and analysis. They also may increase the challenges of implementation, particularly in field settings where the logistical or training costs associated with different arms vary markedly. Even when one arm is clearly superior (inferior), the lead-time necessary to staff or outfit this arm may make it difficult to scale it up (down). Adaptive designs are only practical if adaptation is feasible.
+
+On the other hand, funders and implementation partners may welcome the idea of an experimental design that responds to on-the-ground conditions such that problematic arms are scaled back. A middle ground between static designs and designs that envision adaptation over many periods are adaptive designs involving only two or three interim analyses and adjustments. Such trials are winning increased acceptance in biomedical research (Chow and Chang 2008) and are likely to become more widely used in the social sciences too. The growing interest in replication and design-based extensions of existing experiments to aid generalization are likely to create opportunities for adaptive design.
+
+References
+==
+Chin, Richard. 2016. Adaptive and flexible clinical trials. New York: CRC Press. 
+
+Chow, Shein-Chung, and Mark Chang. 2008. “Adaptive design methods in clinical trials – a review.”  Orphanet Journal of Rare Diseases 3:11. http://doi.org/10.1186/1750-1172-3-11
+
+Nie, Xinkun, Xiaoying Tian, Jonathan Taylor, and James Zou. 2017. "Why Adaptively Collected Data Have Negative Bias and How to Correct for It." arXiv:1708.01977
+
+Scott, Steven L. 2010. “A modern Bayesian look at the multi-armed bandit.” Applied Stochastic Models in Business and Industry 26:639–658.
+
+Thompson, William R. 1933. On the likelihood that one unknown probability exceeds another in view of the evidence of two samples. Biometrika 25:285–294.
+
+Villar, Sofía S., Jack Bowden, and James Wason. “Multi-Armed Bandit Models for the Optimal Design of Clinical Trials: Benefits and Challenges.” Statistical science: a review journal of the Institute of Mathematical Statistics 30.2 (2015): 199–215.
