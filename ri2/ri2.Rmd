@@ -1,8 +1,13 @@
 ---
-title: "10 Randomization Inference Procedures with ri2"
-author: "Alexander Coppock, Yale University"
-date: "February 24, 2018"
+output: 
+  html_document:
+    toc: true
+    theme: journal
 ---
+
+<!-- title: "10 Randomization Inference Procedures with ri2" -->
+<!-- author: "Alexander Coppock, Yale University" -->
+<!-- date: "February 24, 2018" -->
 
 ```{r, echo=FALSE}
 knitr::opts_chunk$set(message = FALSE)
@@ -15,10 +20,10 @@ To illustrate what you can do with `ri2`, we'll use some data from a hypothetica
 
 Follow the links below to download the four datasets we'll use in the examples:
 
-- [complete randomization assignment dataset](link)
-- [blocked randomization assignment dataset](link)
-- [clustered randomization assignment dataset](link)
-- [three-arm randomization assignment dataset](link)
+- [complete randomization assignment dataset](https://raw.githubusercontent.com/egap/methods-guides/master/ri2/complete_dat.csv)
+- [blocked randomization assignment dataset](https://raw.githubusercontent.com/egap/methods-guides/master/ri2/blocked_dat.csv)
+- [clustered randomization assignment dataset](https://raw.githubusercontent.com/egap/methods-guides/master/ri2/clustered_dat.csv)
+- [three-arm randomization assignment dataset](https://raw.githubusercontent.com/egap/methods-guides/master/ri2/three_arm_dat.csv)
 
 # 1. Randomization inference for the Average Treatment Effect
 
