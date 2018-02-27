@@ -14,7 +14,7 @@ knitr::opts_chunk$set(message = FALSE)
 set.seed(343)
 ```
 
-Randomization inference is a procedure for conducting hypothesis tests that takes explicit account of a study's randomization procedure. See [10 things about Randomization Inference](http://egap.org/methods-guides/10-things-randomization-inference) for more about the theory behind randomization inference. In this guide, we'll see how to use the [ri2 package for r](http://alexandercoppock.com/ri2/) to conduct 10 different analyses.
+Randomization inference is a procedure for conducting hypothesis tests that takes explicit account of a study's randomization procedure. See [10 things about Randomization Inference](http://egap.org/methods-guides/10-things-randomization-inference) for more about the theory behind randomization inference. In this guide, we'll see how to use the [ri2 package for r](http://alexandercoppock.com/ri2/) to conduct 10 different analyses. This package was developed with funding from EGAP's innaugural round of standards grants, which are aimed at projects designed to improve the quality of experimental research.
 
 To illustrate what you can do with `ri2`, we'll use some data from a hypothetical experiment involving 200 students in 20 schools. We'll consider how to do randomization inference using a variety of different designs, including complete random assignment, block random assignment, cluster random assignment, and a multi-arm trial. You can check the [kinds of random assignment](http://egap.org/methods-guides/10-things-you-need-know-randomization) methods guide for more on the varieties of random assignment.
 
