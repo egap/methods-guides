@@ -13,7 +13,7 @@ output:
 [^1]: Acknowledgements: I am grateful to Winston Lin and Gareth Nellis, who commented on an earlier draft.
 [^2]: We focus here on randomization inference as applied to hypothesis testing. Randomization inference may also be used for construction of confidence intervals, but this application requires stronger assumptions. See Green and Gerber (2012), chapter 3.
 
-One of the advantages of conducting a randomized trial is that the researcher knows the precise procedure by the units were allocated to treatment and control. Randomization inference considers what would have happened under all possible random assignments, not just the one that happened to be selected for the experiment at hand. Against the backdrop of all possible random assignments, is the actual experimental result unusual?  How unusual is it?
+One of the advantages of conducting a randomized trial is that the researcher knows the precise procedure by which the units were allocated to treatment and control. Randomization inference considers what would have happened under all possible random assignments, not just the one that happened to be selected for the experiment at hand. Against the backdrop of all possible random assignments, is the actual experimental result unusual? How unusual is it?
 
 2. Randomization inference starts with a null hypothesis
 ==
