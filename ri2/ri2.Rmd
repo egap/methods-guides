@@ -21,9 +21,9 @@ To illustrate what you can do with `ri2`, we'll use some data from a hypothetica
 Follow the links below to download the four datasets we'll use in the examples:
 
 - <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/complete_dat.csv" target="_blank">complete randomization assignment dataset</a>
-- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/blocked_dat.csv" target="_blank">complete randomization assignment dataset</a>
-- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/clustered_dat.csv" target="_blank">complete randomization assignment dataset</a>
-- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/three_arm_dat.csv" target="_blank">complete randomization assignment dataset</a>
+- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/blocked_dat.csv" target="_blank">blocked randomization assignment dataset</a>
+- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/clustered_dat.csv" target="_blank">clustered randomization assignment dataset</a>
+- <a href="https://raw.githubusercontent.com/egap/methods-guides/master/ri2/three_arm_dat.csv" target="_blank">three-arm randomization assignment dataset</a>
 
 # 1. Randomization inference for the Average Treatment Effect
 
