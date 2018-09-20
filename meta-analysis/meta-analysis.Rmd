@@ -1,0 +1,14 @@
+---
+output:
+  html_document:
+    toc: yes
+    theme: journal
+---
+
+<!-- title: "10 Things to Know About Conducting a Meta-Analysis" -->
+<!-- author: 'Methods Guide Author: Don Green' -->
+
+1. What is meta-analysis?
+==
+Meta-analysis is a method for summarizing the statistical findings from a research literature.  For example, if five experiments have been conducted using the same intervention and outcome measure, one might imagine pooling these five studies together into a single dataset and analyzing them jointly, as though the studies came from five blocks within a single experiment.  In essence, a meta-analysis renders a weighted average of the five studies’ results.  As explained below, this method is also used to summarize research literatures that comprise a diverse array of interventions and outcomes, under the assumption that the interventions are theoretically similar and the outcome measures tap into a shared underlying trait.
+
