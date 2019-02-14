@@ -7,7 +7,7 @@ output:
     toc: yes
   word_document:
     toc: yes
-bibliography: egap_pap.bib
+bibliography: pap.bib
 ---
 
 <style>
@@ -53,7 +53,7 @@ The first section of a PAP should provide a brief overview of your study design.
 **Example:** 
 Let us use a simplified version of an intervention in Malawi as a running example. <br><br>
 We use a block-randomized experiment to evaluate the effect of _information and public service provision_ (explanatory variable) on _tax compliance_ (outcome) in Malawi, where service delivery is low and tax noncompliance is high.<br><br>
-Our unit of analysis is the owner-occupied household in Zomba,  Malawi.  We exclude renters because only homeowners pay the city taxes relevant to our study.  We cluster households within 80 neighborhood-level units of approximately 20 households each.  Each neighborhood is also a block such that 10 households within each neighborhood are assigned to treatment and 10 households are assigned to control.<br><br>
+Our unit of analysis is the owner-occupied household in a city in Malawi.  We exclude renters because only homeowners pay the city taxes relevant to our study.  We cluster households within 80 neighborhood-level units of approximately 20 households each.  Each neighborhood is also a block such that 10 households within each neighborhood are assigned to treatment and 10 households are assigned to control.<br><br>
 Our intervention is the provision of information and public services.  We implement this intervention by providing two free waste pickups, a visit from a canvasser to discuss how tax payments fund city services like waste collection, and a pamphlet with more information about tax payments. <br><br>
 Our main outcome is tax compliance, which we study as city tax payments.  We conduct a survey and collect administrative data on tax payment both before and after the intervention.
 </p>
