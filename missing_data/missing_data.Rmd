@@ -1,0 +1,35 @@
+---
+title: "10 Things to Know about Missing Data"
+author: "Tara Slough"
+date: "2/28/2019"
+output: html_document
+---
+##1. What is missing data?
+[missing observations, missing outcomes, missing covariates, common ways that missing data emerges, footnote on undefined POs vs. missing data for the freaks] 
+
+##2. Missing treatment or outcome data can bias our ability to describe empirical patterns and estimate causal effects.
+[simulation of experiment with and without missing data on Y]
+
+##3. The consequences of missing data for bias depend on the type of variable that is missing.
+[pretreatment covariates → should not induce bias; treatment or outcomes may induce bias.]
+
+##4. The potential for bias increases in the proportion of treatment or outcome data that is missing.
+[Replicate #2 as a Monte Carlo, increasing the proportion of missingness]
+
+##5. What assumptions do we invoke when we “ignore” outcome or treatment missingness  in estimation?
+[MAR, MAR conditional on X. Under what conditions is this assumption plausible? ]
+
+##6. How can we assess whether missingness is related to treatment assignment?
+[Estimate ATE on missingness, drawbacks of the approach, using randomization assessments/balance assessments with randomization-based justification like RItools or ri2 or coin.]
+
+##7. What is imputation?
+[Define imputation, talk about how this is central to methods for dealing with missing data. But the strategies for imputation vary depending on the type of variable that is missing and how many assumptions we want to make.]
+
+##8. How do we address missingness of pre-treatment covariates and why does this matter?
+[Why we shouldn’t “drop” observations with missing pre-treatment data. Advocate Green lab SOP for imputation of pre-treatment covariates.]
+
+##9. We can bound ATEs to account for missing outcome data without making assumptions about the distribution of missing outcomes.
+[Manski EVB, footnote on Lee trimming bounds]
+
+##10. Multiple imputation for missing outcomes allows for point estimation of ATEs, but relies on stronger assumptions than bounding.
+[Sketch the logic of multiple imputation, name some software, Rubin’s rules for getting to a point estimate.]
