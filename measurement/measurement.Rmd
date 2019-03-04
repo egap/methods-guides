@@ -1,0 +1,17 @@
+---
+output: 
+  html_document:
+    toc: true
+    theme: journal
+---
+
+<!-- title: "10 Things to Know About Measurement" -->
+<!-- author: 'Methods Guide Author: Tara Slough' -->
+
+1 The validity of inferences we draw from an experiment depend on the validity of the measures used.
+==
+We typically experiment in order to estimate the causal effect of a treatment, $Z$, on an outcome, $Y$. Yet, the reason that we care about estimating this causal effect is, in principle, to understand characteristics of the relationship between two theoretical, unobserved, concepts measured by observed variables $Z$ and $Y$. 
+
+Following Adcock and Collier (2001), consider the measurement process graphed in Figure 1 in three steps. First, researchers begin with systematized concept, a clearly-defined theoretical construct. From this concept, the researcher develops an indicator mapping the concept onto a scale or a set of categories. Finally, units or cases are scored on the indicator, yielding a measurement of treatment, $Z$ and an outcome $Y$. A measurement is valid if variation in the indicator closely approximates variation in the underlying concept of interest. 
+
+An experimental research design should allow a researcher to estimate the causal effect of $Z$ on $Y$ under [standard assumptions](link?). But if the ultimate goal is to make an inference about causal effect of the concept that $Z$ measures on the concept that $Y$ measures, the inferences that we can hope to make on the basis of our experimental evidence are valid if and only if both measures are valid. 
