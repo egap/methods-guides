@@ -1,6 +1,7 @@
 ---
 output: 
   html_document:
+    code_folding: hide
     toc: true
     theme: journal
 ---
@@ -153,7 +154,7 @@ There are multiple ways to aggregate multiple outcomes into an index. ["10 Thing
 
 Below, we look at simple $z$-score index of two noisy measures of a latent variable. We assume that the latent variables and both indicators "Measure 1" and "Measure 2" are drawn from a multivariate normal distribution and are positively correlated with the latent variable and with each other. For the purposes of simulation, we assume that we know the latent variable, though in practice this is not possible. First, we can show that across many simulations of the data, the correlation between the $z$-score index of the two measures and the latent variable is, on average, higher than the correlation between either of the indicators and the latent variable. When graphing the correlation of the individual measures and the latent variable against ($x$-axes) the correlation of the index and the latent variable ($y$-axis), almost all points are above the 45-degree line. This shows that the index approximates the latent variable with greater precision.
 
-```{r, warning = F, message = F, echo = F}
+```{r, warning = F, message = F, echo = T}
 library(mvtnorm)
 library(randomizr)
 library(dplyr)
@@ -214,7 +215,7 @@ data.frame(measures = c(sims["cor_Y1",], sims["cor_Y2",]),
 Now, consider the implications for power. In the simulations, we estimate of the ATE of a treatment on Measure 1, Measure 2, and the index. The following graph visualizes the estimates. The blue lines show 95 percent confidence intervals. The smaller confidence intervals about the index visualize the precision gains from leveraging both measures. We see that this manifests in higher statistical power for the experiment.
 
 
-```{r, warning = F, message = F, echo = F}
+```{r, warning = F, message = F, echo = T}
 
 data.frame(est = c(sims["est_index",], sims["est_Y1",], sims["est_Y2",]),
            se = c(sims["se_index",], sims["se_Y1",], sims["se_Y2",]),
