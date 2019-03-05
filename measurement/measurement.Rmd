@@ -6,7 +6,7 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things to Know About Measurement" -->
+<!-- title: "10 Things to Know About Measurement in Experiments" -->
 <!-- author: 'Methods Guide Author: Tara Slough' -->
 
 # 1. The validity of inferences we draw from an experiment depend on the validity of the measures used.
@@ -132,7 +132,7 @@ Because non-systematic measurement error, $\delta_i$ is independent of treatment
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] = \underbrace{E[\nu_i|Z_i = 1] − E[\nu_i|Z_i =0]}_{ATE} +
 \underbrace{E[\kappa_i|Z_i = 1] - E[\kappa_i|Z_i =0]}_{\text{Bias}}$$
 
-There are various sources of non-systematic measurement error in experiments. Demand effects [link] and [Hawthorne effects](https://en.wikipedia.org/wiki/Hawthorne_effect) can be motivated as sources of systematic measurement error. Moreover, designs that measure outcomes asymmetrically in treatment and control groups may be prone to systematic measurement error. In all cases, there exists asymmetry across treatment conditions in: (a) the way that subjects respond to being observed; or (b) the way that we observe outcomes that is distinct from any effect of the treatment on the latent variable of interest. The biased estimate of the ATE becomes the net of any effects on the latent variables (the ATE) and the non-systematic measurement error. 
+There are various sources of non-systematic measurement error in experiments. [Demand effects](https://en.wikipedia.org/wiki/Demand_characteristics) and [Hawthorne effects](https://en.wikipedia.org/wiki/Hawthorne_effect) can be motivated as sources of systematic measurement error. Moreover, designs that measure outcomes asymmetrically in treatment and control groups may be prone to systematic measurement error. In all cases, there exists asymmetry across treatment conditions in: (a) the way that subjects respond to being observed; or (b) the way that we observe outcomes that is distinct from any effect of the treatment on the latent variable of interest. The biased estimate of the ATE becomes the net of any effects on the latent variables (the ATE) and the non-systematic measurement error. 
 
 
 # 8. Leverage multiple indicators to assess the validity of a measure but be aware of the limitations of such tests.
@@ -243,7 +243,7 @@ We have examined an index composed of just two indicators. In principle, there a
 
 # 10. While concepts may be global, many indicators are context-specific. 
 
-Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts like the [Metaketas], researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts. 
+Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts, as in EGAP's [Metaketa Initiative](http://egap.org/metaketa), researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts. 
 
 For example, consider a set of studies that seek to measure variation in the concept of political knowledge or sophistication. Political knowledge may be assessed through questions that ask subjects to recall a fact about politics. One question may ask subjects to recall the current executive's (president/prime minister etc.) name, scoring answers as "correct" or "incorrect." In country $A$, 50% of respondents answer the question correctly. In Country $B$, 100% of respondents answer the question correctly. In Country $B$, we are able to identify any variation in the indicator because everyone could answer the question. This does not imply that there is no variation in political knowledge in Country $B$, just that this indicator is a poor measure of the variation that exists. In Country $A$, however, this question may be a completely appropriate indicator of political knowledge. If political knowledge was the outcome of an experiment, the lack of variation in the outcome in Country $B$ fails to allow us to identify any difference in political knowledge between treatment and control groups.
 
