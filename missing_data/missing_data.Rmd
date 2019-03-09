@@ -256,7 +256,7 @@ Our interval estimate of the ATE using Manski bounds is thus [`r round(coef(lowe
 
 ##10. Multiple imputation for missing outcomes allows for point estimation of ATEs, but relies on stronger assumptions than bounding.
 
-The methods in #8 and #9 describe methods of single imputation, where a single value is substituted for missing values. In multiple imputation, we impute missing values of the dataset multiple times according to an assumed stochastic data generating process. Different methods for multiple imputation impose different structures and assumptions data generating processes used to impute missing values. In general, multiple imputation proceeds via three stages:
+The methods in #8 and #9 describe methods of single imputation, where a single value is substituted for missing values. In multiple imputation, we impute missing values of the dataset multiple times according to an assumed stochastic data generating process. Different methods for multiple imputation impose different structures and assumptions about the probability distributions governing the data generating processes used to impute missing values.  In general, multiple imputation proceeds via three stages:
 
 1. *Imputation*: Missing values are imputed via a random draw of plausible values under the specified data generating process. This creates a full dataset without missing values. Typically, researchers will impute at least five complete datasets. The only differences across these imputed datasets are only where values were missing in the original data. 
 
