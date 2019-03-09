@@ -10,7 +10,7 @@ When variables are missing some data values, we say that there is "missing data.
 
 The consequences of missing data for estimation and interpretation depend on the type of variable missing the data. For our purposes, we will consider three types of variables: pretreatment covariates, treatment indicator(s), and outcome (or dependent) variables. Pretreatment covariates, often known simply as "covariates", are variables that we observe and measure before treatment is assigned. Outcome (or dependent) variables refer to outcomes that are measured after the assignment of treatment. 
 
-Missing data emerges for different reasons. In survey data, a respondent could decline to answer a question or quit the survey without completing all questions. Moreover, in a panel survey, some subjects may not be relocated for the second or later wave. With administrative data, records may be lost at some point in the process of collecting or recording data. To the extent that we can know the process by which data becomes missing, we can better understand the consequences of missing data for our analysis and inferences.
+Missing data emerges for different reasons. In survey data, a respondent could decline to answer a question or quit the survey without completing all questions. In a panel survey, some subjects may skip the second or later waves. With administrative data, records may be lost at some point in the process of collecting or recording data. To the extent that we can know the process by which data becomes missing, we can better understand the consequences of missing data for our analysis and inferences.
 
 ##2. Missing treatment or outcome data can bias our ability to describe empirical patterns and estimate causal effects.
 
