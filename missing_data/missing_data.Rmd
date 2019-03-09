@@ -168,7 +168,7 @@ The most common approaches used to deal with missing data involve the imputation
 
 ```{r, warning = F, message = F, echo = F}
 set.seed(1234)
-X <- rnorm(12)
+X <- signif(rnorm(12),4)
 Z <- complete_ra(12)
 Y <- ifelse(Z == 0, 
             sample(x = 1:4, size = 6, replace = T, prob = 4:1/10),
