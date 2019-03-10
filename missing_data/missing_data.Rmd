@@ -8,15 +8,15 @@ output: html_document
 
 When variables are missing some data values, we say that there is "missing data." Depending on your software and the coding of the dataset, missing values may be coded as `NA`, `.`, an empty cell (`""`), or a common numeric code (often `-99` or `99`).
 
-The consequences of missing data for estimation and interpretation depend on the type of variable missing the data. For our purposes, we will consider three types of variables: pretreatment covariates, treatment indicator(s), and outcome (or dependent) variables. Pretreatment covariates, often known simply as "covariates", are variables that we observe and measure before treatment is assigned. Outcome (or dependent) variables refer to outcomes that are measured after the assignment of treatment. 
+The consequences of missing data for estimation and interpretation depend on the type of variable missing the data. For our purposes, we will consider three types of variables: pretreatment covariates, treatment indicator(s), and outcome (or dependent) variables. Pretreatment covariates, often known simply as "covariates," are variables that we observe and measure before treatment is assigned. Outcome (or dependent) variables refer to outcomes that are measured after the assignment of treatment. 
 
 Missing data emerges for different reasons. In survey data, a respondent could decline to answer a question or quit the survey without completing all questions. In a panel survey, some subjects may skip the second or later waves. With administrative data, records may be lost at some point in the process of collecting or recording data. To the extent that we can know the process by which data becomes missing, we can better understand the consequences of missing data for our analysis and inferences.
 
 ##2. Missing treatment or outcome data can bias our ability to describe empirical patterns and estimate causal effects.
 
-One perverse consequence of missing data is that it can induce bias in our estimates of descriptive patterns and causal effects. Consider a researcher trying to describe the income distribution in a country. Some individuals' incomes are missing but the researcher describes the nonmissing data at hand. Suppose low-income individuals are less likely to report their income than high-income individuals, thus missingness is concentrated in the lower portion of the distribution. Then, the researcher's characterization of the income distribution is apt to be biased. For example, the researcher's estimate of median income is apt to be higher than the true (unknown) median income because more data is missing from the lower portion of the distribution. Because missingness is correlated with the variable we are trying to describe, our characterization of the median of the distribution is biased. 
+One perverse consequence of missing data is that it can induce bias in our estimates of descriptive patterns and causal effects. Consider a researcher trying to describe the income distribution in a country. Some individuals' incomes are missing but the researcher describes the nonmissing data at hand. Suppose low-income individuals are less likely to report their income than high-income individuals, thus missingness is concentrated in the lower portion of the distribution. Then, the researcher's characterization of the income distribution is apt to be biased. For example, the researcher's estimate of median income is bound to be higher than the true (unknown) median income because more data is missing from the lower portion of the distribution. Since missingness is correlated with the variable that we are trying to describe, our characterization of the median of the distribution is biased. 
 
-We can illustrate two types of missingness by considering a variable $x$ -- perhaps income, as above. The 
+We can illustrate two types of missingness by considering a variable $x$ -- for example, income, as above. The 
 left panel shows the full distribution of the variable $x$ without missing data. The middle panel depicts a scenario in which simulated missingenss in $x$ is not independent of $x$ -- low values of $x$ are much more likely to be missing. The right panel depicts a scenario in which simulated missingness in $x$ is independent of $x$ (often called "missing at random"). The red line represents the median of the distribution without missingness. The blue lines represent the median of the observed data in each simulation. Where missingness is not independent of $x$, we observe that the median of the nonmissing data is, in this instance, higher than the true median. This illustrates that missing data can bias our descriptions of single variables.
 
 
@@ -149,7 +149,7 @@ When researchers encounter missingness in an experiment, they often examine the 
 | If Untreated Reporter | $\pi_U$ |     0    |     1    |
 | Never Reporter        | $\pi_N$ |     0    |     0    |
 
-In the case in which missingness is related to potential outcomes but not to treatment assignment, we are generally not able to identify an unbiased estimate of the ATE. However we may be interested in identifying the LATE among always reporters -- those subjects for which we observe the outcome regardless of treatment assignment. This effect can be a main estimand of interest and even the most policy-relevant estimand in certain settings. However, to estimate a LATE, we want to be sure that the outcomes that we observe are those of always reporters, not if-treated or if-untreated reporters. 
+In the case in which missingness is related to potential outcomes but not to treatment assignment, we are generally not able to identify an unbiased estimate of the ATE. However, we may be interested in identifying the LATE among always reporters -- those subjects for which we observe the outcome regardless of treatment assignment. This effect can be a main estimand of interest and even the most policy-relevant estimand in certain settings. However, to estimate a LATE, we want to be sure that the outcomes that we observe are those of always reporters, not if-treated or if-untreated reporters. 
 
 To assess the plausibility of ths conjecture, we often examine the relationship between treatment assignment and reporting (non-missingness). Using the notation from the table, we can estimate:
 
@@ -209,7 +209,7 @@ model2 <- lm(Yobs ~ Z + Ximputed + Xmissing)
 
 The estimator `model2` does not drop observations on the basis of the missing pre-treatment variable `Xobs` like `model1` does.
 
-Alternatively, if pre-treatment missingness is minimal (less than 10% of observations), or when working with very datasets with few observations relative to the number of covariates and missingness indicators, Lin, Green, and Coppock (2016) advocate imputing the (unconditional) mean of the observed pre-treatment covariate. Call this variable `Ximputed_mean`.
+Alternatively, if pre-treatment missingness is minimal (less than 10% of observations), or when working with very small datasets with few observations relative to the number of covariates and missingness indicators, Lin, Green, and Coppock (2016) advocate imputing the (unconditional) mean of the observed pre-treatment covariate. Call this variable `Ximputed_mean`.
 
 ```{r, warning = F, message = F, echo = F}
 Xmean <- mean(Xobs, na.rm = T)
@@ -221,11 +221,11 @@ If we are simply imputing the pretreatment mean, then instead of estimating `mod
 ```{r, warning = F, message = F}
 model3 <- lm(Yobs ~ Z + Ximputed_mean)
 ```
-Because we have imputed missing values in `Xobs` when constructing `Ximputed_mean`, we will not lose observations on the basis of the missing pretreatment covariate when estimating `model3`.
+Since we have imputed missing values in `Xobs` when constructing `Ximputed_mean`, we will not lose observations on the basis of the missing pretreatment covariate when estimating `model3`.
 
 ##9. We can bound ATEs to account for missing outcome data without making assumptions about the distribution of missing outcomes.
 
-If we know the maximum and minimum values of the outcome variable, we can construct bounds on the ATE even in the presence of missing values of the dependent variable. For example, the range of the variable `Yobs` is 1 to 4. While we don't know what values missing values of `Yobs` would have been, we can take advantage of the fact that we know the maximum and minimum possible value to construct bounds on the ATE. This allows us to construct an **interval estimate** of the ATE instead of the **point estimate** we would construct if we had no missing data. These bounds are known as "extreme value bounds" or "Manski bounds" and do not invoke any additional assumptions about the value of `Yobs`.
+If we know the maximum and minimum values of the outcome variable, we can construct bounds on the ATE even in the presence of missing values of the dependent variable. For example, the range of the variable `Yobs` is 1 to 4. While we do not know what values missing values of `Yobs` would have been, we can take advantage of the fact that we know the maximum and minimum possible value to construct bounds on the ATE. This allows us to construct an **interval estimate** of the ATE instead of the **point estimate** we would construct if we had no missing data. These bounds are known as "extreme value bounds" or "Manski bounds" and do not invoke any additional assumptions about the value of `Yobs`.
 
 Manski bounds consist of a maximum and minimum bound (estimate) of the possible ATE. To create these bounds, we impute the maximum or minimum value of the outcome variable. as a function of treatment assignment. Thus we construct:
 
@@ -264,7 +264,7 @@ The methods in #8 and #9 describe methods of single imputation, where a single v
 
 3. *Pooling estimates*: Finally, researchers combine estimates from the different imputed datasets to generate a point estimate of the ATE and its stanard error. Typically, this point estimate can be calculated using Rubin's rules (2004). 
 
-Multiple imputation is implemented in many software packages and relatively straightforward to implement. However, the specification of a data generating process from which datasets are imputed relies on additional assumptions about the correctness of the model of missingness (data generating process). These assumptions are generally untestable. The assumptions imposed by multiple imputation are stronger than those used to identify an interval estimate of the ATE using Manski bounds. 
+Multiple imputation is implemented in many software packages and relatively straightforward to carry out. However, the specification of a data generating process from which datasets are imputed relies on additional assumptions about the correctness of the model of missingness (data generating process). These assumptions are generally untestable. The assumptions imposed by multiple imputation are stronger than those used to identify an interval estimate of the ATE using Manski bounds. 
 
 ##References:
 
