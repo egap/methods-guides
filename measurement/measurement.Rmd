@@ -120,7 +120,7 @@ $$\sqrt{Var(Y_i)} = \sqrt{Var(\nu_i) + Var(\delta_i) + 2 Cov(\nu_i, \delta_i)}$$
 
 So long as $Cov(\nu_i, \delta_i)\geq 0$ (we often assume $Cov(\nu_i, \delta_i)= 0$), it must be the case that the $Var(Y_i)$ is increasing as measurement error, or $Var(\delta_i)$ increases. This implies that power is decreasing as non-systematic measurement error increases. In other words, the noisier our measures of a latent variable, the lower our ability to detect effects of a treatment on a latent variable.
 
-What about the case in which $Cov(\nu_i, \delta_i) < 0$? While this reduces $Var(Y_i)$ (holding $Var(\nu_i)$ and $Var(\delta_i)$) constant, it also attenuates the variation that we measure in $Y_i$. In principle, this should attenuate the numerator $|\mu_t-\mu_c|$, which, if sufficient relative to the reduction in variance will also reduce power.
+What about the case in which $Cov(\nu_i, \delta_i) < 0$? While this reduces $Var(Y_i)$ (holding $Var(\nu_i)$ and $Var(\delta_i)$ constant), it also attenuates the variation that we measure in $Y_i$. In principle, this should attenuate the numerator $|\mu_t-\mu_c|$, which, if sufficient relative to the reduction in variance will also reduce power.
 
 # 7. Systematic measurement error biases estimates of causal effects of interests.
 
@@ -146,7 +146,7 @@ Finally, we may want to determine whether we are measuring the concept of intere
 In sum, the addition of more measures can help validate an indicator, but these validation tests are limited in what they tell us when they fail. To this extent, we should remain cognizant of the limitations in addition to the utility of collecting additional measures to simply to validate an indicator.
 
 
-# 9. The use of multiple indicators often improve the power of your experiment, but may introduces a bias-efficiency tradeoff.
+# 9. The use of multiple indicators often improve the power of your experiment, but may introduce a bias-efficiency tradeoff.
 
 Gathering multiple indicators of a concept or outcome may also improve the power of your experiment. If multiple indicators measure the same concept but are measured with (non-systematic) error, we can improve the precision with which we measure the latent variable by leveraging multiple measures. 
 
