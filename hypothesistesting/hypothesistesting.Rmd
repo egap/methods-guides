@@ -1,6 +1,4 @@
 ---
-title: "10 Things to Know About Hypothesis Testing"
-author: "Methods Guide Author: Jake Bowers"
 bibliography: ../../Research-Group-Bibliography/big.bib
 output: 
   html_document:
