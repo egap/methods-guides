@@ -278,7 +278,7 @@ groups.
 N <- 10
 y0 <- c(0,0,0,1,1,3,4,5,50,60)
 ## Different individual level treatment effects
-tau <- c(0,1,2,0,0,2,2,1,0,1)
+tau <- c(0,2,4,0,5,10,2,3,0,1)
 ## y1 is potential outcome to treatment
 y1 <- y0 + tau
 ## Z is treatment assignment
@@ -297,14 +297,15 @@ meanrankTZ <- function(y,z){
 	ranky <- rank(y)
 	mean(ranky*z) - mean(ranky*(1-z))
 }
-#meanTZ(y=Y,z=Z)
-#meanrankTZ(y=Y,z=Z)
+
+observedMeanTZ <- meanTZ(y=Y,z=Z)
+observedMeanRankTZ <- meanrankTZ(y=Y,z=Z)
 ```
 
 The first test statistic is the mean difference (`meanTZ`) and returns an
-observed value of `r meanTZ(y=Y,z=Z)` and the
+observed value of `r observedMeanTZ` and the
 second is the mean difference of the rank-transformed outcomes (`meanrankTZ`),
-which returns a value of `r signif(meanrankTZ(y=Y,z=Z),2)`.
+which returns a value of `r signif(observedMeanRankTZ,2)`.
 One could also use versions of these test statistic standarized by their estimated
 standard error (see @chung2013exact for an argument in favor of this test
 statistic).
@@ -330,7 +331,7 @@ information?
 One answer to this question is to refer to the thought experiment of repeating
 the study. Imagine, for the sake of argument, that the hypothesis was correct.
 If we repeated the study and calculated the test statistic we would receive a
-number – this number would reflect the outcome of the experiment *under the
+number --- this number would reflect the outcome of the experiment *under the
 hypothesis*. Now, imagine repeating the hypothetical experiment many times,
 recalculating the test statistic each time. The distribution of the test
 statistics would  then tell us all of the test statistic could have occurred
@@ -364,25 +365,62 @@ repeatExperiment <- function(Z){
 }
 ```
 
-We already know that $H_0: y_{i,1} = y_{i,0)$ implies that $Y_i=y_{i,0}$. So,
+We already know that $H_0: y_{i,1} = y_{i,0}$ implies that $Y_i=y_{i,0}$. So,
 we can describe all of the ways that the experiment would work out under this
 null by simply repeating the experiment (i.e. re-assiging treatment) and
-recalculating a test statistic each time.
+recalculating a test statistic each time. The following code repeatedly
+re-assigns treatment following the design and calculates the test statistic
+each time.
 
 ```{r}
 set.seed(123456)
 possibleMeanDiffsH0 <- replicate(10000,meanTZ(y=Y,z=repeatExperiment(Z=Z)))
+set.seed(123456)
 possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(y=Y,z=repeatExperiment(Z=Z)))
 ```
 
-```{r}
+And these plots show the distributions of the two different test statistics
+that would emerge from the world of the null hypothesis  (the curves and short
+ticks at the bottom of the plots). The plots also show the observed values for
+the test statistics that we can use to compare what we observe (the long thick
+lines) with what we hypothesize (the distributions) .
 
-plot(density(possibleMeanDiffsH0),ylim=c(0,.45),lwd=2)
+```{r}
+par(mfrow=c(1,2),mgp=c(1.5,.5,0),oma=rep(0,4))
+plot(density(possibleMeanDiffsH0),
+     ylim=c(0,.45),
+     xlim=range(possibleMeanDiffsH0),
+     lwd=2,
+     ##main="Mean Difference Test Statistic",
+     xlab="Mean Difference")
 rug(possibleMeanDiffsH0)
-lines(density(possibleMeanRankDiffsH0),lwd=2,col="gray",lty=2)
-rug(possibleMeanRankDiffsH0,col="gray",line=-.1)
+rug(observedMeanTZ,lwd=3,ticksize = .6)
+text(observedMeanTZ,.3,"Observed Test Statistic")
+
+plot(density(possibleMeanRankDiffsH0),lwd=2,
+     ylim=c(0,.45),
+     xlim=range(possibleMeanDiffsH0),
+     ##main="Mean Difference of Ranks Test Statistic",
+     xlab="Mean Difference of Ranks")
+rug(possibleMeanRankDiffsH0)
+rug(observedMeanRankTZ,lwd=3,ticksize = .6)
+text(observedMeanRankTZ,.3,"Observed Test Statistic")
 ```
 
+```{r calcpvalues}
+pMeanTZ <- mean( possibleMeanDiffsH0 <= observedMeanTZ )
+pMeanRankTZ <- mean(possibleMeanRankDiffsH0 <= observedMeanRankTZ )
+pMeanTZ
+pMeanRankTZ
+```
+
+To formalize the comparison between observed and hypothesized, we can
+calculate the proportion of the hypothetical experiments that yield test
+statistics less than the observed experiment. This one-tailed $p$-value takes
+is `r pMeanTZ` for the simple mean difference and `r pMeanRankTZ` for the mean
+difference of the rank-transformed outcomes.
+
+The 
 
 
 
