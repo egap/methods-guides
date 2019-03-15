@@ -398,42 +398,101 @@ lines) with what we hypothesize (the distributions).
 ```{r calcpvalues}
 pMeanTZ <- mean( possibleMeanDiffsH0 >= observedMeanTZ )
 pMeanRankTZ <- mean( possibleMeanRankDiffsH0 >= observedMeanRankTZ )
-pMeanTZ
-pMeanRankTZ
+## pMeanTZ
+## pMeanRankTZ
 ```
 
 
-```{r}
+```{r fig.cap="An example of using the design of the experiment to test a hypothesis."}
 par(mfrow=c(1,2),mgp=c(1.5,.5,0),mar=c(2,3,0,0),oma=c(0,0,3,0))
 plot(density(possibleMeanDiffsH0),
-     ylim=c(0,.45),
+     ylim=c(0,.04),
      xlim=range(possibleMeanDiffsH0),
      lwd=2,
      main="",#Mean Difference Test Statistic",
-     xlab="Mean Difference")
+     xlab="Mean Differences Consistent with H0")
 rug(possibleMeanDiffsH0)
 rug(observedMeanTZ,lwd=3,ticksize = .51)
-text(observedMeanTZ,.25,"Observed Test Statistic")
+text(observedMeanTZ-4,.022,"Observed Test Statistic")
 
 plot(density(possibleMeanRankDiffsH0),lwd=2,
      ylim=c(0,.45),
-     xlim=range(possibleMeanDiffsH0),
+     xlim=c(-10,10), #range(possibleMeanDiffsH0),
      main="", #Mean Difference of Ranks Test Statistic",
-     xlab="Mean Difference of Ranks")
+     xlab="Mean Difference of Ranks Consistent with H0")
 rug(possibleMeanRankDiffsH0)
 rug(observedMeanRankTZ,lwd=3,ticksize = .9)
 text(observedMeanRankTZ,.45,"Observed Test Statistic")
 
-mtext(side=3,outer=TRUE,text=expression(paste("Distributions of Test Statistics for ",H0: y[i1]==y[i0])))
+mtext(side=3,outer=TRUE,text=expression(paste("Distributions of Test Statistics Consistent with the Design and ",H0: y[i1]==y[i0])))
 ```
 
 To formalize the comparison between observed and hypothesized, we can
 calculate the proportion of the hypothetical experiments that yield test
-statistics less than the observed experiment. This one-tailed $p$-value 
-is `r pMeanTZ` for the simple mean difference and `r pMeanRankTZ` for the mean
-difference of the rank-transformed outcomes.
+statistics greater than the observed experiment. In the left panel of the
+figure we see that a wide range of
+differences of means between treated and control groups are compatible with
+the treatment having no effects (with the range between `r
+min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`. Right panel shows
+that transforming the outcomes to ranks before taking the difference of means
+reduces the range of the test statistics --- after all the ranks themselves go
+from 1 to 10 rather than from 1 to 280.  
 
-These $p$-values 
+## One-sided $p$-values
+
+This one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r
+pMeanRankTZ` for the mean difference of the rank-transformed outcomes. Each
+test statistic casts a different amount of doubt, or quantifies a different
+amount of surprise, about the same null hypothesis of no effects. We would say
+that it would be relatively rare to see observed values of the mean difference
+-- less 9 times in 100 would we expect to see a larger difference of means if
+there were no effects of the treatment on any unit in the study. The outcome
+itself is so noisy that the mean
+difference of the rank-transformed outcomes does a better job of picking up
+the signal. These data were generated with treatment effects built in, so
+the null hypothesis of no effects is false, but the information about the
+effects is noisy --- the sample size is small, and the distribution of the
+outcomes involves some strange outlying points and treatment effects
+themselves vary greatly.
+
+## Two-sided $p$-values
+
+Say we did not know in advance whether our experiment would show a negative
+effect or a positive effect. Then we might make two hypothesis tests --- one
+calculating the one-sided upper $p$-value and the other calculating the
+one-sided lower $p$-value. Now, if we did this we would be calculating two
+$p$-values and, if we made a standard practice of this, we would run the risk
+of misleading ourselves. After all, recall from the [10 things about multiple
+comparisons](link) that even if there really is no effect, 100 independent and
+well operating tests of that effect will yield 5 $p$-values less than .05. One
+easy solution to this common situation --- of wanting to summarize extremity
+of a experiment in either direction rather than just focusing on greater-than
+or less-than --- is to calculate a two-sided $p$-value (Rosenbaumn 2010, Chap
+2 and Cox, 1977). This, by the way, is
+the standard $p$-value produced by most canned software such as `lm()` and
+`t.test()` and `wilcox.test()` in R. The basic idea is to calculate both
+$p$-values and then multiply the smaller $p$-value by 2. 
+
+```{r}
+## Here I use <= and >= rather than < and > because of the discreteness of the
+## randomization distribution with only 10 observations. See discussions of
+## the "mid-p-value" 
+p2SidedMeanTZ <-     2*min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
+			   mean( possibleMeanDiffsH0 <= observedMeanTZ ))
+
+p2SidedMeanRankTZ <- 2*min( mean( possibleMeanRankDiffsH0 >= observedMeanRankTZ ),
+mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
+
+```
+
+In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r
+p2SidedMeanRankTZ` for the simple mean differences and means differences of
+ranks respectively. We interpret them in terms of "extremity" --- we would
+only see an observed mean difference as far away from zero as the one manifest
+in our results roughly 18% of the time, for example.
+
+
+
 
 # In simple hypothesis tests, we can reject a null hypothesis but not to accept it.
 
