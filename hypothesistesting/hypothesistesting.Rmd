@@ -47,11 +47,11 @@ wondering whether we could distinguish signal from noise in the this
 experiment using averages, in fact, we can. The experimental results are **not
 consistent** with the idea that the treatment had no effects."
 
-The $p$-value summarizes the ability of a given experiment experiment to
+The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
 Statistical
 Power](https://egap.org/methods-guides/10-things-you-need-know-about-statistical-power),
-whether or not a research design can detect a treatment effect depends not
+whether or not an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
 little signal, blocking or pre-stratification or covariance adjustment can
@@ -80,8 +80,7 @@ effects versus making best guesses about causal effects.
 
 ## A quick overview of the fundamental problem of causal inference and an introduction to some notation
 
-Recall from [Ten Things to Know about Causal Inference](link) that the
-counterfactual conceptualization of causality uses the idea of [potential
+Recall from [Ten Things to Know about Causal Inference](https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of [potential
 outcomes](link) to **define** cause and to formalize what we **mean** when we
 say "X causes Y" or "Smoking causes cancer" or "Information increases tax
 compliance".  Although there are other ways to think about causality
@@ -92,8 +91,7 @@ that information was giving to the person and $Z_i=0$ if no information was
 given so that we can write $y_{i,Z_i=1}$ to refer to the amount of taxes paid
 by someone given information and $y_{i,Z_i=0}$ to refer to the amount of taxes
 paid by someone not given any information in particular. In an actual
-experiment, we might [randomize the provision of information to citizens](link
-to metaketa II), so some people will have the information and others
+experiment, we might [randomize the provision of information to citizens](http://egap.org/metaketa/metaketa-ii-taxation), so some people will have the information and others
 will not. We observe the taxes paid by people in both conditions but, for any
 one person, we can only observe the taxes that they pay in one of the two
 conditions. What does it **mean** when we say "causal effect"? It often means
@@ -344,15 +342,15 @@ If we repeated the study and calculated the test statistic we would receive a
 number --- this number would reflect the outcome of the experiment *under the
 hypothesis*. Now, imagine repeating the hypothetical experiment many times,
 recalculating the test statistic each time. The distribution of the test
-statistics would  then tell us all of the test statistic could have occurred
+statistics would  then tell us all of the test statistics that could have occurred
 if the null hypothesis were true. If the test statistic is a sum or mean
 then, in a large experiment, we know that the distribution of those numbers
 will be more closely concentrated around the focal hypothesized value (say,
 $t(Z,y_0)$) than in a small experiment.
 
-When we compare what we actually observe, $t(z,Y)$ under the null to what we
+When we compare what we actually observe, $t(z,Y)$, to what we
 could have observed under the null (the distribution), we learn about how
-extreme or weird or surprising is our given study. And we encode this
+extreme, weird, or surprising is our given study. And we encode this
 extremity with a $p$-value. 
 
 Notice that the $p$-value does not tell us about the probability associated
@@ -600,7 +598,7 @@ experiments like this one.
 ## What does it mean to reject a null hypothesis?
 
 Notice that a $p=.01$ only reflects extremity of the observed data compared
-with the hypothesis --- it means that the observed test statistic looks weird
+with the hypothesis --- it means that the observed test statistic looks extreme
 when considered from the perspective of the distribution of tests statistics
 that are generated from the null hypothesis. So, we think of $p=.01$ (and
 other small p-values) as casting doubt on whether the specific hypothesis is a
