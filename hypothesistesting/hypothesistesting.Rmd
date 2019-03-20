@@ -42,7 +42,7 @@ library(coin)
 # Hypothesis tests summarize information in research designs to help people reason about treatment effects
 
 When researchers report that "The estimated average treatment effect is 5
-($p=.02$)." they are using a shorthand to say, "Dear reader, in case you were
+($p=.02$)," they are using a shorthand to say, "Dear reader, in case you were
 wondering whether we could distinguish signal from noise in the this
 experiment using averages, in fact, we can. The experimental results are **not
 consistent** with the idea that the treatment had no effects."
@@ -51,18 +51,18 @@ The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
 Statistical
 Power](https://egap.org/methods-guides/10-things-you-need-know-about-statistical-power),
-whether or not an experiment can detect a treatment effect depends not
+whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
 little signal, blocking or pre-stratification or covariance adjustment can
 reduce noise.], the distribution of the treatment, and the substantive strength
 of the intervention itself. When a researcher calculates a $p$-value as the
 result of a hypothesis test, she is summarizing all of these aspects of a
-research design as they bear on a particular claim --- usually a claim that
+research design as they bear on a particular claim---usually a claim that
 the treatment had no causal effect.
 
-The rest of this guide explains the pieces of a hypothesis piece by piece:
-from hypothesis (the claim that the treatment had no causal effect), to
+The rest of this guide explains the pieces of a hypothesis test piece by piece:
+from null hypothesis (the claim that the treatment had no causal effect), to
 test-statistic summarizing the observed data (like a difference of means), to
 the creation of a probability distribution that allows calculation of a
 $p$-value. It also discusses the idea of rejecting (but not accepting) a
@@ -83,7 +83,7 @@ effects versus making best guesses about causal effects.
 Recall from [Ten Things to Know about Causal Inference](https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of [potential
 outcomes](link) to **define** cause and to formalize what we **mean** when we
 say "X causes Y" or "Smoking causes cancer" or "Information increases tax
-compliance".  Although there are other ways to think about causality
+compliance."  Although there are other ways to think about causality
 (@brady2008causation), the counterfactual idea suggests that we imagine that
 each person, $i$, would pay their taxes, $y_{i}$,  if given
 information about the use to which those taxes are put. Write $Z_i=1$ to mean
@@ -107,7 +107,7 @@ information ($y_{i,0}$). So, we cannot use direct observation to learn about
 this counterfactual causal effect and we can only **infer** about it.
 @holland1986statistics calls this inability to use direct observation to
 learn about counterfactual causality the "fundamental problem of causal
-inference". 
+inference." 
 
 
 ## An overview of estimation based approaches to causal inference in randomized experiments. 
@@ -181,7 +181,7 @@ $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$, $y_{i,Z_i=1,\bZ_{~i}}$. See the guide on [10
 things to know about experiments with interference, spillover, and networks]
 for more on assessing these kinds of hypotheses.
 
-# The weak null hypothesis of no effects is statement about aggregated potential outcomes
+# The weak null hypothesis of no effects is a statement about aggregated potential outcomes
 
 An experiment may have some effects on some units but, on average, no effects.
 To codify this intuition, researchers can write a null hypothesis
@@ -195,11 +195,11 @@ Because most current discussions about causal effects talks about the
 hypothesis is a statement or model of a relationship among only partially
 observed potential outcomes. But, here it is about the average of them. One
 could, in principle, articulate hypotheses about other aggregates: medians,
-percentiles, ratios, trimmed means,etc. However hypothesizing about average
+percentiles, ratios, trimmed means, etc. However hypothesizing about average
 effects simplifies the math and statistics: we know the properties of averages
 of independent observations as sample sizes increase, so that we can appeal to
 a Central Limit Theorem to describe the distribution of averages in large
-samples --- and this, in turn, makes calculating $p$-values quick and easy in
+samples---and this, in turn, makes calculating $p$-values quick and easy in
 large samples.
 
 # Randomization allows us to use what we observe to test hypotheses about what we do not observe.
@@ -342,7 +342,7 @@ If we repeated the study and calculated the test statistic we would receive a
 number --- this number would reflect the outcome of the experiment *under the
 hypothesis*. Now, imagine repeating the hypothetical experiment many times,
 recalculating the test statistic each time. The distribution of the test
-statistics would  then tell us all of the test statistics that could have occurred
+statistics would then tell us all of the test statistics that could have occurred
 if the null hypothesis were true. If the test statistic is a sum or mean
 then, in a large experiment, we know that the distribution of those numbers
 will be more closely concentrated around the focal hypothesized value (say,
@@ -388,7 +388,7 @@ possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(ys=Y,z=repeatExperiment(Z=
 ```
 
 And these plots show the distributions of the two different test statistics
-that would emerge from the world of the null hypothesis  (the curves and short
+that would emerge from the world of the null hypothesis (the curves and short
 ticks at the bottom of the plots). The plots also show the observed values for
 the test statistics that we can use to compare what we observe (the long thick
 lines) with what we hypothesize (the distributions).
@@ -580,11 +580,11 @@ for example, we see a one-tailed $p=.01$, this would mean that, in the
 hypothetical world of the null hypothesis, in only 1 in
 100 experiments would we see a result as large or larger than our actual
 result. We might be tempted to say, that our observed result is so strange
-that we want to act as if the null were false. This would be ok --- after all
-a $p$-value along cannot control the behavior of an adult human --- but the
+that we want to act as if the null were false. This would be ok---after all
+a $p$-value alone cannot control the behavior of an adult human---but the
 human has to know that in 1/100 cases where the null is true, we would still
 see this result. That is, if we rejected the null, or acted as if the null
-were false, based on a small $p$-value we would be making an error --- a false
+were false, based on a small $p$-value we would be making an error---a false
 rejection, sometimes called a false positive because the null hypothesis is so
 often zero and the desired effect (say, in medical trials) is so often coded
 as positive.
@@ -607,16 +607,16 @@ good model of the observed data.
 ## What does it mean to **not reject** a null hypothesis?
 
 Notice that a $p=.50$ only reflects extremity of the observed data compared
-with the hypothesis --- but the observed data, in this case, do not look
+with the hypothesis---but the observed data, in this case, do not look
 extreme but common from the perspective of the null hypothesis. So, $p=.5$
 (and other large p-values) do not encourage us to doubt the model of the null
-hypothesis. It does not encourage us to accept that model --- it is only a
-model after all. We don't know reasonable the model was a priori, for example.
+hypothesis. It does not encourage us to accept that model---it is only a
+model after all. We do not know reasonable the model was a priori, for example.
 So, a single $p$-value large $p$-value is some argument in favor of the null,
 but not a very clear argument.
 
 
-# Once you are using $p$-values to rejecting a hypothesis, then you will make errors
+# Once you are using $p$-values to rejecting a hypothesis, you will make errors
 
 A good test rejects true hypotheses rarely (i.e. has a controlled false
 positive error rate) and easily detects signal from noise (i.e. has good
