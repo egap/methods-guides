@@ -35,7 +35,7 @@ color: black;
 # Hypothesis tests summarize information in research designs to help people reason about treatment effects
 
 When researchers report that "The estimated average treatment effect is 5
-($p=.02$)." they are using a shorthand to say, "Dear reader, in case you were
+($p=.02$)," they are using a shorthand to say, "Dear reader, in case you were
 wondering whether we could distinguish signal from noise in the this
 experiment using averages, in fact, we can. The experimental results are **not
 consistent** with the idea that the treatment had no effects."
@@ -382,11 +382,11 @@ Say we were happy to make 1 false positive error or false rejection in every
 inconsistency with the null hypothesis should only lead us to err in 5% of
 experiments like this one.
 
-Notice that this kind of reasoning --- realizing that decision making involves
+Notice that this kind of reasoning---realizing that decision making involves
 error leads us to easily justify certain decisions (like saying that small
 $p$-values justify calling the observed experiment inconsistent with the
 hypothesis, that is, rejecting the null) but not others: It would not be
-reasonable to say that a large $p$-value means that the null is true --- the
+reasonable to say that a large $p$-value means that the null is true---the
 null is just a model or a claim. (develop this a bit more)
 
 ## What does it mean to reject a null hypothesis?
@@ -398,7 +398,7 @@ is a good model of the observed data.
 ## What does it mean to **not reject** a null hypothesis?
 
 Notice that a $p=.50$ only reflects extremity of the observed data compared
-with the hypothesis --- but the observed data, in this case, do not look
+with the hypothesis---but the observed data, in this case, do not look
 extreme but common from the perspective of the null hypothesis.
 
 
