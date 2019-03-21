@@ -616,7 +616,7 @@ So, a single $p$-value large $p$-value is some argument in favor of the null,
 but not a very clear argument.
 
 
-# Once you are using $p$-values to rejecting a hypothesis, you will make errors
+# Once you are using $p$-values to reject a hypothesis, you will make errors
 
 A good test rejects true hypotheses rarely (i.e. has a controlled false
 positive error rate) and easily detects signal from noise (i.e. has good
@@ -700,7 +700,7 @@ legend("topleft",legend=c("OLS","Neyman","Rand Inf Mean Diff","Rand Inf Mean
 In this particular case, at the threshold of $\alpha=.05$, all of the tests
 except for the rank based test report about a 6% false positive rate, when it
 should be 5% of less. The rank-based test statistic reports a 5% false
-positive rate at $\alpha=.05%.
+positive rate at $\alpha=.05.
 
 # What else to know about hypothesis tests.
 
