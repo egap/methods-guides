@@ -39,13 +39,20 @@ library(coin)
 ```
 
 
+
+
 # Hypothesis tests summarize information in research designs to help people reason about treatment effects
 
 When researchers report that "The estimated average treatment effect is 5
 ($p=.02$)," they are using a shorthand to say, "Dear reader, in case you were
 wondering whether we could distinguish signal from noise in the this
 experiment using averages, in fact, we can. The experimental results are **not
-consistent** with the idea that the treatment had no effects."
+consistent** with the idea that the treatment had no effects." People do
+hypothesis tests in observational studies as well as in randomized
+experiments. This guide focuses on their use in randomized experiments or
+research designs that try to organize data so that they look
+"as-if-randomized" (such as regression discontinuity designs or other natural or
+quasi-experimental designs).
 
 The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
@@ -68,7 +75,7 @@ the creation of a probability distribution that allows calculation of a
 $p$-value. It also discusses the idea of rejecting (but not accepting) a
 hypothesis and touches on the question of what makes for a good hypothesis
 test (hint: an ideal hypothesis test should cast doubt on the truth rarely and
-distinguish even faint signals from noise).
+distinguish even faint signals from noise). See also [10 Things You Need to Know about Randomization Inference](https://egap.org/methods-guides/10-things-randomization-inference) for more discussion of these ideas.
 
 # In an experiment, a hypothesis is a claim about unobserved causal relationships
 
@@ -557,11 +564,12 @@ way for the weak null to be true (i.e. if the sharp null is true): there are
 many ways for the weak null to be true --- some of which are compatible with
 large positive effects on some units and large negative effects on other
 units, others are compatible with other patterns of individual level effects.
-In this data, however, none of those patterns will produce a reference
-distribution across repeated randomizations that closely approximates a Normal
-or $t$-curve if the mean difference is used as a test statistic. We will
-return to this point later when we discuss the characteristics of a good test
---- one of which is a controlled false positive rate.
+In this particular data set, engineered to have a very skewed outcome
+distribution, however, none of those patterns will produce a reference
+distribution that look like a Normal or $t$-curve if the mean difference is
+used as a test statistic. We will return to this point later when we discuss
+the characteristics of a good test --- one of which is a controlled false
+positive rate.
 
 # In simple hypothesis tests, we can reject a null hypothesis but not to accept it.
 
@@ -704,6 +712,9 @@ positive rate at $\alpha=.05.
 
 # What else to know about hypothesis tests.
 
+Here we list a few other important but advanced topics connected to hypothesis
+testing:
+
  - Even if a given testing procedure controls the false positive rate for a
    single test, it may not control the rate for a group of multiple tests. See
    [10 Things you need to know about multiple
@@ -713,7 +724,8 @@ positive rate at $\alpha=.05.
  - A $100\alpha$\% confidence interval can be defined as the range of
    hypotheses where all of the $p$-values are greater than or equal to
    $\alpha$. This is called inverting the hypothesis test.
-   (@rosenbaum2010design}
+   (@rosenbaum2010design). That is, a confidence interval is a collection of
+   hypothesis tests.
  - A point estimate based on hypothesis testing is called a Hodges-Lehmann
    point estimate. (@rosenbaum1993hlp,@hodges1963elb)
  - A set of hypothesis tests can be combined into one single hypothesis test
