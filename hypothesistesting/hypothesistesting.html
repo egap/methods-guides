@@ -468,7 +468,7 @@ $(document).ready(function () {
 <li><a href="#hypothesis-testing-is-a-statistical-approach-to-the-fundamental-problem-of-causal-inference-using-claims-about-the-unobserved."><span class="toc-section-number">2.3</span> Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.</a></li>
 </ul></li>
 <li><a href="#the-null-hypothesis-of-no-effects-is-a-precise-statement-about-potential-outcomes"><span class="toc-section-number">3</span> The Null Hypothesis of No Effects is a precise statement about potential outcomes</a></li>
-<li><a href="#the-weak-null-hypothesis-of-no-effects-is-statement-about-aggregated-potential-outcomes"><span class="toc-section-number">4</span> The weak null hypothesis of no effects is statement about aggregated potential outcomes</a></li>
+<li><a href="#the-weak-null-hypothesis-of-no-effects-is-a-statement-about-aggregated-potential-outcomes"><span class="toc-section-number">4</span> The weak null hypothesis of no effects is a statement about aggregated potential outcomes</a></li>
 <li><a href="#randomization-allows-us-to-use-what-we-observe-to-test-hypotheses-about-what-we-do-not-observe."><span class="toc-section-number">5</span> Randomization allows us to use what we observe to test hypotheses about what we do not observe.</a></li>
 <li><a href="#test-statistics-summarize-the-relationship-between-observed-outcomes-and-treatment-assignment."><span class="toc-section-number">6</span> Test statistics summarize the relationship between observed outcomes and treatment assignment.</a></li>
 <li><a href="#p-values-encode-how-much-information-a-research-design-and-test-statistic-tell-us-about-the-hypothesis.-hypothesis-tests-require-distributions-of-the-test-statistic-under-the-hypothesis."><span class="toc-section-number">7</span> <span class="math inline">\(p\)</span>-values encode how much information a research design and test statistic tell us about the hypothesis. Hypothesis tests require distributions of the test statistic under the hypothesis.</a><ul>
@@ -482,7 +482,7 @@ $(document).ready(function () {
 <li><a href="#what-does-it-mean-to-reject-a-null-hypothesis"><span class="toc-section-number">8.1</span> What does it mean to reject a null hypothesis?</a></li>
 <li><a href="#what-does-it-mean-to-not-reject-a-null-hypothesis"><span class="toc-section-number">8.2</span> What does it mean to <strong>not reject</strong> a null hypothesis?</a></li>
 </ul></li>
-<li><a href="#once-you-are-using-p-values-to-rejecting-a-hypothesis-then-you-will-make-errors"><span class="toc-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to rejecting a hypothesis, then you will make errors</a><ul>
+<li><a href="#once-you-are-using-p-values-to-reject-a-hypothesis-you-will-make-errors"><span class="toc-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to reject a hypothesis, you will make errors</a><ul>
 <li><a href="#how-to-learn-about-errors-of-missing-the-signal-in-the-noise"><span class="toc-section-number">9.1</span> How to learn about errors of missing the signal in the noise?</a></li>
 <li><a href="#how-to-learn-about-false-positive-errors"><span class="toc-section-number">9.2</span> How to learn about false positive errors?</a></li>
 </ul></li>
@@ -506,32 +506,38 @@ color: black;
 </style>
 <pre class="r"><code>library(randomizr)
 library(coin)</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
 <div id="hypothesis-tests-summarize-information-in-research-designs-to-help-people-reason-about-treatment-effects" class="section level1">
 <h1><span class="header-section-number">1</span> Hypothesis tests summarize information in research designs to help people reason about treatment effects</h1>
 <p>When researchers report that “The estimated average treatment effect is 5
-(<span class="math inline">\(p=.02\)</span>).” they are using a shorthand to say, “Dear reader, in case you were
+(<span class="math inline">\(p=.02\)</span>),” they are using a shorthand to say, “Dear reader, in case you were
 wondering whether we could distinguish signal from noise in the this
 experiment using averages, in fact, we can. The experimental results are <strong>not
-consistent</strong> with the idea that the treatment had no effects.”</p>
-<p>The <span class="math inline">\(p\)</span>-value summarizes the ability of a given experiment experiment to
+consistent</strong> with the idea that the treatment had no effects.” People do
+hypothesis tests in observational studies as well as in randomized
+experiments. This guide focuses on their use in randomized experiments or
+research designs that try to organize data so that they look
+“as-if-randomized” (such as regression discontinuity designs or other natural or
+quasi-experimental designs).</p>
+<p>The <span class="math inline">\(p\)</span>-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in <a href="https://egap.org/methods-guides/10-things-you-need-know-about-statistical-power">10 Things You Need to Know about
 Statistical
 Power</a>,
-whether or not a research design can detect a treatment effect depends not
+whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, the distribution of the treatment, and the substantive strength
 of the intervention itself. When a researcher calculates a <span class="math inline">\(p\)</span>-value as the
 result of a hypothesis test, she is summarizing all of these aspects of a
-research design as they bear on a particular claim — usually a claim that
+research design as they bear on a particular claim—usually a claim that
 the treatment had no causal effect.</p>
-<p>The rest of this guide explains the pieces of a hypothesis piece by piece:
-from hypothesis (the claim that the treatment had no causal effect), to
+<p>The rest of this guide explains the pieces of a hypothesis test piece by piece:
+from null hypothesis (the claim that the treatment had no causal effect), to
 test-statistic summarizing the observed data (like a difference of means), to
 the creation of a probability distribution that allows calculation of a
 <span class="math inline">\(p\)</span>-value. It also discusses the idea of rejecting (but not accepting) a
 hypothesis and touches on the question of what makes for a good hypothesis
 test (hint: an ideal hypothesis test should cast doubt on the truth rarely and
-distinguish even faint signals from noise).</p>
+distinguish even faint signals from noise). See also <a href="https://egap.org/methods-guides/10-things-randomization-inference">10 Things You Need to Know about Randomization Inference</a> for more discussion of these ideas.</p>
 </div>
 <div id="in-an-experiment-a-hypothesis-is-a-claim-about-unobserved-causal-relationships" class="section level1">
 <h1><span class="header-section-number">2</span> In an experiment, a hypothesis is a claim about unobserved causal relationships</h1>
@@ -542,11 +548,10 @@ explain a bit about the distinction between assessing claims about causal
 effects versus making best guesses about causal effects.</p>
 <div id="a-quick-overview-of-the-fundamental-problem-of-causal-inference-and-an-introduction-to-some-notation" class="section level2">
 <h2><span class="header-section-number">2.1</span> A quick overview of the fundamental problem of causal inference and an introduction to some notation</h2>
-<p>Recall from <a href="link">Ten Things to Know about Causal Inference</a> that the
-counterfactual conceptualization of causality uses the idea of <a href="link">potential
+<p>Recall from <a href="https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference">Ten Things to Know about Causal Inference</a> that the counterfactual conceptualization of causality uses the idea of <a href="link">potential
 outcomes</a> to <strong>define</strong> cause and to formalize what we <strong>mean</strong> when we
 say “X causes Y” or “Smoking causes cancer” or “Information increases tax
-compliance”. Although there are other ways to think about causality
+compliance.” Although there are other ways to think about causality
 (<span class="citation">Brady (2008)</span>), the counterfactual idea suggests that we imagine that
 each person, <span class="math inline">\(i\)</span>, would pay their taxes, <span class="math inline">\(y_{i}\)</span>, if given
 information about the use to which those taxes are put. Write <span class="math inline">\(Z_i=1\)</span> to mean
@@ -554,7 +559,7 @@ that information was giving to the person and <span class="math inline">\(Z_i=0\
 given so that we can write <span class="math inline">\(y_{i,Z_i=1}\)</span> to refer to the amount of taxes paid
 by someone given information and <span class="math inline">\(y_{i,Z_i=0}\)</span> to refer to the amount of taxes
 paid by someone not given any information in particular. In an actual
-experiment, we might <a href="link%20to%20metaketa%20II">randomize the provision of information to citizens</a>, so some people will have the information and others
+experiment, we might <a href="http://egap.org/metaketa/metaketa-ii-taxation">randomize the provision of information to citizens</a>, so some people will have the information and others
 will not. We observe the taxes paid by people in both conditions but, for any
 one person, we can only observe the taxes that they pay in one of the two
 conditions. What does it <strong>mean</strong> when we say “causal effect”? It often means
@@ -568,7 +573,7 @@ information (<span class="math inline">\(y_{i,0}\)</span>). So, we cannot use di
 this counterfactual causal effect and we can only <strong>infer</strong> about it.
 <span class="citation">Holland (1986)</span> calls this inability to use direct observation to
 learn about counterfactual causality the “fundamental problem of causal
-inference”.</p>
+inference.”</p>
 </div>
 <div id="an-overview-of-estimation-based-approaches-to-causal-inference-in-randomized-experiments." class="section level2">
 <h2><span class="header-section-number">2.2</span> An overview of estimation based approaches to causal inference in randomized experiments.</h2>
@@ -640,8 +645,8 @@ of the other units are assigned to any other set of treatments
 things to know about experiments with interference, spillover, and networks]
 for more on assessing these kinds of hypotheses.</p>
 </div>
-<div id="the-weak-null-hypothesis-of-no-effects-is-statement-about-aggregated-potential-outcomes" class="section level1">
-<h1><span class="header-section-number">4</span> The weak null hypothesis of no effects is statement about aggregated potential outcomes</h1>
+<div id="the-weak-null-hypothesis-of-no-effects-is-a-statement-about-aggregated-potential-outcomes" class="section level1">
+<h1><span class="header-section-number">4</span> The weak null hypothesis of no effects is a statement about aggregated potential outcomes</h1>
 <p>An experiment may have some effects on some units but, on average, no effects.
 To codify this intuition, researchers can write a null hypothesis
 about an <em>average</em> of potential outcomes, or some other aggregated summary of
@@ -652,11 +657,11 @@ collection of potential outcomes.</p>
 hypothesis is a statement or model of a relationship among only partially
 observed potential outcomes. But, here it is about the average of them. One
 could, in principle, articulate hypotheses about other aggregates: medians,
-percentiles, ratios, trimmed means,etc. However hypothesizing about average
+percentiles, ratios, trimmed means, etc. However hypothesizing about average
 effects simplifies the math and statistics: we know the properties of averages
 of independent observations as sample sizes increase, so that we can appeal to
 a Central Limit Theorem to describe the distribution of averages in large
-samples — and this, in turn, makes calculating <span class="math inline">\(p\)</span>-values quick and easy in
+samples—and this, in turn, makes calculating <span class="math inline">\(p\)</span>-values quick and easy in
 large samples.</p>
 </div>
 <div id="randomization-allows-us-to-use-what-we-observe-to-test-hypotheses-about-what-we-do-not-observe." class="section level1">
@@ -782,14 +787,14 @@ If we repeated the study and calculated the test statistic we would receive a
 number — this number would reflect the outcome of the experiment <em>under the
 hypothesis</em>. Now, imagine repeating the hypothetical experiment many times,
 recalculating the test statistic each time. The distribution of the test
-statistics would then tell us all of the test statistic could have occurred
+statistics would then tell us all of the test statistics that could have occurred
 if the null hypothesis were true. If the test statistic is a sum or mean
 then, in a large experiment, we know that the distribution of those numbers
 will be more closely concentrated around the focal hypothesized value (say,
 <span class="math inline">\(t(Z,y_0)\)</span>) than in a small experiment.</p>
-<p>When we compare what we actually observe, <span class="math inline">\(t(z,Y)\)</span> under the null to what we
+<p>When we compare what we actually observe, <span class="math inline">\(t(z,Y)\)</span>, to what we
 could have observed under the null (the distribution), we learn about how
-extreme or weird or surprising is our given study. And we encode this
+extreme, weird, or surprising is our given study. And we encode this
 extremity with a <span class="math inline">\(p\)</span>-value.</p>
 <p>Notice that the <span class="math inline">\(p\)</span>-value does not tell us about the probability associated
 with the observed data. The observed data is observed. The probability arises
@@ -926,8 +931,16 @@ dev_mode()</code></pre>
 <pre class="r"><code>install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;)</code></pre>
 <pre><code>## Skipping install of &#39;RItools&#39; from a github remote, the SHA1 (4ce0b99e) has not changed since last install.
 ##   Use `force = TRUE` to force installation</code></pre>
-<pre class="r"><code>library(RItools)
-thedesignA &lt;- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
+<pre class="r"><code>library(RItools)</code></pre>
+<pre><code>## Loading required package: SparseM</code></pre>
+<pre><code>## 
+## Attaching package: &#39;SparseM&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     backsolve</code></pre>
+<pre><code>## Warning: replacing previous import &#39;dgof::ks.test&#39; by &#39;stats::ks.test&#39; when
+## loading &#39;RItools&#39;</code></pre>
+<pre class="r"><code>thedesignA &lt;- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
 pMean4 &lt;- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanTZ ,
          sampler = thedesignA)
 pMeanRank4 &lt;- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
@@ -951,8 +964,9 @@ pMean4</code></pre>
 <pre class="r"><code>dev_mode()</code></pre>
 <pre><code>## Dev mode: OFF</code></pre>
 <pre class="r"><code>## using the ri2 package
-library(ri2)
-thedesign &lt;- declare_ra(N=N)
+library(ri2)</code></pre>
+<pre><code>## Loading required package: estimatr</code></pre>
+<pre class="r"><code>thedesign &lt;- declare_ra(N=N)
 pMean4 &lt;- conduct_ri( Y ~ Z, declaration = thedesign, 
              sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMean4)</code></pre>
@@ -1003,11 +1017,12 @@ way for the weak null to be true (i.e. if the sharp null is true): there are
 many ways for the weak null to be true — some of which are compatible with
 large positive effects on some units and large negative effects on other
 units, others are compatible with other patterns of individual level effects.
-In this data, however, none of those patterns will produce a reference
-distribution across repeated randomizations that closely approximates a Normal
-or <span class="math inline">\(t\)</span>-curve if the mean difference is used as a test statistic. We will
-return to this point later when we discuss the characteristics of a good test
-— one of which is a controlled false positive rate.</p>
+In this particular data set, engineered to have a very skewed outcome
+distribution, however, none of those patterns will produce a reference
+distribution that look like a Normal or <span class="math inline">\(t\)</span>-curve if the mean difference is
+used as a test statistic. We will return to this point later when we discuss
+the characteristics of a good test — one of which is a controlled false
+positive rate.</p>
 </div>
 </div>
 <div id="in-simple-hypothesis-tests-we-can-reject-a-null-hypothesis-but-not-to-accept-it." class="section level1">
@@ -1026,11 +1041,11 @@ for example, we see a one-tailed <span class="math inline">\(p=.01\)</span>, thi
 hypothetical world of the null hypothesis, in only 1 in
 100 experiments would we see a result as large or larger than our actual
 result. We might be tempted to say, that our observed result is so strange
-that we want to act as if the null were false. This would be ok — after all
-a <span class="math inline">\(p\)</span>-value along cannot control the behavior of an adult human — but the
+that we want to act as if the null were false. This would be ok—after all
+a <span class="math inline">\(p\)</span>-value alone cannot control the behavior of an adult human—but the
 human has to know that in 1/100 cases where the null is true, we would still
 see this result. That is, if we rejected the null, or acted as if the null
-were false, based on a small <span class="math inline">\(p\)</span>-value we would be making an error — a false
+were false, based on a small <span class="math inline">\(p\)</span>-value we would be making an error—a false
 rejection, sometimes called a false positive because the null hypothesis is so
 often zero and the desired effect (say, in medical trials) is so often coded
 as positive.</p>
@@ -1041,7 +1056,7 @@ experiments like this one.</p>
 <div id="what-does-it-mean-to-reject-a-null-hypothesis" class="section level2">
 <h2><span class="header-section-number">8.1</span> What does it mean to reject a null hypothesis?</h2>
 <p>Notice that a <span class="math inline">\(p=.01\)</span> only reflects extremity of the observed data compared
-with the hypothesis — it means that the observed test statistic looks weird
+with the hypothesis — it means that the observed test statistic looks extreme
 when considered from the perspective of the distribution of tests statistics
 that are generated from the null hypothesis. So, we think of <span class="math inline">\(p=.01\)</span> (and
 other small p-values) as casting doubt on whether the specific hypothesis is a
@@ -1050,17 +1065,17 @@ good model of the observed data.</p>
 <div id="what-does-it-mean-to-not-reject-a-null-hypothesis" class="section level2">
 <h2><span class="header-section-number">8.2</span> What does it mean to <strong>not reject</strong> a null hypothesis?</h2>
 <p>Notice that a <span class="math inline">\(p=.50\)</span> only reflects extremity of the observed data compared
-with the hypothesis — but the observed data, in this case, do not look
+with the hypothesis—but the observed data, in this case, do not look
 extreme but common from the perspective of the null hypothesis. So, <span class="math inline">\(p=.5\)</span>
 (and other large p-values) do not encourage us to doubt the model of the null
-hypothesis. It does not encourage us to accept that model — it is only a
-model after all. We don’t know reasonable the model was a priori, for example.
+hypothesis. It does not encourage us to accept that model—it is only a
+model after all. We do not know reasonable the model was a priori, for example.
 So, a single <span class="math inline">\(p\)</span>-value large <span class="math inline">\(p\)</span>-value is some argument in favor of the null,
 but not a very clear argument.</p>
 </div>
 </div>
-<div id="once-you-are-using-p-values-to-rejecting-a-hypothesis-then-you-will-make-errors" class="section level1">
-<h1><span class="header-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to rejecting a hypothesis, then you will make errors</h1>
+<div id="once-you-are-using-p-values-to-reject-a-hypothesis-you-will-make-errors" class="section level1">
+<h1><span class="header-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to reject a hypothesis, you will make errors</h1>
 <p>A good test rejects true hypotheses rarely (i.e. has a controlled false
 positive error rate) and easily detects signal from noise (i.e. has good
 statistical power, has a rarely makes the error of missing the signal in the
@@ -1132,11 +1147,13 @@ legend(&quot;topleft&quot;,legend=c(&quot;OLS&quot;,&quot;Neyman&quot;,&quot;Ran
 <p>In this particular case, at the threshold of <span class="math inline">\(\alpha=.05\)</span>, all of the tests
 except for the rank based test report about a 6% false positive rate, when it
 should be 5% of less. The rank-based test statistic reports a 5% false
-positive rate at $=.05%.</p>
+positive rate at $=.05.</p>
 </div>
 </div>
 <div id="what-else-to-know-about-hypothesis-tests." class="section level1">
 <h1><span class="header-section-number">10</span> What else to know about hypothesis tests.</h1>
+<p>Here we list a few other important but advanced topics connected to hypothesis
+testing:</p>
 <ul>
 <li>Even if a given testing procedure controls the false positive rate for a
 single test, it may not control the rate for a group of multiple tests. See
@@ -1147,7 +1164,8 @@ multiple tests.</li>
 <li>A <span class="math inline">\(100\alpha\)</span>% confidence interval can be defined as the range of
 hypotheses where all of the <span class="math inline">\(p\)</span>-values are greater than or equal to
 <span class="math inline">\(\alpha\)</span>. This is called inverting the hypothesis test.
-(<span class="citation">P R Rosenbaum (2010)</span>}</li>
+(<span class="citation">P R Rosenbaum (2010)</span>). That is, a confidence interval is a collection of
+hypothesis tests.</li>
 <li>A point estimate based on hypothesis testing is called a Hodges-Lehmann
 point estimate. (<span class="citation">Rosenbaum (1993)</span>,<span class="citation">Hodges and Lehmann (1963)</span>)</li>
 <li>A set of hypothesis tests can be combined into one single hypothesis test
@@ -1185,7 +1203,7 @@ spillover and propagation of treatment effects across networks
 <p>Chung, EunYi, Joseph P Romano, and others. 2013. “Exact and Asymptotically Robust Permutation Tests.” <em>The Annals of Statistics</em> 41 (2): 484–507.</p>
 </div>
 <div id="ref-fisher:1935">
-<p>Fisher, R.A. 1935. <em>The design of experiments. 1935</em>. <em>Oliver &amp; Boyd Edinburgh, Scotland</em>. Edinburgh: Oliver; Boyd.</p>
+<p>Fisher, R. A. 1935. <em>The design of experiments. 1935</em>. <em>Oliver &amp; Boyd Edinburgh, Scotland</em>. Edinburgh: Oliver; Boyd.</p>
 </div>
 <div id="ref-hansen:bowers:2008">
 <p>Hansen, Ben B., and Jake Bowers. 2008. “Covariate Balance in Simple, Stratified and Clustered Comparative Studies.” <em>Statistical Science</em> 23 (2): 219–36.</p>
@@ -1194,7 +1212,7 @@ spillover and propagation of treatment effects across networks
 <p>Hartman, Erin, and F Daniel Hidalgo. 2018. “An Equivalence Approach to Balance and Placebo Tests.” <em>American Journal of Political Science</em> 62 (4): 1000–1013.</p>
 </div>
 <div id="ref-hodges1963elb">
-<p>Hodges, J.L., and E.L. Lehmann. 1963. “Estimates of location based on rank tests.” <em>Ann. Math. Statist</em> 34: 598–611.</p>
+<p>Hodges, J. L., and E. L. Lehmann. 1963. “Estimates of location based on rank tests.” <em>Ann. Math. Statist</em> 34: 598–611.</p>
 </div>
 <div id="ref-holland1986statistics">
 <p>Holland, Paul W. 1986. “Statistics and causal inference.” <em>Journal of the American Statistical Association</em> 81 (396): 945–60.</p>
@@ -1203,7 +1221,7 @@ spillover and propagation of treatment effects across networks
 <p>Imbens, G., and D. Rubin. 2007. “Causal Inference: Statistical Methods for Estimating Causal Effects in Biomedical, Social, and Behavioral Sciences.” Cambridge University Press, forthcoming.</p>
 </div>
 <div id="ref-kinder1993behalf">
-<p>Kinder, D.R., and T.R. Palfrey. 1993. “On Behalf of an Experimental Political Science.” <em>Experimental Foundations of Political Science</em>, 1–39.</p>
+<p>Kinder, D. R., and T. R. Palfrey. 1993. “On Behalf of an Experimental Political Science.” <em>Experimental Foundations of Political Science</em>, 1–39.</p>
 </div>
 <div id="ref-rosenbaum2002">
 <p>Rosenbaum, Paul R. 2002. “Attributing Effects to Treatment in Matched Observational Studies.”</p>
