@@ -53,7 +53,7 @@ Similarly, when we seek to estimate causal effects, some patterns of missing dat
 
 If we condition our analysis on on non-missing outcomes, our estimator of the ATE is:
 
-$$E[Y_i(1)|R_i(1)] - E[Y_i(0) |R_i(1)]$$
+$$E[Y_i(1)|R_i(1)=1] - E[Y_i(0) |R_i(0)=1]$$
 
 Examining the preceding equations, the estimator using only only the non-missing outcomes is only (necessarily) equivalent to the ATE if:
 
