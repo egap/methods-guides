@@ -247,7 +247,7 @@ Here are some guidelines and tips for writing your own simulation.
 
 8 You can use this calculator to adjust your p-values
 ==
-This calculator works best in Firefox. To use full-screen, go [here](https://acoppock.shinyapps.io/MC_app).
+This calculator works best in Firefox. To use full-screen, go [here](https://egap.shinyapps.io/multiple-comparisons-app/).
 
 <iframe height="500" src="https://egap.shinyapps.io/multiple-comparisons-app/" width="850"></iframe>
 
