@@ -100,7 +100,7 @@ Data should be stored in places like a Dataverse or the ICPSR or other places wi
 
 [^8]: King, Gary. 1995. “Replication, Replication”. PS: Political Science and Politics 28(3): 444-452.  
 
-9.	To minimize error, built testing into the code
+9.	To minimize error, build testing into the code
 ==
 Testing ensures that errors from bugs and typos are caught before it is too late, and including that testing in your coding makes sure that it is done.
 
