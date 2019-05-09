@@ -34,6 +34,20 @@ color: black;
 </style>
 
 ```{r setup}
+```{r echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+require(knitr)
+opts_chunk$set(strip.white=TRUE,
+               width.cutoff=132,
+               size='\\scriptsize',
+               out.width='.9\\textwidth',
+               message=FALSE,
+               warning=FALSE,
+               echo=TRUE,
+               comment=NA,
+               tidy='styler',
+               prompt=FALSE,
+               results='markup')
+
 library(randomizr)
 library(coin)
 ```
@@ -87,8 +101,8 @@ effects versus making best guesses about causal effects.
 
 ## A quick overview of the fundamental problem of causal inference and an introduction to some notation
 
-Recall from [Ten Things to Know about Causal Inference](https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of [potential
-outcomes](link) to **define** cause and to formalize what we **mean** when we
+Recall from [Ten Things to Know about Causal Inference](https://egap.org/methods-guides/10-things-you-need-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of potential
+outcomes to **define** cause and to formalize what we **mean** when we
 say "X causes Y" or "Smoking causes cancer" or "Information increases tax
 compliance."  Although there are other ways to think about causality
 (@brady2008causation), the counterfactual idea suggests that we imagine that
@@ -122,25 +136,26 @@ inference."
 There are three main ways that the statistical sciences have engaged with this
 problem. That is, when asked, "Does information cause people to pay their
 taxes?" we tend to say, "We cannot answer that question directly. However, we can
-answer a related question." [Ten Things to Know about Average Treatment
-Effects](link) describes an insight that we credit to [Jerzy Neyman](link)
+answer a related question." [Ten Types of Treatment Effect You Should Know About](https://egap.org/methods-guides/10-types-treatment-effect-you-should-know-about) describes an insight that we credit to Jerzy Neyman
 where a scientist can **estimate average causal effects** in a randomized
-experiment even if individual causal effects are unobservable. [Judea
-Pearl's](link) work on estimating the conditional probability of an outcome
+experiment even if individual causal effects are unobservable. Judea
+Pearl's work on estimating the conditional probability of an outcome
 based on a causal model of that outcome is similar to this idea, where a focus
-is on averages or aggregates of the individual $y_{i}$'s. That is, those two approaches answer the
-fundemental causal question by changing the question focus on averages
-or conditional probabilities. A related approach, from [Don Rubin](link) begins by **predicting** the
+is on the conditional probabilities of the $y_{i}$'s. That is, those two approaches answer the
+fundamental causal question by changing the question focus on averages
+or conditional probabilities. A related approach, from Don Rubin begins by **predicting** the
 individual level potential outcomes using background information and a
-probability model of $Z_i$ (such that, say, $Z \sim Bernoulli(\pi)$) and a
+probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
 probability model of the two potential outcomes such that, say,
-$(y_{i,1},y_{i,0}) \sim MVN(\bbeta \bX, \bSigma)$. These probability models
-can be combined using Bayes Rule to produce posterior distributions for
+$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). 
+
+The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and 
+combines them using Bayes Rule to produce posterior distributions for
 quantities like the individual level treatment effects or average treatment
 effects (see [@imbens2007causal] for more on what they call the Bayesian
 Predictive approach to causal inference). So, the predictive approach changes
-the fundamental question to focus on differences in predicted potential
-outcomes.
+the fundamental question from one about averages to one that focuses on differences in predicted potential
+outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
 
 ## Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.
 
@@ -148,8 +163,8 @@ The third approach to this problem changes the question again.
 @fisher:1935[Chapter 2] taught us that we can ask the fundamental question
 about whether there is a causal effect for a single person, but the answer can
 only be in terms of how much information the research design and data provide
-about it. That is, one can hypothesize that, for person $i$, the
-information made no difference to their outcomes, such that $y_{i,1}=y{i,0}$
+about the question. That is, one can hypothesize that, for person $i$, the
+information made no difference to their outcomes, such that $y_{i,1}=y_{i,0}$
 or $y_{i,1}=y_{i,0}+\tau_i$ where $\tau_i=0$ for everyone. However, the answer to this
 question has to be something like "This research design and dataset provide a
 lot of information about this model or idea or hypothesis." or, as above,
@@ -168,29 +183,32 @@ is, it would say that regardless of background characteristics, or information
 given in the experimental treatment condition, each person would pay the same
 amount in taxes: $y_{i,1}=y_{i,0}$ for all units $i$. To emphasize the
 tentative and theoretical nature of this model, people have called this a
-**hypothesis** and often write it as "the sharp null hypothesis."   and write it using this shorthand: $H_0:
+**hypothesis**, often write it as "the sharp null hypothesis."  and use the following shorthand: $H_0:
 y_{i,1}-y{i,0}=\tau_i$ where $\tau_i=0$ for all units $i$.
 
-**Side Note:** Notice that thinking about sharp hypotheses makes us realize that we could
-make **other models relating $y_{i,1}$ and $y_{i,0}$** in which the potential
-outcomes relate in ways that are not additive or linear, and where the effect need not
-be zero or even the same for all units: for example, we could hypothesize that
-$\tau_i=\{5,0,-2\}$ 5 for unit 1, 0 for unit 2, and -2 for unit 3 in a 3 unit
-experiment. Notice also that writing potential outcomes this way, with the
-potential outcome for unit $i$ *only referring to $i$* and not some other
-units ($y_{i,Z_i}$), *is part of the model*. That is, the particular model of
-$H_0: y_{i,1}=y_{i,0}$ implies that the treatment has no effect on anyone ---
-and no effects includes no spillover effects. We
-could be a little more specific by writing the potential outcomes like so: The
+**Side Note:** Notice that thinking about sharp hypotheses makes us realize
+that we could make **other models relating $y_{i,1}$ and $y_{i,0}$** in which
+the potential outcomes relate in ways that are not additive or linear, and
+where the effect need not be zero or even the same for all units: for example,
+we could hypothesize that $\tau_i=\{5,0,-2\}$ 5 for unit 1, 0 for unit 2, and
+-2 for unit 3 in a 3 unit experiment. Notice also that writing potential
+outcomes this way, with the potential outcome for unit $i$ *only referring to
+$i$* and not some other units ($y_{i,Z_i}$), *is part of the model*. That is,
+the particular model of $H_0: y_{i,1}=y_{i,0}$ implies that the treatment has
+no effect on anyone --- and no effects includes no spillover effects. We could
+be a little more specific by writing the potential outcomes like so: The
 potential outcome of unit $i$ when it is assigned to treatment, and when all
 of the other units are assigned to any other set of treatments
-$\bZ_{~i}=\{Z_j,Z_k,\ldots \}$, $y_{i,Z_i=1,\bZ_{~i}}$. See the guide on [10
-things to know about experiments with interference, spillover, and networks]
-for more on assessing these kinds of hypotheses.
+$\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ can be written  $y_{i,Z_i=1,\bZ_{~i}}$. See
+@bowers2013reasoning and @bowers2018models for more on the idea that
+a hypothesis is a theoretical model that can be tested with data in the
+context of hypotheses about the propagation of treatment effects across
+a network.
+
 
 # The weak null hypothesis of no effects is a statement about aggregated potential outcomes
 
-An experiment may have some effects on some units but, on average, no effects.
+An experiment may influence some units but, on average, have no effects.
 To codify this intuition, researchers can write a null hypothesis
 about an *average* of potential outcomes, or some other aggregated summary of
 the potential outcomes, rather than about the whole
@@ -212,11 +230,10 @@ large samples.
 # Randomization allows us to use what we observe to test hypotheses about what we do not observe.
 
 Whether one hypothesizes about unit-level effects directly or about averages
-of them, we still need to get back to thinking about signal and noise, about
-what we observe. A hypothesis only refers to potential outcomes. Above,
+of them, we still must confront the problem of distinguishing signal from noise. A hypothesis only refers to potential outcomes. Above,
 assuming no interaction between units, we imagined two potential outcomes per
-person, but we only observe one per person. How can we use what we observe to
-learn about theoretical models of partially observed quantities? In this
+person, but we only observe one per person. **How can we use what we observe to
+learn about theoretical models of partially observed quantities?** In this
 simple experiment, we know that we observe one of the two potential outcomes
 per person, depending on which treatment was assigned to that person. So, we
 can link the unobserved counterfactual outcomes to an observed outcome ($Y_i$)
@@ -224,13 +241,13 @@ using treatment assignment ($Z_i$) like so:
 
 $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 
-This @eq:identity says that our observed outcome, $Y_i$ (here, amount of
+@eq:identity says that our observed outcome, $Y_i$ (here, amount of
 taxes paid by person $i$), is $y_{i,1}$ when the person is assigned to the
 treatment group ($Z_i=1$), and $y_{i,0}$ when the person is assigned to the
 control group.
 
-How much information does our research design and dataset contain about the
-hypothesis? Imagine, for now, the hypothesis that treatment adds 5 to the tax
+**How much information does our research design and dataset contain about the
+hypothesis?** Imagine, for now, the hypothesis that treatment adds 5 to the tax
 payments of every single person such that  $H_0: y_{i,1} = y_{i,0} + \tau_i$ where
 $\tau_i=5$ for all $i$.
 
@@ -254,8 +271,7 @@ This hypothesis further implies that $y_{i,0} = Y_i - Z_i \tau_i$ or $y_{i,0}
 treatment condition, then our hypothesis implies that we would observe
 $y_{i,0}$ for everyone. That is, by subtracting  5, we would make the
 control and the treatment group equivalent in observed outcomes. **This logic gives us an
-observable implication of the hypothesis or model of the relationship between
-potential outcomes.**
+observable implication of the hypothesis.**
 
 **The sharp null hypothesis of no effects** specifies that $\tau_i=0$ for all
 $i$. And this in turn implies that $y_{i,0} = Y_i - Z_i \tau_i = Y_i$. That
@@ -277,7 +293,7 @@ summarizes the relationship between treatment and observed outcomes using a
 single number. In general, we would like our test statistics to take on larger
 values the larger the treatment effect. The code below, for example, shows are two such test
 statistics using an example experiment with 10 units randomized into two
-groups. 
+groups (you can press the "CODE" button to see the R code). 
 
 ```{r echo=TRUE}
 ## First, create some data, 
@@ -321,9 +337,11 @@ The first test statistic is the mean difference (`meanTZ`) and returns an
 observed value of `r observedMeanTZ` and the
 second is the mean difference of the rank-transformed outcomes (`meanrankTZ`),
 which returns a value of `r signif(observedMeanRankTZ,2)`.
-One could also use versions of these test statistic standarized by their estimated
+One could also use versions of these test statistics standardized by their estimated
 standard error (see @chung2013exact for an argument in favor of this test
-statistic).
+statistic). To test the sharp null hypothesis of no effects, one may choose almost any test statistic such that the values of that function increase as the difference between treated and control outcomes increase (see @rosenbaum:2002, Chapter 2, for a discussion of "effect increasing" test statistics).
+
+Test of the weak null of no effects use the differences of means (perhaps standardized or studentized) as the test statistic.
 
 
 # $p$-values encode how much information a research design and test statistic tell us about the hypothesis. Hypothesis tests require distributions of the test statistic under the hypothesis.
@@ -332,8 +350,8 @@ Given a claim about the possible results of the experiment (i.e. an hypothesis) 
 a way to summarize the observed data as it bears on the hypothesis (i.e. a test
 statistic that should get bigger as the results diverge from the hypothesis
 as explained above), we now want to move beyond description of the observed
-data to reflecting how much natural variability we would expect to see in the
-test statistic given the research design (to get us back to the question of
+data to learn how much natural variability we would expect to see in the
+test statistic given the research design entertaining the hypothesis (to get us back to the question of
 signal and noise).
 
 How much evidence we have about a hypothesis depends on the design of the
@@ -498,9 +516,9 @@ writing the code yourself. Here are a few ways.
 ## using the coin package
 library(coin)
 set.seed(12345)
-pMean2 <- pvalue(oneway_test(Y~factor(Z),data=dat,distribution=approximate(B=1000)))
+pMean2 <- pvalue(oneway_test(Y~factor(Z),data=dat,distribution=approximate(nresample=1000)))
 dat$rankY <- rank(dat$Y)
-pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approximate(B=1000)))
+pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approximate(nresample=1000)))
 pMean2
 pMeanRank2
 ## using a development version of the RItools package 
