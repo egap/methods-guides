@@ -295,13 +295,16 @@ values the larger the treatment effect. The code below, for example, shows are t
 statistics using an example experiment with 10 units randomized into two
 groups (you can press the "CODE" button to see the R code). 
 
-```{r echo=TRUE}
+```{r setupdata, results='hide', echo=TRUE}
 ## First, create some data, 
 ##  y0 is potential outcome to control
 N <- 10
-y0 <- c(0,0,0,1,1,3,4,5,190,200)
+y0 <- c(0,0,0,0,1,1,4,5,400,500)
 ## Different individual level treatment effects
-tau <- c(10,30,200,90,10,20,30,40,90,20)
+##tau <- c(1,3,2,10,1,2,3,5,1,1)*sd(y0)
+set.seed(12345)
+tau <- round(rnorm(N,mean=sd(y0),sd=2*(sd(y0)))) ##c(10,30,200,90,10,20,30,40,90,20)
+tau <- tau*(tau>0)
 ## y1 is potential outcome to treatment
 y1 <- y0 + tau
 #sd(y0)
@@ -314,10 +317,12 @@ Z <- complete_ra(N)
 Y <- Z*y1 + (1-Z)*y0
 ## The data
 dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
+#(mean(y1) - mean(y0))/sd(y0)
 #dat
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="less"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="less"))
-
+#pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
+#pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 ## The mean difference test statistic
 meanTZ <- function(ys,z){ 
 	mean(ys[z==1]) - mean(ys[z==0])
@@ -356,8 +361,8 @@ signal and noise).
 
 How much evidence we have about a hypothesis depends on the design of the
 study. A large experiment, for example, should have more information about
-this hypotehsis than a small one. So, what do we mean by evidence against the
-hypothesis. How would we formalize or summarize this, so that larger
+a hypothesis than a small one. So, what do we mean by evidence against the
+hypothesis? How would we formalize or summarize this evidence so that larger
 experiments tend to reveal more and small experiments tend to reveal less
 information? 
 
@@ -368,20 +373,20 @@ number --- this number would reflect the outcome of the experiment *under the
 hypothesis*. Now, imagine repeating the hypothetical experiment many times,
 recalculating the test statistic each time. The distribution of the test
 statistics would then tell us all of the test statistics that could have occurred
-if the null hypothesis were true. If the test statistic is a sum or mean
-then, in a large experiment, we know that the distribution of those numbers
+if the null hypothesis were true. If the test statistic is a sum or mean,
+then in a large experiment, we know that the distribution of those numbers
 will be more closely concentrated around the focal hypothesized value (say,
 $t(Z,y_0)$) than in a small experiment.
 
-When we compare what we actually observe, $t(z,Y)$, to what we
-could have observed under the null (the distribution), we learn about how
-extreme, weird, or surprising is our given study. And we encode this
-extremity with a $p$-value. 
+When we compare what we actually observe, $t(z,Y)$, to the distribution of
+what we could have observed under the null, we learn that our given study is
+typical or not typical of the null hypothesis. And we encode this typicality
+or extremity with a $p$-value. 
 
 Notice that the $p$-value does not tell us about the probability associated
 with the observed data. The observed data is observed. The probability arises
 from the hypothetical, but possible, repetition of the experiment itself, the
-test statistic, and the hypothesis. The one-tailed p-value is the probability
+test statistic, and the hypothesis. The one-tailed $p$-value is the probability
 of seeing a value of our test statistic as great or greater than we actually
 observed considering, for the sake of argument, a given hypothesis.
 
@@ -390,7 +395,7 @@ observed considering, for the sake of argument, a given hypothesis.
 Let us test the sharp null hypothesis of no effects. In the case of the
 example experiment, the treatment was assigned to exactly 5 observations out
 of 10 completely at random. To repeat that operation, we need only permute or
-shuffle the given $Z$ vector
+shuffle the given $Z$ vector (you can see the Code by clicking on the "Code" button).
 
 ```{r}
 repeatExperiment <- function(Z){
@@ -400,15 +405,15 @@ repeatExperiment <- function(Z){
 
 We already know that $H_0: y_{i,1} = y_{i,0}$ implies that $Y_i=y_{i,0}$. So,
 we can describe all of the ways that the experiment would work out under this
-null by simply repeating the experiment (i.e. re-assiging treatment) and
+null by simply repeating the experiment (i.e. re-assigning treatment) and
 recalculating a test statistic each time. The following code repeatedly
 re-assigns treatment following the design and calculates the test statistic
 each time.
 
-```{r}
-set.seed(123456)
+```{r gendists, cache=FALSE}
+set.seed(123457)
 possibleMeanDiffsH0 <- replicate(10000,meanTZ(ys=Y,z=repeatExperiment(Z=Z)))
-set.seed(123456)
+set.seed(123457)
 possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(ys=Y,z=repeatExperiment(Z=Z)))
 ```
 
@@ -419,11 +424,14 @@ the test statistics that we can use to compare what we observe (the long thick
 lines) with what we hypothesize (the distributions).
 
 
-```{r calcpvalues}
-pMeanTZ <- mean( possibleMeanDiffsH0 >= observedMeanTZ )
-pMeanRankTZ <- mean( possibleMeanRankDiffsH0 >= observedMeanRankTZ )
-## pMeanTZ
-## pMeanRankTZ
+```{r calcpvalues, results='hide'}
+pMeanTZ <- min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
+	       mean( possibleMeanDiffsH0 >= observedMeanTZ ))
+
+pMeanRankTZ <- min( mean( possibleMeanRankDiffsH0 >= observedMeanRankTZ ),
+		    mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
+pMeanTZ
+pMeanRankTZ
 ```
 
 
@@ -434,16 +442,16 @@ plot(density(possibleMeanDiffsH0),
      xlim=range(possibleMeanDiffsH0),
      lwd=2,
      main="",#Mean Difference Test Statistic",
-     xlab="Mean Differences Consistent with H0")
+     xlab="Mean Differences Consistent with H0",cex.lab=0.75)
 rug(possibleMeanDiffsH0)
 rug(observedMeanTZ,lwd=3,ticksize = .51)
-text(observedMeanTZ-4,.022,"Observed Test Statistic")
+text(observedMeanTZ+8,.022,"Observed Test Statistic")
 
 plot(density(possibleMeanRankDiffsH0),lwd=2,
      ylim=c(0,.45),
      xlim=c(-10,10), #range(possibleMeanDiffsH0),
      main="", #Mean Difference of Ranks Test Statistic",
-     xlab="Mean Difference of Ranks Consistent with H0")
+     xlab="Mean Difference of Ranks Consistent with H0",cex.lab=0.75)
 rug(possibleMeanRankDiffsH0)
 rug(observedMeanRankTZ,lwd=3,ticksize = .9)
 text(observedMeanRankTZ,.45,"Observed Test Statistic")
@@ -456,22 +464,19 @@ calculate the proportion of the hypothetical experiments that yield test
 statistics greater than the observed experiment. In the left panel of the
 figure we see that a wide range of
 differences of means between treated and control groups are compatible with
-the treatment having no effects (with the range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`. Right panel shows
+the treatment having no effects (with the overall range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`).  The right panel shows
 that transforming the outcomes to ranks before taking the difference of means
 reduces the range of the test statistics --- after all the ranks themselves go
 from 1 to 10 rather than from 1 to 280.  
 
 ### One-sided $p$-values
 
-This one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
+The one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
 test statistic casts a different amount of doubt, or quantifies a different
-amount of surprise, about the same null hypothesis of no effects. We would say
-that it would be relatively rare to see observed values of the mean difference
--- less 9 times in 100 would we expect to see a larger difference of means if
-there were no effects of the treatment on any unit in the study. The outcome
+amount of surprise, about the same null hypothesis of no effects. The outcome
 itself is so noisy that the mean
 difference of the rank-transformed outcomes does a better job of picking up
-the signal. These data were generated with treatment effects built in, so
+the signal than the simple mean difference. These data were generated with treatment effects built in, so
 the null hypothesis of no effects is false, but the information about the
 effects is noisy --- the sample size is small, and the distribution of the
 outcomes involves some strange outlying points and treatment effects
@@ -485,17 +490,20 @@ calculating the one-sided upper $p$-value and the other calculating the
 one-sided lower $p$-value. Now, if we did this we would be calculating two
 $p$-values and, if we made a standard practice of this, we would run the risk
 of misleading ourselves. After all, recall from the [10 things about multiple
-comparisons](link) that even if there really is no effect, 100 independent and
-well operating tests of that effect will yield 5 $p$-values less than .05. One
-easy solution to this common situation --- of wanting to summarize extremity
-of a experiment in either direction rather than just focusing on greater-than
-or less-than --- is to calculate a two-sided $p$-value (Rosenbaumn 2010, Chap
-2 and Cox, 1977). This, by the way, is
-the standard $p$-value produced by most canned software such as `lm()` and
+comparisons](https://egap.org/methods-guides/10-things-you-need-know-about-multiple-comparisons)
+that even if there really is no effect, 100 independent and well operating
+tests of the null of no effects will yield no more than 5 $p$-values less than
+.05. One easy solution to the challenge of summarizing extremity of
+a experiment in either direction rather than just focusing on greater-than or
+less-than is to calculate a two-sided $p$-value. This, by the way, is the
+standard $p$-value produced by most canned software such as `lm()` and
 `t.test()` and `wilcox.test()` in R. The basic idea is to calculate both
-$p$-values and then multiply the smaller $p$-value by 2. 
+$p$-values and then multiply the smaller $p$-value by 2. (The idea here is
+that you are penalizing  yourself for making  two  tests -- see
+@rosenbaum2010design, Chap 2 and @cox1977role for  more on the idea of
+multiplying the smaller p-value by two.)
 
-```{r}
+```{r twosidedp}
 ## Here I use <= and >= rather than < and > because of the discreteness of the
 ## randomization distribution with only 10 observations. See discussions of
 ## the "mid-p-value" 
@@ -510,7 +518,9 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.  
 
 **As a side note** The test of the sharp null shown here can be done without
-writing the code yourself. Here are a few ways.
+writing the code yourself. The code that you'll see here (by clicking the code
+buttons) shows how  to use different R packages to  test hypotheses  using
+randomization-based inference.
 
 ```{r}
 ## using the coin package
@@ -547,12 +557,22 @@ summary(pMeanRank4)
 ```
 
 
-## And example: Testing the weak null of no average effects
+## An example: Testing the weak null of no average effects
 
 The weak null hypothesis is a claim about aggregates, and is nearly always
 stated in terms of averages: $H_0: \bar{y}_{1} = \bar{y}_{0}$ The test
 statistic for this hypothesis nearly always is the difference of means (i.e.
-`meanTZ()` above. 
+`meanTZ()` above. The below code shows the use of least squares (`lm()` in R)
+for the purpose of  calculating differences of means as a  test statistic for
+hypotheses about average effects. Notice that the OLS-based $p$-values differ
+from those  calculated by `t.test()`  and `difference_of_means()`. Recall that
+the OLS statistical inference is justified by the assumption of independent
+and identically distributed observations yet, in most experiments, the
+treatment itself changes the variation in the treatment group (thereby
+violating the identical-distribution/homoskedasticity assumption of OLS). This
+is one of a few reasons why best practice in testing the  weak  null
+hypothesis of  no average treatment effects uses tools other than  those
+provided by simple canned OLS procedures.
 
 ```{r}
 lm1 <- lm(Y~Z,data=dat)
@@ -560,10 +580,17 @@ lm1P <- summary(lm1)$coef["Z","Pr(>|t|)"]
 ttestP1 <- t.test(Y~Z,data=dat)$p.value
 library(estimatr)
 ttestP2 <- difference_in_means(Y~Z,data=dat)
-lm1P
-ttestP1
-ttestP2
-## By hand:
+c(lmPvalue=lm1P,
+ttestPvalue=ttestP1,
+diffOfMeansPvalue=ttestP2$p.value)
+```
+
+This code produces  the same results without using least squares --- after
+all, we are just calculating differences of means and the variances of those
+means as they might vary across repeated experiments  in the same  pool of
+experimental units.
+
+```{r byhand}
 varEstATE <- function(Y,Z){
 	var(Y[Z==1])/sum(Z) + var(Y[Z==0])/sum(1-Z)
 }
@@ -577,19 +604,19 @@ c(observedTestStat=observedMeanTZ,stderror=seEstATE,tstat=obsTStat,
 
 Notice that these tests all assume that the distribution of the test statistic
 across repeated experiments would be well characterized by a $t$-distribution.
-The left-hand panel in the figure above shows the realized distributed of one
+The left-hand panel in the figure above shows the realized distribution of one
 way for the weak null to be true (i.e. if the sharp null is true): there are
 many ways for the weak null to be true --- some of which are compatible with
 large positive effects on some units and large negative effects on other
 units, others are compatible with other patterns of individual level effects.
-In this particular data set, engineered to have a very skewed outcome
+In this particular small data set, engineered to have a very skewed outcome
 distribution, however, none of those patterns will produce a reference
 distribution that look like a Normal or $t$-curve if the mean difference is
 used as a test statistic. We will return to this point later when we discuss
 the characteristics of a good test --- one of which is a controlled false
 positive rate.
 
-# In simple hypothesis tests, we can reject a null hypothesis but not to accept it.
+# In simple hypothesis tests, we do not accept null hypotheses.
 
 Sometimes people want to make a decision using the $p$-value. Remember that a
 $p$-value uses a test statistic and the idea of repeating the experiment to
@@ -598,37 +625,45 @@ design, test statistic function and hypothesis which generates a probability
 distribution. And it is the actual data, design, and test statistic function
 that creates a single observed value.
 
-So, the $p$-value just tells us how extreme the observed result is from the
-perspective of the hypothesis. Or, how inconsistent it is with hypothesis.
-What if we want to make a decision? It turns out that we can make decisions
-using a $p$-value if we are willing to accept a certain amount of error. Say,
-for example, we see a one-tailed $p=.01$, this would mean that, in the
-hypothetical world of the null hypothesis, in only 1 in
-100 experiments would we see a result as large or larger than our actual
-result. We might be tempted to say, that our observed result is so strange
-that we want to act as if the null were false. This would be ok---after all
-a $p$-value alone cannot control the behavior of an adult human---but the
-human has to know that in 1/100 cases where the null is true, we would still
-see this result. That is, if we rejected the null, or acted as if the null
-were false, based on a small $p$-value we would be making an error---a false
-rejection, sometimes called a false positive because the null hypothesis is so
-often zero and the desired effect (say, in medical trials) is so often coded
-as positive.
+The $p$-value just tells us how extreme the observed result is from the
+perspective of the hypothesis. Or, we can think of the $p$-value as encoding
+the inconsistency between our observed data and the hypothesis. What if we
+want to make a decision? It turns out that **we can make decisions using
+a $p$-value if we are willing to accept a certain amount of error.** Say, for
+example, we see a one-tailed $p=.01$: this would mean that in only 1 in 100
+hypothetical experiments representing the null hypothesis would we see
+a result as large or larger than our actual result. We might be tempted to
+say, that our observed result is so strange that we want to act as if the null
+were false. This would be ok---after all a $p$-value alone cannot control the
+behavior of an adult human---but the human has to know that in 1/100 cases
+where the null is true, we would still see this result on this same subject
+pool with this same experimental design. That is, if we used a small $p$-value to reject the null, or
+acted as if the null were false we could still be making
+an error. These incorrect rejections are sometimes called false positive errors because the
+null hypothesis is so often zero and the desired effect (say, in medical
+trials) is so often coded as positive.
 
 Say we were happy to make 1 false positive error or false rejection in every
 20 experiments. In that case, we should also be happy to reject a null hypothesis if we saw a $p
-\le 1/20$ or  $p \le .05$, calling $p$-values smaller than .05 signals of
-inconsistency with the null hypothesis should only lead us to err in 5% of
-experiments like this one.
+\le 1/20$ or  $p \le .05$.  And we would call $p$-values smaller than .05 signals of
+inconsistency with the null hypothesis and thus should only lead us to err in 5% of
+experiments like the one that we are analyzing.
 
 ## What does it mean to reject a null hypothesis?
 
 Notice that a $p=.01$ only reflects extremity of the observed data compared
-with the hypothesis --- it means that the observed test statistic looks extreme
-when considered from the perspective of the distribution of tests statistics
-that are generated from the null hypothesis. So, we think of $p=.01$ (and
-other small p-values) as casting doubt on whether the specific hypothesis is a
-good model of the observed data.
+with the hypothesis --- it means that the observed test statistic looks
+extreme when considered from the perspective of the distribution of tests
+statistics that are generated from the null hypothesis and research design.
+So, we think of $p=.01$ (and other small $p$-values) as casting doubt on
+whether the specific hypothesis is a good model of the observed data. Often
+the only model of potential outcomes that is tested is the model of no
+effects, so a small $p$-value should make us doubt the model of no effects.
+The makers of canned regression software tend to print out a $p$-value that
+refers to this hypothesis  automatically,  so that it is difficult to not see
+the results of this test even if you just want to describe differences of
+means in the data but you are using least squares as your difference of means
+calculator.
 
 ## What does it mean to **not reject** a null hypothesis?
 
@@ -638,7 +673,7 @@ extreme but common from the perspective of the null hypothesis. So, $p=.5$
 (and other large p-values) do not encourage us to doubt the model of the null
 hypothesis. It does not encourage us to accept that model---it is only a
 model after all. We do not know reasonable the model was a priori, for example.
-So, a single $p$-value large $p$-value is some argument in favor of the null,
+So, a single large $p$-value is some argument in favor of the null,
 but not a very clear argument.
 
 
@@ -646,18 +681,18 @@ but not a very clear argument.
 
 A good test rejects true hypotheses rarely (i.e. has a controlled false
 positive error rate) and easily detects signal from noise (i.e. has good
-statistical power, has a rarely makes the error of missing the signal in the
+statistical power, a rarely makes the error of missing the signal in the
 noise).  
 
 ## How to learn about errors of missing the signal in the noise? 
 
 The [10 Things you need to know about statistical
 power](https://egap.org/methods-guides/10-things-you-need-know-about-statistical-power)
-guide explains how we want hypotheses to rejecting false nulls (i.e. detect
+guide explains how we want hypotheses to reject false nulls (i.e. detect
 signal from noise). When we think about the power of statistical tests, we
 need to consider the **alternative hypothesis**. However, as we have shown
 above, we can test **null hypotheses** without the idea of rejecting or
-accepting them.
+accepting them although then the "power" of a test is harder to define and work with.
 
 ## How to learn about false positive errors?
 
@@ -670,20 +705,19 @@ ways to assign treatment --- and  252 ways for the experiment to have had no
 effects on the individuals.
 
 We demonstrate here setting the sharp or strict null hypothesis to be zero,
-but one could also assess the false positive rate of using different
-hypotheses. We compare error rates for a few of the approaches used so far,
-including the test of the weak null of no effects. The following plot shows
-the proportion of $p$-values less than any given level of significance (i.e.
-rejection threshold) for each of four tests. That is, this is a plot of false
-positive rates for any given significance threshold. A test that has a
-controlled or known false positive rate would have symbols on or below the
-line. As we can see here, the two tests using permutations of treatment to
-assess the sharp null of no effects (the tests plotted using the "+" and "x"
-symbols, have this feature). The tests of the weak null using the mean
-difference test statistic and appealing to the large sample theory to justify
-the use of a $t$-distribution do not have a controlled false positive rate:
-the proportion of $p$-values below any given rejection threshold can be too
-high or too low.
+but one could also assess the false positive rate different hypotheses. We
+compare error rates for a few of the approaches used so far, including the
+test of the weak null of no effects. The following plot shows the proportion
+of $p$-values less than any given level of significance (i.e. rejection
+threshold) for each of four tests. That is, this is a plot of false positive
+rates for any given significance threshold. A test that has a controlled or
+known false positive rate would have symbols on or below the line across the
+whole x-axis or range of the plot. As we can see here, the two tests using
+permutations of treatment to assess the sharp null of no effects have this feature. The tests of the
+weak null using the mean difference test statistic and appealing to the large
+sample theory to justify the use of a $t$-distribution do not have
+a controlled false positive rate: the proportion of $p$-values below any given
+rejection threshold can be too high or too low.
 
 ```{r}
 collectPValues <- function(y,z){
@@ -702,10 +736,9 @@ collectPValues <- function(y,z){
 }
 ```
 
-```{r fprdsim, cache=TRUE}
+```{r fprdsim, cache=TRUE, results='hide'}
 set.seed(12345)
 pDist <- replicate(5000,collectPValues(y=dat$Y,z=dat$Z))
-apply(pDist,1,function(x){ mean(x<.05)})
 ```
 
 ```{r}
@@ -716,38 +749,45 @@ for(i in 1:nrow(pDist)){
 	lines(ecdf(pDist[i,]),pch=i,col=i)
 }
 abline(0,1,col="gray")
-legend("topleft",legend=c("OLS","Neyman","Rand Inf Mean Diff","Rand Inf Mean
-			  Diff Ranks"),
+legend("topleft",legend=c("OLS","Neyman","Rand Inf Mean Diff","Rand Inf Mean \n Diff Ranks"),
 			  pch=1:5,col=1:5,lty=1,bty="n")
-
-
 ```
 
 In this particular case, at the threshold of $\alpha=.05$, all of the tests
-except for the rank based test report about a 6% false positive rate, when it
-should be 5% of less. The rank-based test statistic reports a 5% false
-positive rate at $\alpha=.05.
+except for the rank based test report less than a 5% false positive rate --
+this is good, it should be 5% of less. However, this is no  guarantee  of good
+performance by the large-sample based tests in other small experiments, or
+experiments with highly skewed  outcomes,  etc... When in doubt it is  easy to
+assess the false positive rate  of a test by using the code in this guide to
+make your own simulation.
+
+```{r fpr05}
+apply(pDist,1,function(x){ mean(x<.05)})
+```
 
 # What else to know about hypothesis tests.
 
 Here we list a few other important but advanced topics connected to hypothesis
 testing:
 
- - Even if a given testing procedure controls the false positive rate for a
-   single test, it may not control the rate for a group of multiple tests. See
-   [10 Things you need to know about multiple
+ - Even if a given testing procedure controls the false positive rate for
+   a single test, it may not control the rate for a group of multiple tests.
+   See [10 Things you need to know about multiple
    comparisons](https://egap.org/methods-guides/10-things-you-need-know-about-multiple-comparisons)
    for a guide to the approaches to controlling such rejection-rates in
    multiple tests.
  - A $100\alpha$\% confidence interval can be defined as the range of
    hypotheses where all of the $p$-values are greater than or equal to
    $\alpha$. This is called inverting the hypothesis test.
-   (@rosenbaum2010design). That is, a confidence interval is a collection of
-   hypothesis tests.
+   (@rosenbaum2010design). That is, a **confidence interval is a collection of
+   hypothesis tests**. This  means that criticisms of $p$-values are also
+   criticisms of confidence intervals.
  - A point estimate based on hypothesis testing is called a Hodges-Lehmann
    point estimate. (@rosenbaum1993hlp,@hodges1963elb)
- - A set of hypothesis tests can be combined into one single hypothesis test
-   (@hansen:bowers:2008,@caughey2017nonparametric)
+ - A set of hypothesis tests can be combined into one single hypothesis test.
+   For example, you can test the hypothesis of an effect of  size 1 on
+   outcome 1, an effect  of size 0  on outcome 2 and an effect of -10 on
+   outcome 3. (@hansen:bowers:2008,@caughey2017nonparametric)
  - In equivalence testing, one can hypothesize that two test-statistics are
    equivalent (i.e. the treatment group is the same as the control group)
    rather than only about one test-statistic (the difference between the two
@@ -761,5 +801,4 @@ testing:
 
 # References
 
-Lehmann and Romano (2005, Chapters 3 and 5).
 
