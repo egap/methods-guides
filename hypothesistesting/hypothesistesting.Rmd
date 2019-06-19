@@ -33,7 +33,6 @@ color: black;
 }
 </style>
 
-```{r setup}
 ```{r echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
 require(knitr)
 opts_chunk$set(strip.white=TRUE,
