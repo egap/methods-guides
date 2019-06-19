@@ -1,20 +1,39 @@
 ---
 output:
-  html_document:
-    toc: yes
+  bookdown::html_document2:
+    number_sections: true
+    toc: true
     theme: journal
+    extensions: +implicit_figure
+    code_folding: show
+    fig_caption: true
+    pandoc_args: [
+           --filter, pandoc-crossref
+        ]
 ---
 
 <!-- title: "10 Things about Mechanisms" -->
 <!-- author: 'Methods Guide Author: Lindsay Dolan' -->
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
+require(knitr)
+opts_chunk$set(strip.white=TRUE,
+               width.cutoff=132,
+               size='\\scriptsize',
+               out.width='.9\\textwidth',
+               message=FALSE,
+               warning=FALSE,
+               echo=TRUE,
+               comment=NA,
+               tidy='styler',
+               prompt=FALSE,
+               results='markup')
+
 ```
 
 As social scientists, we are fascinated by causal questions. As soon as we learn that X causes Y, we want to better understand *why* X causes Y. This guide explores the role of “mechanisms” in causal analysis and will help you to understand what kinds of conclusions you may draw about them.
 
-## 1.	Mechanisms are pathways through which X causes outcome Y.
+# Mechanisms are pathways through which X causes outcome Y.
 
 Mechanisms have long been at the heart of medicine. Every time a doctor prescribes a treatment, she does so out of an understanding of which chemical or physical factors cause a disease, and she prescribes a treatment that is effective because it interrupts these factors. For example, many clinical psychologists recommend exercise to patients dealing with depression. Exercise raises endorphins in the body’s chemistry, which trigger positive feelings and also act as analgesics, which reduce the perception of pain. Endorphins, therefore, are a mechanism by which exercise helps reduce depression. Exercise may have positive effects on a number of other dependent variables (e.g. heart disease) through other mechanisms (e.g. elevating heart rates), but the mechanism that causes it to affect depression in particular is endorphins. We could also conclude that another treatment, such as a drug that raised endorphins, may have similar effects on depression.
 
@@ -22,7 +41,7 @@ Mechanisms are just as important for social sciences. Take, for example, recent 
 
 [^1]: Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, “Civil Conflicts Are Associated with the Global Climate,” Nature 476.7361 (2011): 438-441.
 
-## 2. While we don’t *need* to know the mechanism to conclude that X causes Y, there are several reasons why we *want* to.
+#  While we don’t *need* to know the mechanism to conclude that X causes Y, there are several reasons why we *want* to.
 
 In the climate/conflict example above, we can have full confidence in the researchers’ ability to causally identify that climate shocks cause conflict, and yet have no evidence of which mechanism(s) is/are at work. But social scientists are interested in learning about mechanisms because they tightly relate to social science theories. For example, the “poverty” mechanism above closely relates to Gurr’s[^2] theory  that individuals rebel when their opportunity costs of conflict are low, whereas the “migration” mechanism could support a theory of conflict based on grievances between social groups. It is no wonder that upon learning that X causes Y, social scientists immediately ask what the mechanism is – they want to relate this finding to theory!
 
@@ -30,7 +49,7 @@ In the climate/conflict example above, we can have full confidence in the resear
 
 Understanding mechanisms has not only theoretical but practical benefits. First, knowing M allows us to guess for which populations X will lead to Y. If the mechanism for climate/conflict is physiological response to heat, then climate shocks may produce conflict only when temperature is quite warm. Second, knowing M helps us to consider other outcomes that may be affected by X. If the mechanism for climate/conflict is migration, then we might also expect climate shocks to result in overuse of public goods in urban areas. Third, knowing M helps us to consider other ways to cause or avoid causing changes in Y. If the mechanism for climate/conflict is poverty, then development programs could decrease conflict by reducing the sensitivity of incomes to climate shocks, even though they can’t change climate shocks.
 
-## 3. But it is extremely challenging to identify causal mechanisms because the mechanisms themselves are not randomly assigned…
+# But it is extremely challenging to identify causal mechanisms because the mechanisms themselves are not randomly assigned…
 
 Consider an experimental example. Chong et al. (2015)[^3] used a field experiment to study the effect of corruption information on voter turnout. They randomly assigned some polling precincts in Mexico to receive information about the corrupt use of funds within that municipality. Surprisingly, they found that treated precincts turned out to vote at lower rates than control precincts. They suggest the following mechanism at work: corruption information convinces voters that the municipality is so severely corrupt that electing a good politician will not change it, so individuals find their vote to carry less value.
 
@@ -46,7 +65,7 @@ Chong et al. face a common obstacle in interpreting their results: their propose
 
 Some researchers try to get around this problem by estimating the *average* effect of the treatment on the mechanism and then estimating the *average* effect of the mechanism on the outcome. One reason that this is problematic is that we can imagine several factors other than the treatment that could be causing both M and Y. Suppose that the level of apathy – let’s call it Q – varies among the citizens in our study, and Q has a very strong effect on both M and Y. Highly apathetic individuals might be more likely to believe that problems are beyond solving, and they might also be more likely to stay at home on election day. We are therefore likely to observe a strong correlation between M and Y that is driven by the confounder of Q, not by our treatment X. Mechanically, our results will be biased in favor of finding evidence of X’s effect on Y via M simply because Q has produced a relationship between M and Y.
 
-## 4. …and because treatment effects are rarely homogeneous.
+#  …and because treatment effects are rarely homogeneous.
 
 The other problem with trying to decompose the average effects of X on M and then M on Y is that this approach assumes that every subject responds to the treatment identically. Recalling our example in which X is the information treatment, M is the belief that corruption is too severe, and Y is staying home, we can imagine two types of respondents. Type A thought that corruption was too severe to ever solve until she received a postcard containing information about corruption in her district. She was surprised to see that the problem was not as bad as she had expected. Formally, for Type A, $M(X=0)=1$ and $M(X=1)=0$, so X has a *negative* effect on M. Type B thought corruption was a manageable problem until she received a postcard containing information about corruption in her district. She was surprised by how extensive the problem was and gave up hope of solving the problem. Formally, for Type B, $M(X=0)=0$ and $M(X=1)=1$, so X has a *positive* effect on M. If we were to average the effects for these two types, we would see no relationship between X and M.
 
@@ -61,13 +80,13 @@ Estimating the role of M can be further complicated when the relationship betwee
 
 We can imagine many more “types” than just A and B – the point here is to demonstrate intuitively that because M is not randomly assigned, and because it is unlikely that the effects of X on M *and* M on Y are identical for everyone, it will be very difficult to accurately characterize how much of our effect is mediated through M.
 
-## 5. Many studies try to decompose a total treatment effect into its “direct” and “indirect” effects.
+#  Many studies try to decompose a total treatment effect into its “direct” and “indirect” effects.
 
 Because learning about mechanisms holds such rich theoretical promise, researchers would love to quantify how much of an effect of X on Y operates via M. Sometimes researchers will try to do this through a technique called “decomposition of effects.”
 
 A decomposition of effects analysis tries to decompose a *total* effect of X on Y into the effect X has on Y *directly* and the effect of X on Y that occurs *indirectly* through M. The “total effect” refers to the Average Treatment Effect (ATE), which is simply the average effect that X has on Y. Any experiment that randomly assigns a treatment in order to observe its effects on some outcome is estimating the ATE. Next, the researcher tries to quantify the size of the effect that X has on Y through the mechanism M. This is often known as the “indirect effect” – because X is affecting Y indirectly through M – or the Average Causally Mediated Effect (ACME). Finally, the researcher will try to estimate the effect of X on Y that doesn’t go through M. This is known as the “direct effect” of X on Y or the Average Controlled Direct Effect (ACDE), because it is the effect of X on Y when we control for the work that M is doing.
 
-## 6. But be cautious about using regression analysis to decompose effects.
+#  But be cautious about using regression analysis to decompose effects.
 
 Although commonly used, using mediation regression analysis presupposes some strong and often unrealistic assumptions. We will use some code to illustrate what this method entails and demonstrate the conditions under which it can produce biased estimates. 
 
@@ -204,7 +223,7 @@ While we did not demonstrate it in this simulation, it is also possible to show 
 
 If the answer to any of these questions is yes, we strongly recommend that you proceed with caution. In particular, think carefully about how unobserved variables and heterogeneous treatment effects would affect your estimation strategy.
 
-## 7. Sometimes subgroup analysis can provide suggestive evidence for or against a mechanism.
+# Sometimes subgroup analysis can provide suggestive evidence for or against a mechanism.
 
 
 In points 3-6, we’ve cautioned researchers against trying to confidently quantify the proportion of an effect that is mediated by a particular mechanism, but there may be other ways to learn more about mechanisms at work in a particular study. In point 1, we underscored the tight relationship between mechanisms and theory. Just because it’s challenging to quantify evidence of a mechanism directly does not mean we cannot explore the testable predictions of the theory in which our mechanism is featured!
@@ -220,7 +239,7 @@ However, she found that the relationship between rainfall shocks and riot incide
 
 **What you can do...** In future projects, ask yourself: If the mechanism is M, which groups or units would I expect to exhibit a treatment effect, and which groups or units would I expect not to respond to treatment? Next, test whether these predictions are supported by your data and interpret this as suggestive evidence for or against your proposed mechanism M. Keep in mind that such evidence is not decisive because the groups could differ in other ways that could affect their responsiveness to the treatment.
 
-## 8. We can also look for suggestive evidence by looking at the effects of our treatment on various outcomes.
+#  We can also look for suggestive evidence by looking at the effects of our treatment on various outcomes.
 
 Again, while it’s difficult to quantify evidence of a mechanism at work, we can always explore the testable implications of the theory in which our mechanism features. In point 7, we did this by exploring whether the treatment affected the particular subgroups for which a treatment effect is implied by our theory. Another approach is to explore whether the treatment affects only the outcomes implied by our theory.
 
@@ -246,7 +265,7 @@ This study, like Sarsons’s study, is not trying to quantify how much of the ef
 
 **What you can do...** In future projects, ask yourself: If the mechanism is M, which outcomes would I expect to be affected by my treatment, and which outcomes would I expect not to be affected by my treatment? Next, test whether these predictions are supported by your data and interpret this as suggestive evidence for or against your proposed mechanism M.
 
-## 9. Designing complex treatments can help narrow our understanding of what part of the treatment is “doing the work.”
+#  Designing complex treatments can help narrow our understanding of what part of the treatment is “doing the work.”
 
 Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms. This approach is sometimes called “implicit mediation analysis” because different components are X are thought to *implicitly* manipulate certain mechanisms. This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.
 
@@ -258,6 +277,6 @@ Studies like these help not only social scientists to learn more about the chann
 
 **What you can do...** In future projects, ask yourself: Can my treatment be “unpacked” into multiple treatment arms, some that implicitly manipulate M, and some that do not? Consider using a factorial design to identify the effects of different treatment arms. If you have ample power, comparing the various treatment arms will provide you with suggestive evidence for or against M.
 
-## 10. Despite the difficulties in empirically measuring mechanisms, it is worth paying serious attention to them but being cautious in our language.
+#  Despite the difficulties in empirically measuring mechanisms, it is worth paying serious attention to them but being cautious in our language.
 
 Attempting to identify causal mechanisms is a noble endeavor. Articulating causal mechanisms is what allows us to unpack “black box” treatments and understand why and how certain treatments work. Even though causal claims can be (and often are) made without evidence for a causal mechanism, exploring causal mechanisms is what enables us to extend the research frontier and re-evaluate how our evidence maps on to our theories. For these reasons, audiences (be they the general public or academic reviewers) are often understandably eager for you to expound upon causal mechanisms after demonstrating evidence for a provocative causal claim. In anticipation of this, it is worth considering whether it is possible to design a way to test causal mechanisms in advance of implementing an experiment. If not, consider whether certain outcome measures or treatment by covariate interactions would provide some support for a particular causal mechanism, and be explicit about the limitations of this kind of analysis in your write-up. Mechanisms are an exciting domain of inquiry and should be considered both in the design and analysis of an experiment, but we should be sure to discuss mechanisms with caution appropriate to our ability to identify a particular mechanism and avoid overselling the argument.
