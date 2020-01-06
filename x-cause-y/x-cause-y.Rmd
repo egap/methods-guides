@@ -36,11 +36,14 @@ Perhaps the most common approach to causal identification in applied statistical
 ==
 A variety of alternative approaches seek to account for confounding variables by carefully matching treatment units to one or many control units. Matching has some advantages over regression (for example, estimates can be less sensitive to choices of functional form), but the basic idea is nevertheless similar, and indeed matching methods can be implemented in a regression framework using appropriate weights. Like regression, at its core, this strategy depends on a conviction that there are no important confounding variables that the researcher is unaware of or is unable to measure. Specific methods include: 
 
+* [optimal full- and pair-matching](http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf) and see the [optmatch package](https://github.com/markmfredrickson/optmatch)
+* [optimal pair-matching with fine-balance via mixed integer programming](https://projecteuclid.org/euclid.aoas/1396966284) [See also the designmatch package](https://cran.rstudio.com/web/packages/designmatch) and the [paper comparing approaches](http://jrzubizarreta.com/evaluation.pdf)
+* [optimal multi-level matching (for designs with schools and students)](https://projecteuclid.org/euclid.aoas/1536652962)
+* [sparse optimal matching](https://www.stat.berkeley.edu/~spi/software.html)
+* [generalized full matching](https://arxiv.org/abs/1703.03882)
 * [coarsened exact matching](http://gking.harvard.edu/cem)
-* [propensity score matching](http://jhr.uwpress.org/content/50/2/373.abstract) 
 * [genetic matching](http://sekhon.berkeley.edu/papers/GenMatch.pdf)
 * [entropy balancing](http://web.stanford.edu/~jhain/Paper/PA2012.pdf)
-* [optimal subset matching and cardinality matching](http://www.columbia.edu/~jz2313/evaluation.pdf)
 * [inverse propensity weighting](http://pan.oxfordjournals.org/content/18/1/36.short)
 * [stable balancing weights](http://www.columbia.edu/~jz2313/sbw.pdf), and the use of
 * [synthetic controls](http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf).
