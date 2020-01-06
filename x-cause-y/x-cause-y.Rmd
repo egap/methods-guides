@@ -5,7 +5,7 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Strategies for Figuring out if X Caused Y" -->
+<!-- title: "10 Strategies for Figuring out if X Causes Y" -->
 <!-- author: "Methods Guide Author: Macartan Humphreys" -->
 
 Abstract
@@ -30,17 +30,20 @@ Often the first thing that people look to in order to work out causal effects is
 
 5. Ex Post Controlling I: Regression
 ==
-Perhaps the most common approach to causal identification in applied statistical work is the use of multiple regression to control for possible confounders. The idea is try to try to use whatever information you have about why treatment and control areas are not readily comparable and adjust for these differences statistically. This approach works well to the extent that you can figure out and measure the confounders and how they are related to treatment, but is not good if you don’t know what the confounders are. In general we just don’t know what all the confounders are and that exposes this approach to all kinds of biases.
+Perhaps the most common approach to causal identification in applied statistical work is the use of multiple regression to control for possible confounders. The idea is try to try to use whatever information you have about why treatment and control areas are not readily comparable and adjust for these differences statistically. This approach works well to the extent that you can figure out and measure the confounders and how they are related to treatment, but is not good if you don’t know what the confounders are. In general we just don’t know what all the confounders are and that exposes this approach to all kinds of biases (indeed if you control for the wrong variables it is possible to *introduce* bias where none existed previously).
 
 6. Ex Post Controlling II: Matching and Weighting
 ==
 A variety of alternative approaches seek to account for confounding variables by carefully matching treatment units to one or many control units. Matching has some advantages over regression (for example, estimates can be less sensitive to choices of functional form), but the basic idea is nevertheless similar, and indeed matching methods can be implemented in a regression framework using appropriate weights. Like regression, at its core, this strategy depends on a conviction that there are no important confounding variables that the researcher is unaware of or is unable to measure. Specific methods include: 
 
+* [optimal full- and pair-matching](http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf) and see the [optmatch package](https://github.com/markmfredrickson/optmatch)
+* [optimal pair-matching with fine-balance via mixed integer programming](https://projecteuclid.org/euclid.aoas/1396966284) [See also the designmatch package](https://cran.rstudio.com/web/packages/designmatch) and the [paper comparing approaches](http://jrzubizarreta.com/evaluation.pdf)
+* [optimal multi-level matching (for designs with schools and students)](https://projecteuclid.org/euclid.aoas/1536652962)
+* [sparse optimal matching](https://www.stat.berkeley.edu/~spi/software.html)
+* [generalized full matching](https://arxiv.org/abs/1703.03882)
 * [coarsened exact matching](http://gking.harvard.edu/cem)
-* [propensity score matching](http://jhr.uwpress.org/content/50/2/373.abstract) 
 * [genetic matching](http://sekhon.berkeley.edu/papers/GenMatch.pdf)
 * [entropy balancing](http://web.stanford.edu/~jhain/Paper/PA2012.pdf)
-* [optimal subset matching and cardinality matching](http://www.columbia.edu/~jz2313/evaluation.pdf)
 * [inverse propensity weighting](http://pan.oxfordjournals.org/content/18/1/36.short)
 * [stable balancing weights](http://www.columbia.edu/~jz2313/sbw.pdf), and the use of
 * [synthetic controls](http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf).
@@ -59,4 +62,4 @@ In much qualitative work researchers try to establish causality by looking not j
 
 10. Front Door Strategies (Argument from mechanisms)
 ==
-A final approach, conceptually close to process tracing, is to argue from mechanisms. Say you know only A can cause B. Say moreover that you know that B only causes C — though other things might cause C also. Then covariation between A and B and between B and C implies that A causes C through B. The advantage is that causality can be established even in the presence of confounders — for example even if unobserved variables cause both A and C. The difficulty however is that the strategy requires a lot of confidence in your beliefs about the structure of causal relations. For more see [Pearl (2000)](https://books.google.com/books?id=wnGU_TsW3BQC&hl=en). 
+A final approach, conceptually close to process tracing, is to argue from mechanisms. Say you know only $A$ can cause $C$ only through $B$. Say moreover that you know that no third things cause both $B$ and $C$ (other than, perhaps, via $A$) and no third things cause both $A$ and $B$. Then covariation between $A$ and $B$ and between $B$ and $C$ can be used to assess the effect of $A$ on $C$. The advantage is that causality can be established even in the presence of confounders — for example even if unobserved variables cause both $A$ and $C$. The difficulty however is that the strategy requires a lot of confidence in your beliefs about the structure of causal relations. For more see [Pearl (2000)](https://books.google.com/books?id=wnGU_TsW3BQC&hl=en). 
