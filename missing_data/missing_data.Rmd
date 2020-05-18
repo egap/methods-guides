@@ -9,16 +9,16 @@ output:
 <!-- title: "10 Things to Know About Missing Data" -->
 <!-- author: 'Methods Guide Author: Tara Slough' -->
 
-##1. What is missing data?
-
+1. What is missing data?
+==
 When variables are missing some data values, we say that there is "missing data." Depending on your software and the coding of the dataset, missing values may be coded as `NA`, `.`, an empty cell (`""`), or a common numeric code (often `-99` or `99`).
 
 The consequences of missing data for estimation and interpretation depend on the type of variable missing the data. For our purposes, we will consider three types of variables: pretreatment covariates, treatment indicator(s), and outcome (or dependent) variables. Pretreatment covariates, often known simply as "covariates," are variables that we observe and measure before treatment is assigned. Outcome (or dependent) variables refer to outcomes that are measured after the assignment of treatment. 
 
 Missing data emerges for different reasons. In survey data, a respondent could decline to answer a question or quit the survey without completing all questions. In a panel survey, some subjects may skip the second or later waves. With administrative data, records may be lost at some point in the process of collecting or recording data. To the extent that we can know the process by which data becomes missing, we can better understand the consequences of missing data for our analysis and inferences.
 
-##2. Missing treatment or outcome data can bias our ability to describe empirical patterns and estimate causal effects.
-
+2. Missing treatment or outcome data can bias our ability to describe empirical patterns and estimate causal effects.
+==
 Missing data can induce bias in our estimates of descriptive patterns and causal effects. Consider a researcher trying to describe the income distribution in a country with survey data. Some individuals' incomes are missing but the researcher describes the non-missing data at hand. Suppose low-income individuals are less likely to report their income than high-income individuals, thus missingness concentrates in the lower portion of the distribution. Then, the researcher's characterization of the income distribution is apt to be biased. For example, the researcher's estimate of median income is bound to be higher than the true (unknown) median income because more data is missing from the lower portion of the distribution. Since missingness is correlated with the variable that we are trying to describe, our characterization of the median of the distribution is biased. 
 
 We can illustrate two types of missingness by considering a variable $x$ -- for example, income, as above. The left panel shows the full distribution of the variable $x$ without missing data. The middle panel depicts a scenario in which simulated missingness in $x$ is not independent of $x$ -- low values of $x$ are much more likely to be missing. The right panel depicts a scenario in which simulated missingness in $x$ is independent of $x$ (often called "missing at random"). The red line represents the median of the distribution without missingness. The blue lines represent the median of the observed data in each simulation. Where missingness is not independent of $x$, we observe that the median of the nonmissing data is, in this instance, higher than the true median. This illustrates that missing data can bias our descriptions of single variables.
@@ -111,8 +111,8 @@ data.frame(ests = as.vector(t(reps)),
   xlab("ATE Estimates")
 ```
 
-##3. The potential for bias increases in the proportion of treatment or outcome data that is missing.
-
+3. The potential for bias increases in the proportion of treatment or outcome data that is missing.
+==
 Returning to the equations in \#2, it is useful to identify the terms that we can estimate (know) as analysts of a dataset. Rewriting the expression for the ATE in the presence of missing data, we can estimate:
 
 1. The proportion of missingness in treatment and control: $\color{red}{E[R_i(1)]}$ and $\color{red}{E[R_i(0)]}$.
@@ -127,16 +127,16 @@ These expressions are colored \color{red}{red} in the following equation.
 
 We are ultimately interested in estimating the ATE, $E[Y_i(1)]-E[Y_i(0)]$. One straightforward implication of this expression is that the magnitude of bias possible for an estimator of the ATE on non-missing observations increases in the amount of missingness. As $E[R_i(1)] \rightarrow 1$ and $E[R_i(0)]\rightarrow 1$, bias stemming from missing outcome data converges to 0. In contrast, when we are missing a large proportion of the data, the magnitude of possible bias increases. Thus, our concerns about missing data should increase as the amount (proportion) of missingness increases.
 
-##4. The consequences of missing data for bias in estimates of causal effects depend on the type of variable that is missing.
-
+4. The consequences of missing data for bias in estimates of causal effects depend on the type of variable that is missing.
+==
 Missingness of *pretreatment covariates* need not induce bias in our estimates of the ATE. However, researchers can actually induce bias through improper treatment of missing pretreatment covariate data. If treatment is randomly assigned, treatment assignment should be orthogonal to pre-treatment missingness. In other words, pre-treatment missingness should be balanced across treatment assignment conditions.
 
 However, we should avoid "dropping" (excluding) observations based on pretreatment missingness for two reasons. First, it is possible to induce bias in our estimate of an ATE by dropping observations with pre-treatment missingness. After dropping these observations, we can estimate an unbiased estimate the local average treatment effect (LATE) among observations with no missing pretreatment data. However, if treatment effects vary with missingness of pretreatment variables, this LATE may be quite different than the ATE. Second, as we drop observations the number of observations decreases, reducing our power to detect a given ATE. In sum, we should refrain from dropping observations based on pre-treatment covariates to avoid inducing bias or efficiency loss in our estimates of the ATE. 
 
 In contrast, missingness of the *treatment indicator* or *outcome variable(s)* can induce bias in our estimates of causal effects, as demonstrated in #2. This categorization informs the strategies that we adopt to address the consequences of missing data. 
 
-##5. What assumptions do we invoke when we “ignore” treatment or outcome missingness in estimation?
-
+5. What assumptions do we invoke when we “ignore” treatment or outcome missingness in estimation?
+==
 Suppose that we analyze a dataset with missing treatment or outcome data while ignoring the missingness. If we "ignore" the missingness, we drop observations for which we lack a value for one of these variables. If we proceed to estimate the ATE on the subsample of data for which we have full data for both treatment and outcomes, we estimate:
 
 $$E[Y_i(1)|R_i(1)]- E[Y_i(0)|R_i(1)]$$
@@ -145,8 +145,8 @@ This is necessarily equivalent to the ATE estimand $E[Y_i(1)]-E[Y_i(0)]$ if miss
 
 The assumption that MIPO is most plausible when missingness occurs by some random process. Under what conditions might this assumption be plausible? Perhaps we were only able to gather a random subset of administrative outcome data. In this case, missingness would be independent of both potential outcomes and pretreatment covariates. Alternatively, idiosyncratic behavior in data collection (enumerator absence or error) that is plausibly unrelated to potential outcomes may also be consistent with MIPO. On the other hand, survey non-response or other forms of outcome measurement dependent on subject reporting are often much harder to justify under MIPO. Because we cannot validate MIPO, we depend on researchers' consideration of whether the assumption is plausible under a given data generating process. Where MIPO is not plausible, we should not simply "ignore" missing data in estimation. In these cases, researchers should consider the methods described in #6-#10.
 
-##6. Why should we assess whether missingness of outcomes is related to treatment assignment? 
-
+6. Why should we assess whether missingness of outcomes is related to treatment assignment? 
+==
 When researchers encounter missingness in an experiment, they often examine the relationship between missingness of outcomes and treatment assignment. We have denoted reporting (or non-missingness) as a potential outcome of treament assignment, $R_i(Z)$. For a binary treatment, we can denote four "types" of subjects in the experiment, as denoted in the following table. 
 
 | Type                  | Proportion | $R_i(1)$ | $R_i(0)$ |
@@ -169,8 +169,8 @@ If we find no difference in reporting across treatment groups, this test provide
 
 
 
-##7. What is imputation?
-
+7. What is imputation?
+==
 The most common approaches used to deal with missing data involve the imputation or "filling in" of missing values. In the following dataset with missingness, imputation procedures "fill in" the missing data -- the `NA`s. 
 
 ```{r, warning = F, message = F, echo = F}
@@ -232,8 +232,8 @@ model3 <- lm(Yobs ~ Z + Ximputed_mean)
 ```
 Since we have imputed missing values in `Xobs` when constructing `Ximputed_mean`, we will not lose observations on the basis of the missing pretreatment covariate when estimating `model3`.
 
-##9. We can bound ATEs to account for missing outcome data without making assumptions about the distribution of missing outcomes.
-
+9. We can bound ATEs to account for missing outcome data without making assumptions about the distribution of missing outcomes.
+==
 If we know the maximum and minimum values of the outcome variable, we can construct bounds on the ATE even in the presence of missing values of the dependent variable. For example, the range of the variable `Yobs` is 1 to 4. While we do not know what values missing values of `Yobs` would have been, we can take advantage of the fact that we know the maximum and minimum possible value to construct bounds on the ATE. This allows us to construct an **interval estimate** of the ATE instead of the **point estimate** we would construct if we had no missing data. These bounds are known as "extreme value bounds" or "Manski bounds" and do not invoke any additional assumptions about the value of `Yobs`.
 
 Manski bounds consist of a maximum and minimum bound (estimate) of the possible ATE. To create these bounds, we impute the maximum or minimum value of the outcome variable. as a function of treatment assignment. Thus we construct:
@@ -263,8 +263,8 @@ coef(lower)[2]
 
 Our interval estimate of the ATE using Manski bounds is thus [`r round(coef(lower)[2], 2)`, `r round(coef(upper)[2], 2)`].
 
-##10. Multiple imputation for missing outcomes allows for point estimation of ATEs, but relies on stronger assumptions than bounding.
-
+10. Multiple imputation for missing outcomes allows for point estimation of ATEs, but relies on stronger assumptions than bounding.
+==
 The methods in #8 and #9 describe methods of single imputation, where a single value is substituted for missing values. In multiple imputation, we impute missing values of the dataset multiple times according to an assumed stochastic data generating process. Different methods for multiple imputation impose different structures and assumptions about the probability distributions governing the data generating processes used to impute missing values.  In general, multiple imputation proceeds via three stages:
 
 1. *Imputation*: Missing values are imputed via a random draw of plausible values under the specified data generating process. This creates a full dataset without missing values. Typically, researchers will impute at least five complete datasets. The only differences across these imputed datasets are the values that were missing in the original data. 
@@ -275,8 +275,8 @@ The methods in #8 and #9 describe methods of single imputation, where a single v
 
 Multiple imputation is implemented in many software packages and relatively straightforward to implement. However, the specification of a data generating process from which datasets are imputed relies on additional assumptions about the correctness of the model of missingness (the data generating process). These assumptions are generally untestable and stronger than the standard experimental assumptions invoked to identify an interval estimate of the ATE using Manski bounds. 
 
-##References:
-
+References:
+==
 Gerber, Alan S. and Donald P. Green. (2013). *Field Experiments: Design, Analysis, and Interpretation.* New York: W.W. Norton.
 
 Lin, Winston, Donald P. Green, and Alexander Coppock. (2016). "Standard Operating Procedures for Don Green's Lab at Columbia." Available at [https://alexandercoppock.com/Green-Lab-SOP/Green_Lab_SOP.html](https://alexandercoppock.com/Green-Lab-SOP/Green_Lab_SOP.html).
