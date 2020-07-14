@@ -1,6 +1,10 @@
 # methods-guides
 EGAP methods guides
 
+## How to contribute.
+
+For now, please make an issue and/or fork and a pull request specifying the methods guide in question.
+
 ## How to make webpages from these files.
 
 In RStudio, click "Knit to HTML".
