@@ -1,0 +1,286 @@
+---
+output:
+  html_document:
+    theme: journal
+    toc: yes
+bibliography: egap_svyExps.bib
+---
+
+<style>
+p.comment{
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+color: black;
+}
+
+</style>
+
+<!-- title: "10 Things to Know About Survey Experiments" -->
+<!-- author: "Methods Guide Authors: Christopher Grady" -->
+
+Abstract
+==
+This guide discusses techniques for using randomization to create experiments within the text of a survey (i.e. survey experiments).  These survey experiments are distinct from studies that use surveys to gather information related to an experiment that occurs outside of the survey.  The guide distinguishes between survey experiments that are used mainly for measuring sensitive attitudes, like list experiments, and those that are mainly used to learn about causal effects, like conjoint experiments.  Survey experiments for measurement attempt to ensure honest responses to sensitive questions by providing anonymity to respondents.  Survey experiments for causal identification randomize images and text to learn how the image or text influences respondents.  Both types of survey experiments face challenges, such as respondents not perceiving anonymity or not interpreting images and text as the researcher intended.  New experimental techniques seek to address these challenges.
+
+
+1 What is a Survey Experiment
+==
+
+A survey experiment is an experiment conducted within a survey.  In an experiment, a researcher randomly assigns participants to at least two experimental conditions.  The researcher then treats each condition differently.  Due to random assignment, the researcher can assume that the only difference between conditions is the difference in treatment.  For example, a medical experiment may learn about the effect of a pill by creating two experimental conditions and giving the pill to participants in only one condition.  In a survey experiment, the randomization and treatment occur within a survey questionnaire.
+
+There are two types of survey experiments.  One type is used to measure sensitive attitudes or behaviors and the other is used to learn about causal relationships.  By sensitive attitudes and behaviors, we mean any attitude or behavior that the respondent does not want to be publicly associated with.  Many respondents, for example, do not want to be associated with racism or illegal behaviors.
+
+Survey experiments for measurement attempt to provide respondents with anonymity so that they can express potentially sensitive attitudes without being identified as holding the sensitive attitude.  These measurement survey experiments are alternatives to asking direct questions when direct questions are likely subject to response biases (i.e. when the respondents are likely to lie).  These indirect measures are especially useful in contexts where direct questions may be dangerous for survey respondents and enumerators [@bullock2011statistical].
+
+Survey experiments to measure causal relationships are just like any other experiment, except the experimental intervention and outcome measurement occur within the context of a survey.  Researchers randomly assign respondents to one or more experimental conditions or a control group, administer treatments, and measure outcomes.  As their experimental manipulation, survey experiments tend to present a randomized stimulus (such as text, short videos, audio clips, or other stimuli that can easily fit into a survey format) in the context of a survey question or use variation in question wording and question ordering.  They often administer these randomized manipulations by using survey questionnaire software or by providing different physical survey forms to enumerators.
+
+
+2 Survey Experiments to Measure Sensitive Topics: List Experiment
+==
+
+List experiments (also known as the item-count technique) measure a sensitive attitude or behavior when the researcher expects the respondent to lie if asked a direct question about the attitude or behavior.  For example, respondents may be reluctant to admit racial animus [@kuklinski1997list] or illegal behavior [@garcia2020weed], even after being assured of the survey's anonymity.
+
+In a list experiment the researcher randomly assigns respondents to a control or treatment condition.  The control condition presents respondents with a list of items; the treatment condition presents respondents with the same list plus a treatment item measuring the attitude or behavior of interest.  Respondents are then asked how many of those items apply to them.  The average difference between the treatment and control condition represents the percentage of respondents for whom the treatment item applies.  A list experiment does not tell the researcher about the attitude of any individual respondent, but it tells her about the prevalence of the sensitive attitude in her survey population.  Answers to this question are anonymous because the respondent's attitude towards each item cannot be determined unless the respondent answers that all or none of the items apply to them.  Respondents for whom the treatment item applies can increase their response by one without revealing their attitude.
+
+For example, @kuklinski1997list studied racial animus with a survey list experiment.  They told respondents:
+
+<!--<p class="comment">-->
+
+> Now I am going to read you three things that sometimes make people angry or upset.  After I read all three, just tell me HOW MANY of them upset you.  I don't want to know which ones, just HOW MANY. <br><br>
+(1) the federal government increasing the tax on gasoline <br>
+(2) professional athletes getting million-dollar contracts<br>
+(3) large corporations polluting the environment<br>
+_(4) a black family moving in next door_
+<!--</p>-->
+
+The 4th item was withheld from the control condition.  
+
+For that paper's population of interest, the mean number of items chosen in the treatment group was 2.37, compared to 1.95 in the control.  The difference of 0.42 between treatment and control indicates that 42% of respondents would be upset by a black family moving in next door.
+<br> <br>
+**Pitfalls of list experiments** <br>
+
+List experiments are _vulnerable to satisficing_.  Satisficing occurs when respondents put in minimal effort to understand and answer a survey question [@krosnick1991response; @simon2006administrative].  In a list experiment, satisficing manifests when respondents do not count the number of items that apply to them, instead answering with a number of items that seems reasonable [@eso2012list; @schwarz1999self].
+
+Respondents may _perceive a lack of anonymity_.  Despite the anonymity provided by a list experiment, respondents may still worry that their response reflects their attitudes about the sensitive item.  When respondents worry about a lack of anonymity, they may increase or decrease their response to portray themselves in the best light possible, rather than answer honestly [@leary1990impression].  For example, the addition of a treatment item about race can _decrease_ the number of items that respondents report because being associated with “three of the four [list items] may be interpreted as a 75% chance that they are racist” [@zigerell2011you, p. 544].
+
+The lack of anonymity is most obvious when all or none of the list items apply to the respondent.  Researchers can reduce this possibility by using _uncorrelated or negatively correlated control items_ that are unlikely to apply to one respondent.  In the @kuklinski1997list example above, the type of person who is upset by pollution is unlikely to also be upset by a gasoline tax.  Negatively correlated items also reduce likelihood that respondent will satisfice because negatively correlated items are unlikely to be interpreted as a scale measuring one concept.  The control items should also fit with the treatment item in some way so that the treatment item does not jump out to respondents as the real item of interest to researchers.
+<!--More attention to piloting to find control items that not only fit with the treatment item, but that are negatively correlated with other control items . Negatively correlated control items minimize the number of people who will score very high or very low on the control list, a problem that can compromise anonymity.-->
+<br> <br>
+**Variants/Modifications** <br>
+
+_Double list experiments_ help overcome some pitfalls of single list experiments [@glynn2013double; @droitcour2004item].  In a double list experiment, the treatment item is randomly selected to appear on either the first or the second control list, so that some respondents see it on the first list and some respondents see it on the second. If researchers observe the same treatment effect on both lists, there is less risk that the effect depends on a particular control list or on how respondents interpret the list.  The double list experiment is also more statistically efficient than a single list experiment [@glynn2013double].
+
+_Placebo-controlled list experiments_ ensure that the difference in responses to the treatment and control lists is due to the treatment item and not due to the treatment list having more items than the control list.  A placebo-controlled list experiment uses an additional item as a placebo on the control list; unlike the additional item on the treatment list, the additional item on the control list is something innocuous that would not apply to any respondent. The placebo item ensures that the difference between the two lists is due to the treatment item, not the presence of an additional item [@riambau2019placebo].
+
+_Visual aids_ also help reduce satisficing and ensure that respondents follow the instruction to count list items instead of satisfice.  If enumerators can carry a laminated copy of the list and a dry erase marker, respondents can check off items on the list to get an exact count and erase it before handing it back to the enumerator [@eso2012list; @kramon2019mis].
+
+
+<!--**Conclusion**: Can be effective; needs attention to design; needs attention to psychological biases that prevent lists from working.-->
+
+
+3 Survey Experiments to Measure Sensitive Topics: Randomized Response
+==
+
+The randomized response technique is also used to measure a sensitive attitude or behavior when the researcher expects the respondent to lie if asked a direct question [@warner1965randomized; @boruch1971assuring; @cpo2015rr; @gingerich2010understanding].
+
+In the most common version of the randomized response technique, respondents are directly asked a yes or no question about a sensitive topic. The respondent is also given some randomization device, like a coin or die. The respondent is told to answer the direct question when the randomization device takes on a certain value (tails) or to say “yes” when the randomization device takes a different value (heads).  Researchers assume that respondents will believe their anonymity is protected because the researcher cannot know whether a “yes” resulted from agreement with the sensitive item or the randomization device.  
+
+For example, @blair2015design studied support for militants in Afghanistan with the randomized response technique.  They gave respondents a die and had the respondent practice throwing it.  They then told respondents:
+
+<!--<p class="comment">-->
+
+> For this question, I want you to answer yes or no.  But I want you to consider the number of your dice throw.  If 1 shows on the dice, tell me no.  If 6 shows, tell me yes.  But if another number, like 2 or 3 or 4 or 5 shows, tell me your opinion about the question that I will ask you after you throw the dice. <br><br>
+[ENUMERATOR TURN AWAY FROM THE RESPONDENT]<br><br>
+Now throw the dice so that I cannot see what comes out.  Please do not forget the number that comes out.<br><br>
+[ENUMERATOR WAIT TO TURN AROUND UNTIL RESPONDENT SAYS YES TO]: Have you thrown the dice?  Have you picked it up?<br><br>
+Now, during the height of the conflict in 2007 and 2008, did you know any militants, like a family member, a friend, or someone you talked to on a regular basis?  Please, before you answer, take note of the number you rolled on the dice.
+<!--</p>-->
+
+In expectation, 1/6th of respondents answer "yes" due to the die throw.  The researcher can thus determine what percentage of respondents engaged in the sensitive behavior. <!--by subtracting 1/6 from the survey mean of the randomized response question and multiplying by 1/6.-->
+<br><br>
+**Pitfalls of the randomized response technique** <br>
+
+_Some versions are complicated_.  Even the common version described above, valued in part for its simplicity, requires respondents to use some randomization device and remember the outcome of the randomization device.  Other versions use more complicated techniques to ensure anonymity; these versions may be difficult both for the respondent and the enumerator [@blair2015design; @gingerich2010understanding].  It is possible that some respondents do not understand the instructions and some enumerators do not implement the randomized response technique properly.
+
+Respondents may _perceive a lack of anonymity_.  As was true for list experiments, respondents may not feel that their answers to randomized response questions are truly anonymous.  If a respondent answers “yes”, the answer could have been dictated by the randomization device, but it could also signal agreement with the sensitive item [@edgell1982validity; @yu2008two]. Thus, answering “yes” is not unequivocally protected by the design.  @edgell1982validity surreptitiously set the randomization device to always dictate “yes” or “no” for specific questions and observed as high as 26% of respondents say “no” even when the randomization device dictated they say “yes”.
+<br><br>
+**Variants/modifications** <br>
+
+The _repeated randomized response technique_ helps researchers identify respondents who lie on randomized response questions [@azfar2009identifying]. The repeated technique asks a series of randomized response questions with sensitive and non-sensitive items.  The probability of the randomization device dictating that the respondent should answer "no" for all of the _sensitive_ items is very low. The technique thus allows researchers to identify and remove from analysis the respondents who are likely saying “no” even when their coin flip dictates they say “yes”.  Researchers can also determine if certain questions induce widespread lying if the "yes" rate for that question is lower than the randomization device would dictate.  The repeated randomized response technique, however, may be impractical to include on a large survey.
+
+The _Crosswise model_ modifies the randomized response technique so that respondents have no incentive to answer "yes" or "no" [@yu2008two; @jann2011asking]. In the Crosswise model, respondents are presented with two statements, one sensitive statement and one non-sensitive statement for which the population mean is known. The respondent is asked to say if (a) neither or both statements are true, or (b) one statement is true. Unlike a typical randomized response question, where individuals who agree with the sensitive statement only occupy the “yes” group, people who agree with the sensitive statement could occupy either group using the Crosswise model.  Since being in category (a) and (b) are equally uninformative about the respondent's agreement with the sensitive statement, the Crosswise model removes a respondent's incentive to lie.  The Crosswise model can be used any time researchers know the population mean of a non-sensitive statement, such as "My mother was born in April."
+
+<!--**Conclusion**: Crosswise model should ensure anonymity and is minimally confusing.  But it, and all RR techniques, require some randomization device, either a physical item like a coin or dice or a non-sensitive question for which the population mean is known.-->
+
+
+4 Survey Experiments to Measure Sensitive Topics: Priming Experiment
+==
+
+List experiments and randomized response techniques do not uncover implicit attitudes, but many sensitive topics appear so sensitive that an individual’s conscious, explicit attitudes may differ from their implicit attitudes [@greenwald1995implicit].  Even many nonsensitive attitudes seem to be beyond an individual’s conscious awareness [@nisbett1977telling]. Whereas techniques to measure explicit attitudes seek to provide respondents with anonymity, techniques to measure implicit attitudes seek to keep the respondent consciously unaware of the implicit attitude being measured. To do so, researchers often use priming experiments. 
+
+In a priming experiment, researchers expose respondents to a stimulus representing topic _X_ in order to influence their response to a survey question about topic _Y_, without the respondent realizing that the researchers are interested in topic _X_.  A control group is not exposed to the stimuli representing topic _X_, so the difference between the treatment group and control group is due to exposure to the treatment stimuli. Priming experiments work by directing respondents’ consciousness away from topic _X_ and towards topic _Y_ so that respondents do not consciously censor their feelings about topic _X_ [@macrae1994out; @schwarz1983mood].
+
+Priming experiments are a broad class and include any experiment that makes a sensitive topic salient in the mind of the respondent.  One common method of priming is the use of images.  For example, @brader2008triggers use images in a priming experiment to estimate the effect that race plays in opposition to immigration. The researchers show subjects a positive or negative news article about immigration paired with a picture of a European immigrant or an Hispanic immigrant. Subjects expressed negative attitudes about immigration when the negative news article is paired with the Hispanic immigrant picture but not in other conditions. The picture primes people to think about Hispanic immigrants, and thinking about Hispanic immigrants reduces support for immigration compared to thinking about European immigrants even though subjects do not consciously admit to bias.
+
+Survey experiments for measurement and for causal identification overlap in priming experiments.  Researchers can use them to measure implicit attitudes or to assess how the activation of implicit attitudes affects another outcome, like attitudes towards immigration.
+<br><br>
+**Pitfalls of priming experiments** <br>
+
+_Priming experiments are difficult_.  Priming attitudes experimentally is difficult because the researcher cannot be certain that the prime affects subjects as the researcher intended.  A prime intended to induce fear, for example, may induce fear in some subjects and excitement in others.  Priming sensitive attitudes is especially difficult because the researcher must prime a sensitive attitude without the respondent becoming aware that the researcher is interested in the sensitive attitude.  If respondents realize what the priming experiment is about, the experiment fails  because respondents will consciously censor their attitude, rather than passively allow their implicit attitude to influence their response [@macrae1994out; @schwarz1983mood].  To prevent subjects from ascertaining the goal of the study, researchers try to hide the prime amid other, ostensibly more important, information.
+
+_Priming experiments can suffer from confounding and lack of "information equivalence" between treatment groups_ [@dafoe2018information].  The researchers may prime topic $X$ with the intent of learning about respondents' implicit attitudes towards topic $X$, but if topic $X$ is strongly linked with topic $Y$ then the researcher will estimate the effect of $X$ and $Y$, not just $X$.  For example, priming a partisan group may also prime ideological and policy views associated with the partisan group [@nicholson2011dominating]. A basic priming experiment cannot differentiate the effect of priming the partisan group from the effect of priming the ideological and policy views associated with the partisan group.
+
+_Respondents may be pretreated before the experiment_.  Individuals are exposed to stimuli that prime attitudes during their daily lives.  News broadcasts prime people to think about issues covered on the news, and anti-racism protests prime people to think about racial issues.  Even words seen immediately before answering survey questions influences responses to those survey questions [@norenzayan1999telling].  If subjects, before participating in the experiment, encounter the stimuli that the researcher wants to prime, there may be no difference between treatment and control groups because all subjects were "pretreated" with the prime, even subjects in the control group [@gaines2007logic; @druckman2012learning].  If the issue being primed is already salient in the mind of the respondent, priming experiments fail.
+<br><br>
+**Variants/modifications** <br>
+
+To ensure information equivalence and to reduce confounding the prime with an associated factor, researchers utilize priming experiments as part of _factorial experiments_.  Factorial experiments vary multiple factors that may be linked in the minds of respondents.  @nicholson2011dominating, for example, asked respondents about support for a policy.  He varied both partisan endorsement and policy details to learn how partisan bias influenced respondents' attitudes beyond any assumptions about the party's policy positions.  Factorial experiments are mainly used to determine causal relationships and are discussed in section 7.
+
+<!--**Conclusion**: Priming experiments can help determine respondents' attitudes in cases where respondents do not have conscious access to the attitude that the researcher is interested in.
+-->
+
+5 Survey Experiments to Measure Sensitive Topics: Endorsement Experiments
+== 
+
+Endorsement experiments measure sensitive attitudes towards an attitude object, like a political actor or a policy.  They were first developed to study partisan bias [@cohen2003party; @kam2005toes] but have since been used to measure support for militant groups [@bullock2011statistical; @lyall2013explaining].  They have also been inverted to measure support for a policy rather than a political actor [@rosenfeld2016empirical].<!--They resulted from literature in psychology about source cues and persuasion [@chaiken1980heuristic; @wegener1998attitude] -->
+
+In a typical endorsement experiment, respondents are asked how much they support a policy. In the treatment condition, the policy is “endorsed” by a group that respondents would not consciously admit to influencing their opinion. In the control condition, the policy is not endorsed by any group.  The average difference in support between the endorsed and unendorsed policy represents the change in support for the policy because of the endorsement.
+
+Endorsement experiments can measure implicit attitudes or explicit attitudes.  They measure implicit attitudes like a priming experiment if respondents do not realize the group's endorsement is what the researcher is interested in.  They measure explicit attitudes like a list experiment if respondents realize the group's endorsement is what the researcher is interested in.  Whereas list experiments hide the respondent’s opinion by pairing the sensitive item with non-sensitive control items, endorsement experiments hide the respondent’s opinion by pairing the sensitive item with a policy that could feasibly be responsible for the respondent's attitude.  
+<!--where individuals can freely express their support for the group through supporting the policy because the researcher cannot differentiate policy support from group support at an individual level.-->
+
+<!--chris: example here -->
+For example, @nicholson2012polarizing used an endorsement experiment to study partisan bias in the United States during the 2008 Presidential campaign.  The researchers asked respondents about policies, varying whether the policy was unendorsed or endorsed by the Presidential candidates of the two main political parties, Barack Obama (Democrat) and John McCain (Republican).  Respondents were told:
+
+<!--<p class="comment">-->
+> As you know, there has been a lot of talk about immigration reform policy in the news. One proposal [**backed by Barack Obama**/**backed by John McCain**] provided legal status and a path to legal citizenship for the approximately 12 million illegal immigrants currently residing in the United States.  What is your view of this immigration reform policy?
+<!--</p>-->
+
+The difference between the control condition and the Obama (McCain) condition for Democrats (Republicans) shows in-party bias.  The difference between the control condition and the Obama (McCain) condition for Republicans (Democrats) shows out-party bias.
+<br><br>
+**Pitfalls of endorsement experiments** <br>
+
+As with priming experiments, endorsement experiments suffer from _confounding and a lack of information equivalence_.  Researchers cannot be certain if differential support for the policy is due to the endorsement or due to different substantive assumptions about the policy that respondents make as a result of the endorsement.
+
+_Choosing a policy is difficult_.  The value of the endorsement experiments depends largely on the characteristics of the policy being (or not being) endorsed.  The chosen policy must not possess too much or too little support in the survey population, otherwise attitudes towards the policy will wipe out the effect of the group's endorsement.  Too much or too little support could also reduce perceived anonymity if respondents think that no one would support/oppose the policy unless they liked/disliked the endorsing group.
+
+Endorsement experiments can have _low power to detect effects_, even relative to other survey experiments [@bullock2011statistical].  Some subset of subjects will be unaffected by the endorsement because they feel strongly about the policy, and that subset adds substantial noise to endorsement experiments.
+<br><br>
+**Variants/modifications** <br>
+
+To overcome low power, @bullock2011statistical recommend using _multiple policy questions_ that are on the same one-dimensional policy space.  Multiple questions on one policy space allows the researcher to predict each respondent's level of support for the policy if it were not endorsed by the group of interest.  The researcher can thus model the noise caused by strong feelings towards the policy.
+
+As with priming experiments, to ensure information equivalence and to reduce confounding factors, researchers use endorsement experiments as part of _factorial experiments_ that vary the multiple factors that may be linked in the mind of respondents.  Factorial experiments are mainly used to determine causal relationships and are discussed in section 7.
+
+<!--**Conclusion**: Endorsement experiments are a flexible survey experiment that can be used to measure explicit or implicit attitudes.  Designing them takes substantial pilot testing.-->
+
+
+6 Limitations of Survey Experiments as a Measurement Technique
+==
+
+Survey experiments induce less bias than direct questions when measuring sensitive attitudes [@blair2015design; @rosenfeld2016empirical; @lensvelt2005meta].  They are not a panacea, however, and researchers must still ask themselves several questions when using survey experiments to measure sensitive outcomes.
+
+The first question is whether the researcher is interested in an explicit or implicit attitude.  An explicit attitude is one the respondent is consciously aware of and can report; an implicit attitude is an automatic positive or negative evaluation of an attitude object that the respondent may not be aware of [see @nosek2007implicit for a more thorough discussion].  A list experiment, for example, may help uncover explicit racial animus, but it will not reveal implicit racial bias.  
+
+The next question is what conditions are necessary for a survey respondent to reveal their explicit attitudes.  Survey experimental methods for sensitive explicit attitudes focus on ensuring anonymity.  But is ensuring anonymity a sufficient condition to obtain honest answers to sensitive questions?  In addition to anonymity, a further assumption must be made: respondents want to express their socially undesirable opinion in a way that evades social sanctions.  If that assumption is not true, then anonymity is worth little [@diaz2020survey].
+
+Researchers also need to think about the numerous pitfalls of survey questions that measurement survey experiments do not solve.  Survey experiments do not help researchers avoid question ordering effects or contamination from earlier questions in the survey.  Nor do they do expose how respondents interpret the survey question or ensure information equivalence.  All survey questions assume that the respondent interprets the question in the way intended by researchers; techniques to ensure anonymity may make that interpretation less likely by obfuscating the question’s purpose [@diaz2020survey].
+
+Lastly, researchers must also ask about measurement validity: how does one verify that a measure accurately represents a concept of interest?  For some outcomes, such as voter turnout, researchers can compare their measure with population estimates [@rosenfeld2016empirical]. But for other outcomes, such as racism or the effect that political parties have on citizens’ policy preferences, there exists no population estimate with which to validate measures.
+
+
+7 Survey Experiments to Determine a Causal Relationship: Vignette and Factorial Designs
+==
+
+Not all survey experiments share the goal of accurately measuring one concept of interest.  Some survey experiments, like lab experiments, are interested in how an experimental manipulation impacts outcomes of interest.  These survey experiments for causal inference randomize a treatment and then measure outcomes.  When measuring outcomes, they may use techniques like list experiments.
+
+One of the most common designs of survey experiments for causal inference are vignette and factorial designs [@auspurg2014factorial; @sniderman1991new].  In a vignette/factorial experiment, the researcher provides the respondent with a hypothetical scenario to read, varying key components of the scenario.  In a typical vignette, the researcher varies only one component of the scenario.  In a typical factorial experiment, the researcher varies several components of the scenario.  
+
+Both vignette and factorial designs benefit from embedding the survey question in a concrete scenario so that they require little abstraction from the survey respondent.  Their concrete nature can make them more interesting and easier to answer than typical survey questions, decreasing survey fatigue.  They can also function as priming experiments if the concept of interest is embedded in other concepts.
+
+As an example, @winters2013lacking uses factorial vignettes to learn if voters sanction corrupt politicians in Brazil.  They posit that corruption could interact with competence, so the authors varied a Brazilian mayor's corruption, competence, and political affiliation in the vignette.  They tell respondents:
+
+<!--<p class="comment">-->
+> Imagine a person named Gabriel (Gabriela for female respondents), who is a person like you, living in a neighborhood like yours, but in a different city in Brazil. The mayor of Gabriel’s city is running for reelection in October. He is a member of the [**Partido dos Trabalhadores**/**Partido da Social Democracia Brasileira**]. In Gabriel’s city, it is well known that the mayor [**never takes bribes**/**frequently takes bribes**] when giving out government contracts. The mayor has completed [**few**/**many**/**omit the entire sentence**] public works projects during his term in office. In this city, the election for mayor is expected to be very close.<br><br>
+In your opinion, what is the likelihood that Gabriel(a) will vote for this mayor in the next election: very likely, somewhat likely, unlikely, not at all likely?
+<!--</p>-->
+
+This design allowed the authors to determine if and when corruption would be punished by voters.  If respondents overlooked corruption when the mayor completed many public works, the interpretation is that corruption is acceptable if it gets the job done.  If respondents overlooked corruption when the mayor was a copartisan, the interpretation is that voters ignore the corruption of their own.  By varying several related aspects of the scenario, @winters2013lacking could isolate the conditions under which credible information about corruption would be punished by voters.
+<br><br>
+**Pitfalls of vignette/factorial experiments** <br>
+
+The main pitfall of vignettes -- a _lack of information equivalence_ -- is dealt with by factorial experiments.  Researchers can randomize several aspects of the scenario, standardizing factors that could influence how the main treatment is perceived by respondents.  _Some combinations of different factors may not be realistic_, however.  Researchers must be sure that the various possible combinations of their factorial experiments seem credible to respondents.
+
+_Statistical power is weak_ when factorial experiments vary many confounding traits.  The more traits being varied, the more experimental conditions, the fewer respondents in each experimental condition, and the greater likelihood of imbalance between treatment conditions.  
+
+In enumerated surveys, there is also the possibility that certain enumerators are more often assigned certain factorial conditions and that _enumerator effects could be mistaken for treatment effects_ [@steiner2016designing].  Imagine the @winters2013lacking study, which had six functional treatment groups and ~2,000 respondents.  If the survey was enumerated by twenty survey enumerators, then, in expectation, each enumerator has only ~17 subjects in each treatment category.  In reality, it is likely that certain enumerators will more often enumerate some conditions than others and differences due to enumerators could appear as treatment effects.
+<br><br>
+**Variants/modifications** <br>
+
+Researchers can _block treatment by enumerator_ so that enumerator effects cannot confound treatment effects [@steiner2016designing].  Blocking and other techniques the authors propose should also increase statistical power by accounting for systematic error.
+
+_Conjoint experiments_ maintain many benefits of factorial experiments, but increase power by presenting multiple choice tasks instead of one.  We discuss conjoint experiments in the next section.
+
+
+8 Survey Experiments to Determine a Causal Relationship: Conjoint Experiments
+==
+
+Conjoint experiments [@hainmueller2014causal; @green1971conjoint] have gained popularity in response to the limits of vignette and factorial designs.  Vignette and factorial designs suffer from a lack of information equivalence if they do not provide sufficient details about potentially confounding aspects of the scenario or a lack of statistical power if they do vary several traits.  A typical conjoint experiment attempts to solve these problems by repeatedly asking respondents to choose between two distinct options and randomly varying the characteristics of those two options.  Respondents may also be asked to rate each option on a scale.  In both cases, respondents express their preferences towards a large number of pairings with randomized attributes, drastically increasing statistical power to detect effects of any one attribute relative to a one-shot factorial design.
+
+@hainmueller2014causal demonstrate the use of conjoint experiments in a study about support for immigration.  The authors showed respondents two immigrant profiles and asked (a) which immigrant the respondent would prefer be admitted to the Unites States and (b) how the respondent rated each immigrant on a scale from 1-7.  The authors randomly varied nine attributes of the immigrants (gender, education, employment plans, job experience, profession, language skills, country of origin, reasons for applying, and prior trips to the United States), yielding thousands of unique immigrant profiles.  This process was repeated five times so that each respondents saw and rated five pairs of immigrants.  Through this procedure, the authors can assess how these randomly varied components influence support for the immigrant.
+
+Respondents saw:
+
+![](conjoint_image2.png)
+
+Through a conjoint experiment, researchers can learn about the average marginal effect of several aspects of a scenario, far more than would be feasible with a typical vignette or factorial design.  Though researchers could include and vary an almost infinite number of characteristics, the best practice is to only vary traits that could confound the relationship between a primary explanatory variable and an outcome of interest, rather than varying any trait that might affect the outcome of interest [@diaz2020survey].
+<br><br>
+**Pitfalls of conjoint experiments** <br>
+
+The costs and benefits of conjoint experiments are still being actively researched.  Thus far, two classes of critiques are common.
+
+Results from conjoint experiments are _difficult to interpret_.  Results of conjoint experiments' target estimand, the Average Marginal Component Effect (AMCE), can "indicate the opposite of the true preference of the majority" [@abramson2019we, p.1].  Other researchers have noted that AMCE's depend on the reference category and are not comparable across survey subgroups [@leeper2020measuring].  @bansak2020using provides guidance on how to interpret conjoint results and argues that AMCE's do represent quantities of interest to empirical scholars.
+
+Conjoint experiments also create _unrealistic combinations_ and those unrealistic combinations lead to effect estimates that are not representative of the real world [@incerti2020corruption].  Similarly, the large amount of information provided by conjoint experiments could misrepresent how individuals generally process information they encounter in the world [@hainmueller2014causal].  The large amount of information and demand on respondents has also led to concerns about satisficing, though @bansak2018number and @bansak2019beyond suggest satisficing is not a major concern for conjoint experiments.
+
+Other potential pitfalls can occur if the researcher varies too many characteristics.  More randomly varied characteristics means a large number of potential hypothesis tests.  The necessity of applying multiple hypothesis corrections to the vast number of potential hypothesis tests could decrease statistical power to detect specific effects, especially if researchers are interested in interactions between traits being varied.
+
+
+9 Limitations of Survey Experiments for Causal Identification
+==
+
+Survey experiments to determine causal relationships have the same benefits and drawbacks as other experiments, as well as benefits and drawbacks that derive from the survey context.  The biggest three drawbacks generally applicable to survey experiments are confounding, information equivalence, and pre-treatment contamination [@diaz2020survey].  Researchers should think about these factors when designing and interpreting results from survey experiments.
+
+*Confounding*: Any experimental intervention _A_ that is meant to trigger mental construct _M_ could also trigger mental construct _C_.  If _C_ is not varied in the experimental design, researchers cannot determine whether _M_, _C_, or a combination of _M_ and _C_ affect outcomes of interest.
+
+*Information Equivalence*: Any experimental intervention _A_ can be interpreted differently by different respondents, effectively giving each respondent a different treatment [@dafoe2018information].  When these interpretations vary systematically by treatment condition, those conditions are not information equivalent and researchers cannot know that their treatment caused the observed effect.
+
+*Pre-treatment contamination*: Respondents may encounter the treatment outside of the experiment, causing similar outcomes in the control group and treatment group even if the treatment affects outcomes [@gaines2007logic].
+
+
+10 Considerations when using Survey Experiments
+==
+
+Survey experiments can be an effective tool for researchers to measure sensitive attitudes and learn about causal relationships.  They are cost-effective, can be done quickly and iteratively, can be included on mass online surveys because they do not require in-person contact to implement.  This means that a researcher can plan a sequence of online survey experiments, changing the intervention and measured outcomes from one experiment to the next to learn about the mechanisms behind the treatment effect very quickly [@sniderman2018some].
+
+For survey experiments as a measurement technique, the researcher first has to assess if the attitude of interest is explicit (consciously known to the respondent) or implicit (not consciously known to the respondent).  If the researcher believes the respondent knows her own attitude but does not want to be identified with it, the researcher should make it possible for the respondent to express that attitude without the researcher knowing that attitude.  List experiments, randomized response techniques, and endorsement experiments can help accomplish this task.  If the researcher believes the respondent does not know her own attitude, the researcher should make that attitude salient through priming and then ask a question that should be implicitly affected by the prime.
+
+There may be cases where survey experiments are not the best tool for measuring sensitive attitudes.  As an alternative to survey experiments to measure explicit attitudes, researchers can use techniques like the Bogus Pipeline [@jones1971bogus] or phrase questions about a sensitive topic so that they are not considered socially undesirable [@kinder1981symbolicRacism].  As an alternative to survey experiments to measure implicit attitudes, researchers can use measures like the Implicit Association Test (IAT) [@greenwald1998IAT] and physiological measures like skin conductance [@rankin1955galvanic; @figner2011using].  These measures are beyond conscious control of the respondent.  Many of these alternative measures are not currently flexible enough to be included on a mass survey, but technology, like heart-rate monitoring watches and other phone sensors, may soon make biometric outcomes measurable in mass surveys.
+
+<!--_For survey experiments to estimate causal relationships_, -->For all types of survey experiments, researchers should worry about the same issues that hamper other experiments: confounding, information equivalence, and pre-treatment contamination.  To deal with confounding and information equivalence, researchers can design the experiment to manipulate characteristics that might confound the treatment.  To account for pre-treatment, researchers can think about the everyday context of research subjects and assess whether all or a subset of respondents may already be treated before beginning the experiment.  If only a subset will be affected, the researcher can block the experiment on that subset.
+
+Survey experiments for measurement and survey experiments for estimating causal relationships are not binary categories, and the two types of survey experiments can overlap.  Priming experiments, for example, can measure implicit attitudes and assess the effect of the prime on other outcomes of interest.  Vignette or conjoint experiments can effectively measure a sensitive attitude by priming the sensitive attitude and providing lots of other information to distract respondents from the prime.
+
+For more discussion of survey experiments, see:
+
+- @mutz2011population "Population-Based Survey Experiments."
+- @sniderman2018some "Some Advances in the Design of Survey Experiments" in the Annual Review of Political Science.
+- @lavrakas2019experimental "Experimental Methods in Survey Research: Techniques that Combine Random Sampling with Random Assignment."
+- @diaz2020survey "Survey Experiments and the Quest for Valid Interpretation" in the Sage Handbook of Research Methods in Political Science and International Relations.
+
+
+
+# References
