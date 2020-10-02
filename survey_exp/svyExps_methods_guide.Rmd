@@ -71,6 +71,7 @@ The lack of anonymity is most obvious when all or none of the list items apply t
 
 ### Variants/Modifications
 
+
 _Double list experiments_ help overcome some pitfalls of single list experiments [@glynn2013double; @droitcour2004item].  In a double list experiment, the treatment item is randomly selected to appear on either the first or the second control list, so that some respondents see it on the first list and some respondents see it on the second. If researchers observe the same treatment effect on both lists, there is less risk that the effect depends on a particular control list or on how respondents interpret the list.  The double list experiment is also more statistically efficient than a single list experiment [@glynn2013double].
 
 _Placebo-controlled list experiments_ ensure that the difference in responses to the treatment and control lists is due to the treatment item and not due to the treatment list having more items than the control list.  A placebo-controlled list experiment uses an additional item as a placebo on the control list; unlike the additional item on the treatment list, the additional item on the control list is something innocuous that would not apply to any respondent. The placebo item ensures that the difference between the two lists is due to the treatment item, not the presence of an additional item [@riambau2019placebo].
@@ -88,7 +89,7 @@ The randomized response technique is also used to measure a sensitive attitude o
 
 In the most common version of the randomized response technique, respondents are directly asked a yes or no question about a sensitive topic. The respondent is also given some randomization device, like a coin or die. The respondent is told to answer the direct question when the randomization device takes on a certain value (tails) or to say “yes” when the randomization device takes a different value (heads).  Researchers assume that respondents will believe their anonymity is protected because the researcher cannot know whether a “yes” resulted from agreement with the sensitive item or the randomization device.  
 
-For example, @blair2015design studied support for militants in Afghanistan with the randomized response technique.  They gave respondents a die and had the respondent practice throwing it.  They then told respondents:
+For example, @blair2015design studied support for militants in Nigeria with the randomized response technique.  They gave respondents a die and had the respondent practice throwing it.  They then told respondents:
 
 <!--<p class="comment">-->
 
