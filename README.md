@@ -5,6 +5,10 @@ EGAP methods guides
 
 For now, please make an issue and/or fork and a pull request specifying the methods guide in question.
 
+## Style Guide
+
+We use plain R+markdown for these guides. Since they are served in iFrames on <http://egap.org> links do not work so well. Because of that, we recommend using `[Hello, world!](http://example.com/){target="_blank"}` when you insert links.
+
 ## How to make webpages from these files.
 
 In RStudio, click "Knit to HTML".
@@ -15,6 +19,15 @@ library(rmarkdown)
 render("nameoffile.Rmd")
 ```
 
-We are trying the blogdown package and approach (https://bookdown.org/yihui/blogdown/github-pages.html)
+Once you have an html file, if you haven't already changed the links to open in a new tab do something like this at the command line to loop through all directories:
 
-For math we use xaringan
+```
+for X in */; do cd "$X"; sed -i.bak 's|href="http|target="_blank" href="http|g' *.html; cd ..; done
+```
+
+Or do this in a single directory:
+
+```
+sed -i.bak 's|href="http|target="_blank" href="http|g' *.html
+
+```
