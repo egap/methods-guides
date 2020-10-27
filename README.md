@@ -31,3 +31,7 @@ Or do this in a single directory:
 sed -i.bak 's|href="http|target="_blank" href="http|g' *.html
 
 ```
+
+## When writing new guides
+
+To ensure that links are opened in a new tab write links like this `[Hello, world!](http://example.com/){target="_blank"}`
