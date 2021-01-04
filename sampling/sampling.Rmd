@@ -9,13 +9,45 @@ output:
 <!-- author: "Methods Guide Author: Anna Wilke" -->
 
 [Add introduction]
+- define target population and elements in intro
 
 1.	What is random sampling?
 ==
-- A way of selecting a sample of elements from a population (collection of elements).
-- Key characteristic: Selection is done in such a way that every element has a known *selection* probability that lies strictly between 0 and 1. 
-- Benefit is that a random sample allows us to use characteristics of one realized sample to draw inferences about the population.
-- Because we know the selection procedure, we can base our inferences on measures of variability that can be computed from the realized sample. [how much to go into detail on sampling distributions here?]
+
+Random sampling, also referred to as probability sampling, is one way of selecting a sample of elements from a population. The key characteristic of random sampling is that each element in the population has a *known* and *non-zero* probability of being included in the sample. This goal is achieved by using some randomization mechanism -- be it a coin flip, a random number table, or a computer program -- to decide which elements of the population are going to be part of the sample. 
+
+To make matters concrete, suppose that our target population consists of six elements:
+$$U = \{1, 2, 3, 4, 5, 6\}$$
+Imagine that we would like to draw a random sample of four elements from this population. There are 15 possible samples of this size that we may draw:
+$$
+\begin{aligned}
+ S_1 & = \{1,2,3,4\} & S_6 & = \{1,2,5,6\} & S_{11} & = \{2,3,4,5\}\\
+ S_2 & = \{1,2,3,5\} & S_7 & = \{1,3,4,5\} & S_{12} & = \{2,3,4,6\}\\
+ S_3 & = \{1,2,3,6\} & S_8 & = \{1,3,4,6\} & S_{13 }& = \{2,3,5,6\}\\
+ S_4 & = \{1,2,4,5\} & S_9 & = \{1,3,5,6\} & S_{14} & = \{2,4,5,6\}\\
+ S_5 & = \{1,2,4,6\} & S_{10} & = \{1,4,5,6\} & S_{15} &  = \{3,4,5,6\}\\
+\end{aligned}
+$$
+One selection procedure that would satisfy the definition of random sampling is to use a statistical software to generate a random integer between 1 and 15 and to select the corresponding sample. It is easy to check that each element is included in 10 of the 15 samples and thus has a probability of $\frac{10}{15} = \frac{2}{3} > 0$ of being sampled.  If we were to, instead, ask a colleague to arbitrarily choose four integers between one and six and include the corresponding elements in the sample, the same would not apply. Neither would we know how often our colleague would pick each element if we asked her to repeat the process many times; nor can we be sure that each element would be picked at some point with positive probability. Note that the selection probability need not be the same for all elements for a sampling procedure to qualify as random. For example, we could choose a procedure in which the first unit has a greater probability of being sampled than all other units. What matters is that each element's probability of being sampled is *known* to the researcher. 
+
+The core benefit of random sampling is that it makes it possible to draw inferences about the population based on the characteristics of one realized sample. For example, suppose we are interested in estimating the average age of the population and the population distribution of ages is as follows:
+
+```{r, echo = FALSE}
+id = c(1,2,3,4,5,6)
+age = c(25,18,33, 22,50, 45)
+
+data <- data.frame(Age = age)
+
+knitr::kable(t(data), col.names = id)
+
+```
+
+The average age in the population is $$\mu = \frac{25 + 18 + 33 + 22 + 50 + 45}{6} \approx 32$$. Now, suppose that we draw our random sample of four units and use the average age in the sample as an estimate of the average age in the population. The first thing to note is that the fact that we are basing our estimation on a sample and not the entire population means that our estimate will be prone to error. If we were to select the first of the 15 samples listed above, for example, our estimate would be $$\hat{\mu} = \frac{25 + 18 + 33 + 22}{4} = 25.$$ The difference between the true parameter and our estimate $\mu - \hat{\mu} = 32 - 25 = 7$ stems from what is referred to as *sampling error*. Yet, even though estimates based on a single realized sample are subject to sampling error, the process of random sampling (in combination with the chosen estimation procedure) can ensure that our estimates are correct on average across all possible random samples.
+
+Fiugre x plots what is called the sampling distribution - the distribution of age estimates that results from the 15 possible samples. The red line plots the average estimate across all samples and coincides with the true population paremeter of $\sim 32$. Of course, the fact that we would be correct on average if we repeated the sampling procedure many times and took the average across all resulting estimates says little about how correct our estimates will be given the one realized sample that we will have available. Yet, the beauty of random sampling is that it allows us (in most cases) to obtain estimates of the variability of the sampling distribution.^[Not all sampling designs are measurable, see Kish.]
+
+
+- Because we know the selection procedure, we can base our inferences on measures of variability that can be computed from the realized sample. [random probability samples are typically measurable, which means uncertainty estimates from the sample alone. ]
 - A truly random sample is an ideal that can only be approached. 
 
 2. What distinguishes random sampling and random assignment?
