@@ -1,4 +1,5 @@
 ---
+bibliography: sampling.bib
 output: 
   html_document:
     toc: true
@@ -6,7 +7,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Sampling" -->
-<!-- author: "Methods Guide Author: Anna Wilke" -->
+<!-- author: "Methods Guide Author: Anna M. Wilke" -->
 
 [Add introduction]
 - define target population and elements in intro
@@ -28,40 +29,61 @@ $$
  S_5 & = \{1,2,4,6\} & S_{10} & = \{1,4,5,6\} & S_{15} &  = \{3,4,5,6\}\\
 \end{aligned}
 $$
-One selection procedure that would satisfy the definition of random sampling is to use a statistical software to generate a random integer between 1 and 15 and to select the corresponding sample. It is easy to check that each element is included in 10 of the 15 samples and thus has a probability of $\frac{10}{15} = \frac{2}{3} > 0$ of being sampled.  If we were to, instead, ask a colleague to arbitrarily choose four integers between one and six and include the corresponding elements in the sample, the same would not apply. Neither would we know how often our colleague would pick each element if we asked her to repeat the process many times; nor can we be sure that each element would be picked at some point with positive probability. Note that the selection probability need not be the same for all elements for a sampling procedure to qualify as random. For example, we could choose a procedure in which the first unit has a greater probability of being sampled than all other units. What matters is that each element's probability of being sampled is *known* to the researcher. 
+One selection procedure that would satisfy the definition of random sampling is to use a statistical software to generate a random integer between 1 and 15 and to select the corresponding sample. It is easy to check that each element is included in 10 of the 15 samples. Using this procedure, each element thus has a positive probability of $\frac{10}{15} = \frac{2}{3}$ of being sampled.  Suppose we instead ask a colleague to arbitrarily choose four integers between one and six and include the corresponding elements in the sample. This procedure would not satisfy the definition of random sampling. Neither would we know how often our colleague would pick each element if we asked her to repeat the process many times; nor can we be sure that each element would be picked at some point with positive probability. Note that the selection probabilities need not be the same for all elements for a sampling procedure to qualify as random. For example, we could choose a procedure in which the first unit has a greater probability of being sampled than all other units. What matters is that each element's probability of being sampled is *known* to the researcher. 
 
-The core benefit of random sampling is that it makes it possible to draw inferences about the population based on the characteristics of one realized sample. For example, suppose we are interested in estimating the average age of the population and the population distribution of ages is as follows:
+The core benefit of random sampling is that it makes it possible to draw inferences about the population based on the characteristics of one realized sample. For example, suppose we are interested in estimating the average income of the population and the population distribution of incomes is as follows:
 
 ```{r, echo = FALSE}
 id = c(1,2,3,4,5,6)
-age = c(25,18,33, 22,50, 45)
+income = c(25,18,33, 22,50, 45)
 
-data <- data.frame(Age = age)
-
-knitr::kable(t(data), col.names = id)
+data <- data.frame(Income = income)
+data <- t(data)
+rownames(data) <- "Income (in 1000 USD)"
+knitr::kable(data, col.names = id, row.names = T)
 
 ```
 
-The average age in the population is $$\mu = \frac{25 + 18 + 33 + 22 + 50 + 45}{6} \approx 32$$. Now, suppose that we draw our random sample of four units and use the average age in the sample as an estimate of the average age in the population. The first thing to note is that the fact that we are basing our estimation on a sample and not the entire population means that our estimate will be prone to error. If we were to select the first of the 15 samples listed above, for example, our estimate would be $$\hat{\mu} = \frac{25 + 18 + 33 + 22}{4} = 25.$$ The difference between the true parameter and our estimate $\mu - \hat{\mu} = 32 - 25 = 7$ stems from what is referred to as *sampling error*. Yet, even though estimates based on a single realized sample are subject to sampling error, the process of random sampling (in combination with the chosen estimation procedure) can ensure that our estimates are correct on average across all possible random samples.
+In this example, the average income in the population (in thousands of USD)  is $$\mu = \frac{25 + 18 + 33 + 22 + 50 + 45}{6} \approx 32.$$ Suppose that we draw our random sample of four units and use the average income in the sample as an estimate of the average income in the population. Since we are basing our estimation on a sample and not on the entire population, our estimate will be prone to error. If we were to select the first of the 15 samples listed above, for example, our estimate would be $$\hat{\mu} = \frac{25 + 18 + 33 + 22}{4} = 25.$$ The difference between the true parameter and our estimate $\mu - \hat{\mu} = 32 - 25 = 7$ is referred to as *sampling error*. Yet, even though estimates based on a single realized sample are subject to sampling error, the process of random sampling (in combination with the chosen estimation procedure) can ensure that our estimates are correct on average across all possible random samples.
 
-Fiugre x plots what is called the sampling distribution - the distribution of age estimates that results from the 15 possible samples. The red line plots the average estimate across all samples and coincides with the true population paremeter of $\sim 32$. Of course, the fact that we would be correct on average if we repeated the sampling procedure many times and took the average across all resulting estimates says little about how correct our estimates will be given the one realized sample that we will have available. Yet, the beauty of random sampling is that it allows us (in most cases) to obtain estimates of the variability of the sampling distribution.^[Not all sampling designs are measurable, see Kish.]
+```{r, echo = FALSE,message=F, error=F,warning=F}
+library(utils)
+library(ggplot2)
+library(dplyr)
 
+possible_samples <- combn(c(1:6), 4)
 
-- Because we know the selection procedure, we can base our inferences on measures of variability that can be computed from the realized sample. [random probability samples are typically measurable, which means uncertainty estimates from the sample alone. ]
-- A truly random sample is an ideal that can only be approached. 
+estimates <- sapply(1:ncol(possible_samples), function(x) mean(income[possible_samples[,x]]))
+
+plot_data <- data.frame(estimates = estimates)
+
+  
+
+ggplot(plot_data, aes(x = estimates)) + 
+  geom_histogram(bins = 6, fill = "white", color = "black") + 
+  theme_bw() + xlab("Sample  estimates of average income") + 
+  ylab("Count") +
+  geom_vline(aes(xintercept=mean(estimates)),
+            color="blue", linetype="dashed", size=1)
+  
+
+```
+
+The figure above plots the distribution of income estimates that results from the 15 possible samples. This distribution is called the *sampling distribution*. As shown by the blue dashed line, the average estimate across all possible samples coincides with the true population parameter of $\sim 32$. In other words, if we were to  repeat the sampling procedure many times and estimate the average income every time, we would be correct on average. Of course, this fact alone tells us little about the extent to which we should trust an estimate that is based on only one realized sample. A key advantage of random sampling is, however, that it allows us (in most cases) to obtain estimates of the variability of the sampling distribution and thus of the precision of our estimates from a single sample.^[While only random sampling allows for the characterization of sampling uncertainty, random sampling does not guarantee the ability to obtain uncertainty estimates [see @kish1965survey p.24 for a discussion]. A design that samples only one cluster at random, for example, would not allow for the construction of standard errors and confidence intervals.] Typically, these uncertainty estimates take the form of standard errors that can be used to construct confidence intervals. 
+
+For example, we may calculate a 95\% confidence interval for the average income. Even though we would not be certain that our particular sample estimate falls into the confidence interval, we would know that, were we to repeat the process of random sampling and confidence interval creation many times, 95\% of confidence intervals would contain the true population parameter. Of course, this statement presupposes that one has drawn a truly random sample. As will become clear below, random sampling is often difficult to implement in practice and, in many cases, remains an ideal that can only be approached. 
 
 2. What distinguishes random sampling and random assignment?
 ==
-- In randomized experiments, we use a random process to assign units from a pool of experimental subjects to several experimental conditions - in the easiest case to a treatment and a control condition. 
-- Key characteristic of an experiment: subjects have a known *assignment* probability that lies strictly between 0 and 1. 
-- Advantage of random assignment is that it facilitates inferences about causal effects. In many cases, the average causal effect of the treatment on some outcome is the target of inference. 
-- Experimental subject pool may or may not be a random sample of a population. In many cases, it is not.
-- Combining random sampling with random assignment: first draw a random sample, then assign random sample to treatment and control
-  - advantages:
-      - way to draw inferences not only about SATE but also about PATE.
-      - units that have not been sampled can serve as additional control units in the future
 
-[Maybe mention here the connection between assignment and sampling, i.e. assignment as sampling from treated and control potential outcomes? But maybe this blurs rather than accentuates the distinction.]
+The core feature of both random sampling and random assignment is that units are selected from some larger pool with known probabilities between zero and one. Yet, there are several key differences. In random sampling, units or elements are selected at random from a population in order to infer characteristics of the population from the sample. Random assignment, on the other hand, is used in experiments to allocate  units from a pool of experimental subjects to experimental conditions - in the easiest case to a treatment and a control group. The goal is to draw inferences about causal effects, typically the average causal effect of the treatment on some outcome (see ["10 Strategies for Figuring out if X Caused Y"](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y/) for details).^[On a deeper level, however, random assignment has much in common of with random sampling. The process of randomly assigning subjects to a treatment group, for example, can also be thought of as a process of drawing a random sample of treated potential outcomes in order to estimate the average treated potential outcome in the entire experimental subject pool. ]
+ 
+
+The subject pool of an experiment may or may not be a random sample from a larger population. In many cases, experiments rely on non-random convenience samples. Combining random sampling and random assignment, however, has important benefits. Suppose we first draw a random sample of subjects from a population and then assign some of these subjects to receive a treatment. That we used random assignment to allocate subjects to experimental conditions enables us to obtain an unbiased estimate of the average treatment effect among the subjects in our sample. That we randomly sampled our subjects from the population means that we can use our estimate of the average treatment effect in the sample to draw inferences about the average treatment effect in the population. In other words, experiments that are based on random samples offer straight forward ways to learn not only about sample average treatment effects (SATEs) but also about population average treatment effects (PATEs). 
+
+Another advantage of randomly sampling experimental subjects is that subjects who have not been sampled can serve as additional control units. To illustrate, consider again the population of six units from the stylized example above. Suppose we would like to conduct an experiment, but  we only have research funds to measure outcomes for four units. Hence, we randomly sample, say, units 1, 2, 3 and 5, and then randomly assign units 2 and 5 to treatment. In principle, the control group of our experiment consists of units 1 and 3. Units 4 and 6, however, by  virtue of not being sampled, have also been chosen to not receive the treatment through a random process with known probabilities. Hence, they can be used as additional control group units should more funds for outcome measurement become available at a later stage. 
+
+
 
 3. How to obtain a random sample?
 ==
