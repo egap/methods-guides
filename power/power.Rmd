@@ -105,10 +105,8 @@ stopifnot(all( (possible.ns %% 2)==0 )) ## require even number of experimental p
 powers <- rep(NA, length(possible.ns)) # Empty object to collect simulation estimates 
 alpha <- 0.05 # Standard significance level 
 sims <- 500 # Number of simulations to conduct for each N 
-
 #### Outer loop to vary the number of subjects #### 
 for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Pick the jth value for N 
-
   Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
   tau <- 5 # Hypothesize treatment effect 
   Y1 <- Y0 + tau # treatment potential outcome                                   
@@ -144,7 +142,7 @@ When it comes to statistical power, the only thing that that’s under your cont
 However, the number of subjects is not the only design choice that has consequences for power. There are two broad classes of design choices that are especially important in this regard.
 
 * Choice of estimator. Are you using difference-in-means? Will you be doing some transformation, such as a logit or a probit? Will you be controlling for covariates? Will you be using some kind of robust standard error estimator? All of these choices will make a difference for the statistical significance of your results, and therefore for the power of your experiment. One easy way to think about this is to imagine what command you’ll be running in R or Stata after the experiment has come back; that’s your estimator!
-* Randomization Protocol. What kind of randomization will you be employing? Simple randomization gives all subjects an equal probability of being in the treatment group, and then performs a (possibly weighted) coin flip for each. Complete randomization is similar, but it ensures that exactly a certain number will be assigned to treatment. Block randomization is even more powerful — it ensures that a certain number within a subgroup will be assigned to treatment. A restricted random assignment rejects some random assignments based on some set of criteria — lack of balance perhaps. These various types of random assignment can dramatically increase the power of an experiment at no extra cost. Read up on randomization protocols here.
+* Randomization Protocol. What kind of randomization will you be employing? Simple randomization gives all subjects an equal probability of being in the treatment group, and then performs a (possibly weighted) coin flip for each. Complete randomization is similar, but it ensures that exactly a certain number will be assigned to treatment. Block randomization is even more powerful — it ensures that a certain number within a subgroup will be assigned to treatment. A restricted random assignment rejects some random assignments based on some set of criteria — lack of balance perhaps. These various types of random assignment can dramatically increase the power of an experiment at no extra cost. Read up on randomization protocols [here](https://egap.org/resource/10-things-to-know-about-randomization/).
 
 There are too many choices to cover in this short article, but check out the Simulation for Power Analysis code page for some ways to get started. But to give a flavor of the simulation approach, consider how you would conduct a power analysis if you wanted to include covariates in your analysis.
 
