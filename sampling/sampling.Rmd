@@ -10,12 +10,12 @@ output:
 <!-- author: "Methods Guide Author: Anna M. Wilke" -->
 
 [Add introduction]
-- define target population and elements in intro
+- define target population, elements (observation unit) and sample in intro (see p. 3 in Lohr)
 
 1.	What is random sampling?
 ==
 
-Random sampling, also referred to as probability sampling, is one way of selecting a sample of elements from a population. The key characteristic of random sampling is that each element in the population has a *known* and *non-zero* probability of being included in the sample. This goal is achieved by using some randomization mechanism -- be it a coin flip, a random number table, or a computer program -- to decide which elements of the population are going to be part of the sample. 
+Random sampling, also referred to as probability sampling, is one way of selecting a sample of elements from a target population. The key characteristic of random sampling is that each element in the population has a *known* and *non-zero* probability of being included in the sample. This goal is achieved by using some randomization mechanism -- be it a coin flip, a random number table, or a computer program -- to decide which elements of the population are going to be part of the sample. 
 
 To make matters concrete, suppose that our target population consists of six elements:
 $$U = \{1, 2, 3, 4, 5, 6\}$$
@@ -71,58 +71,70 @@ ggplot(plot_data, aes(x = estimates)) +
 
 The figure above plots the distribution of income estimates that results from the 15 possible samples. This distribution is called the *sampling distribution*. As shown by the blue dashed line, the average estimate across all possible samples coincides with the true population parameter of $\sim 32$. In other words, if we were to  repeat the sampling procedure many times and estimate the average income every time, we would be correct on average. Of course, this fact alone tells us little about the extent to which we should trust an estimate that is based on only one realized sample. A key advantage of random sampling is, however, that it allows us (in most cases) to obtain estimates of the variability of the sampling distribution and thus of the precision of our estimates from a single sample.^[While only random sampling allows for the characterization of sampling uncertainty, random sampling does not guarantee the ability to obtain uncertainty estimates [see @kish1965survey p.24 for a discussion]. A design that samples only one cluster at random, for example, would not allow for the construction of standard errors and confidence intervals.] Typically, these uncertainty estimates take the form of standard errors that can be used to construct confidence intervals. 
 
-For example, we may calculate a 95\% confidence interval for the average income. Even though we would not be certain that our particular sample estimate falls into the confidence interval, we would know that, were we to repeat the process of random sampling and confidence interval creation many times, 95\% of confidence intervals would contain the true population parameter. Of course, this statement presupposes that one has drawn a truly random sample. As will become clear below, random sampling is often difficult to implement in practice and, in many cases, remains an ideal that can only be approached. 
+For example, we may calculate a 95\% confidence interval for the average income. Even though we would not be certain that our particular sample estimate falls into the confidence interval, we would know that, were we to repeat the process of random sampling and confidence interval creation many times, 95\% of confidence intervals would contain the true population parameter. 
 
 2. What distinguishes random sampling and random assignment?
 ==
 
-The core feature of both random sampling and random assignment is that units are selected from some larger pool with known probabilities between zero and one. Yet, there are several key differences. In random sampling, units or elements are selected at random from a population in order to infer characteristics of the population from the sample. Random assignment, on the other hand, is used in experiments to allocate  units from a pool of experimental subjects to experimental conditions - in the easiest case to a treatment and a control group. The goal is to draw inferences about causal effects, typically the average causal effect of the treatment on some outcome (see ["10 Strategies for Figuring out if X Caused Y"](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y/) for details).^[On a deeper level, however, random assignment has much in common of with random sampling. The process of randomly assigning subjects to a treatment group, for example, can also be thought of as a process of drawing a random sample of treated potential outcomes in order to estimate the average treated potential outcome in the entire experimental subject pool. ]
+The core feature of both random sampling and random assignment is that units are selected from some larger pool with known probabilities between zero and one. Yet, there are several key differences. In random sampling, units or elements are selected at random from a population in order to infer characteristics of the population from the sample. Random assignment, on the other hand, is used in experiments to allocate  units from a pool of experimental subjects to experimental conditions - in the easiest case to a treatment and a control group. The goal of random assignment is to draw inferences about causal effects, typically the average causal effect of the treatment on some outcome (see ["10 Strategies for Figuring out if X Caused Y"](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y/) for details).^[On a deeper level, however, random assignment has much in common of with random sampling. The process of randomly assigning subjects to a treatment group can be thought of as a process of drawing a random sample of treated potential outcomes in order to estimate the average treated potential outcome in the entire experimental subject pool [@splawa1990application]. ]
  
 
-The subject pool of an experiment may or may not be a random sample from a larger population. In many cases, experiments rely on non-random convenience samples. Combining random sampling and random assignment, however, has important benefits. Suppose we first draw a random sample of subjects from a population and then assign some of these subjects to receive a treatment. That we used random assignment to allocate subjects to experimental conditions enables us to obtain an unbiased estimate of the average treatment effect among the subjects in our sample. That we randomly sampled our subjects from the population means that we can use our estimate of the average treatment effect in the sample to draw inferences about the average treatment effect in the population. In other words, experiments that are based on random samples offer straight forward ways to learn not only about sample average treatment effects (SATEs) but also about population average treatment effects (PATEs). 
+The subject pool of an experiment may or may not be a random sample from a larger population. In many cases, experiments rely on convenience samples. Combining random sampling and random assignment, however, has important benefits. Suppose we first draw a random sample of subjects from a population and then randomly assign some of these subjects to receive a treatment. That we used random assignment to allocate subjects to experimental conditions enables us to obtain an unbiased estimate of the average treatment effect among the subjects in our sample. That we randomly sampled our subjects from the population means that we can use our estimate of the average treatment effect in the sample to draw inferences about the average treatment effect in the population. In other words, experiments that are based on random samples offer straightforward ways to learn not only about sample average treatment effects (SATEs) but also about population average treatment effects (PATEs). 
 
-Another advantage of randomly sampling experimental subjects is that subjects who have not been sampled can serve as additional control units. To illustrate, consider again the population of six units from the stylized example above. Suppose we would like to conduct an experiment, but  we only have research funds to measure outcomes for four units. Hence, we randomly sample, say, units 1, 2, 3 and 5, and then randomly assign units 2 and 5 to treatment. In principle, the control group of our experiment consists of units 1 and 3. Units 4 and 6, however, by  virtue of not being sampled, have also been chosen to not receive the treatment through a random process with known probabilities. Hence, they can be used as additional control group units should more funds for outcome measurement become available at a later stage. 
+Another advantage of randomly sampling experimental subjects is that subjects who have not been sampled can serve as additional control units. To illustrate, consider again the population of six units from the stylized example above. Suppose we would like to conduct an experiment, but  we only have research funds to measure outcomes for four units. Hence, we randomly sample, say, units 1, 2, 3 and 5, and then randomly assign units 2 and 5 to treatment. In principle, the control group of our experiment consists of units 1 and 3. Units 4 and 6, however, by  virtue of not being sampled, have also been chosen to not receive the treatment through a random process. Hence, they can be used as additional control group units should more funds for outcome measurement become available at a later stage. 
 
 
 
 3. How to obtain a random sample?
 ==
 
-- Move from the "target population" to a sampling frame - a list of elements or units of elements
-  - sampling frames are rarely perfect, may suffer from over- and undercoverage - see Kish (1965) and Groves et al. (2009) for ways to improve imperfect sampling frames
-- Use sampling frame to randomly select elements 
-- Different ways to randomly sample elements from a sampling frame (many have analogues in ways in which subjects can be assigned to treatment - see guide on 10 things on randomization)
-  - Simple Random Sampling/EPSEM (Equal Probability Selection Method) 
-  - Stratification 
-  - Clustering
-  - Multi-stage sampling
-  - Systematic sampling
+Obtaining a random sample is rarely as straightforward as the above description makes it seem. In practice, the *survey population* -- the set of elements for which data can realistically be collected -- is often more restrictive than the *target population*. For example, the target population may consist of all adults who reside in a given country, but it may be infeasible to sample certain groups like prisoners or residents of areas with a difficult security situation.
 
-4. What to do if there does not exist a sampling frame?
+The first step in random sampling is to acquire a *sampling frame*, a set of materials that are used to identify the elements of the target  population. In its simplest form, a sampling frame may be a list of elements. Sampling frames are rarely perfect and tend to be one the sources of differences between the target and survey population. Sampling frames may suffer from both undercoverage (elements that are part of the target population are missing from the sampling frame) and overcoverage (the sampling frame includes elements that are not part of the population). See @kish1965survey[chapter 2] and @groves2011survey[chapter 3] for more on sampling frame issues and how to remedy them.
+
+Depending in part on the nature of the sampling frame, there are different ways to randomly sample elements. Many of these have analogues among the ways in which subjects can be randomly assigned to experimental conditions (see ["10 Things to Know About Randomization"](https://egap.org/resource/10-things-to-know-about-randomization/)): 
+
+## Simple Random Sampling
+
+Simple random sampling is the most basic survey design. In this design, each sample of size $n$ and hence each element has the same probability of being sampled. One way of drawing a simple random sample of size $n$ from a sampling frame with $N$ elements is to enumerate all possible samples of size $n$ and randomly select one of them. This is the procedure described in the example above. However, this approach tends to be impractical in real world application, since actual populations will be much larger than $N=6$ and the number of possible samples will thus be vast. An alternative procedure is to number all elements from 1 to $N$, to generate $n$ random numbers and to select the corresponding elements.
+
+
+## Stratification 
+
+Suppose we know upfront that the characteristic in which we are interested varies across sub-populations. For example, if we aim to estimate average income, we may suspect that men earn more than women. If we draw a simple random sample, it is possible that we end up with a sample that contains way more women than men. In this case, our average income estimate is likely to be misleading. A way to guard against this possibility is to divide the population into subgroups, also called *strata*, and draw an independent random sample in each stratum. For example, we may draw an independent random sample of women and and one of men. This procedure fixes the proportion of women and men in the sample, thereby guarding against "bad" samples and improving the pricision of our estimates. Being able to ensure that the sample contains enough elements from a particular sub-population is also helpful if estimates among the sub-population are of independent interest. If we would like to estimate the gender pay gap, for example, we need a sample that contains enough men and women to obtain sufficiently precise estimates of each group's average income. 
+
+
+## Clustering
+
+Suppose we would like to estimate the average income among residents of a city. Our sample frame may not identify individual residents but we may  have access to a list of households. Instead of directly sampling residents, we can randomly select households and interview all members of the selected households. In this case, the *primary sampling units* -- the units that can be selected -- differ from the elements on which measurements are taken. Households serve as PSUs or *clusters*, while household members serve as elements.  Cluster sampling has one core downside. To the degree that elements within clusters are similar, cluster sampling will lead to a loss in precision. For example, members of the same household may have similar incomes or views.  Nonetheless, cluster sampling may be necessary if sampling frames of individual elements cannnot be obtained.  That said, cluster sampling may also save survey costs. For example, suppose we would like to estimate household-level income. Simple random sampling may lead to a sample of households that is dispersed throughout the city, which increases transportation costs. Instead, we may select entire blocks and interview all households within the selected blocks. Doing so may make it possible to interview more hosueholds with a smaller budget. Whether or not the gain in precision from a bigger sample size outweights the loss in precision from clustering will depend on the degree to which households within the same block are similar in terms of income. 
+
+
+## Multi-stage sampling
+
+Instead of sampling all elements in a cluster, one may draw a sub-sample of elements. For example, instead of interviewing all members, one could sample two members in each sampled household. Additional stages can be added to this approach. For example, we could first draw a sample of blocks, then a sub-sample of households within each sampled block and finally a sub-sample of household members within each sampled household. In this example, households would be referred to as *secondary sampling units* and household members as *tertiary sampling units*. One advantage of multi-stage sampling is that it allows researchers to navigate the trade-off between precision and cost-effectiveness presented by the choice between cluster sampling and simple random sampling. Increasing the number of clusters and sub-sampling fewer elements per cluster can yield a more diverse sample and hence reduce sampling variability. Yet, doing so may also increase survey costs. 
+
+4. What to do if there does not exist an obvious sampling frame?
 ==
 
-- In many cases, a sampling frame does not exist. Mostly the case for field experiments in developing country settings.
-- In practice, people often rely on some variant of multi-stage area sampling - e.g. randomly select districts, within districts, randomly select villages, within villages, randomly select households, within households, randomly select members
-  - Problem 1: lists may exist (e.g. from census or administrative units) all the way to village selection stage, but lists of households in villages are rare in developing country settings. 
-    - Popular Solutions:
-        - A) Random walk procedure
-          - cheap
-          - yet,  difficult to implement in practice
-          - unlikely to approximate a random sample
-        - B) Conduct a listing of households, sample households, conduct a listing of household members and then sample members
-          - more expensive, yet note that only households in sampled villages (and members of sampled households) have to be listed
-          - still not that easy (e.g. what is a household?)
-          - yet, much more likely to approximate a random sample
-          - lists can be re-used for some time in the future, esp. in places with low mobility (list as a public good)
-  - Problem 2: Boundaries of the smallest area unit (e.g. village) may not be well defined or smallest units may still be too big/impractical
-    - Creative solutions:
-      - Make your own units (e.g. Scacco in Nigeria or Green et al. in Uganda), for example using satellite imagery 
-      - List households within those units
-      
+In many cases, an obvious sampling frame in the form of a list of elements or clusters of elements does not exist, especially when it comes to survey research in developing contexts. In practice, researchers therefore often rely on some variant of multi-stage *area sampling*. For example, they may first randomly sample districts, then randomly select villages within districts, then households within villages and finally individuals within households. Lists of administrative units often exist at higher levels of aggregation, but the problem of non-existent lists of appropriate sampling units kicks in for the more fine-grained stages of the process. The advantage of the multi-stage approach is that such lists only have to be created for units that have actually been sampled. Listing all households in a country, for example, may be infeasible. Listing all households in villages that have entered the sample at the previous stage, however, may be realistic. 
+
+*Create your own sampling units.* 
+
+
+Irrespective of whether the next larger sampling unit was pre-existing or self-created, lists of households within those sampling units rarely exist. Two popular solutions to this problem are to use a *random walk procedure* or to conduct a *household listing*.
+
+*Random walk procedure.* Enumerators are given (possibly randomly selected) starting points and are instructed to follow a particular walk pattern, e.g. "walk to the right and conduct an interview in every fifth dwelling." The main advantage of this approach is its cost effectiveness. No listing of households beyond those that enter the sample is required. Yet, a random walk procedure may not yield a particularly good approximation to a random sample. First, even though it is often treated as a way to select a simple random sample, a random walk procedure in fact introduces geographic clustering. The walk pattern above, for example, implies that neighboring houses can never both be sampled and that once a particular household is sampled, the one that lives five houses down the road will be sampled as well. See @lohr2009sampling[chapter 5.5] for more on the consequences of this kind of clustering. Second, even if starting points are, say, randomly chosen geo-coordinates, the probability of being sampled may vary across hosueholds due to geographic pacticularities, such as the street layout, density of dwellings etc. If selection  probabilities are not known to the researcher but correlated with the population characteristic of interest, bias will result. Finally, a random walk procedure is difficult to implement in practice. One problem is that enumerators typically select households and conduct interviews in one step. This procedure increases the incentives of enumerators to informally replace households that are reluctant or unavailable -- a practice that can only be detected through intensive monitoring. 
+
+*Household listing.* The more principled yet also more expensive option is to create a list of all households in the sampling unit so that households can be randomly selected from this list prior to the start of the survey. A listing exercise can be expensive, but is also more likely to allow the researcher to approximate a  random sample. Sampling from a full list of households avoids problems of geographic clustering and unknown sampling probabilities. Moreover, separating the listing from the enumeration step makes it easier to guard against unwarrented replacements. At the listing stage, enumerators have fewer incentives to skip houses, since it is not yet clear whether a household will cooeprate at the survey stage. That a record of all households in and outside the sample exists prior to the start of survey activities can also make it easier to  detect instances in which enumerators interviewed the incorrect household. Finally, possibilities for cost-sharing exist, since lists may be re-used for random sampling in the future, at least in places where mobility is low. 
+
+In both options, the final step is usually a listing of household members. 
+
+        
 5. What to consider when putting a sampling strategy into practice?
 ==
 
-- Drawing a truly random sample is hard! Many unforeseen problems can occur and these are often context-specific. Hence, pre-testing one's sampling strategy is at least as if not more important than pre-resting one's questionnaire. Examples of difficulties that one may be able to discover and address during a pre-test:
+Putting andom sampling into practice is extremely difficult. Many unforeseen problems can occur and these are often context-specific. Hence, pre-testing one's sampling strategy is at least as if not more important than pre-resting one's questionnaire. Here are some examples of difficulties that one may be able to discover and address during a pre-test:
+
   - Definitions of "dwelling" or "household" can vary across contexts. Important to clarify the definition and find ways to deal with edge cases.
   - Familiarity with and ability to read maps may vary across contexts. When working with satellite imagery, it may be important to highlight landmarks. 
   - When sampling household members, these are often identified by gender and age (first invented by Kish 1965). In some contexts, households members may not know their age or birthday, in which case some other marker should be used.
