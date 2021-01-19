@@ -1,3 +1,4 @@
+
 ---
 output: 
   html_document:
@@ -19,17 +20,16 @@ There are many ways to randomize. The simplest is to flip a coin each time you w
 
 This is not a bad approach but it has shortcomings. First, using this method, you cannot know in advance how many units will be in treatment and how many in control. If you want to know this, you need some way to do selections so that the different draws are not statistically independent from each other (like drawing names from a hat). Second, you may want to assert control over the exact share of units assigned to treatment and control.  That’s hard to do with a coin. Third, you might want to be able to replicate your randomization to show that there was no funny business. That’s hard to do with coins and hats. Finally, as we show below, there are all sorts of ways to do randomization to improve power and ensure balance in various ways that are very hard to achieve using coins and hats. 
 
-Fortunately though, flexible replicable randomization is very easy to do with freely available software. The following simple R code can, for example, be used to generate a random assignment, specifying the number of units to be treated. Here, N is the number of units you have and m is the number you want to treat. The “seed” makes it possible to replicate the same draw each time you run the code (or you can change the seed for a different draw).[^1]
+Fortunately though, flexible replicable randomization is very easy to do with freely available software. The following simple R code can, for example, be used to generate a random assignment, specifying the number of units to be treated. Here, N (100) is the number of units you have and m (34) is the number you want to treat. The “seed” makes it possible to replicate the same draw each time you run the code (or you can change the seed for a different draw).[^1] [^2]
 
 [^1]: Random number generators are actually pseudo-random because they generate a vector of random numbers based on a small set of initial values, known as a seed state. Random number generators operate this way in order to improve computational speed. However, the series of random numbers generated is as random as you need to it to be for the purposes of random assignment because it is wholly unrelated to the potential outcomes of your subjects.
 
+[^2]: All code chunks updated by Alex Coppock on 25 November, 2020.
+
 ```{r, error=FALSE, message=FALSE, warning=FALSE, results='hide'}
-ra <- function(N,m,seed){
- set.seed(seed)
- assign <- cbind(1:N, 1:N %in% sample(1:N,m))
- return(assign)
- }
-ra(100,34,seed=1000)
+library(randomizr)
+set.seed(343)
+complete_ra(100, 34)
 ```
 
 2 Block randomization: You can fix it so that treatment and control groups are balanced
@@ -47,32 +47,38 @@ The [blockTools package](https://cran.r-project.org/web/packages/blockTools/inde
 Suppose we would like to block on gender. Based on our data, blockTools will generate the smallest possible blocks, each a grouping of two units with the same gender, one of which will be assigned to treatment, and one to control.
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
-rm(list=ls())
+rm(list = ls())
+
 library(blockTools)
-id <- seq(1:60)
-female <- sample(c(rep(0, 36), rep(1, 24)))
-dta <- as.data.frame(cbind(id, female))
-head(dta)
- 
-set.seed(20140404)
-block.out <- block(data = dta, n.tr = 2,id.vars ="id", algorithm="randGreedy",
-                   block.vars = "female", verbose=TRUE) # blocks on female
-assign.out <- assignment(block.out) # reports treatment assignment
-assign.out
- 
-# now we need to extract, for each unit, its treatment status and block ID
-dta$Z <- as.numeric(is.element(1:length(id), as.numeric(as.character(unlist(assign.out$assg[[1]]["Treatment 1"]))))) # creates a vector of treatment assignments
-dta$block <- createBlockIDs(block.out, dta, id.var = "id") # creates a vector of block IDs
-head(dta)
- 
-# we can see that we have 30 blocks of 2 in which both units are of the same gender
-# and one is assigned to each treatment status
-head(table(dta$block, dta$female))
-head(table(dta$block, dta$Z))
- 
-# finally, we can see that there is a gender balance in treatment assignment
-table(dta$Z, dta$female)
-summary(lm(dta$Z ~ dta$female)) # our p-value is 1
+library(dplyr)
+library(randomizr)
+
+dat <-
+  tibble(
+    id = seq(1:60),
+    female = c(rep(0, 36), rep(1, 24)),
+    age = sample(18:65, size = 60, replace = TRUE)
+  )
+
+# one covariate block
+
+dat <-
+  dat %>%
+  mutate(Z_block_1 = block_ra(female))
+
+with(dat, table(female, Z_block_1))
+
+# matched quartets
+out <- block(dat, n.tr = 4, id.vars = "id", 
+             block.vars = c("female", "age"))
+
+dat <-
+  dat %>%
+  mutate(
+    block_id = createBlockIDs(out, dat, id.var = "id"),
+    Z_block_2 = block_ra(block_id))
+
+with(dat, table(Z_block_2, block_id))
 ```
 
 You can check the mean of the variable on which you blocked for treatment and control to see that treatment and control groups are in fact perfectly balanced on gender.
@@ -88,50 +94,13 @@ Factorial designs are especially useful when evaluating interventions that inclu
 The following code shows you how to randomize for a factorial design.
 
 ```{r, results='hide'}
-# a simple way to do a factorial design is to define your different treatment arms
-# and specify the number you would like to treat with each treatment arm
-my.arms <- c("Loan", "Training")
-my.n.arms <- c(40, 40)
-factorial.ra <- function(N,arms,n.arms){
-  assign <- matrix(NA, nrow=N, ncol=length(arms))
-  for (i in 1:length(arms)) {
-    assign[,i] <- ifelse(1:N %in% sample(1:N,n.arms[i]),1,0)
-  }
-  colnames(assign) <- my.arms
-  return(assign)
-}
-assign <- factorial.ra(100,my.arms,my.n.arms)
-sum(assign[,"Loan"]==1 & assign[,"Training"]==1)
-sum(assign[,"Loan"]==1 & assign[,"Training"]==0)
-sum(assign[,"Loan"]==0 & assign[,"Training"]==1)
-sum(assign[,"Loan"]==0 & assign[,"Training"]==0)
- 
-# the following code will allow you to specify the number of subjects you would
-# like to receive each combination of treatment arms.
-# whereas previously we conceived of two treatment arms--loans and training--
-# here we conceive of four treatment arms--loans+training, loans, training, and control.
-groupsizes = c(20, 20, 20, 40)
-multiple.arms.ra <- function(n, num_arms, groupsizes=NULL){
-  indices <- 1:n
-  assign <- rep(NA, n)
-  if (is.null(groupsizes)){
-    for (i in 1:num_arms){
-      chosen  <- sample(indices, (n/num_arms))
-      assign[chosen] <- paste0("T",i)
-      indices <- indices[!indices %in% chosen]
-    }
-    return(assign)
-  }
-  for (i in 1:length(groupsizes)){
-    chosen <- sample(indices, groupsizes[i])
-    assign[chosen] <- paste0("T",i)
-    indices <- indices[!indices %in% chosen]
-  }
-  return(assign)
-}
-multiple.arms.ra(100, num_arms=4, groupsizes)
-# we would assign loans+training to "T1", loans to "T2", training to "T3", and control to "T4"
-# in expectation, the factorial randomization code and the multiple arms code will produce identical results
+dat <-
+  tibble(
+    Z_loan = complete_ra(80, 40),
+    Z_training = block_ra(blocks = Z_loan)
+  )
+
+with(dat, table(Z_loan, Z_training))
 ```
 
 4 You can randomize whole clusters together (but the bigger your clusters, the weaker your power!)
@@ -168,32 +137,23 @@ The first way is to estimate the average treatment effect block by block and the
 The second way is inverse probability weighting (IPW). In IPW, weights are defined as the 1/p for treated units and 1/(1-p) for control units, where p refers to the probability of assignment to treatment. This method allows you to run a weighted regression of Y on treatment assignment.
 
 ```{r, results='hide'}
-# Let's generate some fake data by generating a full schedule of potential outcomes with a treatment effect of 10,000.
-n <- 100000
-Y0 <- 1:n
-Y1 <- Y0+10000
- 
-# Now let's suppose that our subjects have varying probabilities of assignment to treatment.
-# In this example, the probabilities are correlated with potential outcomes because our potential outcomes increase with subject ID by construction.
-# Here units with higher values of Y0 and Y1 are more likely to be treated.
-# This is similar to the scenario in which rural elections that are less likely to receive treatment also have correlated electoral potential outcomes.
-p <- .25+(1:n)/(2*n)
- 
-# Now we randomly assign treatment
-Z <- runif(n)<p
- 
-# and observe our outcome data.
-Y <- Z*Y1 + (1-Z)*Y0
- 
-# A naive estimate of the treatment effect would take the difference between treatment and control means.
-naive.estimate <- mean(Y[Z]) - mean(Y[!Z])
-naive.estimate
-# This is much greater than the true treatment effect of 10,000 because we are pooling our data without accounting for varying probabilities of treatment assignment.
- 
-# The IPW estimate takes the difference between weighted treatment and control means
-ipw.estimate <- weighted.mean(Y[Z], 1/p[Z]) - weighted.mean(Y[!Z], 1/(1-p[!Z]))
-ipw.estimate
-# This is quite close to the true treatment effect of 10,000.
+N <- 100000
+dat <- tibble(Y0 = 1:N,
+              Y1 = Y0 + 10000)
+
+dat <-
+  dat %>%
+  mutate(
+    p = seq(0.25, 0.75, length.out = N),
+    Z = simple_ra(N, prob_unit = p),
+    Y = Z * Y1 + (1 - Z) * Y0)
+  
+dat %>%
+  summarise(
+    naive_estimate = mean(Y[Z == 1]) - mean(Y[Z == 0]),
+    ipw_estimate = weighted.mean(Y[Z == 1], 1 / p[Z == 1]) -
+      weighted.mean(Y[Z == 0], 1 / (1 - p[Z == 0]))
+  )
 ```
 
 7 Restricted randomization: If you don’t like what you get you can start over
@@ -206,74 +166,23 @@ A benefit of using R code to randomize is that you can perform thousands of poss
 
 1. It can be useful as a way to check whether your randomization code worked. For example, if one or more subjects in your experiment never received treatment over 10,000 possible random assignments, then you would suspect a flaw in your randomization code.
 2. You can use re-randomization to calculate the exact probability of assignment to treatment for each individual in your experiment. This is especially helpful if your randomization code is more complex. Perhaps you employ both block and cluster randomization, resulting in greatly different probabilities of assignment to treatment for individuals in a large experiment. These probabilities would be difficult to calculate by hand, but an easy solution is to run your original randomization code many times and generate a variable representing each individual’s proportion of times they were assigned to treatment: this represents his or her individual probability of assignment to treatment. This variable can then be used in a weighted regression when calculating the average treatment effect.
-3. Simulating possible randomizations is a design-based approach to calculating statistical significance. This approach, called randomization inference, generates an exact p-value by calculating possible average treatment effects that would be observed under hypothetical random assignments if in fact the treatment had no effect. The p-value is then the proportion of the estimated treatment effects that is at least as large in magnitude as the one that your experiment observed. This approach is preferable to standard calculations of statistical significance when the distribution of your data is not normal because randomization inference avoids making distributional assumptions and instead uses distribution of data observed in your experiment.
-
-The following code demonstrates how to replicate randomization code an arbitrary number of times, how to calculate an individual unit’s probability of assignment to treatment based on these simulations, and how to use randomization inference to calculate a p-value.
-
-```{r, results='hide', fig.keep='none'}
-# define our  random assignment function
-ra <- function(N,m,seed){
-  set.seed(seed)
-  assign <- ifelse(1:N %in% sample(1:N,m),1,0)
-  return(assign)
-}
-ra(100,34,seed=1000)
- 
-# randomize treatment for our experiment
-Z <- ra(100, 34, seed=20140404)
- 
-# re-randomize 10,000 (arbitrary number) times in order to see many possible randomizations
-perm <- sapply(1:10000, function(x) sample(Z))
- 
-# we can use this to calculate each subject's probability of assignment to treatment
-rowSums(perm)/10000     # in this example, all of our subjects have about the same probability of assignment to treatment
- 
-# we can use these simulated randomizations to perform randomization inference
- 
-# we define a function to calculate a treatment effect for any assignment to treatment
-ate <- function(X) (mean(Y[X==1]) - mean(Y[X==0]))
- 
-# we create a set of fake data with a treatment effect of .5
-Y <- rnorm(100)
-Y <- ifelse(Z==1, Y+.5, Y)
-ate(Z)
- 
-# Now we use our ate function to calculate the treatment effect for each permutation
-# of assignment to treatment
-distribution <- apply(perm, 2, ate)
- 
-# Our p-value will be the proportion of these treatment effects that is
-# greater than or equal to the treatment effect estimated in our experiment
-# Note that this is a "one sided" hypothesis test that asks "what are the chances that
-# we would see such a LARGE effect if in fact there was none"
-p <- mean(ate(Z)<=distribution)
-p
- 
-# We can see this visually by plotting all 10000 treatment effects and mark where
-# the treatment effect estimated in our experiment falls in this distribution.
-# Delete the hashtags on the lines beginning "pdf" and "dev.off" to save your histogram in a pdf
-#pdf(file="Plot.pdf")
-par(mfrow=c(1,1))
-hist(distribution, main=paste("Distribution of estimated TEs, p=", p))
-abline(v=ate(Z),col="red")
-#dev.off()
-```
+3. Simulating possible randomizations is a design-based approach to calculating statistical significance. This approach, called randomization inference, generates an exact p-value by calculating possible average treatment effects that would be observed under hypothetical random assignments if in fact the treatment had no effect. The p-value is then the proportion of the estimated treatment effects that is at least as large in magnitude as the one that your experiment observed. This approach is preferable to standard calculations of statistical significance when the distribution of your data is not normal because randomization inference avoids making distributional assumptions and instead uses distribution of data observed in your experiment. For more information on randomization inference, including sample code, visit the [10 Things to Know About Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference/) Methods Guide.
 
 9 You can do randomization as you go along
 ==
 In many experiments, you may not know the entirety of your sample at the beginning of the experiment; some subjects may join over time. This presents a complication when we want to use a simple blocking algorithm because the addition of subjects to our pool may change the composition of our blocks and therefore their probabilities of assignment to treatment.
 
-To maintain the ability to block and therefore the ability to assert control over the balance between treatment and control groups, you can use covariates to calculate a new subject’s similarity to other previously assigned subjects and assign the new subject to the treatment condition with fewer similar units.[^2]
+To maintain the ability to block and therefore the ability to assert control over the balance between treatment and control groups, you can use covariates to calculate a new subject’s similarity to other previously assigned subjects and assign the new subject to the treatment condition with fewer similar units.[^3]
 
-[^2]: For more, see Moore, Ryan T., and Sally A. Moore. “Blocking for sequential political experiments.” Political Analysis 21.4 (2013): 507-523.
+[^3]: For more, see Moore, Ryan T., and Sally A. Moore. “Blocking for sequential political experiments.” Political Analysis 21.4 (2013): 507-523.
 
 10 Randomization can sometimes be an ethical way of assigning a treatment, but sometimes it isn’t
 ==
 Randomization is the key ingredient for isolating the causal effect of a treatment from a research design perspective, but it is also important to consider the ethical implications of randomization as well. When we think about the long-term effects of an experiment, randomization enables us to test which programs are most effective so that resources can be directed to programs that make the most difference in the lives of future populations. In the short term, randomizing access to a program (as opposed to distributing based on arbitrary characteristics) can be a particularly ethical way of distributing scarce goods that cannot be extended to everyone.
 
-However, sometimes, it is the neediest populations that need to be served by an intervention in an experiment. A randomized design that treats equal numbers of low-income and high-income participants with loans is letting resources flow to less rather than more needy individuals. If we believe there are beneficial effects of the loan, then this raises concerns about the ethics of allocating resources away from the neediest.[^3] One would need a strong case for social benefits of the research and would also seek designs that provide benefits ultimately to control groups.
+However, sometimes, it is the neediest populations that need to be served by an intervention in an experiment. A randomized design that treats equal numbers of low-income and high-income participants with loans is letting resources flow to less rather than more needy individuals. If we believe there are beneficial effects of the loan, then this raises concerns about the ethics of allocating resources away from the neediest.[^4] One would need a strong case for social benefits of the research and would also seek designs that provide benefits ultimately to control groups.
 
-[^3]: But if we are certain about the loan’s effects, then it’s also unclear why we are running an experiment to test it. In medical research, randomized controlled trials often stop if it becomes clear early on that a drug is undoubtedly curing life-threatening diseases, and therefore withholding it from control subjects is dangerous. (Similarly, a trial would also stop if it were clear early on that a drug is undoubtedly causing negative and harmful effects.)
+[^4]: But if we are certain about the loan’s effects, then it’s also unclear why we are running an experiment to test it. In medical research, randomized controlled trials often stop if it becomes clear early on that a drug is undoubtedly curing life-threatening diseases, and therefore withholding it from control subjects is dangerous. (Similarly, a trial would also stop if it were clear early on that a drug is undoubtedly causing negative and harmful effects.)
 
 A wait list randomization design is one way of treating an entire subject pool while enabling the researcher to test the effectiveness of the treatment experimentally. In this design, the program could roll out the intervention in phases and randomly assign the units to the phase in which they will be treated. For example, if a program wanted to treat 90 villages in total, it could treat 30 villages each year, and measure outcomes at the end of each year. If you wanted to compare outcomes in treatment and control villages, you would compare the 30 treated villages to the 60 yet-untreated villages at the end of the first year. At the end of the second year, you could compare the 30 villages that were treated in the previous year to the 30 villages that are yet-untreated. Essentially, this creates two experiments, identical but for the year’s time that separates them. In the table below, you can see that in the first year, we could compare the dark blue treatment group to the two light blue control groups. In the second year, we could compare the dark red treatment group to the light red treatment group, but we would want to avoid pooling the two treatment groups because one has been treated for longer than the other. You can see that after the third year, no more comparisons may be made because all units have been treated.
 
@@ -282,4 +191,3 @@ A wait list randomization design is one way of treating an entire subject pool w
 The only requirement is that a subject’s assignment to treatment in a particular phase is randomly assigned and unrelated to their potential outcomes of interest. A design in which more eager participants received treatment earlier would violate this assumption and would not yield an unbiased estimate of the treatment effect, as unobserved factors that predispose them to seeking out treatment may be influencing their schedule of potential outcomes. The wait list design is an example of a creative randomization design that could address ethical concerns about limiting the distribution of a valuable treatment.
 
 Ethics are often highly intertwined with randomized designs, especially in social science and medical research. As a researcher, you should carefully consider the possible implications of randomizing any given treatment. You will also need to solicit approval for your research design from your research institution’s Institutional Review Board (IRB).
-
