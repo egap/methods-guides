@@ -188,14 +188,13 @@ The two-phase sampling approach is based on the core insight that concentrating 
 9. How to sample difficult-to-reach populations?
 ==
 
-- Difficult to draw a random sample of populations that are rare
-- Inferential target is often the prevalence of some characteristic among the target population or the size of the difficult-to-reach population itself
-- Respondent-driven-sampling as one solution to this problem
-- Procedure: Start with a non-random initial sample, hand out coupons through which respondents in initial sample can recruit more respondents
-- The ideas is that conducting many waves reduces the influence of the initial non-random sample
-- Still does not yield a probability sample because probabilities of selection are not known
-- Various approximations exist, most common one thinks of sampling process as a random walk. Implies that  unconditional probabilities of selection are proportional to number of network ties. The latter can be elicited and  used for weighting.
-- This model is known to be false in many ways (e.g. presumes sampling with replacement). Gile et al. 2018 describe a range of subsequent approaches that seek to relax the problematic assumptions. 
+Populations that are rare or stigmatized are difficult to study through random sampling. The inferential target in studies of difficult-to-reach population is often the prevalence of some characteristic among the target population or the size of the population itself. The rate of HIV infections among injecting drug users and the size of the population of sex workers are classic examples. Sampling frames are not generally available for such groups and a random sample of the general population is likely to contain an insufficient number of their members. Respondent-driven-sampling (RDS) has emerged as one prominent solution to this problem.^[See @lohr2009sampling[chapter 14] for an overview of other approaches and @tran2015sampling for a comparison of RDS to time-location sampling as a major alternative.] 
+
+The core advantage of RDS is that it makes use of the social network ties that link members of the target population to facilitate sampling. The sampling process starts with an initial non-random sample. Respondents in this initial sample are given a fixed number of coupons which they can hand out to their contacts in the target population. In subsequent waves of sampling, respondents are recruited through the coupons that are given to them by respondents in the previous wave. Typically, respondents are compensated for every additional respondent whom they recruit. The idea is that the influence of the initial non-random sample can be reduced by conducting many successive waves of sampling. 
+
+Nonetheless, RDS does not yield a true random sample, because the probability of being sampled for each member of the target population remains unknown. In practice, researchers use various models to approximate the sampling process when estimating the population parameters of interest. The simplest model conceives of the sampling process as a random walk, where each respondent, when selecting whom to recruit for the next wave, chooses at random among her contacts in the target population  [see @gile20107]. This model imples that each respondents unconditional probability of being sampled is proportional to her number of ties to the network that links the target population. This number can be elicited as part of the survey process and then used for weighting in the estimation process. 
+
+This model is known to be false in many ways. For example, it presumes sampling with replacement, i.e., the model does not take into account that a respondent who has been sampled in a previous wave cannot be sampled again. @gile2018methods describe a range of subsequent approaches that seek to relax this and other assumptions. 
 
 10. What else to consider when designing a sampling strategy for a randomized experiment?
 ==
