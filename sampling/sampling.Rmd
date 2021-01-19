@@ -9,13 +9,14 @@ output:
 <!-- title: "10 Things to Know About Sampling" -->
 <!-- author: "Methods Guide Author: Anna M. Wilke" -->
 
-[Add introduction]
-- define target population, elements (observation unit) and sample in intro (see p. 3 in Lohr)
+Abstract
+==
+Researchers are rarely able to collect measurements on all units that make up the target population about which researchers would like to learn. Time and budget constraints typically require the selection of a subset of units -- a process called sampling. This guide provides an overview of different ways to sample and how these affect what can be learned from a study. Particular attention is paid to questions surrounding sampling for randomized experiments.
 
 1.	What is random sampling?
 ==
 
-Random sampling, also referred to as probability sampling, is one way of selecting a sample of elements from a target population. The key characteristic of random sampling is that each element in the population has a *known* and *non-zero* probability of being included in the sample. This goal is achieved by using some randomization mechanism -- be it a coin flip, a random number table, or a computer program -- to decide which elements of the population are going to be part of the sample. 
+Random sampling, also referred to as probability sampling, is one way of selecting a subset of elements from a target population. The key characteristic of random sampling is that each element in the population has a *known* and *non-zero* probability of being included in the sample. This goal is achieved by using some randomization mechanism -- be it a coin flip, a random number table, or a computer program -- to decide which elements of the population are going to be part of the sample. 
 
 To make matters concrete, suppose that our target population consists of six elements:
 $$U = \{1, 2, 3, 4, 5, 6\}$$
@@ -33,24 +34,28 @@ One selection procedure that would satisfy the definition of random sampling is 
 
 The core benefit of random sampling is that it makes it possible to draw inferences about the population based on the characteristics of one realized sample. For example, suppose we are interested in estimating the average income of the population and the population distribution of incomes is as follows:
 
-```{r, echo = FALSE}
-id = c(1,2,3,4,5,6)
-income = c(25,18,33, 22,50, 45)
+```{r, echo = FALSE,message=F, error=F,warning=F}
+
+library(utils)
+library(ggplot2)
+library(dplyr)
+library(reshape2)
+library(knitr)
+library(kableExtra)
+id <- c(1,2,3,4,5,6)
+income <- c(25,18,33, 22,50, 45)
 
 data <- data.frame(Income = income)
 data <- t(data)
 rownames(data) <- "Income (in 1000 USD)"
-knitr::kable(data, col.names = id, row.names = T)
+knitr::kable(data, col.names = id, row.names = T) %>%   
+  kable_styling(full_width = F)
 
 ```
 
 In this example, the average income in the population (in thousands of USD)  is $$\mu = \frac{25 + 18 + 33 + 22 + 50 + 45}{6} \approx 32.$$ Suppose that we draw our random sample of four units and use the average income in the sample as an estimate of the average income in the population. Since we are basing our estimation on a sample and not on the entire population, our estimate will be prone to error. If we were to select the first of the 15 samples listed above, for example, our estimate would be $$\hat{\mu} = \frac{25 + 18 + 33 + 22}{4} = 25.$$ The difference between the true parameter and our estimate $\mu - \hat{\mu} = 32 - 25 = 7$ is referred to as *sampling error*. Yet, even though estimates based on a single realized sample are subject to sampling error, the process of random sampling (in combination with the chosen estimation procedure) can ensure that our estimates are correct on average across all possible random samples.
 
-```{r, echo = FALSE,message=F, error=F,warning=F}
-library(utils)
-library(ggplot2)
-library(dplyr)
-
+```{r, echo = FALSE,message=F, error=F,warning=F, fig.width=6, fig.height=3, fig.align ="center"}
 possible_samples <- combn(c(1:6), 4)
 
 estimates <- sapply(1:ncol(possible_samples), function(x) mean(income[possible_samples[,x]]))
@@ -122,19 +127,19 @@ Where the smallest administrative unit is still too large or otherwise inappropr
 
 Irrespective of whether the next larger sampling unit was pre-existing or self-created, lists of households within those sampling units rarely exist. Two popular solutions to this problem are to use a *random walk procedure* or to conduct a *household listing*.
 
-*Random walk procedure.* Enumerators are given (possibly randomly selected) starting points and are instructed to follow a particular walk pattern, e.g. "walk to the right and conduct an interview in every fifth dwelling." The main advantage of this approach is its cost effectiveness. No listing of households beyond those that enter the sample is required. Yet, a random walk procedure may not yield a particularly good approximation to a random sample. First, even though it is often treated as a way to select a simple random sample, a random walk procedure in fact introduces geographic clustering. The walk pattern above, for example, implies that neighboring houses can never both be sampled and that once a particular household is sampled, the one that lives five houses down the road will be sampled as well. See @lohr2009sampling[chapter 5.5] for more on the consequences of this kind of clustering. Second, even if starting points are, say, randomly chosen geo-coordinates, the probability of being sampled may vary across hosueholds due to geographic pacticularities, such as the street layout, density of dwellings etc. If selection  probabilities are not known to the researcher but correlated with the population characteristic of interest, bias will result. Finally, a random walk procedure is difficult to implement in practice. One problem is that enumerators typically select households and conduct interviews in one step. This procedure increases the incentives of enumerators to informally replace households that are reluctant or unavailable -- a practice that can only be detected through intensive monitoring. 
+**Random walk procedure.** Enumerators are given (possibly randomly selected) starting points and are instructed to follow a particular walk pattern, e.g. "walk to the right and conduct an interview in every fifth dwelling." The main advantage of this approach is its cost effectiveness. No listing of households beyond those that enter the sample is required. Yet, a random walk procedure may not yield a particularly good approximation to a random sample. First, even though it is often treated as a way to select a simple random sample, a random walk procedure in fact introduces geographic clustering. The walk pattern above, for example, implies that neighboring houses can never both be sampled and that once a particular household is sampled, the one that lives five houses down the road will be sampled as well. See @lohr2009sampling[chapter 5.5] for more on the consequences of this kind of clustering. Second, even if starting points are, say, randomly chosen geo-coordinates, the probability of being sampled may vary across hosueholds due to geographic pacticularities, such as the street layout, density of dwellings etc. If selection  probabilities are not known to the researcher but correlated with the population characteristic of interest, bias will result. Finally, a random walk procedure is difficult to implement in practice. One problem is that enumerators typically select households and conduct interviews in one step. This procedure increases the incentives of enumerators to informally replace households that are reluctant or unavailable -- a practice that can only be detected through intensive monitoring. 
 
-*Household listing.* The more principled option is to create a list of all households in the sampling unit. Households can then be randomly selected from this list prior to the start of the survey. A listing exercise can be expensive, but is also more likely to allow the researcher to approximate a  random sample. Sampling from a full list of households avoids problems of geographic clustering and unknown sampling probabilities. Moreover, separating the listing from the enumeration step makes it easier to guard against unwarrented replacements. At the listing stage, enumerators have fewer incentives to skip houses, since it is not yet clear whether a household will cooeprate at the survey stage. That a record of all households in- and outside the sample exists prior to the start of survey activities can also make it easier to  detect instances in which enumerators interviewed the incorrect household. Finally, it is sometimes possible to re-use household lists to draw additional random samples in the future, at least in places where mobility is low. This feature opens up the possibility of sharing the costs of a listing exercise across multiple studies.
+**Household listing.** The more principled option is to create a list of all households in the sampling unit. Households can then be randomly selected from this list prior to the start of the survey. A listing exercise can be expensive, but is also more likely to allow the researcher to approximate a  random sample. Sampling from a full list of households avoids problems of geographic clustering and unknown sampling probabilities. Moreover, separating the listing from the enumeration step makes it easier to guard against unwarrented replacements. At the listing stage, enumerators have fewer incentives to skip houses, since it is not yet clear whether a household will cooeprate at the survey stage. That a record of all households in- and outside the sample exists prior to the start of survey activities can also make it easier to  detect instances in which enumerators interviewed the incorrect household. Finally, it is sometimes possible to re-use household lists to draw additional random samples in the future, at least in places where mobility is low. This feature opens up the possibility of sharing the costs of a listing exercise across multiple studies.
         
 5. What to consider when putting a sampling strategy into practice?
 ==
 
 The practical implementation of any sampling strategy typically presents numerous obstacles. Many unforeseen problems can occur and these are often context-specific. Hence, pre-testing one's sampling strategy is at least as if not more important than pre-testing one's questionnaire. Here are some examples of difficulties that one may be able to discover and address during a pre-test:
 
-  - The definition of a "dwelling" or "household" can vary across contexts. It is important to clarify the definition that should be used during the household listing stage. Say, for example, that parents and adult children live on the same property but in separate houses. Should enumerators list one or two households?
-  - Questions also tend to arise about the kinds of households that form part of the target (or survey) population. For instance, should rooms that are rented out to students who live there only during term time be included in the household listing?
-  - The ability to read maps among survey staff varies across contexts. Working with maps or satellite imagery may be impractical or require the identification of landmarks that survey staff can use to orient themselves. 
-  - When sampling household members, these are often identified by gender and age (first invented by @kish1965survey). In some contexts, households members may not know their age or birthday, in which case some other marker should be used.
+- The definition of a "dwelling" or "household" can vary across contexts. It is important to clarify the definition that should be used during the household listing stage. Say, for example, that parents and adult children live on the same property but in separate houses. Should enumerators list one or two households?
+- Questions also tend to arise about the kinds of households that form part of the target (or survey) population. For instance, should rooms that are rented out to students who live there only during term time be included in the household listing?
+- The ability to read maps among survey staff varies across contexts. Working with maps or satellite imagery may be impractical or require the identification of landmarks that survey staff can use to orient themselves. 
+- When sampling household members, these are often identified by gender and age (first invented by @kish1965survey). In some contexts, households members may not know their age or birthday, in which case some other marker should be used.
 
 In general, try to keep your sampling strategy simple. Sophisticated sampling strategies may offer gains in precision, but these gains will not be realized if a sampling strategy cannot be implemented as intended. Clear and simple instructions to survey staff are of crucial importance. It often helps to seperate tasks and assign them to specialized teams.  Sampling-related tasks such as listing households, drawing the sample of households, sampling household members and making appointments can be complex. Having seperate teams for sampling and interviewing avoids overburdening enumerators and may allow for more in-depth training. See ["10 Things to Know About Survey Implementation"](https://egap.org/resource/10-things-to-know-about-survey-implementation/) for more on how to manage field work.
 
@@ -142,8 +147,7 @@ In general, try to keep your sampling strategy simple. Sophisticated sampling st
 ==
 Experimentalists are accustomed to the notion that one's random assignment strategy affects one's analysis strategy. Similar logics apply when it comes to sampling. Here are two common examples:
 
-*1. Weight by the inverse of an element's probability of being sampled if sampling probabilities vary across elements.* 
-
+**1. Weight by the inverse of an element's probability of being sampled if sampling probabilities vary across elements.** 
 Let us denote the probability that element $i$ is included in the sample by $\pi_i$.  If we draw a simple random sample of size $n$ from a population of size $N$, every element is included in the sample with the same probability of $\pi_i = \frac{n}{N}$. Where sampling probabilities do not vary across elements, the construction of unbiased estimators of popoulation characteristics does not usually require the analyst to make use of sampling weights. In the stylized example of simple random sampling above, for instance, we used the unweighted sample average as an estimator for the average income in the population. Samples in which all elements have the same probability of being sampled are thus also referred to as *self-weighting* [ @lohr2009sampling, p. 40].
 
 Things change if different elements are sampled with different probabilities. For example, sampling probabilities may vary across strata. Say we stratify by gender and draw a sample of 100 men and 100 women, but there are 1000 men and 1500 women in the population. In this case, each woman has a probability of $\pi_i = \frac{1}{15}$ of being sampled, while the sampling probability among men is $\pi_i = \frac{1}{10}$. If gender is correlated with the characteristic of interest (as is likely the case for income), the unweighted sample average will not give an unbiased estimate of the the population average. The solution is to weight every element by the inverse of its sampling probability:
@@ -155,24 +159,139 @@ Stratification is not the only possible source of variation in sampling probabil
 
 Finally, the same logic applies if the population parameter that one seeks to estimate is the average causal effect of a treatment. Experimentalists commonly use inverse-probability weights to obtain unbiased estimates of the SATE if the probability of being assigned to treatment varies across units (see ["10 Things to Know About Randomization"](https://egap.org/resource/10-things-to-know-about-randomization/)). If the experimental subject pool is a random sample from a larger population and the target of inference is the PATE, researchers may *also* want to weight by the inverse of a unit's probability of being sampled. See @miratrix2018worth for more on the usage of sampling weights in the estimation of PATEs.
 
-*2. Adjust your estimates of sampling variability for clustered sampling.* 
-
-A common mistake is to analyze a clustered sample as if it was a simple random sample. Clustering increases sampling variability if elements within clusters are similar in terms of the characteristic of interest. Researchers need to make sure that their uncertainty estimates reflect this additional variability. Suppose again that we seek to estimate average household income in a city. We randomly sample city blocks of 10 households each. If all city blocks have the same probability of being sampled,  the unweighted average of households incomes in our sample will remain an unbiased estimator for the city-wide average household income. To estimate the variance of this estimator, however, we need to consider how incomes vary between city blocks rather than between households. To the extent that households within the same block have similar incomes, the resulting estmates will reflect that the variability across blocks is large. See  @lohr2009sampling[chapter 5] for details  and for additional ways in which one may have to adjust one's analysis strategy if clusters are of unequal size.
+**2. Adjust your estimates of sampling variability for clustered sampling.** A common mistake is to analyze a clustered sample as if it was a simple random sample. Clustering increases sampling variability if elements within clusters are similar in terms of the characteristic of interest. Researchers need to make sure that their uncertainty estimates reflect this additional variability. Suppose again that we seek to estimate average household income in a city. We randomly sample city blocks of 10 households each. If all city blocks have the same probability of being sampled,  the unweighted average of households incomes in our sample will remain an unbiased estimator for the city-wide average household income. To estimate the variance of this estimator, however, we need to consider how incomes vary between city blocks rather than between households. To the extent that households within the same block have similar incomes, the resulting estmates will reflect that the variability across blocks is large. See  @lohr2009sampling[chapter 5] for details  and for additional ways in which one may have to adjust one's analysis strategy if clusters are of unequal size.
 
 Again, the logic extends to cases in which the target of inference is a PATE. In randomized experiments, researchers often need to adjust their uncertainty estimates to reflect the additional variability induced by cluster random assignment (see ["10 Things to Know About Cluster Randomization"](https://egap.org/resource/10-things-to-know-about-cluster-randomization/)). If the experimental subject pool is a random sample from a larger population, however, one may want to adjust for clustering at a level higher than that of treatment assignment in cases where sampling was clustered at higher levels [@abadie2017should].
 
 7. How to take into account  variability from both random sampling and random assignment?
 ==
+If the units in an experiment are a random sample from a larger population, then our realized estimate may deviate from the true PATE for two reasons:
 
-- A more general point is that if the units in an experiment are a random sample of a larger population, then our realized estimate may deviate from the true PATE for two reasons:
-  - 1)  we have drawn one of many possible samples instead of performing our analysis on the entire population,
-  - 2) we cannot observe all potential outcomes and have therefore chosen one of many possible ways to assign units to treatment and control. 
-  - if we want to make inferences to population quantities, our uncertainty estimates should reflect both kinds of variability
-- Randomization inference only considers one kind of variability 
-- Combining randomization inference with bootstrapping? [IS THAT A THING?]
--  Aronow/Green/Lee: SHARP BOUNDS ON THE VARIANCE IN RANDOMIZED EXPERIMENTS:
-  - Standard Neyman standard errors are conservative if we only presume variation from random assignment, can also be justified if we sample from an infinite superpopulation
-  - this paper provides bounds for the case of sampling from a finite population
+1. We have drawn one of many possible samples instead of performing our analysis on the entire population.
+2. We cannot observe all potential outcomes and have therefore chosen one of many possible ways to assign units to treatment and control conditions. 
+
+```{r, echo = FALSE,message=F, error=F,warning=F}
+
+id <-  c(1,2,3,4,5,6)
+income <- c(25,18,33, 22,50, 45)
+tau <- c(2, -10, -20, 2, 3, 5)
+income_1 <- income + tau
+
+
+table_data <- cbind(income,income_1, tau)
+additional_row  <- c(round(mean(income),2), round(mean(income_1),2), mean(tau))
+table_data <- rbind(table_data, additional_row)
+
+rownames(table_data) <- c(id, "Mean")
+knitr::kable(table_data,
+             row.names = T,
+             col.names = c("Y0", "Y1", "Y1 - Y0")) %>%   
+  kable_styling(full_width = F)
+
+
+```
+
+To illustrate, consider again our example population of six units. Suppose we would like to estimate the average effect of some treatment on income among this population. The table above displays two potential outcomes for each unit -- a unit's income level if that unit was assigned to control ($Y0$) and a unit's income level if the unit was was assigned to treatment ($Y1$). The last colums displays the true treatment effec for each unit. The average effect of the treatment among the six units in the population is $-3$. Suppose that, in order to estimate this effect, we first randomly sample four of the six units, then randomly assign two of the four sampled units to treatment and finally compute the difference in mean outcomes across treatment and control.
+
+```{r, echo = FALSE,message=F, error=F,warning=F, fig.width=6, fig.height=5, fig.align ="center"}
+
+complete_data <- data.frame(id = id,
+                            Y0 = income,
+                            Y1 = income_1,
+                            tau = tau)
+
+possible_samples <- combn(c(1:6), 4)
+
+possible_assignments <- combn(c(1:4), 2)
+
+getZ <- function(x) {
+  Z <- rep(0,4)
+  Z[x] <- 1
+  return(Z)
+}
+
+possible_assignments <- apply(possible_assignments,2, getZ)
+
+
+getSATE <- function(s, data){
+  sample <- data %>%
+    dplyr::filter(id %in% s)
+  
+  sate <- mean(sample$tau)
+  return(sate)
+}
+
+sampling_dist_SATE <- apply(possible_samples, 2, getSATE, data = complete_data)
+
+sampling_dist_SATE <- data.frame(unit_id = rep(NA, length(sampling_dist_SATE)),
+                                 sample = 1:length(sampling_dist_SATE),
+                                 value = sampling_dist_SATE,
+                                 label = "Distribution of true SATEs across possible samples")
+
+getSATE_hat <- function(Z, s, data){
+  sample <- data %>%
+    dplyr::filter(id %in% s)
+  sate_hat <- mean(sample$Y1[Z == 1]) - mean(sample$Y0[Z == 0])
+  return(sate_hat)
+}
+
+
+result <- vector(mode="list", ncol(possible_samples))
+
+for(i in 1:ncol(possible_samples)) {
+  result[[i]] <- rep(NaN,ncol(possible_assignments))
+  for(j in 1:ncol(possible_assignments)) {
+    
+    sate_hat <- getSATE_hat(Z = possible_assignments[,j],
+                            s = possible_samples[, i],
+                            data = complete_data)
+    
+    result[[i]][j] <- sate_hat
+  }
+}
+
+plot_data <- result %>%
+  do.call(cbind,.) %>%
+  melt()
+
+
+names(plot_data) <- c("unit_id", "sample", "value")
+
+plot_data$label <- "Distribution of effect estimates across possible samples and assignments"
+
+specific_sample <- plot_data %>% filter(sample == 10)
+
+specific_sample$label = "Distribution of effect estimates across possible assignments in a given sample"
+
+plot_data <- rbind(specific_sample, sampling_dist_SATE,plot_data)
+
+data_summarized <- plot_data %>% group_by(label) %>% dplyr::summarize(mean_value = mean(value))
+
+plot_data$label <- factor(plot_data$label, levels = c("Distribution of true SATEs across possible samples",
+                                                      "Distribution of effect estimates across possible assignments in a given sample",
+                                                      "Distribution of effect estimates across possible samples and assignments"))
+
+data_summarized$label <- factor(data_summarized$label, levels = c("Distribution of true SATEs across possible samples",
+                                                                  "Distribution of effect estimates across possible assignments in a given sample",
+                                                                  "Distribution of effect estimates across possible samples and assignments"))
+
+ggplot(plot_data, aes(x = value)) + 
+  geom_histogram(binwidth = 1, fill = "white", color = "black") + 
+  theme_bw() + xlab("") + 
+  ylab("Count") +
+  facet_wrap(.~label, ncol = 1)+
+  geom_vline(data = data_summarized, aes(xintercept=mean_value),
+             color="blue", linetype="dashed", size=1) 
+
+```
+
+The first panel in the figure above plots the distribution of the true average effect of our treatment across the 15 possible samples of four units that we may draw. In constructing this distribution, we presume that we can observe *both* potential outcomes among four randomly sampled units. We thus suppress uncertainty that comes from the process of random assignment and focus on sampling uncertainty alone. Since we draw our samples randomly, the distribution of SATEs is centered on the true PATE of $-3$. Among any given sample, however, the average effect of the treatment may be larger or smaller than the PATE.
+
+The second panel of the figure considers one realized sample of four units. There are six possible ways of randomly assigning two out of four units to treatment. For the particular sample considered in panel 2, these six possible random assignments yield the shown distribution of possible treatment effect estimates. In constructing this distribution, we have ignored sampling uncertainty and focused solely on uncertainty that comes from randomization. Since we randomly assign units to treatment and control, the distribution is centered on the true average effect of the treatment *in this sample*. Yet, this SATE differs from the PATE. 
+
+Since there are 15 possible samples and six ways of randomly assigning treatment within each sample, there are $15 \times 6 = 90$ possible estimates that may result in our hypothetical study. The last panel of the figure plots the distribution of all possible effect estimates, thus taking into account both uncertainty from sampling and from random assignment. 
+
+If we would like to make inferences to population quantities, our uncertainty estimates should reflect both kinds of uncertainty. If we use randomization inference to calculate $p$-values, for example, we only consider variability that stems from the random assignment of units to treatment and not from the sampling of units itself. The standard Neyman estimator of the variance of the difference-in-means estimator, on the other hand, produces standard errors that are conservative if we presume that all uncertainty comes from random assignment. These standard errors will provide unbiased variance estimates if we can conceive of the experimental subject pool as a random sample from a population that is infinite. This assumption seems plausible when the experimental sample is small relative to the population. Where the size of the experimental sample is large relative to the population, Neyman standard errors will again be conservative. See @aronow2014sharp and @abadie2020sampling for more on how to obtain unbiased variance estimates when sampling from a finite population.  
 
 8. How can sampling help with problems of non-response?
 ==
@@ -201,13 +320,13 @@ This model is known to be false in many ways. For example, it presumes sampling 
 
 In many cases, randomized experiments do not rely on random samples from a larger population. Yet, even if experimental subjects are sampled in non-random ways, there are important considerations to take into account when designing a sampling strategy.
 
-*Symmetry.* First and foremost, researchers should ensure that the chosen sampling strategy maintains symmetry across treatment and control groups. For example, suppose an experiment evaluates the effect of community meetings. Selecting respondents from a radius around the community hall where the meeting took place sounds like a natural approach. Yet, this sampling strategy requires that community halls in which the community meeting would have taken place if the village had been assigned to treatment can be identified in control group villages. Otherwise, it is not possible to implement the same sampling strategy in treatment and control villages. Where the way in which units have been sampled differs across treatment and control groups, it remains unclear whether observed differences in outcomes across these groups can be attributed to effects of the treatment or to differences in how units were sampled.  This problem is called an exclusion restriction violation. One way to avoid exclusion restriction violations of this kind is to identify all subjects on whom measurements will be taken prior to random assignment.
+**Symmetry.** First and foremost, researchers should ensure that the chosen sampling strategy maintains symmetry across treatment and control groups. For example, suppose an experiment evaluates the effect of community meetings. Selecting respondents from a radius around the community hall where the meeting took place sounds like a natural approach. Yet, this sampling strategy requires that community halls in which the community meeting would have taken place if the village had been assigned to treatment can be identified in control group villages. Otherwise, it is not possible to implement the same sampling strategy in treatment and control villages. Where the way in which units have been sampled differs across treatment and control groups, it remains unclear whether observed differences in outcomes across these groups can be attributed to effects of the treatment or to differences in how units were sampled.  This problem is called an exclusion restriction violation. One way to avoid exclusion restriction violations of this kind is to identify all subjects on whom measurements will be taken prior to random assignment.
 
 
-*Spillovers.* Researchers often worry that effects of a treatment may spill over to proximate units, especially if the units in an experiment are connected through network ties. Considering the presence of spillovers when selecting one's experimental subject pool may make it possible to rule out or control spillovers by design. For example, when sampling villages or households, one may impose a minimum distance between units in the sample in order to limit interactions among residents from different experimental units.
+**Spillovers.** Researchers often worry that effects of a treatment may spill over to proximate units, especially if the units in an experiment are connected through network ties. Considering the presence of spillovers when selecting one's experimental subject pool may make it possible to rule out or control spillovers by design. For example, when sampling villages or households, one may impose a minimum distance between units in the sample in order to limit interactions among residents from different experimental units.
 
 
-*Desired covariate profiles.* There are many reasons to purposefully sample subjects with particular covariate profiles. Maybe the SATE among a specific subgroup is of particular theoretical interest. Sampling particular kinds of units may also help generalize experimental results beyond the setting in which they were obtained, even if subjects have not been randomly sampled from a population. @pearl2014external and @tipton2013improving show how treatment effect estimates may be "transported" to some other setting by calculating weighted averages of estimates within subgroups. This approach is based on theoretical assumptions about which and how differences between study and target settings relate to the treatment effect of interest. Crucial for our ability to use this strategy is that our subject pool in the study setting contains enough subjects in each relevant subgroup to estimate treatment effects within it. 
+**Desired covariate profiles.** There are many reasons to purposefully sample subjects with particular covariate profiles. Maybe the SATE among a specific subgroup is of particular theoretical interest. Sampling particular kinds of units may also help generalize experimental results beyond the setting in which they were obtained, even if subjects have not been randomly sampled from a population. @pearl2014external and @tipton2013improving show how treatment effect estimates may be "transported" to some other setting by calculating weighted averages of estimates within subgroups. This approach is based on theoretical assumptions about which and how differences between study and target settings relate to the treatment effect of interest. Crucial for our ability to use this strategy is that our subject pool in the study setting contains enough subjects in each relevant subgroup to estimate treatment effects within it. 
 
 
 References
