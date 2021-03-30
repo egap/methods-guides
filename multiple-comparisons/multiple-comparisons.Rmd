@@ -10,9 +10,9 @@ output:
 
 Abstract
 ==
-The “Multiple Comparisons Problem” is the problem  that standard statistical procedures can be misleading when researchers conduct a large group of hypothesis. When a research has multiple “bites at the apple,” the chances are that some finding will appear “significant” even when there’s nothing going on.
+The “Multiple Comparisons Problem” is the problem  that standard statistical procedures can be misleading when researchers conduct a large group of hypothesis. When a research does more than one test of a hypothesis (or set of closely related hypotheses), the chances are that some finding will appear “significant” even when there’s nothing going on.
 
-Classical hypothesis tests assess statistical significance by calculating the probability under a null hypothesis of obtaining estimates as large or larger as the observed estimate. When multiple tests are conducted, however, classical p-values are incorrect — they no longer reflect the true probability under the null.
+[Classical hypothesis tests](https://egap.org/resource/10-things-to-know-about-hypothesis-testing/) assess statistical significance by calculating the probability under a null hypothesis of obtaining estimates as large or larger as the observed estimate. When multiple tests are conducted, however, classical p-values can mislead --- they no longer reflect the true probability under the null.
 
 This guide [^1] will help you guard against drawing false conclusions from your experiments. We focus on the big ideas and provide examples and tools that you can use in R.
 
@@ -22,7 +22,7 @@ This guide [^1] will help you guard against drawing false conclusions from your 
 ==
 Typically, researchers are not interested in just one treatment versus control comparison per experiment. There are three main ways that comparisons proliferate:
 
-1. **Multiple treatment arms.** When an experiment has $n$ treatment arms, there are $n(n-1)/2$ possible comparisons.
+1. **Multiple treatment arms.** When an experiment has $n$ treatment arms, there are $n(n-1)/2$ possible comparisons between the arms.
 2. **Heterogeneous treatment effects.** Often, we are interested in whether the treatment has different impacts on different subgroups.  For example, a treatment might be more effective for women than for men.
 3. **Multiple estimators.** Often, experimenters will apply multiple estimators to the same dataset: for example, difference-in-means and covariate adjustment.
 There is of course nothing wrong with employing multiple treatment arms, exploring treatment effect heterogeneity, or using multiple estimators of the treatment effect.  However, these design and analysis choices sometimes require that researchers correct their statistical tests to account for multiple comparisons.
@@ -34,21 +34,21 @@ The multiple comparisons problem is related to, but different from, the problem 
 
 2 Why multiple comparisons are a problem
 ==
-Let's set up 1 test: we have 1 coin and we will flip it 10 times.  We don't know if the coin is fair but decide that if we flip over 9 heads and 1 tails, we will say that the coin is unfair.  Let's suppose that this is a fair coin.  We are therefore not likely to flip over 9 heads and 1 tails and will most likely find that the coin is fair.  
+Let's set up 1 test: we have 1 coin and we will flip it 10 times.  We don't know if the coin is fair but decide that if we flip over 9 heads and 1 tails, we will say that the coin is unfair.  Let's suppose that this is a fair coin; a coin that has a 50% chance of showing a head in a single flip.  We are therefore not likely to flip over 9 heads and 1 tails and will most likely find that the coin is fair.  
 
-Now, let's set up 5 tests: we have 5 coins and we will flip each of them 10 times. Again, we decide that the coin is unfair if we flip 9 heads and 1 tails; again, let's suppose that all 5 coins are fair.  The chance that we see 9 heads and 1 tails for a single coin is still very low.  However, after doing 5 tests, it is much more likely that at least 1 of the coins will show 9 heads and 1 tails purely by chance.  This result may then lead us to think that some or all of the coins are unfair, even though in reality the coins are fair.
+Now, let's set up 5 tests: we have 5 coins and we will flip each of them 10 times. Again, we decide that the coin is unfair if we flip 9 heads and 1 tails; again, let's suppose that all 5 coins are fair.  The chance that we see 9 heads and 1 tails for a single coin is still very low.  However, after doing 5 tests, it is much more likely that at least 1 of the coins will show 9 heads and 1 tails purely by chance.  This result may then lead us to think that some or all of the coins are unfair, even though in reality all the coins are fair.
 
-We can see from the coin flipping example that the more tests we run, the more likely we are to see an effect or relationship and the more likely we are to mistakenly identify that effect when in reality it occurred by chance; this is the multiple comparisons problem.  
+We can see from the coin flipping example that the more tests we run, the more likely we are to see an effect or relationship and the more likely we are to mistakenly claim to have detected an effect when in reality there is no effect and what we observe occurred by chance; this is the multiple comparisons problem.  
 
 In this guide, we will describe three main approaches for addressing the multiple comparisons problem:
 
 1. p-value adjustments. Statisticians have derived a number of corrections that can guard against multiple comparisons mistakes. As described in the next section, these corrections control either the *Family-Wise Error Rate* (FWER) or the *False Discovery Rate* (FDR).  Most of these adjustments apply a simple formula to a series of “raw” p-values; we will also describe a simulation method that can take account of features of a specific research setting.
-2. Pre-analysis plans. These plans are a powerful design-based tool for “calling your shot” so to speak.
-3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a blind application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
+2. Pre-analysis plans. These plans are a powerful design-based tool that enables an analyst to pro-actively manage the multiple comparisons problem.
+3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a naive repeated application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
 
 3 Don't mix up the FWER and FDR!
 ==
-In classical hypothesis testing, the “$\alpha$ level” describes how willing the researcher is to make a certain kind of mistake: a false positive or a "Type I error" where a researcher falsely concludes that an observed difference is “real,” when in fact there is no difference. From the coin flipping example, concluding that we have an unfair coin because we flipped 9 heads and 1 tails when in reality we have fair coins is an example of a Type I error.  After setting the $\alpha$ level, the researcher conducts a hypothesis test and if the p-value $\leq \alpha$, we consider the result statistically significant. In many social science applications, the alpha level, or Type I error rate, is set to 0.05. This means that the researcher is willing to commit a Type I error 5% of the time.
+In classical hypothesis testing, the “$\alpha$ level” describes how willing the researcher is to make a certain kind of mistake: a false positive or a "Type I error" where a researcher falsely concludes that an observed difference is “real,” when in fact there is no difference. From the coin flipping example, concluding that we have an unfair coin because we flipped 9 heads and 1 tails when in reality we have fair coins is an example of a Type I error or false positive error.  After setting the $\alpha$ level, the researcher conducts a hypothesis test and if the p-value $\leq \alpha$, we call the result "statistically significant". In many social science applications, the alpha level, or Type I error rate, is set to 0.05. This means that the researcher is willing to commit a Type I error 5% of the time.
 
 In the world of multiple testing, the Type I error rate is associated with one of two things: the Family-Wise Error Rate (FWER) or the False Discovery Rate (FDR). To explain their differences, let's first consider Table 1 which shows different types of errors. After conducting our hypothesis tests, we observe $m$ (the total number of hypothesis tests), $R$ (the total number of hypothesis tests that are statistically significant), $m-R$, (the total number of hypothesis tests that are not statistically significant).  However, we do not know how many tests from $R$ are false positives (FP, Type I error) or true positives (TP). 
 
@@ -64,9 +64,9 @@ The FDR is subtly different. It is the expected proportion of false discoveries 
 
 [^3]: Formally $E[FP/R|R>0]P(R>0)$ to avoid dividing by 0.
 
-4 Control the FWER with Bonferroni-style corrections
+4 Control the FWER with Bonferroni-style corrections (including the Holm correction)
 ==
-The Bonferroni correction is a commonly-used approach for addressing the multiple comparisons problem, partly because of its simplicity. If you conduct $m$ tests, the target significance level should be $\alpha/m$, or, equivalently, you multiply your p-values by $m$, and apply the standard $\alpha$ level. (The trouble with multiplying the p-values is sometimes you end up with values over one, rendering the interpretation of the p-values incoherent.)
+The Bonferroni correction is a simple and commonly-used approach for addressing the multiple comparisons problem although it usually understates how much information is available to detect an effect. If you conduct $m$ tests but want to make sure that you make no more than $\alpha$ errors out of the total $m$ tests, the target significance level should be $\alpha/m$, or, equivalently, you multiply your p-values by $m$, and apply the standard $\alpha$ level. (The trouble with multiplying the p-values is sometimes you end up with values over one, rendering the interpretation of the p-values incoherent so software just replaces those p-values with the number 1.)
 
 For example, suppose you conduct an experiment that has 3 dependent variables. You conduct three difference-in-means tests that yield the following classical p-values: 0.004, 0.020, and 0.122. If your $\alpha$ level is the standard 0.05 threshold, then you would usually declare the first two tests statistically significant and the last test insignificant. The Bonferroni correction, however, adjusts the target p-value to $0.05/3 = 0.016$. We then declare only the first test to be statistically significant.
 
@@ -76,7 +76,7 @@ But our chances of making at least one mistake are much greater than 5% because 
 
 This correction works in the worst-case scenario that all tests are independent. But in most cases, tests are not independent. That is, if your treatment moves outcome A, it probably moves outcome B too, at least a little. So what tends to happen is, researchers report that their results “withstand” Bonferroni when they are extremely strong, but decry Bonferroni as too extreme when the results are weaker.
 
-Instead of using the Bonferroni correction, you can use the Holm correction.  It is strictly more powerful than Bonferroni, and is valid under the same assumptions. It also controls the FWER. Suppose you have  $m$  p-values.  Order them from smallest to largest. Find the smallest p-value that satisfies this condition: $p_{k}>\frac{\alpha}{m+1−k}$, where $k$ is the p-value’s index. This and all larger p-values are insignificant; all smaller p-values are significant.
+Instead of using the Bonferroni correction, you can use the **Holm correction**.  It is strictly more powerful than Bonferroni, and is valid under the same assumptions. It also controls the FWER. Suppose you have  $m$  p-values.  Order them from smallest to largest. Find the smallest p-value that satisfies this condition: $p_{k}>\frac{\alpha}{m+1−k}$, where $k$ is the p-value’s index. This and all larger p-values are insignificant; all smaller p-values are significant.
 
 Taking our three p-values from above: 0.004, 0.020, and 0.122:
 $$0.004<\frac{0.05}{3+1−1}=0.017$$
@@ -93,11 +93,11 @@ $$0.004<\frac{1}{3}0.05=0.017$$
 $$0.020<\frac{2}{3}0.05=0.033$$
 $$0.122>\frac{3}{3}0.05=0.050$$
 
-Using the Benjamini–Hochberg procedure, the first two tests are significant, but the third is not.
+Using the Benjamini–Hochberg procedure, the first two tests are significant, but the third is not. Notice that the FDR does not control the same error rate as the FWER. It is common for those controlling the FDR error rate to take "significant tests" to indicate places to direct more attention for confirmatory tests (which, would then be analyzed using the stricter FWER control). The idea that one uses the FDR to explore and FWER to confirm is also common in genetics and other applications of large scale hypothesis testing.
 
 6 It’s easy to implement these procedures
 ==
-In R, the p.adjust() function contains many of the corrections devised by statisticians to address the multiple comparisons problem. The p.adjust() function is in base R, so no additional packages are required. The p.adjust() function gives adjusted p-values after implementing a correction. 
+In R, the `p.adjust()` function contains many of the corrections devised by statisticians to address the multiple comparisons problem. The `p.adjust()` function is in base R, so no additional packages are required. The `p.adjust()` function gives adjusted p-values after implementing a correction. 
 ```{r}
 # Set seed for reproducibility
 set.seed(343)
@@ -178,7 +178,7 @@ g <- ggplot(for_gg, aes(x=p, y=correction, color=Significant)) +
 g
 ```
 
-Of the 25 null hypotheses that would be rejected if no correction were made, the Bonferroni correction only rejects 8, the Holm procedure rejects 11, and the Benjamini–Hochberg procedure rejects 22. Of these three corrections, Bonferroni is the most stringent while Benjamini–Hochberg is the most lenient.
+Of the 25 null hypotheses that would be rejected if no correction were made, the Bonferroni correction only rejects 8, the Holm procedure rejects 11, and the Benjamini–Hochberg procedure rejects 22 (or tags 22 hypotheses as promising for future exploration). Of these three corrections, Bonferroni is the most stringent while Benjamini–Hochberg is the most lenient.
 
 Instead of R, you can also use this calculator to adjust your p-values.
 
@@ -191,7 +191,7 @@ This calculator works best in Firefox. To use full-screen, go [here](https://ega
 ==
 The trouble with the corrections above is that they struggle to address the extent to which the multiple comparisons are correlated with one another. A straightforward method of addressing this problem is simulation under the sharp null hypothesis of no effect for any unit on any dependent variable. Note that this is a **family-wise** sharp null.
 
-If the treatment has no effect at all on anything, then we observe all potential outcomes for all subjects. We can re-randomize the experiment 1000 or more times and conduct all $m$ hypothesis tests each time. We know for sure that all $m$ null hypotheses are true, because the treatment has no effect by construction.
+If the treatment has no effect at all on any outcome, then we observe all potential outcomes for all subjects. We can re-randomize the experiment 1000 or more times and conduct all $m$ hypothesis tests each time. We know for sure that all $m$ null hypotheses are true, because the treatment has no effect by construction.
 
 The next step is picking the right threshold value below which results are deemed statistically significant. If $\alpha$ is 0.05, we need to find the target p-value that, across all simulations under the sharp null, yields 5% significant hypothesis tests.
 
@@ -254,9 +254,9 @@ sig_simulated <- p_obs <= target_p_value
 sig <- p_obs <= 0.05
 ```
 
-The target p-value obtained by the simulation is 0.002 — hypothesis tests with raw p-values below 0.002 are deemed significant.  Compare this with the Bonferroni method, which would require a p-value below 0.05/100 = 0.0005, an order of magnitude smaller.  The closer the correlation of the tests (the parameter “r” in the code above) is to zero, the closer the two methods will be.
+The target p-value obtained by the simulation is 0.002 --- hypothesis tests with raw p-values below 0.002 are deemed significant.  Compare this with the Bonferroni method, which would require a p-value below 0.05/100 = 0.0005, an order of magnitude smaller.  The closer the correlation of the tests (the parameter “r” in the code above) is to zero, the closer the two methods will be.
 
-The flexibility of the simulation method is both an advantage and a disadvantage. The advantage is that it can accommodate any set of estimation procedures, returning a study-specific correction that will generally be more powerful than other methods to control the FWER. The disadvantage is that it requires the researcher to code up a simulation — there are no prewritten functions that will apply across research contexts.
+The flexibility of the simulation method is both an advantage and a disadvantage. The advantage is that it can accommodate any set of testing procedures, returning a study-specific correction that will generally be more powerful than other methods to control the FWER. The disadvantage is that it requires the researcher to code up a simulation — there are no prewritten functions that will apply across research contexts.
 
 Here are some guidelines and tips for writing your own simulation.
 
@@ -264,7 +264,7 @@ Here are some guidelines and tips for writing your own simulation.
 2. Each simulation should return a set of p-values. (this was accomplished in the permute_treat() function above.)
 3. Be sure to count up the number of simulations in which at least one test was deemed significant, not the average number of tests across all simulations deemed significant.
 
-8 Alternative ways to control FDR
+8 Alternative ways to control FDR and variants of FDR
 ==
 
 Recall from earlier that the Benjamini-Hochberg procedure to control FDR can also be too conservative when all null hypotheses are true. There are a number of different variants of the FDR and with each variant, their own procedures for control.  In general, these are more powerful than the B-H procedure. Below is a table of a few types: 
@@ -275,7 +275,7 @@ FDR Variants| Methods for Control | Software
 **mFDR** or Fdr: marginal FDR, $E[FP]/E[R]$.| $\alpha$-investing, a procedure where, after rejecting a null hypothesis, the researcher can "invest" in the $\alpha$ threshold by increasing the threshold for subsequent tests [(Foster and Stine, 2008)](https://rss.onlinelibrary.wiley.com/doi/full/10.1111/j.1467-9868.2007.00643.x).| See R package <a href = "https://rdrr.io/bioc/onlineFDR/"> `onlineFDR` </a>
 **fdr**: Local false discovery rate, $fdr(z)$| An empirical Bayes approach to estimate local false discovery rate as a function of the size of the test statistic $z$ [(Efron, 2004)](https://www.tandfonline.com/doi/abs/10.1198/016214504000000089?casa_token=K-0KnZVJTswAAAAA:hZEwReG-eqPWKLEC-2IiRzzwBfakFyGY-E8vzYlk5BKvkjI8R8W7wUn0GkbVvDeYEACbsvomg37H). | See R pacakge <a href = "https://cran.r-project.org/web/packages/locfdr/locfdr.pdf"> `locfdr` </a>
 
-There is the increased chance of accepting more false discoveries with these other methods.  However, in cases with many, many tests, where the researcher might be willing to accept a few more false discoveries along with making more true discoveries, these methods for controlling FDR are good alternatives. 
+There is the increased chance of accepting more false discoveries with these other methods over the basic B-H approach.  However, in cases with many, many tests, where the researcher might be willing to accept a few more false discoveries along with making more true discoveries, these methods for controlling FDR are good alternatives. 
 
 9 Creating an index is a way to get a single comparison out of many
 ==
@@ -289,6 +289,7 @@ Suppose[^2] a researcher measures $k>1$ dependent variables. Indexing allows the
 There are two principal indexing methods in the literature:
 
 ###Mean Effects Index
+===
 
 [Kling, Liebman, and Katz (2004)]((http://www.nber.org/mtopublic/483.pdf)) employ a mean effects index, constructed as follows:
 
@@ -308,6 +309,7 @@ In the presence of missing outcomes, one of two approaches could be employed:
 2. **"Greedy" Indexing**: Instead of imputing values of missing outcome variables ex-ante as in method 1, calculate the $z$-scores as above. Where there are missing values for the "raw" outcome variables, there will be missing $z$-scores. For each unit, sum the non-missing $z$-scores and then divide by the number of non-missing outcomes. Hence, instead of dividing $\sum_{i=1}^K \tilde{y}_{ik}$ by $K$ as above, we calculate $K_{i}$, the number of non-missing outcomes, for each unit.
 
 ###Inverse Covariance Weighted Index
+===
 
 [Anderson (2008)](https://are.berkeley.edu/~mlanderson/pdf/Anderson%202008a.pdf) provides a similar approach that constructs an index that employs inverse covariance weighting. This weighting scheme improves efficiency relative to the mean effects index above by affording less weight to highly correlated outcomes. The Anderson index can be constructed through the following procedure:
 
@@ -455,7 +457,7 @@ data.frame(Z, mean_effects_index, inv_cov_weighted_index) %>%
   geom_point() + theme_bw() + xlab("Mean Effects Index") + ylab("Inverse Covariance Weighted Index")
 ```
 
-We can estimate treatment effect on the indexed variable using OLS or a difference-in-means. Note that given the normalization of both indices, the coefficient estimates are on the same scale and thus directly comparable.
+We can estimate the treatment effect on the indexed variable using OLS or a difference-in-means. Note that given the normalization of both indices, the coefficient estimates are on the same scale and thus directly comparable. The p-values here use the standard OLS test-statistic.
 
 <style>
 div.hidecode + pre {display: none}
@@ -483,7 +485,7 @@ A good example is this pre-analysis plan by [Gwyneth McClendon and Rachel Beatty
 
 An additional benefit of pre-analysis plans is the ability to specify beforehand what the primary hypothesis is.  There is disagreement among methodologists on this point, but some argue that because the primary hypothesis is not part of a “family claim” that a standardp-value is correct. For example, a researcher might have one primary hypothesis and 10 ancillary hypotheses.  The uncertainty surrounding the primary hypothesis should not depend on the number of ancillary hypotheses.  The advantage of a preanalysis plan is establishing beforehand which of the many hypotheses is the primary one.
 
-An alternative perspective is to consider, from a theoretical and research design perspective, what is part of the "family claim." For example, there may be a set of 5 hypotheses that are all used to support the primary hypothesis and the study was designed to focus on these 5 hypotheses. There may also be ancillary hypotheses that are used for exploration; the study was not developed with these ancillary hypotheses in mind, but the researcher thinks that it is interesting to explore these ancillary hypotheses.  In a situation like this, the researcher might identify the 5 hypotheses as *confirmatory* hypotheses that are a family of hypotheses, and thus make adjustments to the p-values of those hypotheses.  The ancillary hypotheses would be considered *exploratory* hypotheses and do not need adjustments or could use more lenient adjustments compared to the confirmatory hypotheses.  Policy or action may be taken according to the confirmatory hypotheses, while future research may be developed to target the exploratory hypotheses. 
+An alternative perspective is to consider, from a theoretical and research design perspective, what is part of the "family claim." For example, there may be a set of 5 hypotheses that are all used to support the primary hypothesis and the study was designed to focus on these 5 hypotheses. There may also be ancillary hypotheses that are used for exploration; the study was not developed with these ancillary hypotheses in mind, but the researcher thinks that it is interesting to explore these ancillary hypotheses.  In a situation like this, the researcher might identify the 5 hypotheses as *confirmatory* hypotheses that are a family of hypotheses, and thus make adjustments to the p-values of those hypotheses, say controlling the FWER.  The ancillary hypotheses would be considered *exploratory* hypotheses and do not need adjustments or could use more lenient adjustments compared to the confirmatory hypotheses, say controlling the FDR --- allowing some false discoveries.  Policy or action may be taken according to the confirmatory hypotheses, while future research may be developed to target the exploratory hypotheses. 
 
 The advantage of a preanalysis plan is establishing beforehand which of the many hypotheses is the primary one, which hypotheses are part of the same family of hypotheses or confirmatory, and which hypotheses are exploratory.
 
@@ -501,3 +503,4 @@ The figure below shows the results of the experiment and replication.  Study 1 f
 The replication, however, shows the same pattern of treatment effects: smaller effects for Organization accounts than for others on the “Signed” DV, but similar treatment effects on the “Tweeted” DV.  Any doubt that the different response on the two different dependent variables was due to sampling variability are assuaged by the replication.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/multiple-comparisons/multiple-comparisons_fig2.png)
+
