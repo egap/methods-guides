@@ -18,7 +18,7 @@ This guide [^1] will help you guard against drawing false conclusions from your 
 
 [^1]: Originating author: Alex Coppock, 18 Feb 2015. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide. Updated by Lula Chen, 16 Feb 2021.
 
-1 Almost every social science experiment faces a multiple comparisons problem
+1: Almost every social science experiment faces a multiple comparisons problem
 ==
 Typically, researchers are not interested in just one treatment versus control comparison per experiment. There are three main ways that comparisons proliferate:
 
@@ -32,8 +32,9 @@ These concerns are especially problematic when making a “family claim,” that
 
 The multiple comparisons problem is related to, but different from, the problem of “fishing.”  Fishing occurs when an unscrupulous analyst conducts many tests but only reports the “interesting” ones. In essence, fishing withholds the necessary information we would need in order to correct for multiple comparisons.
 
-2 Why multiple comparisons are a problem
+2: Why multiple comparisons are a problem
 ==
+
 Let's set up 1 test: we have 1 coin and we will flip it 10 times.  We don't know if the coin is fair but decide that if we flip over 9 heads and 1 tails, we will say that the coin is unfair.  Let's suppose that this is a fair coin; a coin that has a 50% chance of showing a head in a single flip.  We are therefore not likely to flip over 9 heads and 1 tails and will most likely find that the coin is fair.  
 
 Now, let's set up 5 tests: we have 5 coins and we will flip each of them 10 times. Again, we decide that the coin is unfair if we flip 9 heads and 1 tails; again, let's suppose that all 5 coins are fair.  The chance that we see 9 heads and 1 tails for a single coin is still very low.  However, after doing 5 tests, it is much more likely that at least 1 of the coins will show 9 heads and 1 tails purely by chance.  This result may then lead us to think that some or all of the coins are unfair, even though in reality all the coins are fair.
@@ -46,8 +47,9 @@ In this guide, we will describe three main approaches for addressing the multipl
 2. Pre-analysis plans. These plans are a powerful design-based tool that enables an analyst to pro-actively manage the multiple comparisons problem.
 3. Replication. If we are concerned that a finding is simply an artifact of sampling variability that we happened to discover because of a naive repeated application of classical hypothesis testing, then the best way to resolve the question is to conduct the experiment again.
 
-3 Don't mix up the FWER and FDR!
+3: Don't mix up the FWER and FDR!
 ==
+
 In classical hypothesis testing, the “$\alpha$ level” describes how willing the researcher is to make a certain kind of mistake: a false positive or a "Type I error" where a researcher falsely concludes that an observed difference is “real,” when in fact there is no difference. From the coin flipping example, concluding that we have an unfair coin because we flipped 9 heads and 1 tails when in reality we have fair coins is an example of a Type I error or false positive error.  After setting the $\alpha$ level, the researcher conducts a hypothesis test and if the p-value $\leq \alpha$, we call the result "statistically significant". In many social science applications, the alpha level, or Type I error rate, is set to 0.05. This means that the researcher is willing to commit a Type I error 5% of the time.
 
 In the world of multiple testing, the Type I error rate is associated with one of two things: the Family-Wise Error Rate (FWER) or the False Discovery Rate (FDR). To explain their differences, let's first consider Table 1 which shows different types of errors. After conducting our hypothesis tests, we observe $m$ (the total number of hypothesis tests), $R$ (the total number of hypothesis tests that are statistically significant), $m-R$, (the total number of hypothesis tests that are not statistically significant).  However, we do not know how many tests from $R$ are false positives (FP, Type I error) or true positives (TP). 
@@ -64,8 +66,9 @@ The FDR is subtly different. It is the expected proportion of false discoveries 
 
 [^3]: Formally $E[FP/R|R>0]P(R>0)$ to avoid dividing by 0.
 
-4 Control the FWER with Bonferroni-style corrections (including the Holm correction)
+4: Control the FWER with Bonferroni-style corrections (including the Holm correction)
 ==
+
 The Bonferroni correction is a simple and commonly-used approach for addressing the multiple comparisons problem although it usually understates how much information is available to detect an effect. If you conduct $m$ tests but want to make sure that you make no more than $\alpha$ errors out of the total $m$ tests, the target significance level should be $\alpha/m$, or, equivalently, you multiply your p-values by $m$, and apply the standard $\alpha$ level. (The trouble with multiplying the p-values is sometimes you end up with values over one, rendering the interpretation of the p-values incoherent so software just replaces those p-values with the number 1.)
 
 For example, suppose you conduct an experiment that has 3 dependent variables. You conduct three difference-in-means tests that yield the following classical p-values: 0.004, 0.020, and 0.122. If your $\alpha$ level is the standard 0.05 threshold, then you would usually declare the first two tests statistically significant and the last test insignificant. The Bonferroni correction, however, adjusts the target p-value to $0.05/3 = 0.016$. We then declare only the first test to be statistically significant.
@@ -85,8 +88,9 @@ $$0.122>\frac{0.05}{3+1−3}=0.050$$
 
 Under the Holm correction, the first two tests are significant, but the last test is not.
 
-5 Control the FDR with Benjamini-Hochberg
+5: Control the FDR with Benjamini-Hochberg
 ==
+
 The Benjamini–Hochberg (B-H) procedure controls the FDR. Like the Holm correction, you also begin by ordering $m$ p-values. Then you find the largest p-value that satisfies:  $p_{k}≤\frac{k}{m}\alpha$. This test, and all tests with smaller p-values are declared significant.
 
 $$0.004<\frac{1}{3}0.05=0.017$$
@@ -95,8 +99,9 @@ $$0.122>\frac{3}{3}0.05=0.050$$
 
 Using the Benjamini–Hochberg procedure, the first two tests are significant, but the third is not. Notice that the FDR does not control the same error rate as the FWER. It is common for those controlling the FDR error rate to take "significant tests" to indicate places to direct more attention for confirmatory tests (which, would then be analyzed using the stricter FWER control). The idea that one uses the FDR to explore and FWER to confirm is also common in genetics and other applications of large scale hypothesis testing.
 
-6 It’s easy to implement these procedures
+6: It’s easy to implement these procedures
 ==
+
 In R, the `p.adjust()` function contains many of the corrections devised by statisticians to address the multiple comparisons problem. The `p.adjust()` function is in base R, so no additional packages are required. The `p.adjust()` function gives adjusted p-values after implementing a correction. 
 ```{r}
 # Set seed for reproducibility
@@ -134,31 +139,24 @@ Not Statistically Significant |	25            |28                  |39    |42
 library(ggplot2)
 # Set seed for reproducibility
 set.seed(343)
-
 n_tests <- 50
 # Generate 50 test statistics
 x <- rnorm(n_tests, mean = c(rep(0, 25), rep(3, 25)))
 #x <- rnorm(n_tests, mean = c(rep(0, 50)))
-
 # Obtain 50 p-values
 p <- round(2*pnorm(sort(-abs(x))), 3)
-
 # Choose alpha level
 alpha <- 0.05
-
 # Without any corrections
 sig <- p < alpha
-
 # Conduct three corrections
 bonferroni_sig <- p.adjust(p, "bonferroni") < alpha
 holm_sig <- p.adjust(p, "holm") < alpha
 BH_sig <- p.adjust(p, "BH") <alpha
-
 # Compare corrected and uncorrected
 # table(bonferroni_sig, sig)
 # table(holm_sig, sig)
 # table(BH_sig, sig)
-
 p = rep(p,4)
 correction <- rep(c("No Correction", "Benjamini-Hochberg","Bonferroni", "Holm"), each=n_tests)
 correction = factor(correction,
@@ -168,7 +166,6 @@ Significant = c(sig, BH_sig, bonferroni_sig, holm_sig)
 Significant <- ifelse(Significant, "Statistically Significant", "Not Statistically Signifiant")
 Significant <- factor(Significant, levels= c("Statistically Significant", "Not Statistically Signifiant"),
                       ordered=TRUE)
-
 for_gg <- data.frame(p, correction, Significant)
 g <- ggplot(for_gg, aes(x=p, y=correction, color=Significant)) + 
   geom_point(alpha = .8, size=3, position=position_jitter(height=.2, width=0)) + 
@@ -187,8 +184,9 @@ This calculator works best in Firefox. To use full-screen, go [here](https://ega
 <iframe height="500" src="https://egap.shinyapps.io/multiple-comparisons-app/" width="850"></iframe>
 
 
-7 A better way to control the FWER is simulation
+7: A better way to control the FWER is simulation
 ==
+
 The trouble with the corrections above is that they struggle to address the extent to which the multiple comparisons are correlated with one another. A straightforward method of addressing this problem is simulation under the sharp null hypothesis of no effect for any unit on any dependent variable. Note that this is a **family-wise** sharp null.
 
 If the treatment has no effect at all on any outcome, then we observe all potential outcomes for all subjects. We can re-randomize the experiment 1000 or more times and conduct all $m$ hypothesis tests each time. We know for sure that all $m$ null hypotheses are true, because the treatment has no effect by construction.
@@ -202,54 +200,41 @@ Once we have the right threshold value, it’s as easy as comparing the uncorrec
 rm(list=ls())
 library(mvtnorm)
 library(randomizr)
-
 # Helper functions
 do_t_test <- function(Y, Z){
   t.test(Y[Z==1], Y[Z==0])$p.value
 }
-
 permute_treat <- function(){
   treatment_sim <- complete_ra(n, m=n/2)
   ps_sim <- apply(outcomes, 2, do_t_test, Z = treatment_sim)
   return(ps_sim)
 }
-
 threshold_finder<- function(threshold){
   mean(apply(many_ps, 2, x <- function(x) sum(x <= threshold) > 0 ))
 }
-
 # Set a seed
 set.seed(343)
-
 # Generate correlated outcomes
 # Outcomes are unrelated to treatment
 # All null hypotheses are true
-
 n <- 1000
 k <- 100; r <- .7; s <- 1
 sigma <- matrix(s*r, k,k)
 diag(sigma) <- s
 outcomes <- rmvnorm(n=n, mean=rep(0, k), sigma=sigma)
-
 # Complete Random Assignment
 treatment <- complete_ra(n, m=n/2)
-
 # Conduct k hypothesis tests
 p_obs <- apply(outcomes, 2, do_t_test, Z = treatment)
-
 # Simulate under the sharp null
 many_ps <- replicate(1000, permute_treat(), simplify = TRUE)
-
 # Obtain the Type I error rate for a series of thresholds
 thresholds <- seq(0, 0.05, length.out = 1000)
 type_I_rate <- sapply(thresholds, threshold_finder)
-
 # Find the largest threshold that yields an alpha type I error rate
 target_p_value <- thresholds[max(which(type_I_rate <=0.05))]
-
 # Apply target p_value to observed p_values
 sig_simulated <- p_obs <= target_p_value
-
 # Compare to raw p-values
 sig <- p_obs <= 0.05
 ```
@@ -264,7 +249,7 @@ Here are some guidelines and tips for writing your own simulation.
 2. Each simulation should return a set of p-values. (this was accomplished in the permute_treat() function above.)
 3. Be sure to count up the number of simulations in which at least one test was deemed significant, not the average number of tests across all simulations deemed significant.
 
-8 Alternative ways to control FDR and variants of FDR
+8: Alternative ways to control FDR and variants of FDR
 ==
 
 Recall from earlier that the Benjamini-Hochberg procedure to control FDR can also be too conservative when all null hypotheses are true. There are a number of different variants of the FDR and with each variant, their own procedures for control.  In general, these are more powerful than the B-H procedure. Below is a table of a few types: 
@@ -277,8 +262,9 @@ FDR Variants| Methods for Control | Software
 
 There is the increased chance of accepting more false discoveries with these other methods over the basic B-H approach.  However, in cases with many, many tests, where the researcher might be willing to accept a few more false discoveries along with making more true discoveries, these methods for controlling FDR are good alternatives. 
 
-9 Creating an index is a way to get a single comparison out of many
+9: Creating an index is a way to get a single comparison out of many
 ==
+
 Suppose[^2] a researcher measures $k>1$ dependent variables. Indexing allows the researcher to reduce these $k$ outcomes into a single measure (or several thematically-grouped measures). These indexing methods effectively condense the number of dependent variables that investigators test in order to address the multiple comparisons problem. There are a number of ancillary benefits of these indexing methods:
 
 [^2]: Section 9 updated by Tara Lyn Slough, 4 February 2016
@@ -288,8 +274,7 @@ Suppose[^2] a researcher measures $k>1$ dependent variables. Indexing allows the
 
 There are two principal indexing methods in the literature:
 
-###Mean Effects Index
-===
+### Mean Effects Index
 
 [Kling, Liebman, and Katz (2004)]((http://www.nber.org/mtopublic/483.pdf)) employ a mean effects index, constructed as follows:
 
@@ -308,8 +293,7 @@ In the presence of missing outcomes, one of two approaches could be employed:
 1. **Imputation**: Kling, Liebman, and Katz advocate a imputation approach for missing values on individual outcomes. Specifically, prior to constructing the index, compute the mean of each outcome variable for each experimental group, $\bar{y}_{ik}^{Z=1}$ and $\bar{y}_{ik}^{Z=0}$ using the above notation. Then, impute the mean corresponding to a unit's assignment status (treatment or control) prior to constructing the index.
 2. **"Greedy" Indexing**: Instead of imputing values of missing outcome variables ex-ante as in method 1, calculate the $z$-scores as above. Where there are missing values for the "raw" outcome variables, there will be missing $z$-scores. For each unit, sum the non-missing $z$-scores and then divide by the number of non-missing outcomes. Hence, instead of dividing $\sum_{i=1}^K \tilde{y}_{ik}$ by $K$ as above, we calculate $K_{i}$, the number of non-missing outcomes, for each unit.
 
-###Inverse Covariance Weighted Index
-===
+### Inverse Covariance Weighted Index
 
 [Anderson (2008)](https://are.berkeley.edu/~mlanderson/pdf/Anderson%202008a.pdf) provides a similar approach that constructs an index that employs inverse covariance weighting. This weighting scheme improves efficiency relative to the mean effects index above by affording less weight to highly correlated outcomes. The Anderson index can be constructed through the following procedure:
 
@@ -336,9 +320,7 @@ stopifnot(require(mvtnorm))
 stopifnot(require(dplyr))
 stopifnot(require(randomizr))
 stopifnot(require(ggplot2))
-
 set.seed(1234)
-
 calculate_mean_effects_index <- function(Z, outcome_mat, to_reorient, reorient = FALSE, greedy = TRUE,
                                 impute = FALSE){
   if(length(Z) != nrow(outcome_mat)) stop("Error: Treatment assignment, outcome matrix require same n!")
@@ -364,7 +346,6 @@ calculate_mean_effects_index <- function(Z, outcome_mat, to_reorient, reorient =
   index <-  (index - mean(index[Z==0], na.rm =T))/sd(index[Z==0], na.rm =T)
   return(index)
 }
-
 calculate_inverse_covariance_weighted_index <- function(Z, outcome_mat, to_reorient, reorient = FALSE){
   if(length(Z) != nrow(outcome_mat)) stop("Error: Treatment assignment, outcome matrix require same n!")
   if(reorient == TRUE){
@@ -406,18 +387,14 @@ r <- runif(n = K, min = -.9, max = .9)
 sigma <- outer(r, r, FUN = "*")
 diag(sigma) <- 1
 mat <- rmvnorm(n = 200, mean = rep(0, K), sigma = sigma)
-
 # Treatment assignment
 Z <- complete_ra(200)
-
 # Created observed potential outcomes
 # Assume that ATEs are all oriented in the same direction for the time being
 ATEs <- rnorm(K, mean = .25, sd = 1)
-
 for(i in 1:K){
   mat[,i] <- mat[,i] + rnorm(n = 200, mean = Z * ATEs[i], sd = 1)
 }
-
 mean_effects_index <- calculate_mean_effects_index(Z = Z, outcome_mat = mat, reorient = F)
 inv_cov_weighted_index <- calculate_inverse_covariance_weighted_index(Z = Z, outcome_mat = mat,reorient = F)
 ```
@@ -477,8 +454,9 @@ colnames(table) <- c("Estimate", "Std. Error", "p-value")
 knitr::kable(table, digits = 3)
 ```
 
-10 Use Design Based approaches
+10: Use Design Based approaches
 ==
+
 There are also two design based approaches for thinking about this problem. One is to use pre-analysis plans to describe in advance which comparisons will be made; the number of tests implicated in a Bonferroni or Bonferroni-style correction is specified before any data analysis is conducted. A pre-analysis plan, among its many benefits, helps to clarify the multiple comparisons problem.
 
 A good example is this pre-analysis plan by [Gwyneth McClendon and Rachel Beatty Riedl](http://egap.org/registration/651).  The authors specify 24 individual tests they plan to conduct and state ahead of time that they will employ both the Bonferroni and Benjamini-Hochberg corrections.  The authors do not state beforehand how they will handle a situation in which the corrections disagree; presumably it will be a matter of judgment for both the authors and the readers of their study.
@@ -503,4 +481,3 @@ The figure below shows the results of the experiment and replication.  Study 1 f
 The replication, however, shows the same pattern of treatment effects: smaller effects for Organization accounts than for others on the “Signed” DV, but similar treatment effects on the “Tweeted” DV.  Any doubt that the different response on the two different dependent variables was due to sampling variability are assuaged by the replication.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/multiple-comparisons/multiple-comparisons_fig2.png)
-
