@@ -108,7 +108,7 @@ Non-systematic measurement error, represented by $\delta_i$ above, refers to the
 
 $$Y_i = \underbrace{\nu_i}_{\text{Latent outcome}} + \underbrace{\delta_i}_{\substack{\text{Non-systematic} \\ \text{measurement error}}}$$
 
-Now, consider the [analytical power formula](https://egap.org/resource/10-things-you-need-know-about-statistical-power) for a two-armed experiment. We can express $\sigma$, or the standard deviation of the outcome as $\sqrt{Var(Y_i)}$. Note that in the formula below, this term appears in the denominator of the first term. As $\sqrt{Var(Y_i)}$ increases, statistical power decreases. 
+Now, consider the [analytical power formula](https://egap.org/resource/10-things-to-know-about-statistical-power) for a two-armed experiment. We can express $\sigma$, or the standard deviation of the outcome as $\sqrt{Var(Y_i)}$. Note that in the formula below, this term appears in the denominator of the first term. As $\sqrt{Var(Y_i)}$ increases, statistical power decreases. 
 
 $$\beta = \Phi \left(\frac{|\mu_t− \mu_c| \sqrt{N}}{2 \color{red}{\sqrt{Var(Y_i)}}} − \Phi^{−1}\left(1 − \frac{\alpha}{2}\right)\right)$$
 
@@ -148,7 +148,7 @@ In sum, the addition of more measures can help validate an indicator, but these 
 
 Gathering multiple indicators of a concept or outcome may also improve the power of your experiment. If multiple indicators measure the same concept but are measured with (non-systematic) error, we can improve the precision with which we measure the latent variable by leveraging multiple measures. 
 
-There are multiple ways to aggregate multiple outcomes into an index. ["10 Things to Know about Multiple Comparisons"](https://egap.org/resource/10-things-you-need-know-about-multiple-comparisons) describes indices built from $z$-score and inverse covariance weighting of multiple outcomes. There are also many other structural models for estimating latent variables from multiple measures.
+There are multiple ways to aggregate multiple outcomes into an index. ["10 Things to Know about Multiple Comparisons"](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) describes indices built from $z$-score and inverse covariance weighting of multiple outcomes. There are also many other structural models for estimating latent variables from multiple measures.
 
 Below, we look at simple $z$-score index of two noisy measures of a latent variable. We assume that the latent variables and both indicators "Measure 1" and "Measure 2" are drawn from a multivariate normal distribution and are positively correlated with the latent variable and with each other. For the purposes of simulation, we assume that we know the latent variable, though in practice this is not possible. First, we can show that across many simulations of the data, the correlation between the $z$-score index of the two measures and the latent variable is, on average, higher than the correlation between either of the indicators and the latent variable. When graphing the correlation of the individual measures and the latent variable against ($x$-axes) the correlation of the index and the latent variable ($y$-axis), almost all points are above the 45-degree line. This shows that the index approximates the latent variable with greater precision.
 

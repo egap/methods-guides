@@ -70,7 +70,7 @@ quasi-experimental designs).
 The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
 Statistical
-Power](https://egap.org/resource/10-things-you-need-know-about-statistical-power),
+Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
 whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
@@ -100,7 +100,7 @@ effects versus making best guesses about causal effects.
 
 ## A quick overview of the fundamental problem of causal inference and an introduction to some notation
 
-Recall from [Ten Things to Know about Causal Inference](https://egap.org/resource/10-things-you-need-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of potential
+Recall from [Ten Things to Know about Causal Inference](https://egap.org/resource/10-things-to-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of potential
 outcomes to **define** cause and to formalize what we **mean** when we
 say "X causes Y" or "Smoking causes cancer" or "Information increases tax
 compliance."  Although there are other ways to think about causality
@@ -489,7 +489,7 @@ calculating the one-sided upper $p$-value and the other calculating the
 one-sided lower $p$-value. Now, if we did this we would be calculating two
 $p$-values and, if we made a standard practice of this, we would run the risk
 of misleading ourselves. After all, recall from the [10 things about multiple
-comparisons](https://egap.org/resource/10-things-you-need-know-about-multiple-comparisons)
+comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
 that even if there really is no effect, 100 independent and well operating
 tests of the null of no effects will yield no more than 5 $p$-values less than
 .05. One easy solution to the challenge of summarizing extremity of
@@ -686,7 +686,7 @@ noise).
 ## How to learn about errors of missing the signal in the noise? 
 
 The [10 Things you need to know about statistical
-power](https://egap.org/resource/10-things-you-need-know-about-statistical-power)
+power](https://egap.org/resource/10-things-to-know-about-statistical-power)
 guide explains how we want hypotheses to reject false nulls (i.e. detect
 signal from noise). When we think about the power of statistical tests, we
 need to consider the **alternative hypothesis**. However, as we have shown
@@ -772,7 +772,7 @@ testing:
  - Even if a given testing procedure controls the false positive rate for
    a single test, it may not control the rate for a group of multiple tests.
    See [10 Things you need to know about multiple
-   comparisons](https://egap.org/resource/10-things-you-need-know-about-multiple-comparisons)
+   comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
    for a guide to the approaches to controlling such rejection-rates in
    multiple tests.
  - A $100\alpha$\% confidence interval can be defined as the range of
