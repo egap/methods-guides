@@ -157,5 +157,5 @@ It is absolutely essential to pre-test your survey instrument after you have des
 5. That you have included all relevant response categories (and you won’t get a lot of non-response)
 6. The instrument is not too long
 
-The [survey implementation](http://egap.org/content/10-things-know-about-survey-implementation) guide explains about how to set up and carry out a pre-test. 
+The [survey implementation](http://egap.org/content/10-things-to-know-about-survey-implementation) guide explains about how to set up and carry out a pre-test. 
 
