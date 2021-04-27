@@ -88,7 +88,7 @@ the creation of a probability distribution that allows calculation of a
 $p$-value. It also discusses the idea of rejecting (but not accepting) a
 hypothesis and touches on the question of what makes for a good hypothesis
 test (hint: an ideal hypothesis test should cast doubt on the truth rarely and
-distinguish even faint signals from noise). See also [10 Things You Need to Know about Randomization Inference](https://egap.org/resource/10-things-randomization-inference) for more discussion of these ideas.
+distinguish even faint signals from noise). See also [10 Things You Need to Know about Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference) for more discussion of these ideas.
 
 # In an experiment, a hypothesis is a claim about unobserved causal relationships
 

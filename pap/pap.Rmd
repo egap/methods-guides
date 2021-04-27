@@ -127,7 +127,7 @@ where $i$ is the individual in neighborhood $j$, $Z$ is the treatment indicator,
 
 Inference criteria are decision rules for determining the detectability of effects (i.e. if an explanatory variable really affects an outcome variable).  Establishing inference criteria requires making several choices about when to believe the estimated effect is "statistically significantly different" from the null hypothesis.  We recommend clearly specifying and justifying answers to the following questions:
 
-1. What kind of standard errors will you use?  Why are you using this kind of standard errors?^[For example, you could calculate standard errors and $p$-values using permutation-based [randomization inference](https://egap.org/resource/10-things-randomization-inference).  Or you could closely approximate standard errors and $p$-values using analytic methods [@samii2012]]
+1. What kind of standard errors will you use?  Why are you using this kind of standard errors?^[For example, you could calculate standard errors and $p$-values using permutation-based [randomization inference](https://egap.org/resource/10-things-to-know-about-randomization-inference).  Or you could closely approximate standard errors and $p$-values using analytic methods [@samii2012]]
 2. Do you plan to do a one-tailed or two-tailed test?  
 3. At what $\alpha$ level will you reject the null hypothesis from a $p$-value?  
 4. Do you have multiple hypotheses?  If so, what procedure will you use to adjust for [multiple comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)?  
@@ -137,7 +137,7 @@ You may choose to use several procedures for inference criteria.  For example, y
 <p class="comment">
 **Example:**<br><br>
 We use HC2 standard errors with our block-randomized experiment because it is equivalent to randomization-based Neyman variance estimator [@samii2012]. We expect the treatment group to pay more city taxes than the control group, and therefore use a one-tailed test where $H_1 > H_0$.  We set $\alpha = 0.05$ and will reject the null when the $p$-value is less than 0.05.  Because we only have one confirmatory hypothesis, we do not adjust for multiple comparisons. <br><br>
-As a check on the HC2 standard errors, we also calculate $p$-values directly using [randomization inference](https://egap.org/resource/10-things-randomization-inference), with the difference-in-means as our test statistic. 
+As a check on the HC2 standard errors, we also calculate $p$-values directly using [randomization inference](https://egap.org/resource/10-things-to-know-about-randomization-inference), with the difference-in-means as our test statistic. 
 </p>
 
 7 What is in a PAP? Procedures for Data Issues
