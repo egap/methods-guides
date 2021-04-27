@@ -103,7 +103,7 @@ Sometimes the implementation of random assignment hinges on contingencies that a
 
 8. Randomization inference can be used to address issues of multiple comparisons[^6]
 ==
-[^6]: See [10 Things to Know about Heterogeneous Treatment Effects](http://egap.org/resource/10-things-heterogeneous-treatment-effects), especially section 7 on multiple comparisons.
+[^6]: See [10 Things to Know about Heterogeneous Treatment Effects](http://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects), especially section 7 on multiple comparisons.
 
 Randomized trials that involve multiple outcomes, multiple treatments, or multiple subgroup comparisons raise concerns that splashy results may pop up by chance even if there were no treatment effects. Randomization inference helps facilitate the evaluation of hypotheses of the form: under the null hypothesis of no treatment effect, what is the probability that at least three outcomes show nominal p-values of less than 0.05? For each random assignment under the sharp null of no treatment effect, calculate the number of apparent p < 0.05 coefficients in order to form the reference distribution. A similar approach may be applied to other targets of inference, such as the p-value of observing two significant treatment-by-covariate interactions or observing four significant treatment arms.
 
