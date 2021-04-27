@@ -41,7 +41,7 @@ The objectives of the PAP are to improve research design choices, increase resea
 
 In the following sections, we provide guidelines for the details you should include in PAPs, including example text.  We also recommend that you include as much code and analysis of simulated data as possible.[^DD]  Many PAPs will not be able to include everything on our list, but a PAP should, at a minimum, include the full list of hypotheses that you intend to test, how you will measure variables relevant to those hypotheses, and a verifiable time stamp.
 
-[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.  [Power analysis](http://egap.org/methods-guides/10-things-you-need-know-about-statistical-power), an important component of a PAP, requires simulated data.
+[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.  [Power analysis](http://egap.org/resource/10-things-you-need-know-about-statistical-power), an important component of a PAP, requires simulated data.
 
 
 2 What is in a PAP? Study Design Overview
@@ -127,17 +127,17 @@ where $i$ is the individual in neighborhood $j$, $Z$ is the treatment indicator,
 
 Inference criteria are decision rules for determining the detectability of effects (i.e. if an explanatory variable really affects an outcome variable).  Establishing inference criteria requires making several choices about when to believe the estimated effect is "statistically significantly different" from the null hypothesis.  We recommend clearly specifying and justifying answers to the following questions:
 
-1. What kind of standard errors will you use?  Why are you using this kind of standard errors?^[For example, you could calculate standard errors and $p$-values using permutation-based [randomization inference](https://egap.org/methods-guides/10-things-randomization-inference).  Or you could closely approximate standard errors and $p$-values using analytic methods [@samii2012]]
+1. What kind of standard errors will you use?  Why are you using this kind of standard errors?^[For example, you could calculate standard errors and $p$-values using permutation-based [randomization inference](https://egap.org/resource/10-things-randomization-inference).  Or you could closely approximate standard errors and $p$-values using analytic methods [@samii2012]]
 2. Do you plan to do a one-tailed or two-tailed test?  
 3. At what $\alpha$ level will you reject the null hypothesis from a $p$-value?  
-4. Do you have multiple hypotheses?  If so, what procedure will you use to adjust for [multiple comparisons](https://egap.org/methods-guides/10-things-you-need-know-about-multiple-comparisons)?  
+4. Do you have multiple hypotheses?  If so, what procedure will you use to adjust for [multiple comparisons](https://egap.org/resource/10-things-you-need-know-about-multiple-comparisons)?  
 
 You may choose to use several procedures for inference criteria.  For example, you may want to use both FWER and FDR adjustments for multiple comparisons and compare between the two.  Or you may want to use $p$-values from randomization inference as a check on $p$-values from a null distribution assumed to be normal.  If you choose to use several procedures, you should specify how you will interpret findings if different procedures come to different conclusions.
 
 <p class="comment">
 **Example:**<br><br>
 We use HC2 standard errors with our block-randomized experiment because it is equivalent to randomization-based Neyman variance estimator [@samii2012]. We expect the treatment group to pay more city taxes than the control group, and therefore use a one-tailed test where $H_1 > H_0$.  We set $\alpha = 0.05$ and will reject the null when the $p$-value is less than 0.05.  Because we only have one confirmatory hypothesis, we do not adjust for multiple comparisons. <br><br>
-As a check on the HC2 standard errors, we also calculate $p$-values directly using [randomization inference](https://egap.org/methods-guides/10-things-randomization-inference), with the difference-in-means as our test statistic. 
+As a check on the HC2 standard errors, we also calculate $p$-values directly using [randomization inference](https://egap.org/resource/10-things-randomization-inference), with the difference-in-means as our test statistic. 
 </p>
 
 7 What is in a PAP? Procedures for Data Issues
@@ -183,7 +183,7 @@ If we still have outcome questions with especially high nonresponse rate of over
 8 What is in a PAP? Power Analysis
 ==
 
-A [power analysis](https://egap.org/methods-guides/10-things-you-need-know-about-statistical-power) is commonly included in PAPs.  Statistical power is the likelihood that your study will detect an effect, if there is an effect to be detected.
+A [power analysis](https://egap.org/resource/10-things-you-need-know-about-statistical-power) is commonly included in PAPs.  Statistical power is the likelihood that your study will detect an effect, if there is an effect to be detected.
 
 There are [tools](https://egap.shinyapps.io/Power_Calculator/) to help you calculate power, but you can also produce your own power analysis computationally.  A benefit of computational power analysis is that the power analysis doubles as your final analysis code, or at minimum a template of the final analysis code.
 
