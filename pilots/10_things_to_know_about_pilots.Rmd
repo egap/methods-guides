@@ -11,7 +11,7 @@ output:
 <!--- title: "10 Things to Know About Pilots" -->
 <!--- author: 'Authors: Kaylyn Jackson Schiff, Daniel S. Schiff, and Natália S. Bueno ' -->
 
-# 1. The purpose of a pilot isn’t to evaluate your hypotheses
+# 1. Pilots don't evaluate hypotheses
 
 It may be tempting to think about a pilot study as simply a shorter version of one's main study, helpful for doing an initial test of one's hypotheses and informing whether to pursue the study further. Yet pilot studies are neither especially appropriate for hypothesis testing, nor are they limited to it! 
 
