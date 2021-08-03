@@ -3,6 +3,8 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Adaptive Experimental Design" -->
@@ -90,7 +92,7 @@ References
 ==
 Chin, Richard. 2016. Adaptive and flexible clinical trials. New York: CRC Press. 
 
-Chow, Shein-Chung, and Mark Chang. 2008. “Adaptive design methods in clinical trials – a review.”  Orphanet Journal of Rare Diseases 3:11. http://doi.org/10.1186/1750-1172-3-11
+Chow, Shein-Chung, and Mark Chang. 2008. “Adaptive design methods in clinical trials – a review.”  Orphanet Journal of Rare Diseases 3:11. <a target="_blank" href="http://doi.org/10.1186/1750-1172-3-11"> Link to article </a>
 
 Nie, Xinkun, Xiaoying Tian, Jonathan Taylor, and James Zou. 2017. "Why Adaptively Collected Data Have Negative Bias and How to Correct for It." arXiv:1708.01977
 
