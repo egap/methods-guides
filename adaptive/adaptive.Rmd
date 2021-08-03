@@ -4,7 +4,7 @@ output:
     toc: true
     theme: journal
     includes:
-        after_body: ../linking_script.html
+        after_body: linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Adaptive Experimental Design" -->
