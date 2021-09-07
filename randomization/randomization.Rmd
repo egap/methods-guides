@@ -9,22 +9,26 @@ output:
 <!-- title: "10 Things You Need to Know About Randomization" -->
 <!-- author: "Methods Guide Author: Lindsay Dolan" -->
 
-Abstract
+Resumen
 ==
-This guide will help you design and execute different types of randomization in your experiments. We focus on the big ideas and provide examples and tools that you can use in R.  For why to do randomization see [this methods guide](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
+Esta guía le ayudará a diseñar y ejecutar diferentes tipos de asiganción aleatoria en sus experimentos. Nos centramos en las grandes ideas y proporcionamos ejemplos y herramientas que puede utilizar en R. Para saber por qué aleatorizar, consulte [esta guía de métodos](http://egap.org/resource/10-strategies-for-figuring-out- si-x-causó-y).
 
-
-1 Some ways are better than others
+1 Unas formas son mejores que otras
 ==
-There are many ways to randomize. The simplest is to flip a coin each time you want to determine whether a given subject gets treatment or not. This ensures that each subject has a .5 probability of receiving the treatment and a .5 probability of not receiving it. Done this way, whether one subject receives the treatment in no way affects whether the next subject receives the treatment, every subject has an equal chance of getting the treatment, and the treatment will be uncorrelated with all confounding factors — at least in expectation.
+Hay muchas formas de aleatorizar. La más simple es lanzar una moneda para determinar si un sujeto recibe un tratamiento o no. Esto asegura que cada sujeto tenga una probabilidad de 0.5 de recibir el tratamiento y una probabilidad de 0.5 de no recibirlo. Hecho de esta manera, si un sujeto recibe el tratamiento no afecta de ninguna manera si el siguiente sujeto recibe el tratamiento, cada sujeto tiene la misma probabilidad de recibir el tratamiento y el tratamiento no estará correlacionado con factores que puedan generar una asociación aparente, al menos en expectativa.
 
-This is not a bad approach but it has shortcomings. First, using this method, you cannot know in advance how many units will be in treatment and how many in control. If you want to know this, you need some way to do selections so that the different draws are not statistically independent from each other (like drawing names from a hat). Second, you may want to assert control over the exact share of units assigned to treatment and control.  That’s hard to do with a coin. Third, you might want to be able to replicate your randomization to show that there was no funny business. That’s hard to do with coins and hats. Finally, as we show below, there are all sorts of ways to do randomization to improve power and ensure balance in various ways that are very hard to achieve using coins and hats. 
 
-Fortunately though, flexible replicable randomization is very easy to do with freely available software. The following simple R code can, for example, be used to generate a random assignment, specifying the number of units to be treated. Here, N (100) is the number of units you have and m (34) is the number you want to treat. The “seed” makes it possible to replicate the same draw each time you run the code (or you can change the seed for a different draw).[^1] [^2]
+Este no es un procedimiento erróneo, pero tiene sus carencias. Primero, al usar este método no puede saber de antemano cuántas unidades estarán en tratamiento y cuántas en control. Si para usted es importante tener esta información de antemano, deberá emplear alguna forma de muestreo en la que cada elemento selccionado no sea estadísticamente independientes de los otros (como sacar fichas con nombres de un sombrero). En segundo lugar, es posible que desee ejercer el control sobre la proporción exacta de unidades asignadas al tratamiento y control, lo que es difícil de conseguir con una moneda. En tercer lugar, es posible que desee poder replicar su aleatorización para demostrar que no hubo nada raro con ella. Eso no se puede hacer tan fácil con monedas y sombreros. Finalmente, como mostramos a continuación, hay todo tipo de formas de hacer la aleatorización para mejorar el poder y asegurar el balance de varias formas que son muy difíciles de lograr usando monedas y sombreros.
 
-[^1]: Random number generators are actually pseudo-random because they generate a vector of random numbers based on a small set of initial values, known as a seed state. Random number generators operate this way in order to improve computational speed. However, the series of random numbers generated is as random as you need to it to be for the purposes of random assignment because it is wholly unrelated to the potential outcomes of your subjects.
+Sin embargo, afortunadamente, la aleatorización replicable y flexible es muy fácil de hacer con software disponible gratuitamente. El siguiente código de R se puede utilizar, por ejemplo, para generar una asignación aleatoria, especificando el número de unidades a tratar. Aquí, N (100) es el número de unidades que tiene y m (34) es el número que desea tratar. La "semilla" permite replicar la misma simulación cada vez que ejecuta el código (o puede cambiar la semilla por iteración diferente de la simulación). [^1] [^2]
 
-[^2]: All code chunks updated by Alex Coppock on 25 November, 2020.
+
+
+[^1]: Los generadores de números aleatorios son en realidad pseudoaleatorios porque generan un vector de números aleatorios basado en un pequeño conjunto de valores iniciales, conocido como  estado de semilla. Los generadores de números aleatorios funcionan de esta manera para mejorar la velocidad computacional. Sin embargo, la serie de números aleatorios generada es tan aleatoria como es necesario para los propósitos de la asignación aleatoria porque no tiene ninguna relación con los resultados potenciales de sus sujetos.
+
+[^ 2]: Todos los fragmentos de código fueron actualizados por Alex Coppock el 25 de noviembre de 2020.
+
+
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE, results='hide'}
 library(randomizr)
@@ -32,19 +36,20 @@ set.seed(343)
 complete_ra(100, 34)
 ```
 
-2 Block randomization: You can fix it so that treatment and control groups are balanced
+2  Aleatorización en bloques: puede asegurarse de antemano que los grupos de tratamiento y control estén balanceados
 ==
-It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.
+Cuando aleatorizaramos podemos asegurarnos de que los grupos de tratamiento y de control estén balanceados con respecto a  factores particularesque sean de nuestro interés. Clar están, que no es posible especificar qué unidades particulares se seleccionan para cada grupo y mantener la asignación aleatoria.
 
-This means that it is possible to specify, for example, that your treatment and control groups contain equal ratios of men to women. In other words, this avoids any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.
+Esto significa que es posible especificar, por ejemplo, que sus grupos de tratamiento y control contienen proporciones iguales de hombres a mujeres. En otras palabras, esto evita cualquier aleatorización que pueda producir un grupo de tratamiento claramente masculino y un grupo de control claramente femenino, o viceversa.
 
-Why is this desirable? Not because our estimate of the average treatment effect would otherwise be biased, but because it could be really noisy. Suppose that a random assignment happened to generate a very male treatment group and a very female control group. We would observe a correlation between gender and treatment status. If we were to estimate a treatment effect, that treatment effect would still be unbiased because gender did not cause treatment status. However, it would be more difficult to reject the null hypothesis that it was not our treatment but gender that was producing the effect. In short, the imbalance produces a noisy estimate, which makes it more difficult for us to be confident in our estimates.
+¿Por qué es esto deseable? El que queramos grupos balanceado no tiene que ver con una posible estimación sesgada del efecto promedio del tratamiento, sino porque la estimación podría ser realmente ruidosa. Supongamos que una asignación aleatoria generara un grupo de tratamiento con muchos hombres y un grupo de control muchas mujeres. En dado caso, observaríamos una correlación entre género y tratamiento. Si tuviéramos que estimar un efecto del tratamiento, ese efecto del tratamiento aún sería insesgado  porque el género no tiene ninguna influencia sobre asignación del tratamiento. Sin embargo, sería más difícil rechazar la hipótesis nula de que es el género y no nuestro tratamiento el que produce el efecto. En resumen, el desbalance produce una estimación ruidosa, lo que nos dificulta tener confianza en nuestras estimaciones.
 
-Block (sometimes called stratified) randomization helps us to rig our experiment so that our treatment and control groups are balanced along important dimensions but are still randomly assigned. Essentially, this type of randomization design constructs multiple mini-experiments: for example, it might take women and randomly assign half to treatment and half to control, and then it would assign half of men to treatment and half to control. This guarantees a gender balance when treatment and control groups are pooled.
+La aleatorización en bloques (a veces llamada estratificada) nos ayuda a manipular nuestro experimento para que nuestros grupos de tratamiento y control estén balanceados en dimensiones importantes, pero aún así se asignen al azar. Esencialmente, este tipo de diseño de aleatorización construye múltiples mini-experimentos: por ejemplo, podría tomar mujeres y asignar al azar la mitad al tratamiento y la mitad al control, y luego asignaría la mitad de los hombres al tratamiento y la mitad al control. Esto garantiza un balance con respecto al género cuando se combinan los grupos de tratamiento y de control.
 
-The [blockTools package](https://cran.r-project.org/web/packages/blockTools/index.html) is a useful package for conducting block randomization. Let’s start by generating a fake data set for 60 subjects, 36 of whom are male and 24 of whom are female.
 
-Suppose we would like to block on gender. Based on our data, blockTools will generate the smallest possible blocks, each a grouping of two units with the same gender, one of which will be assigned to treatment, and one to control.
+El [paquete blockTools ](https://cran.r-project.org/web/packages/blockTools/index.html) es util para hacer aleatorización en bloques. Comencemos por generar datos artificiales para 60 sujetos, 36 de los cuales son hombres y 24 mujeres.
+
+Supongamos que queremos hacer asignación en bloques en función del género Basados en nuestros datos, blockTools generará los bloques más pequeños posibles, cada uno con dos unidades del mismo género: una asignada al tratamiento y la otra al control.
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
 rm(list = ls())
@@ -60,7 +65,7 @@ dat <-
     age = sample(18:65, size = 60, replace = TRUE)
   )
 
-# one covariate block
+# Bloque de una covariable
 
 dat <-
   dat %>%
@@ -68,7 +73,7 @@ dat <-
 
 with(dat, table(female, Z_block_1))
 
-# matched quartets
+# Cuartetos emparajedos
 out <- block(dat, n.tr = 4, id.vars = "id", 
              block.vars = c("female", "age"))
 
@@ -81,17 +86,23 @@ dat <-
 with(dat, table(Z_block_2, block_id))
 ```
 
-You can check the mean of the variable on which you blocked for treatment and control to see that treatment and control groups are in fact perfectly balanced on gender.
 
-3 Factorial designs: You can randomize multiple treatments at the same time without using up power
+Puede verificar la media de la variable en la que bloqueó el tratamiento y el control para ver que los grupos de tratamiento y control están, de hecho, perfectamente balanceados en función del género.
+
+ 
+
+3 diseños factoriales: puede aleatorizar múltiples tratamientos al mismo tiempo sin perder poder
 ==
-Suppose there are multiple components of a treatment that you want to test. For example, you may want to evaluate the impact of a microfinance program. Two specific treatments might be lending money to women and providing them with training. A factorial design looks at all possible combinations of these treatments: (1) Loans, (2) Training, (3) Loans + Training, and (4) Control. Subjects are then randomly assigned to one of these four conditions.
+Supongamos que hay varios componentes de un tratamiento sobre los cuales quiere hacer pruebas. Por ejemplo, es posible que desee evaluar el impacto de un programa de microfinanzas. Dos tratamientos específicos podrían ser prestar dinero a las mujeres y brindarles capacitación. Un diseño factorial analiza todas las combinaciones posibles de estos tratamientos: (1) Préstamos, (2) Capacitación, (3) Préstamos + Capacitación y (4) Control. Luego, los sujetos se asignan al azar a una de estas cuatro condiciones.
+
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/factorial-table.png)
 
-Factorial designs are especially useful when evaluating interventions that include a package of treatments. As in the example above, many development interventions come with several arms, and it is sometimes difficult to tell which arms are producing the observed effect. A factorial design separates out these different treatments and also allows us to see the interaction between them.
+Los diseños factoriales son especialmente útiles para evaluar intervenciones que incluyen un paquete de tratamientos. Así como en el ejemplo anterior, muchas intervenciones de desarrollo vienen con varios componentes (brazos) y, a veces, es difícil saber qué componente están produciendo el efecto observado. Un diseño factorial separa estos diferentes tratamientos y también nos permite ver la interacción entre ellos.
 
-The following code shows you how to randomize for a factorial design.
+El siguiente código enseña cómo aleatorizar utilizando un diseño factorial
+
+
 
 ```{r, results='hide'}
 dat <-
