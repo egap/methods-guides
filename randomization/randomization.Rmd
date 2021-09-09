@@ -1,4 +1,3 @@
-
 ---
 output: 
   html_document:
@@ -9,100 +8,81 @@ output:
 <!-- title: "10 Things You Need to Know About Randomization" -->
 <!-- author: "Methods Guide Author: Lindsay Dolan" -->
 
-Resumen
+Abstract
 ==
-Esta guía le ayudará a diseñar y ejecutar diferentes tipos de asignación aleatoria en sus experimentos. Aquí nos centramos en  ideas generales y proporcionamos ejemplos y herramientas que puede utilizar en R. Para saber saber más sobre por qué aleatorizar, consulte [esta guía de métodos](http://egap.org/resource/10-strategies-for-figuring-out- si-x-causó-y).
+This guide will help you design and execute different types of randomization in your experiments. We focus on the big ideas and provide examples and tools that you can use in R.  For why to do randomization see [this methods guide](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
 
-1 Unas formas son mejores que otras
+
+1 Some ways are better than others
 ==
-Hay muchas formas de aleatorizar. La más simple es lanzar una moneda para determinar si un sujeto recibe un tratamiento o no. Esto asegura que cada sujeto tenga una probabilidad de 0.5 de recibir el tratamiento y una probabilidad de 0.5 de no recibirlo. Hecho de esta manera, si un sujeto recibe el tratamiento no afecta para nada el que el siguiente sujeto reciba o no el tratamiento. Cada sujeto tiene la misma probabilidad de recibir el tratamiento y el tratamiento no estaría correlacionado con factores que puedan generar una asociación engañosa, al menos en valor esperado.
+There are many ways to randomize. The simplest is to flip a coin each time you want to determine whether a given subject gets treatment or not. This ensures that each subject has a .5 probability of receiving the treatment and a .5 probability of not receiving it. Done this way, whether one subject receives the treatment in no way affects whether the next subject receives the treatment, every subject has an equal chance of getting the treatment, and the treatment will be uncorrelated with all confounding factors — at least in expectation.
 
+This is not a bad approach but it has shortcomings. First, using this method, you cannot know in advance how many units will be in treatment and how many in control. If you want to know this, you need some way to do selections so that the different draws are not statistically independent from each other (like drawing names from a hat). Second, you may want to assert control over the exact share of units assigned to treatment and control.  That’s hard to do with a coin. Third, you might want to be able to replicate your randomization to show that there was no funny business. That’s hard to do with coins and hats. Finally, as we show below, there are all sorts of ways to do randomization to improve power and ensure balance in various ways that are very hard to achieve using coins and hats. 
 
-Este no es un procedimiento erróneo, pero tiene sus deficiencias. Primero, cuando usamos este método no podemos saber de antemano cuántas unidades estarán en tratamiento y cuántas en control. Si para usted es importante contar con esta información de antemano, deberá emplear alguna forma de muestreo en la que cada elemento selccionado no sea estadísticamente independientes de los otros (como sacar papeletas con nombres de un sombrero). En segundo lugar, puede que usted quiera controlar la proporción exacta de unidades asignadas al tratamiento y control, lo que es difícil de conseguir lanzando una moneda. En tercer lugar, es posible que uste quiera poder replicar su aleatorización para demostrar que no hubo nada raro con ella. Eso no se puede lograr tan fácil lanzando monedas o sacando  papeletas de sombreros. Finalmente, como mostramos a continuación, hay todo tipo de formas de hacer la aleatorización para mejorar el poder estadístico y asegurar el balance de varias formas, que son muy difíciles de lograr usando monedas y sombreros.
+Fortunately though, flexible replicable randomization is very easy to do with freely available software. The following simple R code can, for example, be used to generate a random assignment, specifying the number of units to be treated. Here, N (100) is the number of units you have and m (34) is the number you want to treat. The “seed” makes it possible to replicate the same draw each time you run the code (or you can change the seed for a different draw).[^1] [^2]
 
-Sin embargo, afortunadamente, la aleatorización replicable y flexible es muy fácil de hacer con software disponible gratuitamente. El siguiente código de R se puede utilizar, por ejemplo, para generar una asignación aleatoria, especificando el número de unidades a tratar. Aquí, N = 100 es el número de unidades que tiene y m = 34  es el número que desea tratar. La "semilla" permite replicar la misma simulación cada vez que ejecuta el código (o puede cambiar la semilla por iteración diferente de la simulación). [^1] [^2]
+[^1]: Random number generators are actually pseudo-random because they generate a vector of random numbers based on a small set of initial values, known as a seed state. Random number generators operate this way in order to improve computational speed. However, the series of random numbers generated is as random as you need to it to be for the purposes of random assignment because it is wholly unrelated to the potential outcomes of your subjects.
 
-
-
-[^1]: Los generadores de números aleatorios son en realidad pseudoaleatorios porque generan un vector de números aleatorios basado en un pequeño conjunto de valores iniciales, conocido como  estado de semilla. Los generadores de números aleatorios funcionan de esta manera para mejorar la velocidad computacional. Sin embargo, la serie de números aleatorios generada es tan aleatoria como es necesario para los propósitos de la asignación aleatoria porque no tiene ninguna relación con los resultados potenciales de sus sujetos.
-
-[^2]: Todos los fragmentos de código fueron actualizados por Alex Coppock el 25 de noviembre de 2020.
-
-
+[^2]: All code chunks updated by Alex Coppock on 25 November, 2020.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE, results='hide'}
 library(randomizr)
 set.seed(343)
-complete_ra(N = 100, m = 34)
+complete_ra(100, 34)
 ```
 
-2  Aleatorización en bloques: puede asegurarse de antemano que los grupos de tratamiento y control estén balanceados
+2 Block randomization: You can fix it so that treatment and control groups are balanced
 ==
-Cuando aleatorizaramos podemos asegurarnos de que los grupos de tratamiento y de control estén balanceados con respecto a  factores particulares que sean de nuestro interés. Claro está, que no es posible especificar qué unidades particulares se seleccionan para cada grupo y seguir manteniendo la asignación aleatoria.
+It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.
 
-Esto significa que es posible especificar, por ejemplo, que sus grupos de tratamiento y control contengan proporciones iguales de hombres y mujeres. En otras palabras, esto evita cualquier aleatorización que pueda producir un grupo de tratamiento con sólo hombres y un grupo de control con sólo mujeres, o viceversa.
+This means that it is possible to specify, for example, that your treatment and control groups contain equal ratios of men to women. In other words, this avoids any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.
 
-¿Por qué es esto deseable? El hecho de que queramos grupos balanceado no está relacionado con un posible sesgo en la estimación  del efecto promedio del tratamiento, sino con que la estimación podría ser muy ruidosa. Supongamos que una asignación aleatoria generara un grupo de tratamiento con muchos hombres y un grupo de control cpn muchas mujeres. En tal caso, observaríamos una correlación entre el género y el tratamiento. Si tuviéramos que estimar un efecto del tratamiento, ese efecto del tratamiento sería insesgado  porque en realidad el género no tendría ninguna influencia sobre la asignación del tratamiento. Sin embargo, sería más difícil rechazar la hipótesis nula de que es el género y no nuestro tratamiento el que produce el efecto. En resumen, el desbalance produce una estimación ruidosa, lo que dificulta tener confianza en nuestras estimaciones.
+Why is this desirable? Not because our estimate of the average treatment effect would otherwise be biased, but because it could be really noisy. Suppose that a random assignment happened to generate a very male treatment group and a very female control group. We would observe a correlation between gender and treatment status. If we were to estimate a treatment effect, that treatment effect would still be unbiased because gender did not cause treatment status. However, it would be more difficult to reject the null hypothesis that it was not our treatment but gender that was producing the effect. In short, the imbalance produces a noisy estimate, which makes it more difficult for us to be confident in our estimates.
 
-La aleatorización en bloques (a veces conocida como estratificada) nos ayuda a manipular nuestro experimento para que nuestros grupos de tratamiento y control estén balanceados en dimensiones importantes, pero que aún así se asignen al azar. Esencialmente, este tipo de diseño de aleatorización construye múltiples mini-experimentos: por ejemplo, podría tomar mujeres y asignar al azar la mitad al tratamiento y la mitad al control, y luego asignaría la mitad de los hombres al tratamiento y la mitad al control. Esto garantiza un balance con respecto al género cuando se combinan los grupos de tratamiento y de control.
+Block (sometimes called stratified) randomization helps us to rig our experiment so that our treatment and control groups are balanced along important dimensions but are still randomly assigned. Essentially, this type of randomization design constructs multiple mini-experiments: for example, it might take women and randomly assign half to treatment and half to control, and then it would assign half of men to treatment and half to control. This guarantees a gender balance when treatment and control groups are pooled.
 
+The [blockTools package](https://cran.r-project.org/web/packages/blockTools/index.html) is a useful package for conducting block randomization. Let’s start by generating a fake data set for 60 subjects, 36 of whom are male and 24 of whom are female.
 
-El [paquete blockTools ](https://cran.r-project.org/web/packages/blockTools/index.html) es util para hacer aleatorización en bloques. Comencemos por generar datos artificiales para 60 sujetos, 36 de los cuales son hombres y 24 mujeres.
-
-Supongamos que queremos hacer asignación en bloques en función del género. A partir de nuestros datos, blockTools generará los bloques más pequeños posibles, cada uno con dos unidades del mismo género: una asignada al tratamiento y la otra al control.
+Suppose we would like to block on gender. Based on our data, blockTools will generate the smallest possible blocks, each a grouping of two units with the same gender, one of which will be assigned to treatment, and one to control.
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
 rm(list = ls())
-
 library(blockTools)
 library(dplyr)
 library(randomizr)
-
 dat <-
   tibble(
     id = seq(1:60),
     female = c(rep(0, 36), rep(1, 24)),
     age = sample(18:65, size = 60, replace = TRUE)
   )
-
-# Bloque de una covariable
-
+# one covariate block
 dat <-
   dat %>%
   mutate(Z_block_1 = block_ra(female))
-
 with(dat, table(female, Z_block_1))
-
-# Cuartetos emparajedos
+# matched quartets
 out <- block(dat, n.tr = 4, id.vars = "id", 
              block.vars = c("female", "age"))
-
 dat <-
   dat %>%
   mutate(
     block_id = createBlockIDs(out, dat, id.var = "id"),
     Z_block_2 = block_ra(block_id))
-
 with(dat, table(Z_block_2, block_id))
 ```
 
+You can check the mean of the variable on which you blocked for treatment and control to see that treatment and control groups are in fact perfectly balanced on gender.
 
-Puede verificar la media de la variable que utilizo para crear los bloques en el tratamiento y el control para ver que los grupos estén, de hecho, perfectamente balanceados en función del género.
-
- 
-
-3 diseños factoriales: puede aleatorizar múltiples tratamientos al mismo tiempo sin perder poder
+3 Factorial designs: You can randomize multiple treatments at the same time without using up power
 ==
-Supongamos que hay varios componentes de un tratamiento sobre los cuales se quiere hacer pruebas. Por ejemplo, es posible que desee evaluar el impacto de un programa de microfinanzas. Dos tratamientos específicos podrían ser prestar dinero a las mujeres y brindarles capacitación. Un diseño factorial analiza todas las combinaciones posibles de estos tratamientos: (1) Préstamos, (2) Capacitación, (3) Préstamos + capacitación y (4) Control. Luego, los sujetos se asignan al azar a una de estas cuatro condiciones.
+Suppose there are multiple components of a treatment that you want to test. For example, you may want to evaluate the impact of a microfinance program. Two specific treatments might be lending money to women and providing them with training. A factorial design looks at all possible combinations of these treatments: (1) Loans, (2) Training, (3) Loans + Training, and (4) Control. Subjects are then randomly assigned to one of these four conditions.
 
+![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/factorial-table.png)
 
-![](tabla-factorial.png){width=60%}
+Factorial designs are especially useful when evaluating interventions that include a package of treatments. As in the example above, many development interventions come with several arms, and it is sometimes difficult to tell which arms are producing the observed effect. A factorial design separates out these different treatments and also allows us to see the interaction between them.
 
-Los diseños factoriales son especialmente útiles para evaluar intervenciones que incluyen un paquete de tratamientos. Así como en el ejemplo anterior, muchas intervenciones de desarrollo vienen con varios componentes (brazos) y, a veces, es difícil saber qué componente está produciendo el efecto observado. Un diseño factorial separa estos diferentes tratamientos y también nos permite ver la interacción entre ellos.
-
-El siguiente código  enseña cómo aleatorizar utilizando un diseño factorial.
-
-
+The following code shows you how to randomize for a factorial design.
 
 ```{r, results='hide'}
 dat <-
@@ -110,57 +90,46 @@ dat <-
     Z_loan = complete_ra(80, 40),
     Z_training = block_ra(blocks = Z_loan)
   )
-
 with(dat, table(Z_loan, Z_training))
 ```
 
-4 Usted puede asignar  un conglomerado todo junto al tratamiento  (¡pero cuanto más grandes sean sus conglomerados, menos poder tendrá!)
+4 You can randomize whole clusters together (but the bigger your clusters, the weaker your power!)
 ==
-A veces no podemos asignar el tratamiento aleatoriamente al nivel del individuo. Por ejemplo, una propaganda radial que busque incentivar individuos a que vayan a un puesto de votación debe transmitirse a  todo los radioescuchas; es imposible transmitir solo a algunas personas pero no a otras. Ya sea por necesidad o por elección, a veces se aleatorizan conglomerados en lugar de individuos.
+Sometimes it is impossible to randomize at the level of the individual. For example, a radio appeal to get individuals to a polling station must inherently be broadcast to a whole media market; it is impossible to broadcast just to some individuals but not others. Whether it is by necessity or by choice, sometimes you will randomize clusters instead of individuals.
 
-La desventaja de la aleatorización por conglomerados es que reduce el poder estadístico, ya que el número de unidades asignadas al azar ahora refleja el número de conglomerados y no simplemente el número total de sujetos. Si tuviera dos grupos asignados al azar de 1000 individuos cada uno, el número funcional de unidades podría estar más cerca de 2, no de 2000. Por esta razón, es preferible hacer que los conglomerados sean lo más pequeños posible.
+The disadvantage of cluster randomization is that it reduces your power, since the number of randomly assigned units now reflects the number of clusters and not simply your total number of subjects. If you had two randomly assigned clusters of 1,000 individuals each, the functional number of units might be closer to 2, not 2,000. For this reason, it is preferable to make clusters as small as possible.
 
-Es de igual forma deseable que los conglomerados sean heterogéneos para que así representen  a la población general de la mejor forma posible. Si los individuos dentro de cada conglomerados son muy parecidos entre sí, puede que sus resultados potenciales también lo sean, y ese grupo de individuos con resultados potenciales similares se asignará al tratamiento o control todo junto como grupo. En general, esto aumentaría la varianza si ese conglomerado tiene resultados potenciales particularmente altos o bajos porque aumenta la correlación general entre los resultados potenciales y la asignación del tratamiento. En resumen, si sus conglomerados son más representativos de la población en general, sus estimaciones del efecto promedio del tratamiento serán más precisas.
+Similarly, it is also desirable to have heterogeneity within your clusters so that they are as representative as possible of your broader population. If the individuals within individual clusters are very similar to each other, they may have similar potential outcomes, and that group with similar potential outcomes is going to be assigned to treatment or control as a group. Overall, this will increase your variance if that cluster had particularly high or low potential outcomes because it increases the overall correlation between potential outcomes and treatment assignment. In brief, if your clusters are more representative of the broader population, your estimates of the average treatment effect will be more precise.
 
+A frequently asked question is how cluster randomization differs from block randomization. Block randomization is conducted in order to achieve balance based on pre-treatment covariates. For example, an education intervention might block randomize on the previous year’s test scores in order to track the progress of both low- and high-performing students. Cluster randomization is when multiple units are treated as a group–they all receive treatment or control status together. For example, the same education intervention might randomize at the level of the classroom, so the classrooms constitute the clusters. It is possible to block and cluster randomize simultaneously. In our example, you might calculate the average test score for each classroom and block randomize based on the classroom’s average score.
 
-
-Una pregunta frecuente es en qué se diferencia la aleatorización por conglomerados de la aleatorización en bloques. La aleatorización en bloques se realiza para lograr un equilibrio basado en las covariables definidas previas al tratamiento. Por ejemplo, una intervención educativa podría crear bloques de acuerdo a los puntajes de las pruebas del año anterior para rastrear el progreso de los estudiantes de bajo y alto rendimiento. En cambio, la aleatorización por conglomerados es cuando varias unidades son tratadas como  grupo: todas reciben el tratamiento o todas están en el grupo de  control juntas. Continuando con el mismo ejemplo de la intervención educativa, la aleatorización podría hacerse al nivel del aula. En ese caso  las aulas constituyen los conglomerados. Es posible aleatorizar en bloques y por conglomerados simultaneamente. En nuestro ejemplo, puede calcular el puntaje promedio de la prueba para cada aula y realizar una asignación aleatoria en bloques según el puntaje promedio del aula.
-
-El siguiente gráfico muestra cómo se verían sus datos en los casos de aleatorización en bloques, conglomerados y bloques + conglomerados, en relación con un caso simple de aleatorización sin bloques ni conglomerados. En los dos casos en los que  hay conglomerados, puede darse cuenta que la asignación al tratamiento (diferenciada por color) aparece en grupos pequeños. En los dos casos en los que hay bloques, hay una distribución uniforme de colores en los cuatro cuadrantes del gráfico, los bloques de esta asignación aleatoria.
+The following graphic demonstrates what your data might look like in the cases of block, cluster, and block + cluster randomization, relative to a simple case of randomization with no blocking or clustering. In both cases where clustering occurs, you can tell that treatment assignment (depicted by color) appears in small groups. In both cases where blocking occurs, there is an even distribution of colors in the four quadrants of the plot, the blocks of this random assignment.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
-<center>_
-Ilustración de los patrones de las unidades de tratamiento y control que se pueden dar en diferentes tipos de diseños con bloques y conglomerados._</center>
+<center>_Illustration of the patterns of treatment and control units you might see under different types of blocked and clustered designs._</center>
 
-
-5 Puede aleatorizar de manera que sea fácil identificar si hay propagación de efectos
+5 You can randomize in a way that makes it easier to see if there are spillovers
 ==
-Al diseñar su experimento, reflexione sobre  si la "propagación" representa una amenaza para su capacidad de identificar el efecto causal de su tratamiento. Los efectos de propagación surgen si el resultado de una unidad se ve afectado por que otra unidad reciba o no el tratamiento. Esto puede ser complicado si las unidades tienen la capacidad de interactuar entre sí: un miembro de una aldea puede enterarse de que otro aldeano ha recibido un subsidio en efectivo y puede cambiar su comportamiento en consecuencia.
+When designing your experiment, think critically about whether “spillovers” pose a threat to your ability to identify the causal effect of your treatment. Spillovers arise if one units outcome is affected by the treatment status of another unit. This can be tricky if units have the ability to interact with each other: one member of a village may learn of another villager’s receipt of a cash grant and may change their behavior accordingly.
 
-Una forma de hacer que los efectos de propagación sean más evidentes es utilizar la doble aleatorización. Primero asignar aleatoriamente algunos conglomerados al tratamiento y otros al control, y dentro de los conglomerados, asignaría algunos individuos al tratamiento y otros al control. La comparación de los individuos de control de su conglomerados de tratamiento con los de su conglomerado de control le permitirá evaluar el papel de los efectos secundarios en su experimento.
+One way to make spillovers more evident is to use double randomization. You would first randomly assign some clusters to treatment and others to control, and within clusters, you would assign some individuals to treatment and others to control. Comparing control individuals in your treatment cluster to individuals in your control cluster will enable you to assess the role of spillovers in your experiment.
 
-
-
-
-6 Las probabilidades de asignación al tratamiento pueden variar de una unidad a otra
+6 Different units can be assigned to treatment with different probabilities
 ==
-A veces se tiende a creer que algo "aleatorio" significa que dos eventos son igualmente probables, pero de hecho, la asignación aleatoria es "aleatoria" siempre que la probabilidad de asignación al tratamiento esté estrictamente entre 0 y 1. Si un sujeto tiene un 0 o un 100 por ciento de probabilidad de ser asignado a un tratamiento, ese sujeto debe excluirse del análisis experimental porque sus resultados no serían afectados por la aleatorización. Sin embargo, siempre que se conozcan sus probabilidades, se pueden incluir todos los sujetos con una probabilidad de asignación al tratamiento estrictamente entre 0 y 1, incluso si sus probabilidades difieren.
+Sometimes people think that “random” means that two events are equally likely, but in fact, random assignment is “random” so long as the probability of assignment to treatment is strictly between 0 and 1. If a subject has a 0 or a 100 percent chance of being assigned to treatment, that subject should be excluded from your experimental analysis because there is no randomization occurring. However, all subjects with a probability of assignment to treatment strictly between 0 and 1 may be included, even if their probabilities differ, so long as their probabilities are known.
 
-¿Por qué querríamos tener diferentes probabilidades de asignación al tratamiento? Suponga que está trabajando con un socio implementador para distribuir al azar la asignación de vehedores electorales con el fin de medir sus efectos sobre el fraude electoral. Su socio implementador puede enviar solo unos pocos vehedores electorales a una zona rural del país. Usted puede abordar esta restricción creando bloques en función del área geográfica y asignando una mayor probabilidad de asignación al tratamiento a las aldeas más cercanas a las que es menos costoso viajar. Siempre que la probabilidad de asignación al tratamiento para las aldeas más accesibles sea menor que 1, la probabilidad de asignación al tratamiento para las aldeas menos accesibles sea mayor que cero y se conozcan estas probabilidades, es posible estimar el efecto del tratamiento.
+Why might you want to assign different probabilities of assignment to treatment? Suppose you are working with an implementing partner to randomize the allocation of election observers in order to measure the effect on electoral fraud. Your implementing partner can afford to send only a few election observers to a rural part of the country. You could address this constraint by blocking on geographic area and assigning a higher probability of assignment to treatment to more proximate villages to which it is less costly to travel. So long as the probability of assignment to treatment for more accessible villages is less than 1, the probability of assignment to treatment for less accessible villages is greater than zero, and these probabilities are known, it is possible to estimate the effect of the treatment.
 
+When subjects have differing probabilities of assignment to treatment, however, you can no longer simply merge all subjects in the analysis of your data. If you do, then treatment assignment will be correlated with background characteristics on which you blocked. There are two ways of handling this.
 
-Sin embargo, cuando los sujetos tienen diferentes probabilidades de ser asignados al tratamiento, ya no puede simplemente juntar todos los sujetos para el análisis de sus datos. Si lo hace, la asignación de tratamiento estará correlacionada con las características de contexto que utlizó para los bloques. Hay dos formas de manejar esto.
+The first way is to estimate the average treatment effect block by block and then to average the treatment effects, each weighted by the size of the block relative to the entire sample.
 
-La primera  es estimar el efecto del tratamiento promedio bloque por bloque y luego promediar los efectos del tratamiento, cada uno ponderado por el tamaño del bloque en relación con la muestra completa.
-
-La segunda forma es la ponderación de probabilidad inversa (PPI; Inverse probability weight, IPW). Para calcular la PPI, los pesos se definen como 1/p para las unidades tratadas y 1/(1-p) para las unidades de control, donde p se refiere a la probabilidad de asignación al tratamiento. Este método le permite ejecutar una regresión ponderada de Y en la asignación de tratamiento.
-
+The second way is inverse probability weighting (IPW). In IPW, weights are defined as the 1/p for treated units and 1/(1-p) for control units, where p refers to the probability of assignment to treatment. This method allows you to run a weighted regression of Y on treatment assignment.
 
 ```{r, results='hide'}
 N <- 100000
 dat <- tibble(Y0 = 1:N,
               Y1 = Y0 + 10000)
-
 dat <-
   dat %>%
   mutate(
@@ -176,47 +145,40 @@ dat %>%
   )
 ```
 
-7 Aleatorización restringida: si no le gusta lo que obtiene, puede empezar de nuevo
+7 Restricted randomization: If you don’t like what you get you can start over
 ==
-Descartar una asignación aleatoria porque no nos gusta lo que resultó puede parecer incoherente con la idea general de la aleatorización. Pero a veces tiene sentido hacerlo. Puede que quiera asegurarse de que la aleatorización no produzca patrones particulares (por ejemplo, demasiadas personas que se conocen entre sí y todas reciben el tratamiento). Pero los patrones que le interesan pueden ser demasiado difíciles de especificar de antemano. Lo que puede hacer entonces es hacer un sorteo al azar y luego ver si la asignación sorteada cumple con los criterios que necesita o no,  de no ser así, puede  volver a sortear. Sin embargo, tenga en cuenta que si hace esto, genera un par de complicaciones: (1) puede que las unidad no tengan la misma probabilidad de asignación y (2) es posible que las unidades no se asignen de forma independiente al tratamiento. Debe tener en cuenta estos dos hechos en su análisis. Por ejemplo, generando ponderaciones de probabilidad inversa como hicimos en el punto 6, pero usando el mismo código de aleatorización restringido para determinar qué tan probable es que cada sujeto sea asignado al tratamiento bajo estas restricciones. Luego, utilizar la distribución de posibles asignaciones al tratamiento para hacer poder inferencia basada en la aleatorización (randomization inference). Estos análisis son complejos, así que proceda con precaución.
+It might seem inconsistent with the whole idea of randomization that you throw out  a random assignment because you don’t like what is chosen. But sometimes this makes sense.  Sometimes you might want to make sure that randomization does not produce particular types of pattern (for example, too many people who know each other all being in treatment).  But the patterns you care about might be too hard to set up in advance. What you can then do is take a random draw and then see whether the draw meets the criteria you care about or not, if it doesn’t, then draw again.  Be warned, though, that if you do this, you create a couple of complications: (1)  each unit will not necessarily be assigned with the same probability, (2) units may not be independently assigned to treatment.  You need to take into account both of these facts in your analysis, for example, by generating inverse probability weights as we did in point 6 but using the same restricted randomization code to figure out how likely it is that each subject is assigned to treatment under these restrictions. Next, you use the distribution of possible treatment assignments to implement randomization inference. These analyses are complex so proceed with caution.
 
-8. Escriba un código para aleatorizar que le permita simular muchas aleatorizaciones posibles
+8 Write randomization code that lets you simulate many possible randomizations
 ==
-Una ventaja de utilizar código de R para aleatorizar es que puede realizar miles de aleatorizaciones en segundos. ¿Cuál es el benificio de esto?
+A benefit of using R code to randomize is that you can perform thousands of possible randomizations in seconds. Why is this beneficial?
 
-1. Puede ser útil como una forma de verificar si su código para aleatorizar  funcionó bien. Por ejemplo, si uno o más sujetos en su experimento no recibieron el tratamiento en ninguna de las 10,000 posibles asignaciones aleatorias, entonces hay razones para sospechar que puede haber un error en su código de aleatorización.
-2. Puede usar la reasignación aleatoria para calcular la probabilidad exacta de asignación al tratamiento para cada individuo en su experimento. Esto es especialmente útil si su código para aleatorizar es complejo. Quizás esté asignando el tratamiento en bloques y por conglomerados, lo que da como resultado probabilidades de asignación al tratamiento muy diferentes para cada individuo en un experimento grande. Estas probabilidades serían difíciles de calcular a mano, pero una solución fácil es ejecutar su código para aleatorizar original muchas veces y generar una variable que represente la proporción de veces que cada individuo fue asignado al tratamiento: esto representa su probabilidad individual de asignación al tratamiento.  Luego puede usar esta variable en una regresión ponderada para calcular el efecto promedio del tratamiento.
-3. La simulación de posibles aleatorizaciones es un enfoque basado en el diseño para calcular la significancia estadística. Este enfoque, llamado inferencia basada en aleatorización (randomization inference), genera un valor p exacto calculando los posibles efectos promedio del tratamiento que se observarían bajo asignaciones aleatorias hipotéticas asumiendo que el tratamiento no tuviera ningún efecto. El valor p es entonces la proporción de los efectos estimados del tratamiento que es al menos tan grande en magnitud como el que observó su experimento. Es mucho mejor este enfoque que calcular la significancia estadística utilizando pruebas estándar cuando la distribución de los datos no es normal,  ya que la inferencia basada en la aleatorización evita hacer supuestos de la distribución de los datos y, en cambio, utiliza la distribución de los datos observados en su experimento. Para obtener más información sobre la inferencia de aleatorización, incluido el código de muestra, visite la [10 cosas que debe saber sobre la inferencia basada en la aleatorización](https://egap.org/resource/10-things-to-know-about-randomization-inference/) Guía de métodos .
+1. It can be useful as a way to check whether your randomization code worked. For example, if one or more subjects in your experiment never received treatment over 10,000 possible random assignments, then you would suspect a flaw in your randomization code.
+2. You can use re-randomization to calculate the exact probability of assignment to treatment for each individual in your experiment. This is especially helpful if your randomization code is more complex. Perhaps you employ both block and cluster randomization, resulting in greatly different probabilities of assignment to treatment for individuals in a large experiment. These probabilities would be difficult to calculate by hand, but an easy solution is to run your original randomization code many times and generate a variable representing each individual’s proportion of times they were assigned to treatment: this represents his or her individual probability of assignment to treatment. This variable can then be used in a weighted regression when calculating the average treatment effect.
+3. Simulating possible randomizations is a design-based approach to calculating statistical significance. This approach, called randomization inference, generates an exact p-value by calculating possible average treatment effects that would be observed under hypothetical random assignments if in fact the treatment had no effect. The p-value is then the proportion of the estimated treatment effects that is at least as large in magnitude as the one that your experiment observed. This approach is preferable to standard calculations of statistical significance when the distribution of your data is not normal because randomization inference avoids making distributional assumptions and instead uses distribution of data observed in your experiment. For more information on randomization inference, including sample code, visit the [10 Things to Know About Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference/) Methods Guide.
 
-9 Puede aleatorizar conforme avanza
+9 You can do randomization as you go along
 ==
+In many experiments, you may not know the entirety of your sample at the beginning of the experiment; some subjects may join over time. This presents a complication when we want to use a simple blocking algorithm because the addition of subjects to our pool may change the composition of our blocks and therefore their probabilities of assignment to treatment.
 
-Es posible que no conozca la muestra total al comienzo de algunos experimentos. Por ejemplo, puede que unos sujetos se unan más tarde al experimento. Esto puede representar una complicación si queremos asignar el tratamiento usando aleatorización en bloques, ya que la adición de sujetos a nuestro grupo puede cambiar la composición de nuestros bloques y por lo tanto sus probabilidades de asignación al tratamiento.
+To maintain the ability to block and therefore the ability to assert control over the balance between treatment and control groups, you can use covariates to calculate a new subject’s similarity to other previously assigned subjects and assign the new subject to the treatment condition with fewer similar units.[^3] [^4]
 
-Para poder continuar utilizando el algoritmo de asignación en bloques y, por lo tanto, continuar teniendo un balance entre los grupos de tratamiento y control, puede emplear covariables para calcular la similitud entre cada nuevo sujeto y los sujetos previamente asignados, y así asignar el nuevo sujeto a la condición de tratamiento que tenga menos unidades similares a este. [^3] [^4]
+[^3]: For more, see Moore, Ryan T., and Sally A. Moore. “Blocking for sequential political experiments.” Political Analysis 21.4 (2013): 507-523.
 
-[^ 3]: Para obtener más información, consulte Moore, Ryan T. y Sally A. Moore. “Blocking for sequential political experiments.” Political Analysis 21.4 (2013): 507-523.
+[^4]: For a more detalied walkthrough on the randomization procedures available in the R package randomizr, see: https://declaredesign.org/r/randomizr/articles/randomizr_vignette.html
 
-
-[^ 4]: Para obtener un tutorial más detallado sobre los procedimientos de aleatorización disponibles en el paquete R randomizr, consulte: https://declaredesign.org/r/randomizr/articles/randomizr_vignette.html
-
-10 A veces aa aleatorización puede ser una forma ética de asignar un tratamiento, pero a veces no.
+10 Randomization can sometimes be an ethical way of assigning a treatment, but sometimes it isn’t
 ==
-Aunque la aleatorización es el elemento clave para aislar un efecto causal de un tratamiento desde la perspectiva del diseño de investigación, también es importante considerar las implicaciones éticas de esta. Con respecto a los efectos de largo plazo de un experimento, la aleatorización nos permite determinar qué programas son más efectivos para que los recursos puedan dirigirse a programas que representen una mayor diferencia en la vida de poblaciones que podrían recibir el tratamiento en el futuro. A corto plazo, la distribución aleatoria del acceso a un programa (en contraposición a la distribución basada en características arbitrarias) puede ser una forma particularmente ética de distribuir bienes escasos que no se pueden extender a todos.
+Randomization is the key ingredient for isolating the causal effect of a treatment from a research design perspective, but it is also important to consider the ethical implications of randomization as well. When we think about the long-term effects of an experiment, randomization enables us to test which programs are most effective so that resources can be directed to programs that make the most difference in the lives of future populations. In the short term, randomizing access to a program (as opposed to distributing based on arbitrary characteristics) can be a particularly ethical way of distributing scarce goods that cannot be extended to everyone.
 
-Sin embargo, a veces son las poblaciones más necesitadas las que necesitan ser atendidas por una intervención en un experimento. Un diseño aleatorio que trata a un número igual de participantes de bajos ingresos y de altos ingresos con préstamos está permitiendo que los recursos fluyan a menos personas necesitadas en lugar de a más. Si creemos que el préstamo tiene efectos beneficiosos, entonces se habría inquietudes sobre la ética de la asignación de recursos a otras personas que a los más necesitados [^5].  En ese caso, se necesitaría tener un argumento sólido para los beneficios sociales de la investigación y se deberían buscar diseños que también proporcionen beneficios al grupo de control.
+However, sometimes, it is the neediest populations that need to be served by an intervention in an experiment. A randomized design that treats equal numbers of low-income and high-income participants with loans is letting resources flow to less rather than more needy individuals. If we believe there are beneficial effects of the loan, then this raises concerns about the ethics of allocating resources away from the neediest.[^5] One would need a strong case for social benefits of the research and would also seek designs that provide benefits ultimately to control groups.
 
+[^5]: But if we are certain about the loan’s effects, then it’s also unclear why we are running an experiment to test it. In medical research, randomized controlled trials often stop if it becomes clear early on that a drug is undoubtedly curing life-threatening diseases, and therefore withholding it from control subjects is dangerous. (Similarly, a trial would also stop if it were clear early on that a drug is undoubtedly causing negative and harmful effects.)
 
+A wait list randomization design is one way of treating an entire subject pool while enabling the researcher to test the effectiveness of the treatment experimentally. In this design, the program could roll out the intervention in phases and randomly assign the units to the phase in which they will be treated. For example, if a program wanted to treat 90 villages in total, it could treat 30 villages each year, and measure outcomes at the end of each year. If you wanted to compare outcomes in treatment and control villages, you would compare the 30 treated villages to the 60 yet-untreated villages at the end of the first year. At the end of the second year, you could compare the 30 villages that were treated in the previous year to the 30 villages that are yet-untreated. Essentially, this creates two experiments, identical but for the year’s time that separates them. In the table below, you can see that in the first year, we could compare the dark blue treatment group to the two light blue control groups. In the second year, we could compare the dark red treatment group to the light red treatment group, but we would want to avoid pooling the two treatment groups because one has been treated for longer than the other. You can see that after the third year, no more comparisons may be made because all units have been treated.
 
-[^5]: Pero si estamos seguros de los efectos del préstamo, tampoco estaría claro por qué estaríamos realizando un experimento para probarlo. En la investigación médica, a menudo se detienen los ensayos clínicos aleatorizados si se hace evidente desde el principio que un medicamento puede sin duda curar enfermedades potencialmente mortales y, por lo tanto, es peligroso negarlo a los sujetos de control. (De manera similar, un ensayo también se detendría si fuera claro desde el principio que un medicamento indudablemente está causando efectos negativos y dañinos).
+![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/wait-list-table.png)
 
-Un diseño de aleatorización con lista de espera es una forma de tratar a un grupo completo de sujetos al tiempo que permite al investigador probar la efectividad del tratamiento de manera experimental. En este diseño, el programa podría implementar la intervención en fases y asignar aleatoriamente las unidades a la fase en la que serán tratadas. Por ejemplo, si un programa quisiera tratar 90 aldeas en total, podría tratar 30 aldeas cada año y medir los resultados al final de cada año. Si quisiera comparar los resultados en las aldeas de tratamiento y control, compararía las 30 aldeas tratadas con las 60 aldeas que aún no recibieron tratamiento al final del primer año. Al final del segundo año, podría comparar las 30 aldeas que fueron tratadas el año anterior con las 30 aldeas que aún no recibieron tratamiento. Esencialmente, esto crea dos experimentos idénticos, excepto por el año de diferencia. En la siguiente tabla, puede ver que para el primer año, podemos comparar el grupo de tratamiento (en morado oscuro) con los dos grupos de control (en morado claro). En el segundo año, podríamos comparar un grupo de tratamiento (en rojo oscuro) con el otro grupo de tratamiento (en rojo claro), pero debemos evitar agrupar los dos grupos de tratamiento porque uno ha sido tratado por más tiempo que el otro. Como puede ver, después del tercer año no se pueden hacer más comparaciones porque todas las unidades han sido tratadas.
+The only requirement is that a subject’s assignment to treatment in a particular phase is randomly assigned and unrelated to their potential outcomes of interest. A design in which more eager participants received treatment earlier would violate this assumption and would not yield an unbiased estimate of the treatment effect, as unobserved factors that predispose them to seeking out treatment may be influencing their schedule of potential outcomes. The wait list design is an example of a creative randomization design that could address ethical concerns about limiting the distribution of a valuable treatment.
 
-
-![](lista-de-espera.png){width=60%}
-
-El único requisito es que la asignación de un sujeto al tratamiento en una fase particular se asigne al azar y no esté relacionada con sus posibles variable de interés. Un diseño en el que los participantes más entusiastas recibieran tratamiento antes violaría este supuesto y no arrojaría una estimación insesgada del efecto del tratamiento, ya que los factores no observados que los predisponen a buscar tratamiento pueden estar influyendo en los resultados potenciales de su programa. El diseño de aleatorización con  lista de espera es un ejemplo de un diseño de aleatorización creativo que podría abordar las preocupaciones éticas sobre la limitación de la distribución de un tratamiento valioso.
-
-A menudo, las preocupaciones éticas  están muy entrelazados con los diseños aleatorios, especialmente en las ciencias sociales y la investigación médica. Como investigador, debe considerar cuidadosamente las posibles implicaciones de asignar al azar un tratamiento dado. También deberá solicitar la aprobación de su diseño de investigación al Consejo de Revisión Institucional (Institutional Review Board, IRB) de su institución de investigación.
-
-
+Ethics are often highly intertwined with randomized designs, especially in social science and medical research. As a researcher, you should carefully consider the possible implications of randomizing any given treatment. You will also need to solicit approval for your research design from your research institution’s Institutional Review Board (IRB).
