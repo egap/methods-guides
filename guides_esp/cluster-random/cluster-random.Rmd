@@ -13,64 +13,46 @@ library(knitr)
 library(lme4)
 ```
 
-1 What clustering is 
+1 Lo que crear conglomerados significa 
 ==
-Cluster randomized[^1] experiments allocate treatments to groups, 
-but measure outcomes at the level of the individuals that compose the groups.
-It is this divergence between the level at which the intervention is assigned and the level at which outcomes are defined that classifies an experiment as cluster randomized.
-
-[^1]: This guide was originally written by Jake Bowers and Ashlea Rundlett (22 Nov 2014). Updates made by Jasper Cooper (25 Aug 2015).
-
-Consider a study that randomly assigns villages to receive different development programs, where the well-being of households in the village is the outcome of interest. This is a clustered design because, while the treatment is assigned to the village as a whole, we are interested in outcomes defined at the household level. Or consider a study that randomly assigns certain households to receive different get-out-the-vote messages, where we are interested in the voting behavior of individuals. Because the unit of assignment for the message is the household, but the outcome is defined as individual behavior, this study is cluster randomized.
-
-Now consider a study in which villages are selected at random, and 10 people from each village are assigned to treatment or control, and we measure the well-being of those individuals. In this case, the study is not cluster randomized, because the level at which treatment is assigned and the level at which outcomes are defined is the same. Suppose that a study randomly assigned villages to different development programs and then measured social cohesion in the village. Though it contains the same randomization procedure as our first example, it is not clustered because we are interested here in village-level outcomes: the level of treatment assignment and of outcome measurement is the same.
-
-Clustering matters for two main reasons. 
-On the one hand, clustering reduces the 
-amount of information in an experiment
-because it restricts the number of ways that the 
-treatment and control groups can be composed, relative to randomization
-at the individual level.
-If this fact is not taken into account, we often underestimate the variance in our 
-estimator, leading to over-confidence in our the results of the study.
-On the other hand, clustering raises the question of 
-how to combine information from different parts of the same experiment into one quantity. 
-Especially when clusters are not of equal sizes and the potential outcomes of units
-within them are very different, conventional estimators will systematically
-produce the wrong answer due to bias. However, several approaches 
-at the design and analysis phases can overcome the challenges posed by cluster
-randomized designs.
+Para los experimentos aleatorizados por conglomerados [^ 1] el tratamiento se asigna a grupos,
+pero se miden las variables de resulta a nivel de los individuos que componen estos grupos.
+Es esta divergencia entre el nivel en el que se asigna la intervención y el nivel en el que se definen los resultados lo que clasifica un experimento como aleatorio por conglomerados.
 
 
-#2 Why clustering can matter I: information reduction 
+[^1]: Esta guía fue escrita originalmente por Jake Bowers y Ashlea Rundlett (22 de noviembre de 2014). Actualizaciones realizadas por Jasper Cooper. 
 
-We commonly think of the information contained in studies in terms
-of the sample size and the characteristics of the units within the 
-sample. Yet two studies with exactly the same 
-sample size and the same participants could in theory contain
-very different amounts of information 
-depending on whether units are clustered.
-This will greatly affect the precision of the inferences we make based on the studies.
+Considere un estudio que asigna al azar aldeas para recibir diferentes programas de desarrollo, donde el bienestar de los hogares en la aldea es la variable resultado de interés. Este es un diseño por conglomerados ya que, si bien el tratamiento se asigna a la aldea en conjunto, nos interesan los resultados definidos a nivel del hogar. O considere un estudio que asigna aleatoriamente ciertos hogares para recibir diferentes mensajes de promoción del voto, donde estamos interesados el compartamiento de las personas con relación al voto. Debido a que la unidad de asignación para el mensaje es el hogar, pero el resultado se define como comportamiento individual, este estudio es aleatorio por conglomerados.
 
-Imagine an impact evaluation with 10 people, where 5 
-are assigned to the treatment group and 5 to control. 
-In one version of the experiment, the treatment is assigned
-to individuals - it is not cluster randomized. 
-In another version of the experiment, 
-the 5 individuals with black hair and the 5 individuals 
-with some other color of hair are assigned to treatment 
-as a group. This design has two clusters: 'black hair' and 'other color'.
+Considere ahora un estudio en el que las aldeas se seleccionan al azar, y se asigna a 10 personas de cada aldea a tratamiento o control, y medimos el bienestar de esas personas. En este caso, el estudio es aleatorio por conglomerados, porque el nivel en el que se asigna el tratamiento y el nivel en el que se definen los resultados es diferente. Supongamos que para un estudio se asignó al azar pueblos a diferentes programas de desarrollo y luego se midió la cohesión social en el pueblo. Aunque contiene el mismo procedimiento de aleatorización que nuestro primer ejemplo, esto no es un diseño por conglomerados porque estamos interesados  en los resultados a nivel de aldea: el nivel de asignación de tratamiento y de medición de resultados es el mismo.
 
-A simple application of the *n* choose *k* rule shows 
-why this matters. In the first version, the randomization
-procedure allows for  
-252 different combinations of people as the treatment and control groups. 
-However, in the second version, 
-the randomization procedure assigns all the black-haired
-subjects either to treatment or to control, and thus only
-ever produces two ways of combining people to estimate an effect.
 
-Throughout this guide, we will illustrate points using examples written in `R` code. You can copy and paste this into your own `R` program to see how it works.
+Los conglomerados son importantes por dos razones principales. Por un lado, los conglomerados reducen la cantidad de información en un experimento
+porque restringe el número de formas en que el los grupos de tratamiento y control se pueden componer, en relación con la aleatorización a nivel individual.
+
+Si no se tiene en cuenta este hecho, a menudo podemos subestimamr la varianza en nuestro estimador, lo que lleva a un exceso de confianza en los resultados de nuestro estudio. Por otro lado, los conglomerados plantea la pregunta de
+cómo combinar información de diferentes partes del mismo experimento en una sola cantidad.
+
+Especialmente cuando los conglomerados no son del mismo tamaño y los resultados potenciales de las unidades dentro de ellos son muy diferentes entre sí, los estimadores convencionales  producen sistemáticamente una respuesta incorrecta debido al sesgo. Sin embargo, diferentes enfoques en las fases de diseño y análisis pueden ayudar a enfrentar los desafíos planteados por los diseños aleatorios por conglomerados. 
+
+# 2 Por qué la agrupación en clústeres puede ser importante I: reducción de la información
+
+Normalmente pensamos en la información contenida en los estudios en términos
+del tamaño de la muestra y las características de las unidades dentro del
+muestra. Sin embargo, dos estudios con exactamente el mismo
+tamaño de la muestra y los mismos participantes podrían, en teoría, contener
+cantidades muy diferentes de información, dependiendo de si las unidades están agrupadas en conglomerados.
+
+Esto afectará en gran medida la precisión de las inferencias que hacemos a partir de los estudios.
+
+Imagine una evaluación de impacto con 10 personas, donde 5 se asignan al grupo de tratamiento y 5 al control. En una versión del experimento, el tratamiento se asigna a los individuos: no hay conglomerados. En otra versión del experimento, los 5 individuos de pelo negro y los 5 individuos
+con algún otro color de cabello se asignan al tratamiento
+como un grupo. Este diseño tiene dos grupos: 'cabello negro' y 'otro color'.
+
+Una simple aplicación de la regla de combinatoria para seleccionar *k* elementos de *n*"  nos deja ver por qué esto es relevante. En la primera versión, la aleatorización
+procedimiento permite 252 combinaciones diferentes de personas como grupos de tratamiento y control. Sin embargo, en la segunda versión, el procedimiento de aleatorización asigna a todos los pelinegros sujetos a tratamiento o a control, y por lo tanto sólo  genera dos formas de combinar personas para estimar un efecto.
+
+A lo largo de esta guía, ilustraremos puntos utilizando ejemplos escritos en código `R`. Puede copiar y pegar esto en su propio sesión de `R` para ver cómo funciona.
 
 <style>
 div.hidecode + pre {display: none}
@@ -84,21 +66,21 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 set.seed(12345)
-# Define the sample average treatment effect (SATE)
+# Definir el efecto promedio de tratamiento para la muestra 
 treatment_effect     <- 1
-# Define the individual ids (i)
+# Definir el indicador de individuos  (i)
 person               <- 1:10
-# Define the cluster indicator (j)
+# Definir el indicador de conglomerados (j)
 hair_color           <- c(rep("black",5),rep("brown",5))
-# Define the control outcome (Y0)
+# Definir la variable de resultado para control (Y0)
 outcome_if_untreated <- rnorm(n = 10)
-# Define the treatment outcome (Y1)
+# Definir la variable de resultado para el tratamiento (Y1)
 outcome_if_treated   <- outcome_if_untreated + treatment_effect
 
-# Version 1 - Not cluster randomized
-# Generate all possible non-clustered assignments of treatment (Z)
+# Version 1 -Sin conglomerados
+#Genere todas las posibles asignaciones de tratamiento no agrupadas (Z)
 non_clustered_assignments <- combn(x = unique(person),m = 5)
-# Estimate the treatment effect
+# Estimar el efecto del tratamiento
 treatment_effects_V1 <-
      apply(
           X = non_clustered_assignments,
@@ -109,9 +91,9 @@ treatment_effects_V1 <-
                mean(treated_outcomes) - mean(untreated_outcomes)
           }
      )
-# Estimate the true standard error
+# Estimar el error estándar real
 standard_error_V1 <- sd(treatment_effects_V1)
-# Plot the histogram of all possible estimates of the treatment effect
+# Graficar el histograma de todos los estimados posible del efecto del tratamiento
 hist(treatment_effects_V1,xlim = c(-1,2.5),breaks = 20)
 ```
 
@@ -127,9 +109,10 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Version 2 - Cluster randomized
-# Generate all possible assignments of treatment when clustering by hair color (Z)
+# Genere todas las posibles asignaciones de tratamiento 
+# al agrupar por color de cabello (Z)
 clustered_assignments     <- combn(x = unique(hair_color),m = 1)
-# Estimate the treatment effect
+# Estimar el efecto del tratamiento
 treatment_effects_V2 <-
      sapply(
           X = clustered_assignments,
@@ -139,22 +122,19 @@ treatment_effects_V2 <-
                mean(treated_outcomes) - mean(untreated_outcomes)
           }
      )
-# Estimate the true standard error
+# Estimar el error estándar real
 standard_error_V2 <- sd(treatment_effects_V2)
-# Plot the histogram of all possible estimates of the treatment effect
+# Graficar el histograma de todos los estimados posible del efecto del tratamiento
 hist(treatment_effects_V2,xlim = c(-1,2.5),breaks = 20)
 ```
 
-As the histograms show, clustering provides a much 
-'coarser' view of what the treatment effect might be.
-Irrespective of the number of times one randomizes the 
-treatment and of the number of subjects one has, 
-in a clustered randomization procedure the number of 
-possible estimates of the treatment effect will be strictly
-determined by the number of clusters assigned to the different
-treatment conditions. 
-This has important implications for the standard error of the 
-estimator. 
+
+Como muestran los histogramas, los conglomerados proporcionan una gran
+visión "menos granular" de lo que podría ser el efecto del tratamiento.
+Independientemente del número de veces que se aleatoriza el
+tratamiento y del número de sujetos se tenga, en un procedimiento de aleatorización por conglomerados, el número de las posibles estimaciones del efecto del tratamiento serán estrictamente determinadas por el número de conglomerados asignados a los diferentes condiciones de tratamiento. Esto tiene importantes implicaciones para el error estándar de la estimador.
+
+
 
 <style>
 div.hidecode + pre {display: none}
@@ -167,68 +147,48 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r}
-# Compare the standard errors
+# Comparar los errores estándar 
 kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 ```
+Si bien la distribución muestral para la estimación del efecto  del tratamiento sin conglomerados tiene un error estándar de aproximadamente 0,52, la de la estimación agrupada es más del doble, 1,13. Recuerde que los datos que ingresan a ambos estudios son idénticos, la única diferencia entre los estudios reside en la forma en que el mecanismo de asignación de tratamiento revela la información.
 
-While the sampling distribution for the non-clustered 
-estimate of the treatment effect has a standard error 
-of about .52, that of the clustered estimate is more than 
-twice as large, at 1.13. 
-Recall that the data going into both studies is identical, the 
-only difference between the studies resides in the way that the 
-treatment assignment mechanism reveals the information.
+En relación con la información surge la pregunta de cuántas unidades de nuestro estudio varían dentro y entre grupos. Dos estudios aleatorizados por conglomerados con $J = 10$ aldeas y $n_j = 100$ personas por aldea pueden tener información diferente sobre el efecto del tratamiento en las personas si, en un estudio, las diferencias *entre* las aldeas son mucho mayores que las diferencias en las variables de resultado  *dentro* de ellas. Si, digamos, todos los individuos en cualquier aldea actuaran exactamente de la misma manera, pero diferentes aldeas mostraron resultados diferentes, entonces tendríamos del orden de 10 piezas de información: toda la información sobre los efectos causales en ese estudio estaría al nivel de la aldea. Alternativamente, si los individuos dentro de una aldea actuaran más o menos independientemente unos de otros, entonces tendríamos del orden de 10 $\ veces$ 100 = 1000 piezas de información.
 
-Related to this issue of information is the question of how much units in our study vary within and between clusters. Two cluster randomized studies with $J=10$ villages and $n_j=100$ people per village may have different information about the treatment effect on individuals if, in one study, differences *between* villages are much greater than the differences in outcomes *within* them. If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level. Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 $\times$ 100=1000 pieces of information. 
+Podemos formalizar la idea de que los conglomerados altamente dependientes proporcionan menos información que los conglomerados altamente independientes con el **coeficiente de correlación intra-clases**. Para una variable dada, $y$, unidades $i$ y conglomerados $j$, podemos escribir el coeficiente de correlación intra-clase de la siguiente manera:
 
-We can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the **intracluster correlation coefficient**. For a given variable, $y$, units $i$ and clusters $j$, we can write the intracluster correlation coefficient as follows:
 
-$$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
+$$ \text{ICC} \equiv \frac{\text{varianza entre conglomerados en } y}{\text{varianza total en } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
-where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level. Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
+donde $\sigma_i^2$ es la varianza entre las unidades de la población y $\sigma_j^2$ es la varianza entre los resultados definidos a nivel de conglomerado. Kish (1965) utiliza esta descripción de dependencia para definir su idea del "N efectivo" de un estudio (en el contexto de una encuesta por muestreo, donde las muestras pueden estar agrupadas en conglomerados):
 
-$$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
-where the second term follows if all of the clusters are the same size ($n_1 \ldots n_J \equiv n$).
+$$\text{N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
+donde la segunda cantida resulta de tener grupos con el mismo tamaño t($ n_1 \ ldots n_J \ equiv n $).
 
-If 200 observations arose from 10 clusters with 20 individuals within each cluster, where ICC = .5, such that 50% of the variation could be attributed to cluster-to-cluster differences (and not to differences within a cluster), Kish’s formula would suggest that we have an effective sample size of about 19 observations, instead of 200.
+Si 200 observaciones provenieran de 10 conglomerados con 20 individuos dentro de cada conglomerado y el ICC = .5, el 50% de la variación podría atribuirse a diferencias de conglomerado a conglomerado (y no a diferencias dentro de un conglomerado), la fórmula de Kish sería sugieren que tenemos un tamaño de muestra efectivo de aproximadamente 19 observaciones, en lugar de 200.
 
-As the foregoing discussion suggests,
-clustering reduces information most when it a) greatly restricts the number of 
-ways an effect can be estimated, and b) produces units whose
-outcomes are strongly related to the cluster they are a member of (i.e. when it increases the ICC). 
+Como sugiere la discusión anterior, los conglomerados reducen la información más cuando a) restringe en gran medida el número de formas en que se puede estimar un efecto, y b) produce unidades cuyas resultados están estrechamente relacionados con el grupo del que son miembros (es decir, cuando aumenta la CPI).
+
+
+# 3 Qué hacer con la reducción de información
+
+Para caracterizar nuestra incertidumbre sobre los efectos del tratamiento, calculamos el error estándar: una estimación de cuánto *habría* variado el efecto del tratamiento si pudiéramos repetir el experimento  muchas veces y observar las unidades alternar entre en sus estados de tratados y no tratados.
 
 #3 What to do about information reduction
 
-In order to characterize our uncertainty about treatment effects, we 
-typically want to calculate a standard error:
- an estimate of how much the treatment effect 
-*would have* varied, were we able to repeat the experiment a very large 
-number of times and observe units alternatively in their treated and untreated states. 
+Sin embargo, no podemos observar el verdadero error estándar de un
+estimador, y por lo tanto debemos utilizar procedimientos estadísticos para
+inferir esta cantidad. Los métodos convencionales para el cálculo de errores estándar no tienen en cuenta los conglomerados, que, como como ya señalamos puede aumentar considerablemente la variación en la cantidad estimada entre repetición del experimento a otro. Por lo tanto, para evitar un exceso de confianza en los resultados experimentales, ss importante tener en cuenta los conglomerados
 
-However, we are never able to observe the true standard error of an 
-estimator, and therefore must use statistical procedures to 
-infer this unknown quantity. Conventional methods for 
-calculating standard errors do not take into account clustering, which, as
-we noted above, can strongly increase the amount estimates vary from one 
-repetition of the experiment to another. 
-Thus, in order to avoid over-confidence in experimental findings, 
-it is important to take clustering into account.
+En esta sección limitamos nuestra atención a los
+enfoques basado en el diseño. En este tipo de diseños simulamos repeticiones del experimento para derivar y comprobar formas de caracterizar la varianza de la estimación del efecto del tratamiento, teniendo en cuenta la aleatorización por conglomerados. Más adelante compararemos estos diseños con "diseños basados en modelos". En el enfoque basado en modelos afirmamos que los resultados se generan
+según un modelo de probabilidad y que las relaciones a nivel de conglomerados
+también siguen un modelo de probabilidad.
 
-In this section we limit our attention to so-called 'design-based' 
-approaches to calculating the standard. 
-In the design-based approach we simulate repetitions of the experiment 
-to derive and check ways of characterizing the variance of the estimate of the 
-treatment effect, accounting for clustered randomization. 
-We contrast these with 
-'model-based' approaches further on in the guide. 
-In the model-based approach we state that the outcomes were generated 
-according to a probability model and that the cluster-level relationships 
-also follow a probability model. 
+Para comenzar, creamos una función que simule un experimento aleatorio por conglomerados con correlación intra-clases fija y lo utilizamos 
+para simular datos de un diseño simple aleatorizado por conglomerados.
 
-To begin, we will create a function which simulates a cluster 
-randomized experiment with fixed intracluster correlation, and use it 
-to simulate some data from a simple cluster-randomized design.
+
 
 <style>
 div.hidecode + pre {display: none}
@@ -259,12 +219,9 @@ set.seed(12345)
 pretend_data <- make_clustered_data(J = 10,n = 100,treatment_effect = .25,ICC = .1)
 
 ```
+Debido a que nosotros mismos hemos creado los datos , podemos calcular el verdadero
+error estándar de nuestro estimador. En primer lugar, generamos la verdadera distribución muestral simulando todas las posibles permutaciones del tratamiento y calculando nuestro estimador en cada iteración. La desviación estándar de esta distribución es el error estándar del estimador.
 
-Because we have created the data ourselves, we can calculate the true 
-standard error of our estimator. We firstly generate the true sampling distribution
-by simulating every possible permutation
-of the treatment and calculating the estimate each time.
-The standard deviation of this distribution is the standard error of the estimator.
 
 <style>
 div.hidecode + pre {display: none}
@@ -277,11 +234,12 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
-# Define the number of clusters
+# Defina el número de conglomerados 
 J <- length(unique(pretend_data$j))
-# Generate all possible ways of combining clusters into a treatment group
+# Genere todas las posibles formas de combinar conglomerados 
+# dentro del grupo de tratamiento
 all_treatment_groups <- with(pretend_data,combn(x = 1:J,m = J/2))
-# Create a function for estimating the effect
+# Cree una función para estimar los efectos
 clustered_ATE <- function(j,Y1,Y0,treated_clusters) {
      Z_sim    <- (j %in% treated_clusters)*1
      Y        <- Z_sim * Y1 + (1 - Z_sim) * Y0
@@ -302,19 +260,16 @@ true_SE
 
 ```
 
-This gives a standard error of `r round(true_SE,2)`.
-We can compare the true standard error to two other kinds of standard error commonly
-employed. The first ignores clustering and assumes that the sampling distribution 
-is identically and independently distributed according to a normal distribution. 
-We will refer to this as the I.I.D. standard error. 
-To take clustering into account, we can use the following formula for the 
-standard error:
+Esto produce un error estándar de `r round (true_SE, 2)`.
+Podemos comparar el verdadero error estándar con otros dos tipos de error estándar comúnmente empleado. El primero ignora los conglomeradoso y asume que la distribución muestral se distribuye de forma idéntica e independiente según una distribución normal. Nos referiremos a esto como el error estándar I.I.D..
+Para tener en cuenta la agrupación por conglomerados, podemos utilizar la siguiente fórmula para el error estándar:
 
-$$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho) $$
 
-where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (following Arceneaux and Nickerson (2009) ).
-This adjustment to the IID standard error 
-is commonly known as the “Robust Clustered Standard Error” or RCSE. 
+$$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
+donde $\sigma^2 = \sum_{j = 1} ^ J \sum_{i = 1}^n_j (Y_{ij} - \bar {Y}_{ij})^2$ (siguiendo a Arceneaux y Nickerson ( 2009)). Este ajuste al error estándar de IID
+se conoce comúnmente como el "Error estándar robusto para conglomerados" (EERC).
+
+
 
 <style>
 div.hidecode + pre {display: none}
@@ -362,15 +317,12 @@ knitr::kable(round(data.frame(
 
 ```
 
-When we ignore the clustered-assignment, the standard error is too small: we
-are over-confident about the amount of information provided to us by the experiment.
-The RCSE is slightly more conservative than the true standard error in this instance,
-but is very close.
-The discrepancy is likely because the RCSE is not a good approximation 
-of the true standard error when the number of clusters is as small as it is here. 
-To illustrate the point further, we can compare a simulation of the true standard
-error generated through random permutations of the treatment to the IID and RC
-standard errors.
+Cuando ignoramos la asignación por conglomerados, el error estándar será demasiado pequeño: estaríamos siendo demasiados confiados acerca de la cantidad de información que nos proporciona el experimento. En este caso, el EERC es un poco más conservador que el verdadero error estándar pero se acerca al valor real. La discrepancia se debe probablemente a que el EERC no es una buena aproximación del verdadero error estándar cuando el número de conglomerados es tan pequeño como en este caso.
+Para ilustrar más el punto, podemos comparar una simulación del verdadero estándar
+Error generado por permutaciones aleatorias del tratamiento al IID y RC.
+errores estándar. Para ilustrar más el punto, podemos comparar una simulación del verdadero error estándar generado por permutaciones aleatorias del tratamiento con el erros estándar IID y el de conglomerados.
+
+
 
 <style>
 div.hidecode + pre {display: none}
@@ -420,11 +372,15 @@ knitr::kable(rbind(
 
 ```
 
-As these simple examples illustrate, the clustered estimate of the standard error (RCSE) gets closer to the truth (the simulated standard error) as the number of clusters increases. Meanwhile, the standard error ignoring clustering (assuming IID) tends to be smaller than either of the other standard errors. 
-The smaller the estimate of the standard error is, the more precise the estimates seem to us, and the more likely we will find results that appear 'statistically significant'. This is problematic: in this case, the IID standard error is leads us to be over confident in our results because it ignores intra-cluster correlation, the extent to which differences between units can be attributed to the cluster they are a member of. If we estimate standard errors using techniques that understate our uncertainty, we are more likely to falsely reject null hypotheses when we should not. 
 
-Another way to approach the problems that clustering introduces into the calculation of standard errors is to analyze the data at the level of the cluster. In this approach, we take averages or sums of the outcomes within the clusters, and then treat the study as though it only took place at the level of the cluster. 
-Hansen and Bowers (2008) show that we can characterize the distribution of the difference of means using what we know about the distribution of the *sum* of the outcome in the treatment group, which varies from one assignment of treatment to another.
+Como ilustran estos  ejemplos, EL error estándar robusto para conglomerados (EERC) se acerca a la verdad (el error estándar simulado) a medida que  el número de agrupaciones aumenta. Mientras tanto, el error estándar que ignora los conglomerados (asumiendo IID) tiende a ser menor que cualquiera de los otros errores estándar.
+Cuanto menor es la estimación del error estándar, más precisas nos parecen las estimaciones y es más probable que encontremos resultados que parezcan "estadísticamente significativos". Esto es problemático: en este caso, el error estándar de IID nos lleva a tener demasiada confianza en nuestros resultados porque ignora la correlación intra-clases, la medida en que las diferencias entre las unidades se pueden atribuir al conglomerados del que son miembros. Si estimamos errores estándar usando técnicas que subestiman nuestra incertidumbre, es más probable que rechacemos falsamente hipótesis nulas cuando no deberíamos.
+
+
+
+
+Otra forma de abordar los problemas que implican los conglomerad en el cálculo de errores estándar es analizar los datos a nivel del conglomerados. En este enfoque, tomamos promedios o sumas de los resultados dentro de los conglomerados y luego tratamos el estudio como si solo tuviera lugar a nivel del conglomerado.
+Hansen y Bowers (2008) muestran que podemos caracterizar la distribución de la diferencia de medias usando lo que sabemos sobre la distribución de la *suma* del resultado en el grupo de tratamiento, que varía de una asignación de tratamiento a otra.
 
 <style>
 div.hidecode + pre {display: none}
@@ -471,13 +427,12 @@ knitr::kable(data.frame(ATEs),align = "c")
 
 ```
 
-In order to characterize uncertainty about the cluster-level ATE, we can
-exploit the fact that the only random element of the estimator is now the 
-cross-product between the cluster-level assignment vector and the cluster-level
-outcome, $\mathbf{Z}^\top\mathbf{Y}$, scaled by some constant. 
-We can estimate the variance of this random component through permutation
-of the assignment vector or through an approximation of the variance, assuming 
-that the sampling distribution follows a normal distribution.
+
+Para caracterizar la incertidumbre sobre el efecto promedio del tratamiento a nivel del conglomerado, podemos explotar el hecho de que el único elemento aleatorio del estimador es ahora el producto cruzado entre el vector de asignación a nivel de conglomerado y a la variable de resultado a nivel del conglomerado, $\mathbf{Z}^\top\mathbf{Y}$, escalado por alguna constante.
+Podemos estimar la varianza de este componente aleatorio mediante una permutación
+del vector de asignación o mediante una aproximación de la varianza, asumiendo
+que la distribución muestral sigue una distribución normal.
+
 
 <style>
 div.hidecode + pre {display: none}
@@ -507,11 +462,8 @@ rownames(ses) <- c("Assuming Normality","Permutations")
 knitr::kable(ses)
 ```
 
-This cluster-level approach has the advantage of correctly characterizing uncertainty about 
-effects when randomization is clustered, without having to use the RCSE standard errors for the 
-unit-level estimates, which are overly permissive for small N. 
-Indeed, the false positive rate of tests based on RCSE standard errors tend to be incorrect when the number of clusters is small, leading to over-confidence. As we shall see below, however, when the number of clusters is very small ($J=4$) the cluster-level approach is overly conservative, rejecting the null with a probability of 1. Another drawback of the cluster-level approach is that it does not allow for the estimation 
-of unit-level quantities of interest, such as heterogeneous treatment effects.
+Este enfoque a nivel de conglomerado tiene la ventaja de caracterizar correctamente la incertidumbre sobre los efectos cuando utilizamos aleatorización por conglomerados, sin tener que utilizar los errores estándar de EERC para las estimaciones a nivel de unidad, que son demasiado permisivas para N pequeños. De hecho, la tasa de falsos positivos de las pruebas basados en errores estándar robustos para conglomerados  tienden a ser incorrectos cuando el número de grupos es pequeño, lo que genera un exceso de confianza. Sin embargo, como veremos a continuación, cuando el número de conglomerados es muy pequeño ($J = 4$), el enfoque a nivel de conglomerado es demasiado conservador, rechazando la hipótesis nula con una probabilidad de 1. Otro inconveniente del enfoque a nivel de conglomerado es que no permite la estimación de cantidades de interés a nivel de unidad, como los efectos de tratamiento heterogéneos.
+
 
 #4 Why clustering can matter II: different cluster sizes
 

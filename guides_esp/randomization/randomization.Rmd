@@ -117,17 +117,17 @@ Es de igual forma deseable que los conglomerados sean heterogéneos para que as�
 Una pregunta frecuente es en qué se diferencia la aleatorización por conglomerados de la aleatorización en bloques. La aleatorización en bloques se realiza para lograr un equilibrio basado en las covariables definidas previas al tratamiento. Por ejemplo, una intervención educativa podría crear bloques de acuerdo a los puntajes de las pruebas del año anterior para rastrear el progreso de los estudiantes de bajo y alto rendimiento. En cambio, la aleatorización por conglomerados es cuando varias unidades son tratadas como  grupo: todas reciben el tratamiento o todas están en el grupo de  control juntas. Continuando con el mismo ejemplo de la intervención educativa, la aleatorización podría hacerse al nivel del aula. En ese caso  las aulas constituyen los conglomerados. Es posible aleatorizar en bloques y por conglomerados simultaneamente. En nuestro ejemplo, puede calcular el puntaje promedio de la prueba para cada aula y realizar una asignación aleatoria en bloques según el puntaje promedio del aula.
 
 El siguiente gráfico muestra cómo se verían sus datos en los casos de aleatorización en bloques, conglomerados y bloques + conglomerados, en relación con un caso simple de aleatorización sin bloques ni conglomerados. En los dos casos en los que  hay conglomerados, puede darse cuenta que la asignación al tratamiento (diferenciada por color) aparece en grupos pequeños. En los dos casos en los que hay bloques, hay una distribución uniforme de colores en los cuatro cuadrantes del gráfico, los bloques de esta asignación aleatoria.
-
-![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
+<!-- need to change file location-->
+![](randomizations1s.png)
 <center>_
 Ilustración de los patrones de las unidades de tratamiento y control que se pueden dar en diferentes tipos de diseños con bloques y conglomerados._</center>
 
 
-5 Puede aleatorizar de manera que sea fácil identificar si hay propagación de efectos
+5 Puede aleatorizar de manera que sea fácil identificar si hay derrame de efectos
 ==
-Al diseñar su experimento, reflexione sobre  si la "propagación" representa una amenaza para su capacidad de identificar el efecto causal de su tratamiento. Los efectos de propagación surgen si el resultado de una unidad se ve afectado por que otra unidad reciba o no el tratamiento. Esto puede ser complicado si las unidades tienen la capacidad de interactuar entre sí: un miembro de una aldea puede enterarse de que otro aldeano ha recibido un subsidio en efectivo y puede cambiar su comportamiento en consecuencia.
+Al diseñar su experimento, reflexione sobre  si la "derrame" representa una amenaza para su capacidad de identificar el efecto causal de su tratamiento. Los efectos de derrame surgen si el resultado de una unidad se ve afectado por que otra unidad reciba o no el tratamiento. Esto puede ser complicado si las unidades tienen la capacidad de interactuar entre sí: un miembro de una aldea puede enterarse de que otro aldeano ha recibido un subsidio en efectivo y puede cambiar su comportamiento en consecuencia.
 
-Una forma de hacer que los efectos de propagación sean más evidentes es utilizar la doble aleatorización. Primero asignar aleatoriamente algunos conglomerados al tratamiento y otros al control, y dentro de los conglomerados, asignaría algunos individuos al tratamiento y otros al control. La comparación de los individuos de control de su conglomerados de tratamiento con los de su conglomerado de control le permitirá evaluar el papel de los efectos secundarios en su experimento.
+Una forma de hacer que los efectos de derrame sean más evidentes es utilizar la doble aleatorización. Primero asignar aleatoriamente algunos conglomerados al tratamiento y otros al control, y dentro de los conglomerados, asignaría algunos individuos al tratamiento y otros al control. La comparación de los individuos de control de su conglomerados de tratamiento con los de su conglomerado de control le permitirá evaluar el papel de los efectos secundarios en su experimento.
 
 
 
@@ -204,7 +204,7 @@ Un diseño de aleatorización con lista de espera es una forma de tratar a un gr
 
 ![](wait-list-table.png){width=60%}
 
-El único requisito es que la asignación de un sujeto al tratamiento en una fase particular se asigne al azar y no esté relacionada con sus posibles variable de interés. Un diseño en el que los participantes más entusiastas recibieran tratamiento antes violaría este supuesto y no arrojaría una estimación insesgada del efecto del tratamiento, ya que los factores no observados que los predisponen a buscar tratamiento pueden estar influyendo en los resultados potenciales de su programa. El diseño de aleatorización con  lista de espera es un ejemplo de un diseño de aleatorización creativo que podría abordar las preocupaciones éticas sobre la limitación de la distribución de un tratamiento valioso.
+El único requisito es que la asignación de un sujeto al tratamiento en una fase particular se asigne al azar y no esté relacionada con sus posibles variable de resultado. Un diseño en el que los participantes más entusiastas recibieran tratamiento antes violaría este supuesto y no arrojaría una estimación insesgada del efecto del tratamiento, ya que los factores no observados que los predisponen a buscar tratamiento pueden estar influyendo en los resultados potenciales de su programa. El diseño de aleatorización con  lista de espera es un ejemplo de un diseño de aleatorización creativo que podría abordar las preocupaciones éticas sobre la limitación de la distribución de un tratamiento valioso.
 
 A menudo, las preocupaciones éticas  están muy entrelazados con los diseños aleatorios, especialmente en las ciencias sociales y la investigación médica. Como investigador, debe considerar cuidadosamente las posibles implicaciones de asignar al azar un tratamiento dado. También deberá solicitar la aprobación de su diseño de investigación al Consejo de Revisión Institucional (Institutional Review Board, IRB) de su institución de investigación.
 
