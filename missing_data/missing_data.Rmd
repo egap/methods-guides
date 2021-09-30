@@ -7,7 +7,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Missing Data" -->
-<!-- author: 'Methods Guide Author: Tara Slough' -->
+<!-- author: 'Auteur du guide des méthodes: Tara Slough' -->
 
 1. What is missing data?
 ==

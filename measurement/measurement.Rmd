@@ -7,7 +7,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Measurement in Experiments" -->
-<!-- author: 'Methods Guide Author: Tara Slough' -->
+<!-- author: 'Auteur du guide des méthodes: Tara Slough' -->
 
 # 1. The validity of inferences we draw from an experiment depend on the validity of the measures used.
 

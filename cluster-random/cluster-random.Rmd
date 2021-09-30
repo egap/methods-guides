@@ -19,58 +19,43 @@ Cluster randomized[^1] experiments allocate treatments to groups,
 but measure outcomes at the level of the individuals that compose the groups.
 It is this divergence between the level at which the intervention is assigned and the level at which outcomes are defined that classifies an experiment as cluster randomized.
 
-[^1]: This guide was originally written by Jake Bowers and Ashlea Rundlett (22 Nov 2014). Updates made by Jasper Cooper (25 Aug 2015).
+[^1]: This guide was originally written by Jake Bowers and Ashlea Rundlett (22 Nov 2014).
+Updates made by Jasper Cooper (25 Aug 2015).
 
-Consider a study that randomly assigns villages to receive different development programs, where the well-being of households in the village is the outcome of interest. This is a clustered design because, while the treatment is assigned to the village as a whole, we are interested in outcomes defined at the household level. Or consider a study that randomly assigns certain households to receive different get-out-the-vote messages, where we are interested in the voting behavior of individuals. Because the unit of assignment for the message is the household, but the outcome is defined as individual behavior, this study is cluster randomized.
+Consider a study that randomly assigns villages to receive different development programs, where the well-being of households in the village is the outcome of interest.
+This is a clustered design because, while the treatment is assigned to the village as a whole, we are interested in outcomes defined at the household level.
+Or consider a study that randomly assigns certain households to receive different get-out-the-vote messages, where we are interested in the voting behavior of individuals.
+Because the unit of assignment for the message is the household, but the outcome is defined as individual behavior, this study is cluster randomized.
 
-Now consider a study in which villages are selected at random, and 10 people from each village are assigned to treatment or control, and we measure the well-being of those individuals. In this case, the study is not cluster randomized, because the level at which treatment is assigned and the level at which outcomes are defined is the same. Suppose that a study randomly assigned villages to different development programs and then measured social cohesion in the village. Though it contains the same randomization procedure as our first example, it is not clustered because we are interested here in village-level outcomes: the level of treatment assignment and of outcome measurement is the same.
+Now consider a study in which villages are selected at random, and 10 people from each village are assigned to treatment or control, and we measure the well-being of those individuals.
+In this case, the study is not cluster randomized, because the level at which treatment is assigned and the level at which outcomes are defined is the same.
+Suppose that a study randomly assigned villages to different development programs and then measured social cohesion in the village.
+Though it contains the same randomization procedure as our first example, it is not clustered because we are interested here in village-level outcomes: the level of treatment assignment and of outcome measurement is the same.
 
 Clustering matters for two main reasons. 
-On the one hand, clustering reduces the 
-amount of information in an experiment
-because it restricts the number of ways that the 
-treatment and control groups can be composed, relative to randomization
-at the individual level.
-If this fact is not taken into account, we often underestimate the variance in our 
-estimator, leading to over-confidence in our the results of the study.
-On the other hand, clustering raises the question of 
-how to combine information from different parts of the same experiment into one quantity. 
-Especially when clusters are not of equal sizes and the potential outcomes of units
-within them are very different, conventional estimators will systematically
-produce the wrong answer due to bias. However, several approaches 
-at the design and analysis phases can overcome the challenges posed by cluster
-randomized designs.
-
+On the one hand, clustering reduces the amount of information in an experiment because it restricts the number of ways that the treatment and control groups can be composed, relative to randomization at the individual level.
+If this fact is not taken into account, we often underestimate the variance in our estimator, leading to over-confidence in our the results of the study.
+On the other hand, clustering raises the question of how to combine information from different parts of the same experiment into one quantity.
+Especially when clusters are not of equal sizes and the potential outcomes of units within them are very different, conventional estimators will systematically produce the wrong answer due to bias.
+However, several approaches at the design and analysis phases can overcome the challenges posed by cluster randomized designs.
 
 #2 Why clustering can matter I: information reduction 
 
-We commonly think of the information contained in studies in terms
-of the sample size and the characteristics of the units within the 
-sample. Yet two studies with exactly the same 
-sample size and the same participants could in theory contain
-very different amounts of information 
-depending on whether units are clustered.
+We commonly think of the information contained in studies in terms of the sample size and the characteristics of the units within the sample.
+Yet two studies with exactly the same sample size and the same participants could in theory contain very different amounts of information depending on whether units are clustered.
 This will greatly affect the precision of the inferences we make based on the studies.
 
-Imagine an impact evaluation with 10 people, where 5 
-are assigned to the treatment group and 5 to control. 
-In one version of the experiment, the treatment is assigned
-to individuals - it is not cluster randomized. 
-In another version of the experiment, 
-the 5 individuals with black hair and the 5 individuals 
-with some other color of hair are assigned to treatment 
-as a group. This design has two clusters: 'black hair' and 'other color'.
+Imagine an impact evaluation with 10 people, where 5 are assigned to the treatment group and 5 to control.
+In one version of the experiment, the treatment is assigned to individuals - it is not cluster randomized.
+In another version of the experiment, the 5 individuals with black hair and the 5 individuals with some other color of hair are assigned to treatment as a group.
+This design has two clusters: 'black hair' and 'other color'.
 
-A simple application of the *n* choose *k* rule shows 
-why this matters. In the first version, the randomization
-procedure allows for  
-252 different combinations of people as the treatment and control groups. 
-However, in the second version, 
-the randomization procedure assigns all the black-haired
-subjects either to treatment or to control, and thus only
-ever produces two ways of combining people to estimate an effect.
+A simple application of the *n* choose *k* rule shows why this matters.
+In the first version, the randomization procedure allows for 252 different combinations of people as the treatment and control groups.
+However, in the second version, the randomization procedure assigns all the black-haired subjects either to treatment or to control, and thus only ever produces two ways of combining people to estimate an effect.
 
-Throughout this guide, we will illustrate points using examples written in `R` code. You can copy and paste this into your own `R` program to see how it works.
+Throughout this guide, we will illustrate points using examples written in `R` code.
+You can copy and paste this into your own `R` program to see how it works.
 
 <style>
 div.hidecode + pre {display: none}
@@ -145,16 +130,10 @@ standard_error_V2 <- sd(treatment_effects_V2)
 hist(treatment_effects_V2,xlim = c(-1,2.5),breaks = 20)
 ```
 
-As the histograms show, clustering provides a much 
-'coarser' view of what the treatment effect might be.
-Irrespective of the number of times one randomizes the 
-treatment and of the number of subjects one has, 
-in a clustered randomization procedure the number of 
-possible estimates of the treatment effect will be strictly
-determined by the number of clusters assigned to the different
-treatment conditions. 
-This has important implications for the standard error of the 
-estimator. 
+As the histograms show, clustering provides a much 'coarser' view of what the treatment effect might be.
+Irrespective of the number of times one randomizes the treatment and of the number of subjects one has,
+in a clustered randomization procedure the number of possible estimates of the treatment effect will be strictly determined by the number of clusters assigned to the different treatment conditions.
+This has important implications for the standard error of the estimator.
 
 <style>
 div.hidecode + pre {display: none}
@@ -171,21 +150,22 @@ e.nextSibling.nextSibling.style.display="block";
 kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 ```
 
-While the sampling distribution for the non-clustered 
-estimate of the treatment effect has a standard error 
-of about .52, that of the clustered estimate is more than 
-twice as large, at 1.13. 
-Recall that the data going into both studies is identical, the 
-only difference between the studies resides in the way that the 
-treatment assignment mechanism reveals the information.
+While the sampling distribution for the non-clustered estimate of the treatment effect has a standard error of about .52,
+that of the clustered estimate is more than twice as large, at 1.13.
+Recall that the data going into both studies is identical, the only difference between the studies resides in the way that the treatment assignment mechanism reveals the information.
 
-Related to this issue of information is the question of how much units in our study vary within and between clusters. Two cluster randomized studies with $J=10$ villages and $n_j=100$ people per village may have different information about the treatment effect on individuals if, in one study, differences *between* villages are much greater than the differences in outcomes *within* them. If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level. Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 $\times$ 100=1000 pieces of information. 
+Related to this issue of information is the question of how much units in our study vary within and between clusters.
+Two cluster randomized studies with $J=10$ villages and $n_j=100$ people per village may have different information about the treatment effect on individuals if, in one study, differences *between* villages are much greater than the differences in outcomes *within* them.
+If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level.
+Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 $\times$ 100=1000 pieces of information.
 
-We can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the **intracluster correlation coefficient**. For a given variable, $y$, units $i$ and clusters $j$, we can write the intracluster correlation coefficient as follows:
+We can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the **intracluster correlation coefficient**.
+For a given variable, $y$, units $i$ and clusters $j$, we can write the intracluster correlation coefficient as follows:
 
 $$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
-where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level. Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
+where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level.
+Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
 
 $$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
@@ -194,31 +174,22 @@ where the second term follows if all of the clusters are the same size ($n_1 \ld
 If 200 observations arose from 10 clusters with 20 individuals within each cluster, where ICC = .5, such that 50% of the variation could be attributed to cluster-to-cluster differences (and not to differences within a cluster), Kish’s formula would suggest that we have an effective sample size of about 19 observations, instead of 200.
 
 As the foregoing discussion suggests,
-clustering reduces information most when it a) greatly restricts the number of 
-ways an effect can be estimated, and b) produces units whose
-outcomes are strongly related to the cluster they are a member of (i.e. when it increases the ICC). 
+clustering reduces information most when it a) greatly restricts the number of ways an effect can be estimated,
+and b) produces units whose outcomes are strongly related to the cluster they are a member of (i.e. when it increases the ICC).
 
 #3 What to do about information reduction
 
-In order to characterize our uncertainty about treatment effects, we 
-typically want to calculate a standard error:
- an estimate of how much the treatment effect 
-*would have* varied, were we able to repeat the experiment a very large 
-number of times and observe units alternatively in their treated and untreated states. 
+In order to characterize our uncertainty about treatment effects, we typically want to calculate a standard error:
+ an estimate of how much the treatment effect *would have* varied, were we able to repeat the experiment a very large number of times and observe units alternatively in their treated and untreated states.
 
-However, we are never able to observe the true standard error of an 
-estimator, and therefore must use statistical procedures to 
-infer this unknown quantity. Conventional methods for 
-calculating standard errors do not take into account clustering, which, as
-we noted above, can strongly increase the amount estimates vary from one 
-repetition of the experiment to another. 
+However, we are never able to observe the true standard error of an estimator,
+and therefore must use statistical procedures to infer this unknown quantity.
+Conventional methods for calculating standard errors do not take into account clustering, which, as we noted above, can strongly increase the amount estimates vary from one repetition of the experiment to another.
 Thus, in order to avoid over-confidence in experimental findings, 
 it is important to take clustering into account.
 
-In this section we limit our attention to so-called 'design-based' 
-approaches to calculating the standard. 
-In the design-based approach we simulate repetitions of the experiment 
-to derive and check ways of characterizing the variance of the estimate of the 
+In this section we limit our attention to so-called 'design-based' approaches to calculating the standard.
+In the design-based approach we simulate repetitions of the experiment to derive and check ways of characterizing the variance of the estimate of the
 treatment effect, accounting for clustered randomization. 
 We contrast these with 
 'model-based' approaches further on in the guide. 

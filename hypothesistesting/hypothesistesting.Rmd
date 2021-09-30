@@ -14,7 +14,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
-<!-- author: "Methods Guide Author: Jake Bowers" -->
+<!-- author: "Auteur du guide des méthodes: Jake Bowers" -->
 
 \newcommand{\bX}{\mathbf{X}}
 \newcommand{\bZ}{\mathbf{Z}}

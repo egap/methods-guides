@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Survey Design" -->
-<!-- author: "Methods Guide Author: Gabriella Sacramone-Lutz" -->
+<!-- author: "Auteur du guide des méthodes: Gabriella Sacramone-Lutz" -->
 
 1 The design of baseline and endline surveys differ in key ways 
 ==

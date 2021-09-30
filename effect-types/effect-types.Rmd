@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Types of Treatment Effect You Should Know About" -->
-<!-- author: "Methods Guide Author: Paul Testa" -->
+<!-- author: "Auteur du guide des méthodes: Paul Testa" -->
 
 Abstract
 ==

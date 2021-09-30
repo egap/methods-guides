@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Controlling for Covariates in RCTs” -->
-<!-- author: "Methods Guide Author: Lindsay Dolan" -->
+<!-- author: "Auteur du guide des méthodes: Lindsay Dolan" -->
 
 Abstract
 ==

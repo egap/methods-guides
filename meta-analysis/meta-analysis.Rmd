@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Conducting a Meta-Analysis" -->
-<!-- author: 'Methods Guide Author: Don Green' -->
+<!-- author: 'Auteur du guide des méthodes: Don Green' -->
 
 1. What is meta-analysis?
 ==

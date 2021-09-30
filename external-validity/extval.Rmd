@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Things You Need to Know About External Validity" -->
-<!-- author: 'Methods Guide Author: Renard Sexton' -->
+<!-- author: 'Auteur du guide des méthodes: Renard Sexton' -->
 
 Abstract
 ==

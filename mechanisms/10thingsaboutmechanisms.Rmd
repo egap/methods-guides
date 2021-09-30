@@ -13,7 +13,7 @@ output:
 ---
 
 <!-- title: "10 Things about Mechanisms" -->
-<!-- author: 'Methods Guide Author: Lindsay Dolan' -->
+<!-- author: 'Auteur du guide des méthodes: Lindsay Dolan' -->
 
 ```{r echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
 require(knitr)

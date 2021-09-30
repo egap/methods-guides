@@ -8,23 +8,32 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Adaptive Experimental Design" -->
-<!-- author: "Methods Guide Author: Don Green & Molly Offer-Westort" -->
+<!-- author: "Auteur du guide des méthodes: Don Green & Molly Offer-Westort" -->
 
 1.	What is an “adaptive”[^1] design?
 ==
-A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial. In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.  
+A static design applies the same procedures for allocating treatments and measuring outcomes throughout the trial.
+In contrast, an adaptive design may, based on interim analysis of the trial’s result, change the allocation of subjects to treatment arms or may change the allocation of resources to different outcome measures.
 
 [^1]: This guide originally authored by Donald Green (Columbia University) and Molly Offer-Westort (Yale University) and published on February 23, 2018.
 
-Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results. In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
+Ordinarily, mid-course changes in experimental design are viewed with skepticism since they open the door to researcher interference in ways that could favor certain results.
+In recent years, however, statisticians have developed methods to automate adaptation in ways that either lessen the risk of interference or facilitate bias correction at the analysis stage.
 
 2. What are the potential advantages of an adaptive design?
 ==
-Adaptive designs have the potential to detect the best-performing experimental arm(s) more quickly than a static design (i.e., with fewer data-collection sessions and fewer subjects). When these efficiencies are realized, resources may be reallocated to achieve other research objectives.  
+Adaptive designs have the potential to detect the best-performing experimental arm(s) more quickly than a static design (i.e., with fewer data-collection sessions and fewer subjects).
+When these efficiencies are realized, resources may be reallocated to achieve other research objectives.
 
-Adaptive designs also have the potential to lessen the ethical concerns that arise when subjects are allocated to inferior treatment arms. For therapeutic interventions, adaptive designs may reduce subjects’ exposure to inferior treatments; for interventions designed to further broad societal objectives, adaptive designs may hasten the discovery of superior interventions.
+Adaptive designs also have the potential to lessen the ethical concerns that arise when subjects are allocated to inferior treatment arms.
+For therapeutic interventions, adaptive designs may reduce subjects’ exposure to inferior treatments; for interventions designed to further broad societal objectives, adaptive designs may hasten the discovery of superior interventions.
 
-To illustrate the potential advantages of adaptive design, we simulate an RCT involving a control group and eight treatment arms. We administer treatments and gather 100 outcomes during each "period." The simulation assumes that each subject’s outcome is binary (e.g., good versus bad). The adaptive allocation of subjects is based on interim analyses conducted at the end of each period. We allocate next period’s subjects according to posterior probabilities that a given treatment arm is best (see below). The simulation assumes that the probability of success is 0.10 for all arms except one, which is 0.20.  The stopping rule is that the RCT is halted when one arm is found to have a 95% posterior probability of being best.  
+To illustrate the potential advantages of adaptive design, we simulate an RCT involving a control group and eight treatment arms.
+We administer treatments and gather 100 outcomes during each "period." The simulation assumes that each subject’s outcome is binary (e.g., good versus bad).
+The adaptive allocation of subjects is based on interim analyses conducted at the end of each period.
+We allocate next period’s subjects according to posterior probabilities that a given treatment arm is best (see below).
+The simulation assumes that the probability of success is 0.10 for all arms except one, which is 0.20.
+ The stopping rule is that the RCT is halted when one arm is found to have a 95% posterior probability of being best.
 
 In the adaptive trial depicted below, the best arm (the red line) is correctly identified, and the trial is halted after 23 periods (total N=2300).  
 
@@ -32,61 +41,102 @@ In the adaptive trial depicted below, the best arm (the red line) is correctly i
 
 3.	What are the potential disadvantages of adaptive designs?
 ==
-There is no guarantee that adaptive design will be superior in terms of speed or accuracy. For example, adaptive designs may result in a lengthy trial in cases where all of the arms are approximately equally effective. Even when one arm is truly superior, adaptive searches have some probability of resulting in long, circuitous searches (and considerable expense) if by chance they get off to a bad start (i.e., one of the inferior arms appears to be better than the other based on an initial round of results). 
+There is no guarantee that adaptive design will be superior in terms of speed or accuracy.
+For example, adaptive designs may result in a lengthy trial in cases where all of the arms are approximately equally effective.
+Even when one arm is truly superior, adaptive searches have some probability of resulting in long, circuitous searches (and considerable expense) if by chance they get off to a bad start (i.e., one of the inferior arms appears to be better than the other based on an initial round of results).
 
-For instance, consider the following scenario in which all but one of the arms have a 0.10 probability of success, and the superior arm has a 0.12 probability of success (with the same trial design as in the previous example). The design eventually settles on the truly superior arm but only after more than 200 periods (N = 23,810). Even after 50 periods, the results provide no clear sense that any of the arms is superior.
+For instance, consider the following scenario in which all but one of the arms have a 0.10 probability of success, and the superior arm has a 0.12 probability of success (with the same trial design as in the previous example).
+The design eventually settles on the truly superior arm but only after more than 200 periods (N = 23,810).
+Even after 50 periods, the results provide no clear sense that any of the arms is superior.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig2.png)
 
-A further disadvantage of adaptive designs is they may produce biased estimates of the average treatment effect of the apparent best arm vis-à-vis the control group. Bias arises because the trial stops when the best arm crosses a threshold suggesting optimality; this stopping rule tends to favor lucky draws that suggest the efficacy of the winning arm. Conversely, when adaptive algorithms associate sampling probability with observed history, under-estimation for inferior arms, including the control group, may persist until stopping time (Nie et al., 2017).  
+A further disadvantage of adaptive designs is they may produce biased estimates of the average treatment effect of the apparent best arm vis-à-vis the control group.
+Bias arises because the trial stops when the best arm crosses a threshold suggesting optimality; this stopping rule tends to favor lucky draws that suggest the efficacy of the winning arm.
+Conversely, when adaptive algorithms associate sampling probability with observed history, under-estimation for inferior arms, including the control group, may persist until stopping time (Nie et al., 2017).
 
-For example, in the first scenario described above in which all arms have a 0.10 probability of success except for the best arm, which is 0.20, the average estimated success probability for the truly best arm is 0.202 across 1000 simulated experiments, while the control group average is found to 0.083. The average estimated difference in success probabilities (i.e., the average treatment effect) is 0.119, as compared to the true value of 0.10.    
+For example, in the first scenario described above in which all arms have a 0.10 probability of success except for the best arm, which is 0.20, the average estimated success probability for the truly best arm is 0.202 across 1000 simulated experiments, while the control group average is found to 0.083.
+The average estimated difference in success probabilities (i.e., the average treatment effect) is 0.119, as compared to the true value of 0.10.
 
-In the second scenario, in which the best arm’s success probability is just 0.12, the average estimated success probability for the best arm is 0.121, and the average estimated ATE is 0.027, as compared to the true ATE of 0.02. Bias in this case is relatively small on a percentage point scale due to the very large size of the average experiment.
+In the second scenario, in which the best arm’s success probability is just 0.12, the average estimated success probability for the best arm is 0.121, and the average estimated ATE is 0.027, as compared to the true ATE of 0.02.
+Bias in this case is relatively small on a percentage point scale due to the very large size of the average experiment.
 
 4. What kinds of experiments lend themselves to adaptive design?
 ==
 Adaptive designs require multiple periods of treatment and outcome assessment.  
 Adaptive designs are well suited to survey, on-line, and lab experiments, where participants are treated and outcomes measured in batches over time. 
 
-Some field experiments are conducted in stages, although the logistics of changing treatment arms may be cumbersome, as discussed below. One possible opportunity for adaptive design in a field context occurs when a given experiment is to be deployed over time in a series of different regions. This allows for adaptation based on region-by-region interim analyses.
+Some field experiments are conducted in stages, although the logistics of changing treatment arms may be cumbersome, as discussed below.
+One possible opportunity for adaptive design in a field context occurs when a given experiment is to be deployed over time in a series of different regions.
+This allows for adaptation based on region-by-region interim analyses.
 
-Adaptive designs are ill-suited to one-shot interventions with outcomes measured at a single point in time. For example, experiments designed to increase voter turnout in a given election do not lend themselves to adaptive design because everyone’s outcome is measured at the same time, leaving no opportunity for adaptation.
+Adaptive designs are ill-suited to one-shot interventions with outcomes measured at a single point in time.
+For example, experiments designed to increase voter turnout in a given election do not lend themselves to adaptive design because everyone’s outcome is measured at the same time, leaving no opportunity for adaptation.
 
 5. What is the connection between adaptive designs and “multi-arm bandit problems”? 
 ==
-The multi-arm bandit problem (Scott 2010) is a metaphor for the following optimization problem. Imagine that you could drop a coin in one of several slot machines that may pay off at different rates. (Slot machines are sometimes nicknamed “one-arm bandits,” hence the name.) You would like to make as much money as possible. The optimization problem may be characterized as a trade off between learning about the relative merits of the various slot machines – exploration – and reaping the benefits of employing the best arm –
-exploitation. A static design may be viewed as an extreme case of allocating subjects solely for exploration.  
+The multi-arm bandit problem (Scott 2010) is a metaphor for the following optimization problem.
+Imagine that you could drop a coin in one of several slot machines that may pay off at different rates.
+(Slot machines are sometimes nicknamed “one-arm bandits,” hence the name.) You would like to make as much money as possible.
+The optimization problem may be characterized as a trade off between learning about the relative merits of the various slot machines – exploration – and reaping the benefits of employing the best arm –
+exploitation.
+A static design may be viewed as an extreme case of allocating subjects solely for exploration.
 
-As applied to RCTs, the aim is to explore the merits of the various treatment arms while at the same time reaping the benefits of the best arm or arms. Although the MAB problem is not specifically about estimating treatment effects, one could adjust the optimization objective so that the aim is to find the treatment arm with the greatest apparent superiority over the control group.
+As applied to RCTs, the aim is to explore the merits of the various treatment arms while at the same time reaping the benefits of the best arm or arms.
+Although the MAB problem is not specifically about estimating treatment effects, one could adjust the optimization objective so that the aim is to find the treatment arm with the greatest apparent superiority over the control group.
 
 6. What are some widely used algorithms for automating “adaptation”?
 ==
-The most commonly used methods employ some form of “Thompson sampling” (Thompson 1933). Interim results are assessed periodically, and in the next period subjects are assigned to treatment arms in proportion to the posterior probability that a given arm is best. The more likely an arm is to be “best,” the more subjects it receives.
+The most commonly used methods employ some form of “Thompson sampling” (Thompson 1933).
+Interim results are assessed periodically, and in the next period subjects are assigned to treatment arms in proportion to the posterior probability that a given arm is best.
+The more likely an arm is to be “best,” the more subjects it receives.
 
-Many variations on this basic assignment routine have been proposed, and some are designed to make it less prone to bias. If an adaptive trial is rolled out during a period in which success rates tend to be growing, increasing allocation of subjects to the best arm will tend to exaggerate that arm’s efficacy relative to the other arms, which receive fewer subjects during the high-yield period. In order to assess bias and correct for it, it may be useful to allocate some subjects in every period according to a static design. In this case, inverse probability weights for each period may be used to obtain unbiased estimates of the average treatment effect. (See Gerber and Green 2012 on the use of inverse probability weights for estimation of average treatment effects when the probability of assignment varies from block to block.)
+Many variations on this basic assignment routine have been proposed, and some are designed to make it less prone to bias.
+If an adaptive trial is rolled out during a period in which success rates tend to be growing, increasing allocation of subjects to the best arm will tend to exaggerate that arm’s efficacy relative to the other arms, which receive fewer subjects during the high-yield period.
+In order to assess bias and correct for it, it may be useful to allocate some subjects in every period according to a static design.
+In this case, inverse probability weights for each period may be used to obtain unbiased estimates of the average treatment effect.
+(See Gerber and Green 2012 on the use of inverse probability weights for estimation of average treatment effects when the probability of assignment varies from block to block.)
 
 7. What are the symptoms of futile search?
 ==
-Although it is impossible to know for sure whether a drawn out search reflects an unlucky start or an underlying reality in which no arm is superior, the longer an adaptive trial goes, the more cause for concern. The following graphs summarize the distribution of stopping times for three scenarios. Stopping was dictated by at 10% value remaining criterion. Specifically, the trial stopped when the top of the 95% confidence interval showed that no other arm was likely to offer at least a 10 percent (not percentage point) gain in success rate. The first two scenarios were described above; the third scenario considers a case in which there are two superior arms. The graph illustrates how adaptive trials tend to conclude faster when the superiority of the best arm(s) is more clear-cut.
+Although it is impossible to know for sure whether a drawn out search reflects an unlucky start or an underlying reality in which no arm is superior, the longer an adaptive trial goes, the more cause for concern.
+The following graphs summarize the distribution of stopping times for three scenarios.
+Stopping was dictated by at 10% value remaining criterion.
+Specifically, the trial stopped when the top of the 95% confidence interval showed that no other arm was likely to offer at least a 10 percent (not percentage point) gain in success rate.
+The first two scenarios were described above; the third scenario considers a case in which there are two superior arms.
+The graph illustrates how adaptive trials tend to conclude faster when the superiority of the best arm(s) is more clear-cut.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/adaptive/fig3.png)
 
 8. What implications do adaptive designs have for pre-analysis plans?
 ==
-The use of adaptive designs introduces additional decisions, which ideally should be addressed ex ante so as to limit researcher bias. For example, the researcher should specify which algorithms will be used for allocation. It is especially important to specify the stopping rule. Depending on the researcher’s objectives, this rule may focus on achieving a desired posterior probability, or it may use a “value remaining” criterion that considers whether one or more arms have shown themselves to be good enough vis-à-vis the alternative arms. Other hybrid stopping criteria may also be specified. The pre-analysis plan should also describe the analytic steps that will be taken to correct for bias.
+The use of adaptive designs introduces additional decisions, which ideally should be addressed ex ante so as to limit researcher bias.
+For example, the researcher should specify which algorithms will be used for allocation.
+It is especially important to specify the stopping rule.
+Depending on the researcher’s objectives, this rule may focus on achieving a desired posterior probability, or it may use a “value remaining” criterion that considers whether one or more arms have shown themselves to be good enough vis-à-vis the alternative arms.
+Other hybrid stopping criteria may also be specified.
+The pre-analysis plan should also describe the analytic steps that will be taken to correct for bias.
 
 9. Are multi-arm bandit trials frequently used in social science?
 ==
-Many of the applications to date have taken place in commercial settings, such as website design for high-volume e-commerce, or in settings such as on-line fundraising. Relatively few applications have been written up in detail for a scholarly audience.  Surprisingly rare are applications in biomedical research. As Villar et al. (2015, p.200) note, “Despite this apparent near-perfect fit between a real-world problem and a mathematical theory, the MABP has yet to be applied to an actual clinical trial.”
+Many of the applications to date have taken place in commercial settings, such as website design for high-volume e-commerce, or in settings such as on-line fundraising.
+Relatively few applications have been written up in detail for a scholarly audience.
+ Surprisingly rare are applications in biomedical research.
+As Villar et al. (2015, p.200) note, “Despite this apparent near-perfect fit between a real-world problem and a mathematical theory, the MABP has yet to be applied to an actual clinical trial.”
 
 Putting aside the use of multi-arm bandit approaches, the use of adaptive trials is gradually winning acceptance in biomedical research. For details, see Chin (2016).
 
 10. What other considerations should inform the decision to use adaptive design?
 ==
-As noted above, adaptive designs add to the complexity of the research design and analysis. They also may increase the challenges of implementation, particularly in field settings where the logistical or training costs associated with different arms vary markedly. Even when one arm is clearly superior (inferior), the lead-time necessary to staff or outfit this arm may make it difficult to scale it up (down). Adaptive designs are only practical if adaptation is feasible.
+As noted above, adaptive designs add to the complexity of the research design and analysis.
+They also may increase the challenges of implementation, particularly in field settings where the logistical or training costs associated with different arms vary markedly.
+Even when one arm is clearly superior (inferior), the lead-time necessary to staff or outfit this arm may make it difficult to scale it up (down).
+Adaptive designs are only practical if adaptation is feasible.
 
-On the other hand, funders and implementation partners may welcome the idea of an experimental design that responds to on-the-ground conditions such that problematic arms are scaled back. A middle ground between static designs and designs that envision adaptation over many periods are adaptive designs involving only two or three interim analyses and adjustments. Such trials are winning increased acceptance in biomedical research (Chow and Chang 2008) and are likely to become more widely used in the social sciences too. The growing interest in replication and design-based extensions of existing experiments to aid generalization are likely to create opportunities for adaptive design.
+On the other hand, funders and implementation partners may welcome the idea of an experimental design that responds to on-the-ground conditions such that problematic arms are scaled back.
+A middle ground between static designs and designs that envision adaptation over many periods are adaptive designs involving only two or three interim analyses and adjustments.
+Such trials are winning increased acceptance in biomedical research (Chow and Chang 2008) and are likely to become more widely used in the social sciences too.
+The growing interest in replication and design-based extensions of existing experiments to aid generalization are likely to create opportunities for adaptive design.
 
 References
 ==

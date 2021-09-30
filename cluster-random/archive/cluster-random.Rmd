@@ -1,6 +1,6 @@
 ---
 title: "6+ Thing You Need to Know About Cluster Randomization"
-author: "Methods Guide Author: Jake Bowers"
+author: "Auteur du guide des méthodes: Jake Bowers"
 output: html_document
 ---
 

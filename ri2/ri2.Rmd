@@ -14,9 +14,14 @@ knitr::opts_chunk$set(message = FALSE)
 set.seed(343)
 ```
 
-Randomization inference is a procedure for conducting hypothesis tests that takes explicit account of a study's randomization procedure. See <a href="http://egap.org/resource/10-things-to-know-about-randomization-inference" target="_blank">10 things about Randomization Inference</a> for more about the theory behind randomization inference. In this guide, we'll see how to use the <a href="http://alexandercoppock.com/ri2/" target="_blank">ri2 package for r</a> to conduct 10 different analyses. This package was developed with funding from EGAP's innaugural round of standards grants, which are aimed at projects designed to improve the quality of experimental research.
+Randomization inference is a procedure for conducting hypothesis tests that takes explicit account of a study's randomization procedure.
+See <a href="http://egap.org/resource/10-things-to-know-about-randomization-inference" target="_blank">10 things about Randomization Inference</a> for more about the theory behind randomization inference.
+In this guide, we'll see how to use the <a href="http://alexandercoppock.com/ri2/" target="_blank">ri2 package for r</a> to conduct 10 different analyses.
+This package was developed with funding from EGAP's innaugural round of standards grants, which are aimed at projects designed to improve the quality of experimental research.
 
-To illustrate what you can do with `ri2`, we'll use some data from a hypothetical experiment involving 200 students in 20 schools. We'll consider how to do randomization inference using a variety of different designs, including complete random assignment, block random assignment, cluster random assignment, and a multi-arm trial. You can check the <a href="http://egap.org/resource/10-things-to-know-about-randomization" target="_blank">kinds of random assignment</a> methods guide for more on the varieties of random assignment.
+To illustrate what you can do with `ri2`, we'll use some data from a hypothetical experiment involving 200 students in 20 schools.
+We'll consider how to do randomization inference using a variety of different designs, including complete random assignment, block random assignment, cluster random assignment, and a multi-arm trial.
+You can check the <a href="http://egap.org/resource/10-things-to-know-about-randomization" target="_blank">kinds of random assignment</a> methods guide for more on the varieties of random assignment.
 
 Follow the links below to download the four datasets we'll use in the examples:
 
@@ -27,9 +32,11 @@ Follow the links below to download the four datasets we'll use in the examples:
 
 # 1. Randomization inference for the Average Treatment Effect
 
-We'll start with the most common randomization inference task: testing an observed average treatment effect estimate against the sharp null hypothesis of no effect for any unit. 
+We'll start with the most common randomization inference task: testing an observed average treatment effect estimate against the sharp null hypothesis of no effect for any unit.
 
-In `ri2`, you always "declare" the random assignment procedure so the computer knows how treatments were assigned. In the first design we'll consider, exactly half of the 200 students were assigned to treatment using complete random assignment.
+
+In `ri2`, you always "declare" the random assignment procedure so the computer knows how treatments were assigned.
+In the first design we'll consider, exactly half of the 200 students were assigned to treatment using complete random assignment.
 
 
 ```{r}
@@ -38,7 +45,9 @@ complete_dat <- read.csv("complete_dat.csv")
 complete_dec <- declare_ra(N = 200)
 ```
 
-Now all that remains is a call to `conduct_ri`. The `sharp_hypothesis` argument is set to `0` by default corresponding to the sharp null hypothesis of no effect for any unit. We can see the output using the `summary` and `plot` commands.
+Now all that remains is a call to `conduct_ri`.
+The `sharp_hypothesis` argument is set to `0` by default corresponding to the sharp null hypothesis of no effect for any unit.
+We can see the output using the `summary` and `plot` commands.
 
 ```{r}
 sims <- 10000
@@ -66,7 +75,8 @@ summary(ri_out, p = "lower")
 
 # 2. Randomization inference for alternative designs
 
-The answer that `ri2` produces depends deeply on the randomization procedure. The next example imagines that the treatment was blocked at the school level.
+The answer that `ri2` produces depends deeply on the randomization procedure.
+The next example imagines that the treatment was blocked at the school level.
 
 ```{r}
 blocked_dat <- read.csv("blocked_dat.csv")
@@ -102,7 +112,8 @@ plot(ri_out)
 
 # 3. Randomization inference with covariate adjustment
 
-Covariate adjustment can often produce large gains in precision. To analyze an experiment with covariate adjustment, simply include the covariates in the `formula` argument of `conduct_ri`:
+Covariate adjustment can often produce large gains in precision.
+To analyze an experiment with covariate adjustment, simply include the covariates in the `formula` argument of `conduct_ri`:
 
 ```{r}
 complete_dec <- declare_ra(N = 200)
@@ -121,7 +132,8 @@ plot(ri_out)
 
 # 4. Randomization inference for a balance test
 
-You can use randomization inference to conduct a balance test (or randomization check). In this case, we write a function of `data` that return some balance statistic (the F-statistic from a regression of the treatment assignment on two covariates).
+You can use randomization inference to conduct a balance test (or randomization check).
+In this case, we write a function of `data` that return some balance statistic (the F-statistic from a regression of the treatment assignment on two covariates).
 
 ```{r}
 balance_fun <- function(data) {
@@ -189,7 +201,9 @@ plot(ri_out)
 
 # 7. Randomization inference for multi-arm trials
 
-In a three-arm trial, the research might wish to compare each treatment to control separately. To do this, we must change the null hypothesis in a subtle way: we are going to assume the sharp null for each *pairwise* comparison. For example, when comparing treatment 1 to control, we exclude the subjects assigned to treatment 2 and pretend we simply have a two arm trial conducted among the subjects assigned to control and treatment 1.
+In a three-arm trial, the research might wish to compare each treatment to control separately.
+To do this, we must change the null hypothesis in a subtle way: we are going to assume the sharp null for each *pairwise* comparison.
+For example, when comparing treatment 1 to control, we exclude the subjects assigned to treatment 2 and pretend we simply have a two arm trial conducted among the subjects assigned to control and treatment 1.
 
 ```{r}
 three_arm_dat <- read.csv("three_arm_dat.csv")
@@ -211,7 +225,9 @@ plot(ri_out)
 
 # 7. Randomization inference for joint significance
 
-In that same three-arm trial that compares two treatments to a control, we might be interested in testing whether, jointly, the treatments appear to change outcomes relative to the control. This is analogous to a joint F-test, conducted via randomization inference. We assume the sharp null that a unit would express their observed outcome in *any* of the three conditions.
+In that same three-arm trial that compares two treatments to a control, we might be interested in testing whether, jointly, the treatments appear to change outcomes relative to the control.
+This is analogous to a joint F-test, conducted via randomization inference.
+We assume the sharp null that a unit would express their observed outcome in *any* of the three conditions.
 
 ```{r}
 F_statistic <- function(data) {
@@ -232,7 +248,10 @@ plot(ri_out)
 
 # 9. Randomization inference under noncompliance
 
-Some experiments encounter noncompliance, the slippage between treatment as assigned and treatment as delivered. The Complier Average Causal Effect ($CACE$) can be shown (under standard assumptions plus monotonicity) to be the ratio of the effect of assignment on the outcome -- the "Intention-to-Treat" ($ITT_y$) and the effect of assignment on treatment receipt the ($ITT_D$). Because the $CACE$ is just a rescaled, $ITT_y$, a hypothesis test with respect to the $ITT_y$ is a valid test for the $CACE$. In practice, researchers can simply conduct a randomization inference test exactly as they would for the ATE, ignoring noncompliance altogether.
+Some experiments encounter noncompliance, the slippage between treatment as assigned and treatment as delivered.
+The Complier Average Causal Effect ($CACE$) can be shown (under standard assumptions plus monotonicity) to be the ratio of the effect of assignment on the outcome -- the "Intention-to-Treat" ($ITT_y$) and the effect of assignment on treatment receipt the ($ITT_D$).
+Because the $CACE$ is just a rescaled, $ITT_y$, a hypothesis test with respect to the $ITT_y$ is a valid test for the $CACE$.
+In practice, researchers can simply conduct a randomization inference test exactly as they would for the ATE, ignoring noncompliance altogether.
 
 ```{r}
 ITT_y = with(complete_dat, mean(Y[Z == 1]) - mean(Y[Z == 0])) 
@@ -253,7 +272,8 @@ plot(ri_out)
 
 # 10. Randomization inference for arbitrary test statistics
 
-`ri2` can accommodate *any* scalar test statistic. A favorite among some analysts is the Wilcox rank-sum statistic, which can be extracted from the `wilcox.test()` function:
+`ri2` can accommodate *any* scalar test statistic.
+A favorite among some analysts is the Wilcox rank-sum statistic, which can be extracted from the `wilcox.test()` function:
 
 ```{r}
 wilcox_fun <- function(data){

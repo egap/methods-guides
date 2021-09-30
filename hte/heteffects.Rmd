@@ -8,7 +8,7 @@ output:
 ---
 
 <!-- title: "10 Things to Know About Heterogeneous Effects" -->
-<!-- author: 'Methods Guide Author: Albert Fang' -->
+<!-- author: 'Auteur du guide des méthodes: Albert Fang' -->
 
 Abstract
 ==

@@ -6,7 +6,7 @@ output:
 ---
 
 <!-- title: "10 Things You Need to Know About Multiple Comparisons" -->
-<!-- author: "Methods Guide Author: Alexander Coppock" -->
+<!-- author: "Auteur du guide des méthodes: Alexander Coppock" -->
 
 Abstract
 ==
