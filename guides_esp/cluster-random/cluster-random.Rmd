@@ -1,7 +1,5 @@
 ---
 output:
-  pdf_document:
-    toc: yes
   html_document:
     toc: yes
     theme: journal
@@ -23,28 +21,24 @@ Para los experimentos aleatorizados por conglomerados [^1] el tratamiento se asi
 
 Considere un estudio que asigna aldeas al azar para recibir diferentes programas de desarrollo, donde el bienestar de los hogares en la aldea es la variable resultado de interés. Este es un diseño por conglomerados ya que, si bien el tratamiento se asigna a la aldea en conjunto, nos interesan  resultados definidos a nivel del hogar. O considere un estudio que asigna ciertos hogares aleatoriamente  para recibir diferentes mensajes que promueven el voto y lo que nos interesa saber es cómo se comportan las personas con respecto al voto. Debido a que el hogar es la unidad a la que se le asigna el mensaje, pero el resultado se define como comportamiento individual, este estudio es aleatorio por conglomerados.
 
-Considere ahora un estudio en el que se seleccionan aldeas al azar, se asignan a 10 personas de cada aldea al grupo de tratamiento o  de control, y medimos el bienestar de esas personas. En este caso, el estudio es aleatorio por conglomerados, porque el nivel en el que se asigna el tratamiento y el nivel en el que se definen los resultados es diferente. Supongamos que para un estudio se asignó al azar pueblos a diferentes programas de desarrollo y luego se midió la cohesión social en el pueblo. Aunque contiene el mismo procedimiento de aleatorización que nuestro primer ejemplo, esto no es un diseño por conglomerados porque estamos interesados  en los resultados a nivel de aldea: el nivel de asignación de tratamiento y de medición de resultados es el mismo.
+Considere ahora un estudio en el que se seleccionan aldeas al azar, se asignan a 10 personas de cada aldea al grupo de tratamiento o  de control, y medimos el bienestar de esas personas. En este caso, el estudio es aleatorio por conglomerados, porque el nivel en el que se asigna el tratamiento y el nivel en el que se definen los resultados es diferente. Supongamos que para un estudio se asigna al azar pueblos a diferentes programas de desarrollo y luego se mide la cohesión social en el pueblo. Aunque es el mismo procedimiento de aleatorización que en nuestro primer ejemplo, este no es un diseño con conglomerados porque estamos las variables de resultado de interés son al nivel de la aldea: el nivel de asignación de tratamiento y de medición de las variables de resultado es el mismo.
 
 
-Los conglomerados son importantes por dos razones principales. Por un lado, los conglomerados reducen la cantidad de información en un experimento
-porque restringe el número de formas en las que los grupos de tratamiento y control se pueden componer con respecto a la aleatorización a nivel individual.
+Hay dos razones principales por las que debemos tener en cuenta los conglomerados. Por un lado, los conglomerados reducen la cantidad de información en un experimento
+porque restringe el número de formas en las que los grupos de tratamiento y control se pueden componer con respecto a la aleatorización a nivel individual. Si no se tiene en cuenta este hecho, a menudo podemos subestimar la varianza de nuestro estimador, lo que lleva a un exceso de confianza en los resultados de nuestro estudio. Por otro lado, los conglomerados nos hacen preguntarnos
+cómo combinar información de diferentes partes del mismo experimento en una sola cantidad. Especialmente cuando tenemos conglomerados de distintos tamaños y los resultados potenciales de las unidades dentro de estos son muy diferentes entre sí, los estimadores convencionales  producen sistemáticamente respuestas incorrectas debido al sesgo. Sin embargo, diferentes enfoques en las fases de diseño y análisis pueden ayudar a enfrentar los desafíos planteados por los diseños aleatorios por conglomerados. 
 
-Si no se tiene en cuenta este hecho, a menudo podemos subestimar la varianza de nuestro estimador, lo que lleva a un exceso de confianza en los resultados de nuestro estudio. Por otro lado, para los conglomerados necesitamos saber
-cómo combinar información de diferentes partes del mismo experimento en una sola cantidad.
-
-Especialmente cuando los conglomerados no son del mismo tamaño y los resultados potenciales de las unidades dentro de estos son muy diferentes entre sí, los estimadores convencionales  producen sistemáticamente una respuesta incorrecta debido al sesgo. Sin embargo, diferentes enfoques en las fases de diseño y análisis pueden ayudar a enfrentar los desafíos planteados por los diseños aleatorios por conglomerados. 
-
-# 2 Por qué la agrupación en clústeres puede ser importante I: reducción de la información
+# 2 Por qué la agrupación en conglomerados puede ser importante I: reducción de la información
 
 Normalmente pensamos en la información contenida en los estudios en términos
 del tamaño de la muestra y las características de las unidades dentro del
 muestra. Sin embargo, dos estudios con exactamente el mismo
-tamaño de la muestra y los mismos participantes podrían, en teoría, contener
+tamaño de  muestra y los mismos participantes podrían, en teoría, contener
 cantidades muy diferentes de información, dependiendo de si las unidades están agrupadas en conglomerados.
 
 Esto afectará en gran medida la precisión de las inferencias que hacemos a partir de nuestros estudios.
 
-Imagine una evaluación de impacto con 10 personas, donde 5 se asignan al grupo de tratamiento y 5 al control. En una versión del experimento, el tratamiento se asigna a los individuos: no hay conglomerados. En otra versión del experimento, los 5 individuos de pelo negro y los 5 individuos con algún otro color de pelo se asignan al tratamiento como grupo. Este diseño tiene dos grupos: 'cabello negro' y 'otro color'.
+Suponga que estamos haciendo una evaluación de impacto con 10 personas, donde 5 se asignan al grupo de tratamiento y 5 al control. En una versión del experimento, el tratamiento se asigna a los individuos: no hay conglomerados. En otra versión del experimento, los 5 individuos de pelo negro y los 5 individuos con algún otro color de pelo se asignan al tratamiento como grupo. Este diseño tiene dos grupos: 'cabello negro' y 'otro color'.
 
 Una simple aplicación de la regla de combinatoria para seleccionar *k* elementos de *n*"  nos deja ver por qué es esto relevante. En la primera versión, la aleatorización permite 252 combinaciones diferentes de personas como grupos de tratamiento y control. Sin embargo, en la segunda versión, el procedimiento de aleatorización asigna a todos los pelinegros sujetos al grupo de tratamiento o al de control, y por lo tanto sólo  genera dos formas de combinar personas para estimar un efecto.
 
@@ -997,7 +991,7 @@ VC <- as.data.frame(lme4:::VarCorr.merMod(multilevel))
 round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
 ```
 
-Para evaluar el desempeño de este enfoque basado en modelos, en contraposición a los enfoques de error estándar robusto para clusters (EERC, o RCSE por sus siglas en inglés) y de agregado por conglomerado descritos anteriormente, podemos comprobar con qué frecuencia los diferentes enfoques rechazan falsamente la hipótesis nula  de que el tratamiento no tiene efecto para ninguna unidad, cuando sabemos que la hipótesis nula es verdadera.
+Para evaluar el desempeño de este enfoque basado en modelos, en contraposición a los enfoques de error estándar robusto para conglomerados (EERC, o RCSE por sus siglas en inglés) y de agregado por conglomerado descritos anteriormente, podemos comprobar con qué frecuencia los diferentes enfoques rechazan falsamente la hipótesis nula  de que el tratamiento no tiene efecto para ninguna unidad, cuando sabemos que la hipótesis nula es verdadera.
 
 Para hacerlo, escribimos una función que, en primer lugar, desasocia la asignación del tratamiento y la variable de resultado sorteando aleatoriamente la asignación. Luego comprueba si 0 está en el intervalo de confianza del 95% para cada uno de los tres enfoques, tal como debería ser. 
 Recuerde que las pruebas válidas tendrían tasas de error dentro de 2 errores estándar de simulación de .95; esto significaría que una hipótesis nula correcta no se rechazaría más del 5% de las veces. 
