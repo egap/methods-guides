@@ -116,58 +116,65 @@ The second general approach starts with such probability models relating treatme
 So, the predictive approach changes the fundamental question from one about averages to one that focuses on differences in predicted potential outcomes for each person
 (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
 
-## Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.
+La deuxième approche générale commence avec les mêmes modèles de probabilité reliant le traitement, d'autres variables et les résultats.
+ Ensuite, à l'aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l'effet du traitement au niveau individuel ou l'effet moyen du traitement (voir [@imbens2007causal] pour plus de détails sur l'approche prédictive bayésienne de l'inférence causale).
+Ainsi, l'approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne.
+(bien que la plupart de ces différences prédites individuelles soient résumées en utilisant les caractéristiques des distributions postérieures impliquées par des modèles de probabilité et des données comme la moyenne des prédictions.)
 
-The third approach to this problem changes the question again.
-@fisher:1935[Chapter 2] taught us that we can ask the fundamental question about whether there is a causal effect for a single person, but the answer can only be in terms of how much information the research design and data provide about the question.
-That is, one can hypothesize that, for person $i$, the information made no difference to their outcomes, such that $y_{i,1}=y_{i,0}$ or $y_{i,1}=y_{i,0}+\tau_i$ where $\tau_i=0$ for everyone.
-However, the answer to this question has to be something like "This research design and dataset provide a lot of information about this model or idea or hypothesis." or, as above,
-"This research design is not consistent with that claim." (See @rosenbaum2002(Chapter 2), @rosenbaum2010(chapter 2), and @rosenbaum2017observation, for more details about this approach.)
+## Le test d'hypothèse est une approche statistique du problème fondamental de l'inférence causale en faisant des affirmations sur l'inobservé.
 
-# The Null Hypothesis of No Effects is a precise statement about potential outcomes
+La troisième approche de ce problème amène une nouvelle question.
+@fisher:1935[Chapitre 2], nous apprenons que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais la réponse ne peut être qu'en termes de quantité d'information fournie par le design de recherche et les données.
+C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour son résultat, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ est pour tout le monde.
+Cependant, la réponse à cette question doit être quelque chose comme "Ce design de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Ce design de recherche n'est pas cohérent avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
-Even if we cannot use direct observation to learn about counterfactual causal effects, we can still ask questions about them, or make theoretical models that relate some intervention or treatment, background characteristics, and potential outcomes.
-The simplest such model states that the outcome under treatment would be the same as the outcome under control for all units; that is, it would say that regardless of background characteristics, or information given in the experimental treatment condition, each person would pay the same amount in taxes: $y_{i,1}=y_{i,0}$ for all units $i$.
-To emphasize the tentative and theoretical nature of this model, people have called this a **hypothesis**, often write it as "the sharp null hypothesis."  and use the following shorthand: $H_0:
-y_{i,1}-y{i,0}=\tau_i$ where $\tau_i=0$ for all units $i$.
+# L'hypothèse nulle d'absence d'effet de traitement est une déclaration précise sur les résultats potentiels
 
-**Side Note:** Notice that thinking about sharp hypotheses makes us realize that we could make **other models relating $y_{i,1}$ and $y_{i,0}$** in which the potential outcomes relate in ways that are not additive or linear, and where the effect need not be zero or even the same for all units: for example,
-we could hypothesize that $\tau_i=\{5,0,-2\}$ 5 for unit 1, 0 for unit 2, and -2 for unit 3 in a 3 unit experiment.
-Notice also that writing potential outcomes this way, with the potential outcome for unit $i$ *only referring to $i$* and not some other units ($y_{i,Z_i}$), *is part of the model*.
-That is, the particular model of $H_0: y_{i,1}=y_{i,0}$ implies that the treatment has no effect on anyone --- and no effects includes no spillover effects.
-We could be a little more specific by writing the potential outcomes like so: The potential outcome of unit $i$ when it is assigned to treatment, and when all of the other units are assigned to any other set of treatments
-$\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ can be written  $y_{i,Z_i=1,\bZ_{~i}}$.
-See @bowers2013reasoning and @bowers2018models for more on the idea that a hypothesis is a theoretical model that can be tested with data in the context of hypotheses about the propagation of treatment effects across a network.
+Même si nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur les effets causaux contrefactuels, nous pouvons toujours poser des questions à leur sujet ou créer des modèles théoriques qui lient ensemble une intervention (ou un traitement), des caractéristiques de base et des résultats potentiels.
+Le modèle le plus simple de ce type indique que le résultat sous traitement serait le même que le résultat sous contrôle pour toutes les unités ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $ je$.
+Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle forte". et utilisez le raccourci suivant : $H_0 :
+y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ est pour toutes les unités $i$.
 
+**Side Note:** Réfléchir à l'hypothèse nulle forte nous fait réaliser que nous pourrions créer **d'autres modèles reliant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
+nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience de 3 unités.
 
-# The weak null hypothesis of no effects is a statement about aggregated potential outcomes
+Notez également que cette manière d'écrire les résultats potentiels, avec le résultat potentiel pour l'unité $i$ *se référant uniquement à $i$* et non à d'autres unités ($y_{i,Z_i}$), *fait partie du modèle*.
+C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de débordement.
 
-An experiment may influence some units but, on average, have no effects.
-To codify this intuition, researchers can write a null hypothesis about an *average* of potential outcomes, or some other aggregated summary of the potential outcomes, rather than about the whole collection of potential outcomes.
+Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l'unité $i$ lorsqu'elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ peut s'écrire $y_{i,Z_i=1,\bZ_{~i}}$.
 
-Because most current discussions about causal effects talks about the *average* of the effects, people write the weak null something like $H_0:
-\bar{\tau}=0$ where $\bar{\tau}=(1/N)\sum_{i=1}^N \tau_i$.
-Again, the hypothesis is a statement or model of a relationship among only partially observed potential outcomes.
-But, here it is about the average of them.
-One could, in principle, articulate hypotheses about other aggregates: medians, percentiles, ratios, trimmed means, etc.
-However hypothesizing about average effects simplifies the math and statistics: we know the properties of averages of independent observations as sample sizes increase, so that we can appeal to a Central Limit Theorem to describe the distribution of averages in large samples---and this, in turn, makes calculating $p$-values quick and easy in large samples.
+Voir @bowers2013reasoning et @bowers2018models pour en savoir plus sur l'idée qu'une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d'hypothèses sur la propagation des effets de traitement à travers un réseau.
 
-# Randomization allows us to use what we observe to test hypotheses about what we do not observe.
+# L'hypothèse nulle d'absence d'effet de traitement est une déclaration sur les résultats potentiels agrégés
 
-Whether one hypothesizes about unit-level effects directly or about averages of them, we still must confront the problem of distinguishing signal from noise.
-A hypothesis only refers to potential outcomes.
-Above, assuming no interaction between units, we imagined two potential outcomes per person, but we only observe one per person.
-**How can we use what we observe to learn about theoretical models of partially observed quantities?** In this simple experiment, we know that we observe one of the two potential outcomes per person, depending on which treatment was assigned to that person.
-So, we can link the unobserved counterfactual outcomes to an observed outcome ($Y_i$) using treatment assignment ($Z_i$) like so:
+Une expérience peut influencer certaines unités mais n'avoir, en moyenne, aucun effet.
+Pour codifier cette intuition, les chercheurs peuvent écrire une hypothèse nulle sur une *moyenne* de résultats potentiels, ou un autre agrégat de résultats potentiels, plutôt que sur l'ensemble des résultats potentiels.
+
+Parce que la plupart des discussions actuelles sur les effets causaux parlent de la *moyenne* des effets, les gens écrivent l'hypothèse nulle faible ainsi $H_0 :
+\bar{\tau}=0$ où $\bar{\tau}=(1/N)\sum_{i=1}^N \tau_i$.
+Encore une fois, l'hypothèse est une déclaration ou un modèle d'une relation entre des résultats potentiels partiellement observés.
+Mais, ici, il s'agit de leur moyenne.
+On pourrait, en principe, articuler des hypothèses sur d'autres agrégats : médianes, centiles, ratios, moyennes tronquées, etc.
+Cependant, faire des hypothèses sur l'effet moyen nous simplifie la tâche : nous connaissons les propriétés de la moyenne d'observations indépendantes à mesure que la taille de l'échantillon augmente, de sorte que nous pouvons faire appel au théorème central limite pour décrire la distribution de la moyenne pour de grands échantillons --- et ceci, à son tour, rend le calcul des $p$-valeurs rapide et facile pour de grands échantillons.
+
+# La randomisation nous permet d'utiliser ce que nous observons pour tester des hypothèses sur ce que nous n'observons pas.
+
+Que l'on émette des hypothèses sur les effets au niveau unitaire directement ou sur leurs moyennes, nous devons encore faire face au problème de la distinction entre le signal et le bruit.
+Une hypothèse se réfère uniquement aux résultats potentiels.
+Ci-dessus, en supposant aucune interaction entre les unités, nous avons imaginé deux résultats potentiels par personne, mais nous n'en observons qu'un par personne.
+**Comment pouvons-nous utiliser ce que nous observons pour en savoir plus sur les modèles théoriques de quantités partiellement observées ?**
+Dans cette expérience simple, nous savons que nous observons l'un des deux résultats potentiels par personne, selon le traitement qui lui a été attribué.
+Ainsi, nous pouvons lier les résultats contrefactuels non observés à un résultat observé ($Y_i$) en utilisant l'assignation de traitement ($Z_i$) comme suit :
 
 $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 
-@eq:identity says that our observed outcome, $Y_i$ (here, amount of taxes paid by person $i$), is $y_{i,1}$ when the person is assigned to the treatment group ($Z_i=1$), and $y_{i,0}$ when the person is assigned to the control group.
+@eq:identity signifie que notre résultat observé, $Y_i$ (ici, le montant des impôts payés par la personne $i$), est $y_{i,1}$ lorsque la personne est assignée au groupe de traitement ($Z_i=1$), et $y_{i,0}$ lorsque la personne est assignée au groupe de contrôle.
 
-**How much information does our research design and dataset contain about the hypothesis?** Imagine, for now, the hypothesis that treatment adds 5 to the tax payments of every single person such that  $H_0: y_{i,1} = y_{i,0} + \tau_i$ where $\tau_i=5$ for all $i$.
+**Combien d'informations notre design de recherche et nos données contiennent-ils sur l'hypothèse ?**
+Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 % au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
 
-Let us entertain this model for the sake of argument.
-What would this hypothesis imply for what we observe? We have the equation relating observed to unobserved in @eq:identity so, this model or hypothesis would imply that:
+Continuons pour les besoins de l'argumentation.
+Qu'impliquerait cette hypothèse pour ce que nous observons ? Nous avons l'équation reliant l'observé à l'inobservé dans @eq:identity donc, ce modèle ou cette hypothèse impliquerait que :
 
 $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 & = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
@@ -175,12 +182,12 @@ $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 \end{aligned}
 $$
 
-What we observe, $Y_i$, would be either $y_{i,0}$ in the control condition, $Z_i=0$ or $\tau_i + y_{i,0}$ (which would be $5 + y_{i,0}$ in the treatment condition).
+Ce que nous observons, $Y_i$, serait soit $y_{i,0}$ dans la condition de contrôle, $Z_i=0$ ou $\tau_i + y_{i,0}$ (ce qui serait $5 + y_{i ,0}$ dans la condition de traitement).
 
-This hypothesis further implies that $y_{i,0} = Y_i - Z_i \tau_i$ or $y_{i,0} = Y_i - Z_i 5$.
-If we subtracted  5 from each observed response in the treatment condition, then our hypothesis implies that we would observe $y_{i,0}$ for everyone.
-That is, by subtracting  5, we would make the control and the treatment group equivalent in observed outcomes.
-**This logic gives us an observable implication of the hypothesis.**
+Cette hypothèse implique en outre que $y_{i,0} = Y_i - Z_i \tau_i$ ou $y_{i,0} = Y_i - Z_i 5$.
+Si nous soustrayons 5 de chaque réponse observée dans la condition de traitement, alors notre hypothèse implique que nous observerions $y_{i,0}$ pour tout le monde.
+Autrement dit, en soustrayant 5, nous rendrions le groupe de contrôle et le groupe de traitement équivalents en termes de résultats observés.
+**Cette logique nous donne une implication observable de l'hypothèse.**
 
 **The sharp null hypothesis of no effects** specifies that $\tau_i=0$ for all $i$.
 And this in turn implies that $y_{i,0} = Y_i - Z_i \tau_i = Y_i$.

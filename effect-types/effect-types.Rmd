@@ -5,45 +5,45 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Types of Treatment Effect You Should Know About" -->
+<!-- title: "10 types d'effets de traitement à connaître" -->
 <!-- author: "Auteur du guide des méthodes: Paul Testa" -->
 
-Abstract
+Résumé
 ==
-This guide[^1] for more formal discussion of independence and the assumptions necessary to estimate causal effects.
-describes ten distinct types of causal effect researchers can be interested in estimating.
-As discussed in our guide to causal inference, simple randomization allows one to produce estimates of the average of the unit level causal effects in a sample.
-This average causal effect or average treatment effect (ATE) is a powerful concept because it is one solution to the problem of not observing all relevant counterfactuals.
-Yet, it is not the only productive engagement with this problem.
-In fact, there are many different types of quantities of causal interest.
-The goal of this guide is to help you choose estimands (a parameter of interest) and estimators (procedures for calculating estimates of those parameters) that are appropriate and meaningful for your data.
+Voir ce guide[^1] pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
+Notre guide décrit dix types distincts d'effets causaux que les chercheurs peuvent souhaiter estimer.
+Comme indiqué dans notre guide sur l'inférence causale, la randomisation simple permet de produire des estimations de la moyenne des effets causaux au niveau de l'unité pour un échantillon.
+Cet effet causal moyen ou effet moyen de traitement (average treatment effect / ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
+Pourtant, ce n'est pas la seule manière efficace de faire face à ce problème.
+En fait, il existe de nombreux types différents de quantités d'intérêt causal.
+L'objectif de ce guide est de vous aider à choisir des estimandes (i.e. des paramètres d'intérêt) et des estimateurs (procédures pour calculer des estimations de ces paramètres) qui sont appropriés et significatifs pour vos données.
 
-[^1]: See Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
+[^1]: Voir Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
 
-1 Average Treatment Effects
+1 Effet moyen du traitement
 ==
-We begin by reviewing how, with randomization, a simple difference-of-means provides an unbiased estimate of the ATE.
-We take extra time to introduce some common statistical concepts and notation used throughout this guide.
+Nous commençons par examiner comment, avec la randomisation, une simple différence de moyennes fournit une estimation non biaisée de l'ATE.
+Nous prenons plus de temps pour présenter certains concepts et notations statistiques courants utilisés tout au long de ce guide.
 
-First we define a treatment effect for an individual observation (a person, household, city, etc.) as the difference between that unit’s behavior under treatment $(Y_{i}(1))$ and control $(Y_{i}(0))$:
+Tout d'abord, nous définissons un effet de traitement pour une observation individuelle (une personne, un ménage, une ville, etc.) comme la différence entre le comportement de cette unité sous le traitement $(Y_{i}(1))$ et sous le contrôle $(Y_{i}( 0))$ :
 
 $$τ_{i}=Y_{i}(1)−Y_{i}(0)$$
 
-Since we can only observe either $Y_{i}(1)$ or $Y_{i}(0)$ the individual treatment effect is unknowable.
-Now let $D_{i}$ be an indicator for whether we observe an observation under treatment or control.
-If treatment is randomly assigned, $D_{i}$ is independent, not only of potential outcomes but also of any covariates (observed and unobserved) that might predict also those outcomes $((Y_{i}(1),Y_{i}(0),X_{i}⊥⊥D_{i}))$.[^2]
+Puisque nous ne pouvons observer que $Y_{i}(1)$ ou $Y_{i}(0)$, l'effet du traitement individuel est impossible à connaître.
+Soit $D_{i}$ un indicateur pour savoir si nous observons une observation sous traitement ou sous contrôle.
+Si le traitement est assigné au hasard, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $((Y_{i}(1),Y_{i }(0),X_{i}⊥⊥D_{i}))$.[^2]
 
-[^2]: See Holland and Angrist & Pischke again for more formal discussion of independence and the assumptions necessary to estimate causal effects.
+[^2]: Voir Holland and Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
-Suppose our design involves $m$ units under treatment and $N−m$ under control.
-Suppose we were to repeatedly reassign treatment at random many times and each time calculate the difference of means between treated and control groups and then to record this value in a list.
-The average of the values in that list will be the same as the difference of the means of the true potential outcomes had we observed the full schedule of potential outcomes for all observations.[^3] Another way to say this characteristic of the average treatment effect and the estimator of it, is to say that the difference of observed means is an unbiased estimator of the average causal treatment effect.
+Supposons que notre design implique $m$ unités sous traitement et $N−m$ sous contrôle.
+Supposons que nous devions réassigner à plusieurs reprises le traitement au hasard et à chaque fois calculer la différence des moyennes entre les groupes traités et témoins, puis enregistrer cette valeur dans une liste.
+La moyenne des valeurs de cette liste sera la même que la différence des moyennes des véritables résultats potentiels si nous avions observé tous les résultats potentiels pour toutes les observations.[^3] Autrement dit, l'estimateur (i.e. la différence des moyennes observées) est un estimateur sans biais de l'effet causal moyen du traitement.
 
-[^3]:  That is $(E(Y_i(1)|D=1)=E(Y_i(1)|D=0)=E(Y_i(1)))$ and $(E(Y_i(0)|D=1)=E(Y_i(0)|D=0)=E(Y_i(0)))$
+[^3]:  i.e $(E(Y_i(1)|D=1)=E(Y_i(1)|D=0)=E(Y_i(1)))$ et $(E(Y_i(0)|D=1)=E(Y_i(0)|D=0)=E(Y_i(0)))$
 
 $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑^{N}_{1}Y_{i}(0)}{N}$$
 
-And we often estimate the ATE using the observed difference in means:[^4]
+Et nous estimons souvent l'ATE en utilisant la différence observée des moyennes:[^4]
 
 [^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, of target of our estimation that is unobserved.
 Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity.
