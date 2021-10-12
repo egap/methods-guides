@@ -45,71 +45,72 @@ $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑
 
 Et nous estimons souvent l'ATE en utilisant la différence observée des moyennes:[^4]
 
-[^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, of target of our estimation that is unobserved.
-Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity.
-See Gerber and Green (2012) for concise introduction to this distinction and Imbens and Wooldridge (2007) for a thorough treatment of these concepts.
+[^4] : Les estimations sont souvent écrites avec un chapeau ( $\widehat{ATE}$ ) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
+Sauf indication contraire, dans ce guide, nous nous concentrons sur la génération d'estimations d'échantillons et omettons par la suite cette notation explicite par souci de concision.
+Voir Gerber et Green (2012) pour une introduction concise à cette distinction et Imbens et Wooldridge (2007) pour un traitement approfondi de ces concepts.
 
 $$\widehat{ATE} =\frac{∑^m_1Z_{i}Y_{i}}{m}−\frac{∑^{N}_{m+1}(1−Z_{i})Y_{i}}{N−m}$$
 
-Statistical inference about the estimated ATE requires that we know how it will vary across randomizations.
-It turns out that we can write the variance of the ATE across randomizations as follows:
+L'inférence statistique sur l'ATE estimé nécessite que nous sachions comment il variera selon les randomisations.
+Il s'avère que nous pouvons écrire la variance de l'ATE à travers les randomisations comme suit :
 
 $$V(ATE) = \frac{N}{N−1} [\frac{V(Y_{i}(1))}{m}+\frac{V(Y_{i}(0))}{N−m}]−\frac{1}{N−1}[V(Y_{i}(1))+V(Y_{i}(0))−2∗Cov(Y_{i}(1),Y_{i}(0))]$$
 
-and estimate this quantity from the sample estimates of the variance in each group.[^5]
+et estimer cette quantité à partir des estimations de l'échantillon de la variance dans chaque groupe.[^5]
 
-[^5]: The covariance of $Y_{i}(1),Y_{i}(0)$ is impossible to observe but the “Neyman” estimator of the variance omitting the covariance term provides a conservative (too large) estimate of the true sample variance because we tend to assume that the covariance is positive.
-Since we are generally worried about minimizing type I error rate (incorrectly rejecting true null hypothesis), we prefer using conservative estimates of the variance.
-See also Dunning (2010) and Gerber and Green (2012) for justification of the conservative variance estimator.
+[^5] : La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation prudente (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
+Étant donné que nous sommes généralement soucieux de minimiser le taux d'erreur de type I (rejetant à tort l'hypothèse nulle vraie), nous préférons utiliser des estimations prudentes de la variance.
+Voir aussi Dunning (2010) et Gerber et Green (2012) pour la justification de l'estimateur de variance prudent.
 
-A linear model regressing the observed outcome $Y_{i}$ on a treatment indicator $D_{i}$ provides a convenient estimator of the ATE (and with some additional adjustments, the variance of the ATE):
+Un modèle linéaire de régression du résultat observé $Y_{i}$ sur un indicateur de traitement $D_{i}$ fournit un estimateur pratique de l'ATE (et avec quelques ajustements supplémentaires, de la variance de l'ATE) :
 
 $$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
-since we can rearrange terms so that $β_{0}$ estimates the average among control observations $(Y_{i}(0)∣D_{i}=0)$ and $β_{1}$ estimates the differences of means $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$.
-In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units.
-We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference.
-Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE.
-Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed.
-When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference.[^6] Finally, we also demonstrate the unbiasedness of these estimators through simulation.
+puisque nous pouvons réarranger les termes de sorte que $β_{0}$ représente la moyenne parmi les observations de contrôle $(Y_{i}(0)∣D_{i}=0)$ et $β_{1}$ représente la différence des moyennes $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$.
+Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et assignons au hasard un traitement Di avec un effet unitaire constant à la moitié des unités.
+Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observée.
+Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
+Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
+Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur-type de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
+Enfin, nous démontrons également l'absence de biais de ces estimateurs par simulation.
 
 [^6]: Lin (2013)
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-set.seed(1234) # For replication 
-N = 1000 # Population size 
-Y0 = runif(N) # Potential outcome under control condition 
-Y1 = Y0 + 1 # Potential outcome under treatment condition 
-D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+set.seed(1234) # pour la reproductibilité
+N = 1000 # taille de la population
+Y0 = runif(N) # Résultat potentiel sous la condition de contrôle
+Y1 = Y0 + 1 # Résultat potentiel sous condition de traitement
+D = sample((1:N)%%2) # Traitement: 1 si traité, 0 sinon
+Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp = data.frame(D,Y) 
 
-ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0])) 
+ATE = coef(lm(Y~D,data=samp))[2] #idem avec (samp,mean(Y[Z==1])-mean(Y[Z==0]))
 
-# SATE with Neyman/Randomization Justified Standard Errors 
-# which are the same as OLS standard errors when no covariates or blocking 
+# SATE avec Neyman ou avec une erreur standard justifiée par randomisation
+# qui sont les mêmes que les erreurs standard MCO en l'absence de covariables ou de découpage par bloc
 library(lmtest) 
 library(sandwich) 
 fit<-lm(Y~D,data=samp) 
 coef(summary(fit))["D",1:2]
 
 ATE.se<-coeftest(fit,vcovHC(fit,type="HC2"))["D",2] 
-# same as with(samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D))) 
+# idem avec (samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D)))
 
-# Assess unbiasedness and simulate standard errors 
+# Évaluer le biais et simuler l'erreur standard
 getATE<-function() {
-  D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
+  D = sample((1:N)%%2) # Traitement: 1 si traité, 0 sinon
   Y = D*Y1 + (1-D)*Y0 
   coef(lm(Y~D))[["D"]] 
 } 
 
 manyATEs<-replicate(10000,getATE()) 
 
-## Unbiasedness: 
+## Évaluer le biais:
 c(ATE=mean(Y1)-mean(Y0), ExpEstATE=mean(manyATEs)) 
 
-## Standard Error 
-### True SE formula 
+## Erreur standard
+### en utilisant la formule classique
 V<-var(cbind(Y0,Y1)) 
 varc<-V[1,1] 
 vart<-V[2,2] 
@@ -118,27 +119,28 @@ n<-sum(D)
 m<-N-n 
 varestATE<-((N-n)/(N-1))*(vart/n) + ((N-m)/(N-1))* (varc/m) + (2/(N-1)) * covtc 
 
-### Compare SEs 
+### Comparer les erreurs standard
 c(SimulatedSE= sd(manyATEs), TrueSE=sqrt(varestATE), ConservativeSE=ATE.se) 
 ```
 
-2 Conditional Average Treatment Effects
+2 Effet moyen du traitement conditionnel
 ==
-The problem with looking at average treatment effects only is that it takes attention away from the fact that treatment effects might be very different for different sorts of people.
-While the “fundamental problem of causal inference” suggests that measuring causal effects for individual units is impossible, making inferences on groups of units is not.
 
-Random assignment ensures that treatment is independent of potential outcomes and any (observed and unobserved) covariates.
-Sometimes, however, we have additional information about the experimental units as they existed before the experiment was fielded, say $X_{i}$, and this information can can help us understand how treatment effects vary across subgroups.
-For example, we may suspect that men and women respond differently to treatment, and we can test for this hetorogeneity by estimating conditional ATE for each subgroup separately $(CATE=E(Y_{i}(1)−Y_{i}(0)∣D_{i},X_{i}))$.
-If our covariate is continous, we can test its moderating effects by interacting the continous variable with the treatment.
-Note, however, that the treatment effect is now conditional on both treatment status and the value of the conditioning variable at which the effect is evaluated and so we must adjust our interpretation and standard errors accordingly.[^7]
+Le problème de ne considérer que l'effet moyen du traitement est que cela détourne l'attention du fait que l'effet du traitement peut être très différent pour différents types de personnes.
+Alors que le "problème fondamental de l'inférence causale" suggère que la mesure des effets causaux pour des unités individuelles est impossible, faire des inférences sur des groupes d'unités ne l'est pas.
 
-[^7]: Brambor, Clark, and Golder (2006)
+L'assignation aléatoire garantit que le traitement est indépendant des résultats potentiels et de toute covariable (observée et non observée).
+Parfois, cependant, nous avons des informations supplémentaires sur les unités expérimentales telles qu'elles existaient avant que l'expérience ne soit menée, disons $X_{i}$, et ces informations peuvent nous aider à comprendre comment les effets du traitement varient entre les sous-groupes.
+Par exemple, nous pouvons suspecter que les hommes et les femmes réagissent différemment au traitement, et nous pouvons tester cette hétérogénéité en estimant l'ATE conditionnel pour chaque sous-groupe séparément $(CATE=E(Y_{i}(1)−Y_{i}(0 )∣D_{i},X_{i}))$.
+Si notre covariable est continue, nous pouvons tester ses effets modérateurs en faisant varier la variable continue avec le traitement.
+Notez, cependant, que l'effet du traitement est désormais conditionné à la fois au statut du traitement et à la valeur de la variable de conditionnement pour laquelle l'effet est évalué, nous devons donc ajuster notre interprétation et l'erreur standard en conséquence.[^7]
 
-A word of warning: looking at treatment effects across dimensions that are themselves affected by treatment is a dangerous business and can lead to incorrect inferences.
-For example if you wanted to see how administering a drug led to health improvements you could look separately for men and women, but you could not look separately for those that in fact took the drug and those that did not (this is an example of inference for compliers which requires separate techniques described in point 4 below).
+[^7]: Brambor, Clark et Golder (2006)
 
-3 Intent-to-Treat Effects
+Avertissement : examiner l'effet du traitement à travers des dimensions qui sont elles-mêmes influencées par le traitement est une entreprise dangereuse et peut conduire à des inférences incorrectes.
+Par exemple, si vous vouliez voir comment l'administration d'un médicament conduit à des améliorations de la santé, vous pouvez rechercher séparément les hommes et les femmes, mais vous ne pouvez pas rechercher séparément ceux qui ont effectivement pris le médicament et ceux qui ne l'ont pas fait (ceci est un exemple d'inférence pour conformistes qui nécessitent des techniques distinctes décrites au point 4 ci-dessous).
+
+3 Effet d'intention de traiter (intent to treat effect, ITT)
 ==
 Outside of a controlled laboratory setting, the subjects we assign to treatment often are not the same as the subjects who actually receive the treatment.
 When some subjects assigned to treatment fail to receive it, we call this an experiment with one-sided non-compliance.
@@ -158,19 +160,19 @@ In the code below, we create some simple data with one-sided non-compliance.
 Although the true treatment effect for people who actually received the treatment is 2, our estimated ITT is smaller (about 1) because only some of the people assigned to treatment actually receive it.
 
 ```{r}
-set.seed(1234) # For replication
-n = 1000 # Population size 
-Y0 = runif(n) # Potential outcome under control condition 
-C = sample((1:n)%%2) # Whether someone is a complier or not 
-Y1 = Y0 + 1 +C # Potential outcome under treatment 
-Z = sample((1:n)%%2) # Treatment assignment 
-D = Z*C # Treatment Uptake 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+Y0 = runif(n) # Résultat potentiel sous la condition de contrôle
+C = sample((1:n)%%2) # L'unité se conforme ou non au traitement
+Y1 = Y0 + 1 +C # Résultat potentiel sous condition de traitement
+Z = sample((1:n)%%2) # Assignation du traitement
+D = Z*C # Adoption du traitement
+Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp = data.frame(Z,Y)
 ITT<-coef(lm(Y~Z,data=samp))[2]
 ```
 
-4 Complier Average Treatment Effects
+4 Effet causal moyen pour ceux qui se conforment au traitement (complier average causal effect, CACE)
 ==
 What if you are interested in figuring out the effects of a treatment on those people who actually took up the treatment and not just those people that were administered the treatment? For example what is the effect of radio ads on voting behavior for those people that actually hear the ads?
 
@@ -182,7 +184,7 @@ As long as random assignment had some positive effect on the probability of rece
 Following the notation of Angrist and Pischke,[^8] let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicate whether that subject actually received the treatment.
 Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
 
-[^8]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+[^8]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
 [^9]: We typically assume monotonicity, meaning there are no defiers or people who only take the treatment when assigned to control ($D_{i}=1$ when $Z_i=0$) and refuse the treatment when assigned to treatment ($D_{i}=0$ when $Z_{i}=1$).
 
@@ -197,14 +199,14 @@ Note, however, that when instruments are weak (e.g. random assignment had only a
 [^10]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
 
 ```{r}
-set.seed(1234) # For replication 
-n = 1000 # Population size 
-Y0 = runif(n) # Potential outcome under control condition 
-Y1 = Y0 + 1 # Potential outcome under treatment 
-Z = sample((1:n)%%2) # Treatment assignment 
-pD<-pnorm(-1+rnorm(n,mean=2*Z)) # Non-compliance 
-D<-rbinom(n,1,pD) # Treatment receipt with non-compliance 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+Y0 = runif(n) # Résultat potentiel sous la condition de contrôle
+Y1 = Y0 + 1 # Résultat potentiel sous condition de traitement
+Z = sample((1:n)%%2) # Assignation du traitement
+pD<-pnorm(-1+rnorm(n,mean=2*Z)) # Non-conformité
+D<-rbinom(n,1,pD) # Réception du traitement avec non-conformité
+Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp = data.frame(Z,D,Y) 
 
 # IV estimate library(AER) CACE = coef(ivreg(Y ~ D | Z, data = samp))[2] 
@@ -241,20 +243,20 @@ Combining regression adjustment with IPW, the AIPW has the feature of being “d
 [^14]: Glynn, Adam N, and Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-# Example adapted from ?estimate.ATE 
+# Exemple adapté de ?estimate.ATE
 library(CausalGAM) 
-set.seed(1234) # For replication 
-n = 1000 # Sample size 
-X1 = rnorm(n) # Pre-treatment covariates 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+X1 = rnorm(n) # covariables de pré-traitement
 X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
-D = rbinom(n, 1, p) # Treatment 
-Y0 = rnorm(n) # Potential outcomes 
+p = pnorm(-0.5 + 0.75*X2) # Probabilité de traitement inégale
+D = rbinom(n, 1, p) # traitement
+Y0 = rnorm(n) # Résultats potentiels
 Y1 = Y0 + 1 + X1 + X2 
-Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
+Y = D*Y1 + (1-D)*Y0 # Résultats observés
 samp = data.frame(X1,X2,D,Y) 
 
-# Estimate ATE with AIPW, IPW, Regression weights 
+# Estimer l'ATE avec AIPW, IPW, Regression pondérée
 ATE.out <- estimate.ATE(pscore.formula = D ~ X1 +X2, 
                         pscore.family = binomial, 
                         outcome.formula.t = Y ~ X1 
@@ -294,15 +296,15 @@ Inverse propensity score weighting and other procedures produce balance between 
 [^16]: Rosenbaum and Rubin (1983)
 
 ```{r}
-set.seed(1234) # For replication
-n = 1000 # Sample size 
-X1 = rnorm(n) # Pre-treatment covariates 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+X1 = rnorm(n) # covariables de pré-traitement
 X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
-D = rbinom(n, 1, p) # Treatment 
-Y0 = rnorm(n) # Potential outcomes 
+p = pnorm(-0.5 + 0.75*X2) # Probabilité de traitement inégale
+D = rbinom(n, 1, p) # traitement
+Y0 = rnorm(n) # Résultats potentiels
 Y1 = Y0 +1 +X1 +X2 
-Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
+Y = D*Y1 + (1-D)*Y0 # Résultats observés
 samp = data.frame(X1,X2,D,Y) 
 # Propensity score model 
 samp$p.score<-
@@ -344,14 +346,14 @@ Estimating quantile treatment effects provide another tool for detecting heterog
 These added insights come at the cost of requiring more stringent statistical assumptions of our data and more nuanced interpretations of our results.
 
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
-set.seed(1234) # For replication
-n = 1000 # Population size
-Y0 = runif(n) # Potential outcome under control condition
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+Y0 = runif(n) # Résultat potentiel sous la condition de contrôle
 Y1= Y0 
 Y1[Y0 <.5] = Y0[Y0 <.5]-rnorm(length(Y0[Y0 <.5])) 
 Y1[Y0 >.5] = Y0[Y0 >.5]+rnorm(length(Y0[Y0 >.5])) 
-D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+D = sample((1:n)%%2) # Traitement: 1 si traité, 0 sinon
+Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp = data.frame(D,Y) 
 library(quantreg) 
 ATE = coef(lm(Y~D,data=samp))[2] 
@@ -391,28 +393,28 @@ Also see the discussion of Imai, Tingley, and Yamamoto (2013) for different pers
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-set.seed(1234) # Replication 
-n = 1000 # Sample size 
-Y0 = runif(n) # Potential outcome under control condition 
-D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
-X<-rnorm(n) # Covariate 
-M<-rnorm(n=n,mean=D+rnorm(n)) # Mediator influenced by Treatment 
-Y1 = Y0 + 1 + M # Potential outcome under treatment 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+Y0 = runif(n) # Résultat potentiel sous la condition de contrôle
+D = sample((1:n)%%2) # Traitement: 1 si traité, 0 sinon
+X<-rnorm(n) # Covariable
+M<-rnorm(n=n,mean=D+rnorm(n)) # Médiateur impacté par le traitement
+Y1 = Y0 + 1 + M # Résultat potentiel sous condition de traitement
+Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp<-data.frame(D,M,Y) 
 
 library(mediation) 
-med.f<-lm(M~D+X,data=samp) # Model for mediator 
-out.f<-lm(Y~M+D+X,data=samp) # Model for outcome 
+med.f<-lm(M~D+X,data=samp) # Modèle pour le médiateur
+out.f<-lm(Y~M+D+X,data=samp) # Modèle pour le résultat
 
-#Estimate ACME and ADE 
+#Estimer ACME et ADE
 library(mediation) 
 med.out<-
 mediate(med.f,out.f,treat="D",mediator="M",robustSE=T,sims=1000) 
-# Sensitivity of ACME to unobserved pre-treatment confounder 
+# Sensibilité de l'ACME à un facteur de confusion pré-traitement non observé
 s.out<-medsens(med.out) 
 
-plot(s.out) # Plot sensistivity bounds 
+plot(s.out) # Tracer les bornes de la sensibilité
 ```
 
 ```{r}
@@ -443,19 +445,19 @@ The basic procedure is outlined in the code below.
 The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.
 
 ```{r}
-set.seed(1234) # For replication 
-n = 1000 # Sample size 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
 U = runif(n) 
-X = runif(n) # Observed Covariate 
-Y0 = ifelse(U>.5,1,0) # Potential Outcomes 
+X = runif(n) # Covariable observée
+Y0 = ifelse(U>.5,1,0) # Résultats potentiels
 Y1 = ifelse(U+X>.75,1,0) 
-D = rbinom(n,1,.75) # Randomly assign 3/4 to treatment 
+D = rbinom(n,1,.75) # Assignation aléatoire des 3/4 au traitement
 Y = D*Y1+Y0*(1-D) 
 samp = data.frame(X,D,Y) 
 aT<-with(samp, mean(Y[D==1])) 
 aC<-with(samp, mean(Y[D==0])) 
 
-# Unconditional log odds 
+# log odds sans conditions
 log.odds<-log(aT/(1-aT))-log(aC/(1-aC)) 
 
 # Logistic regression conditioning on X overestimates log odds 
@@ -516,18 +518,18 @@ A difference of this size is consistent with our treatment having caused $Y=1$ f
 The regression estimator, which leverage precision gained from including covariates, produces tighter confidence intervals (98.8 to 135.1) for the attributable effects.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-set.seed(1234) # For replication 
-n = 1000 # Sample size 
-X1 = rnorm(n) # Covariates 
+set.seed(1234) # pour la reproductibilité
+n = 1000 # taille de la population
+X1 = rnorm(n) # Covariables
 X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Unequal probability of treatment 
+p = pnorm(-0.5 + 0.75*X2) # Probabilité inégale de traitement
 D = rbinom(n, 1, p) 
-p0 = pnorm(rnorm(n)) # Potential outcomes for binary response 
+p0 = pnorm(rnorm(n)) # Résultats potentiels pour la réponse binaire
 p1 = pnorm(X1 + X2+1) 
 Y0 = rbinom(n, 1, p0) 
 Y1 = rbinom(n, 1, p1) 
-Y = D*Y1 + (1-D)*Y0 # Observed outcome 
-samp = data.frame(D,Y,X1,X2) # Data frame 
+Y = D*Y1 + (1-D)*Y0 # Résultat observé
+samp = data.frame(D,Y,X1,X2)
 
 attribute<-function(treat,out,A,data){ 
   # Contingency Table of Treatment Status and Outcome 
@@ -571,7 +573,7 @@ names(ciAE)<-c("lower 95%","lower
 print(ciAE) 
 ```
 
-References
+Références
 ==
 Aronow, Peter M, and Joel A Middleton. 2013. “A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments.” Journal of Causal Inference 1 (1): 135–54.
 
