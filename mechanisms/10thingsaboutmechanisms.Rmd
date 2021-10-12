@@ -12,7 +12,7 @@ output:
         ]
 ---
 
-<!-- title: "10 Things about Mechanisms" -->
+<!-- title: "10 choses sur les mécanismes" -->
 <!-- author: 'Auteur du guide des méthodes: Lindsay Dolan' -->
 
 ```{r echo=FALSE, include=FALSE, message=FALSE, warning=FALSE}
@@ -31,140 +31,139 @@ opts_chunk$set(strip.white=TRUE,
 
 ```
 
-As social scientists, we are fascinated by causal questions.
-As soon as we learn that X causes Y, we want to better understand *why* X causes Y.
-This guide explores the role of “mechanisms” in causal analysis and will help you to understand what kinds of conclusions you may draw about them.
+En tant que spécialistes en sciences sociales, nous sommes fascinés par les questions causales.
+Dès que nous apprenons que X cause Y, nous voulons mieux comprendre *pourquoi* X cause Y.
+Ce guide explore le rôle des « mécanismes » dans l'analyse causale et vous aidera à comprendre les types de conclusions que vous pouvez en tirer.
 
-# Mechanisms are pathways through which X causes outcome Y.
+# Les mécanismes sont des voies par lesquelles X provoque le résultat Y.
 
-Mechanisms have long been at the heart of medicine.
-Every time a doctor prescribes a treatment, she does so out of an understanding of which chemical or physical factors cause a disease, and she prescribes a treatment that is effective because it interrupts these factors.
-For example, many clinical psychologists recommend exercise to patients dealing with depression.
-Exercise raises endorphins in the body’s chemistry, which trigger positive feelings and also act as analgesics, which reduce the perception of pain.
-Endorphins, therefore, are a mechanism by which exercise helps reduce depression.
-Exercise may have positive effects on a number of other dependent variables (e.g. heart disease) through other mechanisms (e.g. elevating heart rates), but the mechanism that causes it to affect depression in particular is endorphins.
-We could also conclude that another treatment, such as a drug that raised endorphins, may have similar effects on depression.
+Les mécanismes sont depuis longtemps au cœur de la médecine.
+Chaque fois qu'un médecin prescrit un traitement, elle le fait en sachant quels facteurs chimiques ou physiques provoquent une maladie, et elle prescrit un traitement efficace car il interrompt ces facteurs.
+Par exemple, de nombreux psychologues cliniciens recommandent l'exercice aux patients souffrant de dépression.
+L'exercice augmente les endorphines dans la chimie du corps, qui déclenchent des sentiments positifs et agissent également comme analgésiques, ce qui réduit la perception de la douleur.
+Les endorphines sont donc un mécanisme par lequel l'exercice aide à réduire la dépression.
+L'exercice peut avoir des effets positifs sur un certain nombre d'autres variables dépendantes (par exemple, les maladies cardiaques) par le biais d'autres mécanismes (par exemple, l'élévation du rythme cardiaque), mais le mécanisme qui l'amène à affecter la dépression en particulier est l'endorphine.
+Nous pourrions également conclure qu'un autre traitement, tel qu'un médicament qui augmente les endorphines, peut avoir des effets similaires sur la dépression.
 
-Mechanisms are just as important for social sciences.
-Take, for example, recent research that has connected climate change to an increase in civil conflict.
-One study[^1] claims to identify the causal effect of climate shocks on violent conflict by studying the rate of civil conflict in El Nino-affected countries during El Nino versus non-El Nino years.
-Suppose this study is correct.
-Why would experiencing a climate shock cause a country to have elevated levels of conflict? One mechanism could be poverty: climate shocks hurt the economy, and with lower opportunity costs, individuals are more inclined to join armed groups.
-An alternative mechanism is physiological: people are physically wired to be more aggressive in hotter temperatures.
-Perhaps the mechanism is migration: climate shocks displace people in coastal regions, and this produces social conflict between migrants and natives.
-In reality, several or all of these mechanisms (as well as others not listed here) could be operating simultaneously, even in the same case! In many of the most interesting social science questions, there are several channels (“M”s) that could transmit the total effect of X on Y.
+Les mécanismes sont tout aussi importants pour les sciences sociales.
+Prenez, par exemple, des recherches récentes qui ont lié le changement climatique à une augmentation des conflits civils.
+Une étude[^1] prétend identifier l'effet causal des chocs climatiques sur les conflits violents en étudiant le taux de conflits civils dans les pays touchés par El Niño pendant les années El Niño par rapport aux années sans El Niño.
+Supposons que cette étude soit correcte.
+Pourquoi le fait de subir un choc climatique entraînerait-il dans un pays des niveaux de conflit élevés ? Un mécanisme pourrait être la pauvreté : les chocs climatiques nuisent à l'économie, et avec des coûts d'opportunité inférieurs, les individus sont plus enclins à rejoindre des groupes armés.
+Un mécanisme alternatif est physiologique : les gens sont physiquement câblés pour être plus agressifs par temps chaud.
+Le mécanisme est peut-être la migration : les chocs climatiques déplacent les populations des régions côtières, ce qui produit des conflits sociaux entre migrants et autochtones.
+En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément, même dans le même cas ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux (« M ») qui pourraient transmettre l'effet total de X sur Y.
 
 [^1]: Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, “Civil Conflicts Are Associated with the Global Climate,” Nature 476.7361 (2011): 438-441.
 
-#  While we don’t *need* to know the mechanism to conclude that X causes Y, there are several reasons why we *want* to.
+# Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous *voudrions* le faire.
 
-In the climate/conflict example above, we can have full confidence in the researchers’ ability to causally identify that climate shocks cause conflict, and yet have no evidence of which mechanism(s) is/are at work.
-But social scientists are interested in learning about mechanisms because they tightly relate to social science theories.
-For example, the “poverty” mechanism above closely relates to Gurr’s[^2] theory  that individuals rebel when their opportunity costs of conflict are low, whereas the “migration” mechanism could support a theory of conflict based on grievances between social groups.
-It is no wonder that upon learning that X causes Y, social scientists immediately ask what the mechanism is – they want to relate this finding to theory!
+Dans l'exemple climat/conflit ci-dessus, nous pouvons avoir une confiance totale dans la capacité des chercheurs à identifier causalement que les chocs climatiques provoquent des conflits, et pourtant n'avons aucune preuve du ou des mécanismes à l'œuvre.
+Mais les chercheurs en sciences sociales sont intéressés à en apprendre davantage sur les mécanismes parce qu'ils sont étroitement liés aux théories des sciences sociales.
+Par exemple, le mécanisme de « pauvreté » ci-dessus est étroitement lié à la théorie de Gurr[^2] selon laquelle les individus se rebellent lorsque les coûts d'opportunité du conflit sont faibles, alors que le mécanisme de « migration » pourrait soutenir une théorie du conflit basée sur les griefs entre groupes sociaux.
+Il n'est pas étonnant qu'en apprenant que X cause Y, les chercheurs en sciences sociales demandent immédiatement quel est le mécanisme - ils veulent relier cette découverte à la théorie !
 
 [^2]: Ted Gurr, Why Men Rebel, Princeton University Press, 1970.
 
-Understanding mechanisms has not only theoretical but practical benefits.
-First, knowing M allows us to guess for which populations X will lead to Y.
-If the mechanism for climate/conflict is physiological response to heat, then climate shocks may produce conflict only when temperature is quite warm.
-Second, knowing M helps us to consider other outcomes that may be affected by X.
-If the mechanism for climate/conflict is migration, then we might also expect climate shocks to result in overuse of public goods in urban areas.
-Third, knowing M helps us to consider other ways to cause or avoid causing changes in Y.
-If the mechanism for climate/conflict is poverty, then development programs could decrease conflict by reducing the sensitivity of incomes to climate shocks, even though they can’t change climate shocks.
+Comprendre les mécanismes a non seulement des avantages théoriques mais aussi pratiques.
+Premièrement, connaître M permet de deviner pour quelles populations X conduira à Y.
+Si le mécanisme du climat/conflit est une réponse physiologique à la chaleur, alors les chocs climatiques peuvent produire des conflits uniquement lorsque la température est assez chaude.
+Deuxièmement, connaître M nous aide à considérer d'autres résultats qui peuvent être affectés par X.
+Si le mécanisme du climat/conflit est la migration, alors nous pouvons également nous attendre à ce que les chocs climatiques entraînent une surutilisation des biens publics dans les zones urbaines.
+Troisièmement, connaître M nous aide à envisager d'autres moyens de provoquer ou d'éviter de provoquer des changements dans Y.
+Si le mécanisme du climat/conflit est la pauvreté, alors les programmes de développement pourraient diminuer les conflits en réduisant la sensibilité des revenus aux chocs climatiques, même s'ils ne peuvent pas changer les chocs climatiques.
 
-# But it is extremely challenging to identify causal mechanisms because the mechanisms themselves are not randomly assigned…
+# Mais il est extrêmement difficile d'identifier les mécanismes causaux car les mécanismes eux-mêmes ne sont pas assignés au hasard…
 
-Consider an experimental example. Chong et al. (2015)[^3] used a field experiment to study the effect of corruption information on voter turnout.
-They randomly assigned some polling precincts in Mexico to receive information about the corrupt use of funds within that municipality.
-Surprisingly, they found that treated precincts turned out to vote at lower rates than control precincts.
-They suggest the following mechanism at work: corruption information convinces voters that the municipality is so severely corrupt that electing a good politician will not change it, so individuals find their vote to carry less value.
+Prenons un exemple expérimental. Chong et al. (2015)[^3] ont utilisé une expérience de terrain pour étudier l'effet des informations à propos de la corruption sur la participation électorale.
+Ils ont assigné au hasard certains bureaux de vote au Mexique pour recevoir des informations sur l'utilisation corrompue des fonds au sein de cette municipalité.
+Étonnamment, ils ont découvert que les circonscriptions traitées votaient à des taux inférieurs à ceux des circonscriptions de contrôle.
+Ils suggèrent le mécanisme suivant à l'œuvre : les informations sur la corruption convainquent les électeurs que la municipalité est si gravement corrompue que l'élection d'un bon politicien ne la changera pas, de sorte que les individus trouvent que leur vote a moins de valeur.
 
 [^3]: Alberto Chong, Ana L. de la O, Dean Karlan, and Leonard Wantchekon, “Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification,” The Journal of Politics 77.1 (2015): 55-71.
 
-In short, their argument is:[^4]
+En bref, leur argument est :[^4]
 
-[^4]: Note that Chong et al. test their argument using data at the precinct level, not the individual level, but we’ve adapted their argument to the individual level for ease of exposition. 
+[^4] : Notez que Chong et al. testent leur argument en utilisant des données au niveau de l'arrondissement, pas au niveau individuel, mais nous avons adapté leur argument au niveau individuel pour faciliter l'explication.
 
-Receiving corruption information (X) $\xrightarrow{+}$ Believes corruption too severe (M) $\xrightarrow{+}$ Stay home (Y)
+Réception d'informations sur la corruption (X) $\xrightarrow{+}$ Estime que la corruption est trop grave (M) $\xrightarrow{+}$ Reste à la maison (Y)
 
-Chong et al. face a common obstacle in interpreting their results: their proposed mechanism was not randomly assigned.
-Some people are more inclined to believe that “all politicians are rascals” while others have a tendency to push for “change we can believe in.” Unfortunately, we can observe only the random treatment an individual received and their non-random belief about corruption; we can’t tell what belief about corruption they *would have had* if they had received the other treatment condition.
-This makes it impossible for us to determine, for each individual, the extent to which her decision to turn out to vote was caused by the proposed mechanism versus other mechanisms.
+Chong et al. font face à un obstacle commun dans l'interprétation de leurs résultats : le mécanisme qu'ils proposent n'a pas été assigné au hasard.
+Certaines personnes sont plus enclines à croire que « tous les politiciens sont des vauriens », tandis que d'autres ont tendance à faire pression pour « un changement auquel nous pouvons croire ». Malheureusement, nous ne pouvons observer que le traitement aléatoire qu'un individu a reçu et sa croyance (non aléatoire) au sujet de la corruption ; nous ne pouvons pas dire quelle croyance au sujet de la corruption ils *auraient eu* s'ils avaient reçu l'autre condition de traitement.
+Il nous est donc impossible de déterminer, pour chaque individu, dans quelle mesure sa décision d'aller voter a été causée par le mécanisme proposé par rapport à d'autres mécanismes.
 
-Some researchers try to get around this problem by estimating the *average* effect of the treatment on the mechanism and then estimating the *average* effect of the mechanism on the outcome.
-One reason that this is problematic is that we can imagine several factors other than the treatment that could be causing both M and Y.
-Suppose that the level of apathy – let’s call it Q – varies among the citizens in our study, and Q has a very strong effect on both M and Y.
-Highly apathetic individuals might be more likely to believe that problems are beyond solving, and they might also be more likely to stay at home on election day.
-We are therefore likely to observe a strong correlation between M and Y that is driven by the confounder of Q, not by our treatment X.
-Mechanically, our results will be biased in favor of finding evidence of X’s effect on Y via M simply because Q has produced a relationship between M and Y.
+Certains chercheurs tentent de contourner ce problème en estimant l'effet *moyen* du traitement sur le mécanisme, puis en estimant l'effet *moyen* du mécanisme sur le résultat.
+L'une des raisons pour lesquelles cela est problématique est que nous pouvons imaginer plusieurs facteurs autres que le traitement qui pourraient causer à la fois M et Y.
+Supposons que le niveau d'apathie - appelons-le Q - varie parmi les citoyens de notre étude, et Q a un effet très fort sur M et Y.
+Les personnes très apathiques pourraient être plus susceptibles de croire que les problèmes sont insolubles, et elles pourraient également être plus susceptibles de rester à la maison le jour du scrutin.
+Nous sommes donc susceptibles d'observer une forte corrélation entre M et Y qui est induite par le facteur de confusion de Q, et non par notre traitement X.
+Mécaniquement, nos résultats seront biaisés en faveur de la recherche de preuves de l'effet de X sur Y via M simplement parce que Q a produit une relation entre M et Y.
 
-#  …and because treatment effects are rarely homogeneous.
+# …et parce que les effets des traitements sont rarement homogènes.
 
-The other problem with trying to decompose the average effects of X on M and then M on Y is that this approach assumes that every subject responds to the treatment identically.
-Recalling our example in which X is the information treatment, M is the belief that corruption is too severe, and Y is staying home, we can imagine two types of respondents.
-Type A thought that corruption was too severe to ever solve until she received a postcard containing information about corruption in her district.
-She was surprised to see that the problem was not as bad as she had expected.
-Formally, for Type A, $M(X=0)=1$ and $M(X=1)=0$, so X has a *negative* effect on M.
-Type B thought corruption was a manageable problem until she received a postcard containing information about corruption in her district.
-She was surprised by how extensive the problem was and gave up hope of solving the problem.
-Formally, for Type B, $M(X=0)=0$ and $M(X=1)=1$, so X has a *positive* effect on M.
-If we were to average the effects for these two types, we would see no relationship between X and M.
+L'autre problème lorsque l'on essaie de décomposer l'effet moyen de X sur M puis de M sur Y est que cette approche suppose que chaque sujet répond au traitement de manière identique.
+En rappelant notre exemple dans lequel X est le traitement de l'information, M est la conviction que la corruption est trop sévère, et Y le fait de rester à la maison, nous pouvons imaginer deux types de répondants.
+Le type A pensait que la corruption était trop grave pour être résolue jusqu'à ce qu'elle reçoive une lettre contenant des informations sur la corruption dans son district.
+Elle fut surprise de voir que le problème n'était pas aussi grave qu'elle l'avait prévu.
+Formellement, pour le type A, $M(X=0)=1$ et $M(X=1)=0$, donc X a un effet *négatif* sur M.
+Le type B pensait que la corruption était un problème gérable jusqu'à ce qu'elle reçoive une lettre contenant des informations sur la corruption dans son district.
+Elle a été surprise par l'ampleur du problème et a abandonné tout espoir de résoudre le problème.
+Formellement, pour le type B, $M(X=0)=0$ et $M(X=1)=1$, donc X a un effet *positif* sur M.
+Si nous devions faire la moyenne des effets pour ces deux types, nous ne verrions aucune relation entre X et M.
 
-Type | X (Info treatment) | M conditional on X=0 (unobserved) | M conditional on X=1 (observed) | Effect of X on M | Effect of M on Y | Y (Stay home)
+Type | X (traitement de l'info) | M conditionnel à X=0 (non observé) | M conditionnel à X=1 (observé) | Effet de X sur M | Effet de M sur Y | Y (Reste à la maison)
 ------------- | ------------- | ------------- | ------------- | ------------- | ------------- | -------------
-A | 1 | 1 | 0 | negative | negative | 1
+A | 1 | 1 | 0 | négative | négative | 1
 B | 1 | 0 | 1 | positive | positive | 1
 
-Estimating the role of M can be further complicated when the relationship between M and Y is also heterogeneous.
-Imagine that Type A only votes when she’s angry (in other words, M has a *negative* effect on Y).
-Type A was planning on voting to express her anger over the pervasiveness of corruption in her district, even though she knew it would not have changed anything, until she learned that corruption was not as bad as she had expected it to be.
-Her fiery passion gone, she chooses to stay home on election day.
-However, Type B only votes when she thinks her vote can make a difference (in other words, M has a *positive* effect on Y).
-Type B was going to vote for the non-corrupt politicians in her district until she learned that they were all corrupt.
-Without any hope of changing the situation, she also decided to stay home on election day.
-For both Type A and Type B, there is an “indirect effect” of M (in other words, X affects Y through M).
-But we will miss this relationship in the aggregate because we will be unable to obtain unbiased estimates of the average effect of X on M.[^5]
+L'estimation du rôle de M peut être encore plus compliquée lorsque la relation entre M et Y est également hétérogène.
+Imaginez que le type A ne vote que lorsqu'elle est en colère (en d'autres termes, M a un effet *négatif* sur Y).
+Le type A prévoyait de voter pour exprimer sa colère face à l'omniprésence de la corruption dans son district, même si elle savait que cela n'aurait rien changé, jusqu'à ce qu'elle apprenne que la corruption n'était pas aussi grave qu'elle l'avait imaginé.
+Sa passion ardente disparue, elle choisit de rester à la maison le jour des élections.
+Cependant, le type B ne vote que lorsqu'elle pense que son vote peut faire la différence (en d'autres termes, M a un effet *positif* sur Y).
+Le type B allait voter pour les politiciens non corrompus de sa circonscription jusqu'à ce qu'elle apprenne qu'ils étaient tous corrompus.
+Sans aucun espoir de changer la situation, elle a également décidé de rester chez elle le jour du scrutin.
+Pour les types A et B, il existe un « effet indirect » de M (en d'autres termes, X affecte Y à M).
+Mais nous passerons à côté de cette relation dans l'ensemble car nous ne serons pas en mesure d'obtenir des estimations non biaisées de l'effet moyen de X sur M.[^5]
 
-[^5]: For a more rigorous discussion of these fallacies, see Adam N. Glynn, “The Product and Difference Fallacies for Indirect Effects,” American Journal of Political Science 56.1 (2012): 257-269.
+[^5]: Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, “The Product and Difference Fallacies for Indirect Effects,” American Journal of Political Science 56.1 (2012): 257-269.
 
-We can imagine many more “types” than just A and B – the point here is to demonstrate intuitively that because M is not randomly assigned, and because it is unlikely that the effects of X on M *and* M on Y are identical for everyone, it will be very difficult to accurately characterize how much of our effect is mediated through M.
+Nous pouvons imaginer beaucoup plus de « types » que A et B – le but ici est de démontrer intuitivement que parce que M n'est pas assigné au hasard, et parce qu'il est peu probable que les effets de X sur M *et* M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l'entremise de M pour notre effet.
 
-#  Many studies try to decompose a total treatment effect into its “direct” and “indirect” effects.
+# De nombreuses études tentent de décomposer l'effet total d'un traitement entre ses effets « directs » et « indirects ».
 
-Because learning about mechanisms holds such rich theoretical promise, researchers would love to quantify how much of an effect of X on Y operates via M.
-Sometimes researchers will try to do this through a technique called “decomposition of effects.”
+Parce que l'apprentissage des mécanismes est riche en promesses théoriques, les chercheurs aimeraient quantifier dans quelle mesure un effet de X sur Y opère via M.
+Parfois, les chercheurs essaieront de le faire grâce à une technique appelée « décomposition des effets ».
 
-A decomposition of effects analysis tries to decompose a *total* effect of X on Y into the effect X has on Y *directly* and the effect of X on Y that occurs *indirectly* through M.
-The “total effect” refers to the Average Treatment Effect (ATE), which is simply the average effect that X has on Y.
-Any experiment that randomly assigns a treatment in order to observe its effects on some outcome is estimating the ATE.
-Next, the researcher tries to quantify the size of the effect that X has on Y through the mechanism M.
-This is often known as the “indirect effect” – because X is affecting Y indirectly through M – or the Average Causally Mediated Effect (ACME).
-Finally, the researcher will try to estimate the effect of X on Y that doesn’t go through M.
-This is known as the “direct effect” of X on Y or the Average Controlled Direct Effect (ACDE), because it is the effect of X on Y when we control for the work that M is doing.
+Une analyse de décomposition des effets tente de décomposer un effet *total* de X sur Y en l'effet que X a sur Y *directement* et l'effet de X sur Y qui se produit *indirectement* via M.
+L'« effet total » fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
+Toute expérience qui attribue au hasard un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
+Ensuite, le chercheur essaie de quantifier la taille de l'effet que X a sur Y à travers le mécanisme M.
+C'est ce qu'on appelle souvent « l'effet indirect » – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
+Enfin, le chercheur tentera d'estimer l'effet de X sur Y qui ne passe pas par M.
+C'est ce qu'on appelle l'« effet direct » de X sur Y ou l'effet moyen direct contrôlé (Average Controlled Direct Effect / ACDE), car c'est l'effet de X sur Y lorsque nous contrôlons le travail effectué par M.
 
-#  But be cautious about using regression analysis to decompose effects.
+# Mais soyez prudent lorsque vous utilisez l'analyse de régression pour décomposer les effets.
 
-Although commonly used, using mediation regression analysis presupposes some strong and often unrealistic assumptions.
-We will use some code to illustrate what this method entails and demonstrate the conditions under which it can produce biased estimates.
+Bien que couramment utilisée, l'utilisation de l'analyse de régression par médiation présuppose des hypothèses fortes et souvent irréalistes.
+Nous utiliserons du code pour illustrer ce que cette méthode implique et démontrer les conditions dans lesquelles elle peut produire des estimations biaisées.
 
-
-The basic idea is that if we have data on the treatment an individual received (X), whether they exhibit the proposed mechanism (M), and what the outcome is (Y), then we can distinguish these effects using the following three regressions.
+L'idée de base est que si nous avons des données sur le traitement qu'un individu a reçu (X), s'il présente le mécanisme proposé (M) et quel est le résultat (Y), alors nous pouvons distinguer ces effets en utilisant les trois régressions suivantes.
 
 (1) $$ M_i = \alpha_1+aX_i+e_{1i} $$
 (2) $$ Y_i = \alpha_2+cX_i+e_{2i} $$
 (3) $$ Y_i = \alpha_3+dX_i+bM_i+e_{3i} $$
 
-How would we do this? Using equation 1, we can regress M on X to obtain the direct effect of X on M, which is the coefficient $a$.
-Next, we turn to equation 3, in which we regress Y on M and X.
-In this regression, the coefficient $b$ represents the direct effect of M on Y when we control for X.
-A decomposition of effects analysis would multiply $a*b$ to reveal the indirect effect of X on Y via M.
-To find the direct effect of X on Y, we need look no further than $d$, which is the coefficient on X in equation 3 when we control for M.
-In other words, $d$ is the effect of X on Y that does not go through M.
-If we add the indirect effect and direct effect, we will come up with the “total effect” of X on Y, which is equal to $c$.
-To summarize, the decomposition of effects analysis ostensibly disaggregates the total effect into the effect that is mediated via M and the effect that is not mediated via M, enabling the researcher to conclude how important M is for explaining the relationship between X and Y.[^6]
+Comment ferions-nous cela? En utilisant l'équation 1, nous faisons la régression de M sur X pour obtenir l'effet direct de X sur M, qui est le coefficient $a$.
+Ensuite, nous passons à l'équation 3, dans laquelle nous faisons la régression de Y sur M et X.
+Dans cette régression, le coefficient $b$ représente l'effet direct de M sur Y lorsque nous contrôlons pour X.
+Une analyse de décomposition des effets multiplierait $a*b$ pour révéler l'effet indirect de X sur Y via M.
+Pour trouver l'effet direct de X sur Y, nous n'avons pas besoin de chercher plus loin que $d$, qui est le coefficient sur X dans l'équation 3 lorsque nous contrôlons pour M.
+En d'autres termes, $d$ est l'effet de X sur Y qui ne passe pas par M.
+Si l'on additionne l'effet indirect et l'effet direct, on obtient « l'effet total » de X sur Y, qui est égal à $c$.
+Pour résumer, l'analyse de décomposition des effets désagrége ostensiblement l'effet total en effet qui est médié via M et l'effet qui n'est pas médié via M, permettant au chercheur de conclure à quel point M est important pour expliquer la relation entre X et Y.[ ^6]
 
-[^6]: Explanation adapted from Alan Gerber and Donald Green, Field Experiments, W.W. Norton and Company, 2012, chapter 10.
+[^6]: Explication adaptée d'Alan Gerber et Donald Green, Field Experiments, W.W. Norton and Company, 2012, chapter 10.
 
 The problem is that this arithmetic only works under some very strong assumptions.
 One of these assumptions is that the error terms in regressions 1 and 3 are unrelated to each other—in other words, M can’t be predicted by unobservable factors that also predict Y.

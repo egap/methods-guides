@@ -5,7 +5,7 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things You Need To Know About Cluster Randomization" -->
+<!-- title: "10 choses à savoir sur la randomisation par grappe (cluster)" -->
 
 ```{r,echo=FALSE, message=FALSE}
 rm(list = ls())
@@ -13,49 +13,49 @@ library(knitr)
 library(lme4)
 ```
 
-1 What clustering is 
+1 Qu'est ce que la randomisation par grappe ?
 ==
-Cluster randomized[^1] experiments allocate treatments to groups, 
-but measure outcomes at the level of the individuals that compose the groups.
-It is this divergence between the level at which the intervention is assigned and the level at which outcomes are defined that classifies an experiment as cluster randomized.
+Les expériences randomisées par grappe[^1] attribuent les traitements à des groupes,
+mais mesurent les résultats au niveau des individus qui composent les groupes.
+C'est cette divergence entre le niveau auquel l'intervention est assignée et le niveau auquel les résultats sont constatés qui définit une expérience randomisée par grappe.
 
-[^1]: This guide was originally written by Jake Bowers and Ashlea Rundlett (22 Nov 2014).
-Updates made by Jasper Cooper (25 Aug 2015).
+[^1] : Ce guide a été initialement écrit par Jake Bowers et Ashlea Rundlett (22 novembre 2014).
+Mises à jour effectuées par Jasper Cooper (25 août 2015).
 
-Consider a study that randomly assigns villages to receive different development programs, where the well-being of households in the village is the outcome of interest.
-This is a clustered design because, while the treatment is assigned to the village as a whole, we are interested in outcomes defined at the household level.
-Or consider a study that randomly assigns certain households to receive different get-out-the-vote messages, where we are interested in the voting behavior of individuals.
-Because the unit of assignment for the message is the household, but the outcome is defined as individual behavior, this study is cluster randomized.
+Considérons une étude qui assigne au hasard des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
+Il s'agit d'un design par grappe car, bien que le traitement soit attribué au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
+Ou considérons une étude qui assigne au hasard certains ménages à recevoir différents messages à la sortie du bureau de vote, où nous nous intéressons au comportement de vote des individus.
+Étant donné que l'unité d'attribution du message est le ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
 
-Now consider a study in which villages are selected at random, and 10 people from each village are assigned to treatment or control, and we measure the well-being of those individuals.
-In this case, the study is not cluster randomized, because the level at which treatment is assigned and the level at which outcomes are defined is the same.
-Suppose that a study randomly assigned villages to different development programs and then measured social cohesion in the village.
-Though it contains the same randomization procedure as our first example, it is not clustered because we are interested here in village-level outcomes: the level of treatment assignment and of outcome measurement is the same.
+Considérons maintenant une étude dans laquelle les villages sont sélectionnés au hasard, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
+Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont les mêmes.
+Supposons qu'une étude assigne au hasard des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
+Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : le niveau d'assignation du traitement et de mesure des résultats est le même.
 
-Clustering matters for two main reasons. 
-On the one hand, clustering reduces the amount of information in an experiment because it restricts the number of ways that the treatment and control groups can be composed, relative to randomization at the individual level.
-If this fact is not taken into account, we often underestimate the variance in our estimator, leading to over-confidence in our the results of the study.
-On the other hand, clustering raises the question of how to combine information from different parts of the same experiment into one quantity.
-Especially when clusters are not of equal sizes and the potential outcomes of units within them are very different, conventional estimators will systematically produce the wrong answer due to bias.
-However, several approaches at the design and analysis phases can overcome the challenges posed by cluster randomized designs.
+Le regroupement est important pour deux raisons principales.
+D'une part, le regroupement réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
+Si ce fait n'est pas pris en compte, nous sous-estimons souvent la variance de notre estimateur, ce qui conduit à une confiance excessive dans nos résultats de l'étude.
+D'autre part, le clustering soulève la question de savoir comment combiner les informations provenant de différentes parties de la même expérience en une seule quantité.
+Surtout lorsque les grappes ne sont pas de tailles égales et que les résultats potentiels des unités qu'elles contiennent sont très différents, les estimateurs conventionnels produiront systématiquement une mauvaise réponse en raison des biais.
+Cependant, plusieurs approches lors des phases de design et d'analyse peuvent surmonter les défis posés par les designs randomisées par grappe.
 
-#2 Why clustering can matter I: information reduction 
+#2 Pourquoi le clustering peut être important I : réduction de l'information
 
-We commonly think of the information contained in studies in terms of the sample size and the characteristics of the units within the sample.
-Yet two studies with exactly the same sample size and the same participants could in theory contain very different amounts of information depending on whether units are clustered.
-This will greatly affect the precision of the inferences we make based on the studies.
+Nous pensons généralement à l'information contenue dans les études en termes de taille d'échantillon et de caractéristiques des unités au sein de l'échantillon.
+Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'informations très différentes selon que les unités sont regroupées ou non.
+Cela affectera grandement la précision des inférences que nous faisons sur la base de ces études.
 
-Imagine an impact evaluation with 10 people, where 5 are assigned to the treatment group and 5 to control.
-In one version of the experiment, the treatment is assigned to individuals - it is not cluster randomized.
-In another version of the experiment, the 5 individuals with black hair and the 5 individuals with some other color of hair are assigned to treatment as a group.
-This design has two clusters: 'black hair' and 'other color'.
+Imaginez une évaluation d'impact avec 10 personnes, où 5 sont affectées au groupe de traitement et 5 au contrôle.
+Dans une version de l'expérience, le traitement est attribué à des individus - il n'est pas randomisé par grappe.
+Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont affectés au traitement en tant que groupe.
+Ce design a deux groupes : « cheveux noirs » et « autre couleur ».
 
-A simple application of the *n* choose *k* rule shows why this matters.
-In the first version, the randomization procedure allows for 252 different combinations of people as the treatment and control groups.
-However, in the second version, the randomization procedure assigns all the black-haired subjects either to treatment or to control, and thus only ever produces two ways of combining people to estimate an effect.
+Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
+Dans la première version, la procédure de randomisation permet 252 combinaisons différentes de personnes en tant que groupes de traitement et de contrôle.
+Cependant, dans la seconde version, la procédure de randomisation affecte tous les sujets aux cheveux noirs soit à un traitement, soit à un contrôle, et ne produit donc jamais que deux façons de combiner les personnes pour estimer un effet.
 
-Throughout this guide, we will illustrate points using examples written in `R` code.
-You can copy and paste this into your own `R` program to see how it works.
+Tout au long de ce guide, nous illustrerons des points à l'aide d'exemples écrits en `R`.
+Vous pouvez copier et coller ceci dans `R` pour voir comment cela fonctionne.
 
 <style>
 div.hidecode + pre {display: none}
@@ -66,24 +66,24 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(12345)
-# Define the sample average treatment effect (SATE)
+# Définir l'effet de traitement moyen de l'échantillon (sample average treatment effect / SATE)
 treatment_effect     <- 1
-# Define the individual ids (i)
+# Définir les identifiants individuels (i)
 person               <- 1:10
-# Define the cluster indicator (j)
+# Définir l'indicateur de cluster (j)
 hair_color           <- c(rep("black",5),rep("brown",5))
-# Define the control outcome (Y0)
+# Définir le résultat du contrôle (Y0)
 outcome_if_untreated <- rnorm(n = 10)
-# Define the treatment outcome (Y1)
+# Définir le résultat du traitement (Y1)
 outcome_if_treated   <- outcome_if_untreated + treatment_effect
 
-# Version 1 - Not cluster randomized
-# Generate all possible non-clustered assignments of treatment (Z)
+# Version 1 - Non randomisé par grappe
+# Générer toutes les assignations de traitement sans grappe possibles (Z)
 non_clustered_assignments <- combn(x = unique(person),m = 5)
-# Estimate the treatment effect
+# Estimer l'effet du traitement
 treatment_effects_V1 <-
      apply(
           X = non_clustered_assignments,
@@ -94,9 +94,9 @@ treatment_effects_V1 <-
                mean(treated_outcomes) - mean(untreated_outcomes)
           }
      )
-# Estimate the true standard error
+# Estimer l'erreur standard
 standard_error_V1 <- sd(treatment_effects_V1)
-# Plot the histogram of all possible estimates of the treatment effect
+# Tracez l'histogramme de toutes les estimations possibles de l'effet du traitement
 hist(treatment_effects_V1,xlim = c(-1,2.5),breaks = 20)
 ```
 
@@ -109,12 +109,12 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Version 2 - Cluster randomized
-# Generate all possible assignments of treatment when clustering by hair color (Z)
+# Version 2 - Randomisé par grappe
+# Générer toutes les assignations de traitement avec grappe selon la couleur de cheveux (Z)
 clustered_assignments     <- combn(x = unique(hair_color),m = 1)
-# Estimate the treatment effect
+# Estimer l'effet du traitement
 treatment_effects_V2 <-
      sapply(
           X = clustered_assignments,
@@ -124,16 +124,15 @@ treatment_effects_V2 <-
                mean(treated_outcomes) - mean(untreated_outcomes)
           }
      )
-# Estimate the true standard error
+# Estimer l'erreur standard
 standard_error_V2 <- sd(treatment_effects_V2)
-# Plot the histogram of all possible estimates of the treatment effect
+# Tracez l'histogramme de toutes les estimations possibles de l'effet du traitement
 hist(treatment_effects_V2,xlim = c(-1,2.5),breaks = 20)
 ```
 
-As the histograms show, clustering provides a much 'coarser' view of what the treatment effect might be.
-Irrespective of the number of times one randomizes the treatment and of the number of subjects one has,
-in a clustered randomization procedure the number of possible estimates of the treatment effect will be strictly determined by the number of clusters assigned to the different treatment conditions.
-This has important implications for the standard error of the estimator.
+Comme le montrent les histogrammes, le clustering fournit une vue beaucoup plus "grossière" de ce que pourrait être l'effet du traitement.
+Quel que soit le nombre de sujets ou le nombre de fois où l'on randomise le traitement, dans une procédure de randomisation par grappe, le nombre d'estimations possibles de l'effet du traitement sera strictement déterminé par le nombre de grappes assignées aux différentes conditions de traitement.
+Cela a des implications importantes pour l'erreur standard de l'estimateur.
 
 <style>
 div.hidecode + pre {display: none}
@@ -144,57 +143,57 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r}
-# Compare the standard errors
+# Comparer les erreurs standard
 kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 ```
 
-While the sampling distribution for the non-clustered estimate of the treatment effect has a standard error of about .52,
-that of the clustered estimate is more than twice as large, at 1.13.
-Recall that the data going into both studies is identical, the only difference between the studies resides in the way that the treatment assignment mechanism reveals the information.
+Alors que la distribution d'échantillonnage pour l'estimation sans grappe de l'effet du traitement a une erreur type d'environ 0,52,
+celle de l'estimation par grappe est plus du double, à 1,13.
+Rappelons que les données entrantes des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
 
-Related to this issue of information is the question of how much units in our study vary within and between clusters.
-Two cluster randomized studies with $J=10$ villages and $n_j=100$ people per village may have different information about the treatment effect on individuals if, in one study, differences *between* villages are much greater than the differences in outcomes *within* them.
-If, say, all of the individuals in any village acted exactly the same but different villages showed different outcomes, then we would have on the order of 10 pieces of information: all of the information about causal effects in that study would be at the village level.
-Alternatively, if the individuals within a village acted more or less independently of each other, then we would have on the order of 10 $\times$ 100=1000 pieces of information.
+Savoir combien d'unités de notre étude varient intra et inter grappes est liée à cette question d'information.
+Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes sur l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *entre* eux.
+Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
+Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
 
-We can formalize the idea that the highly dependent clusters provide less information than the highly independent clusters with the **intracluster correlation coefficient**.
-For a given variable, $y$, units $i$ and clusters $j$, we can write the intracluster correlation coefficient as follows:
+On peut formaliser l'idée que les clusters fortement dépendants fournissent moins d'informations que les clusters hautement indépendants avec le **coefficient de corrélation intra-cluster**.
+Pour une variable donnée, $y$, des unités $i$ et des clusters $j$, nous pouvons écrire le coefficient de corrélation intracluster comme suit :
 
 $$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
-where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level.
-Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
+où $\sigma_i^2$ est la variance entre les unités de la population et $\sigma_j^2$ est la variance entre les résultats définis au niveau de la grappe.
+Kish (1965) utilise cette description de la dépendance pour définir son idée du « N effectif » d'une étude (dans le contexte d'une enquête par sondage, où les échantillons peuvent être regroupés par grappe) :
 
 $$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
-where the second term follows if all of the clusters are the same size ($n_1 \ldots n_J \equiv n$).
+où le deuxième terme suit si tous les clusters ont la même taille ($n_1 \ldots n_J \equiv n$).
 
-If 200 observations arose from 10 clusters with 20 individuals within each cluster, where ICC = .5, such that 50% of the variation could be attributed to cluster-to-cluster differences (and not to differences within a cluster), Kish’s formula would suggest that we have an effective sample size of about 19 observations, instead of 200.
+Si 200 observations provenaient de 10 grappes avec 20 individus dans chaque grappe, où ICC = 0,5, de sorte que 50 % de la variation pourrait être attribuée aux différences inter-grappe (et non aux différences intra-grappe), la formule de Kish suggère que nous avons une taille d'échantillon effective d'environ 19 observations, au lieu de 200.
 
-As the foregoing discussion suggests,
-clustering reduces information most when it a) greatly restricts the number of ways an effect can be estimated,
-and b) produces units whose outcomes are strongly related to the cluster they are a member of (i.e. when it increases the ICC).
+Comme le suggère la discussion qui précède,
+le clustering réduit le plus l'information lorsqu'il
+a) restreint considérablement le nombre de façons dont un effet peut être estimé,
+et b) produit des unités dont les résultats sont fortement liés au cluster dont ils sont membres (i.e. lorsqu'il augmente l'ICC).
 
-#3 What to do about information reduction
+#3 Que faire à propos de la réduction de l'information
 
-In order to characterize our uncertainty about treatment effects, we typically want to calculate a standard error:
- an estimate of how much the treatment effect *would have* varied, were we able to repeat the experiment a very large number of times and observe units alternatively in their treated and untreated states.
+Afin de caractériser notre incertitude sur l'effet du traitement, nous souhaitons généralement calculer une erreur standard :
+ une estimation de combien l'effet du traitement *aurait* varié, si nous pouvions répéter l'expérience un très grand nombre de fois et observer les unités alternativement dans leurs états traités et non traités.
 
-However, we are never able to observe the true standard error of an estimator,
-and therefore must use statistical procedures to infer this unknown quantity.
-Conventional methods for calculating standard errors do not take into account clustering, which, as we noted above, can strongly increase the amount estimates vary from one repetition of the experiment to another.
-Thus, in order to avoid over-confidence in experimental findings, 
-it is important to take clustering into account.
+Cependant, nous ne sommes jamais en mesure d'observer la véritable erreur standard d'un estimateur,
+et devons donc utiliser des procédures statistiques pour déduire cette quantité inconnue.
+Les méthodes conventionnelles de calcul des erreurs standards ne prennent pas en compte le clustering, qui, comme nous l'avons noté plus haut, peut fortement augmenter la variation de l'estimation d'une répétition de l'expérience à l'autre.
+Ainsi, afin d'éviter une confiance excessive dans les résultats expérimentaux, il est important de prendre en compte le clustering.
 
-In this section we limit our attention to so-called 'design-based' approaches to calculating the standard.
-In the design-based approach we simulate repetitions of the experiment to derive and check ways of characterizing the variance of the estimate of the treatment effect, accounting for clustered randomization.
-We contrast these with 'model-based' approaches further on in the guide.
-In the model-based approach we state that the outcomes were generated according to a probability model and that the cluster-level relationships also follow a probability model.
+Dans cette section, nous nous limitons aux approches dites « basées sur le design » pour le calcul de l'erreur standard.
+Dans l'approche basée sur le design, nous simulons des répétitions de l'expérience pour dériver et vérifier les moyens de caractériser la variance de l'estimation de l'effet du traitement, en tenant compte de la randomisation par grappe.
+Plus loin dans le guide, nous comparons les approches « basées sur le design  avec celles « basées sur un modèle ».
+Dans l'approche basée sur un modèle, nous affirmons que les résultats ont été générés selon un modèle de probabilité et que les relations au niveau de la grappe suivent également un modèle de probabilité.
 
-To begin, we will create a function which simulates a cluster randomized experiment with fixed intracluster correlation,
-and use it to simulate some data from a simple cluster-randomized design.
+Pour commencer, nous allons créer une fonction qui simule une expérience randomisée par grappe avec une corrélation intracluster fixe,
+et l'utiliser pour simuler certaines données à partir d'un design randomisée par grappe simple.
 
 <style>
 div.hidecode + pre {display: none}
@@ -205,12 +204,12 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 make_clustered_data <- function(J = 10, n = 100, treatment_effect = .25, ICC = .1){
-     ## Inspired by Mathieu et al, 2012, Journal of Applied Psychology
+     ## Inspiré par Mathieu et al, 2012, Journal of Applied Psychology
      if (J %% 2 != 0 | n %% 2 !=0) {
-          stop(paste("Number of clusters (J) and size of clusters (n) must be even."))
+          stop(paste("Le nombre de clusters (J) et la taille des clusters (n) doivent être pairs."))
      }
      Y0_j         <- rnorm(J,0,sd = (1 + treatment_effect) ^ 2 * sqrt(ICC))
      fake_data    <- expand.grid(i = 1:n,j = 1:J)
@@ -226,9 +225,9 @@ pretend_data <- make_clustered_data(J = 10,n = 100,treatment_effect = .25,ICC = 
 
 ```
 
-Because we have created the data ourselves, we can calculate the true standard error of our estimator.
-We firstly generate the true sampling distribution by simulating every possible permutation of the treatment and calculating the estimate each time.
-The standard deviation of this distribution is the standard error of the estimator.
+Parce que nous avons créé les données nous-mêmes, nous pouvons calculer la véritable erreur standard de notre estimateur.
+Nous générons d'abord la vraie distribution d'échantillonnage en simulant toutes les permutations possibles du traitement et en calculant l'estimation à chaque fois.
+L'écart type de cette distribution est l'erreur standard de l'estimateur.
 
 <style>
 div.hidecode + pre {display: none}
@@ -239,13 +238,13 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Define the number of clusters
+# Définir le nombre de grappes
 J <- length(unique(pretend_data$j))
-# Generate all possible ways of combining clusters into a treatment group
+# Générer toutes les manières possibles de combiner les grappes dans un groupe de traitement
 all_treatment_groups <- with(pretend_data,combn(x = 1:J,m = J/2))
-# Create a function for estimating the effect
+# Créer une fonction pour estimer l'effet
 clustered_ATE <- function(j,Y1,Y0,treated_clusters) {
      Z_sim    <- (j %in% treated_clusters)*1
      Y        <- Z_sim * Y1 + (1 - Z_sim) * Y0
@@ -254,7 +253,7 @@ clustered_ATE <- function(j,Y1,Y0,treated_clusters) {
 }
 
 set.seed(12345)
-# Apply the function through all possible treatment assignments
+# Appliquer la fonction pour toutes les assignations de traitement possibles
 cluster_results <- apply(X = all_treatment_groups,MARGIN = 2,
                          FUN = clustered_ATE,
                          j  = pretend_data$j,Y1 = pretend_data$Y1,
@@ -266,16 +265,16 @@ true_SE
 
 ```
 
-This gives a standard error of `r round(true_SE,2)`.
-We can compare the true standard error to two other kinds of standard error commonly employed.
-The first ignores clustering and assumes that the sampling distribution is identically and independently distributed according to a normal distribution.
-We will refer to this as the I.I.D. standard error. 
-To take clustering into account, we can use the following formula for the standard error:
+Cela donne une erreur standard de `r round(true_SE,2)`.
+Nous pouvons comparer la véritable erreur standard à deux autres types d'erreur standard couramment utilisés.
+La première ignore le clustering et suppose que la distribution d'échantillonnage est distribuée de manière identique et indépendante selon une distribution normale.
+Nous appellerons cela l'erreur standard DII.
+Pour prendre en compte le clustering, nous pouvons utiliser la formule suivante pour l'erreur standard :
 
 $$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho) $$
 
-where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (following Arceneaux and Nickerson (2009) ).
-This adjustment to the IID standard error is commonly known as the “Robust Clustered Standard Error” or RCSE.
+où $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (suivant Arceneaux et Nickerson ( 2009) ).
+Cet ajustement de l'erreur standard IID est communément appelé « erreur standard robuste pour cluster » ( "Robust Clustered Standard Error” / RCSE).
 
 <style>
 div.hidecode + pre {display: none}
@@ -286,7 +285,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T, error=FALSE, message=FALSE, warning=FALSE}
 
 ATE_estimate <- lm(Y ~ Z,data = pretend_data)
@@ -323,11 +322,11 @@ knitr::kable(round(data.frame(
 
 ```
 
-When we ignore the clustered-assignment, the standard error is too small:
-we are over-confident about the amount of information provided to us by the experiment.
-The RCSE is slightly more conservative than the true standard error in this instance, but is very close.
-The discrepancy is likely because the RCSE is not a good approximation of the true standard error when the number of clusters is as small as it is here.
-To illustrate the point further, we can compare a simulation of the true standard error generated through random permutations of the treatment to the IID and RC standard errors.
+Lorsque nous ignorons l'assignation par grappe, l'erreur standard est trop petite :
+nous sommes trop confiants quant à la quantité d'informations que nous fournit l'expérience.
+Le RCSE est légèrement plus prudent que la véritable erreur standard dans ce cas, mais il est très proche.
+L'écart est probablement dû au fait que le RCSE n'est pas une bonne approximation de la véritable erreur standard lorsque le nombre de grappes est aussi petit qu'ici.
+Pour illustrer davantage ce point, nous pouvons comparer une simulation de la véritable erreur standard générée par des permutations aléatoires du traitement aux erreurs standard DII et RCSE.
 
 <style>
 div.hidecode + pre {display: none}
@@ -338,7 +337,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 
 compare_SEs <- function(data) {
@@ -377,17 +376,17 @@ knitr::kable(rbind(
 
 ```
 
-As these simple examples illustrate, the clustered estimate of the standard error (RCSE) gets closer to the truth (the simulated standard error) as the number of clusters increases.
-Meanwhile, the standard error ignoring clustering (assuming IID) tends to be smaller than either of the other standard errors.
+Comme l'illustrent ces exemples simples, l'estimation par grappe de l'erreur standard (RCSE) se rapproche de la vérité (l'erreur standard simulée) à mesure que le nombre de grappes augmente.
+Pendant ce temps, l'erreur standard ignorant le clustering (en supposant l'IID) a tendance à être plus petite que l'une ou l'autre des autres erreurs standard.
 
-The smaller the estimate of the standard error is, the more precise the estimates seem to us, and the more likely we will find results that appear 'statistically significant'.
-This is problematic: in this case, the IID standard error is leads us to be over confident in our results because it ignores intra-cluster correlation, the extent to which differences between units can be attributed to the cluster they are a member of.
-If we estimate standard errors using techniques that understate our uncertainty, we are more likely to falsely reject null hypotheses when we should not.
+Plus l'estimation de l'erreur type est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent « statistiquement significatifs ».
+Ceci est problématique : dans ce cas, l'erreur type IID nous amène à être trop confiants dans nos résultats car elle ignore la corrélation intra-cluster, i.e. dans quelle mesure les différences entre les unités peuvent être attribuées au cluster dont elles sont membres.
+Si nous estimons les erreurs standard à l'aide de techniques qui sous-estiment notre incertitude, nous sommes plus susceptibles de rejeter à tort des hypothèses nulles alors que nous ne le devrions pas.
 
-Another way to approach the problems that clustering introduces into the calculation of standard errors is to analyze the data at the level of the cluster.
-In this approach, we take averages or sums of the outcomes within the clusters, and then treat the study as though it only took place at the level of the cluster.
+Une autre façon d'aborder les problèmes que le clustering introduit dans le calcul des erreurs standard est d'analyser les données au niveau du cluster.
+Dans cette approche, nous prenons des moyennes ou des sommes de résultats au sein des clusters, puis traitons l'étude comme si elle n'avait eu lieu qu'au niveau du cluster.
 
-Hansen and Bowers (2008) show that we can characterize the distribution of the difference of means using what we know about the distribution of the *sum* of the outcome in the treatment group, which varies from one assignment of treatment to another.
+Hansen et Bowers (2008) montrent que l'on peut caractériser la distribution de la différence des moyennes à partir de ce que l'on sait de la distribution de la *somme* du résultat dans le groupe de traitement, qui varie d'une assignation de traitement à l'autre.
 
 <style>
 div.hidecode + pre {display: none}
@@ -398,23 +397,24 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ````{r,cache=T}
-# Aggregate the unit-level data to the cluster level
-# Sum outcome to cluster level
-Yj <- tapply(pretend_data$Y,pretend_data$j,sum)
-# Aggregate assignment indicator to cluster level 
-Zj <- tapply(pretend_data$Z,pretend_data$j,unique)
-# Calculate unique cluster size 
-n_j <- unique(as.vector(table(pretend_data$j)))
-# Calculate total sample size (our units are now clusters)
-N <- length(Zj)
-# Generate cluster id
-j <- 1:N
-# Calculate number of clusters treated
-J_treated <- sum(Zj) 
 
-# Make a function for the cluster-level difference in means estimator (See Hansen & Bowers 2008)
+# Agréger les données unitaires au niveau du cluster
+# Somme des résultats au niveau du cluster
+Yj <- tapply(pretend_data$Y,pretend_data$j,sum)
+# Indicateur d'assignation globale au niveau du cluster
+Zj <- tapply(pretend_data$Z,pretend_data$j,unique)
+# Calculer la taille de cluster unique
+n_j <- unique(as.vector(table(pretend_data$j)))
+# Calculer la taille totale de l'échantillon (nos unités sont maintenant en grappe)
+N <- longueur(Zj)
+# Générer l'identifiant du cluster
+j <- 1:N
+# Calculer le nombre de clusters traités
+J_traité <- sum(Zj)
+
+# Faire une fonction pour l'estimateur "différence des moyennes" au niveau du cluster (Voir Hansen & Bowers 2008)
 cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      ones <- rep(1, length(Zj))
      ATE_estimate <- crossprod(Zj,Yj)*(N/(n_j*J_treated*(N-J_treated))) - 
@@ -422,9 +422,7 @@ cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      return(ATE_estimate)
 }
 
-# Given equal sized clusters and no blocking, this is identical to the
-# unit-level difference in means
-
+# Étant donné des clusters de taille égale et sans bloc, ceci est identique à la différence des moyenne au niveau unitaire
 ATEs <- colMeans(data.frame(cluster_level_ATE = 
                cluster_difference(Yj,Zj,n_j,J_treated,N),
           unit_level_ATE = 
@@ -434,10 +432,10 @@ knitr::kable(data.frame(ATEs),align = "c")
 
 ```
 
-In order to characterize uncertainty about the cluster-level ATE,
-we can exploit the fact that the only random element of the estimator is now the cross-product between the cluster-level assignment vector and the cluster-level outcome,
-$\mathbf{Z}^\top\mathbf{Y}$, scaled by some constant.
-We can estimate the variance of this random component through permutation of the assignment vector or through an approximation of the variance, assuming that the sampling distribution follows a normal distribution.
+Afin de caractériser l'incertitude sur l'ATE au niveau du cluster,
+nous pouvons exploiter le fait que le seul élément aléatoire de l'estimateur est maintenant le produit croisé entre le vecteur d'assignation au niveau du cluster et le résultat au niveau du cluster,
+$\mathbf{Z}^\top\mathbf{Y}$, mis à l'échelle par une constante.
+Nous pouvons estimer la variance de cette composante aléatoire par permutation du vecteur d'assignation ou par une approximation de la variance, en supposant que la distribution d'échantillonnage suit une distribution normale.
 
 <style>
 div.hidecode + pre {display: none}
@@ -448,12 +446,13 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ````{r,cache=T}
-# Approximating variance using normality assumptions
+
+# Approximation de la variance à l'aide de l'hypothèse de loi normale
 normal_sampling_variance <-
-     (N/(n_j*J_treated*(N-J_treated)))*(var(Yj)/n_j)
-# Approximating variance using permutations
+      (N/(n_j*J_traité*(N-J_traité)))*(var(Yj)/n_j)
+# Approximation de la variance à l'aide de permutations
 set.seed(12345)
 sampling_distribution <- replicate(10000,cluster_difference(Yj,sample(Zj),n_j,J_treated,N))
 
@@ -462,31 +461,29 @@ ses <- data.frame(sampling_variance = c(sqrt(normal_sampling_variance),sd(sampli
                                2*min(mean(sampling_distribution>=ATEs[1]),mean(sampling_distribution<=ATEs[1]))
                                ))
 
-rownames(ses) <- c("Assuming Normality","Permutations")
+rownames(ses) <- c("Approximation avec loi normale", "Permutations")
 
 knitr::kable(ses)
 ```
 
-This cluster-level approach has the advantage of correctly characterizing uncertainty about effects
-when randomization is clustered, without having to use the RCSE standard errors for the unit-level estimates, which are overly permissive for small N.
-Indeed, the false positive rate of tests based on RCSE standard errors tend to be incorrect when the number of clusters is small, leading to over-confidence.
-As we shall see below, however, when the number of clusters is very small ($J=4$) the cluster-level approach is overly conservative, rejecting the null with a probability of 1.
-Another drawback of the cluster-level approach is that it does not allow for the estimation of unit-level quantities of interest, such as heterogeneous treatment effects.
+Cette approche au niveau des clusters a l'avantage de caractériser correctement l'incertitude sur l'effet de traitement pour une randomisation par grappe,
+sans avoir à utiliser l'erreur standard RCSE pour les estimations au niveau de l'unité, qui est trop permissive pour les petits N.
+En effet, le taux de faux positifs des tests basés sur une erreur standard RCSE a tendance à être incorrect lorsque le nombre de grappes est petit, ce qui conduit à un excès de confiance.
+Comme nous le verrons ci-dessous, cependant, lorsque le nombre de clusters est très petit ($J=4$), l'approche au niveau du cluster est trop conservatrice, rejetant la valeur nulle avec une probabilité de 1.
+Un autre inconvénient de l'approche au niveau des clusters est qu'elle ne permet pas d'estimer les quantités d'intérêt au niveau unitaire, telles qu'un effet de traitement hétérogène.
 
-#4 Why clustering can matter II: different cluster sizes
+#4 Pourquoi le clustering peut avoir de l'importance II : différentes tailles de cluster
 
-When clusters are of different sizes, this can pose a unique class of problems related to the estimation of the treatment effect.
-Especially when the size of the cluster is in some way related to the potential outcomes of the units within it,
-many conventional estimators of the sample average treatment effect (SATE) can be biased.
+Lorsque les grappes sont de tailles différentes, s'ouvre une classe unique de problèmes liés à l'estimation de l'effet du traitement.
+Surtout lorsque la taille de la grappe est liée d'une manière ou d'une autre aux résultats potentiels des unités qui la composent,
+de nombreux estimateurs conventionnels de l'effet moyen de traitement pour l'échantillon (SATE) peuvent être biaisés.
 
-To fix ideas, imagine an intervention targeted at firms of different sizes, 
-which seeks to increase worker productivity.
-Due to economies of scale, the productivity of employees in big firms is increased much more proportional to that of employees in smaller firms.
-Imagine that the experiment includes 20 firms ranging in size from one-person entrepreneurs to large outfits with over 500 employees.
-Half of the firms are assigned to the treatment, and the other half are assigned to control.
-Outcomes are defined at the employee level.
+Pour se fixer les idées, imaginez une intervention ciblée sur des entreprises de tailles différentes, qui vise à augmenter la productivité des travailleurs.
+En raison des économies d'échelle, la productivité des employés des grandes entreprises augmente de façon beaucoup plus proportionnelle à celle des employés des petites entreprises.
+Imaginez que l'expérience comprend 20 entreprises dont la taille varie d'entrepreneurs individuels à de grandes entreprises de plus de 500 employés.
+La moitié des entreprises est assignée au traitement et l'autre moitié est assignée au contrôle.
+Les résultats sont définis au niveau de l'employé.
 
- 
 <style>
 div.hidecode + pre {display: none}
 </style>
@@ -496,35 +493,35 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(1000)
-# Number of firms
+# Nombre d'entreprises
 J <- 20
 
-# Employees per firm
+# Employés par entreprise
 n_j <- rep(2^(0:(J/2-1)),rep(2,J/2))
 
-# Total number of employees
+# Nombre total d'employés
 N <- sum(n_j)
 # 2046 
 
-# Unique employee (unit) ID
+# identifiant unique pour chaque employé (unité)
 i <- 1:N
 
-# Unique firm (cluster) ID
+# identifiant unique pour chaque entreprise (grappe / cluster)
 j <- rep(1:length(n_j),n_j)
 
-# Firm specific treatment effects
+# effets de traitement spécifiques à l'entreprise
 cluster_ATE <- n_j^2/10000
 
-# Untreated productivity
+# Productivité pour les non-traités
 Y0 <- rnorm(N)
 
-# Treated productivity
+# Productivité pour les traités
 Y1 <- Y0 + cluster_ATE[j]
 
-# True sample average treatment effect 
+# Effet moyen de traitement pour l'échantillon réel
 (true_SATE <- mean(Y1-Y0))
 ```
 
@@ -537,14 +534,14 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Correlation between firm size and effect size 
+# Corrélation entre la taille de l'entreprise et la taille de l'effet
 cor(n_j,cluster_ATE)
 ```
 
-As we see, there is high correlation in the treatment effect and cluster size.
-Now let us simulate 1000 analyses of this experiment, permuting the treatment assignment vector each time, and taking the unweighted difference in means as an estimate of the sample average treatment effect.
+Comme nous le voyons, il existe une forte corrélation entre l'effet du traitement et la taille des grappes.
+Simulons maintenant 1000 analyses de cette expérience, en permutant le vecteur d'assignation de traitement à chaque fois, et en prenant la différence non pondérée des moyennes comme une estimation de l'effet moyen de traitement pour l'échantillon.
 
 <style>
 div.hidecode + pre {display: none}
@@ -555,32 +552,31 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(1234)
-# Unweighted SATE
+# SATE non pondéré
 SATE_estimate_no_weights <- NA
 for(i in 1:1000){
-     # Clustered random assignment of half of the firms
+     # Assignation aléatoire par grappe de la moitié des entreprises
      Z <- (j %in% sample(1:J,J/2))*1
-     # Reveal outcomes
+     # Révéler les résultats
      Y <- Z*Y1 + (1-Z)*Y0
-     # Estimate SATE
+     # Estimer le SATE
      SATE_estimate_no_weights[i] <- mean(Y[Z==1])-mean(Y[Z==0])
      }
-
-# Generate histogram of estimated effects
+# Générer un histogramme des effets estimés
 hist(SATE_estimate_no_weights,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
-# Add the expected estimate of the SATE using this estimator
+# Ajouter l'estimation attendue du SATE à l'aide de cet estimateur
 abline(v=mean(SATE_estimate_no_weights),col="blue")
-# And add the true SATE
+# Et ajoutez le vrai SATE
 abline(v=true_SATE,col="red")
 ```
 
-The histogram shows the sampling distribution of the estimator, with the true SATE in red and the unweighted estimate thereof in blue.
-The estimator is biased: in expectation, we do not recover the true SATE, instead underestimating it.
-Intuitively, one might correctly expect that the problem is related to the relative weight of the clusters in the calculation of the treatment effect.
-However, in this situation, taking the difference in the weighted average of the outcome among treated and control clusters is not enough to provide an unbiased estimator.
+L'histogramme montre la distribution d'échantillonnage de l'estimateur, avec le vrai SATE en rouge et son estimation non pondérée en bleu.
+L'estimateur est biaisé : en espérance, on ne récupère pas le vrai SATE, on le sous-estime.
+Intuitivement, on pourrait s'attendre à juste titre à ce que le problème soit lié au poids relatif des grappes dans le calcul de l'effet du traitement.
+Cependant, dans cette situation, prendre la différence dans la moyenne pondérée du résultat entre les grappes traitées et les grappes de contrôle n'est pas suffisant pour fournir un estimateur sans biais.
 
 <style>
 div.hidecode + pre {display: none}
@@ -591,51 +587,51 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(1234)
-# Weighted cluster-averages
+# Moyennes pondérées des clusters
 SATE_estimate_weighted <- NA
 for(i in 1:1000){
-     # Define the clusters put into treatment
+     # Définir les clusters mis en traitement
      treated_clusters <- sample(1:J,J/2,replace = F)
-     # Generate unit-level assignment vector
+     # Générer un vecteur d'assignation au niveau de l'unité
      Z <- (j %in% treated_clusters)*1
-     # Reveal outcomes 
+     # Révéler les résultats
      Y <- Z*Y1 + (1-Z)*Y0
-     # Calculate the cluster weights
+     # Calculer les poids des clusters
      treated_weights <- n_j[1:J%in%treated_clusters]/sum(n_j[1:J%in%treated_clusters])
      control_weights <- n_j[!1:J%in%treated_clusters]/sum(n_j[!1:J%in%treated_clusters])
-     # Calculate the means of each cluster
+     # Calculer les moyennes de chaque cluster
      treated_means <- tapply(Y,j,mean)[1:J%in%treated_clusters]
      control_means <- tapply(Y,j,mean)[!1:J%in%treated_clusters]
-     # Calculate the cluster-weighted estimate of the SATE
+     # Calculer l'estimation pondérée par cluster du SATE
      SATE_estimate_weighted[i] <- 
           weighted.mean(treated_means,treated_weights) - 
           weighted.mean(control_means,control_weights)
 }
 
-# Generate histogram of estimated effects
+# Générer un histogramme des effets estimés
 hist(SATE_estimate_weighted,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
-# Add the expected estimate of the unweighted SATE 
+# Ajouter l'estimation attendue du SATE non pondéré
 abline(v=mean(SATE_estimate_no_weights),col="blue")
-# Add the expected estimate of the weighted SATE 
+# Ajouter l'estimation attendue du SATE pondéré
 abline(v=mean(SATE_estimate_weighted),col="green")
-# And add the true SATE
+# Et ajoutez le vrai SATE
 abline(v=true_SATE,col="red")
 ```
 
-The histogram shows the sampling distribution of the weighted estimator, with the true SATE in red and the unweighted estimate in blue, and the weighted estimate in green.
-In expectation, the weighted version of the estimator in fact gives the same estimate of the SATE as the non-weighted version.
-What is the nature of the bias?
+L'histogramme montre la distribution d'échantillonnage de l'estimateur pondéré, avec le vrai SATE en rouge et l'estimation non pondérée en bleu, et l'estimation pondérée en vert.
+En espérance, la version pondérée de l'estimateur donne en fait la même estimation du SATE que la version non pondérée.
+Quelle est la nature du biais ?
 
-Instead of assigning treatment to half of the clusters and comparing outcomes at the level of the 'treatment' and 'control' groups,
-imagine that we paired each cluster with one other cluster, and assigned one to treatment within each pair.
-The treatment effect is then the aggregate of the pair-level estimates.
-This is analogous to the complete random assignment procedure employed above, in which $J/2$ firms were assigned to treatment.
-Now, we will instead refer to the $k$'th of the $m$ pairs, where $2m = J$.
+Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes « traitement » et « contrôle »,
+imaginez que nous avons jumelé chaque groupe avec un autre groupe et que nous en avons assigné un au traitement au sein de chaque paire.
+L'effet du traitement est alors l'agrégat des estimations au niveau de la paire.
+Ceci est analogue à la procédure d'assignation aléatoire complète employée ci-dessus, dans laquelle les entreprises $J/2$ ont été assignées au traitement.
+Maintenant, nous allons plutôt nous référer au $k$ième des $m$ paires, où $2m = J$.
 
-Given this setup, Imai, King and Nall (2009) give the following formal definition of the bias in the cluster-weighted difference-in-means estimator
+Compte tenu de cette configuration, Imai, King et Nall (2009) donnent la définition formelle suivante du biais dans l'estimateur de la différence des moyennes pondérée par grappe
 
 $$\frac{1}{n}
 \sum^m_{k = 1}
@@ -649,24 +645,21 @@ $$\frac{1}{n}
 \frac{Y_{ilk}(1) - Y_{ilk}(0)}{n_{lk}}
 \right],$$
 
-where $l = 1,2$ indexes the clusters within each pair.
-Thus,
-$n_{1k}$ refers to the number of units in the first of the $k$'th
-pair of clusters. 
+où $l = 1,2$ indexe les clusters au sein de chaque paire.
+Ainsi, $n_{1k}$ fait référence au nombre d'unités dans la première section de la $k$'ième paire de clusters.
 
-This expression indicates that bias from unequal cluster sizes arises if and only if two conditions are met.
-Firstly, the sizes of at least one pair of clusters must be unequal: 
-when $n_{1k}=n_{2k}$ for all $k$, the bias term is reduced to 0. 
-Secondly, the weighted effect sizes of at least one pair of clusters must be unequal: 
-when $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{2k}}(Y_{i2k}(1)-Y_{i2k}(0))/n_{2k}$ for all $k$, the bias is also 
-reduced to 0. 
+Cette expression indique qu'un biais dû à des tailles de grappes inégales survient si et seulement si deux conditions sont remplies.
+Premièrement, les tailles d'au moins une paire de clusters doivent être inégales :
+lorsque $n_{1k}=n_{2k}$ pour tous les $k$, le terme de biais est réduit à 0.
+Deuxièmement, les tailles d'effet pondérées d'au moins une paire de clusters doivent être inégales :
+quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2k}}(Y_{i2k}(1)-Y_{i2k}(0))/n_{2k}$ pour tous les $k$, le biais est également réduit à 0.
 
-#5 What to do about different cluster sizes
+#5 Que faire à propos des différentes tailles de grappe
 
-As the above expression suggests, in order to reduce the bias from unequal cluster sizes to almost 0,
-it is sufficient to put clusters into pairs that either are of equal size or  have almost identical potential outcomes.
+Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
+il suffit de mettre les grappes en paires qui sont soit de taille égale, soit ont des résultats potentiels presque identiques.
 
-We demonstrate this approach below using the same data as we examined in the example of a hypothetical firm-randomized employee productivity experiment.
+Nous démontrons cette approche ci-dessous en utilisant les mêmes données que celles que nous avons examinées dans l'exemple d'une expérience hypothétique de productivité des employés randomisée par entreprise.
 
 <style>
 div.hidecode + pre {display: none}
@@ -677,28 +670,28 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(1234)
-# Make a function that matches pairs based on size
+# Créez une fonction qui apparie en fonction de la taille
 pair_sizes <- function(j,n_j){
-     # Find all of the unique sizes 
+     # Trouvez toutes les tailles uniques
      unique_sizes <- unique(n_j)
-     # Find the number of unique sizes
+     # Trouver le nombre de tailles uniques
      N_unique_sizes <- length(unique_sizes)
-     # Generate a list of candidates for pairing at each cluster size
+     # Générer une liste de candidats pour l'appariement pour chaque taille de cluster
      possible_pairs <- lapply(unique_sizes,function(size){which(n_j==size)})
-     # Find the number of all possible pairs (m)
+     # Trouver le nombre de toutes les paires possibles (m)
      m_pairs <- length(unlist(possible_pairs))/2
-     # Generate a vector with unique pair-level identifiers
+     # Générer un vecteur avec des identifiants uniques au niveau de la paire
      pair_indicator <- rep(1:m_pairs,rep(2,m_pairs))
-     # Randomly assign units of the same cluster size into pairs
+     # Apparier au hasard les unités de grappes de même taille
      pair_assignment <- 
           unlist(lapply(
                possible_pairs,
                function(pair_list){
                     sample(pair_indicator[unlist(possible_pairs)%in%pair_list])}))
-     # Generate a vector indicating the k'th pair for each i unit
+     # Générer un vecteur indiquant la kième paire pour chaque i unité
      pair_assignment <- pair_assignment[match(x = j,table = unlist(possible_pairs))]
      return(pair_assignment)
 }
@@ -707,11 +700,11 @@ pair_indicator <- pair_sizes(j = j , n_j = n_j)
 
 SATE_estimate_paired <- NA
 for(i in 1:1000){
-     # Now loop through the vector of paired assignments
+     # Parcourez maintenant le vecteur d'assignation des paires
      pair_ATEs <- sapply(unique(pair_indicator),function(pair){
-          # For each pair, randomly assign one to treatment
+          # Pour chaque paire, assignez-en une au hasard au traitement
           Z <- j[pair_indicator==pair] %in% sample(j[pair_indicator==pair],1)*1
-          # Reveal the potential outcomes of the pair
+          # Révéler les résultats potentiels de la paire
           Y <- Z*Y1[pair_indicator==pair] + (1-Z)*Y0[pair_indicator==pair]
           clust_weight <- length(j[pair_indicator==pair])/N
           clust_ATE <- mean(Y[Z==1])-mean(Y[Z==0])
@@ -721,11 +714,11 @@ for(i in 1:1000){
      SATE_estimate_paired[i] <- weighted.mean(x = pair_ATEs["ATE",],w = pair_ATEs["weight",])
 }
 
-# Generate histogram of estimated effects
+# Générer un histogramme des effets estimés
 hist(SATE_estimate_paired,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
-# Add the expected estimate of the paired SATE 
-abline(v=mean(SATE_estimate_paired),col="purple")
-# And add the true SATE
+# Ajouter l'estimation attendue du SATE par paire
+abline(v=mean(SATE_estimate_paired),col="violet")
+# Et ajoutez le vrai SATE
 abline(v=true_SATE,col="red")
 ```
 
@@ -738,9 +731,9 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# The paired estimator is much closer to the true SATE
+# L'estimateur par paire est beaucoup plus proche du vrai STATE
 kable(round(data.frame(true_SATE = true_SATE,
   paired_SATE = mean(SATE_estimate_paired),
   weighted_SATE = mean(SATE_estimate_weighted),
@@ -749,49 +742,45 @@ kable(round(data.frame(true_SATE = true_SATE,
 
 ```
 
-In spite of unequal cluster sizes, the bias is completely eliminated by this technique:
-in expectation, the paired estimator recovers the true Sample Average Treatment Effect,
-whereas the cluster-weighted and non-weighted difference-in-means estimators are biased.
+Malgré des tailles de grappe inégales, le biais est complètement éliminé par cette technique :
+en espérance, l'estimateur par paire converge vers le véritable effet moyen de traitement pour l'échantillon,
+alors que les estimateurs de la différence des moyennes pondérées et non pondérées sont biaisés.
 
-Note also that the variance in the sampling distribution is much lower for the pair-matched estimator,
-giving rise to much more precise estimates.
-Thus, pair-matching not only promises to reduce bias, but can also greatly mitigate the problem of information reduction that clustering induces.
+Notez également que la variance dans la distribution d'échantillonnage est beaucoup plus faible pour l'estimateur par paire, donnant lieu à des estimations beaucoup plus précises.
+Ainsi, l'appariement de paires promet non seulement de réduire les biais, mais peut également grandement atténuer le problème de réduction de l'information induit par le clustering.
 
-Such pre-randomization pair matching, however, does impose some constraints on the study, some of which may be difficult to meet in practice.
-For example, it may be difficult or even impossible to find perfectly-matched pairs for every cluster size, especially
-when there are multiple treatments (such that, instead of pairs, treatment is randomized over triplets or quadruplets).
-In such cases, researchers may adopt several other solutions, such as creating pairs by matching on observed covariates prior to the randomization, whereby,
-for example, the within-pair similarity of observed covariates is maximized.
-Imai, King and Nall (2009) recommend a mixture model for post-randomization pair-matched estimation, and spell out some of the assumptions that must be made for such estimates to be valid.
+Cependant, un tel appariement de paires avant randomisation impose certaines contraintes à l'étude, dont certaines peuvent être difficiles à respecter dans la pratique.
+Par exemple, il peut être difficile voire impossible de trouver des paires parfaitement assorties pour chaque taille de cluster, en particulier
+lorsqu'il y a plusieurs traitements (tels que, au lieu de paires, le traitement est randomisé sur des triplets ou des quadruplés).
+Dans de tels cas, les chercheurs peuvent adopter d'autres solutions, telles que la création de paires basée sur les covariables observées avant la randomisation, où,
+par exemple, la similarité intra-paire des covariables observées est maximisée.
+Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par paire post-randomisation et énoncent certaines des hypothèses qui doivent être formulées pour que ces estimations soient valides.
 
-#6 Why clustering can matter III: within-cluster spillovers
+#6 Pourquoi le clustering peut avoir de l'importance III : les effets de débordement au sein du cluster
 
-In many, or most experiments, we would like to estimate the average causal effect of the treatment within a population or a sample.
-Denoting $Y_{z_i}$ the outcome $Y$ of unit $i$ when assigned to the treatment status $z_i \in \{1,0\}$,
-we can define this quantity -- the ATE (Average Treatment Effect) --
-as the expected value of the difference between the sample when assigned to treatment, $Y_1$ and the sample when assigned to control $Y_0$: $E[Y_1 - Y_0]$.
+Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
+Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est affectée au statut de traitement $z_i \in \{1,0\}$,
+nous pouvons définir cette quantité -- l'ATE (Average Treatment Effect) --
+comme valeur attendue de la différence entre l'échantillon lorsqu'il est affecté au traitement, $Y_1$ et l'échantillon lorsqu'il est affecté au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
 
-However, it may be the case that a unit's outcome depends on the treatment status $z_j$ of another unit, $j$, inside the same cluster.
-In that case, we denote potential outcomes
-$Y_{z_j,z_i} \in \{ Y_{00}, Y_{10}, Y_{01}, Y_{11} \}$, 
-where an untreated unit with an untreated cluster neighbor is defined 
-as $Y_{00}$, an untreated unit with a treated cluster neighbor as $Y_{10}$, 
-a treated unit with an untreated cluster neighbor as $Y_{01}$, and 
-a treated unit with a treated cluster neighbor as $Y_{11}$.
-When we conduct a cluster-randomized experiment,
-we typically assume that a unit's outcome is not a function of the treatment status of the units with whom it shares a cluster, or formally $Y_{01}=Y_{11}=Y_1$ and $Y_{10}=Y_{00}=Y_0$.
-Yet, for all sorts of reasons this may not be the case:
-depending on whom someone finds themselves in the same cluster with, and whether or not that cluster is assigned to treatment, their outcomes may be very different.
+Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur du même cluster.
+Dans ce cas, nous désignons les résultats potentiels $Y_{z_j,z_i} \in \{ Y_{00}, Y_{10}, Y_{01}, Y_{11} \}$, où
+une unité non traitée avec un voisin de cluster non traité est définie comme $Y_{00}$,
+une unité non traitée avec un voisin de cluster traité comme $Y_{10}$,
+une unité traitée avec un voisin de cluster non traité comme $Y_{01}$, et
+une unité traitée avec un voisin de cluster traité comme $Y_{11}$.
+Lorsque nous menons une expérience randomisée par grappe, nous supposons généralement que le résultat d'une unité n'est pas fonction du statut de traitement des unités avec lesquelles elle partage un cluster,
+ou formellement $Y_{01}=Y_{11}=Y_1$ et $Y_{10}=Y_{00 }=Y_0$.
+Pourtant, pour toutes sortes de raisons, cela peut ne pas être le cas : leurs résultats peuvent être très différents
+si le groupe est ou non assigné au traitement, ou si quelqu'un se trouve dans le même groupe que d'autres personnes.
 
-Consider an experiment in which five pairs of students living in dorms are randomly assigned to either receive or not receive a food subsidy, and their stated well-being is the outcome of interest.
-Let us assume that four students are vegetarian (V) and six are meat-eaters (M).
-When a VV, MM, or VM pair is assigned to control, they do not receive the subsidy and their well-being is unaffected.
-However, when assigned to treatment, VM pairs quarrel and this reduces their well-being, whereas VV and MM pairs do not fight and are affected only by the treatment.
-Let us denote $x_k \in \{0,1\}$ an indicator for whether the pair is mismatched, where the unit's outcome is denoted $Y_{z_j,z_j,x_k}$.
-This implies that
-$Y_{110} = Y_1$ and $Y_{000} = Y_{001} = Y_0$, whereas 
-$Y_{111} \neq Y_1$.
-To understand how this matters, let us simulate such an experiment.
+Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignés au hasard à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
+Supposons que quatre élèves soient végétariens (V) et six mangeurs de viande (M).
+Lorsqu'un couple VV, MM ou VM est assigné au contrôle, ils ne reçoivent pas la subvention et leur bien-être n'est pas affecté.
+Cependant, lorsqu'ils sont assignés au traitement, les couples VM se querellent et cela réduit leur bien-être, alors que les couples VV et MM ne se battent pas et ne sont affectés que par le traitement.
+Notons $x_k \in \{0,1\}$ un indicateur pour savoir si la paire est incompatible, où le résultat de l'unité est noté $Y_{z_j,z_j,x_k}$.
+Cela implique que $Y_{110} = Y_1$ et $Y_{000} = Y_{001} = Y_0$, alors que $Y_{111} \neq Y_1$.
+Pour comprendre en quoi cela est important, simulons une telle expérience.
 
 <style>
 div.hidecode + pre {display: none}
@@ -802,22 +791,22 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
-# Create experimental data
+# Créer des données expérimentales
 N <- 10
 types <- c(rep("V",.4*N),rep("M",.6*N))
 ID <- 1:length(types)
 baseline <- rnorm(length(ID))
 
-# The true treatment effect is 5
+# Le véritable effet du traitement est de 5
 true_ATE <- 5
-# If a pair is mismatched (VM, MV), they get a spillover of -10
+# Si une paire ne correspond pas (VM, MV), elle obtient un effet de débordement de -10
 spillover_or_not <- function(type_i,type_j){
   ifelse(type_i==type_j,yes = 0,no = -10)
 }
 
-# A function for forming pairs 
+# Une fonction pour former les paires
 form_pairs <- function(ID,types){
   N <- length(ID)
   k <- rep(1:(N/2),2)
@@ -834,14 +823,14 @@ form_pairs <- function(ID,types){
 }
 
 
-# A function for assigning treatment and revealing the outcome
+# Une fonction pour assigner le traitement et révéler le résultat
 assign_reveal_est <- function(k,i,effect,spillover){
   Z <- (k %in% sample(k,N/2))*1
   Y <- baseline[i] + Z*effect + Z*spillover
   mean(Y[Z==1])-mean(Y[Z==0])
 }
 
-# A function for simulating the experiment
+# Une fonction pour simuler l'expérience
 simulate_exp <- function(){
   data <- form_pairs(ID,types)
   spillover <- spillover_or_not(data$type_i,data$type_j)
@@ -849,39 +838,39 @@ simulate_exp <- function(){
   return(estimate)
 }
 
-# Estimate the effects one thousand times
+# Estimer les effets mille fois
 est_effects <- replicate(n = 1000,expr = simulate_exp())
 
-# Plot the estimates as bars, the expected ATE in blue, and the true ATE in red
+# Tracez un histogramme des estimations, l'ATE attendu en bleu et l'ATE réel en rouge
 hist(est_effects,breaks = 100,xlim = c(-7,7))
 abline(v = true_ATE,col = "red")
 abline(v = mean(est_effects,na.rm = T),col = "blue")
 
 ```
 
-As the plot above shows, this is a biased estimator of the true individual level treatment effect, $Y_{01} - Y_{00}$.
+Comme le montre le graphique ci-dessus, il s'agit d'un estimateur biaisé du véritable effet du traitement au niveau individuel, $Y_{01} - Y_{00}$.
 
-In expectation, we estimate an effect close to 0, obtaining very negative effects in almost half of the simulations of this experiment.
+En espérance, nous estimons un effet proche de 0, obtenant des effets très négatifs dans près de la moitié des simulations de cette expérience.
 
-The key point here is that the estimand is changed:
-rather than the ATE, we obtain a combination of the true treatment effect among those who are matched (do not experience spillovers) $E[Y_{110}-Y_{00x_k}]$,
-and the combined treatment  and spillover effect for those who are unmatched $E[Y_{111}-Y_{00x_k}]$.
-Crucially, however, we cannot identify the impact of the spillover, $E[Y_{101}-Y_{00x_k}]$, independently of the direct effect.
-This is because the randomization is clustered:
-it is not possible to observe $Y_{101}$ in a cluster-randomized scheme, because all units within a cluster are always treated.
-Generally speaking, this issue is true of any cluster-randomized study: 
-in order to make the claim that we identify the individual-level effect of the treatment, we must assume that $Y_{11}=Y_{1}$ and $Y_{00}=Y_{0}$.
+Le point clé ici est que l'estimation est modifiée :
+plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont appariés (ne subissent pas d'effets de débordement) $E[Y_{110}-Y_{00x_k}]$,
+et le traitement combiné à l'effet de débordement pour ceux qui ne sont pas appariés $E[Y_{111}-Y_{00x_k}]$.
+Mais surtout, nous ne pouvons pas identifier l'impact du débordement, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
+En effet, c'est une randomisation par grappe :
+il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe, car toutes les unités d'un cluster sont toujours traitées.
+De manière générale, ce problème est vrai pour toute étude randomisée par grappe :
+pour affirmer que nous identifions l'effet au niveau individuel du traitement, nous devons supposer que $Y_{11}=Y_{1}$ et $Y_{00}=Y_{0}$.
 
-#7 What to do about within-cluster spillovers
+#7 Que faire à propos des effets de débordement intra-clusters
 
-If there are strong reasons to believe that intra-cluster spillovers occur, 
-then researchers can take different approaches depending on the manner in which clusters are formed.
-In some studies researchers must themselves sort units into groups for the purposes of experimentation:
-for example, in a study involving a vocational programme, the researcher may be able to decide who is  recruited into which class.
-In such cases, if the researcher can make plausible assumptions about spillovers, then the individual-level treatment effect may be recoverable.
+S'il y a de bonnes raisons de croire que des effets de débordement intra-clusters se produisent,
+les chercheurs peuvent alors adopter des approches différentes selon la manière dont les grappes sont formées.
+Dans certaines études, les chercheurs doivent eux-mêmes trier les unités en grappe à des fins d'expérimentation :
+par exemple, dans une étude portant sur un programme professionnel, le chercheur peut être en mesure de décider qui est recruté dans quelle classe.
+Dans de tels cas, si le chercheur peut faire des hypothèses plausibles sur les effets de débordement, alors l'effet du traitement au niveau individuel peut être récupérable.
 
-Consider a researcher conducting the previous study above who correctly assumed that spillovers would occur between mismatched pairs.
-In this case, the researcher can recover the true individual treatment effect by forming clusters that are not susceptible to spillover.
+Prenons l'exemple d'un chercheur qui a mené l'étude précédente ci-dessus et qui a correctement supposé que des retombées se produiraient entre des paires non appariées.
+Dans ce cas, le chercheur peut récupérer le véritable effet du traitement individuel en formant des grappes qui ne sont pas susceptibles aux effets de débordement.
 
 <style>
 div.hidecode + pre {display: none}
@@ -892,7 +881,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 form_matched_pairs <- function(ID,types){
   pair_list <- lapply(unique(types),function(type){
@@ -916,7 +905,7 @@ simulate_matched_exp <- function(){
   return(estimate)
 }
 
-# Estimate the effects one thousand times
+# Estimer les effets mille fois
 est_matched_effects <- replicate(n = 1000,expr = simulate_matched_exp())
 
 hist(est_matched_effects,breaks = 100,xlim = c(-7,7))
@@ -924,35 +913,35 @@ abline(v = true_ATE,col = "red")
 abline(v = mean(est_matched_effects,na.rm = T),col = "blue")
 ```
 
+Dans le cas où les chercheurs ne sont pas en mesure de contrôler la formation des grappes,
+ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de débordement possibles.
+Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
+À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
+En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-cluster, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
+Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-cluster.
 
-In the case that researchers are not able to control how clusters are formed, 
-they can still investigate cluster-level heterogeneity in treatment effects as a way of understanding possible spillovers.
-However, in both cases, assumptions must be made about the nature of spillovers.
-Strictly speaking, these cannot be causally identified due to the unobservability of the outcomes $Y_{01}$ and $Y_{10}$.
-Ultimately, one would need to combine clustered and non-clustered randomization schemes in order to estimate the effects of intra-cluster spillover,
-$Y_{11} - Y_{01}$ and  $Y_{01} - Y_{00}$.
-Therefore, in the interests of interpreting results correctly, researchers should be careful when defining their estimand to take account of the potential for intra-cluster spillover.
+#8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
 
-#8 Performance of design- vs. model-based analyses of clustered studies
+Dans notre discussion sur la perte d'informations, nous avons évalué les approches qui nécessitent
+(1) que le traitement soit randomisé comme prévu et
+(2) que le traitement assigné à une unité n'a pas changé les résultats potentiels pour toute autre unité.
 
-In our discussion of information loss, we assessed approaches that require (1) that treatment was randomized as planned and
-(2) that the treatment assigned to one unit did not change the potential outcomes for any other unit.
-In cases where these assumptions may be violated, it is sometimes simpler to specify statistical models that attempt to describe the features of complex designs.
-Even if we do not believe the models as scientific descriptions of a known process, this can be a more informative and flexible way of analyzing an experiment than to derive complex new expressions for design-based estimators.
+Dans les cas où ces hypothèses peuvent être violées, il est parfois plus simple de spécifier des modèles statistiques qui tentent de décrire les caractéristiques d'un design complexe.
+Même si nous ne considérons pas le modèle comme une description scientifique d'un processus connu, cela peut être une manière plus informative et flexible d'analyser une expérience plutôt que de dériver de nouvelles expressions complexes pour un estimateur basé sur le design.
 
-In model-based approaches, the sampling distribution of an estimator is approximated using probability distributions to characterize our uncertainty about
-unknown quantities, such as the true treatment effect or the true mean of the outcome at the cluster level.
-Such approaches are referred to as 'model-based', because they depict causal relationships as arising from interrelated probability distributions.
-Often, such approaches use 'multilevel models', in which unknown parameters - such as differences between clusters - are themselves understood as arising from probability distributions.
-Thus, for example, there might be a model for individual-level outcomes, whose intercept and/or coefficients vary from one cluster to another.
-In this manner, it is possible to model the 'effect of being a unit in cluster A', separately from the estimation of the treatment effect.
-The advantage of such approaches is that they allow for 'partial pooling' of the variance in the population and the variance among clusters.
-When a given cluster is poorly estimated, it contributes less weight to the estimation, and vice versa.
-Such models therefore often work well in situations where there is very little data in some clusters:
-through the specification of a Bayesian posterior distribution, they are able to leverage information from all parts of the study.
-The trade-off is that such assumption-heavy models are only correct to the extent that the assumptions underlying them are correct.
+Dans les approches basées sur un modèle, la distribution d'échantillonnage d'un estimateur est approchée à l'aide d'une distribution de probabilité pour caractériser notre incertitude sur
+des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe.
+De telles approches sont appelées « basées sur un modèle », car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
+Souvent, ces approches utilisent des « modèles à plusieurs niveaux », dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité.
+Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'intersection et/ou les coefficients varient d'un groupe à l'autre.
+De cette manière, il est possible de modéliser « l'effet d'être une unité dans le cluster A », séparément de l'estimation de l'effet du traitement.
+L'avantage de telles approches est qu'elles permettent une « mise en commun partielle » de la variance dans la population et de la variance entre les grappes.
+Lorsqu'une grappe donnée est mal estimée, elle contribue moins à l'estimation, et vice versa.
+De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certains clusters :
+grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
+Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.
 
-Here we show that the estimated effect is the same whether we use a simple difference of means (via OLS) or a multilevel model in our very simplified cluster randomized trial setup.
+Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence de moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux dans notre configuration d'essai randomisé par grappe très simplifiée.
 
 <style>
 div.hidecode + pre {display: none}
@@ -963,7 +952,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T, error=FALSE, warning=FALSE, message=FALSE}
 library(lme4)
 
@@ -978,8 +967,8 @@ kable(round(data.frame(
   ),3))
 ```
 
-The confidence intervals differ even though the estimates are the same — and there is more than one way to calculate confidence intervals and hypothesis tests for multilevel models.
-The software in R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) includes three methods by default and Gelman and Hill (2007) recommend MCMC sampling from the implied posterior. Here we focus on the Wald method only because it is the fastest to compute.
+Les intervalles de confiance diffèrent même si les estimations sont les mêmes — et il existe plusieurs façons de calculer les intervalles de confiance et les tests d'hypothèse pour les modèles à plusieurs niveaux.
+Le logiciel R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) comprend trois méthodes par défaut et Gelman et Hill (2007) recommandent l'échantillonnage de Monte-Carlo par chaînes de Markov (MCMC) à partir de la distribution postérieure implicite. Ici, nous nous concentrons sur la méthode de Wald uniquement parce qu'elle est la plus rapide à calculer.
 
 <style>
 div.hidecode + pre {display: none}
@@ -990,10 +979,9 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T, error=FALSE, message=FALSE, warning=FALSE}
-# This function calculates confidence intervals for linear models 
-# with custom variance-covariance marices
+# Cette fonction calcule les intervalles de confiance pour des modèles linéaires avec des matrices de variance-covariance personnalisées
 confint_HC<-function (coefficients, df, level = 0.95, vcov_mat, ...) {
   a <- (1 - level)/2
   a <- c(a, 1 - a)
@@ -1023,7 +1011,7 @@ knitr::kable(round(rbind(
 
 ```
 
-We can calculate an estimate of the ICC directly from the model quantities (the variance of the Normal prior that represents the cluster-to-cluster differences in the intercept over the total variance of the Normal posterior).
+Nous pouvons calculer une estimation de l'ICC directement à partir des quantités du modèle (la variance de la distribution normale antérieure qui représente les différences inter-grappe dans l'intersection divisée par la variance totale de la distribution normale postérieure).
 
 <style>
 div.hidecode + pre {display: none}
@@ -1034,18 +1022,19 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 VC <- as.data.frame(lme4:::VarCorr.merMod(multilevel))
 round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
 ```
 
-In order to assess the performance of this model-based approach, as opposed to the robust-clustered standard-error (RCSE) and cluster-aggregated approaches outlined above,
-we can check how often the different approaches falsely reject the sharp null hypothesis of no effects for any unit, when we know that this null is true.
+TODO
+Afin d'évaluer les performances de cette approche basée sur un modèle, par opposition aux approches par agrégat de grappe ou avec une erreur standard RCSE décrites ci-dessus,
+nous pouvons vérifier à quelle fréquence les différentes approches rejettent à tort l'hypothèse nulle stricte d'absence d'effet pour une unité, lorsque nous savons que cette hypothèse nulle est vraie.
 
-To do so, we write a function that firstly breaks the relationship between the treatment assignment and the outcome by randomly shuffling the assignment,
-and then tests whether 0 is in the 95% confidence interval for each of the three approaches, as it should be.
-Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.
+Pour ce faire, nous écrivons une fonction qui rompt d'abord la relation entre l'assignation du traitement et le résultat en mélangeant aléatoirement l'assignation,
+puis qui teste si 0 se trouve dans l'intervalle de confiance à 95 % pour chacune des trois approches, comme il se doit.
+TODO Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1056,18 +1045,17 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T, message=FALSE}
-# Make a function for checking whether 0 is in the confidence interval of 
-# the RCSE, cluster-aggregated, and multilevel estimation approaches 
+# Créer une fonction pour vérifier si 0 se trouve dans l'intervalle de confiance pour les approches :
+# par agrégat de grappe, avec une erreur standard RCSE ou avec un modèle multi-niveaux
 
 sim_0_ate <- function(J,Y) {
-  #   Make the true relationship between treatment and outcomes equal zero by
-  #   shuffling Z but not revealing new potential outcomes
+  # Rendre la vraie relation entre le traitement et les résultats égale à zéro en mélangeant Z mais sans révéler de nouveaux résultats potentiels
   z.sim <- sample(1:max(J), max(J) / 2)
   Z_new <- ifelse(J %in% z.sim == TRUE, 1, 0)
   
-  # Estimate using the linear model for RCSE
+  # Estimation à l'aide du modèle linéaire pour le RCSE
   linear_fit <- lm(Y ~ Z_new) 
   linear_RCSE <- RCSE(model = linear_fit,
                   cluster = J,
@@ -1075,35 +1063,34 @@ sim_0_ate <- function(J,Y) {
   linear_CI <- confint_HC(coefficients = coef(linear_fit), 
                       vcov_mat = linear_RCSE,
                       df = linear_fit$df.residual)["Z_new",]
-  # Check if the confidence interval bounds 0
+  # Vérifiez si l'intervalle de confiance est borné par 0
   zero_in_CI_RCSE <- (0 >= linear_CI[1]) & (0 <= linear_CI[2])
   
-  # Estimate using cluster-aggregated approach (Hansen and Bowers 2008)
+  # Estimation à l'aide d'une approche par agrégat de grappe (Hansen et Bowers 2008)
   Yj <- tapply(Y, J, sum)
   Zj <- tapply(Z_new, J, mean)
   m0 <- unique(table(J))
   n  <- length(Zj)
   nt <- sum(Zj)
-  # Do Hansen and Bowers 2008 based test for difference of means 
-  # with cluster-level assignment (assuming same size clusters)
+  # Faire le test basé sur Hansen et Bowers 2008 pour la différence des moyennes avec l'assignation au niveau de la grappe (en supposant des grappes de même taille)
   ones <- rep(1, length(Yj))
   dp   <- crossprod(Zj,Yj) * (n / (m0 * nt * (n - nt))) - 
     crossprod(ones,Yj) / (m0 * (n - nt))
   obs_ATE <- dp[1,1]
-  # Two tailed p-value for the test of the null of no effects
+  # p-valeur bilatérale pour le test d'hypothèse nulle d'absence d'effet
   Vdp <- (n / (m0 * nt * (n - nt))) * (var(Yj) / m0)
   HB_pval <- 2 * (1 - pnorm(abs(obs_ATE) / sqrt(Vdp)))
-  # Check if the p-value is greater than .05
+  # Vérifiez si la p-valeur est supérieure à 0.05
   zero_not_rej_HB <- HB_pval >= .05
 
-  # Estimate using a multilevel model
+  # Estimation à l'aide du modèle multi-niveaux
   multilevel_fit <- lmer(Y ~ Z_new + (1 | J),
                          control = lmerControl(optimizer = 'bobyqa'),
                          REML = FALSE)
   
   multilevel_CI <- lme4:::confint.merMod(
     multilevel_fit,parm = "Z_new",method = "Wald")
-  # Check if the confidence interval bounds 0
+  # Vérifiez si l'intervalle de confiance est borné par 0
   zero_in_CI_multilevel <- (0 >= multilevel_CI[1]) & (0 <= multilevel_CI[2])
   
   return(
@@ -1113,7 +1100,7 @@ sim_0_ate <- function(J,Y) {
       zero_in_CI_multilevel = zero_in_CI_multilevel))
 }
 
-# Now simulate each of the estimates 1000 times
+# Maintenant, simulez chacune des estimations 1000 fois
 
 J_4_comparison <- replicate(1000, sim_0_ate(J = J_4_clusters$j, Y = J_4_clusters$Y))
 J_4_error_rates <- apply(J_4_comparison,1,mean)
@@ -1147,23 +1134,22 @@ kable(error_comparison,align = "c")
 
 ```
 
-In our simple setup, the individual-level approaches behave about the same way: neither the design-based nor the model-based approach produces valid statistical inferences until the number of clusters is at least 30.
-This makes sense: both approaches rely on central limit theorems so that a Normal law can describe the distribution of the test statistic under the null hypothesis.
-The cluster-level approach is always valid, but sometimes produces overly large confidence intervals (when the number of clusters is small).
-When the number of clusters is large (say, 100), then all approaches are equivalent in terms of their error rates.
-Designs with few clusters should consider either the cluster-level approach using the normal approximation shown here or even direct permutation based approaches to statistical inference.
+Dans ce système simple, les approches au niveau individuel se comportent à peu près de la même manière : ni l'approche basée sur un design, ni l'approche basée sur un modèle ne produisent des inférences statistiques valides avant d'avoir au moins 30 grappes.
+Cela a du sens : les deux approches reposent sur le théorème central limite afin qu'une loi normale puisse décrire la distribution de la statistique de test sous l'hypothèse nulle.
+L'approche au niveau de la grappe est toujours valide, mais produit parfois des intervalles de confiance trop grands (lorsque le nombre de grappes est petit).
+Lorsque le nombre de grappes est important (disons 100), alors toutes les approches sont équivalentes en termes de taux d'erreur.
+Les designs avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale montrée ici, soit même des approches basées sur la permutation directe pour permettre l'inférence statistique.
 
+#9 Analyse de puissance statistiques pour les designs par grappe
 
-#9 Power analysis for clustered designs
+Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
+Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'informations en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du clustering peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
+Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur standard robuste pour cluster (Robust Clustered Standard Error / RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cette appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
 
-We want designs that are likely to reject hypotheses inconsistent with the data, and unlikely to reject hypotheses consistent with the data.
-We’ve seen that the assumptions required for the validity of common tests (typically, large numbers of observations, or large quantities of information in general) are challenged by clustered designs, and the tests which account for clustering can be invalid if the number of clusters is small (or information is low at the cluster level in general).
-We’ve also seen that we can produce valid statistical tests for hypotheses about the average treatment effect using either Robust Clustered Standard Errors (RCSE), multilevel models or using the cluster-level approach described by Hansen and Bowers (2008), and that pair-matching can drastically minimize bias in designs with unequal cluster sizes.
-
-The most important rule regarding the statistical power of clustered designs is that more small clusters are better than fewer larger ones.
-This can be demonstrated through simulated experiments.
-Generally speaking, the most flexible way to evaluate the power of a design is through simulation, as it allows for complex clustering and blocking schemes, and can incorporate covariates.
-In the following we use the OLS estimator with Robust Clustered Standard Errors, in order to save on computation time, but the same analysis can be achieved using any estimator and test statistic.
+Voici la règle la plus importante concernant la puissance statistique des designs par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
+Ceci peut être démontré par des expériences simulées.
+De manière générale, le moyen le plus flexible d'évaluer la puissance d'un design est la simulation, car elle permet des schémas de grappe et de découpage par bloc complexes et peut incorporer des covariables.
+Dans ce qui suit, nous utilisons l'estimateur des moindres carrés avec une erreur standard robuste pour cluster, afin d'économiser du temps de calcul, mais la même analyse peut être réalisée en utilisant n'importe quel estimateur et statistique de test.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1174,7 +1160,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 
 # A function to test the null hypothesis and the true hypothesis
@@ -1233,7 +1219,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 # The numbers of clusters we will consider
 Js <- c(8,20,40,80,160,320)
@@ -1287,7 +1273,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 # Plot the error rate under the different scenarios
 matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
@@ -1317,7 +1303,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 J_njs <- c(80,160)
 ICCs <- seq(0,.6,.1)+c(.01,0,0,0,0,0,0)
@@ -1366,7 +1352,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 # Plot the error rate under the different scenarios
 matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
@@ -1409,7 +1395,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 library(RItools)
 options(digits=3)
@@ -1441,7 +1427,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 # The overall omnibus p-value
 kable(round(balance_test$overall,2),align = "c")

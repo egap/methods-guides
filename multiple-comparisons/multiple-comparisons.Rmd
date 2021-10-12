@@ -495,7 +495,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r, message = F, warning = F}
 # A DGP with K outcome variables
 # Untreated potential outcomes drawn from multivariate normal distribution
@@ -527,7 +527,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r}
 knitr::kable(cov(data.frame(mat, mean_effects_index, inv_cov_weighted_index)), digits = 3)
 ```
@@ -544,7 +544,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r}
 data.frame(Z, mean_effects_index, inv_cov_weighted_index) %>%
   mutate(Group = ifelse(Z==1, "Treatment", "Control")) %>%
@@ -565,7 +565,7 @@ e.nextSibling.nextSibling.style.display="block";
 }
 </script>
 
-<div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
+<div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r}
 table <- rbind(summary(lm(mean_effects_index ~ Z))$coef["Z", c (1, 2, 4)], 
         summary(lm(inv_cov_weighted_index ~ Z))$coef["Z", c(1, 2, 4)])
