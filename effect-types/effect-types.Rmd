@@ -142,22 +142,23 @@ Par exemple, si vous vouliez voir comment l'administration d'un médicament cond
 
 3 Effet d'intention de traiter (intent to treat effect, ITT)
 ==
-Outside of a controlled laboratory setting, the subjects we assign to treatment often are not the same as the subjects who actually receive the treatment.
-When some subjects assigned to treatment fail to receive it, we call this an experiment with one-sided non-compliance.
-When additionally, some subjects assigned to control also receive the treatment, we say there is two-sided non-compliance.
-For example, in a get-out-the-vote experiment, some people assigned to receive a mailer may not receive it.
-Perhaps they’ve changed addresses or never check their mail.
-Similarly, some observations assigned to control may receive the treatment.
-Perhaps they just moved in, and the previous tenant’s mail is still arriving.
 
-When non-compliance occurs, the receipt of treatment is no longer independent of potential outcomes and confounders.
-The people who actually read their mail probably differ in a number of ways from the people who throw their mail away (or read their neighbors’ mail) and these differences likely also effect their probability of voting.
-The difference-of-means between subjects assigned to treatment and control no longer estimates the ATE, but instead estimates what is called an intent-to-treat effect (ITT).
-We often interpret the ITT as the effect of giving someone the opportunity to receive treatment.
-The ITT is particularly relevant then for assessing programs and interventions with voluntary participation.
+En dehors de l'environnement contrôlé d'un laboratoire, les sujets que nous assignons au traitement ne sont souvent pas les mêmes que les sujets qui reçoivent réellement le traitement.
+Lorsque certains sujets assignés au traitement ne le reçoivent pas, nous appelons cela une expérience de non-conformité unilatérale.
+Lorsqu'en plus, certains sujets assignés au contrôle reçoivent également le traitement, on dit qu'il y a non-conformité bilatérale.
+Par exemple, dans une expérience de vote, certaines personnes désignées pour recevoir un courrier peuvent ne pas le recevoir.
+Peut-être ont-ils changé d'adresse ou ne consultent-ils jamais leur courrier.
+De même, certaines observations assignées au contrôle peuvent recevoir le traitement.
+Peut-être qu'ils viennent d'emménager et que le courrier du locataire précédent arrive toujours.
 
-In the code below, we create some simple data with one-sided non-compliance.
-Although the true treatment effect for people who actually received the treatment is 2, our estimated ITT is smaller (about 1) because only some of the people assigned to treatment actually receive it.
+En cas de non-conformité, la réception du traitement n'est plus indépendante des résultats potentiels et des facteurs de confusion.
+Les personnes qui relèvent réellement leur courrier diffèrent probablement à plusieurs égards de celles qui jettent leur courrier (ou lisent le courrier de leurs voisins) et ces différences affectent probablement également leur probabilité de voter.
+La différence des moyennes entre les sujets assignés au traitement et au contrôle n'estime plus l'ATE, mais estime à la place ce qu'on appelle l'effet d'intention de traiter (ITT).
+Nous interprétons souvent l'ITT comme l'effet de donner à quelqu'un la possibilité de recevoir un traitement.
+L'ITT est donc particulièrement pertinent pour évaluer les programmes et les interventions à participation volontaire.
+
+Dans le code ci-dessous, nous créons des données simples avec une non-conformité unilatérale.
+Bien que le véritable effet du traitement pour les personnes qui ont effectivement reçu le traitement soit de 2, notre ITT estimé est plus petit (environ 1) car seules certaines des personnes assignées au traitement le reçoivent réellement.
 
 ```{r}
 set.seed(1234) # pour la reproductibilité
@@ -174,29 +175,30 @@ ITT<-coef(lm(Y~Z,data=samp))[2]
 
 4 Effet causal moyen pour ceux qui se conforment au traitement (complier average causal effect, CACE)
 ==
-What if you are interested in figuring out the effects of a treatment on those people who actually took up the treatment and not just those people that were administered the treatment? For example what is the effect of radio ads on voting behavior for those people that actually hear the ads?
+Que se passe-t-il si vous souhaitez déterminer l'effet du traitement sur les personnes qui ont effectivement suivi le traitement et pas seulement sur celles à qui le traitement a été administré ?
+Par exemple, quel est l'effet des publicités à la radio sur le comportement de vote des personnes qui entendent réellement les publicités ?
 
-This turns out to be a hard problem (for more on this see this guide).
-The reasons for non-compliance with treatment can be thought of as an omitted variable.
-While the receipt of treatment is no-longer independent of potential outcomes, the assignment of treatment status is.
-As long as random assignment had some positive effect on the probability of receiving treatment, we can use it as an instrument to identify the effects of treatment on the sub-population of subjects who comply with treatment assignment.
+Cela s'avère être un problème difficile (pour en savoir plus à ce sujet, consultez ce guide).
+Les raisons de non-conformité au traitement peuvent être considérées comme une variable omise.
+Alors que la réception du traitement n'est plus indépendante des résultats potentiels, l'assignation du statut de traitement l'est.
+Tant que l'assignation aléatoire a eu un effet positif sur la probabilité de recevoir un traitement, nous pouvons l'utiliser comme instrument pour identifier l'effet du traitement sur la sous-population de sujets qui se conforment à l'assignation du traitement.
 
-Following the notation of Angrist and Pischke,[^8] let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicate whether that subject actually received the treatment.
-Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
+Suivant la notation d'Angrist et Pischke,[^8] soit $Z$ un indicateur pour savoir si une observation a été assignée au traitement et $D_{i}$ indique si ce sujet a effectivement reçu le traitement.
+Les expériences avec non-conformité sont composées de "toujours preneurs" ($D_{i}=1$, indépendamment de $Z_{i}$), de "jamais-preneurs" ($D_{i}=0$ indépendamment de $Z_{i} $), et de conformistes ($D_{i}=1$ lorsque $Z_{i}=1$ et $0$ lorsque $Z_{i}=0$).[^9] Nous pouvons estimer l'effet causal moyen pour les conformistes (CACE), parfois aussi appelé effet moyen local du traitement (local average treatment effect, LATE), en pondérant l'ITT (l'effet de $Z$ sur $Y$) par l'efficacité de l'assignation aléatoire sur la prise de traitement (l'effet de $Z$ sur $D$).
 
 [^8]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
-[^9]: We typically assume monotonicity, meaning there are no defiers or people who only take the treatment when assigned to control ($D_{i}=1$ when $Z_i=0$) and refuse the treatment when assigned to treatment ($D_{i}=0$ when $Z_{i}=1$).
+[^9] : Nous supposons généralement la monotonie, ce qui signifie qu'il n'y a pas de non-conformistes, c'est à dire de personnes qui ne prennent le traitement que lorsqu'elles sont assignées au contrôle ($D_{i}=1$ quand $Z_i=0$) et refusent le traitement lorsqu'elles sont assignées au traitement ($D_{i}=0$ quand $Z_{i}=1$).
 
-$$CACE= \frac{Effect of Z on Y}{Effect of Z on D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
+$$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
-The estimator above highlights the fact that the ITT and CACE converge as we approach full compliance.
-Constructing standard errors for ratios is somewhat cumbersome and so we usually estimate a CACE using two-stage-least-squares regression with random assignment, $Z_i$, serving as instrument for treatment receipt $D_i$ in the first stage of the model.
-This approach simplifies the estimation of standard errors and allows for the inclusion of covariates as additional instruments.
-We demonstrate both strategies in the code below for data with two-sided non-compliance.
-Note, however, that when instruments are weak (e.g. random assignment had only a small effect on the receipt of treatment), instrumental variable estimators and their standard errors can be biased and inconsistent.[^10]
+L'estimateur ci-dessus met en évidence le fait que l'ITT et le CACE convergent à mesure que nous approchons d'une conformité totale.
+Calculer l'erreur type pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
+Cette approche simplifie l'estimation de l'erreur type et permet l'inclusion de covariables en tant qu'instruments supplémentaires.
+Dans le code ci-dessous, nous présentons les deux stratégies pour les données présentant une non-conformité bilatérale.
+Notez, cependant, que lorsque les instruments ne sont pas puissants (par exemple, l'assignation aléatoire n'a eu qu'un faible effet sur la réception du traitement), les estimateurs des variables instrumentales et leurs erreurs types peuvent être biaisés et incohérents.[^10]
 
-[^10]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
+[^10]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
 
 ```{r}
 set.seed(1234) # pour la reproductibilité
@@ -214,33 +216,35 @@ samp = data.frame(Z,D,Y)
 # Wald Estimator ITT<-coef(lm(Y~Z,data=samp))[2] ITT.D<-coef(lm(D~Z,data=samp))[2] CACE.wald<-ITT/ITT.D
 ```
 
-5 Population and Sample Average Treatment Effects
+5 Effet moyen du traitement sur une population ou un échantillon
 ==
-Often we want to generalize from our sample to make statements about some broader population of interest.[^11] Let $S_i$ be an indicator for whether an subject is in our sample.
-The sample average treatment effect (SATE) is defined simply as $E(Y_i(1)−Y_i(0)|S_i=1)$ and the population $E(Y_i(1)−Y_i(0))$.
-With a large random sample from a well-defined population with full compliance with treatment, our SATE are PATE are equal in expectation and so a good estimate for one (like a difference of sample means) will be a good estimate for the other.[^12]
+Souvent, à partir de notre échantillon, nous voulons généraliser des déclarations pour une population d'intérêt plus large.[^11]
+Soit $S_i$ un indicateur pour savoir si un sujet fait partie de notre échantillon.
+L'effet moyen du traitement pour l'échantillon (sample average treatment effect, SATE) est défini simplement comme $E(Y_i(1)−Y_i(0)|S_i=1)$ et la population $E(Y_i(1)−Y_i(0))$.
+Avec un grand échantillon aléatoire d'une population bien définie et une conformité totale au traitement, nos SATE et PATE sont égaux en espérance et donc une bonne estimation de l'un (comme une différence des moyennes d'échantillon) sera une bonne estimation de l'autre.[ ^12]
 
-[^11]: See Imai, King, and Stuart (2008) for a more detailed review of the issues discussed in this section.
+[^11]: Imai, King et Stuart (2008) pour un examen plus détaillé des questions abordées dans cette section.
 
-[^12]: Imbens, Guido, and Jeffrey M Wooldridge. 2007. What’s New in Econometrics? NBER.
+[^12]: Imbens, Guido et Jeffrey M Wooldridge. 2007. What’s New in Econometrics? NBER.
 
-In practice, the experimental pool may consist of a group of units selected in an unknown manner from a vaguely defined population of such units and compliance with treatment assignment may be less than complete.
-In such cases our SATE may diverge from the PATE and recovering estimates of each becomes more complicated.
-Imai, King, and Stuart (2008) decompose the divergence between these estimates into error that arises from sample selection and treatment imbalance.
-Error from sample selection arises from different distributions of (observed and unobserved) covariates in our sample and population.
-For example people in a medical trial often differ from the population for whom the drug would be available.
-Error from treatment imbalance reflects differences in covariates between treatment and control groups in our sample, perhaps because of non-random assignment and/or non-compliance.
+Dans la pratique, le pool expérimental peut consister en un groupe d'unités sélectionnées de manière inconnue à partir d'une population vaguement définie de ces unités et la conformité à l'assignation du traitement peut être moins que complète.
+Dans de tels cas, notre SATE peut diverger du PATE et la récupération des estimations de chacun devient plus compliquée.
+Imai, King et Stuart (2008) décomposent la divergence entre ces estimations en erreurs résultant de la sélection de l'échantillon et du déséquilibre de traitement.
+L'erreur de sélection de l'échantillon provient de différentes distributions de covariables (observées et non observées) dans notre échantillon et notre population.
+Par exemple, les personnes participant à un essai médical diffèrent souvent de la population pour laquelle le médicament serait disponible.
+L'erreur due au déséquilibre de traitement reflète les différences de covariables entre les groupes de traitement et de contrôle dans notre échantillon, peut-être en raison d'une assignation non aléatoire et/ou d'une non-conformité.
 
-While there are no simple solutions to the problems created by such error, there are steps you can take in both the design of your study and the analysis of your data to address these challenges to estimating the PATE or CACE/LATE.
-For example, including a placebo intervention provides additional information on the probability of receiving treatment, that can be used to re-weight the effect of actually receiving it (e.g Nickerson (2008)) in the presence of non-compliance.
-One could also use a model to re-weighting observations to adjust for covariate imbalance and the unequal probability of receiving the treatment, both within the sample and between a sample and the population of interest.[^13]
+Bien qu'il n'y ait pas de solutions simples aux problèmes créés par une telle erreur, vous pouvez prendre des mesures à la fois dans le design de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
+Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement (par exemple Nickerson (2008)) en présence de non-conformité.
+On pourrait également utiliser un modèle pour repondérer les observations afin d'ajuster le déséquilibre des covariables et la probabilité inégale de recevoir le traitement, à la fois au sein de l'échantillon et entre un échantillon et la population d'intérêt.[^13]
 
-[^13]: Angrist and Pischke (2008) provide a brief introduction of topics covered in more detail by Hirano, Imbens, and Ridder (2003), Aronow and Middleton (2013), Glynn and Quinn (2010), and Hartman et al. (forthcoming)
+[^13]: Angrist et Pischke (2008) fournissent une brève introduction des sujets traités plus en détail par Hirano, Imbens et Ridder (2003), Aronow et Middleton (2013), Glynn et Quinn (2010), et Hartman et al. (à venir)
 
-In the code below, we demonstrate several approaches to estimating these effects implemented in the CausalGAM package for R.[^14] Specifically, the package produces regression, inverse-propensity weighting (IPW), and augmented inverse-propensity weighting estimates of the ATE.
-Combining regression adjustment with IPW, the AIPW has the feature of being “doubly robust” in that the estimate is still consistent even if we have incorrectly specified either the regression model or the propensity score for the probability weighting.
+Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces effets mis en œuvre dans le package CausalGAM pour R.[^14]
+Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération IPW (inverse-propensity weighting) et par pondération IPW augmentée.
+En combinant l'ajustement de régression avec l'IPW, l'AIPW a la particularité d'être "doublement robuste" : l'estimation est toujours cohérente même si nous avons incorrectement spécifié le modèle de régression ou le score de propension pour la pondération de probabilité.
 
-[^14]: Glynn, Adam N, and Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
+[^14]: Glynn, Adam N et Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 # Exemple adapté de ?estimate.ATE
@@ -256,7 +260,7 @@ Y1 = Y0 + 1 + X1 + X2
 Y = D*Y1 + (1-D)*Y0 # Résultats observés
 samp = data.frame(X1,X2,D,Y) 
 
-# Estimer l'ATE avec AIPW, IPW, Regression pondérée
+# Estimer l'ATE avec l'AIPW, l'IPW ou une régression pondérée
 ATE.out <- estimate.ATE(pscore.formula = D ~ X1 +X2, 
                         pscore.family = binomial, 
                         outcome.formula.t = Y ~ X1 
@@ -271,27 +275,31 @@ ATE.out <- estimate.ATE(pscore.formula = D ~ X1 +X2,
                         var.gam.plot=FALSE, nboot=50)
 ```
 
-6 Average Treatment Effects on the Treated and the Control
+6 Effet moyen du traitement sur les traités et le contrôle
 ==
-To evaluate the policy implications of a particular intervention, we often need to know the effects of the treatment not just on the whole population but specifically for those to whom the treatment is administered We define the average effects of treatment among the treated (ATT) and the control (ATC) as simple counter-factual comparisons:
+Pour évaluer les implications politiques d'une intervention particulière, nous avons souvent besoin de connaître l'effet du traitement non seulement sur l'ensemble de la population mais spécifiquement pour ceux à qui le traitement est administré. Nous définissons l'effet moyen du traitement pour les traitées (ATT) et le contrôle (ATC) comme de simples comparaisons contrefactuelles :
 
 $$ATT=E(Y_i(1)-Y_i(0)|D_i=1)=E(Y_i(1)|D_i=1)-E(Y_i(0)|D_i=1)$$
 $$ATC=E(Y_i(1)-Y_i(0)|D_i=0)=E(Y_i(1)|D_i=0)-E(Y_i(0)|D_i=0)$$
 
-Informally, the ATT is the effect for those that we treated; ATC is what the effect *would* be for those we did not treat.
+Simplement, l'ATT est l'effet pour ceux que nous avons traités ; l'ATC est ce que l'effet *serait* pour ceux que nous n'avons pas traités.
 
-When treatment is randomly assigned and there is full compliance, the $ATE=ATT=ATC$, since $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ and $E(Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$ Often either because of the nature of the intervention or specific concerns about cost and ethnics, treatment compliance is incomplete and the ATE will not in general equal the ATT or ATC.
-In such instances, we saw in the previous section that we could re-weight observations by their probability of receiving the treatment to recover estimates of the ATE.
-The same logic can be extended to produce estimates of the ATT and ATC in both our sample and the population.[^15]
+Lorsque le traitement est assigné au hasard et que la conformité est totale, $ATE=ATT=ATC$, puisque $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ et $E( Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$.
+Souvent, en raison de la nature de l'intervention ou de préoccupations ethniques ou spécifiques au coût, la conformité du traitement est incomplète et l'ATE ne sera pas en général égal à l'ATT ou l'ATC.
+Dans de tels cas, nous avons vu dans la section précédente que nous pouvions repondérer les observations par leur probabilité de recevoir le traitement pour récupérer les estimations de l'ATE.
+La même logique peut être étendue pour produire des estimations de l'ATT et de l'ATC dans notre échantillon et dans la population.[^15]
 
-[^15]: See Hartman et al. (forthcoming) for an example of efforts to combine experimental and observational data to move from a sample ATE to an estimate of a population ATT.
+[^15]: Hartman et al. (à paraître) pour voir les efforts visant à combiner des données expérimentales et observationnelles pour passer d'un ATE pour un échantillon à un ATT pour une population.
 
-Below, we create an case where the probability of receiving treatment varies and but can be estimated using a propensity score model.[^16] The predicted probabilities from this model are then used as weights to recover the estimates of the ATE, ATT, and ATC.
-Inverse propensity score weighting attempts to balance the distribution of covariates between treatment and control groups when estimating the ATE.
-For the ATT, this weighting approach treats subjects in the the treated group as a sample from the target population (people who received the treatment) and weights subjects in the control by their odds of receiving the treatment.
-In a similar fashion, the estimate of the ATC weights treated observations to look like controls.
-The quality (unbiasedness) of these estimates is inherently linked to the quality of our models for predicting the receipt of treatment.
-Inverse propensity score weighting and other procedures produce balance between treatment and control groups on observed covariates, but unless we have the “true model” (and we almost never know the true model) the potential for bias from unobserved covariates remains and should lead us to interpret our the estimated ATT or ATC in light of the quality of the model that produced it.
+Ci-dessous, nous créons une étude de cas où la probabilité de recevoir un traitement varie et peut être estimée à l'aide d'un modèle de score de propension.[^16]
+Les probabilités prédites à partir de ce modèle sont ensuite utilisées comme pondérations pour récupérer les estimations de l'ATE, de l'ATT et de l'ATC.
+Une pondération inverse du score de propension tente d'équilibrer la distribution des covariables entre les groupes de traitement et de contrôle lors de l'estimation de l'ATE.
+Pour l'ATT, cette approche de pondération traite les sujets du groupe traité comme un échantillon de la population cible (personnes ayant reçu le traitement) et pondère les sujets du groupe de contrôle en fonction de leur probabilité de recevoir le traitement.
+
+De la même manière, l'estimation de l'ATC pondère les observations pour les traités pour qu'elles ressemblent au contrôle.
+La qualité (non biaisée) de ces estimations est intrinsèquement liée à la qualité de nos modèles pour prédire la réception du traitement.
+La pondération inverse du score de propension et d'autres procédures produisent un équilibre entre les groupes de traitement et de contrôle sur les covariables observées.
+Mais à moins d'avoir le "vrai modèle" (et nous ne connaissons presque jamais le vrai modèle), le potentiel biais des covariables non observées demeure et devrait nous conduire à interpréter notre ATT ou ATC estimé à la lumière de la qualité du modèle qui l'a produit.
 
 [^16]: Rosenbaum and Rubin (1983)
 
@@ -300,18 +308,18 @@ set.seed(1234) # pour la reproductibilité
 n = 1000 # taille de la population
 X1 = rnorm(n) # covariables de pré-traitement
 X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Probabilité de traitement inégale
+p = pnorm(-0.5 + 0.75*X2) # probabilité de traitement inégale
 D = rbinom(n, 1, p) # traitement
-Y0 = rnorm(n) # Résultats potentiels
+Y0 = rnorm(n) # résultats potentiels
 Y1 = Y0 +1 +X1 +X2 
-Y = D*Y1 + (1-D)*Y0 # Résultats observés
+Y = D*Y1 + (1-D)*Y0 # résultats observés
 samp = data.frame(X1,X2,D,Y) 
-# Propensity score model 
+# modèle du score de propension
 samp$p.score<-
 predict(glm(D~X1+X2,samp,family=binomial),type="response") 
 
 
-# Inverse Propability Weights 
+# pondération inverse du score de propension
 samp$W.ipw<-with(samp, ifelse(D==1,1/p.score,1/(1-p.score))) 
 samp$W.att<-with(samp, ifelse(D==1,1,p.score/(1-p.score))) 
 samp$W.atc<-with(samp, ifelse(D==1,(1-p.score)/p.score,1)) 
@@ -322,28 +330,33 @@ ATT.ipw<-coef(lm(Y~D,data=samp,weights=W.att))[2]
 ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 ```
 
-7 Quantile Average Treatment Effects
+7 effet moyen de traitement par quantile
 ==
-The ATE focuses on the middle, in a way on the effect for a typical person, but we often also care about the distributional consequences of our treatment.
-We want to know not just whether our treatment raised average income, but also whether it made the distribution of income in the study more or less equal.
+L'ATE se concentre sur le milieu, en quelque sorte sur l'effet pour une personne typique, mais nous nous soucions souvent aussi des conséquences distributives de notre traitement.
+Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la répartition des revenus dans l'étude plus ou moins égale.
 
-Claims about distributions are difficult.
-Even though we can estimate the ATE from a difference of sample means, in general, we cannot make statements about the joint distribution of potential outcomes $(F(Yi(1),Yi(0)))$ without further assumptions.
-Typically, these assumptions either limit our analysis to a specific sub-population[^17] or require us to assume some form of rank invariance in the distribution of responses to treatment effects[^18] and Frölich and Melly (2010) for fairly concise discussions of these issues and Abbring and Heckman (Abbring, Jaap H, and James J Heckman. 2007. “Econometric Evaluation of Social Programs, Part III: Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation.” Handbook of Econometrics 6. Elsevier: 5145–5303.) (2007) for a thorough overview.
+Les affirmations concernant les distributions sont difficiles.
+Même si nous pouvons estimer l'ATE à partir d'une différence des moyennes d'échantillon, en général, nous ne pouvons pas faire de déclarations sur la distribution conjointe des résultats potentiels $(F(Yi(1),Yi(0)))$ sans hypothèse supplémentaire.
+En règle générale, ces hypothèses limitent notre analyse à une sous-population spécifique[^17] ou nous obligent à supposer une certaine forme d'invariance de rang dans la distribution des réponses à l'effet du traitement[^18].
+Voir Frölich et Melly (2010) pour une discussion assez concise sur ces questions.
+Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric Evaluation of Social Programs, Part III : Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation". Handbook of Econometrics 6. Elsevier: 5145-5303.) (2007) pour un aperçu complet.
 
-[^17]: Abadie, Angrist, and Imbens (2002)
+[^17]: Abadie, Angrist et Imbens (2002)
 
-[^18]:Chernozhukov and Hansen (2005). That is, treatment can have heterogeneous effects but the ordering of potential outcomes is preserved. See Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+[^18]: Chernozhukov et Hansen (2005). C'est-à-dire que le traitement peut avoir des effets hétérogènes, mais l'ordre des résultats potentiels est préservé.
+Voir Angrist, Joshua, et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
-If these assumptions are justified for our data, we can obtain consistent estimates of quantile treatment effects (QTE) using quantile regression.[^19] Just as linear regression estimates the ATE as a difference in means (or, when covariates are used in the model, from a conditional mean), quantile regression fits a linear model to a conditional quantile and this model can then be used to estimates the effects of treatment for that particular quantile of the outcome.
-The approach can be extended to include covariates and instruments for non-compliance.
-Note that the interpretation of the QTE is for a given quantile, not an individual at that quantile.
+Si ces hypothèses sont justifiées pour nos données, nous pouvons obtenir des estimations cohérentes de l'effet du traitement par quantile (QTE) en utilisant la régression par quantile.[^19]
+Tout comme la régression linéaire estime l'ATE comme une différence des moyennes (ou, lorsque des covariables sont utilisées dans le modèle, à partir d'une moyenne conditionnelle),
+la régression par quantile ajuste un modèle linéaire à un quantile conditionnel et ce modèle peut ensuite être utilisé pour estimer l'effet du traitement pour ce quantile particulier du résultat.
+L'approche peut être étendue pour inclure des covariables et des instruments de non-conformité.
+Notez que l'interprétation du QTE est pour un quantile donné, pas un individu à ce quantile.
 
-[^19]: See Koenker, Roger, and Kevin Hallock. 2001. “Quantile Regression: An Introduction.” Journal of Economic Perspectives 15 (4): 43–56. for a concise overview of quantile regression
+[^19]: Voir Koenker, Roger et Kevin Hallock. 2001. “Quantile Regression: An Introduction.” Journal of Economic Perspectives 15 (4): 43–56. pour un aperçu concis de la régression par quantile
 
-Below we show a case where the ATE is 0, but the treatment effect is negative for low quantiles of the response and positive for high quantiles.
-Estimating quantile treatment effects provide another tool for detecting heterogeneous effects and allow us to describe distributional consequences of our intervention.
-These added insights come at the cost of requiring more stringent statistical assumptions of our data and more nuanced interpretations of our results.
+Ci-dessous, nous montrons un cas où l'ATE est de 0, mais l'effet du traitement est négatif pour les faibles quantiles du résultat et positif pour les quantiles élevés.
+L'estimation de l'effet du traitement par quantile fournit un autre outil pour détecter les effets hétérogènes et nous permet de décrire les conséquences distributionnelles de notre intervention.
+Ces informations supplémentaires nécessitent des hypothèses statistiques plus strictes pour nos données et des interprétations plus nuancées de nos résultats.
 
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
 set.seed(1234) # pour la reproductibilité
@@ -363,16 +376,18 @@ seq(.05,.95,length.out=10),data=samp,method = "fn")
 plot(summary(QTE),parm=2,main="",ylab="QTE",xlab="Quantile",mar = c(5.1, 4.1, 2.1, 2.1)) 
 ```
 
-8 Mediation Effects
+8 Effet de médiation
 ==
-Sometimes we want to describe not just the magnitude and significance of an observed causal effect, but also the mechanism (or mechanisms) that produced it.
-Did our intervention raise turnout in the treatment group, in part, by increasing these subjects’ sense of political efficacy? If so, how much of that total effect can be attributed to the mediated effects of our treatment on efficacy and efficacy on turnout?
+Parfois, nous voulons décrire non seulement l'ampleur et la significance d'un effet causal observé, mais aussi le mécanisme (ou les mécanismes) qui l'ont produit.
+Notre intervention a-t-elle augmenté la participation dans le groupe de traitement, en partie, en augmentant le sentiment d'utilité politique pour ces sujets ?
+Si oui, quelle part de cet effet total peut être attribuée aux effets de médiation de notre traitement sur le sentiment d'utilité ; et de ce sentiment d'utilité sur la participation au vote ?
 
-Baron and Kenny (1986) offer a general framework for thinking about mediation by decomposing the total effect of treatment into its indirect effect on a mediator that then effects the outcome, called an average causal mediation effect (ACME), and the remaining average direct effect (ADE) of the treatment.
-Unbiased estimation of these effects, however, requires a set strong assumptions about the relationship between treatment, mediators, outcomes, and potential confounders, collectively called sequential ignorability (Imai, Keele, and Yamamoto (2010), Bullock, Green, and Ha (2010)).[^20]
+Baron et Kenny (1986) proposent un cadre général de réflexion sur la médiation en décomposant l'effet total du traitement en son effet indirect sur un médiateur qui affecte ensuite le résultat, appelé effet causal moyen de médiation (average causal mediation effect, ACME), et l'effet moyen direct du traitement (average direct effect, ADE).
+L'estimation impartiale de ces effets, cependant, nécessite un ensemble d'hypothèses fortes sur la relation entre le traitement, les médiateurs, les résultats et les facteurs de confusion potentiels, collectivement appelés ignorabilité séquentielle (Imai, Keele et Yamamoto (2010), Bullock, Green et Ha (2010 )).[^20]
 
-[^20]:  Formally, Imai, Keele, and Yamamoto (2010) define the necessary conditions of sequential ignorability as: ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$.
-That is, first, given pre-treatment covariates, the potential outcomes of Y and M are independent of treatment D, and, second, that conditional on pre-treatment covariates and treatment status, potential outcomes are also independent of the mediator.
+[^20] : Formellement, Imai, Keele et Yamamoto (2010) définissent les conditions nécessaires d'ignorabilité séquentielle comme : ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$.
+C'est-à-dire que, premièrement, étant donné les covariables de pré-traitement, les résultats potentiels de Y et M sont indépendants du traitement D
+et, deuxièmement, conditionnés aux covariables de pré-traitement et au statut du traitement, les résultats potentiels sont également indépendants du médiateur.
 
 Most causal effects likely operate through multiple channels, and so an assumption of sequential ignorability for your experiment can be hard to justify.
 For example, the top row in the figure below illustrates situations in which sequential ignorability holds, while the bottom row depicts two (of many possible) cases in which sequential ignorability is violated, and mediation analysis is biased.
