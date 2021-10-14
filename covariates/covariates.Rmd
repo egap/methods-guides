@@ -289,75 +289,72 @@ Voici un échantillon de points de vue :
 
 - Mutz, Pemantle et Pham (2016) soutiennent que, à moins qu'il n'y ait une attrition différentielle, la pratique consistant à sélectionner des covariables sur la base des déséquilibres observés est "non seulement inutile" mais "même pas utile ... et peut en fait être préjudiciable", car cela invalide les intervalles de confiance, détériore la précision (par rapport à l'ajustement prédéfini pour les covariables prédictives) et ouvre la porte à tout.^[Diana C. Mutz, Robin Pemantle et Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
 
-- Permutt (1990), en utilisant la théorie et des simulations pour étudier des scénarios spécifiques, constate que lorsqu'un test d'équilibre est utilisé pour décider s'il faut ajuster pour une covariable, le test de signification pour l'effet du traitement est prudent (c'est-à-dire qu'il a un vrai type I probabilité d'erreur inférieure à son niveau nominal).
-Il écrit : "Une plus grande puissance peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes." Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : « Choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
+- Permutt (1990), en utilisant la théorie et des simulations pour étudier des scénarios spécifiques, constate que lorsqu'un test d'équilibre est utilisé pour décider s'il faut ajuster pour une covariable, le test de signification pour l'effet du traitement est conservatif (c'est-à-dire qu'il a une probabilité réelle d'erreur de type I inférieure à son niveau nominal).
+Il écrit : "une plus grande puissance statistique peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes." Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : "choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
 Après tout, certaines erreurs de type I peuvent être plus graves que d'autres.
-Signaler une différence significative dans les résultats qui peut être expliquée comme l'effet d'une covariable peut être une erreur plus embarrassante que de signaler une qui disparaît lors de la réplication mais sans explication simple.
+Signaler une différence significative dans les résultats qui peut être expliquée comme l'effet d'une covariable peut être une erreur plus embarrassante que de signaler une erreur qui disparaît lors de la répétition mais sans explication simple.
 Des considérations similaires peuvent s'appliquer aux erreurs de type II.
-Un résultat positif qui dépend de l'ajustement pour une covariable peut de toute façon être considéré comme moins convaincant qu'un test positif à deux échantillons, de sorte que l'erreur de ne pas tirer une conclusion aussi positive peut être moins grave.
-Ces justifications, cependant, viennent de l'extérieur de la théorie formelle des tests d'hypothèses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
+Un résultat positif qui dépend de l'ajustement de covariable peut de toute façon être considéré comme moins convaincant qu'un test positif pour deux échantillons, de sorte que l'erreur de ne pas conclure aussi assurément peut être moins grave.
+Ces justifications, cependant, sont extérieures à la théorie formelle des tests d'hypothèses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
 
-- Permutt (1990), using theory and simulations to study specific scenarios, finds that when a balance test is used to decide whether to adjust for a covariate, the significance test for the treatment effect is conservative (i.e., it has a true Type I error probability below its nominal level).
-He writes, "Greater power can be achieved by always adjusting for a covariate that is highly correlated with the response regardless of its distribution between groups." However, he doesn't completely rule out considering observed imbalances: "Choosing covariates on the basis of the difference between the means in the treatment and control groups is not irrational.
-After all, some type I errors may be more serious than others.
-Reporting a significant difference in outcome which can be explained away as the effect of a covariate may be a more embarrassing error than reporting one that happens to go away on replication but without an easy explanation.
-Similar considerations may apply to type II errors.
-A positive result that depends on adjustment for a covariate may be seen as less convincing than a positive two-sample test anyway, so that the error of failing to draw such a positive conclusion may be less serious.
-These justifications, however, come from outside the formal theory of testing hypotheses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
+- Altman (2005) écrit : "il semble de loin préférable de choisir les variables à ajuster sans tenir compte de l'ensemble de données réel à disposition". Il recommande de contrôler les covariables fortement prédictives, ainsi que celles qui ont été utilisées dans le découpage par bloc.
+Cependant, il aborde également un dilemme : "dans la pratique, un déséquilibre peut survenir lorsque le besoin éventuel d'ajustement n'a pas été anticipé.
+Que doivent faire les chercheurs ? Ils pourraient choisir d'ignorer le déséquilibre ; comme indiqué, ce serait tout à fait approprié.
+La difficulté est alors une question de crédibilité.
+Les lecteurs de leur article (y compris les examinateurs et les éditeurs) peuvent se demander si le résultat observé a été influencé par la distribution inégale d'une ou plusieurs covariables de base.
+Il est toujours possible, et sans doute conseillé, d'effectuer une analyse ajustée, mais maintenant avec la reconnaissance explicite qu'il s'agit d'une analyse exploratoire plutôt que définitive, et que l'analyse non ajustée doit être considérée comme la principale.
+Évidemment, si les analyses simples et ajustées donnent sensiblement le même résultat, alors il n'y a aucune difficulté d'interprétation.
+Ce sera généralement le cas.
+Cependant, si les résultats des deux analyses diffèrent, alors il y a un vrai problème.
+L'existence d'un tel écart doit jeter un doute sur la véracité du résultat global (non ajusté).
+La situation est similaire aux difficultés d'interprétation qui surviennent avec des comparaisons de sous-groupes non planifiées.
+Une suggestion dans de telles circonstances est d'essayer d'imiter ce qui aurait été fait si le problème avait été anticipé, à savoir d'ajuster non pas les variables qui sont observées comme étant déséquilibrées, mais toutes les variables qui auraient été identifiées à l'avance comme prédictives.
+Une source indépendante pourrait être utilisée pour identifier ces variables.
+Alternativement, les données de l'essai pourraient être utilisées pour déterminer quelles variables sont prédictives.
+Cette stratégie pourrait également être pré-spécifiée dans le protocole de l'étude.
+Étant donné que cette analyse serait effectuée sous réserve d'un déséquilibre observé, elle n'élimine pas le biais et ne peut donc pas être considérée comme pleinement satisfaisante."^[Douglas G. Altman (2005), ["Covariate Imbalance, Adjustment for,"](http://doi.org/10.1002/0470011815.b2a01015) in _Encyclopedia of Biostatistics_.]
 
-- Altman (2005) writes, "It seems far preferable to choose which variables to adjust for without regard to the actual data set to hand." He recommends controlling for highly prognostic covariates, as well as any that were used in blocking.
-However, he also discusses a dilemma: "In practice, imbalance may arise when the possible need for adjustment has not been anticipated.
-What should the researchers do? They might choose to ignore the imbalance; as noted, this would be entirely proper.
-The difficulty then is one of credibility.
-Readers of their paper (including reviewers and editors) may question whether the observed finding has been influenced by the unequal distribution of one or more baseline covariates.
-It is still possible, and arguably advisable, to carry out an adjusted analysis, but now with the explicit acknowledgment that this is an exploratory rather than definitive analysis, and that the unadjusted analysis should be taken as the primary one.
-Obviously, if the simple and adjusted analyses yield substantially the same result, then there is no difficulty of interpretation.
-This will usually be the case.
-However, if the results of the two analyses differ, then there is a real problem.
-The existence of such a discrepancy must cast some doubt on the veracity of the overall (unadjusted) result.
-The situation is similar to the difficulties of interpretation that arise with unplanned subgroup comparisons.
-One suggestion in such circumstances is to try to mimic what would have been done if the problem had been anticipated, namely to adjust not for variables that are observed to be unbalanced, but for all variables that would have been identified in advance as prognostic.
-An independent source could be used to identify such variables.
-Alternatively, the trial data could be used to determine which variables are prognostic.
-This strategy too could be prespecified in the study protocol.
-Because this analysis would be performed conditionally on the observed imbalance, it does not remove bias and thus cannot be considered fully satisfactory."^[Douglas G. Altman (2005), ["Covariate Imbalance, Adjustment for,"](http://doi.org/10.1002/0470011815.b2a01015) in _Encyclopedia of Biostatistics_.]
+- Tukey (1991) note que les déséquilibres observés peuvent justifier un ajustement en tant que contrôle de robustesse : bien que "la plupart des statisticiens" accepteraient une analyse d'un essai clinique randomisé qui ne tient pas compte des covariables, "certains cliniciens, et certains statisticiens, semble-t-il, aimeraient être plus sceptiques (peut-être à titre d'analyse supplémentaire) en demandant une analyse qui tienne compte des déséquilibres observés pour ces covariables.
+Gagner plus de confiance dans les résultats d'une telle analyse est en effet approprié, car le degré de protection contre les conséquences d'une randomisation inadéquate ou la survenue (aléatoire) d'une randomisation inhabituelle est considérablement augmenté par l'ajustement.
+_Une plus grande sécurité, plutôt qu'une précision accrue ... sera souvent la raison principale de l'ajustement de la covariance dans un essai randomisé._ ...
+L'objectif principal de permettre [l'ajustement] pour les covariables dans un essai _randomisé_ est défensif : pour indiquer clairement que l'analyse a rempli ses obligations scientifiques."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italics in the original.]
 
-- Tukey (1991) notes that observed imbalances may justify adjustment as a robustness check: Although "most statisticians" would accept an analysis of a randomized clinical trial that doesn't adjust for covariates, "Some clinicians, and some statisticians it would seem, would like to be more sceptical, (perhaps as a supplemental analysis) asking for an analysis that takes account of observed imbalances in these recorded covariates.
-Feeling more secure about the results of such an analysis is indeed appropriate, since the degree of protection against either the consequences of inadequate randomization or the (random) occurrence of an unusual randomization is considerably increased by adjustment.
-_Greater security, rather than increased precision ... will often be the basic reason for covariance adjustment in a randomized trial._ ...
-The main purpose of allowing [adjusting] for covariates in a _randomized_ trial is defensive: to make it clear that analysis has met its scientific obligations."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italics in the original.]
+- Certains statisticiens soutiennent que nos inférences devraient être conditionnelles à une mesure du déséquilibre des covariables --- en d'autres termes, lors de l'évaluation du biais, de la variance et de l'erreur quadratique moyenne d'une estimation ponctuelle ou de la probabilité de couverture d'un intervalle de confiance, au lieu de considérer toutes les randomisations possibles, il peut être plus pertinent de ne considérer que les randomisations qui produiraient un déséquilibre des covariables similaire à celui que nous observons.
+De ce point de vue, les déséquilibres observés peuvent être pertinents pour le choix de l'estimateur.^[Voir, par exemple : D. R. Cox et N. Reid (2000), _The Theory of the Design of Experiments_, pp. 29--32 ; D. Holt et T. M. F. Smith (1979), "Post Stratification", _Journal of the Royal Statistical Society, Series A (General)_ 142: 33--46; Richard M. Royall (1976), "Current Advances in Sampling Theory: Implications for Human Observational Studies," _American Journal of Epidemiology_ 104: 463--474.
+Pour une introduction aux désaccords philosophiques sur l'inférence statistique, voir Bradley Efron (1978), ["Controversies in the Foundations of Statistics,"](http://www.maa.org/programs/maa-awards/writing-awards/controversies-in-the-foundations-of-statistics) _American Mathematical Monthly_ 85: 231--246.]
 
-- Some statisticians argue that our inferences should be conditional on a measure of covariate imbalance---in other words, when assessing the bias, variance, and mean squared error of a point estimate or the coverage probability of a confidence interval, instead of considering all possible randomizations, it may be more relevant to consider only those randomizations that would yield a covariate imbalance similar to the one we observe.
-From this perspective, observed imbalances may be relevant to the choice of estimator.^[See, e.g.: D. R. Cox and N. Reid (2000), _The Theory of the Design of Experiments_, pp. 29--32; D. Holt and T. M. F. Smith (1979), "Post Stratification," _Journal of the Royal Statistical Society, Series A (General)_ 142: 33--46; Richard M. Royall (1976), "Current Advances in Sampling Theory: Implications for Human Observational Studies," _American Journal of Epidemiology_ 104: 463--474.
-For an introduction to philosophical disagreements about statistical inference, see Bradley Efron (1978), ["Controversies in the Foundations of Statistics,"](http://www.maa.org/programs/maa-awards/writing-awards/controversies-in-the-foundations-of-statistics) _American Mathematical Monthly_ 85: 231--246.]
 
-- Lin, Green, and Coppock (2016) write: "Covariates should generally be chosen on the basis of their expected ability to help predict outcomes, regardless of whether they appear well-balanced or imbalanced across treatment arms.
-But there may be occasions when the covariate list specified in the PAP [pre-analysis plan] omitted a potentially important covariate (due to either an oversight or the need to keep the list short when N is small) with a nontrivial imbalance.
-Protection against ex post bias (conditional on the observed imbalance) is then a legitimate concern." However, they recommend that if observed imbalances are allowed to influence the choice of covariates, "the balance checks and decisions about adjustment should be finalized before we see unblinded outcome data," "the _direction_ of the observed imbalance (e.g., whether the treatment group or the control group appears more advantaged at baseline) should not be allowed to influence decisions about adjustment," and the originally pre-specified estimator should "always be reported and labeled as such, even if alternative estimates are also reported."^[Winston Lin, Donald P. Green, and Alexander Coppock (2016), ["Standard Operating Procedures for Don Green’s Lab at Columbia,"](https://github.com/acoppock/Green-Lab-SOP) version 1.05, June 7. Italics in the original.]
 
-7 When not to do it
+- Lin, Green et Coppock (2016) écrivent : "Les covariables doivent généralement être choisies sur la base de leur capacité attendue à aider à prédire les résultats, qu'elles semblent bien équilibrées ou déséquilibrées entre les bras de traitement.
+Mais il peut y avoir des occasions où la liste de covariables spécifiée dans le PAP [plan de pré-analyse] a omis une covariable potentiellement importante (en raison d'un oubli ou de la nécessité de garder la liste courte lorsque N est petit) avec un déséquilibre non négligeable.
+La protection contre les biais ex post (conditionnés au déséquilibre observé) est alors une préoccupation légitime.
+
+Cependant, ils recommandent : "si les déséquilibres observés sont autorisés à influencer le choix des covariables, les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat, la _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement", et l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".
+."^[Winston Lin, Donald P. Green et Alexander Coppock (2016), ["Standard Operating Procedures for Don Green's Lab at Columbia,"](https : //github.com/acoppock/Green-Lab-SOP) version 1.05, 7 juin. Italique dans l'original.]
+
+7 Quand ne pas le faire
 ==
-It is a bad idea to adjust for covariates when you think those covariates could have been influenced by your treatment.
-This is one of the reasons that many covariates are collected from baseline surveys; sometimes covariates that are collected from surveys after intervention could reflect the effects of the treatment rather than underlying characteristics of the subject.
-Adjusting for covariates that are affected by the treatment---“post-treatment” covariates---can cause bias.
+C'est une mauvaise idée d'ajuster les covariables lorsque vous pensez que ces covariables ont pu être influencées par votre traitement.
+C'est l'une des raisons pour lesquelles de nombreuses covariables sont collectées à partir des enquêtes de base ; parfois, les covariables recueillies à partir d'enquêtes après l'intervention pourraient refléter l'effet du traitement plutôt que les caractéristiques sous-jacentes du sujet.
+L'ajustement pour les covariables qui sont affectées par le traitement --- les covariables "post-traitement" --- peut entraîner un biais.
 
-Suppose, for example, that Giné and Mansuri had collected data on how many political rallies a woman attended after receiving the treatment.
-In estimating the treatment effect on independence of political choice, you may be tempted to include this variable as a covariate in your regression.
-But including this variable, even if it strongly predicts the outcome, may distort the estimated effect of the treatment.
+Supposons, par exemple, que Giné et Mansuri aient collecté des données sur le nombre de rassemblements politiques auxquels une femme a assisté après avoir reçu le traitement.
+En estimant l'effet du traitement sur l'indépendance du choix politique, vous pourriez être tenté d'inclure cette variable comme covariable dans votre régression.
+Mais inclure cette variable, même si elle prédit fortement le résultat, peut fausser l'effet estimé du traitement.
 
-Let’s create this fake variable, which is correlated (like the outcome measure) with baseline covariates and also with treatment.
-Here, by construction, the treatment effect on number of political rallies attended is 2.
-When we included the rallies variable as a covariate, the estimated average treatment effect on independence of candidate choice averaged 0.54 across the 10,000 replications.
-Recall that the true treatment effect on this outcome is 1.
-This is severe bias, all because we controlled for a post-treatment covariate!^[The estimated bias is $-$ 0.459 with a margin of error (at the 95% confidence level) of 0.002.] This bias results from the fact that the covariate is correlated with treatment.
+Créons cette fausse variable, qui est corrélée (comme la mesure des résultats) avec les covariables de base et également avec le traitement.
+Ici, par construction, l'effet du traitement sur le nombre de rassemblements politiques suivis est de 2.
+Lorsque nous avons inclus la variable des rallyes comme covariable, l'effet moyen du traitement estimé sur l'indépendance du choix du candidat était en moyenne de 0,54 sur les 10 000 répétitions.
+Rappelons que le véritable effet du traitement sur ce résultat est 1.
+Il s'agit d'un biais important, tout cela parce que nous avons contrôlé avec une covariable post-traitement !^[Le biais estimé est de $-$ 0,459  avec une marge d'erreur (au niveau de confiance de 95 %) de 0,002.] Ce biais résulte du fait que la covariable est corrélée au traitement.
 
 ```{r, error=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
-# Create post-treatment covariate that's correlated with pre-treatment covariates
+# Créer une covariable post-traitement corrélée avec des covariables pré-traitement
 rallies0 = round(.5*owns.id.card + has.formal.schooling + 1.5*TV.access + log(age))
 rallies1 = rallies0 + 2
 rallies.mat = rallies1 * Z.mat + rallies0 * (1-Z.mat)
  
-# Estimate ATE with new model that includes the post-treatment covariate
+# Estimer l'ATE avec un nouveau modèle qui inclut la covariable post-traitement
 
 adjust.for.post = function(Y, Z, X) {
   coef(lm(Y ~ Z + X + owns.id.card + has.formal.schooling + age + TV.access))[2]
@@ -369,47 +366,48 @@ for (i in 1:Replications) {
   post.adjusted.estimates[i]  =  adjust.for.post(Y.mat[,i], Z.mat[,i], rallies.mat[,i])
 }
 
-# Estimated bias of the new estimator
+# Biais estimé du nouvel estimateur
 mean(post.adjusted.estimates) - true.treatment.effect
 
-# Margin of error (at 95% confidence level) for the estimated bias
+# Marge d'erreur (au niveau de confiance de 95 %) pour le biais estimé
 1.96 * sd(post.adjusted.estimates) / sqrt(Replications)
 ```
 
-Just because you should not adjust for post-treatment covariates does not mean you cannot collect covariate data post-treatment, but you must exercise caution.
-Some measures could be collected post-treatment but are unlikely to be affected by treatment (e.g., age and gender).
-Be careful about measures that may be subject to evaluation-driven effects, though: for example, treated women may be more acutely aware of the expectation of political participation and may retrospectively report that they were more politically active than they actually were several years prior.
+Ce n'est pas parce que vous ne devez pas ajuster les covariables post-traitement que vous ne pouvez pas collecter de données sur les covariables post-traitement, mais vous devez faire preuve de prudence.
+Certaines mesures pourraient être recueillies après le traitement, mais il est peu probable qu'elles soient affectées par le traitement (par exemple, l'âge et le sexe).
+Soyez prudent avec les mesures qui peuvent être soumises à des effets d'évaluation : par exemple, les femmes traitées peuvent être plus conscientes des attentes de participation politique et peuvent déclarer rétrospectivement qu'elles étaient plus actives politiquement qu'elles ne l'étaient réellement plusieurs années auparavant.
 
-8 Concerns about small-sample bias
+8 Préoccupations concernant le biais lié aux petits échantillons
 ==
-In small samples, regression adjustment may produce a biased estimate of the average treatment effect.^[David A. Freedman (2008), "On Regression Adjustments in Experiments with Several Treatments," _Annals of Applied Statistics_ 2: 176--196.
-See also Winston Lin's blog posts ([part I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) and [part II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849)) discussing his response to Freedman.] Some simulations have suggested that this bias tends to be negligible when the number of randomly assigned units is greater than twenty.[^7] If you’re working with a small sample, you may want to use an unbiased covariate adjustment method such as post-stratification (splitting the sample into subgroups based on the values of one or more baseline covariates, computing the treatment--control difference in mean outcomes for each subgroup, and taking a weighted average of these subgroup-specific treatment effect estimates, with weights proportional to sample size).^[Miratrix, Sekhon, and Yu (2013), cited above.]
+Dans les petits échantillons, l'ajustement par régression peut produire une estimation biaisée de l'effet moyen du traitement.^[David A. Freedman (2008), "On Regression Adjustments in Experiments with Several Treatments," _Annals of Applied Statistics_ 2: 176--196.
+Voir aussi les articles de blog de Winston Lin ([partie I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) et [partie II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849)) à propos de sa réponse à Freedman.]
+Certaines simulations ont suggéré que ce biais a tendance à être négligeable lorsque le nombre d'unités assignées au hasard est supérieur à vingt.[^7] Si vous travaillez avec un petit échantillon, vous pouvez utiliser une méthode d'ajustement de covariable sans biais telle que la post-stratification (diviser l'échantillon en sous-groupes sur la base des valeurs d'une ou plusieurs covariables de base, calculer la différence des moyennes traitement-contrôle pour les résultats de chaque sous-groupe, et prendre une moyenne pondérée de ces estimations d'effet du traitement spécifiques au sous-groupe, avec des poids proportionnels à la taille de l'échantillon).^[Miratrix, Sekhon et Yu (2013), cités ci-dessus.]
 
-[^7]: Green, Donald P. and Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Working paper: http://ssrn.com/abstract=1466886
+[^7]: Green, Donald P. et Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Article en cours : http://ssrn.com/abstract=1466886
 
-9 How to make your covariate adjustment decisions transparent
+9 Comment rendre vos décisions d'ajustement de covariable transparentes
 ==
-In the interests of transparency, if you adjust for covariates, pre-specify your models and report both unadjusted and covariate-adjusted estimates.
+Dans un souci de transparence, si vous ajustez les covariables, pré-spécifiez vos modèles et déclarez à la fois les estimations non corrigées et corrigées des covariables.
 
-The simulations above have demonstrated that results may change slightly or not-so-slightly depending on which covariates you choose to include in your model.
-We’ve highlighted some rules of thumb here: include only pre-treatment covariates that are predictive of outcomes.
-Deciding which covariates to include, though, is often a subjective rather than an objective enterprise, so another rule of thumb is to be totally transparent about your covariate decisions.
-Always include the simplest model---the simple regression of outcome on treatment without controlling for covariates---in your paper or appendix to supplement the findings of your model including covariates.
+Les simulations ci-dessus ont montré que les résultats peuvent changer légèrement ou pas si légèrement selon les covariables que vous choisissez d'inclure dans votre modèle.
+Nous avons mis en évidence quelques règles empiriques ici : n'incluez que les covariables de pré-traitement qui sont prédictives des résultats.
+Décider quelles covariables inclure, cependant, est souvent une entreprise subjective plutôt qu'objective, donc une autre règle de base est d'être totalement transparent sur vos décisions de covariables.
+Incluez toujours le modèle le plus simple --- la régression simple des résultats du traitement sans contrôle des covariables --- dans votre article ou annexe pour compléter les résultats de votre modèle, y compris les covariables.
 
-Another way to minimize your readers’ concern that you went fishing for the particular combination of covariates that gave results favorable to your hypotheses is to pre-specify your models in a pre-analysis plan.^[For more discussion of pre-analysis plans, see, e.g., Benjamin A. Olken (2015), ["Promises and Perils of Pre-Analysis Plans,"](http://doi.org/10.1257/jep.29.3.61) _Journal of Economic Perspectives_ 29 (3): 61--80.] This gives you the opportunity to explain before you see the findings which pre-treatment covariates you expect to be predictive of the outcome.
-You can even write these regressions out in R using fake data, as done here, so that when your results from the field arrive, all you need to do is run your code on the real data.
-These efforts are a useful way of binding your own hands as a researcher and improving your credibility.
+Pour minimiser la crainte de vos lecteurs que vous ayez recherché la combinaison particulière de covariables qui produit des résultats favorables à votre hypothèse, pré-spécifiez vos modèles dans un plan de pré-analyse.^[Pour plus de détails sur les plans de pré-analyse, voir, par exemple, Benjamin A. Olken (2015), ["Promises and Perils of Pre-Analysis Plans,"](http://doi.org/10.1257/jep.29.3.61) _Journal of Economic Perspectives_ 29 (3) : 61--80.] Cela vous donne l'opportunité d'expliquer, avant de voir les résultats, quelles covariables de pré-traitement seront prédictives du résultat.
+Vous pouvez même écrire ces régressions dans R en utilisant de fausses données, comme ici, de sorte que lorsque vos résultats du terrain arrivent, tout ce que vous avez à faire est d'exécuter votre code sur les données réelles.
+Ces efforts sont un moyen utile de vous lier les mains en tant que chercheur et d'améliorer votre crédibilité.
 
-10 Covariates can help you investigate the integrity of the random assignment
+10 Les covariables peuvent vous aider à enquêter sur l'intégrité de l'assignation aléatoire
 ==
-Sometimes it is unclear whether random assignment actually occurred (or whether it occurred using the procedure that the researcher envisions).
- For example, when scholars analyze naturally occurring random assignments (e.g., those conducted by a government agency), it is useful to assess statistically whether the degree of imbalance between the treatment and control groups is within the expected margin of error.
- One statistical test is to regress treatment assignment on all of the covariates and calculate the F-statistic.
- The significance of this statistic can be assessed by simulating a large number of random assignments and for each one calculating the F-statistic; the resulting distribution can be used to calculate the p-value of the observed F-statistic.
- For example, if 10,000 simulations are conducted, and just 30 simulations generate an F-statistic larger than what one actually obtained from the data, the p-value is 0.003, which suggests that the observed level of imbalance is highly unusual.
-In such cases, one may wish to investigate the randomization procedure more closely.
+Parfois, il n'est pas clair si l'assignation aléatoire a réellement eu lieu (ou si elle s'est produite en utilisant la procédure envisagée par le chercheur).
+Par exemple, lorsque les chercheurs analysent des assignations aléatoires naturelles (par exemple, celles effectuées par un organisme gouvernemental), il est utile d'évaluer statistiquement si le degré de déséquilibre entre les groupes de traitement et de contrôle se situe dans la marge d'erreur attendue.
+Un test statistique consiste à régresser l'assignation du traitement sur toutes les covariables et à calculer la statistique F.
+La degré de signification de cette statistique peut être évalué en simulant un grand nombre d'assignations aléatoires et en calculant pour chacune la statistique F ; la distribution résultante peut être utilisée pour calculer la p-valeur de la statistique F observée.
+Par exemple, si 10 000 simulations sont effectuées et que 30 simulations seulement génèrent une statistique F supérieure à celle réellement obtenue à partir des données, la valeur p est de 0,003, ce qui suggère que le niveau de déséquilibre observé est très inhabituel.
+Dans de tels cas, on peut souhaiter étudier de plus près la procédure de randomisation.
 
-For further reading
+Pour approfondir
 ==
 Athey, Susan, and Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." In _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
 
