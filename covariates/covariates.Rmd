@@ -5,54 +5,55 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things to Know About Controlling for Covariates in RCTs” -->
+<!-- title: "10 choses à savoir sur le contrôle des covariables pour les essais randomisés contrôlés (ECRs)” -->
 <!-- author: "Auteur du guide des méthodes: Lindsay Dolan" -->
 
-Abstract
+Résumé
 ==
-This guide[^1] will help you think through when it makes sense to try to “control for other things” when estimating treatment effects using experimental data.
-We focus on the big ideas and provide examples in R.
+Ce guide[^1] vous aidera à déterminer quand il est judicieux d'essayer de "contrôler d'autres choses" lors de l'estimation de l'effet du traitement à l'aide de données expérimentales.
+Nous nous concentrons sur les grandes idées et fournissons des exemples dans R.
 
-[^1]: Originating author: Lindsay Dolan. Revisions: Don Green and Winston Lin, 1 Nov 2016.
-The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.
-Thanks to Macartan Humphreys and Diana Mutz for helpful discussions.
+[^1] : Auteur d'origine : Lindsay Dolan. Révisions : Don Green et Winston Lin, 1er novembre 2016.
+Le guide est un document vivant et susceptible d'être mis à jour par les membres de l'EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.
+Merci à Macartan Humphreys et Diana Mutz pour les discussions utiles.
 
-1 What is covariate adjustment?
+1 Qu'est-ce que l'ajustement de covariable ?
 ==
-“Covariates” are baseline characteristics of your experimental subjects.
-When you run an experiment, you are primarily interested in collecting data on outcome variables that your intervention may affect, e.g. expenditure decisions, attitudes toward democracy, or contributions for a public good in a lab experiment.
-But it’s also a good idea to collect data on baseline characteristics of subjects before treatment assignment occurs, e.g. gender, level of education, or ethnic group.
-If you do this you can explore how treatment effects vary with these characteristics (see [10 Things to Know About Heterogeneous Treatment Effects](http://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)).
-But doing this also lets you perform covariate adjustment.
+Les "covariables" sont les caractéristiques de base de vos sujets expérimentaux.
+Lorsque vous exécutez une expérience, vous êtes principalement intéressé par la collecte de données des variables de résultat que votre intervention peut affecter,
+i.e. les décisions de dépenses, les attitudes envers la démocratie ou les contributions à un bien public dans une expérience de laboratoire.
+Mais c'est aussi une bonne idée de collecter des données sur les caractéristiques de base des sujets avant l'assignation du traitement, i.e. le sexe, le niveau d'éducation ou le groupe ethnique.
+Si vous faites cela, vous pouvez explorer comment l'effet du traitement varie en fonction de ces caractéristiques (voir [10 choses à savoir sur les effets de traitement hétérogènes](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)).
+Mais cela vous permet également d'effectuer un ajustement de covariable.
 
-Covariate adjustment is another name for controlling for baseline variables when estimating treatment effects.
-Often this is done to improve precision.
-Subjects' outcomes are likely to have some correlation with variables that can be measured before random assignment.
-Accounting for variables like gender will allow you to set aside the variation in outcomes that is predicted by these baseline variables, so that you can isolate the effect of treatment on outcomes with greater precision and power.
+L'ajustement de covariable est un autre nom pour contrôler les variables de base lors de l'estimation de l'effet du traitement.
+Souvent, cela est fait pour améliorer la précision.
+Les résultats des sujets sont susceptibles d'avoir une certaine corrélation avec des variables qui peuvent être mesurées avant l'assignation aléatoire.
+La prise en compte de variables telles que le sexe vous permettra de mettre de côté la variation des résultats qui est prédite par ces variables de base, afin que vous puissiez isoler l'effet du traitement sur les résultats avec plus de précision et de puissance.
 
-Covariate adjustment can be a cheaper route to improved precision than increasing the number of subjects in the experiment.
-Partly for that reason, researchers often collect extensive data on covariates before random assignment.
-Pre-tests (measures that are analogous to the outcome variable but are restricted to time periods before random assignment) may be especially valuable for predicting outcomes, and baseline surveys can ask subjects about other background characteristics.
+L'ajustement des covariables peut être un moyen moins coûteux d'améliorer la précision plutôt que d'augmenter le nombre de sujets dans l'expérience.
+C'est en partie pour cette raison que les chercheurs recueillent souvent de nombreuses données sur les covariables avant l'assignation aléatoire.
+Les pré-tests (mesures analogues à la variable de résultat mais limitées aux périodes précédant l'assignation aléatoire) peuvent être particulièrement utiles pour prédire les résultats, et les enquêtes initiales peuvent interroger les sujets sur d'autres caractéristiques de base.
 
-2 Controlling for covariates at the design stage (blocking)
+2 Contrôle des covariables au stade du design (découpage par bloc)
 ==
-The best way to control for covariates is to use block randomization to do it at the design stage even before you start your experiment.
-Block randomization enables you to create treatment and control groups that are balanced on certain covariates.
-For example, you might expect that gender and income help predict the outcome variable.
-Block randomization can ensure that the treatment and control groups have equal proportions of female/high-income, female/low-income, male/high-income, and male/low-income populations.
-When the blocking variables help predict outcomes, blocking improves precision by preventing chance correlations between treatment assignment and baseline covariates.
+La meilleure façon de contrôler les covariables est d'utiliser la randomisation par bloc pour le faire au stade du design avant même de commencer votre expérience.
+La randomisation par bloc vous permet de créer des groupes de traitement et de contrôle équilibrés pour certaines covariables.
+Par exemple, vous pourriez vous attendre à ce que le sexe et le revenu aident à prédire la variable de résultat.
+La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de populations de femmes/à revenu élevé, de femmes/à faible revenu, d'homme/à revenu élevé et d'homme/à faible revenu.
+Lorsque les variables utilisées pour les blocs aident à prédire les résultats, le découpage par bloc améliore la précision en empêchant les corrélations aléatoires entre l'assignation du traitement et les covariables de base.
 
-For more information on blocking and how to implement it in R, see [10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization).
-The precision gains from blocking (relative to covariate adjustment without blocking) tend to be greatest when sample sizes are small.^[Miratrix, Luke W., Jasjeet S. Sekhon, and Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
+Pour plus d'informations sur le découpage par bloc et comment l'implémenter dans R, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization).
+Les gains de précision du découpage par bloc (par rapport à l'ajustement de covariable sans bloc) ont tendance à être plus importants lorsque la taille des échantillons est petite.^[Miratrix, Luke W., Jasjeet S. Sekhon et Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
 
-When blocking is done to improve precision, estimated standard errors should take the blocking into account.
-(Otherwise, the SEs will tend to be conservative because they won't give you credit for the precision improvement that blocking achieved.) One simple and commonly used method is to regress the outcome on the treatment assignment dummy variable as well as block dummies.
-When the probability of assignment to treatment is constant across blocks, including the block dummies in the regression doesn't change the estimated treatment effect, but tends to give a more accurate estimate of the SE.^[See, e.g., pages 217--219 of Miriam Bruhn and David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
+Lorsque le découpage par bloc est effectué pour améliorer la précision, l'erreur standard estimée doit tenir compte du découpage.
+(Sinon, l'erreur standard aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage.)
+Une méthode simple et couramment utilisée consiste à régresser le résultat sur la variable muette d'assignation du traitement ainsi que sur les variables muettes de bloc.
+Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l'autre, l'inclusion des variables muettes de bloc dans la régression ne modifie pas l'effet du traitement estimé, mais tend à donner une estimation plus précise de l'erreur standard.^[Voir, e.g., pages 217--219 de Miriam Bruhn et David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
 
-If the probability of assignment to treatment varies by block, then you need to control for these unequal probabilities in order to get unbiased estimates of average treatment effects.
-[10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization) discusses ways to do this.
+Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous devez alors contrôler ces probabilités inégales afin d'obtenir des estimations non biaisées de l'effet moyen du traitement. [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) l'aborde de manière pratique.
 
-3 How to do it in a regression
+3 Comment le faire dans une régression
 ==
 Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment occurs) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error.
 You can still adjust for covariates on the back end by using multiple regression.
@@ -60,55 +61,63 @@ Remember that in a bivariate regression---when you regress your outcome on just 
  This simple method gives an unbiased estimate of the average treatment effect (ATE).
 When we add baseline covariates that are correlated with outcomes to the model, the coefficient on treatment is an approximately unbiased estimate of the ATE that tends to be more precise than bivariate regression.
 
-To adjust for covariates through multiple regression, use the model:
+Parfois, vous n'avez pas la possibilité de mettre en œuvre un design expérimental par bloc (i.e., si vous rejoignez un projet après l'assignation aléatoire) ou vous préférez simplifier votre schéma de randomisation pour réduire les risques d'erreur administrative.
+Vous pouvez toujours ajuster les covariables de base en utilisant la régression multiple.
+N'oubliez pas que dans une régression bivariée --- lorsque vous régressez votre résultat uniquement sur votre indicateur de traitement --- le coefficient de traitement n'est qu'une différence des moyennes.
+Cette méthode simple donne une estimation non biaisée de l'effet moyen du traitement (ATE).
+Lorsque nous ajoutons au modèle des covariables de base corrélées aux résultats, le coefficient de traitement est une estimation approximativement non biaisée de l'ATE qui a tendance à être plus précise que la régression bivariée.
+
+Pour ajuster les covariables par régression multiple, utilisez le modèle :
 
 $$Y_i = \alpha + \beta Z_i + \gamma X_i + \epsilon_i$$
 
-where $Y_i$ is the outcome variable, $Z_i$ is the treatment indicator, and $X_i$ is a vector of one or more covariates.
-The remainder $\epsilon_i$ is your disturbance term---the leftover unexplained noise.
+où $Y_i$ est la variable de résultat, $Z_i$ est l'indicateur de traitement et $X_i$ est un vecteur d'une ou plusieurs covariables.
+Le reste $\epsilon_i$ est votre terme de perturbation --- le bruit inexpliqué restant.
 
-When the treatment and control groups are of unequal size, the precision gains from covariate adjustment may be greater if you include interactions between treatment and the covariates (see [this blog post](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) for more discussion).
-For ease of interpretation, recenter the covariates to have zero mean:
+Lorsque les groupes de traitement et de contrôle sont de taille inégale, les gains de précision de l'ajustement des covariables peuvent être plus importants si vous incluez les interactions entre le traitement et les covariables (voir [ce blog](https://web.archive.org/web/20151024055802 /http://blogs.worldbank.org/impactevaluations/node/847) pour plus d'information).
+Pour faciliter l'interprétation, recentrez les covariables pour avoir une moyenne nulle :
 
 $$Y_i = \alpha + \beta Z_i + \gamma W_i + \delta Z_i*W_i + \epsilon_i$$
 
-where $W_i = X_i - \overline{X}$ and $\overline{X}$ is the mean value of $X_i$ for the entire sample.
+où $W_i = X_i - \overline{X}$ et $\overline{X}$ est la valeur moyenne de $X_i$ pour l'ensemble de l'échantillon.
 
-If subjects receive different probabilities of assignment to treatment based on their covariates, then our estimation method needs to account for this (again, see [10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization) for details).
+Si les sujets reçoivent différentes probabilités d'assignation au traitement en fonction de leurs covariables, alors notre méthode d'estimation doit en tenir compte (encore une fois, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) pour plus de détails).
 
-4 Why to do it
+4 Pourquoi le faire
 ==
-It isn't absolutely necessary to control for covariates when estimating the average treatment effect in an RCT that assigns every subject the same probability of receiving the treatment.
-The unadjusted treatment--control difference in mean outcomes is an unbiased estimator of the ATE.
-However, covariate adjustment tends to improve precision if the covariates are good predictors of the outcome.^[A brief review of bias and precision: Imagine replicating the experiment many times (without changing the experimental sample and conditions, but re-doing random assignment each time).
-An unbiased estimator may overestimate or underestimate the ATE on any given replication, but its expected value (the average over all possible replications) will equal the true ATE.
-We usually prefer unbiased or approximately unbiased estimators, but we also value precision (which is formally defined as the inverse of the variance).
-Imagine you're throwing a dart at a dartboard.
-If you hit the center of the dartboard on average but your shots are often far from the mark, you have an unbiased but imprecise estimator.
-If you hit close to the center every time, your estimator is more precise.
-A researcher may choose to accept a small bias in return for a large improvement in precision.
-One possible criterion for evaluating estimators is the [mean squared error](https://en.wikipedia.org/wiki/Mean_squared_error), which equals the variance plus the square of the bias.
-See, e.g., Sharon Lohr (2010), _Sampling: Design and Analysis_, 2nd ed., pp. 31--32.]
 
-In large samples, random assignment tends to produce treatment and control groups with similar baseline characteristics.
-Still, by the "luck of the draw," one group may be slightly more educated, or one group may have slightly higher voting rates in previous elections, or one group may be slightly older on average.
-For this reason, the estimated ATE is subject to “sampling variability,” meaning you’ll get estimates of the ATE that were produced by an unbiased method but happened to miss the mark.[^3] A high sampling variability contributes to noise (imprecision), not bias.
+Il n'est pas absolument nécessaire de contrôler les covariables lors de l'estimation de l'effet moyen du traitement dans un ECR qui attribue à chaque sujet la même probabilité de recevoir le traitement.
+La différence des moyennes traitement-contrôle non ajustée pour les résultats est un estimateur sans biais de l'ATE.
+Cependant, l'ajustement des covariables a tendance à améliorer la précision si les covariables sont de bons prédicteurs du résultat.^[Un bref examen du biais et de la précision : imaginez répéter l'expérience plusieurs fois (sans changer l'échantillon expérimental et les conditions, mais en refaisant l'assignation aléatoire du traitement chaque fois).
+Un estimateur sans biais peut surestimer ou sous-estimer l'ATE sur une répétition donnée, mais son espérance (la moyenne sur toutes les répétitions possibles) sera égale à l'ATE réel.
+Nous préférons généralement des estimateurs sans biais ou approximativement sans biais, mais nous valorisons également la précision (qui est formellement définie comme l'inverse de la variance).
+Imaginez que vous lancez une fléchette sur un jeu de fléchettes.
+Si vous frappez le centre de la cible en moyenne mais que vos tirs sont souvent loin du but, vous disposez d'un estimateur impartial mais imprécis.
+Si vous frappez près du centre à chaque fois, votre estimateur est plus précis.
+Un chercheur peut choisir d'accepter un petit biais en échange d'une grande amélioration de la précision.
+Un critère possible pour évaluer les estimateurs est l'[erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Erreur_quadratique_moyenne), qui est égale à la variance plus le carré du biais.
+Voir, par exemple, Sharon Lohr (2010), _Sampling: Design and Analysis_, 2e éd., pp. 31--32.]
 
-[^3]: “Sampling variability” refers to the spread of estimates that will be produced just because of the different random assignments that could have been drawn.
-When the luck of the draw of random assignment produces a treatment group with more As and a control group with more Bs, it is more difficult to separate background characteristics (A and B) from treatment assignment as the predictor of the observed outcomes.
+Dans les grands échantillons, l'assignation aléatoire a tendance à produire des groupes de traitement et de contrôle avec des caractéristiques de base similaires.
+Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir des taux de vote légèrement plus élevés lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
+Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode impartiale, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
 
-Controlling for these covariates tends to improve precision if the covariates are predictive of potential outcomes.
-Take a look at the following example, which is loosely based on the Giné and Mansuri experiment on female voting behavior in Pakistan.^[Giné, Xavier, and Ghazala Mansuri (2012).
-["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)] In this experiment, the authors randomized an information campaign to women in Pakistan to study its effects on their turnout behavior, the independence of their candidate choice, and their political knowledge.
-They carried out a baseline survey which provided them with several covariates.
+[^3] : la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui seront produites simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
+Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe témoin avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.
 
-The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV.
-It also creates two [potential outcomes](http://egap.org/resource/10-things-to-know-about-causal-inference) (the outcomes that would occur if she were assigned to treatment and if not) for a measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family.
-The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1.
-To figure out whether our estimator is biased or not, we simulate 10,000 replications of our experiment.
-On each replication, we randomly assign treatment and then regress the observed outcome $Y$ on the treatment indicator $Z$, with and without controlling for covariates.
-Thus, we are simulating two methods (unadjusted and covariate-adjusted) for estimating the ATE.
-To estimate the bias of each method, we take the difference between the average of the 10,000 simulated estimates and the "true" treatment effect.
+Le contrôle des covariables a tendance à améliorer la précision si les covariables sont prédictives des résultats potentiels.
+Jetez un œil à l'exemple suivant, qui est vaguement basé sur l'expérience de Giné et Mansuri sur le comportement électoral des femmes au Pakistan.^[Giné, Xavier et Ghazala Mansuri (2012).
+["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)]
+Dans cette expérience, les auteurs ont randomisé une campagne d'information auprès de femmes en Pakistan pour étudier ses effets sur leur comportement de participation, l'indépendance de leur choix de candidat et leurs connaissances politiques.
+Ils ont réalisé une enquête de base qui leur a fourni plusieurs covariables.
+
+Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent : la posséssion d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
+Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était affectée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment des opinions des hommes dans sa famille.
+Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "vrai" intégré sur la mesure d'indépendance est ici de 1.
+Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 répétitions de notre expérience.
+À chaque répétition, nous assignons le traitement au hasard, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
+Ainsi, nous simulons deux méthodes (non corrigées et corrigées par les covariables) pour estimer l'ATE.
+Pour estimer le biais de chaque méthode, nous prenons la différence des moyennes pour 10 000 estimations simulées et le "vrai" effet de traitement.
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())
@@ -120,7 +129,7 @@ Replications = 10000
 
 true.treatment.effect = 1
 
-# Create pre-treatment covariates
+# Créer des covariables de pré-traitement
 owns.id.card = rbinom(n = N, size = 1, prob = .18)
 has.formal.schooling = rbinom(n = N, size = 1, prob = .6)
 age = round(rnorm(n = N, mean = 37, sd = 16))
@@ -129,14 +138,14 @@ age[age>65] = 65
 TV.access = rbinom(n = N, size = 1, prob = .7)
 epsilon = rnorm(n = N, mean = 0, sd = 2)
 
-# Create potential outcomes correlated with pre-treatment covariates
+# Créer des résultats potentiels corrélés aux covariables pré-traitement
 Y0 = round(owns.id.card + 2*has.formal.schooling + 3*TV.access + log(age) + epsilon)
 Y1 = Y0 + true.treatment.effect
 
-# Assign treatment repeatedly
+# Répéter l'assignation du traitement
 Z.mat = replicate(Replications, ifelse(1:N %in% sample(1:N, N.treated), 1, 0))
 
-# Generate observed outcomes
+# Générer des résultats observés
 Y.mat = Y1 * Z.mat + Y0 * (1 - Z.mat)
 
 diff.in.means = function(Y, Z) {
@@ -155,52 +164,50 @@ for (i in 1:Replications) {
   adjusted.estimates[i]    =  ols.adjust(Y.mat[,i], Z.mat[,i])
 }
 
-# Estimated variability (standard deviation) of each estimator
+# Variabilité estimée (écart type) de chaque estimateur
 sd.of.unadj = sd(unadjusted.estimates)
 sd.of.unadj
 sd.of.adj   = sd(adjusted.estimates)
 sd.of.adj
 
-# Estimated bias of each estimator
+# Biais estimé de chaque estimateur
 mean(unadjusted.estimates) - true.treatment.effect
 mean(adjusted.estimates) - true.treatment.effect
 
-# Margin of error (at 95% confidence level) for each estimated bias
+# Marge d'erreur (avec un niveau de confiance de 95 %) pour chaque biais estimé
 1.96 * sd.of.unadj / sqrt(Replications)
 1.96 * sd.of.adj   / sqrt(Replications)
 ```
 
-Both methods---with and without covariates---yield the true treatment effect of 1 on average.
-When we ran the regression without covariates, our estimated ATE averaged 1.0008 across the 10,000 replications, and with covariates, it averaged 1.0003.
- Notice that the regression-adjusted estimate is essentially unbiased even though our regression model is misspecified---we control for age linearly when the true data generating process involves the log of age.^[The estimated bias is 0.0003 with a margin of error (at the 95% confidence level) of 0.0018.]
+Les deux méthodes --- avec et sans covariables --- donnent le véritable effet de traitement de 1 en moyenne.
+Lorsque nous avons exécuté la régression sans covariables, notre ATE estimé était en moyenne de 1,0008 sur les 10 000 répétitions, et avec les covariables, il était en moyenne de 1,0003.
+Notez que l'estimation ajustée par régression est essentiellement sans biais même si notre modèle de régression est mal spécifié --- nous contrôlons l'âge de manière linéaire lorsque le véritable processus de génération de données implique le log de l'âge.^[Le biais estimé est de 0,0003 avec une marge d'erreur (au niveau de confiance de 95 %) de 0,0018.]
 
-The real gains come in the precision of our estimates.
-The standard error (the standard deviation of the sampling distribution) of our estimated ATE when we ignore covariates is 0.121.
-When we include covariates in the model, our estimate becomes a bit tighter: the standard error is 0.093.
-Because our covariates were prognostic of our outcome, including them in the regression explained some noise in our data so that we could tighten our estimate of ATE.
+Les vrais gains viennent de la précision de nos estimations.
+L'erreur standard (l'écart type de la distribution d'échantillonnage) de notre ATE estimé lorsque nous ignorons les covariables est de 0,121.
+Lorsque nous incluons des covariables dans le modèle, notre estimation devient un peu plus stricte : l'erreur standard est de 0,093.
+Parce que nos covariables étaient prédictives de nos résultats, les inclure dans la régression a expliqué une partie du bruit présent dans nos données afin que nous puissions resserrer notre estimation de l'ATE.
 
-
-5 When will it help?
+5 Quand cela sera-t-il utile ?
 ==
-When is adjusting for covariates most likely to improve precision?
+Quand l'ajustement pour les covariables est-il le plus susceptible d'améliorer la précision ?
 
-Covariate adjustment will be most helpful when your covariates are strongly predictive (or “prognostic”) of your outcomes.
-Covariate adjustment essentially enables you to make use of information about relationships between baseline characteristics and your outcome so that you can better identify the relationship between treatment and the outcome.
-But if the baseline characteristics are only weakly correlated with the outcome, covariate adjustment won’t do you much good.
-The covariates you will want to adjust for are the ones that are strongly correlated with outcomes.
+L'ajustement des covariables sera plus utile lorsque vos covariables sont fortement prédictives (ou "pronostiques") de vos résultats.
+L'ajustement des covariables vous permet essentiellement d'utiliser des informations sur les relations entre les caractéristiques de base et votre résultat afin que vous puissiez mieux identifier la relation entre le traitement et le résultat.
+Mais si les caractéristiques de base ne sont que faiblement corrélées avec le résultat, l'ajustement des covariables ne vous sera d'aucune utilité.
+Les covariables que vous voudrez ajuster sont celles qui sont fortement corrélées aux résultats.
 
-The following graph demonstrates the relationship between how prognostic your covariate is and the gains you get from adjusting for it.
-On the x-axis is the sample size, and on the y-axis is the [root mean squared error](https://en.wikipedia.org/wiki/Root-mean-square_deviation) (RMSE), the square root of the average squared difference between the estimator and the true ATE.
-We want our RMSE to be small, and covariate adjustment should help us reduce it.
-
+Le graphique suivant montre la relation entre le pronostic de votre covariable et les gains que vous obtenez en l'ajustant.
+En abscisse se trouve la taille de l'échantillon, et en ordonnée se trouve la [racine de l'erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Racine_de_l%27erreur_quadratique_moyenne) (RMSE), entre l'estimateur et le vrai ATE.
+Nous voulons que notre RMSE soit faible, et l'ajustement des covariables devrait nous aider à le réduire.
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
 rm(list=ls())
-library(MASS)  # for mvrnorm()
+library(MASS)  # pour mvrnorm()
 set.seed(1234567)
 num.reps = 10000
 
-# True treatment effect is 0 for every unit
+# Le véritable effet du traitement est de 0 pour chaque unité
 
 adj.est = function(n, cov.matrix, treated) {
     Y.and.X  =  mvrnorm(n, mu = c(0, 0), Sigma = cov.matrix)
@@ -247,42 +254,48 @@ legend(x = 'topright',
 
 ![](rmse.png)
 
-The black line shows the RMSE when we don’t adjust for a covariate.
-The red line shows the RMSE when we adjust for a highly prognostic covariate (the correlation between the covariate and the outcome is 0.9).
-You can see that the red line is always below the black line, which is to say that the RMSE is lower when you adjust for a prognostic covariate.
-The orange line represents the RMSE when we adjust for a moderately prognostic covariate (the correlation between the covariate and the outcome is 0.5).
-We still are getting gains in precision relative to the black line, but not nearly as much as we did with the red line.
-Finally, the yellow line shows what happens if you control for a covariate that is not at all predictive of the outcome.
-The yellow line is almost identical to the black line.
- You received no improvement in precision by controlling for a non-prognostic covariate; in fact, you paid a slight penalty because you wasted a degree of freedom, which is especially costly when the sample size is small.
-This exercise demonstrates that you’ll get the most gains in precision by controlling for covariates that strongly predict outcomes.
+La ligne noire montre le RMSE lorsque nous n'ajustons pas pour une covariable.
+La ligne rouge montre le RMSE lorsque nous ajustons pour une covariable fortement prédictive (la corrélation entre la covariable et le résultat est de 0,9).
+Vous pouvez voir que la ligne rouge est toujours en dessous de la ligne noire, c'est-à-dire que le RMSE est plus faible lorsque vous ajustez pour une covariable prédictive.
+La ligne orange représente le RMSE lorsque nous ajustons pour une covariable de pronostic modéré (la corrélation entre la covariable et le résultat est de 0,5).
+Nous obtenons toujours des gains de précision par rapport à la ligne noire, mais pas autant qu'avec la ligne rouge.
+Enfin, la ligne jaune montre ce qui se passe si vous contrôlez une covariable qui n'est pas du tout prédictive du résultat.
+La ligne jaune est presque identique à la ligne noire.
+Vous n'avez obtenu aucune amélioration de la précision en contrôlant une covariable non prédictive ; en fait, vous avez payé une légère pénalité parce que vous avez perdu un degré de liberté, ce qui est particulièrement coûteux lorsque la taille de l'échantillon est petite.
+Cet exercice démontre que vous obtiendrez le plus de gains de précision en contrôlant les covariables qui prédisent fortement les résultats.
 
+Comment savoir quelles covariables sont susceptibles d'être prédictives avant de lancer votre expérience ? Des expériences antérieures ou même des études d'observation peuvent offrir des indications sur les caractéristiques de base qui prédisent le mieux les résultats.
 
-How can you know which covariates are likely to be prognostic before launching your experiment?  Prior experiments or even observational studies can offer guidance about which baseline characteristics best predict outcomes.
-
-
-6 Control for prognostic covariates regardless of whether they show imbalances 
+6 Contrôle des covariables prédictives, qu'elles présentent ou non des déséquilibres
 ==
 
-Covariates should generally be chosen on the basis of their expected ability to help predict outcomes, regardless of whether they show "imbalances" (i.e., regardless of whether there are any noteworthy differences between the treatment group and control group in average values or other aspects of covariate distributions).
-There are two reasons for this recommendation:
+Les covariables doivent généralement être choisies en fonction de leur capacité attendue à aider à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre le groupe de traitement et le groupe de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
+Il y a deux raisons à cette recommandation :
 
-1. Frequentist statistical inference (standard errors, confidence intervals, p-values, etc.) assumes that the analysis follows a pre-specified strategy.
-Choosing covariates on the basis of observed imbalances makes it more difficult to obtain inferences that reflect your actual strategy.
-For example, suppose you choose not to control for gender because the treatment and control groups have similar gender composition, but you _would have_ controlled for gender if there'd been a noticeable imbalance.
-Typical methods for estimating standard errors will incorrectly assume that you'd never control for gender no matter how much imbalance you saw.
+1. L'inférence fréquentiste (erreur standard, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
+Choisir des covariables sur la base des déséquilibres observés rend plus difficile l'obtention d'inférences qui reflètent votre stratégie réelle.
+Par exemple, supposons que vous choisissiez de ne pas contrôler le genre parce que les groupes de traitement et de contrôle ont une composition similaire pour le genre, mais vous _auriez_ contrôlé le genre s'il y avait eu un déséquilibre notable.
+Les méthodes typiques d'estimation de l'erreur standard supposeront à tort que vous ne contrôlerez jamais le sexe, quel que soit le déséquilibre que vous constatez.
 
-2. Adjusting for a highly prognostic covariate tends to improve precision, as we explained above.
-To receive due credit for this precision improvement, you should adjust for the covariate even if there's no imbalance.
-For example, suppose gender is highly correlated with your outcome, but it happens that the treatment group and control group have exactly the same gender composition.
-In this case, the unadjusted estimate of the ATE will be exactly the same as the adjusted estimate from a regression of the outcome on treatment and gender, but their standard errors will differ.
-The SE of the unadjusted estimate tends to be larger because it assumes that even if the treatment and control groups had very different gender compositions, you'd still use the unadjusted treatment--control difference in mean outcomes (which would likely be far from the true ATE in that case).
-If you pre-specify that you'll adjust for gender regardless of how much or how little imbalance you see, you'll tend to get smaller SEs, tighter confidence intervals, and more powerful significance tests.
+2. L'ajustement pour une covariable fortement prédictive a tendance à améliorer la précision, comme nous l'avons expliqué ci-dessus.
+Pour recevoir le crédit dû pour cette amélioration de la précision, vous devez ajuster la covariable même s'il n'y a pas de déséquilibre.
+Par exemple, supposons que le sexe soit fortement corrélé avec votre résultat, mais il arrive que les groupes de traitement et de contrôle aient exactement la même composition de genre.
+Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le sexe, mais leurs erreurs standard seront différentes.
+L'erreur standard de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence traitement-contrôle non ajustée dans les résultats moyens (qui serait probablement loin du vrai ATE dans ce cas).
+Si vous spécifiez à l'avance que vous ajusterez pour le sexe, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur standard plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
 
-Assuming that random assignment was implemented correctly, should examination of imbalances play _any_ role in choosing which covariates to adjust for? Here's a sampling of views:
+En supposant que l'assignation aléatoire a été mise en œuvre correctement, l'examen des déséquilibres devrait-il jouer un rôle _quelconque_ dans le choix des covariables à corriger ?
+Voici un échantillon de points de vue :
 
-- Mutz, Pemantle, and Pham (2016) argue that, unless there is differential attrition, the practice of selecting covariates on the basis of observed imbalances is "not only unnecessary" but "not even helpful ...
-and may in fact be damaging," because it invalidates confidence intervals, worsens precision (relative to pre-specified adjustment for prognostic covariates), and opens the door to fishing.^[Diana C. Mutz, Robin Pemantle, and Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
+- Mutz, Pemantle et Pham (2016) soutiennent que, à moins qu'il n'y ait une attrition différentielle, la pratique consistant à sélectionner des covariables sur la base des déséquilibres observés est "non seulement inutile" mais "même pas utile ... et peut en fait être préjudiciable", car cela invalide les intervalles de confiance, détériore la précision (par rapport à l'ajustement prédéfini pour les covariables prédictives) et ouvre la porte à tout.^[Diana C. Mutz, Robin Pemantle et Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
+
+- Permutt (1990), en utilisant la théorie et des simulations pour étudier des scénarios spécifiques, constate que lorsqu'un test d'équilibre est utilisé pour décider s'il faut ajuster pour une covariable, le test de signification pour l'effet du traitement est prudent (c'est-à-dire qu'il a un vrai type I probabilité d'erreur inférieure à son niveau nominal).
+Il écrit : "Une plus grande puissance peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes." Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : « Choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
+Après tout, certaines erreurs de type I peuvent être plus graves que d'autres.
+Signaler une différence significative dans les résultats qui peut être expliquée comme l'effet d'une covariable peut être une erreur plus embarrassante que de signaler une qui disparaît lors de la réplication mais sans explication simple.
+Des considérations similaires peuvent s'appliquer aux erreurs de type II.
+Un résultat positif qui dépend de l'ajustement pour une covariable peut de toute façon être considéré comme moins convaincant qu'un test positif à deux échantillons, de sorte que l'erreur de ne pas tirer une conclusion aussi positive peut être moins grave.
+Ces justifications, cependant, viennent de l'extérieur de la théorie formelle des tests d'hypothèses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
 
 - Permutt (1990), using theory and simulations to study specific scenarios, finds that when a balance test is used to decide whether to adjust for a covariate, the significance test for the treatment effect is conservative (i.e., it has a true Type I error probability below its nominal level).
 He writes, "Greater power can be achieved by always adjusting for a covariate that is highly correlated with the response regardless of its distribution between groups." However, he doesn't completely rule out considering observed imbalances: "Choosing covariates on the basis of the difference between the means in the treatment and control groups is not irrational.

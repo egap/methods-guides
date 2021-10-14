@@ -389,21 +389,22 @@ L'estimation impartiale de ces effets, cependant, nécessite un ensemble d'hypot
 C'est-à-dire que, premièrement, étant donné les covariables de pré-traitement, les résultats potentiels de Y et M sont indépendants du traitement D
 et, deuxièmement, conditionnés aux covariables de pré-traitement et au statut du traitement, les résultats potentiels sont également indépendants du médiateur.
 
-Most causal effects likely operate through multiple channels, and so an assumption of sequential ignorability for your experiment can be hard to justify.
-For example, the top row in the figure below illustrates situations in which sequential ignorability holds, while the bottom row depicts two (of many possible) cases in which sequential ignorability is violated, and mediation analysis is biased.
-In essence, specifying the effects of a particular mediator requires strong assumptions about the role of all the other mediators in the causal chain.
-While some experimental designs can, in theory, provide additional leverage (such as running a second, parallel experiment in which the mediator is also manipulated), in practice these designs are hard to implement and still sensitive to unobserved bias.
-In some cases, the insights we hope to gain from mediation analysis may be more easily acquired from subgroup analysis and experiments designed to tests for moderation.
+La plupart des effets causaux opèrent probablement à travers plusieurs canaux, et donc une hypothèse d'ignorabilité séquentielle pour votre expérience peut être difficile à justifier.
+Par exemple, la ligne du haut de la figure ci-dessous illustre des situations dans lesquelles l'ignorabilité séquentielle est valable, tandis que la ligne du bas décrit deux cas (parmi de nombreux possibles) dans lesquels l'ignorabilité séquentielle est violée et l'analyse de médiation est biaisée.
+En essence, la spécification des effets d'un médiateur particulier nécessite des hypothèses fortes sur le rôle de tous les autres médiateurs dans la chaîne causale.
+Alors que certains modèles expérimentaux peuvent, en théorie, fournir un effet de levier supplémentaire (comme l'exécution d'une deuxième expérience parallèle dans laquelle le médiateur est également manipulé), en pratique, ces modèles sont difficiles à mettre en œuvre et restent sensibles aux biais non observés.
+Dans certains cas, les informations que nous espérons tirer de l'analyse de médiation peuvent être plus facilement acquises à partir d'analyses de sous-groupes et d'expériences conçues pour tester la modération.
 
-Imai and colleagues propose an approach to mediation analysis that allows researchers test the sensitivity of their estimates to violations of sequential ignorability.[^21] In the code we demonstrate some of the features of their approach, implemented in the mediation package in R (Tingley et al. 2014).
-We model the relationships with OLS, but the package is capable of handling other outcome processes, such generalized linear models or general additive models, that may be more appropriate for your data.
-Most importantly, the package allows us to produce bounds that reflect the sensitivity of our point estimates to some violations of sequential ignorability.
-In our simulated data, just over 20 percent of the total effect is mediated by our proposed mediator, M and the bias from an unobserved pre-treatment confounder would have to be quite large (ρ=.7) before we would reject the finding of a positive ACME.
-These bounds are only valid, however, if we believe there are no unobserved post-treatment confounders (as in panel 4).
-Sensitivity analysis is still possible, but more complicated in such settings (Imai and Yamamoto 2013).
+Imai et ses collègues proposent une approche de l'analyse de médiation qui permet aux chercheurs de tester la sensibilité de leurs estimations aux violations de l'ignorabilité séquentielle.[^21]
+Dans le code, nous montrons certaines des caractéristiques de leur approche, implémentée dans le package de médiation dans R (Tingley et al. 2014).
+Nous modélisons les relations avec MCO, mais le package est capable de gérer d'autres processus de résultats, tels que des modèles linéaires généralisés ou des modèles additifs généralisés, qui peuvent être plus appropriés pour vos données.
+Plus important encore, le package nous permet de produire les bornes qui reflètent la sensibilité de nos estimations ponctuelles à certaines violations de l'ignorabilité séquentielle.
+Dans nos données simulées, un peu plus de 20 % de l'effet total est médié par notre médiateur proposé, M et le biais d'un facteur de confusion pré-traitement non observé devrait être assez important (ρ = 0,7) avant que nous rejetions la conclusion de un ACME positif.
+Ces limites ne sont toutefois valables que si nous pensons qu'il n'y a pas de facteurs de confusion post-traitement non observés (comme dans le panneau 4).
+L'analyse de sensibilité est toujours possible, mais plus compliquée dans de tels contextes (Imai et Yamamoto 2013).
 
-[^21]:  See for example Imai, Keele, and Yamamoto (2010), Imai et al. (2011), Imai, Tingley, and Yamamoto (2013), Imai and Yamamoto (2013).
-Also see the discussion of Imai, Tingley, and Yamamoto (2013) for different perspectives on the desirability of addressing mediation-type claims with sensitivity or bounds-style analyses.
+[^21]: Voir par exemple Imai, Keele et Yamamoto (2010), Imai et al. (2011), Imai, Tingley et Yamamoto (2013), ou Imai et Yamamoto (2013).
+Aussi voir la discussion de Imai, Tingley et Yamamoto (2013) pour différentes perspectives quand aborder une affirmation sur la médiation avec une analyse de sensibilité ou une analyse des bornes de la sensibilité.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
 
@@ -422,7 +423,7 @@ library(mediation)
 med.f<-lm(M~D+X,data=samp) # Modèle pour le médiateur
 out.f<-lm(Y~M+D+X,data=samp) # Modèle pour le résultat
 
-#Estimer ACME et ADE
+# Estimer ACME et ADE
 library(mediation) 
 med.out<-
 mediate(med.f,out.f,treat="D",mediator="M",robustSE=T,sims=1000) 
@@ -443,21 +444,23 @@ plot(s.out) # Tracer les bornes de la sensibilité
 # ADE<-coef(med.sys)["eq3_D"]
 ```
 
-9 Log-Odds Treatment Effects
+9 Effet du traitement Log-Odds
 ==
-Average treatment effects seem a bit hard to interpret when outcomes are not continuous.
-For example, a very common binary outcome in the study of elections is coded as 1 when subjects voted, and 0 when they did not.
-The average effect might be 0.2, but what does it really mean to say that a treatment increased my voting by 0.2? Estimating causal effects for dichotomous outcomes requires some additional care, particularly when including covariates.
-A common quantity of causal interest for dichotomous outcomes is our treatment’s effect on the log-odds of success, defined for the experimental pool as:
+
+L'effet moyen du traitement semble un peu difficile à interpréter lorsque les résultats ne sont pas continus.
+Par exemple, un résultat binaire très courant dans l'étude des élections est codé comme 1 lorsque les sujets ont voté et 0 lorsqu'ils ne l'ont pas fait.
+L'effet moyen peut être de 0,2, mais qu'est-ce que cela signifie vraiment de dire qu'un traitement a augmenté mon vote de 0,2 ?
+L'estimation des effets causaux des résultats dichotomiques nécessite des précautions supplémentaires, en particulier lors de l'inclusion de covariables.
+Une quantité commune d'intérêt causal pour les résultats dichotomiques est l'effet du traitement sur les log-odds de succès, défini pour le pool expérimental comme :
 
 $$\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}$$
 
-Freedman (2008b) shows that logistic regression adjusting for covariates in a randomized experiments produces biased estimates of this causal effect.
-The basic intuition for Freedman’s argument comes from the fact that taking the log of averages is not the same as taking the average of logs and so the treatment coefficient estimated from a logistic regression conditioning on covariates will not provide a consistent estimator of log-odds of success.
-Instead, Freedman recommends taking the predicted probabilities varying subjects’ treatment status but maintaining their observed covariate profiles to produce a consistent estimator of the log-odds.
+Freedman (2008b) montre que l'ajustement de covariables par régression logistique dans les expériences randomisées produit des estimations biaisées de cet effet causal.
+L'intuition de base de l'argument de Freedman vient du fait que prendre le log des moyennes n'est pas la même chose que prendre la moyenne des logs et donc le coefficient de traitement estimé à partir d'une régression logistique conditionnée sur les covariables ne fournira pas un estimateur cohérent des log-odds de succès.
+Au lieu de cela, Freedman recommande de prendre les probabilités prédites de variation du statut de traitement des sujets, mais de maintenir leurs profils de covariables observés pour produire un estimateur cohérent des log-odds.
 
-The basic procedure is outlined in the code below.
-The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.
+La procédure de base est décrite dans le code ci-dessous.
+Les coefficients de la régression logistique contrôlant la covariable X ont tendance à surestimer l'effet du traitement sur les probabilités logarithmiques, tandis que les estimations ajustées à partir des probabilités prédites produisent des résultats cohérents.
 
 ```{r}
 set.seed(1234) # pour la reproductibilité
@@ -475,62 +478,62 @@ aC<-with(samp, mean(Y[D==0]))
 # log odds sans conditions
 log.odds<-log(aT/(1-aT))-log(aC/(1-aC)) 
 
-# Logistic regression conditioning on X overestimates log odds 
+# La régression logistique conditionnée sur X surestime les log odds
 fit<-glm(Y~D+X,data=samp,binomial("logit")) 
 log.odds.logit<-
   coef(glm(Y~D+X,data=samp,binomial("logit")))[2] 
 
-# Dataframes using original covariates for predicted probabilities 
+# Dataframes utilisant les covariables initiales pour les probabilités prédites
 D1<-data.frame(D=1,samp[,c("X")]) 
 D0<-data.frame(D=0,samp[,c("X")]) 
-#Adjusted log-odds produces consisted estimator of log-odds 
+# Les log-odds ajustés produisent un estimateur consistent des log-cotes
 aT.adj<-predict(fit,newdata=D1,type="response") 
 aC.adj<-predict(fit,newdata=D0,type="response") 
 log.odds.adj<-log(mean(aT.adj)/(1-mean(aT.adj)))-
   log(mean(aC.adj)/(1-mean(aC.adj)))
 ```
 
-10 Attributable Effects
+10 Effet attribuable
 ==
-We conclude with a brief discussion of an alternative quantity of causal interest that may be particularly useful with binary outcomes: the attributable effect (Rosenbaum 2010).
-Consider a simple case with a dichotomous outcome and treatment.
-Let $A$ be the number of outcomes attributable to treatment, that is, the number of cases in which $Y_i$ equaled 1 among treated subjects which would not have occurred had these units been assigned to control.
-For a range of $A$’s, we adjust the observed contingency table of outcomes among the treated, and compare this resulting distribution to a known null distribution (the distribution of outcomes we would have observed had treatment had no effect).
-The resulting range of $A$’s for which our test continues to reject the null hypothesis of no effect provides a range of effects that are attributable to our treatment.
+Nous concluons par une brève discussion sur une autre quantité d'intérêt causal qui peut être particulièrement utile avec des résultats binaires : l'effet attribuable (Rosenbaum 2010).
+Considérons un cas simple avec un résultat et un traitement dichotomique.
+Soit $A$ le nombre de résultats attribuables au traitement, c'est-à-dire le nombre de cas dans lesquels $Y_i$ était égal à 1 parmi les sujets traités ; ce qui ne se serait pas produit si ces unités avaient été assignées au contrôle.
+Pour une plage de $A$, nous ajustons le tableau de contingence observée des résultats parmi les traités et comparons cette distribution résultante à une distribution nulle connue (la distribution des résultats que nous aurions observé si le traitement n'avait eu aucun effet).
+La plage résultante de $A$ pour laquelle notre test continue de rejeter l'hypothèse nulle d'absence d'effet fournit une plage d'effets qui sont attribuables à notre traitement.
 
 Table 1|$D=1$              |$D=0$
 -------|-------------------|--------------
 $Y=1$  |$\sum Y_iD_i-A$    |$(1-Y_i)(D_i)$
 $Y=0$  |$\sum Y_i(1-D_i)+A$|$\sum (1-Y_i)(1-D_i)$
 
-Rosenbaum (2002) shows extensions of this concept to different types of outcomes (such as continuous variables).
-A similar logic can also be applied to detecting uncommon but dramatic responses to treatment (Rosenbaum and Silber 2008).
+Rosenbaum (2002) extend ce concept à différents types de résultats (tels que les variables continues).
+Une logique similaire peut également être appliquée pour détecter des réponses inhabituelles mais importantes au traitement (Rosenbaum et Silber 2008).
 
-Hansen and Bowers (2009) use this approach to identify the number of additional votes attributable to different interventions in get-out-the-vote experiment with clustered treatment assignment and one-sided non-compliance.
-They show that, in large samples, one can approximate the confidence interval for attributable effects without assessing each attribution.
-Here is an example of that approach where covariates are used to increase precision.
+Hansen et Bowers (2009) utilisent cette approche pour identifier le nombre de votes supplémentaires attribuables à différentes interventions dans l'expérience de sortie du vote avec une assignation de traitement par grappe et une non-conformité unilatérale.
+Ils montrent que, dans de grands échantillons, on peut approximer l'intervalle de confiance pour les effets attribuables sans évaluer chaque attribution.
+Voici un exemple de cette approche où des covariables sont utilisées pour augmenter la précision.
 
-First, we define an attributable effect as $A=∑_iZ_iτ_i$, where $τ_i=Y_i(1)−Y_i(0)$ and $y∈0,1$ following Rosenbaum (2002).
-That is, the attributable effect is the number of “yes” or “success” or other “1” responses among those treated that we would not have seen if they had been assigned control.
+Premièrement, nous définissons un effet attribuable comme $A=∑_iZ_iτ_i$, où $τ_i=Y_i(1)−Y_i(0)$ et $y∈0,1$ selon Rosenbaum (2002).
+C'est-à-dire que l'effet attribuable est le nombre de réponses "oui" ou "1" parmi les personnes traitées que nous n'aurions pas vues si elles avaient été dans le groupe de contrôle.
 
-Second, notice that if we write the set $U$ as the experimental pool, and the set of control units is a subset of the whole pool, $C⊆U$, then we can write $∑_{i∈C}Y_i−Y_i(0)=0$.
-This means that we can represent $A$ using totals:
+Deuxièmement, notez que si nous écrivons l'ensemble $U$ comme pool expérimental et que l'ensemble des unités de contrôle est un sous-ensemble de l'ensemble, $C⊆U$, alors nous pouvons écrire $∑_{i∈C}Y_i −Y_i(0)=0$.
+Cela signifie que nous pouvons représenter $A$ ainsi :
 
 $$A = ∑_{i=1}^NZ_iτ_i=∑_{i=1}^NZ_i(Y_i(1)−Y_i(0))=∑_{i∉C}y_i(1)−∑_{i∉C}y_i(0)$$
 $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U−t_C$$
 <center>
-= observed total overall (fixed and observed) - total outcome under control (unobserved, to estimate)
+= total observé globalement (fixe et observé) - résultat total sous contrôle (non observé, à estimer)
 </center>
 
-Third, this representation allows us to produce a design-based confidence interval for A^ by drawing on the survey sampling literature about statistical inference for sample totals because the observed total outcomes, tU, is fixed across randomizations.
-We can use covariates to increase precision here because the survey regression estimator allows us to estimate the total that we would have see in the control group: $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+\sum_{i∈U}(Y_i-\hat{Y}_i)$ with $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999).
-The survey sampling literature shows that as $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$.
-So, one can calculate $\widehat{SE}(\hat{t}_c)$ from standard sampling theory and then the $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t}_c)$.
+Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour les sondages basé sur l'inférence statistique pour les échantillons totaux, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
+Nous pouvons utiliser des covariables pour augmenter la précision ici car l'estimateur de régression pour l'enquête nous permet d'estimer le total que nous aurions vu dans le groupe de contrôle : $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+ \sum_{i∈U}(Y_i-\hat{Y}_i)$ avec $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999).
+La littérature sur l'échantillonnage pour les sondages montre que, comme $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$.
+Ainsi, on peut calculer $\widehat{SE}(\hat{t}_c)$ à partir de la théorie de l'échantillonnage standard puis $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t }_c)$.
 
-In the code below, we provide an illustration using simulated data for a binary response and treatment.
-In 85 percent of the treatment group, $Y=1$ compared to 52 percent in the control.
-A difference of this size is consistent with our treatment having caused $Y=1$ for between 92 and 138 of subjects, for whom $Y$ would have otherwise equaled 0 had they not received the treatment.
-The regression estimator, which leverage precision gained from including covariates, produces tighter confidence intervals (98.8 to 135.1) for the attributable effects.
+Dans le code ci-dessous, nous fournissons une illustration utilisant des données simulées pour une réponse et un traitement binaires.
+Pour 85 % du groupe de traitement, $Y=1$ comparativement à 52 % dans le groupe de contrôle.
+Une différence de cette taille est cohérente avec le fait que notre traitement a causé $Y=1$ pour 92 à 138 sujets, pour lesquels $Y$ aurait autrement été égal à 0 s'ils n'avaient pas reçu le traitement.
+L'estimateur de régression, qui tire parti de la précision obtenue en incluant des covariables, produit des intervalles de confiance plus serrés (de 98,8 à 135,1) pour les effets attribuables.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 set.seed(1234) # pour la reproductibilité
@@ -547,16 +550,16 @@ Y = D*Y1 + (1-D)*Y0 # Résultat observé
 samp = data.frame(D,Y,X1,X2)
 
 attribute<-function(treat,out,A,data){ 
-  # Contingency Table of Treatment Status and Outcome 
+  # Contingence de l'état du traitement et des résultats
   attr.tab<-with(data,table(treat,out)) # 
-  # Matrix of p-values for Attributable effects, A 
+  # Matrice des p-valeurs pour les effets attribuables, A
   attr.ps<-
     matrix(NA,nc=2,nr=A,dimnames=list(NULL,c("A","p"))) 
   for(i in 1:A){ 
     attr.ps[i,]<-
       c(i,fisher.test(attr.tab+matrix(c(0,i,0,-i),2,2))$p) 
     }
-  # Find range of effects 
+  # Trouver la plage d'effets
   get.bounds<-function(){ 
     diffs<-ifelse(.05-attr.ps[,"p"]>0,.05-
                     attr.ps[,"p"],99) 
@@ -564,16 +567,16 @@ attribute<-function(treat,out,A,data){
               c(min(diffs),min(diffs[diffs>min(diffs)]))) 
     index 
     }
-  # Return range of effects 
+  # Retourner la plage d'effets
   return (attr.ps[get.bounds(),])
   } 
 with(samp,table(D,Y))
 with(samp,apply(table(D,Y),1,prop.table)) 
 attribute(treat = D, out= Y, A=200,data=samp) 
-# Regression estimator 
+# Estimateur de régression
 fit1<-lm(Y~X1+X2,data=samp,subset=D==0) 
 hatYcU<-predict(fit1,newdata=samp) 
-ec<-Y[D==0]-hatYcU[D==0] ## same as residuals(fit1) 
+ec<-Y[D==0]-hatYcU[D==0] ## idem aux residuals(fit1)
 hatTotYc<-sum(hatYcU)+sum(ec) 
 N<-length(Y) 
 nctrls<-sum(1-D) 
@@ -583,8 +586,7 @@ alpha<-c(.05, 1/3)
 alpha<-sort(c(alpha/2, 1-alpha/2)) 
 ciTotYc<-hatTotYc+sqrt(varhattC)*qnorm(alpha) 
 ciAE<-sort(sum(Y) - ciTotYc ) 
-names(ciAE)<-c("lower 95%","lower 
-66%","upper 66%","upper 95%") 
+names(ciAE)<-c("< 95%","< 66%","> 66%","> 95%")
 print(ciAE) 
 ```
 

@@ -246,7 +246,7 @@ Dans cette économie, les hommes gagnent plus que les femmes et les personnes â
 * Faire l'hypothèse d'un effet de traitement pour générer de fausses données de traitement
 * Exécutez l'expérience 10 000 fois et enregistrez la fréquence à laquelle, à l'aide d'une régression avec contrôles, votre expérience s'avère significative.
 
-Voici un graphique qui compare la puissance d'expériences avec et sans contrôle par les attributs d'arrière-plan.
+Voici un graphique qui compare la puissance d'expériences avec et sans contrôle par les attributs de base.
 Le R² de la régression reliant le revenu à l'âge et au sexe est assez élevé - environ 0,66 - ce qui signifie que les covariables que nous avons rassemblées (générées) sont hautement prédictives.
 Pour une comparaison approximative, sigma, le niveau de bruit de fond auquel le modèle non ajusté est confronté, est d'environ 33.
 Ce graphique montre que pour n'importe quel N, le modèle corrigé des covariables a plus de puissance, à tel point que le modèle non corrigé aurait besoin de 1500 sujets pour réaliser ce que le modèle corrigé des covariables peut faire avec 500 sujets.
