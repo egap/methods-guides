@@ -1,7 +1,9 @@
 ---
-output: 
+output:
+  pdf_document:
+    toc: yes
   html_document:
-    toc: true
+    toc: yes
     theme: journal
 ---
 
@@ -11,9 +13,9 @@ output:
 Resumen
 ==
 
-Esta guía [^1] es un herramienta que le servirá para evaluar y mejorar el poder de sus experimentos. Nos enfocaremos  en ideas generales y presentaremos ejemplos y herramientas que puede utilizar en R y Google Spreadsheets.
+Esta guía[^1] es un herramienta que le servirá para evaluar y mejorar el poder de sus experimentos. Nos enfocaremos  en ideas generales y presentaremos ejemplos y herramientas que puede utilizar en R y Google Spreadsheets.
 
-[^2]: Autor original: Alex Coppock, 20 de noviembre de 2013. Esta guía es un documento dinámico y por lo tanto puede ser modificada por los miembros de EGAP en cualquier momento. Coppock no se hace responsable de las ediciones posteriores de esta guía.
+[^1]: Autor original: Alex Coppock, 20 de noviembre de 2013. Esta guía es un documento dinámico y por lo tanto puede ser modificada por los miembros de EGAP en cualquier momento. Coppock no se hace responsable de las ediciones posteriores de esta guía.
 
 
 1 Lo que el poder estadístico es
@@ -116,32 +118,41 @@ El código a continuación muestra cómo realizar esta simulación en R
 
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
-possible.ns <- seq(from=100, to=2000, by=40) # Los tamaños de muestra a considerar
-stopifnot(all( (possible.ns %% 2)==0 )) ## requerimos que el tamaño de la muestra sea par
+# Los tamaños de muestra a considerar
+possible.ns <- seq(from=100, to=2000, by=40) 
+ ## requerimos que el tamaño de la muestra sea par
+stopifnot(all( (possible.ns %% 2)==0 ))
 powers <- rep(NA, length(possible.ns)) # Vector vacío para almacenar los ns
 alpha <- 0.05 # Nivel de significancia estándar
 sims <- 500 # Número de simulaciones para cada n
 #### Ciclo exterior que varia el número de sujetos #### 
-for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Toma el 
-  Y0 <- rnorm(n=N, mean=60, sd=20) # resultado potencial del grupo de control
+for (j in 1:length(possible.ns)){ N <- possible.ns[j] 
+  # resultado potencial del grupo de control
+  Y0 <- rnorm(n=N, mean=60, sd=20) 
   tau <- 5 # Efecto del tratamiento hipotético
-  Y1 <- Y0 + tau  # resultado potencial del grupo de tratamiento                    
-  significant.experiments <- rep(NA, sims) # Vector vacío para almacenar la cantidad de experimentos significativos
+  Y1 <- Y0 + tau  # resultado potencial del grupo de tratamiento   
+  # Vector vacío para almacenar la cantidad de experimentos significativos
+  significant.experiments <- rep(NA, sims) 
                                   
 #### Ciclo interno para realizar experimentos "sims" veces por cada N ####
-  Y0 <- rnorm (n = N, mean = 60, sd = 20) #  resultado potencial grupo de control
+  #  resultado potencial grupo de control
+  Y0 <- rnorm (n = N, mean = 60, sd = 20) 
   tau <- 5 # efecto del tratamiento hipotético
   Y1 <- Y0 + tau # resultado potencial del grupo de tratamiento
 
   for (i in 1:sims){ 
         ## Z.sim <- rbinom(n=N, size=1, prob=.5) # Asignación aleatoria con lanzamiento de moneda
-        Z.sim <- sample(rep(c(0,1),N/2)) ## asignación aleatoria asegurando grupos de igual tamaño
-        Y.sim <- Y1 * Z.sim + Y0 * (1-Z.sim) # Revelar resultados según la asignación
+       ## asignación aleatoria asegurando grupos de igual tamaño
+        Z.sim <- sample(rep(c(0,1),N/2))
+         # Revelar resultados según la asignación
+        Y.sim <- Y1 * Z.sim + Y0 * (1-Z.sim)
         fit.sim <- lm (Y.sim ~ Z.sim) # Análisis (regresión simple) 
         p.value <- summary(fit.sim)$coefficients[2,4] # Extraer valores p 
-        significant.experiments[i] <- (p.value <= alpha) # Determinar la significancia con p <= 0.05
-        }
-  powers[j] <- mean(significant.experiments) #  almacenar la tasa de éxito promedio (poder) para cada N
+        # Determinar la significancia con p <= 0.05
+        significant.experiments[i] <- (p.value <= alpha) 
+  }
+  #  almacenar la tasa de éxito promedio (poder) para cada N
+  powers[j] <- mean(significant.experiments) 
   } 
 powers 
 ```
@@ -152,7 +163,7 @@ Además de contar la frecuencia con la que sus experimentos resultan estadístic
 
   
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/power/simulatedpvals.png)
+![ ](simulatedpvals_esp.png)
 7 Cómo modificar el diseño de  experimento para mejorar el poder
 ==
 Cuando de poder estadístico se trata, sobre lo único que tenemos control es el diseño del experimento. Como ya vimos anteriormente, una elección de diseño obvia es el número de sujetos que se incluyen en el experimento. Cuantos más sujetos, mayor es el poder
@@ -178,7 +189,7 @@ La simulación es la respuesta.
 
 A continuación, presentamos un gráfico que compara la eficacia de un experimento que controla las covariables de contexto con uno que sí lo hace. El  R cuadrado  de la regresión que relaciona los ingresos con la edad y el género es bastante alto, alrededor de .66, lo que significa que las covariables que hemos reunido (generado) son altamente predictivas. Para una comparación aproximada, sigma, el nivel del  ruido que el modelo no ajustado maneja, es alrededor de 33. Este gráfico muestra que en cualquier N, el modelo ajustado por covariables tiene más poder, tanto que el modelo no ajustado necesitaría 1500 sujetos para lograr lo que el modelo ajustado con covariables puede hacer con 500.
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/power/powergraph21.png)
+![](powergraph21_esp.png)
 Este enfoque no se basa en una fórmula para generar la probabilidad de obtener un resultado estadísticamente significativo: ¡es fuerza bruta! Y debido a que la simulación le permite especificar cada paso del diseño experimental, hace un análisis de poder mucho más matizado que simplemente considerar el número de sujetos.
 
 8 Análisis de poder para múltiples tratamientos

@@ -341,7 +341,7 @@ pMean2
 pMeanRank2
 ## usando la versión en desarrollo del paquete RItools 
 library(devtools)
-#dev_mode(on = TRUE)
+dev_mode(on = TRUE)
 install_github("markmfredrickson/RItools@randomization-distribution")
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
@@ -351,7 +351,7 @@ pMeanRank4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
 		     sampler = thedesignA)
 pMean4
 pMeanRank4
-#dev_mode()
+dev_mode()
 
 ## utilizando el paqute ri2
 library(ri2)
