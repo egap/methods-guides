@@ -22,344 +22,343 @@ color: black;
 
 </style>
 
-<!-- title: "10 Things to Know About Pre-Analysis Plans" -->
-<!-- author: "Auteur du guide des méthodess: Nuole (Lula) Chen and Christopher Grady" -->
+<!-- title: "10 choses à savoir sur les plans de pré-analyse" -->
+<!-- author: "Auteur du guide des méthodess: Nuole (Lula) Chen et Christopher Grady" -->
 
-Abstract
+Résumé
 ==
-This guide introduces the idea of a pre-analysis plan (PAP), offers a model and guiding questions for writing pre-analysis plans for your studies, and explains the uses of a pre-analysis plan.
-Links to PAP registries with example plans are provided at the end of this document.
+Ce guide présente l'idée d'un plan de pré-analyse (PAP), propose un modèle et des questions d'orientation pour rédiger des plans de pré-analyse pour vos études et explique les utilisations d'un plan de pré-analyse.
+Des liens vers les registres PAP avec des exemples de plans sont fournis à la fin de ce document.
 
-
-1 What is a Pre-Analysis Plan (PAP)
-==
-
-A PAP is a document that formalizes and declares the design and analysis plan for your study.
- It is written before the analysis is conducted and is generally registered on a third-party website.[^TOP]
-
-[^TOP]:PAPs are encouraged as part of the [Transparency and Openness Promotion (TOP) Guidelines](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], published in [Science](http://science.sciencemag.org/content/348/6242/1422.full), with leading social science journals committing to implementing TOP Guidelines.
-
-
-The objectives of the PAP are to improve research design choices, increase research transparency, and allow other scholars to replicate your analysis.
- As a result, we recommend focusing the PAP on analytic details that will help you analyze your study and allow other researchers to replicate your analysis.
- A brief section on theory should be included insofar as it helps articulate hypotheses, but a detailed theory and literature review need not be included.
- The PAP does not need to include the front-end of an academic paper if these sections do not help you think about your analysis or help readers replicate your analysis.
-
-In the following sections, we provide guidelines for the details you should include in PAPs, including example text.
- We also recommend that you include as much code and analysis of simulated data as possible.[^DD]  Many PAPs will not be able to include everything on our list, but a PAP should, at a minimum, include the full list of hypotheses that you intend to test, how you will measure variables relevant to those hypotheses, and a verifiable time stamp.
-
-[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.
- [Power analysis](http://egap.org/resource/10-things-to-know-about-statistical-power), an important component of a PAP, requires simulated data.
-
-
-2 What is in a PAP? Study Design Overview
+1 Qu'est-ce qu'un plan de pré-analyse (PAP)
 ==
 
-The first section of a PAP should provide a brief overview of your study design.
- If this study is an experiment, describe the randomization procedure and the intervention or experimental procedure.
- If the study is not an experiment, describe the data.
- These descriptions should include: (1) unit of analysis, population, and inclusion/exclusion criteria, (2) method (observational, experimental, quasi-experimental), (3) experimental intervention or explanatory variable, and (4) outcomes of interest.
+Un PAP est un document qui formalise et déclare le design et le plan d'analyse de votre étude.
+Il est rédigé avant la réalisation de l'analyse et est généralement enregistré sur un site Web tiers.[^TOP]
+
+[^TOP] : les PAP sont encouragées dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publié dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques pour les sciences sociales s'engageant à mettre en œuvre les lignes directrices TOP.
+
+Les objectifs du PAP sont d'améliorer les choix de design de recherche, d'accroître la transparence de la recherche et de permettre à d'autres chercheurs de reproduire votre analyse.
+Par conséquent, nous recommandons de concentrer le PAP sur les détails analytiques qui vous aideront à analyser votre étude et permettront à d'autres chercheurs de reproduire votre analyse.
+Une brève section sur la théorie devrait être incluse dans la mesure où elle aide à formuler les hypothèses, mais une analyse détaillée de la théorie et de la littérature n'a pas besoin d'être incluse.
+Le PAP n'a pas besoin d'inclure le début d'un article académique si ces sections n'aident pas à réfléchir sur votre analyse ou à aider les lecteurs à reproduire votre analyse.
+
+Dans les sections suivantes, nous fournissons des directives pour les détails que vous devez inclure dans les PAP, y compris un exemple de texte.
+Nous vous recommandons également d'inclure autant de code et d'analyse de données simulées que possible.[^DD]
+De nombreux PAP ne pourront pas tout inclure sur notre liste, mais un PAP devrait, au minimum, inclure la liste complète des hypothèses qui vous avez l'intention de tester, comment vous allez mesurer les variables pertinentes pour ces hypothèses et un horodatage vérifiable.
+
+[^DD]: Des ressources telles que le projet DeclareDesign peuvent vous aider à simuler et à analyser de fausses données qui imitent les données réelles que votre projet rassemblera.
+[L'analyse de puissance statistique](http://egap.org/resource/10-things-to-know-about-statistical-power) est un élément important d'un PAP et nécessite des données simulées.
+
+2 Qu'y a-t-il dans un PAP? Aperçu du design de l'étude
+==
+
+La première section d'un PAP doit fournir un bref aperçu du design de votre étude.
+Si cette étude est une expérience, décrivez la procédure de randomisation et l'intervention ou la procédure expérimentale.
+Si l'étude n'est pas une expérience, décrivez les données.
+Ces descriptions doivent inclure :
+(1) l'unité d'analyse, la population et les critères d'inclusion/exclusion,
+(2) la méthode (observationnelle, expérimentale, quasi expérimentale),
+(3) l'intervention expérimentale ou la variable explicative, et
+(4) les résultats d'intérêt.
 
 <p class="comment">
-**Example:** 
-Let us use a simplified version of an intervention in Malawi as a running example. <br><br>
-We use a block-randomized experiment to evaluate the effect of _information and public service provision_ (explanatory variable) on _tax compliance_ (outcome) in Malawi, where service delivery is low and tax noncompliance is high.<br><br>
-Our unit of analysis is the owner-occupied household in a city in Malawi.
- We exclude renters because only homeowners pay the city taxes relevant to our study.
- We cluster households within 80 neighborhood-level units of approximately 20 households each.
- Each neighborhood is also a block such that 10 households within each neighborhood are assigned to treatment and 10 households are assigned to control.<br><br>
-Our intervention is the provision of information and public services.
- We implement this intervention by providing two free waste pickups, a visit from a canvasser to discuss how tax payments fund city services like waste collection, and a pamphlet with more information about tax payments. <br><br>
-Our main outcome is tax compliance, which we study as city tax payments.
- We conduct a survey and collect administrative data on tax payment both before and after the intervention.
+**Exemple:**
+Prenons une version simplifiée d'une intervention au Malawi comme exemple courant. <br><br>
+Nous utilisons une expérience randomisée par bloc pour évaluer l'effet de _la fourniture d'informations et de services publics_ (variable explicative) sur la _conformité fiscale_ (résultat) au Malawi, où la prestation de services est faible et la non-conformité fiscale élevée.<br><br>
+Notre unité d'analyse est le ménage occupé par les propriétaires dans une ville du Malawi.
+Nous excluons les locataires car seuls les propriétaires paient les taxes de séjour pertinentes pour notre étude.
+Nous mettons les ménages dans 80 groupes au niveau du quartier d'environ 20 ménages chacun.
+Chaque quartier est également un bloc tel que 10 ménages dans chaque quartier sont assignés au traitement et 10 ménages sont assignés au contrôle.<br><br>
+Notre intervention est la fourniture d'informations et de services publics.
+Nous mettons en œuvre cette intervention en offrant deux collectes de déchets gratuites, une visite d'un solliciteur pour discuter de la façon dont les paiements d'impôts financent les services municipaux comme la collecte des déchets, et une brochure avec plus d'informations sur les paiements d'impôts.<br><br>
+Notre principal résultat est la conformité fiscale, que nous étudions en tant que paiement des taxes municipales.
+Nous menons une enquête et collectons des données administratives sur le paiement des impôts avant et après l'intervention.
 </p>
 
-
-3 What is in a PAP? Hypotheses
+3 Qu'y a-t-il dans un PAP? Hypothèses
 ==
 
-The PAP should specify your hypotheses -- the relationship(s) you expect to observe between variables.
- The formulation of a hypothesis should make clear whether it involves one- or two-tailed tests (i.e. predict an increase, decrease, or change in the outcome variable).
+Le PAP doit spécifier vos hypothèses - la ou les relations que vous vous attendez à observer entre les variables.
+La formulation d'une hypothèse doit indiquer clairement si elle implique des tests unilatéraux ou bilatéraux (c'est-à-dire prédire une augmentation, une diminution ou un changement de la variable de résultat).
 
-There are two types of hypotheses to consider including in your PAP: confirmatory and exploratory.
- **Confirmatory hypotheses** are the main focus of most studies; these are the hypotheses your study is designed to test.
- Your analyses for these hypotheses will typically be well-powered and you will generally have a strong theory leading to these hypotheses _a priori_.
+Il existe deux types d'hypothèses qu'il faut envisager d'inclure dans votre PAP : confirmatoire et exploratoire.
 
-**Exploratory hypotheses** are hypotheses you may wish to test but are not the main focus of your study.
- They are often secondary hypotheses about mechanisms, subgroups, heterogeneous effects, or downstream outcomes.
- The analyses guided by these hypotheses may not be well-powered and your theory may not focus on these effects,  but analysis of these hypotheses may lead to surprising discoveries.
+**Les hypothèses de confirmation** sont au cœur de la plupart des études ; ce sont les hypothèses que votre étude est conçue pour tester.
+Vos analyses pour ces hypothèses seront généralement puissantes et vous disposerez généralement d'une théorie solide menant à ces hypothèses _a priori_.
 
-Some people prefer to list few hypotheses and others prefer to list many.
- As a rule, you should include as many hypotheses as relate to your theory or intervention.[^FisherQuote]  This may be a single outcome, but if your experimental intervention or theory makes predictions about 8 outcomes, list hypotheses for those 8 outcomes.
- If your experimental intervention or theory postulates specific mechanisms through which the explanatory variable affects an outcome or outcomes, those mechanisms should be clear in the hypothesis.
+**Les hypothèses exploratoires** sont des hypothèses que vous souhaiterez peut-être tester mais qui ne sont pas l'objectif principal de votre étude.
+Ce sont souvent des hypothèses secondaires sur des mécanismes, des sous-groupes, des effets hétérogènes ou des résultats en aval.
+Les analyses guidées par ces hypothèses peuvent ne pas être suffisamment puissantes et votre théorie peut ne pas se concentrer sur ces effets, mais l'analyse de ces hypothèses peut conduire à des découvertes surprenantes.
 
-[^FisherQuote]: As R.A. Fisher said and has often been requoted, "Make your theories elaborate...when constructing a causal hypothesis one should envisage as many different consequences of the truth as possible," (Cochran, 1965; cited in @rosenbaum2010, pp. 327).
- Though this was said about determining causation in observational studies, the logic also applies to experimental studies.
+Certaines personnes préfèrent énumérer peu d'hypothèses et d'autres préfèrent en énumérer beaucoup.
+En règle générale, vous devez inclure autant d'hypothèses que celles liées à votre théorie ou intervention.[^FisherQuote]
+Il peut s'agir d'un résultat unique, mais si votre intervention ou théorie expérimentale fait des prédictions sur 8 résultats, énumérez les hypothèses pour ces 8 résultats.
+Si votre intervention ou théorie expérimentale suppose des mécanismes spécifiques par lesquels la variable explicative affecte un résultat ou des résultats, ces mécanismes doivent être clairs dans l'hypothèse.
 
-Note that with more than one hypothesis you will need to specify a procedure for handling multiple hypotheses in the inference criteria section of your PAP, either by correcting for multiple tests or by aggregating all hypotheses into an index or an omnibus test.^[For an example of an omnibus test, see @caughey2017npc.]  If using an omnibus test, you could list all outcomes under one hypothesis.
- See our section about [inference criteria](#infcrit) for more about correcting for multiple tests.
+[^FisherQuote]: Comme R.A. Fisher a dit, souvent cité par la suite : "élaborez vos théories ... lors de la construction d'une hypothèse causale, il faut envisager autant de conséquences différentes de la vérité que possible", (Cochran, 1965; cité dans @rosenbaum2010, pp. 327).
+Bien que cela ait été dit à propos de la détermination de la causalité dans les études d'observation, la logique s'applique également aux études expérimentales.
+
+Notez qu'avec plus d'une hypothèse, vous devrez spécifier une procédure pour gérer plusieurs hypothèses dans la section des critères d'inférence de votre PAP, soit en corrigeant pour plusieurs tests, soit en agrégeant toutes les hypothèses dans un indice ou un test omnibus.^[Pour un exemple de test omnibus, voir @caughey2017npc.] Si vous utilisez un test omnibus, vous pouvez lister tous les résultats sous une seule hypothèse.
+Consultez notre section sur les [critères d'inférence](#infcrit) pour en savoir plus sur la correction de plusieurs tests.
 
 <ul class="comment">
-**Example:** Hypotheses<br><br> 
-We specify our confirmatory hypothesis as: 
+**Exemple:** Hypothèses<br><br>
+Nous spécifions notre hypothèse confirmatoire comme :
 <ul>
-<li>H: The treatment will increase tax compliance among treatment households vs. control households.</li>
+<li>H : Le traitement augmentera la conformité fiscale parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
 </ul><br>
-In addition to overall improved attitudes toward government, we expect that residents may shift their attitudes about specific issues.
- We would like to explore which issues may be driving the overall attitudinal changes with the following exploratory hypotheses:
+En plus de l'amélioration globale des attitudes envers le gouvernement, nous nous attendons à ce que les résidents modifient leurs attitudes sur des questions spécifiques.
+ Nous aimerions explorer quels problèmes peuvent être à l'origine des changements d'attitude globaux avec les hypothèses exploratoires suivantes :
 <ul>
-<li>H: The treatment will increase beliefs that the city deserves to collect taxes among treatment households vs. control households.</li>
-<li>H: The treatment will increase beliefs in city service capacity among treatment households vs. control households.</li>
-<li>H: The treatment will increase beliefs in city enforcement capacity among treatment households vs. control households.</li>
-<!--We could also list exploratory hypotheses about the mechanism through which the treatment affects tax compliance, such as: (1) increased belief in city service capacity, (2) increased belief in city enforcement capacity, (3) increased belief that the city deserves to collect taxes, (4) increased knowledge about the connection between taxes and services, and (5) increased satisfaction with city government.
- For example, "Households for which treatment increases their satisfaction with city government are most likely to increase tax compliance.
-"The greater a households increase in satisfaction with city government, the more likely that the household increases tax compliance." -->
+<li>H : Le traitement augmentera l'opinion selon laquelle la ville mérite de percevoir des impôts parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
+<li>H : Le traitement augmentera les croyances dans la capacité de service de la ville parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
+<li>H : Le traitement augmentera les croyances dans la capacité de la ville à faire appliquer les règles  parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
+<!--Nous pourrions également énumérer des hypothèses exploratoires sur le mécanisme par lequel le traitement affecte la conformité fiscale, telles que :
+(1) une croyance accrue dans la capacité des services municipaux,
+(2) une croyance accrue dans la capacité de la ville à faire appliquer les règles,
+(3) une croyance accrue que la ville mérite de percevoir des impôts,
+(4) une connaissance accrue du lien entre les impôts et les services, et
+(5) une satisfaction accrue vis-à-vis du gouvernement de la ville.
+ Par exemple, les ménages pour lesquels le traitement augmente leur satisfaction vis-à-vis du gouvernement municipal sont les plus susceptibles d'améliorer leur conformité fiscale.
+"Plus un ménage augmente sa satisfaction à l'égard du gouvernement municipal, plus il est probable que le ménage augmente sa conformité fiscale." -->
 </ul>
 
-4 What is in a PAP? Measures and Index Construction
-== 
-
-The PAP should specify the way you measure or operationalize variables of interest, including outcomes, covariates, and explanatory variables.
- These operationalizations can be included as its own section, or the operationalization of variables can be included after the hypothesis for which each variable is relevant.
-
-For each variable, the PAP should list the way the variable is measured (such as survey or interview questions, administrative data, behavioral/observational measures, etc.) and to which hypothesis or hypotheses the variable relates.
- Details of these measures, such as precise wording for survey questions, should be included either in this section or in an appendix.
- If you are using indices or factors, or combining outcomes together in other ways, specify how the combined outcomes will be constructed.
- If you are manipulating or transforming the outcomes in some way (such as logging a variable), describe the manipulation or transformation process.
-
-We recommend including code in your PAP to show how you plan to execute all data transformation.
-
-<p class="comment">
-**Example:** Measures and Index Construction<br><br>
-We measure our primary outcome, *tax compliance*, using administrative data on citizen tax payments.
- The tax compliance measure takes the value $0$ if the household did not pay taxes and $1$ if the household did pay taxes.<br><br>
-Our explanatory variable is assignment to treatment, where individuals who are assigned to treatment are assigned $1$ and individuals assigned to control are assigned $0$.<br><br>
-We also create a "government attitudes" index using inverse-covariance weights (ICW) of 6 survey questions where higher values mean more positive attitudes towards government.
- The ICW index weighs the baseline questions by the covariance of the responses in the control group at baseline and weighs the endline questions by the covariance of the responses in the control group at endline.
- We then standardize the ICW scale by standard deviation so that a 1 at baseline means 1 SD above the mean at baseline and a 1 at endline means a 1 SD above the mean at endline.
-</p>
-
-
-5 What is in a PAP? Estimation Procedure
+4 Qu'y a-t-il dans un PAP? Mesures et construction d'indices
 ==
 
-Now that you have described your study design, hypotheses, and variables, you are ready to discuss your testing and estimation procedures.
+Le PAP doit spécifier la manière dont vous mesurez ou opérationnalisez les variables d'intérêt, y compris les résultats, les covariables et les variables explicatives.
+Cette opérationnalisation peut avoir sa propre partie ou être incluse après l'hypothèse pour laquelle chaque variable est pertinente.
 
+Pour chaque variable, le PAP doit énumérer la manière dont la variable est mesurée (comme les questions de l'enquête ou de l'entretien, les données administratives, les mesures comportementales/observationnelles, etc.) et à quelle(s) hypothèse(s) la variable se rapporte.
+Les détails de ces mesures, tels que la formulation précise des questions de l'enquête, doivent être inclus soit dans cette section, soit dans une annexe.
+Si vous utilisez des indices ou des facteurs, ou si vous combinez des résultats d'une autre manière, précisez comment les résultats combinés seront construits.
+Si vous manipulez ou transformez les résultats d'une manière ou d'une autre (comme l'enregistrement d'une variable), décrivez le processus de manipulation ou de transformation.
 
-This section should clearly specify what you are estimating (i.e. the estimand) and how you intend to estimate it (i.e. the estimator).
- For example, many studies estimate the average treatment effect of an experimental intervention using OLS linear regression as the estimator.^[You may also be interested in estimating other types of effects.
- See this [guide on types of treatment effects](https://egap.org/es/methods-guides/10-types-treatment-effect-you-should-know-about) for more information about effect types.]  Clearly specify your model specification, including your outcomes, explanatory variables, and covariates, and your test statistic.
-
-We recommend including code for the statistical model or the functional form of the statistical model in the PAP.
+Nous vous recommandons d'inclure du code dans votre PAP pour montrer comment vous prévoyez d'exécuter toutes les transformations de données.
 
 <p class="comment">
-**Example:** Estimation Procedure<br><br>
-We estimate the effect of the information campaign and waste collection service on the payment of city taxes among residents with an intent-to-treat analysis.
-Our estimand is the average treatment effect.<br><br>
-If we have balance on baseline and endline outcomes, we will use the following estimator to estimate the average treatment effect:<br><br>
+**Exemple :** Mesures et construction d'indices<br><br>
+Nous mesurons notre résultat principal, la *conformité fiscale*, à l'aide de données administratives sur les paiements d'impôts par les citoyens.
+La mesure de conformité fiscale prend la valeur $0$ si le ménage n'a pas payé d'impôts et $1$ si le ménage a payé des impôts.<br><br>
+Notre variable explicative est l'assignation du traitement, où les individus assignés au traitement reçoivent $1$ et les individus affectés au contrôle reçoivent $0$.<br><br>
+Nous créons également un indice de "l'attitude envers le gouvernement" en utilisant des poids de covariance inverse (ICW) de 6 questions d'enquête où des valeurs plus élevées signifient des attitudes plus positives envers le gouvernement.
+L'indice ICW pondère les questions de base par la covariance des réponses dans le groupe de contrôle et pondère les questions post-traitement par la covariance des réponses dans le groupe de contrôle post-traitement.
+Nous standardisons ensuite l'échelle ICW par l'écart type de sorte qu'on peut comparer les réponses pré- et post-traitement.
+</p>
+
+5 Qu'y a-t-il dans un PAP? Procédure d'estimation
+==
+
+Maintenant que vous avez décrit votre design d'étude, vos hypothèses et vos variables, vous êtes prêt à discuter de vos procédures de test et d'estimation.
+
+Cette section doit clairement spécifier ce que vous estimez (c'est-à-dire l'estimande) et comment vous avez l'intention de l'estimer (c'est-à-dire l'estimateur).
+Par exemple, de nombreuses études estiment l'effet moyen du traitement d'une intervention expérimentale en utilisant la régression linéaire MCO comme estimateur.
+^[Vous pouvez également être intéressé par l'estimation d'autres types d'effets.
+Voir ce [guide sur les types d'effets de traitement](https://egap.org/es/methods-guides/10-types-treatment-effect-you-should-know-about) pour plus d'informations sur les types d'effet.]
+Décrivez clairement la spécification de votre modèle, y compris vos résultats, les variables explicatives et les covariables, ainsi que vos statistiques de test.
+
+Nous recommandons d'inclure le code du modèle statistique ou la forme fonctionnelle du modèle statistique dans le PAP.
+
+<p class="comment">
+**Exemple :** Procédure d'estimation<br><br>
+Nous estimons l'effet de la campagne d'information et du service de collecte des déchets sur le paiement des taxes d'habitation chez les résidents avec une analyse d'effet d'intention de traiter.
+Notre estimation est l'effet moyen du traitement.<br><br>
+Si nous avons un équilibre entre les résultats de base et finaux, nous utiliserons l'estimateur suivant pour estimer l'effet moyen du traitement :<br><br>
 $Y_{i,j} = \beta_0 + \beta_1Z_{i,j} + X_{i,j}+ \epsilon_{i,j}$<br><br>
-where $i$ is the individual in neighborhood $j$, $Z$ is the treatment indicator, and $Y$ is the outcome.
-$X$ is the baseline outcome for individual $i$.
-We will use regression weights proportional to the size of the neighborhoods $j$.
-If baseline and endline outcomes are not balanced, we will use the change score, $Y_i = Y_{i,endline} - Y_{i,baseline}$ and we will not use $X$.
-
+où $i$ est l'individu dans le quartier $j$, $Z$ est l'indicateur de traitement et $Y$ est le résultat.
+$X$ est le résultat de base pour l'individu $i$.
+Nous utiliserons des poids de régression proportionnels à la taille des quartiers $j$.
+Si les résultats de référence et de fin ne sont pas équilibrés, nous utiliserons le score de changement, $Y_i = Y_{i,endline} - Y_{i,baseline}$ et nous n'utiliserons pas $X$.
 </p>
 
-6 What is in a PAP? Inference Criteria{#infcrit}
+6 Qu'y a-t-il dans un PAP? Critères d'inférence{#infcrit}
 ==
 
-Inference criteria are decision rules for determining the detectability of effects (i.e. if an explanatory variable really affects an outcome variable).
- Establishing inference criteria requires making several choices about when to believe the estimated effect is "statistically significantly different" from the null hypothesis.
- We recommend clearly specifying and justifying answers to the following questions:
+Les critères d'inférence sont des règles de décision pour déterminer la détectabilité des effets (c'est-à-dire si une variable explicative affecte réellement une variable de résultat).
+L'établissement de critères d'inférence nécessite de faire plusieurs choix pour croire que l'effet estimé est "statistiquement significativement différent" de l'hypothèse nulle.
+Nous vous recommandons de préciser et de justifier clairement les réponses aux questions suivantes :
 
-1. What kind of standard errors will you use?  Why are you using this kind of standard errors?^[For example, you could calculate standard errors and $p$-values using permutation-based [randomization inference](https://egap.org/resource/10-things-to-know-about-randomization-inference).
- Or you could closely approximate standard errors and $p$-values using analytic methods [@samii2012]]
-2. Do you plan to do a one-tailed or two-tailed test?  
-3. At what $\alpha$ level will you reject the null hypothesis from a $p$-value?  
-4. Do you have multiple hypotheses?  If so, what procedure will you use to adjust for [multiple comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)?  
+1. Quel type d'erreurs standard utiliserez-vous ? Pourquoi utilisez-vous ce type d'erreurs standard ?^[Par exemple, vous pouvez calculer les erreurs standard et les $p$-valeurs en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) basée sur la permutation.
+Ou vous pouvez approcher précisement les erreurs standard et les $p$-valeurs en utilisant des méthodes analytiques [@samii2012]]
+2. Prévoyez-vous de faire un test unilatéral ou bilatéral ?
+3. À quel niveau $\alpha$ rejetterez-vous l'hypothèse nulle d'une $p$-valeur ?
+4. Avez-vous plusieurs hypothèses ? Si oui, quelle procédure utiliserez-vous pour ajuster les [comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) ?
 
-You may choose to use several procedures for inference criteria.
- For example, you may want to use both FWER and FDR adjustments for multiple comparisons and compare between the two.
- Or you may want to use $p$-values from randomization inference as a check on $p$-values from a null distribution assumed to be normal.
- If you choose to use several procedures, you should specify how you will interpret findings if different procedures come to different conclusions.
+Vous pouvez choisir d'utiliser plusieurs procédures pour les critères d'inférence.
+Par exemple, vous pouvez utiliser les ajustements FWER et FDR pour plusieurs comparaisons et comparer les deux.
+Ou vous pouvez utiliser les $p$-valeurs de l'inférence de randomisation pour vérifier les $p$-valeurs d'une distribution nulle supposée normale.
+Si vous choisissez d'utiliser plusieurs procédures, vous devez spécifier comment vous interpréterez les résultats si différentes procédures aboutissent à des conclusions différentes.
 
 <p class="comment">
-**Example:**<br><br>
-We use HC2 standard errors with our block-randomized experiment because it is equivalent to randomization-based Neyman variance estimator [@samii2012].
-We expect the treatment group to pay more city taxes than the control group, and therefore use a one-tailed test where $H_1 > H_0$.
- We set $\alpha = 0.05$ and will reject the null when the $p$-value is less than 0.05.
- Because we only have one confirmatory hypothesis, we do not adjust for multiple comparisons.
+**Exemple :**<br><br>
+Nous utilisons les erreurs standard HC2 avec notre expérience randomisée par bloc car elle équivaut à l'estimateur de variance Neyman basé sur la randomisation [@samii2012].
+Nous nous attendons à ce que le groupe de traitement paie plus de taxes municipales que le groupe de contrôle, et nous utilisons donc un test unilatéral où $H_1 > H_0$.
+Nous définissons $\alpha = 0,05$ et rejetons l'hypothèse nulle lorsque la $p$-valeur est inférieure à 0,05.
+Comme nous n'avons qu'une seule hypothèse de confirmation, nous n'ajustons pas de comparaisons multiples.
 <br><br>
-As a check on the HC2 standard errors, we also calculate $p$-values directly using [randomization inference](https://egap.org/resource/10-things-to-know-about-randomization-inference), with the difference-in-means as our test statistic.
-
+Pour vérifier les erreurs standard HC2, nous calculons également les $p$-valeurs directement en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference), avec la différence des moyennes comme statistique de test.
 </p>
 
-7 What is in a PAP? Procedures for Data Issues
+7 Qu'y a-t-il dans un PAP? Procédures pour les problèmes de données
 ==
 
-Experiments and data collection often do not go the way that one expects or hopes.
- The PAP gives you an opportunity to think through what those issues might be, and specify how you plan to address them.
+Les expériences et la collecte de données ne se déroulent souvent pas comme on s'y attend ou ce qu'on espère.
+Le PAP vous donne l'occasion de réfléchir à ce que pourraient être ces problèmes et de spécifier comment vous envisagez de les résoudre.
 
-Two common data issues are (1) extreme data points and (2) missing data.
- **Extreme points** may represent a true outlier -- a unit with outcomes much larger or smaller than other units -- or may occur because of data collection errors.
- Survey tablets, recording tools, web scrapers, and other data collection tools may record extreme points due to technical glitches.
- It can be difficult to know whether extreme points represent true data collected or if they are due to data entry errors, but it is important to specify in the PAP when you expect to see data collection errors and the procedures to deal with extreme points.
+Deux problèmes de données courants sont (1) les données extrêmes et (2) les données manquantes.
 
-**Missing data** can come in two forms: missing covariates and missing outcomes.
- It is also important to specify when you expect to see missing outcomes or covariate and the procedures to deal with them in your PAP.
- Extreme points/missingness that are random will be less problematic than extreme points/missingess that seem to have a pattern.
+**Les points extrêmes** peuvent représenter une vraie valeur aberrante - une unité avec des résultats beaucoup plus grands ou plus petits que d'autres unités - ou peuvent se produire en raison d'erreurs de collecte de données.
+Les tablettes de sondage, les outils d'enregistrement, les web scrapers et d'autres outils de collecte de données peuvent enregistrer des points extrêmes en raison de problèmes techniques.
+Il peut être difficile de savoir si les points extrêmes représentent de vraies données collectées ou s'ils sont dus à des erreurs de saisie de données, mais il est important de spécifier dans le PAP quand vous vous attendez à voir des erreurs de collecte de données et les procédures pour traiter les points extrêmes.
 
-Common procedures to address missing data or extreme points are 1) bounds analysis; 2) imputation; 3) dropping observations.
- We recommend considering the following questions when determining which procedure you would like to use:
+**Les données manquantes** peuvent se présenter sous deux formes : covariables manquantes et/ou résultats manquants.
+Il est également important de spécifier quand vous vous attendez à voir des résultats ou une covariable manquants et les procédures pour les traiter dans votre PAP.
 
-  - What issues may cause these extreme data points/missing covariates/missing outcomes? What can you do ahead of time to mitigate these data issues?
-  - How would you assess if the extreme/missing data are plausibly random (i.e. do the extreme data points/missingness correlate with treatment, specific covariates/subgroups, or outcomes)? 
-  - What procedures will you use to address extreme points/missingness and how do you justify using your procedure?  
-      - If extreme/missing data are not random, we recommend including some kind of bounds analysis to determine the bounds of your estimate with extreme points/missing data.
-For example, extreme value bounds can help you determine the range of an average treatment effect by setting all missing outcomes in the treatment group with largest possible outcome and setting all missing outcomes in the control group with the smallest possible outcome [@gerber2012field].
+Les points extrêmes/manquants qui sont aléatoires seront moins problématiques que les points extrêmes/manquants qui semblent avoir un motif.
 
-      - If extreme/missing data are random, we recommend imputing the extreme points or missing data.
- You may also drop these data if the extreme/missing data are random, and you should specify conditions under which you choose to drop the data.
- For example, consider setting a threshold for a missing covariate such that if the percentage of data missing from the covariate exceeds the threshold, you drop the covariate.
+Les procédures courantes pour traiter les données manquantes ou les points extrêmes sont 1) l'analyse des bornes ; 2) imputation; 3) abandon des observations.
+Nous vous recommandons de considérer les questions suivantes lors de la détermination de la procédure que vous souhaitez utiliser :
 
-We recommend including code to show your procedures to address data issues.
+- Quels problèmes peuvent être à l'origine de ces points de données extrêmes/covariables manquantes/résultats manquants ?
+  Que pouvez-vous faire à l'avance pour atténuer ces problèmes de données ?
+   - Comment jugeriez-vous si les données extrêmes/manquantes sont vraisemblablement aléatoires ?
+     (i.e. les données extrêmes/les données manquantes sont-elles corrélées au traitement, à des covariables/sous-groupes spécifiques ou aux résultats ?
+   - Quelles procédures utiliserez-vous pour traiter les données extrêmes/manquants et comment justifiez-vous l'utilisation de votre procédure ?
+
+       - Si les données extrêmes/manquantes ne sont pas aléatoires, nous vous recommandons d'inclure une sorte d'analyse des bornes pour déterminer les bornes de votre estimation avec des données extrêmes/manquantes.
+Par exemple, les bornes des valeurs extrêmes peuvent vous aider à déterminer la plage de leffet moyen du traitement en attribuant pour tous les résultats manquants dans le groupe de traitement le plus grand résultat possible et en attribuant pour tous les résultats manquants dans le groupe de contrôle le plus petit résultat possible [@gerber2012field].
+
+      - Si les données extrêmes/manquantes sont aléatoires, nous recommandons d'imputer les points extrêmes ou les données manquantes.
+          Vous pouvez également supprimer ces données si les données extrêmes/manquantes sont aléatoires, et vous devez spécifier les conditions dans lesquelles vous choisissez de supprimer les données. Par exemple, envisagez de définir un seuil pour une covariable manquante de sorte que si le pourcentage de données manquantes de la covariable dépasse le seuil, vous supprimez la covariable.
+
+Nous vous recommandons d'inclure le code utilisé dans vos procédures pour résoudre les problèmes de données.
 
 <ol class="comment">
-**Example:** Missing Outcomes from Survey Questions<br><br>
-Some respondents will not answer one or more questions that measure an outcome.
-If we notice that nonresponse rates for questions seem high ($\geq 10\%$) during the pilot session, we will ask for explanations from both respondents and interviewers so that we can change the questions.
+**Exemple :** Résultats manquants pour les questions d'une enquête<br><br>
+Certains répondants ne répondront pas à une ou plusieurs questions qui mesurent un résultat.
+Si nous remarquons que les taux de non-réponse aux questions semblent élevés ($\geq 10\%$) lors de la session pilote, nous demanderons des explications aux répondants et aux enquêteurs afin de pouvoir modifier les questions.
 
-When respondents do not answer one or more questions that measure an outcome as we field our survey, our procedure is as follows:
+Lorsque les personnes interrogées ne répondent pas à une ou plusieurs questions mesurant un résultat pendant que nous menons notre enquête, notre procédure est la suivante :
 <ol>
-<li>We will assess the relationship between missing outcomes and treatment assignment using a hypothesis test and report these results.</li>
-<li>If $p < .05$ for the assessment of the relationship between treatment and missing outcomes, we will report an extreme value bounds analysis in which we set all of the missing outcomes for treatment to the block maximum and all missing outcomes for control to the block minimum.</li>
-<li>If $p \geq 0.5$ for the assessment of the relationship between treatment and missing outcomes, we will impute the missing outcomes using the mean of the assignment-by-block subcategory.</li>
+<li>Nous évaluerons la relation entre les résultats manquants et l'assignation du traitement à l'aide d'un test d'hypothèse et rapporterons ces résultats.</li>
+<li>Si $p < 0,05$ pour l'évaluation de la relation entre le traitement et les résultats manquants, nous ajouterons une analyse des limites des valeurs extrêmes dans laquelle nous fixons tous les résultats manquants pour le traitement au maximum du bloc et tous les résultats manquants pour contrôle au minimum du bloc.</li>
+<li>Si $p \geq 0.5$ pour l'évaluation de la relation entre le traitement et les résultats manquants, nous imputerons les résultats manquants en utilisant la moyenne de la sous-catégorie d'assignation par bloc.</li>
 </ol>
-If we still have outcome questions with especially high nonresponse rate of over 10 percent, we will:
+Si nous avons encore des questions sur les résultats avec un taux de non-réponse particulièrement élevé de plus de 10 %, nous allons :
 <ol>
-<li>Describe the relationship between non-response to this question and other data on the people via </li>
+<li>Décrire la relation entre la non-réponse à cette question et d'autres données sur les personnes via </li>
   <ul>
-  <li>Bivariate explorations of plots and/or tables</li>
-  <li>Variable selection using adaptive elastic net models with tuning parameters chosen by 10-fold cross validation within design-subgroup.</li>
+  <li>des explorations bivariées de graphiques et/ou de tableaux</li>
+  <li>une sélection de variables à l'aide d'un modèle de réseau élastique adaptatif avec des paramètres de réglage choisis par une validation croisée répétée 10 fois au sein du sous-groupe du design.</li>
   </ul>
-<li>Consider dropping these survey outcomes and catalog the reason for our decision.</li>
+<li>Envisagez d'abandonner ces résultats d'enquête et répertoriez la raison de votre décision.</li>
 </ol>
 </ol>
 
-8 What is in a PAP? Power Analysis
+8 Qu'y a-t-il dans un PAP? Analyse de puissance statistique
 ==
 
-A [power analysis](https://egap.org/resource/10-things-to-know-about-statistical-power) is commonly included in PAPs.
- Statistical power is the likelihood that your study will detect an effect, if there is an effect to be detected.
+Une [analyse de puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) est généralement incluse dans les PAP.
+La puissance statistique est la probabilité que votre étude détecte un effet, s'il y a un effet à détecter.
 
-There are [tools](https://egap.shinyapps.io/Power_Calculator/) to help you calculate power, but you can also produce your own power analysis computationally.
- A benefit of computational power analysis is that the power analysis doubles as your final analysis code, or at minimum a template of the final analysis code.
+Il existe des [outils](https://egap.shinyapps.io/Power_Calculator/) pour vous aider à calculer la puissance, mais vous pouvez également produire votre propre analyse de puissance programmatiquement .
+L'un des avantages de faire l'analyse de la puissance programmatiquement est qu'elle sert également de code d'analyse finale, ou au minimum de base pour le code d'analyse finale.
 
-In many ways, the computational power analysis implements all of the specifications you made in your PAP into code.
- In fact, you can combine code for a computational power analysis with the code written for other sections of the PAP, and create a computational PAP.
- Such a tool, which can be implemented with software like [DeclareDesign](https://declaredesign.org), can then help you diagnose potential problems, teach you more about your design, and strengthen your PAP.
+À bien des égards, l'analyse de la puissance de calcul implémente toutes les spécifications que vous avez faites dans votre PAP dans le code.
+En fait, vous pouvez combiner le code pour une analyse de puissance de calcul avec le code écrit pour d'autres sections du PAP et créer un PAP de calcul.
+Un tel outil, qui peut être implémenté avec un logiciel comme [DeclareDesign](https://declaredesign.org), peut alors vous aider à diagnostiquer des problèmes potentiels, vous en apprendre davantage sur votre design et renforcer votre PAP.
 
-
-9 Why make a PAP?
+9 Pourquoi faire un PAP ?
 ==
 
-You may have heard arguments for and against PAPs.
- This discussion offers some thoughts that address the benefits and costs of PAPs.
+Vous avez peut-être entendu des arguments pour et contre les PAP. Cette discussion propose quelques réflexions sur les avantages et les coûts des PAP.
 
-*1. PAPs help counter the replication crisis.*
+*1. Les PAP aident à contrer la crise de réplication.*
 
-A lack of research transparency has led to several issues, one of which is the replication crisis.
+Un manque de transparence de la recherche a conduit à plusieurs problèmes, dont l'un est la crise de réplication.
 
-The replication crisis is that many academic studies are difficult or impossible to replicate.
- PAPs reduce the number of studies that are not replicable due to bad data practices, such as data mining for spurious relationships and inadvertently hacking $p$-values.
- PAPs also increase the number of studies that elaborate the procedures necessary for replication, allowing attempts to replicate those studies.
+La crise de réplication est que de nombreuses études universitaires sont difficiles ou impossibles à reproduire.
+Les PAP réduisent le nombre d'études qui ne sont pas reproductibles en raison de mauvaises pratiques en matière de données, telles que le data mining jusqu'à trouver des données montrant une relation causale fallacieuse ou le trucage involontaire des $p$-valeurs.
+Les PAP augmentent également le nombre d'études qui élaborent les procédures nécessaires à la réplication, ce qui permet de tenter de reproduire ces études.
 
-<!--Research transparency also prevents data mining.
- Even well-intentioned researchers can be tempted to manipulate data in ways to maximize effect sizes and minimize $p$-values, such as including/excluding control variables, constructing an index in one way or another, or running one model over another model.
- It is easy to justify using the method that yields the most positive results if the method is not pre-specified in advance.-->  <!--This is especially useful for any partnerships where one side has an incentive to get positive results, which are common for academic-policy collaborations.-->
+*2. Les PAP aident à contrer les biais de publication.*
 
-*2. PAPs help counter publication bias.*
+Un manque de transparence de la recherche contribue également au biais de publication.
 
-A lack of research transparency also contributes to publication bias.
+Un biais de publication se produit lorsque les revues publient des études basées sur les résultats de l'étude plutôt que sur la qualité de la recherche.
+Ce biais peut conduire à des croyances erronées sur un lien entre les variables $X$ et $Y$ car les revues ne publient que des études qui montrent que $X$ affecte $Y$ et ne publient pas d'études où $X$ n'affecte pas $Y$, même si ces études sont plus nombreuses.
 
-Publication bias occurs when journals publish studies based on the study's results, rather than the quality of the research.
- This bias can lead to erroneous beliefs about a connection between variables $X$ and $Y$ because journals only publish studies that show $X$ affecting $Y$ and do not publish studies where $X$ does not affect $Y$, even if those studies are more numerous.
-
-PAP registries function as repositories of attempted studies, both published and unpublished.
- These registries allow scholars and practitioners to identify if published effects about a topic accurately represent the effects found in unpublished studies, or if published effects differ from unpublished studies.
-
+Les registres PAP fonctionnent comme des référentiels de tentatives d'études, à la fois publiées et non publiées.
+Ces registres permettent aux universitaires et aux praticiens d'identifier si les effets publiés sur un sujet représentent avec précision les effets trouvés dans les études non publiées, ou si les effets publiés diffèrent des études non publiées.
 
 Pre-registering studies as exploratory or confirmatory further allows researchers to know if future research should build off the study or if future research should corroborate the study.
  _There is nothing wrong with exploratory research_, and many important but unknown relationships can be uncovered through exploratory analyses.
  It is important to acknowledge when findings are exploratory and need to be confirmed in other studies.
  Details in PAP registries allow scholars to do so.
 
-*3. PAPs encourage quality research.*
+Le pré-enregistrement des études de confirmation ou d'exploration permet en outre aux chercheurs de savoir si les recherches futures devraient s'appuyer sur l'étude ou si les recherches futures devraient corroborer l'étude.
+_Il n'y a rien de mal avec la recherche exploratoire_, et de nombreuses relations importantes mais inconnues peuvent être découvertes grâce à des analyses exploratoires.
+Il est important de reconnaître quand les résultats sont exploratoires et doivent être confirmés dans d'autres études.
+Les détails dans les registres PAP permettent aux universitaires de le faire.
 
-Creating a PAP forces the researcher to elaborate the many design decisions that need to be made while conducting a study.
- In the case of observational studies, changing these design decisions later is not a problem.
- But for experimental studies or other studies using original data collection, the researcher gets one chance to collect the data needed for the analysis.
- PAPs help ensure the researcher thinks through all decisions and collects the right data.
+*3. Les PAP encouragent la recherche de qualité.*
 
-*4. PAPs encourage impactful research.*
+La création d'un PAP oblige le chercheur à élaborer les nombreuses décisions de design qui doivent être prises lors de la réalisation d'une étude.
+Dans le cas des études d'observation, la modification ultérieure de ces décisions de design n'est pas un problème.
+Mais pour les études expérimentales ou d'autres études utilisant la collecte de données originales, le chercheur a la chance de collecter les données nécessaires à l'analyse.
+Les PAP aident à garantir que le chercheur réfléchit à toutes les décisions et collecte les bonnes données.
 
-PAPs increase research transparency, and transparent research should be more readily trusted and used than non-transparent research because the study's decisions, and reasons for those decisions, are made before the study's results are known.
- Transparency assures academic, policy, and other communities that the research findings can be used as the basis for more research, for policy programs, and for other real-world applications.
+*4. Les PAP encouragent la recherche impactante.*
 
-*5. PAPs can shorten the publication process.*
+Les PAP augmentent la transparence de la recherche, et la recherche transparente devrait être plus facilement fiable et utilisée que la recherche non transparente, car les décisions de l'étude et les raisons de ces décisions sont prises avant que les résultats de l'étude ne soient connus.
+La transparence garantit aux universitaires, aux politiques et aux autres communautés que les résultats de la recherche peuvent être utilisés comme base pour davantage de recherches, pour des programmes politiques et pour d'autres applications dans le monde réel.
 
-PAPs require more pre-research time-investment, but substantially shorten post-research analysis time because analytic decisions and code are written in advance.
- PAPs _should_ also shorten the review process that leads to publication.
- Journals often require numerous robustness checks before accepting the results of a study.
- Reviewers may request fewer alternative analyses from pre-specified work because it is clear to reviewers that pre-specified analysis decisions were not influenced by the study's results.
- This is especially useful when the researcher wants to use an unconventional but more powerful statistical test that may look suspicious without pre-specification, such as one-sided tests or test statistics other than the difference-in-means.
+*5. Les PAP peuvent raccourcir le processus de publication.*
 
+Les PAP nécessitent plus d'investissement en temps avant la recherche, mais raccourcissent considérablement le temps d'analyse après la recherche car les décisions analytiques et le code sont écrits à l'avance.
+Les PAP _devraient_ également raccourcir le processus d'examen qui mène à la publication.
+Les revues scientifiques nécessitent souvent de nombreux contrôles de robustesse avant d'accepter les résultats d'une étude.
+Les examinateurs peuvent demander moins d'analyses alternatives à partir de travaux prédéfinis, car il est clair pour les examinateurs que les décisions d'analyse prédéfinies n'ont pas été influencées par les résultats de l'étude.
+Ceci est particulièrement utile lorsque le chercheur souhaite utiliser un test statistique non conventionnel mais plus puissant qui peut sembler suspect sans spécification préalable, comme des tests unilatéraux ou des statistiques de test autres que la différence des moyennes.
 
-**Why not make a PAP?**
+**Pourquoi ne pas faire un PAP ?**
 
-*1. Research is unpredictable and PAPs make research inflexible.*
+*1. La recherche est imprévisible et les PAP rendent la recherche inflexible.*
 
-Some people argue that a PAP locks the study into a particular design, intervention, and estimation strategy even though details of the design, intervention, and estimation strategy may change while conducting a study.
- In experimental studies, unforeseen difficulties often change aspects of the randomization or intervention, or a new outcome measure may fail validity tests.
- And in observational studies, future thought about how a theory applies to your data may reveal the need for new control, mediating, and/or moderating variables.
+Certaines personnes soutiennent qu'un PAP verrouille l'étude dans une stratégie de design, d'intervention et d'estimation particulière même si les détails de la stratégie de design, d'intervention et d'estimation peuvent changer pendant la réalisation d'une étude.
+Dans les études expérimentales, des difficultés imprévues modifient souvent les aspects de la randomisation ou de l'intervention, ou une nouvelle mesure de résultat peut échouer aux tests de validité.
+Et dans les études d'observation, une réflexion future sur la façon dont une théorie s'applique à vos données peut révéler le besoin de nouvelles variables de contrôle, de médiation et/ou de modération.
 
-Researchers should remember that *any Pre-Analysis Plan can be revised*! Your first PAP does not lock you into a specific research design, outcome variable, or model specification.
-*The PAP makes the research process transparent, not inflexible*.
- Revisions can be made either by submitting a new PAP or through an amendment describing changes from the previous PAP.<!--Describe pros and cons -->.
- <!--For example, in the Malawi study it was impossible to demarcate neighborhoods of exactly 20 households, so the PAP changed to accomodate clusters of different sizes.
- Other studies may not realize the importance of their independent variable on an outcome until after the study is conducted.-->  Exploratory analyses are okay!  The point of a PAP is not to prevent these unanticipated analyses, but to formalize and explain the process that led to the analyses.
+Les chercheurs doivent se rappeler que *tout plan de pré-analyse peut être révisé* ! Votre premier PAP ne vous enferme pas dans un design de recherche, une variable de résultat ou une spécification de modèle spécifique.
+*Le PAP rend le processus de recherche transparent et non rigide*.
+Des révisions peuvent être apportées soit en soumettant un nouveau PAP, soit via un amendement décrivant les changements par rapport au PAP précédent.
+<!--Décrivez les avantages et les inconvénients -->.
+<!--Par exemple, dans l'étude du Malawi, il était impossible de délimiter des quartiers d'exactement 20 ménages, de sorte que le PAP a changé pour accueillir des grappes de tailles différentes.
+D'autres études peuvent ne pas réaliser l'importance de leur variable indépendante sur un résultat avant la réalisation de l'étude.-->
+Les analyses exploratoires sont acceptables ! Le but d'un PAP n'est pas d'empêcher ces analyses imprévues, mais de formaliser et d'expliquer le processus qui a conduit aux analyses.
 
 <!--
-*2. PAPs increase time to run the study.*
+*2. Les PAP augmentent le temps nécessaire pour mener l'étude.*
 
-A PAP _is_ a substantial time-investment upfront, but PAPs can reduce analysis and publication time.
- Both because the main analysis code is already written and because journal reviewers may not request as many robustness checks, since you have pre-specified your statistical model upfront.-->
+Un PAP _est_ un investissement de temps considérable au départ, mais les PAP peuvent réduire le temps d'analyse et de publication.
+À la fois parce que le code d'analyse principal est déjà écrit et parce que les relecteurs des revues scientifiques peuvent ne pas demander autant de contrôles de robustesse, puisque vous avez prédéfini votre modèle statistique à l'avance.-->
 
-More discussion of the pros and cons of PAPs can be found in chapter 19 of @rosenbaum2010 and in @olken2015.
+Pour plus de détails sur les avantages et les inconvénients des PAP, consultez le chapitre 19 de @rosenbaum2010 et @olken2015.
 
-
-10 When and where do you register a PAP?
+10 Quand et où enregistrer un PAP ?
 ==
 
-Your PAP is now complete and you are ready to register it!  For experimental studies, the latest you should register the PAP is before final data are collected.
- For observational studies, the latest you should register the PAP is before any analyses are done, including looking at descriptive statistics.
- You can revise PAPs through an amendment at any time.
+Votre PAP est maintenant terminé et vous êtes prêt à l'enregistrer ! Pour les études expérimentales, vous devez enregistrer le PAP au plus tard avant la collecte des données finales.
+Pour les études d'observation, vous devez enregistrer le PAP au plus tard avant toute analyse, y compris l'examen des statistiques descriptives.
+Vous pouvez réviser les PAP par le biais d'un avenant à tout moment.
 
-There are several third-party sites on which you can register your PAP.
- We list common sites for social science PAPs below.
- You can list your PAP on multiple sites, and certain journals require potential articles to register PAPs with a specific site.^[Note that some organizations do not use third party sites.
- For example, the [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) uses Github, which has timestamps that verify the PAP was created before the analysis was conducted.]
+Il existe plusieurs sites tiers sur lesquels vous pouvez enregistrer votre PAP.
+Nous listons ci-dessous les sites communs pour les PAP en sciences sociales.
+Vous pouvez répertorier votre PAP sur plusieurs sites, et certaines revues exigent des articles potentiels pour enregistrer les PAP sur un site spécifique.^[Notez que certaines organisations n'utilisent pas de sites tiers. Par exemple, le [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) utilise Github, qui permet de vérifier que le PAP a été créé avant la réalisation de l'analyse.]
 
-- [EGAP Registry](http://egap.org/content/registration)
-- [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
-- [OSF Registry](http://help.osf.io/m/registrations)
+- [Registre EGAP](http://egap.org/content/registration)
+- [Registre AEA](https://www.socialscienceregistry.org) (pour les ECRs seulement)
+- [Registre OSF](http://help.osf.io/m/registrations)
 
-<!--# Stuff for Chris and Lula
-
-https://blogs.worldbank.org/impactevaluations/a-pre-analysis-plan-checklist
-
--->
-
-Happy Pre-Analysis Planning!
-
-# References
+# Références
