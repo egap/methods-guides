@@ -99,7 +99,7 @@ Les personnes très apathiques pourraient être plus susceptibles de croire que 
 Nous sommes donc susceptibles d'observer une forte corrélation entre M et Y qui est induite par le facteur de confusion de Q, et non par notre traitement X.
 Mécaniquement, nos résultats seront biaisés en faveur de la recherche de preuves de l'effet de X sur Y via M simplement parce que Q a produit une relation entre M et Y.
 
-# …et parce que les effets des traitements sont rarement homogènes.
+# …et parce que l'effet du traitement est rarement homogène.
 
 L'autre problème lorsque l'on essaie de décomposer l'effet moyen de X sur M puis de M sur Y est que cette approche suppose que chaque sujet répond au traitement de manière identique.
 En rappelant notre exemple dans lequel X est le traitement de l'information, M est la conviction que la corruption est trop sévère, et Y le fait de rester à la maison, nous pouvons imaginer deux types de répondants.
@@ -165,23 +165,23 @@ Pour résumer, l'analyse de décomposition des effets désagrége ostensiblement
 
 [^6]: Explication adaptée d'Alan Gerber et Donald Green, Field Experiments, W.W. Norton and Company, 2012, chapter 10.
 
-The problem is that this arithmetic only works under some very strong assumptions.
-One of these assumptions is that the error terms in regressions 1 and 3 are unrelated to each other—in other words, M can’t be predicted by unobservable factors that also predict Y.
-We described this problem intuitively in point 3 when we introduced Q, a confounding variable that contributes both to M and to Y and therefore engenders a very strong relationship between them, even if X’s effect on Y is not operating through M at all.
-Now let’s describe this problem using a simulation.
+Le problème est que cette arithmétique ne fonctionne que sous certaines hypothèses très fortes.
+L'une de ces hypothèses est que les termes d'erreur dans les régressions 1 et 3 ne sont pas liés les uns aux autres - en d'autres termes, M ne peut pas être prédit par des facteurs non observables qui prédisent également Y.
+Nous avons décrit ce problème intuitivement au point 3 lorsque nous avons introduit Q, une variable de confusion qui contribue à la fois à M et à Y et engendre donc une relation très forte entre eux, même si l'effet de X sur Y ne s'exerce pas du tout à travers M.
+Décrivons maintenant ce problème à l'aide d'une simulation.
 
-In the following code, we start by creating this Q variable for each individual and defining the “true” effects of X on M, M on Y, and X on Y.
-Next, we create hypothetical potential outcomes for M—that is, for each individual, we define what value of M they would reveal if they were treated, and what value of M they would reveal if they were untreated.
-These values are related not only to the “true” effect of X on M, but also to Q.
-Then we can also define hypothetical potential outcomes for Y.
-We do this for four scenarios, all of which assume constant effects, an assumption we will relax later.
-Two of these are simple potential outcomes of Y: the Y exhibited by the individual who is untreated and reveals her untreated M potential outcome, and the Y exhibited by the individual who is treated and reveals her treated M potential outcome.
-However, we also define two complex potential outcomes of Y: the Y exhibited by the individual who is untreated but reveals her treated M potential outcome, and the Y exhibited by the individual who is treated but reveals her untreated M potential outcomes.
-While these potential outcomes bend the mind a bit, they are important to define in the hypothetical so that we can calculate the “true” (but inherently unobservable) direct and indirect effects to compare our decomposition analysis to.
+Dans le code suivant, nous commençons par créer cette variable Q pour chaque individu et définir les "vrais" effets de X sur M, M sur Y et X sur Y.
+Ensuite, nous créons des résultats potentiels hypothétiques pour M, c'est-à-dire que pour chaque individu, nous définissons quelle valeur de M ils révéleraient s'ils étaient traités, et quelle valeur de M ils révéleraient s'ils n'étaient pas traités.
+Ces valeurs sont liées non seulement au "vrai" effet de X sur M, mais aussi à Q.
+Ensuite, nous pouvons également définir des résultats potentiels hypothétiques pour Y.
+Nous faisons cela pour quatre scénarios, qui supposent tous des effets constants, une hypothèse que nous relâcherons plus tard.
+Deux d'entre eux sont des résultats potentiels simples de Y : le Y présenté par l'individu qui n'est pas traité et révèle son résultat potentiel M non traité, et le Y présenté par l'individu qui est traité et révèle son résultat potentiel M traité.
+Cependant, nous définissons également deux résultats potentiels complexes de Y : le Y présenté par l'individu qui n'est pas traité mais qui révèle son résultat potentiel M traité, et le Y présenté par l'individu qui est traité mais qui révèle ses résultats potentiels M non traités.
+Bien que ces résultats potentiels compliquent la compréhension, ils sont importants à définir dans l'hypothèse afin que nous puissions calculer les effets directs et indirects "vrais" (mais intrinsèquement inobservables) auxquels comparer notre analyse de décomposition.
 
-In the second half of the code, we conduct a random assignment of treatment and proceed with the decomposition of effects analysis described above, using the data we “observe.” Under the (strong) assumptions that the error terms are uncorrelated and effects are constant across subjects, $a*b$ = ACME, $d$ = ACDE, and $c$ = ATE.
-However, the simulation reveals that $a*b$ > ACME and $d$ < ACDE; that is, we overestimated the average indirect or mediated effect (ACME) and underestimated the average direct effect (ACDE).
-Our decomposition of effects analysis was biased because the first assumption – uncorrelated error terms – did not hold: unobserved variable Q predicted both M and Y, and this led us to overestimate the role of the mechanism M.
+Dans la seconde moitié du code, nous effectuons une assignation aléatoire du traitement et procédons à l'analyse de décomposition des effets décrite ci-dessus, en utilisant les données que nous "observons". Sous les hypothèses (fortes) selon lesquelles les termes d'erreur ne sont pas corrélés et les effets sont constants entre les sujets, $a*b$ = ACME, $d$ = ACDE et $c$ = ATE.
+Cependant, la simulation révèle que $a*b$ > ACME et $d$ < ACDE ; c'est-à-dire que nous avons surestimé l'ACME et sous-estimé l'ACDE.
+Notre analyse de décomposition des effets était biaisée car la première hypothèse - termes d'erreur non corrélés - n'était pas vérifiée : la variable non observée Q prédisait à la fois M et Y, ce qui nous a conduit à surestimer le rôle du mécanisme M.
 
 ```{r}
 rm(list=ls())
@@ -190,221 +190,229 @@ set.seed(20160301)
 
 N <- 1000000
 
-# Simulate Data, Create Potential Outcomes, Estimate "True" Effects -----------------------
+# simuler des données, créer des résultats potentiels (RP), estimer les effets "réels"
 
-# build in an ideosyncratic unobserved characteristic
+# construire dans une caractéristique non observée idéosyncratique
 Q_i <- rnorm(N)
 
-# create the "true model" by defining our treatment effects (tau)
-tau_X_on_M <- 0.2 # X's effect on M
-tau_M_on_Y <- 0.1 # M's effect on Y
-tau_X_on_Y <- 0.5 # total effect of X on Y (ATE), both through M and not through M
+# créer le "vrai modèle" en définissant l'effet du traitement (tau)
+tau_X_on_M <- 0.2 # effet de X sur M
+tau_M_on_Y <- 0.1 # effet de M sur Y
+tau_X_on_Y <- 0.5 # effet total de X sur Y (ATE), à travers M et non
 
-# build the potential outcomes (POs) for the mediator
-# individual reveals M_1 if treated; M_0 if untreated
-# M is a function of both treatment and the unobserved characteristic
+# construire les résultats potentiels pour le médiateur
+# individu révèle M_1 s'il est traité ; M_0 si non traité
+# M est fonction à la fois du traitement et de la caractéristique non observée
 M_0 <- 0*tau_X_on_M + Q_i
 M_1 <- 1*tau_X_on_M + Q_i
 
-# we can estimate the unbiased Average Treatment Effect (ATE) of X on M
+# nous pouvons estimer l'effet moyen du traitement (ATE) non biaisé de X sur M
 ATE_M <- mean(M_1 - M_0)
 ATE_M
 
-# build POs for the outcome variable
+# construire les résultats potentiels pour le résultat
 Y_M0_X0 <- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
 Y_M1_X1 <- tau_M_on_Y*(M_1) + tau_X_on_Y*1 + Q_i
 Y_M0_X1 <- tau_M_on_Y*(M_0) + tau_X_on_Y*1 + Q_i # this is a "complex" PO
 Y_M1_X0 <- tau_M_on_Y*(M_1) + tau_X_on_Y*0 + Q_i # this is a "complex" PO
-# some of these POs are "complex" because we are imagining what Y we would
-# observe if we assigned treatment but observed the untreated M PO or
-# if we assigned control but observed the treated M PO
-# building these complex POs is necessary for estimating the "true" direct and indirect effects
 
-# we can estimate the unbiased Average Causally Mediated Effect (ACME)
-# we estimate the effects of M holding X constant
-# they are the same
-# this is the "indirect effect"
+# certains de ces RP sont "complexes" car nous imaginons ce que nous
+# observrions si nous avions assigné au traitement mais observé le RP de M non traité ou
+# si nous avions assigné au contrôle mais observé le RP de M traité
+# la construction de ces RP complexes est nécessaire pour estimer les "vrais" effets directs et indirects
+
+# nous pouvons estimer l'ACME
+# nous estimons les effets de M en maintenant X constant
+# ce sont les mêmes
+# c'est "l'effet indirect"
 ACME_X0 <- mean(Y_M1_X0 - Y_M0_X0)
 ACME_X1 <- mean(Y_M1_X1 - Y_M0_X1)
 ACME <- mean(((Y_M1_X1 - Y_M0_X1) + (Y_M1_X0 - Y_M0_X0))/2)
 
-# we can estimate the unbiased Average Controlled Direct Effect (ACDE)
-# we estimate the effects of X holding M constant
-# they are the same
-# this is the "direct effect"
+# nous pouvons estimer l'ACDE
+# nous estimons les effets de X en maintenant M constant
+# ce sont les mêmes
+# c'est "l'effet direct"
 ACDE_M0 <- mean(Y_M0_X1 - Y_M0_X0)
 ACDE_M1 <- mean(Y_M1_X1 - Y_M1_X0)
 ACDE <- mean(((Y_M0_X1 - Y_M0_X0)+(Y_M1_X1 - Y_M1_X0))/2)
 
-# now we build the simple POs for Y
+# maintenant, nous construisons les RP simples pour Y
 Y_1 <- tau_M_on_Y*(M_1) + tau_X_on_Y*1 + Q_i
 Y_0 <- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
 
-# we estimate the true ATE of X on Y
-# this is the "total effect"
+# on estime le vrai ATE de X sur Y
+# c'est l'effet "total"
 ATE <- mean(Y_1 - Y_0)
 
 ATE
-ACDE + ACME # note that the direct and indirect effects sum to the total
+ACDE + ACME # noter que les effets directs et indirects s'additionnent au total
 ACDE 
 ACME
 ATE_M
 
-# Random Assignment, Revelation of POs, Attempt to Decompose Effects ---------------------------------
+# Assignation aléatoire, révélation des RPs, tentative de décomposition des effets
 
-# we assign half of our sample to treatment and half to control
+# nous assignons la moitié de notre échantillon au traitement et l'autre moitié au contrôle
 X <- sample(c(rep(1,(N/2)),rep(0,(N/2))))
-# we reveal POs for M and Y based on treatment assignment
+# nous révélons les RPs pour M et Y en fonction de l'Assignation du traitement
 M <- X*M_1 + (1-X)*M_0
 Y <- X*Y_1 + (1-X)*Y_0
 
 model1 <- lm(M ~ X)
-a <- coef(model1)[2] # extract the coefficient to get the effect of X on M
+a <- coef(model1)[2] # extrait le coefficient pour obtenir l'effet de X sur M
 a
 
 model2 <- lm(Y ~ X)
-c <- coef(model2)[2] # extract the coefficient to get the total effect of X on Y
+c <- coef(model2)[2] # extrait le coefficient pour obtenir l'effet total de X sur Y
 c
 
 model3 <- lm(Y ~ X + M)
-d <- coef(model3)[2] # extract this coefficient to get the effect of X on Y controlling for M
-b <- coef(model3)[3] # extract this coefficient to get the effect of M on Y controlling for X
+d <- coef(model3)[2] # extrait le coefficient pour obtenir l'effet de X sur Y en contrôlant pour M
+b <- coef(model3)[3] # extrait le coefficient pour obtenir l'effet de M sur Y en contrôlant pour X
 
-# some would now multiply the average effect of X on M and the average effect of M on Y to get the average indirect/mediated effect of X on Y via M (ACME)
+# on pourrait multiplier maintenant l'effet moyen de X sur M et l'effet moyen de M sur Y pour obtenir l'ACME de X sur Y via M
 a*b
-# but when we compare this to the true ACME, we see that this is biased
+# mais quand on compare cela au vrai ACME, on voit que c'est biaisé
 ACME
 
-# some would also interpret the average effect of X on Y controlling for M as the average controlled direct effect (ACDE)
+# on pourrait également interpréter l'effet moyen de X sur Y en contrôlant M comme l'ACDE
 d
-# but when we compare this to the true ACDE, we see that this is biased
+# mais quand on compare cela au vrai ACDE, on voit que c'est biaisé
 ACDE
 
-# note that we have OVERestimated the average indirect effect and UNDERestimated the average direct effect
+# notez que nous avons SUR-estimé l'effet indirect moyen et SOUS-estimé l'effet direct moyen
 
-# the estimates that are unbiased are the average effects of X on Y and X on M because X is randomly assigned
+# les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M car X est assigné au hasard
 a
 ATE_M
 c
 ATE
 ```
 
-Let’s tie this exercise back to the issue raised in point 3. This simulation illustrated that quantifying the mediated effect proves difficult when background predictive variables confound the relationship between M and Y.
-Because M is not randomly assigned, it is important for us to think about how likely it is that our M and our Y are both affected by unobserved variables.
-In principle, if there are no confounding variables in this relationship, then a decomposition of effects analysis may be unbiased, but this is assumption is strong and usually hard to prove.
+Relions cet exercice à la question soulevée au point 3. Cette simulation a illustré que la quantification de l'effet de médiation s'avère difficile lorsque les variables prédictives de base confondent la relation entre M et Y.
+Étant donné que M n'est pas attribué au hasard, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
+En principe, s'il n'y a pas de variables de confusion dans cette relation, alors une analyse de décomposition des effets peut être impartiale, mais cette hypothèse est forte et généralement difficile à prouver.
 
-While we did not demonstrate it in this simulation, it is also possible to show that decomposition of effects also breaks down when treatment effects are heterogeneous (we introduced the intuition for this in point 4).
-The technical reason for this comes from our law of expectations, which is: $E[a*b]$ = $E[a]E[b]+cov(a,b)$.
-If we have constant treatment effects, then $a$ and $b$ do not covary, the covariance term drops out, and we can simply multiply $a*b$ to get the ACME.
-However, if the covariance term is non-zero, then we are not able to estimate this indirect effect from these two coefficients obtained from separate regressions.
-We constructed constant treatment effects in order to be able to demonstrate the process of decomposing effects, but if we were to re-do the simulation with heterogeneous treatment effects that covary, then we would not even be able to calculate the ACME or ACDE using the potential outcomes approach at the beginning of our code.
+Même si nous ne l'avons pas démontré dans cette simulation, il est également possible de montrer que la décomposition des effets est également inappropriée lorsque l'effet du traitement est hétérogène (nous avons introduit cette intuition au point 4).
+La raison technique de ceci vient de notre loi de l'espérance, qui est : $E[a*b]$ = $E[a]E[b]+cov(a,b)$.
+Si nous avons un effet de traitement constant, alors $a$ et $b$ ne covarient pas, le terme de covariance disparaît et nous pouvons simplement multiplier $a*b$ pour obtenir l'ACME.
+Cependant, si le terme de covariance est non nul, alors nous ne sommes pas en mesure d'estimer cet effet indirect à partir de ces deux coefficients obtenus à partir de régressions distinctes.
+Nous avons construit un effet de traitement constant afin de pouvoir démontrer le processus d'effets de décomposition,
+mais si nous devions refaire la simulation avec un effet de traitement hétérogène qui varie, nous ne serions même pas en mesure de calculer l'ACME ou l'ACDE
+en utilisant l'approche des résultats potentiels au début du code.
 
-**What you can do...** Before you embark on a decomposition of effects analysis, ask yourself:
+**Ce que vous pouvez faire...** Avant de vous lancer dans une analyse de décomposition des effets, demandez-vous :
 
-- Can I imagine any unobserved variables that predict both M and Y?
-- Is it possible that my subjects respond to treatment effects in different ways?
+- Puis-je imaginer des variables non observées qui prédisent à la fois M et Y ?
+- Est-il possible que mes sujets réagissent à l'effet du traitement de différentes manières ?
 
-If the answer to any of these questions is yes, we strongly recommend that you proceed with caution.
-In particular, think carefully about how unobserved variables and heterogeneous treatment effects would affect your estimation strategy.
+Si la réponse à l'une de ces questions est oui, nous vous recommandons fortement de procéder avec prudence.
+En particulier, réfléchissez bien à la manière dont les variables non observées et l'effet du traitement hétérogène affecteraient votre stratégie d'estimation.
 
-# Sometimes subgroup analysis can provide suggestive evidence for or against a mechanism.
+# Parfois, l'analyse de sous-groupes peut fournir des preuves ou suggestions pour ou contre un mécanisme.
 
+Aux points 3-6, nous avons mis en garde les chercheurs contre toute tentative de quantifier avec confiance la proportion d'un effet de médiation par un mécanisme particulier,
+mais il peut exister d'autres moyens d'en savoir plus sur les mécanismes à l'œuvre dans une étude particulière.
+Au point 1, nous avons souligné la relation étroite entre les mécanismes et la théorie.
+Ce n'est pas parce qu'il est difficile de quantifier directement les preuves d'un mécanisme que nous ne pouvons pas explorer les prédictions testables de la théorie dans laquelle notre mécanisme est présenté !
 
-In points 3-6, we’ve cautioned researchers against trying to confidently quantify the proportion of an effect that is mediated by a particular mechanism, but there may be other ways to learn more about mechanisms at work in a particular study.
-In point 1, we underscored the tight relationship between mechanisms and theory.
-Just because it’s challenging to quantify evidence of a mechanism directly does not mean we cannot explore the testable predictions of the theory in which our mechanism is featured!
-
-One strategy is to use subgroup analysis, or treatment-by-covariate interactions, to see whether different populations respond to the treatment differently in accordance with our theories.
-For example, suppose we wanted to learn more about the role of income in mediating the climate/conflict relationship.
-One of the testable implications of a theory in which income plays a mediating role is that we would expect climate shocks to be associated with conflict in areas where income is sensitive to climate shocks but not where income is independent of climate shocks.
-Sarsons (2015)[^7] does exactly this.
-Exploiting the fact that districts downstream of irrigation dams do not depend on rainfall for income while districts upstream of irrigation dams do, she explores the income mechanism by testing whether rain shocks predict riot incidence in downstream districts but not in upstream districts.
-Formally, she tests these hypotheses:
+Une stratégie consiste à utiliser l'analyse de sous-groupe, ou des interactions de traitement par covariable,
+pour voir si différentes populations répondent au traitement différemment conformément à nos théories.
+Par exemple, supposons que nous voulions en savoir plus sur le rôle du revenu dans la médiation de la relation climat/conflit.
+L'une des implications vérifiables d'une théorie dans laquelle le revenu joue un rôle médiateur est que nous nous attendrions à ce que les chocs climatiques soient associés à des conflits dans les zones où le revenu est sensible aux chocs climatiques mais pas là où le revenu est indépendant des chocs climatiques.
+Sarsons (2015)[^7] fait exactement cela.
+Exploitant le fait que les districts en aval des barrages d'irrigation ne dépendent pas des précipitations pour leur revenu contrairement aux districts en amont,
+elle explore le mécanisme de revenu en testant si les chocs pluviométriques prédisent l'incidence des émeutes dans les districts en aval mais pas dans les districts en amont.
+Formellement, elle teste ces hypothèses :
 
 [^7]: Heather Sarsons, “Rainfall and Conflict: A Cautionary Tale.” Journal of Development Economics 115 (2015): 62-72.
 
-- X$\rightarrow$Y in places where X is known to affect M [Rainfall shocks will increase riots in areas where rainfall shocks will negatively affect income (upstream of dam).] 
-- X has no effect on Y in places where X has no effect on M [Rainfall shocks will have no effect on riots in areas where income is not sensitive to rainfall (downstream of dam).]
+- X$\rightarrow$Y dans les endroits où X est connu pour affecter M [Les chocs pluviométriques augmenteront les émeutes dans les zones où les chocs pluviométriques affecteront négativement les revenus (en amont du barrage).]
+- X n'a ​​pas d'effet sur Y dans les endroits où X n'a ​​pas d'effet sur M [Les chocs pluviométriques n'auront aucun effet sur les émeutes dans les zones où le revenu n'est pas sensible aux précipitations (en aval du barrage).]
 
-However, she found that the relationship between rainfall shocks and riot incidence held just as tightly in the downstream districts where income was not sensitive to rainfall.
-She interprets this finding as “suggestive” evidence *against* the income mechanism.
-To be clear, Sarsons did not conduct any mediation analysis: she did not measure the income of each village and quantify the direct effect of rainfall shocks on riots and the indirect effect of rainfall shocks on riots through income.
-Instead, she looked for the heterogeneous treatment effects the theory would have implied and, finding no evidence of them, concluded that the income channel may be less important than previously thought.
+Cependant, elle a constaté que la relation entre les chocs pluviométriques et l'incidence des émeutes était tout aussi étroite dans les districts en aval où le revenu n'était pas sensible aux précipitations.
+Elle interprète ce résultat comme une preuve "suggestive" *contre* le mécanisme de revenu.
+Pour être clair, Sarsons n'a mené aucune analyse de médiation : elle n'a pas mesuré le revenu de chaque village et quantifié l'effet direct des chocs pluviométriques sur les émeutes et l'effet indirect des chocs pluviométriques sur les émeutes par le biais des revenus.
+Au lieu de cela, elle a recherché un effet du traitement hétérogène que la théorie aurait impliqué et, n'en trouvant aucune preuve, a conclu que le canal de revenu peut être moins important qu'on ne le pensait auparavant.
 
-**What you can do...** In future projects, ask yourself: If the mechanism is M, which groups or units would I expect to exhibit a treatment effect, and which groups or units would I expect not to respond to treatment? Next, test whether these predictions are supported by your data and interpret this as suggestive evidence for or against your proposed mechanism M.
-Keep in mind that such evidence is not decisive because the groups could differ in other ways that could affect their responsiveness to the treatment.
+**Ce que vous pouvez faire...** Dans les projets futurs, demandez-vous : si le mécanisme est M,
+pour quels groupes ou unités s'attendre à un effet de traitement, et pour quels groupes ou unités ne pas s'attendre à une réponse au traitement ?
+Ensuite, testez si ces prédictions sont étayées par vos données et interprétez cela comme une preuve suggestive pour ou contre le mécanisme proposé M.
+Gardez à l'esprit que de telles preuves ne sont pas décisives car les groupes pourraient différer d'autres manières qui pourraient affecter leur réaction au traitement.
 
-#  We can also look for suggestive evidence by looking at the effects of our treatment on various outcomes.
+# Nous pouvons également rechercher des preuves suggestives en examinant l'effet de notre traitement sur divers résultats.
 
-Again, while it’s difficult to quantify evidence of a mechanism at work, we can always explore the testable implications of the theory in which our mechanism features.
-In point 7, we did this by exploring whether the treatment affected the particular subgroups for which a treatment effect is implied by our theory.
-Another approach is to explore whether the treatment affects only the outcomes implied by our theory.
+Encore une fois, bien qu'il soit difficile de quantifier les preuves d'un mécanisme à l'œuvre, nous pouvons toujours explorer les implications vérifiables de la théorie dans laquelle notre mécanisme apparaît.
+Au point 7, nous l'avons fait se demandant si le traitement a affecté des sous-groupes particuliers pour lesquels un effet de traitement est induit par notre théorie.
+Une autre approche consiste à explorer si le traitement affecte uniquement les résultats induits par notre théorie.
 
-For example, many social scientists are interested in how mass education influences democracy.
-Several theories of democratization expect different mechanisms would connect education and democracy.
-First, according to modernization theory, education could facilitate the smooth functioning of democracy by undermining group attachments (such as ethnicity or religion) in favor of merit.[^8]  Second, according to social theorists of oppression, education could undermine democracy by reinforcing obedience to authority, which is inherent in a classroom structure.[^9]  Third, according to many political scientists and psychologists, education can encourage democratic participation by empowering individuals with the ability to acquire and act on knowledge.[^10]  Friedman et al. (2011)[^11]  decide to tease apart these mechanisms by investigating the results of a field experiment in which Kenyan girls were randomly assigned to receive an education subsidy.
- They followed up with the students five years after the program and asked them several questions designed to test which of these three mechanisms were at work: Did the girls accept a husband’s right to beat his wife? Was a parent involved in selecting their spouse? How strongly did the girl identify with her religious or ethnic group? Did the girl regularly read news?
+Par exemple, de nombreux chercheurs en sciences sociales s'intéressent à la manière dont l'éducation de masse influence la démocratie.
+Plusieurs théories de la démocratisation s'attendent à ce que différents mécanismes relient l'éducation et la démocratie.
+Premièrement, selon la théorie de la modernisation, l'éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l'appartenance ethnique ou la religion) au profit du mérite.[^8] Deuxièmement, selon les théoriciens sociaux de l'oppression, l'éducation pourrait saper la démocratie en renforçant l'obéissance à l'autorité, qui est inhérente à une structure de classe.[^9] Troisièmement, selon de nombreux politologues et psychologues, l'éducation peut encourager la participation démocratique en donnant aux individus la capacité d'acquérir et d'agir sur la connaissance.[^10] Friedman et Al. (2011)[^11] décident de séparer ces mécanismes en enquêtant sur les résultats d'une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées au hasard pour recevoir une subvention à l'éducation.
+ Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l'œuvre : les filles ont-elles accepté le droit d'un mari de battre sa femme ? Un parent a-t-il participé au choix de leur mari? Dans quelle mesure la fille s'est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
 [^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999. 
-[^10]: Gabriel Almond and Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes and Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
-[^11]: Willa Friedman, Michael Kremer, Edward Miguel, and Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
+[^10]: Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
+[^11]: Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
 
-The following table outlines the direction of the effects that each theory would suggest.
-Note that the various mechanisms being tested here result from theories with diverging predictions on some of these outcomes.
-The predictions from each of the three mechanisms are outlined on the rows, followed by the actual results.
-We can see that two of the outcomes collected provided support for modernization theory.
-However, modernization theory would have predicted a decrease in religious or ethnic group association (in reality, there was no effect) and had no predictions for newspaper readership (in reality, readership increased).
-None of the predictions of the obedience to authority mechanism were supported by the data.
-However, the data supported all four of the predictions of individual empowerment theory.
-The authors conclude that it is more likely that $X→M3→Y$ than $X→M1,M2→Y$.[^12]
+Le tableau suivant décrit la direction des effets que chaque théorie suggérerait.
+Notez que les divers mécanismes testés ici résultent de théories avec des prédictions divergentes sur certains de ces résultats.
+Les prédictions de chacun des trois mécanismes sont décrites sur les lignes, suivies des résultats réels.
+Nous pouvons voir que deux des résultats recueillis appuient la théorie de la modernisation.
+Cependant, la théorie de la modernisation aurait prédit une diminution de l'association de groupes religieux ou ethniques (en réalité, il n'y avait aucun effet) et n'aurait eu aucune prédiction pour la lecture des journaux (en réalité, la lecture des journaux a augmenté).
+Aucune des prédictions du mécanisme d'obéissance à l'autorité n'était étayée par les données.
+Cependant, les données corroboraient les quatre prédictions de la théorie de l'autonomisation individuelle.
+Les auteurs concluent qu'il est plus probable que $X→M3→Y$ que $X→M1,M2→Y$.[^12]
 
-[^12]: In the actual study, the authors were surprised to uncover evidence that education also increased individuals’ acceptance of political violence.
-While they still argue that individual empowerment is responsible for the relationship between education and democracy, they caution that education does not always lead to democratization (that is, M3→Y but it is also possible that M3→NOT Y).
-Nonetheless, their approach is a useful demonstration of how multiple outcomes may shed light on mechanisms.
+[^12]: Dans l'étude proprement dite, les auteurs ont été surpris de découvrir des preuves que l'éducation augmentait également l'acceptation de la violence politique par les individus.
+S'ils soutiennent toujours que l'autonomisation individuelle est responsable de la relation entre l'éducation et la démocratie, ils avertissent que l'éducation ne conduit pas toujours à la démocratisation (c'est-à-dire M3→O mais il est également possible que M3→NON Y).
+Néanmoins, leur approche est une démonstration utile de la façon dont de multiples résultats peuvent éclairer les mécanismes.
 
-Mechanism | Acceptance of husband's right to beat wives (Y1) | Parent involved in selecting spouse (Y2) | Association with religion, ethnic identity (Y3) | Reads news (Y4)
+Mécanisme | Acceptation du droit du mari de battre sa femme (Y1) | Parent impliqué dans la sélection du mari (Y2) | Association avec la religion, l'identité ethnique (Y3) | Lit les actualités (Y4)
 ------------- | ------------- | ------------- | ------------- | ------------- 
-(M1) Modernization | $\downarrow$ | $\downarrow$ | $\downarrow$ | No effect 
-(M2) Obedience to authority | $\uparrow$ | $\uparrow$ | $\uparrow$ | No effect 
-(M3) Individual empowerment | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$
-Actual effect | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$ 
+(M1) Modernisation | $\downarrow$ | $\downarrow$ | $\downarrow$ | Pas d'effet
+(M2) Obéissance à l'autorité | $\uparrow$ | $\uparrow$ | $\uparrow$ | Pas d'effet
+(M3) Autonomisation individuelle | $\downarrow$ | $\downarrow$ | Pas d'effet | $\uparrow$
+Effet réel | $\downarrow$ | $\downarrow$ | Pas d'effet | $\uparrow$
 
-This study, like Sarsons’s study, is not trying to quantify how much of the effect of X on Y is conveyed via M.
-However, through thoughtful investigation of various outcomes, the authors are able to provide suggestive evidence of which mechanisms seem most plausible.
+Cette étude, comme l'étude de Sarsons, n'essaie pas de quantifier dans quelle mesure l'effet de X sur Y est transmis via M.
+Cependant, grâce à une enquête approfondie sur divers résultats, les auteurs sont en mesure de fournir des preuves suggestives des mécanismes qui semblent les plus plausibles.
 
-**What you can do...** In future projects, ask yourself: If the mechanism is M, which outcomes would I expect to be affected by my treatment, and which outcomes would I expect not to be affected by my treatment? Next, test whether these predictions are supported by your data and interpret this as suggestive evidence for or against your proposed mechanism M.
+**Ce que vous pouvez faire...** Dans de futurs projets, posez-vous la question : si le mécanisme est M,
+devrais-je m'attendre à ce le traitement affecte certains résultats ? devrais-je m'attendre à ce le traitement n'affecte pas certains résultats ?
+Ensuite, testez si ces prédictions sont étayées par vos données et interprétez cela comme une preuve suggestive pour ou contre le mécanisme proposé M.
 
-#  Designing complex treatments can help narrow our understanding of what part of the treatment is “doing the work.”
+# Le design de traitements complexes peut aider à affiner notre compréhension de quelle est la partie du traitement qui "produit l'effet".
 
-Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms.
-This approach is sometimes called “implicit mediation analysis” because different components are X are thought to *implicitly* manipulate certain mechanisms.
-This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.
+Parfois, les chercheurs expérimentaux essaieront de mieux comprendre les mécanismes en ajoutant ou en soustrayant des éléments du traitement qui sont censés déclencher différents mécanismes.
+Cette approche est parfois appelée "analyse de médiation implicite" car différents composants X sont censés manipuler *implicitement* certains mécanismes.
+Ceci, bien sûr, est une hypothèse : parce que nous ne mesurons pas M directement, nous nous appuyons sur une affirmation théorique selon laquelle le composant A déclenchera M, alors que le composant B ne le fera pas.
 
-For example, many governments including Mexico, Brazil, Tanzania, and Uganda have created conditional cash transfer programs to address poverty.
-These programs provide cash to poor individuals, but they frequently come with conditions such as attending school or a job training program.
-Until recently, we knew only that these programs (X) successfully reduced poverty (Y) and that X caused Y either via cash or via the required attendance at school or job programs.
-To distinguish between these mechanisms, Baird et al. (2011)[^13] conducted an experiment in Malawi, where they assigned one group of families to receive a *conditional* cash transfer for the regular school attendance of their girls, another group of families to receive the cash *unconditionally*, and a control group to receive no transfer.
-This design “implicitly” manipulated M: while girls in the unconditional transfer group could also seek out education, school attendance (the condition under study) would likely be higher in the group that was required to seek it out.
-Unsurprisingly, school attendance and test performance was better for the group receiving conditional cash transfers.
-However, their measures of Y--the rate at which the girls became pregnant or married--were actually better (lower) in the group receiving the unconditional cash transfers.
-The authors concluded that attendance requirements associated with conditional cash transfers were not probably not the mechanism responsible for the success of these programs in reducing the symptoms of poverty.
+Par exemple, de nombreux gouvernements, dont le Mexique, le Brésil, la Tanzanie ou l'Ouganda, ont créé des programmes de transferts monétaires conditionnels pour lutter contre la pauvreté.
+Ces programmes fournissent de l'argent aux personnes pauvres, mais ils sont souvent assortis de conditions telles que la fréquentation d'une école ou un programme de formation professionnelle.
+Jusqu'à récemment, nous savions seulement que ces programmes (X) réussissaient à réduire la pauvreté (Y) et que X provoquait Y soit via le cash reçu, soit via l'assiduité requise à l'école ou aux programmes d'emploi.
+Pour distinguer ces mécanismes, Baird et al. (2011)[^13] ont mené une expérience au Malawi, où ils ont assigné un groupe de familles pour recevoir un transfert en espèces *conditionnel* à la fréquentation scolaire régulière de leurs filles, un autre groupe de familles pour recevoir l'argent *sans condition*, et un groupe témoin pour ne recevoir aucun transfert.
+Ce design manipulait "implicitement" M : alors que les filles du groupe de transfert inconditionnel pouvaient également poursuivre une éducation, la fréquentation scolaire (la condition à l'étude) serait probablement plus élevée dans le groupe qui devait la poursuivre.
+Sans surprise, la fréquentation scolaire et les résultats aux tests étaient meilleurs pour le groupe recevant des transferts monétaires conditionnels.
+Cependant, leurs mesures de Y - le taux auquel les filles sont tombées enceintes ou se sont mariées - étaient en fait meilleures (inférieures) dans le groupe recevant les transferts monétaires inconditionnels.
+Les auteurs ont conclu que les exigences de fréquentation associées aux transferts monétaires conditionnels n'étaient probablement pas le mécanisme responsable du succès de ces programmes dans la réduction des symptômes de la pauvreté.
 
 [^13]: Sarah Baird, Craig McIntosh, Berk Ozler, “Cash or Condition? Evidence from a Cash Transfer Experiment,” Quarterly Journal of Economics 126, 2011.
 
-Studies like these help not only social scientists to learn more about the channels through which X causes Y, but also policymakers to explore and discover new treatments.
-After several other studies joined Baird et al.
-in demonstrating the remarkable effects of unconditional cash transfers, many governments and organizations have begun to implement unconditional cash transfer programs.
+Des études comme celles-ci aident non seulement les chercheurs en sciences sociales à en savoir plus sur les canaux par lesquels X provoque Y, mais aussi les décideurs politiques à explorer et découvrir de nouveaux traitements.
+Après plusieurs autres études ont confirmé Baird et al. en démontrant les effets remarquables des transferts monétaires inconditionnels, de nombreux gouvernements et organisations ont commencé à mettre en œuvre des programmes de transferts monétaires inconditionnels.
 
-**What you can do...** In future projects, ask yourself: Can my treatment be “unpacked” into multiple treatment arms, some that implicitly manipulate M, and some that do not? Consider using a factorial design to identify the effects of different treatment arms.
-If you have ample power, comparing the various treatment arms will provide you with suggestive evidence for or against M.
+**Ce que vous pouvez faire...** Dans les projets futurs, posez-vous la question : mon traitement peut-il être "décomposé" en plusieurs bras de traitement, certains qui manipulent implicitement M, et d'autres non ? Envisagez d'utiliser un plan factoriel pour identifier les effets des différents bras de traitement.
+Si vous disposez de suffisamment de puissance statistique, la comparaison des différents bras de traitement vous fournira des preuves suggestives pour ou contre M.
 
-#  Despite the difficulties in empirically measuring mechanisms, it is worth paying serious attention to them but being cautious in our language.
+# Malgré les difficultés à mesurer empiriquement les mécanismes, il convient de s'y attarder sérieusement mais d'être prudent dans notre langage.
 
-Attempting to identify causal mechanisms is a noble endeavor.
-Articulating causal mechanisms is what allows us to unpack “black box” treatments and understand why and how certain treatments work.
-Even though causal claims can be (and often are) made without evidence for a causal mechanism, exploring causal mechanisms is what enables us to extend the research frontier and re-evaluate how our evidence maps on to our theories.
-For these reasons, audiences (be they the general public or academic reviewers) are often understandably eager for you to expound upon causal mechanisms after demonstrating evidence for a provocative causal claim.
-In anticipation of this, it is worth considering whether it is possible to design a way to test causal mechanisms in advance of implementing an experiment.
-If not, consider whether certain outcome measures or treatment by covariate interactions would provide some support for a particular causal mechanism, and be explicit about the limitations of this kind of analysis in your write-up.
-Mechanisms are an exciting domain of inquiry and should be considered both in the design and analysis of an experiment, but we should be sure to discuss mechanisms with caution appropriate to our ability to identify a particular mechanism and avoid overselling the argument.
+Tenter d'identifier les mécanismes causaux est une entreprise noble.
+Articuler les mécanismes causaux est ce qui nous permet de mieux comprendre le traitement en "boîte noire" et de comprendre pourquoi et comment certains traitements fonctionnent.
+Même si les affirmations causales peuvent être (et sont souvent) faites sans preuves d'un mécanisme causal, l'exploration des mécanismes causaux est ce qui nous permet d'étendre la frontière de la recherche et de réévaluer la façon dont nos preuves correspondent à nos théories.
+Pour ces raisons, le public (qu'il s'agisse du grand public ou des relecteurs universitaires) est souvent naturellement impatient que vous exposiez les mécanismes de causalité après avoir démontré des preuves d'une affirmation causale provocatrice.
+En prévision de cela, il convient de se demander s'il est possible de concevoir un moyen de tester les mécanismes causaux avant de mettre en œuvre une expérience.
+Si ce n'est pas le cas, demandez-vous si certaines mesures de résultats ou un traitement par interaction de covariables apporteraient du crédit à un mécanisme causal particulier, et soyez explicite sur les limites de ce type d'analyse dans votre article.
+Les mécanismes sont un domaine d'investigation passionnant et doivent être pris en compte à la fois dans le design et l'analyse d'une expérience, mais nous devons nous assurer de discuter des mécanismes avec prudence, adaptés à notre capacité à identifier un mécanisme particulier et à éviter de surestimer l'argument.
