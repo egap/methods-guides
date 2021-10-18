@@ -377,7 +377,7 @@ Dans ce cas, les $p$-valeurs bilatérales sont `r p2SidedMeanTZ` et `r p2SidedMe
 Nous les interprétons en termes d'"extrémité" --- nous verrions seulement une différence des moyennes observée aussi loin de zéro que celle calculée à partir de nos résultats environ 18% du temps, par exemple.
 
 **Remarque :** le test de l'hypothèse nulle stricte montré ici peut être fait sans écrire le code vous-même.
-Le code que vous verrez ici (en cliquant sur le bouton "code") montre comment utiliser différents packages R pour tester des hypothèses à l'aide d'une inférence basée sur la randomisation.
+Le code que vous verrez ici (en cliquant sur le bouton "code") montre comment utiliser différents packages R pour tester des hypothèses à l'aide d'une inférence de randomisation.
 
 ```{r}
 ## en utilisant le package coin
@@ -500,7 +500,7 @@ Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/res
 Lorsque nous pensons à la puissance d'un test statistique, nous devons considérer l'**hypothèse alternative**.
 Cependant, comme nous l'avons montré ci-dessus, nous pouvons tester des **hypothèses nulles** sans avoir l'idée de les rejeter ou de les accepter, bien que la "puissance statistique" du test soit alors plus difficile à définir et à manipuler.
 
-## Comment apprendre sur les faux positifs ?
+## Comment étudier les faux positifs ?
 
 Le moyen le plus simple d'en savoir plus sur les faux positifs est la simulation.
 Tout d'abord, nous créons la situation où l'hypothèse nulle est vraie et connue, puis nous testons cette hypothèse nulle pour les cas où elle est vraie.

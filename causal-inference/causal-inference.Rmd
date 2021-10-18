@@ -15,7 +15,7 @@ Le philosophe David Lewis a décrit la causalité comme "quelque chose qui fait 
 
 [^1]: Lewis, David. "Causation." The journal of philosophy (1973): 556-567.
 
-1. Un postulat de causalité est une déclaration sur ce qui ne s'est pas produit.
+1. Une assertion causale est une déclaration sur ce qui ne s'est pas produit.
 ==
 Pour la plupart des expérimentateurs, la déclaration "$X$ a causé $Y$" signifie que $Y$ est présent *et* $Y$ n'aurait pas été présent si $X$ n'avait pas été présent.
 Cette définition requiert une notion de ce qui aurait pu arriver, mais ne s'est pas produit.[^2]
@@ -49,7 +49,7 @@ Par exemple, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il es
 Alternativement, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il est un homme nécessite de considérer Peter comme autre qu'un homme.
 Le problème est que les contrefactuels dans ces cas impliquent un changement non seulement dans la condition à laquelle fait face un individu, mais dans l'individu lui-même.
 
-Pour éviter de tels problèmes, certains statisticiens recommandent de restreindre les  assertions de causalité aux traitements qui peuvent en théorie (pas nécessairement en pratique) être manipulés.[^11]
+Pour éviter de tels problèmes, certains statisticiens recommandent de restreindre les assertions causales aux traitements qui peuvent en théorie (pas nécessairement en pratique) être manipulés.[^11]
 Par exemple, alors que nous pourrions avoir des difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce qu'il était un homme, nous n'avons pas de telles difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce que l'agence de recrutement pensait qu'il était un homme.
 
 [^11]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
@@ -145,7 +145,7 @@ Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y a
 
 [^12]: Interprétez "$A$ cause $B$, en moyenne" comme "l'effet moyen de $A$ sur $B$ est positif".
 
-10. Il est plus facile d'en apprendre davantage sur les « effets des causes » que d'en apprendre davantage sur les « causes des effets ».
+10. Il est plus facile d'en apprendre davantage sur les « effets des causes » que sur les « causes des effets ».
 ==
 
 Bien que cela puisse sembler être deux façons de dire la même chose, il y a une différence entre comprendre quel est l'effet de $X$ sur $Y$ (les "effets d'une cause") et si un résultat $Y$ était *dû* à une cause $X$ (la "cause d'un effet").[^6] Considérez l'exemple suivant.

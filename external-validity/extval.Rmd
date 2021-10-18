@@ -16,7 +16,7 @@ Avant de pouvoir faire sauter le champagne pour célébrer une intervention bien
 
 1. Qu'est-ce que la validité externe ?
 ==
-La validité externe est un autre nom pour la généralisation des résultats, demandant "si une relation de causalité tient pour une variation des personnes, des paramètres, des traitements et des résultats".[^1]
+La validité externe est un autre nom pour la généralisation des résultats, demandant "si une relation causale tient pour une variation des personnes, des paramètres, des traitements et des résultats".[^1]
 Un exemple classique de problème de validité externe est de savoir si les expériences traditionnelles en laboratoire d'économie ou de psychologie menées sur des étudiants universitaires produisent des résultats généralisables au grand public.
 Dans l'économie politique du développement, nous pourrions considérer comment un programme de développement communautaire en Inde pourrait s'appliquer (ou non) en Afrique de l'Ouest ou en Amérique centrale.
 
