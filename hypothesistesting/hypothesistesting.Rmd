@@ -81,7 +81,7 @@ Voir également [10 choses à savoir sur l'inférence de randomisation] (https:/
 Nous faisons des expériences pour faire des comparaisons causales interprétables [@kinder1993behalf], et nous estimons souvent les effets causaux moyens.
 Qu'est-ce que le test d'hypothèse a à voir avec l'inférence causale?
 Dans cette section, nous expliquons la distinction entre :
-évaluer des postulats sur les effets causaux et faire les meilleures suppositions sur les effets causaux.
+évaluer des assertions sur les effets causaux et faire les meilleures suppositions sur les effets causaux.
 
 ## Un aperçu rapide du problème fondamental de l'inférence causale et une introduction à quelques notations
 
