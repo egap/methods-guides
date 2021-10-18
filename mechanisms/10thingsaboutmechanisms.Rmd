@@ -33,7 +33,7 @@ opts_chunk$set(strip.white=TRUE,
 
 En tant que spécialistes en sciences sociales, nous sommes fascinés par les questions causales.
 Dès que nous apprenons que X cause Y, nous voulons mieux comprendre *pourquoi* X cause Y.
-Ce guide explore le rôle des « mécanismes » dans l'analyse causale et vous aidera à comprendre les types de conclusions que vous pouvez en tirer.
+Ce guide explore le rôle des "mécanismes" dans l'analyse causale et vous aidera à comprendre les types de conclusions que vous pouvez en tirer.
 
 # Les mécanismes sont des voies par lesquelles X provoque le résultat Y.
 
@@ -52,15 +52,15 @@ Supposons que cette étude soit correcte.
 Pourquoi le fait de subir un choc climatique entraînerait-il dans un pays des niveaux de conflit élevés ? Un mécanisme pourrait être la pauvreté : les chocs climatiques nuisent à l'économie, et avec des coûts d'opportunité inférieurs, les individus sont plus enclins à rejoindre des groupes armés.
 Un mécanisme alternatif est physiologique : les gens sont physiquement câblés pour être plus agressifs par temps chaud.
 Le mécanisme est peut-être la migration : les chocs climatiques déplacent les populations des régions côtières, ce qui produit des conflits sociaux entre migrants et autochtones.
-En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément, même dans le même cas ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux (« M ») qui pourraient transmettre l'effet total de X sur Y.
+En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément, même dans le même cas ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux ("M") qui pourraient transmettre l'effet total de X sur Y.
 
-[^1]: Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, “Civil Conflicts Are Associated with the Global Climate,” Nature 476.7361 (2011): 438-441.
+[^1]: Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, "Civil Conflicts Are Associated with the Global Climate," Nature 476.7361 (2011): 438-441.
 
 # Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous *voudrions* le faire.
 
 Dans l'exemple climat/conflit ci-dessus, nous pouvons avoir une confiance totale dans la capacité des chercheurs à identifier causalement que les chocs climatiques provoquent des conflits, et pourtant n'avons aucune preuve du ou des mécanismes à l'œuvre.
 Mais les chercheurs en sciences sociales sont intéressés à en apprendre davantage sur les mécanismes parce qu'ils sont étroitement liés aux théories des sciences sociales.
-Par exemple, le mécanisme de « pauvreté » ci-dessus est étroitement lié à la théorie de Gurr[^2] selon laquelle les individus se rebellent lorsque les coûts d'opportunité du conflit sont faibles, alors que le mécanisme de « migration » pourrait soutenir une théorie du conflit basée sur les griefs entre groupes sociaux.
+Par exemple, le mécanisme de "pauvreté" ci-dessus est étroitement lié à la théorie de Gurr[^2] selon laquelle les individus se rebellent lorsque les coûts d'opportunité du conflit sont faibles, alors que le mécanisme de "migration" pourrait soutenir une théorie du conflit basée sur les griefs entre groupes sociaux.
 Il n'est pas étonnant qu'en apprenant que X cause Y, les chercheurs en sciences sociales demandent immédiatement quel est le mécanisme - ils veulent relier cette découverte à la théorie !
 
 [^2]: Ted Gurr, Why Men Rebel, Princeton University Press, 1970.
@@ -80,7 +80,7 @@ Ils ont assigné au hasard certains bureaux de vote au Mexique pour recevoir des
 Étonnamment, ils ont découvert que les circonscriptions traitées votaient à des taux inférieurs à ceux des circonscriptions de contrôle.
 Ils suggèrent le mécanisme suivant à l'œuvre : les informations sur la corruption convainquent les électeurs que la municipalité est si gravement corrompue que l'élection d'un bon politicien ne la changera pas, de sorte que les individus trouvent que leur vote a moins de valeur.
 
-[^3]: Alberto Chong, Ana L. de la O, Dean Karlan, and Leonard Wantchekon, “Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification,” The Journal of Politics 77.1 (2015): 55-71.
+[^3]: Alberto Chong, Ana L. de la O, Dean Karlan, and Leonard Wantchekon, "Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification," The Journal of Politics 77.1 (2015): 55-71.
 
 En bref, leur argument est :[^4]
 
@@ -89,7 +89,7 @@ En bref, leur argument est :[^4]
 Réception d'informations sur la corruption (X) $\xrightarrow{+}$ Estime que la corruption est trop grave (M) $\xrightarrow{+}$ Reste à la maison (Y)
 
 Chong et al. font face à un obstacle commun dans l'interprétation de leurs résultats : le mécanisme qu'ils proposent n'a pas été assigné au hasard.
-Certaines personnes sont plus enclines à croire que « tous les politiciens sont des vauriens », tandis que d'autres ont tendance à faire pression pour « un changement auquel nous pouvons croire ». Malheureusement, nous ne pouvons observer que le traitement aléatoire qu'un individu a reçu et sa croyance (non aléatoire) au sujet de la corruption ; nous ne pouvons pas dire quelle croyance au sujet de la corruption ils *auraient eu* s'ils avaient reçu l'autre condition de traitement.
+Certaines personnes sont plus enclines à croire que "tous les politiciens sont des vauriens", tandis que d'autres ont tendance à faire pression pour "un changement auquel nous pouvons croire". Malheureusement, nous ne pouvons observer que le traitement aléatoire qu'un individu a reçu et sa croyance (non aléatoire) au sujet de la corruption ; nous ne pouvons pas dire quelle croyance au sujet de la corruption ils *auraient eu* s'ils avaient reçu l'autre condition de traitement.
 Il nous est donc impossible de déterminer, pour chaque individu, dans quelle mesure sa décision d'aller voter a été causée par le mécanisme proposé par rapport à d'autres mécanismes.
 
 Certains chercheurs tentent de contourner ce problème en estimant l'effet *moyen* du traitement sur le mécanisme, puis en estimant l'effet *moyen* du mécanisme sur le résultat.
@@ -123,25 +123,25 @@ Sa passion ardente disparue, elle choisit de rester à la maison le jour des él
 Cependant, le type B ne vote que lorsqu'elle pense que son vote peut faire la différence (en d'autres termes, M a un effet *positif* sur Y).
 Le type B allait voter pour les politiciens non corrompus de sa circonscription jusqu'à ce qu'elle apprenne qu'ils étaient tous corrompus.
 Sans aucun espoir de changer la situation, elle a également décidé de rester chez elle le jour du scrutin.
-Pour les types A et B, il existe un « effet indirect » de M (en d'autres termes, X affecte Y à M).
+Pour les types A et B, il existe un "effet indirect" de M (en d'autres termes, X affecte Y à M).
 Mais nous passerons à côté de cette relation dans l'ensemble car nous ne serons pas en mesure d'obtenir des estimations non biaisées de l'effet moyen de X sur M.[^5]
 
-[^5]: Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, “The Product and Difference Fallacies for Indirect Effects,” American Journal of Political Science 56.1 (2012): 257-269.
+[^5]: Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, "The Product and Difference Fallacies for Indirect Effects," American Journal of Political Science 56.1 (2012): 257-269.
 
-Nous pouvons imaginer beaucoup plus de « types » que A et B – le but ici est de démontrer intuitivement que parce que M n'est pas assigné au hasard, et parce qu'il est peu probable que les effets de X sur M *et* M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l'entremise de M pour notre effet.
+Nous pouvons imaginer beaucoup plus de "types" que A et B – le but ici est de démontrer intuitivement que parce que M n'est pas assigné au hasard, et parce qu'il est peu probable que les effets de X sur M *et* M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l'entremise de M pour notre effet.
 
-# De nombreuses études tentent de décomposer l'effet total d'un traitement entre ses effets « directs » et « indirects ».
+# De nombreuses études tentent de décomposer l'effet total d'un traitement entre ses effets "directs" et "indirects".
 
 Parce que l'apprentissage des mécanismes est riche en promesses théoriques, les chercheurs aimeraient quantifier dans quelle mesure un effet de X sur Y opère via M.
-Parfois, les chercheurs essaieront de le faire grâce à une technique appelée « décomposition des effets ».
+Parfois, les chercheurs essaieront de le faire grâce à une technique appelée "décomposition des effets".
 
 Une analyse de décomposition des effets tente de décomposer un effet *total* de X sur Y en l'effet que X a sur Y *directement* et l'effet de X sur Y qui se produit *indirectement* via M.
-L'« effet total » fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
+L'"effet total" fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
 Toute expérience qui attribue au hasard un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
 Ensuite, le chercheur essaie de quantifier la taille de l'effet que X a sur Y à travers le mécanisme M.
-C'est ce qu'on appelle souvent « l'effet indirect » – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
+C'est ce qu'on appelle souvent "l'effet indirect" – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
 Enfin, le chercheur tentera d'estimer l'effet de X sur Y qui ne passe pas par M.
-C'est ce qu'on appelle l'« effet direct » de X sur Y ou l'effet moyen direct contrôlé (Average Controlled Direct Effect / ACDE), car c'est l'effet de X sur Y lorsque nous contrôlons le travail effectué par M.
+C'est ce qu'on appelle l'"effet direct" de X sur Y ou l'effet moyen direct contrôlé (Average Controlled Direct Effect / ACDE), car c'est l'effet de X sur Y lorsque nous contrôlons le travail effectué par M.
 
 # Mais soyez prudent lorsque vous utilisez l'analyse de régression pour décomposer les effets.
 
@@ -160,7 +160,7 @@ Dans cette régression, le coefficient $b$ représente l'effet direct de M sur Y
 Une analyse de décomposition des effets multiplierait $a*b$ pour révéler l'effet indirect de X sur Y via M.
 Pour trouver l'effet direct de X sur Y, nous n'avons pas besoin de chercher plus loin que $d$, qui est le coefficient sur X dans l'équation 3 lorsque nous contrôlons pour M.
 En d'autres termes, $d$ est l'effet de X sur Y qui ne passe pas par M.
-Si l'on additionne l'effet indirect et l'effet direct, on obtient « l'effet total » de X sur Y, qui est égal à $c$.
+Si l'on additionne l'effet indirect et l'effet direct, on obtient "l'effet total" de X sur Y, qui est égal à $c$.
 Pour résumer, l'analyse de décomposition des effets désagrége ostensiblement l'effet total en effet qui est médié via M et l'effet qui n'est pas médié via M, permettant au chercheur de conclure à quel point M est important pour expliquer la relation entre X et Y.[ ^6]
 
 [^6]: Explication adaptée d'Alan Gerber et Donald Green, Field Experiments, W.W. Norton and Company, 2012, chapter 10.
@@ -326,7 +326,7 @@ Exploitant le fait que les districts en aval des barrages d'irrigation ne dépen
 elle explore le mécanisme de revenu en testant si les chocs pluviométriques prédisent l'incidence des émeutes dans les districts en aval mais pas dans les districts en amont.
 Formellement, elle teste ces hypothèses :
 
-[^7]: Heather Sarsons, “Rainfall and Conflict: A Cautionary Tale.” Journal of Development Economics 115 (2015): 62-72.
+[^7]: Heather Sarsons, "Rainfall and Conflict: A Cautionary Tale." Journal of Development Economics 115 (2015): 62-72.
 
 - X$\rightarrow$Y dans les endroits où X est connu pour affecter M [Les chocs pluviométriques augmenteront les émeutes dans les zones où les chocs pluviométriques affecteront négativement les revenus (en amont du barrage).]
 - X n'a ​​pas d'effet sur Y dans les endroits où X n'a ​​pas d'effet sur M [Les chocs pluviométriques n'auront aucun effet sur les émeutes dans les zones où le revenu n'est pas sensible aux précipitations (en aval du barrage).]
@@ -353,9 +353,9 @@ Premièrement, selon la théorie de la modernisation, l'éducation pourrait faci
  Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l'œuvre : les filles ont-elles accepté le droit d'un mari de battre sa femme ? Un parent a-t-il participé au choix de leur mari? Dans quelle mesure la fille s'est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
-[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999. 
-[^10]: Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
-[^11]: Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
+[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., "Public Schooling, Indoctrination and Totalitarianism," Journal of Political Economy 107(6), 1999.
+[^10]: Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, "Learning about Democracy in Africa: Awareness, Performance, and Experience," American Journal of Political Science, 51(1), 2007.
+[^11]: Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, "Education as Liberation?" NBER Working Paper 16939, 2011.
 
 Le tableau suivant décrit la direction des effets que chaque théorie suggérerait.
 Notez que les divers mécanismes testés ici résultent de théories avec des prédictions divergentes sur certains de ces résultats.
@@ -399,7 +399,7 @@ Sans surprise, la fréquentation scolaire et les résultats aux tests étaient m
 Cependant, leurs mesures de Y - le taux auquel les filles sont tombées enceintes ou se sont mariées - étaient en fait meilleures (inférieures) dans le groupe recevant les transferts monétaires inconditionnels.
 Les auteurs ont conclu que les exigences de fréquentation associées aux transferts monétaires conditionnels n'étaient probablement pas le mécanisme responsable du succès de ces programmes dans la réduction des symptômes de la pauvreté.
 
-[^13]: Sarah Baird, Craig McIntosh, Berk Ozler, “Cash or Condition? Evidence from a Cash Transfer Experiment,” Quarterly Journal of Economics 126, 2011.
+[^13]: Sarah Baird, Craig McIntosh, Berk Ozler, "Cash or Condition? Evidence from a Cash Transfer Experiment," Quarterly Journal of Economics 126, 2011.
 
 Des études comme celles-ci aident non seulement les chercheurs en sciences sociales à en savoir plus sur les canaux par lesquels X provoque Y, mais aussi les décideurs politiques à explorer et découvrir de nouveaux traitements.
 Après plusieurs autres études ont confirmé Baird et al. en démontrant les effets remarquables des transferts monétaires inconditionnels, de nombreux gouvernements et organisations ont commencé à mettre en œuvre des programmes de transferts monétaires inconditionnels.

@@ -34,7 +34,7 @@ C'est plus difficile en utilisant des pièces de monnaie ou des chapeaux.
 Heureusement cependant, une randomisation réplicable et flexible est possible avec des logiciels disponibles gratuitement.
 Le code suivant en R peut, par exemple, être utilisé pour générer une assignation aléatoire, spécifiant le nombre d'unités à traiter.
 Ici, N (100) est le nombre d'unités dont vous disposez et m (34) est le nombre que vous souhaitez traiter.
-La « graine » permet de reproduire le même tirage à chaque fois que vous exécutez le code (ou vous pouvez changer la graine pour un tirage différent).[^1] [^2]
+La "graine" permet de reproduire le même tirage à chaque fois que vous exécutez le code (ou vous pouvez changer la graine pour un tirage différent).[^1] [^2]
 
 [^1]: Les générateurs de nombres aléatoires sont en fait pseudo-aléatoires car ils génèrent un vecteur de nombres aléatoires basé sur un petit ensemble de valeurs initiales, appelé état de départ.
 Les générateurs de nombres aléatoires fonctionnent de cette manière afin d'améliorer la vitesse de calcul.
@@ -174,7 +174,7 @@ Dans les deux cas où le découpage par bloc se produit, il y a une répartition
 
 5 Vous pouvez randomiser d'une manière qui permet de voir plus facilement s'il y a des effets de débordements
 ==
-Lors du design de votre expérience, réfléchissez de manière critique à la question de savoir si les «  effets de débordements » constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
+Lors du design de votre expérience, réfléchissez de manière critique à la question de savoir si les " effets de débordements" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
 Des débordements surviennent si le résultat d'une unité est affecté par le statut de traitement d'une autre unité.
 Cela peut être délicat si les unités ont la capacité d'interagir les unes avec les autres : un membre d'un village peut apprendre qu'un autre villageois a reçu une subvention en espèces et peut changer son comportement en conséquence.
 
@@ -185,7 +185,7 @@ La comparaison des individus témoins de votre groupe de traitement avec les ind
 6 Différentes unités peuvent être assignées au traitement avec différentes probabilités
 ==
 
-Parfois, les gens pensent que « aléatoire » signifie que deux événements sont également probables, mais en fait, l'assignation aléatoire est « aléatoire » tant que la probabilité d'assignation au traitement est strictement comprise entre 0 et 1.
+Parfois, les gens pensent que "aléatoire" signifie que deux événements sont également probables, mais en fait, l'assignation aléatoire est "aléatoire" tant que la probabilité d'assignation au traitement est strictement comprise entre 0 et 1.
 Si un sujet a 0 ou 100 % de chances d'être affecté au traitement, ce sujet doit être exclu de votre analyse expérimentale car il n'y a pas de randomisation.
 Cependant, tous les sujets ayant une probabilité d'assignation au traitement strictement comprise entre 0 et 1 peuvent être inclus, même si leurs probabilités diffèrent, pour autant que leurs probabilités soient connues.
 
@@ -284,7 +284,7 @@ Cela présente une complication lorsque nous voulons utiliser un algorithme par 
 
 Pour maintenir les blocs et donc le contrôle sur l'équilibre entre les groupes de traitement et de contrôle, vous pouvez utiliser des covariables pour calculer la similarité d'un nouveau sujet avec d'autres sujets précédemment assignés et affecter le nouveau sujet à la condition de traitement avec moins d'unités similaires.[^3] [^4]
 
-[^3]: voir Moore, Ryan T., and Sally A. Moore. “Blocking for sequential political experiments.” Political Analysis 21.4 (2013): 507-523.
+[^3]: voir Moore, Ryan T., and Sally A. Moore. "Blocking for sequential political experiments." Political Analysis 21.4 (2013): 507-523.
 
 [^4]: Pour une présentation plus détaillée des procédures de randomisation disponibles dans le package R randomizr, voir: https://declaredesign.org/r/randomizr/articles/randomizr_vignette.html
 

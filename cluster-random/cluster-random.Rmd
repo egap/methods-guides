@@ -48,7 +48,7 @@ Cela affectera grandement la précision des inférences que nous faisons sur la 
 Imaginez une évaluation d'impact avec 10 personnes, où 5 sont affectées au groupe de traitement et 5 au contrôle.
 Dans une version de l'expérience, le traitement est attribué à des individus - il n'est pas randomisé par grappe.
 Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont affectés au traitement en tant que groupe.
-Ce design a deux groupes : « cheveux noirs » et « autre couleur ».
+Ce design a deux groupes : "cheveux noirs" et "autre couleur".
 
 Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
 Dans la première version, la procédure de randomisation permet 252 combinaisons différentes de personnes en tant que groupes de traitement et de contrôle.
@@ -164,7 +164,7 @@ Pour une variable donnée, $y$, des unités $i$ et des clusters $j$, nous pouvon
 $$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
 où $\sigma_i^2$ est la variance entre les unités de la population et $\sigma_j^2$ est la variance entre les résultats définis au niveau de la grappe.
-Kish (1965) utilise cette description de la dépendance pour définir son idée du « N effectif » d'une étude (dans le contexte d'une enquête par sondage, où les échantillons peuvent être regroupés par grappe) :
+Kish (1965) utilise cette description de la dépendance pour définir son idée du "N effectif" d'une étude (dans le contexte d'une enquête par sondage, où les échantillons peuvent être regroupés par grappe) :
 
 $$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
@@ -187,9 +187,9 @@ et devons donc utiliser des procédures statistiques pour déduire cette quantit
 Les méthodes conventionnelles de calcul des erreurs standards ne prennent pas en compte le clustering, qui, comme nous l'avons noté plus haut, peut fortement augmenter la variation de l'estimation d'une répétition de l'expérience à l'autre.
 Ainsi, afin d'éviter une confiance excessive dans les résultats expérimentaux, il est important de prendre en compte le clustering.
 
-Dans cette section, nous nous limitons aux approches dites « basées sur le design » pour le calcul de l'erreur standard.
+Dans cette section, nous nous limitons aux approches dites "basées sur le design" pour le calcul de l'erreur standard.
 Dans l'approche basée sur le design, nous simulons des répétitions de l'expérience pour dériver et vérifier les moyens de caractériser la variance de l'estimation de l'effet du traitement, en tenant compte de la randomisation par grappe.
-Plus loin dans le guide, nous comparons les approches « basées sur le design  avec celles « basées sur un modèle ».
+Plus loin dans le guide, nous comparons les approches "basées sur le design  avec celles "basées sur un modèle".
 Dans l'approche basée sur un modèle, nous affirmons que les résultats ont été générés selon un modèle de probabilité et que les relations au niveau de la grappe suivent également un modèle de probabilité.
 
 Pour commencer, nous allons créer une fonction qui simule une expérience randomisée par grappe avec une corrélation intracluster fixe,
@@ -274,7 +274,7 @@ Pour prendre en compte le clustering, nous pouvons utiliser la formule suivante 
 $$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho) $$
 
 où $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (suivant Arceneaux et Nickerson ( 2009) ).
-Cet ajustement de l'erreur standard IID est communément appelé « erreur standard robuste pour cluster » ( "Robust Clustered Standard Error” / RCSE).
+Cet ajustement de l'erreur standard IID est communément appelé "erreur standard robuste pour cluster" ( "Robust Clustered Standard Error" / RCSE).
 
 <style>
 div.hidecode + pre {display: none}
@@ -379,7 +379,7 @@ knitr::kable(rbind(
 Comme l'illustrent ces exemples simples, l'estimation par grappe de l'erreur standard (RCSE) se rapproche de la vérité (l'erreur standard simulée) à mesure que le nombre de grappes augmente.
 Pendant ce temps, l'erreur standard ignorant le clustering (en supposant l'IID) a tendance à être plus petite que l'une ou l'autre des autres erreurs standard.
 
-Plus l'estimation de l'erreur type est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent « statistiquement significatifs ».
+Plus l'estimation de l'erreur type est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent "statistiquement significatifs".
 Ceci est problématique : dans ce cas, l'erreur type IID nous amène à être trop confiants dans nos résultats car elle ignore la corrélation intra-cluster, i.e. dans quelle mesure les différences entre les unités peuvent être attribuées au cluster dont elles sont membres.
 Si nous estimons les erreurs standard à l'aide de techniques qui sous-estiment notre incertitude, nous sommes plus susceptibles de rejeter à tort des hypothèses nulles alors que nous ne le devrions pas.
 
@@ -625,7 +625,7 @@ L'histogramme montre la distribution d'échantillonnage de l'estimateur pondér�
 En espérance, la version pondérée de l'estimateur donne en fait la même estimation du SATE que la version non pondérée.
 Quelle est la nature du biais ?
 
-Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes « traitement » et « contrôle »,
+Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes "traitement" et "contrôle",
 imaginez que nous avons jumelé chaque groupe avec un autre groupe et que nous en avons assigné un au traitement au sein de chaque paire.
 L'effet du traitement est alors l'agrégat des estimations au niveau de la paire.
 Ceci est analogue à la procédure d'assignation aléatoire complète employée ci-dessus, dans laquelle les entreprises $J/2$ ont été assignées au traitement.
@@ -931,11 +931,11 @@ Même si nous ne considérons pas le modèle comme une description scientifique 
 
 Dans les approches basées sur un modèle, la distribution d'échantillonnage d'un estimateur est approchée à l'aide d'une distribution de probabilité pour caractériser notre incertitude sur
 des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe.
-De telles approches sont appelées « basées sur un modèle », car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
-Souvent, ces approches utilisent des « modèles à plusieurs niveaux », dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité.
+De telles approches sont appelées "basées sur un modèle", car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
+Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité.
 Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'intersection et/ou les coefficients varient d'un groupe à l'autre.
-De cette manière, il est possible de modéliser « l'effet d'être une unité dans le cluster A », séparément de l'estimation de l'effet du traitement.
-L'avantage de telles approches est qu'elles permettent une « mise en commun partielle » de la variance dans la population et de la variance entre les grappes.
+De cette manière, il est possible de modéliser "l'effet d'être une unité dans le cluster A", séparément de l'estimation de l'effet du traitement.
+L'avantage de telles approches est qu'elles permettent une "mise en commun partielle" de la variance dans la population et de la variance entre les grappes.
 Lorsqu'une grappe donnée est mal estimée, elle contribue moins à l'estimation, et vice versa.
 De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certains clusters :
 grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
@@ -1374,7 +1374,7 @@ So, randomization tests with small numbers of clusters may be too quick to decla
 
 One new problem does arise in the context of randomization tests.
 Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself.
-And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare “imbalance” when $p<.05$ would do so falsely for one in every twenty variables tested.
+And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare "imbalance" when $p<.05$ would do so falsely for one in every twenty variables tested.
 For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the Hansen and Bowers (2008) $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly.
 However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
 

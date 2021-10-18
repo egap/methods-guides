@@ -5,7 +5,7 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 choses à savoir sur le contrôle des covariables pour les essais randomisés contrôlés (ECRs)” -->
+<!-- title: "10 choses à savoir sur le contrôle des covariables pour les essais randomisés contrôlés (ECRs)" -->
 <!-- author: "Auteur du guide des méthodes: Lindsay Dolan" -->
 
 Résumé

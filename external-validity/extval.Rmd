@@ -68,8 +68,8 @@ Les théories font d'un problème complexe une représentation plus parcimonieus
 Tout comme la théorie guide le contenu des interventions et des designs de recherche, les propositions théoriques peuvent vous indiquer quelles conditions sur la portée de l'expérience sont pertinentes pour extrapoler un résultat.
 Quelles covariables importent ? Quelles informations contextuelles sont importantes ?
 
-[^6]: Samii, Cyrus. (2016). “Causal Empiricism in Quantitative Research.” Journal of Politics 78(3):941–955.
-[^7]: Rosenbaum, Paul R. (1999). “Choice as an Alternative to Control in Observational Studies” (avec discussion). Statistical Science 14(3): 259–304.
+[^6]: Samii, Cyrus. (2016). "Causal Empiricism in Quantitative Research." Journal of Politics 78(3):941–955.
+[^7]: Rosenbaum, Paul R. (1999). "Choice as an Alternative to Control in Observational Studies" (avec discussion). Statistical Science 14(3): 259–304.
 
 5. Comment puis-je déterminer où mes résultats s'appliquent ?
 ==
@@ -86,14 +86,14 @@ Bien que des considérations de coût et de puissance statistique puissent empê
 Étant donné que la généralisation est avant tout un exercice de prédiction, se demander où s'attendre à une relation causale similaire à celle observée localement, extrapoler des effets hétérogènes sur la base de covariables similaires est souvent raisonnable, à condition que la théorie n'indique pas de sources de confusion.[^9] Néanmoins, la plus forte la preuve de la généralisabilité d'un résultat provient d'une interaction bien identifiée entre un modérateur exogène et le traitement, qui sera ensuite projetée à travers le profil de covariable d'une population cible.
 En effet, avec certaines hypothèses fortes, l'extrapolation peut fournir des résultats aussi bons ou meilleurs que la réalisation d'une deuxième expérience in situ.[^10] Le calcul d'une estimation extrapolée peut souvent être mieux effectué à l'aide de l'apprentissage automatique, bien que la régression linéaire fonctionne également assez bien. [^11]
 
-[^9]: Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches & Cyrus Samii. (2016). “Local Instruments, Global Extrapolation: External Validity of the Labor Supply-Fertility Local Average Treatment Effect.” Journal of Labor Economics 
-[^10]: Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches & Cyrus Samii. (2016). “Local Instruments, Global Extrapolation: External Validity of the Labor Supply-Fertility Local Average Treatment Effect.” Journal of Labor Economics 
+[^9]: Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches & Cyrus Samii. (2016). "Local Instruments, Global Extrapolation: External Validity of the Labor Supply-Fertility Local Average Treatment Effect." Journal of Labor Economics
+[^10]: Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches & Cyrus Samii. (2016). "Local Instruments, Global Extrapolation: External Validity of the Labor Supply-Fertility Local Average Treatment Effect." Journal of Labor Economics
 [^11]: Kern, H. L., Stuart, E. A., Hill, J., & Green, D. P. (2016). Assessing methods for generalizing experimental impact estimates to target populations. Journal of Research on Educational Effectiveness, 9(1), 103-127.
 
 6. Un comportement stratégique peut faire échouer vos extrapolations
 ==
 L'extrapolation d'un résultat local à un contexte différent peut s'avérer difficile, même avec un profil de covariable convaincant auquel vous souhaitez généraliser les effets.
-Une manipulation expérimentale randomisée dans une zone locale génère un « effet d'équilibre partiel ». Les dynamiques stratégiques, y compris les comportements compensatoires ou les contrecoups, en dehors du contexte local d'une intervention expérimentale peuvent compliquer les efforts de généralisation d'un résultat.
+Une manipulation expérimentale randomisée dans une zone locale génère un "effet d'équilibre partiel". Les dynamiques stratégiques, y compris les comportements compensatoires ou les contrecoups, en dehors du contexte local d'une intervention expérimentale peuvent compliquer les efforts de généralisation d'un résultat.
 Supposons, par exemple, qu'une intervention de transfert monétaire inconditionnel augmente le bien-être, l'entrepreneuriat et l'emploi dans un échantillon de 200 villages.
 Que se passerait-il si l'intervention était étendue à 1000 villages ? À ce stade, on pourrait imaginer que les régions exclues du programme sont plus susceptibles d'en prendre connaissance.
 Les unités non traitées peuvent commencer à exiger d'autres types de transferts de la part du gouvernement, provoquant des effets similaires à ceux produits par les transferts monétaires directs.

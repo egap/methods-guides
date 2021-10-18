@@ -53,12 +53,12 @@ library(coin)
 
 # Les tests d'hypothèse résument les informations dans les designs de recherche pour aider les gens à raisonner sur les effets du traitement
 
-Lorsque les chercheurs signalent que « l'effet moyen estimé du traitement est de 5 (p=0,02 $) », ils utilisent un raccourci pour dire :
+Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 (p=0,02 $)", ils utilisent un raccourci pour dire :
 "Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, en fait, nous le pouvons.
 Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
 Les gens utilisent des tests d'hypothèses dans des études d'observation ainsi que dans des expériences randomisées.
 Ce guide se concentre sur leur utilisation dans des expériences randomisées ou des designs de recherche qui tentent d'organiser les données
-de sorte qu'elles paraissent « aléatoires » (comme les designs de régression sur discontinuité ou d'autres designs naturels ou quasi expérimentaux).
+de sorte qu'elles paraissent "aléatoires" (comme les designs de régression sur discontinuité ou d'autres designs naturels ou quasi expérimentaux).
 
 La valeur $p$ résume la capacité d'un test donné à distinguer le signal du bruit.
 Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique] (https://egap.org/resource/10-things-to-know-about-statistical-power),
@@ -85,7 +85,7 @@ Dans cette section, nous expliquons la distinction entre :
 
 ## Un aperçu rapide du problème fondamental de l'inférence causale et une introduction à quelques notations
 
-Dans [10 choses à savoir sur l'inférence causale](https://egap.org/resource/10-things-to-know-about-causal-inference), souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l'idée de résultats potentiels pour **définir** la cause et formaliser ce que nous **entendons** lorsque nous disons « X cause Y » ou « Fumer cause le cancer » ou « L'information augmente la conformité fiscale ».
+Dans [10 choses à savoir sur l'inférence causale](https://egap.org/resource/10-things-to-know-about-causal-inference), souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l'idée de résultats potentiels pour **définir** la cause et formaliser ce que nous **entendons** lorsque nous disons "X cause Y" ou "Fumer cause le cancer" ou "L'information augmente la conformité fiscale".
 
 Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imaginons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
 si on lui donne des informations sur l'utilisation qui est faite de ces taxes.
@@ -93,7 +93,7 @@ si on lui donne des informations sur l'utilisation qui est faite de ces taxes.
 Dans une expérience réelle, nous pourrions [randomiser la fourniture d'informations aux citoyens](http://egap.org/metaketa/metaketa-ii-taxation), afin que certaines personnes aient l'information et d'autres pas.
 
 On observe les impôts payés par les gens dans les deux conditions mais, pour une même personne, on ne peut observer que les impôts qu'ils payent dans l'une des deux conditions.
-Qu'est-ce que **signifie** lorsque nous disons « effet causal » ?
+Qu'est-ce que **signifie** lorsque nous disons "effet causal" ?
 Cela signifie souvent que le résultat dans une condition ($y_{i,Z_i=1}$ s'écrit un peu plus simplement $y_{i,1}$) et le résultat dans l'autre condition ($y_{i,Z_i=0 }$ ou $y_{i,0}$) *différent* pour une personne donnée, de sorte que nous écririons $y_{i,Z_i=1} \ne y_{i,Z_i=0}$.
 
 Nous ne pouvons pas observer *à la fois* $y_{i,1}$ et $y_{i,0}$ pour chaque personne
@@ -104,7 +104,7 @@ Ainsi, nous ne pouvons pas utiliser l'observation directe pour en savoir plus su
 ## Un aperçu des approches basées sur l'estimation de l'inférence causale dans les expériences randomisées.
 
 Les sciences statistiques ont abordé ce problème de trois manières principales.
-C'est-à-dire, lorsqu'on lui a demandé : « Est-ce que l'information amène les gens à payer leurs impôts ? » nous avons tendance à dire : « Nous ne pouvons pas répondre directement à cette question.
+C'est-à-dire, lorsqu'on lui a demandé : "Est-ce que l'information amène les gens à payer leurs impôts ?" nous avons tendance à dire : "Nous ne pouvons pas répondre directement à cette question.
 Cependant, nous pouvons répondre à une question connexe."
 [Dix types d'effet de traitement que vous devriez connaître](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) décrit une idée que nous créditons à Jerzy Neyman où un scientifique peut **estimer les effets causaux moyens** dans une expérience randomisée même si les effets causaux individuels ne sont pas observables.
 Le travail de Judea Pearl sur l'estimation de la probabilité conditionnelle d'un résultat basé sur un modèle causal de ce résultat est similaire à cette idée, où l'accent est mis sur les probabilités conditionnelles des $y_{i}$.

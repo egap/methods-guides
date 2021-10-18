@@ -34,12 +34,12 @@ Un traitement a un effet causal (positif ou négatif) sur $Y$ pour l'unité $i$ 
 
 2. Point de causalité sans manipulation.
 ==
-La définition « contrefactuelle » de la causalité exige que l'on soit capable de réfléchir aux résultats qui peuvent entraîner des conditions différentes.
+La définition "contrefactuelle" de la causalité exige que l'on soit capable de réfléchir aux résultats qui peuvent entraîner des conditions différentes.
 À quoi ressembleraient les choses si un parti plutôt qu'un autre était élu?
 Les déclarations causales de tous les jours ne répondent souvent pas à cette exigence de l'une des deux manières suivantes.
 
 * Premièrement, certaines déclarations ne précisent pas de conditions contrefactuelles claires.
-Par exemple, l'affirmation selon laquelle « la récession a été causée par Wall Street » n'indique pas un contrefactuel évident
+Par exemple, l'affirmation selon laquelle "la récession a été causée par Wall Street" n'indique pas un contrefactuel évident
 --- devons-nous examiner s'il y aurait eu une récession si Wall Street n'avait pas existé ?
 Ou la déclaration est-elle vraiment une déclaration sur des actions particulières que Wall Street aurait pu prendre mais n'a pas fait.
 Si oui, quelles actions ? La validité de telles déclarations est difficile à évaluer et peut dépendre des conditions contrefactuelles impliquées par une déclaration.
@@ -59,7 +59,7 @@ Par exemple, alors que nous pourrions avoir des difficultés avec l'affirmation 
 
 Même si nous pouvons nous concentrer sur l'effet d'une seule cause $X$ sur un résultat $Y$, nous ne nous attendons généralement pas à ce qu'il n'y ait jamais qu'une seule cause de $Y$.[^5]
 De plus, si vous additionnez les effets causaux de différentes causes, il n'y a aucune raison de s'attendre à ce qu'ils totalisent 100 %.
-Par conséquent, il ne sert à rien d'essayer de « répartir » les résultats entre différents facteurs de causalité.
+Par conséquent, il ne sert à rien d'essayer de "répartir" les résultats entre différents facteurs de causalité.
 En d'autres termes, les causes ne sont pas rivales.
 La National Rifle Association soutient, par exemple, que les armes à feu ne tuent pas les gens, les gens tuent les gens.
 Cette déclaration n'a pas beaucoup de sens dans le cadre contrefactuel.
@@ -68,7 +68,7 @@ Les armes à feu sont donc une cause.
 Enlevez les gens et vous n'aurez pas non plus de décès par balle, donc les gens sont aussi une cause.
 En d'autres termes, ces deux facteurs sont simultanément les causes des mêmes résultats.
 
-[^5]: Certains appellent cela le « problème des causes de prodigalité ».
+[^5]: Certains appellent cela le "problème des causes de prodigalité".
 
 
 4. $X$ peut provoquer $Y$ même si $X$ n'est pas une condition nécessaire ou une condition suffisante pour $Y$.
@@ -95,7 +95,7 @@ Si les effets causaux sont des déclarations sur la différence entre ce qui s'e
 C'est une mauvaise nouvelle.
 De manière prospective, vous pouvez organiser les choses de manière à pouvoir observer ce qui se passe si une personne reçoit un traitement ou ce qui se passe si elle ne reçoit pas le traitement.
 Pourtant, pour la même personne, vous ne pourrez jamais observer ces deux résultats et donc pas non plus la différence entre eux.
-Cette incapacité à observer les effets causaux au niveau de l'unité est souvent appelée le « problème fondamental de l'inférence causale ».
+Cette incapacité à observer les effets causaux au niveau de l'unité est souvent appelée le "problème fondamental de l'inférence causale".
 
 6. Vous pouvez estimer l'effet causal moyen même si vous ne pouvez pas observer d'effets causaux individuels.
 ==
@@ -145,7 +145,7 @@ Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y a
 
 [^12]: Interprétez "$A$ cause $B$, en moyenne" comme "l'effet moyen de $A$ sur $B$ est positif".
 
-10. Il est plus facile d'en apprendre davantage sur les « effets des causes » que sur les « causes des effets ».
+10. Il est plus facile d'en apprendre davantage sur les "effets des causes" que sur les "causes des effets".
 ==
 
 Bien que cela puisse sembler être deux façons de dire la même chose, il y a une différence entre comprendre quel est l'effet de $X$ sur $Y$ (les "effets d'une cause") et si un résultat $Y$ était *dû* à une cause $X$ (la "cause d'un effet").[^6] Considérez l'exemple suivant.
@@ -157,7 +157,7 @@ Pour toutes les femmes, $X$ a un effet négatif de $-1$, c'est-à-dire que le r�
 Dans cet exemple, l'effet moyen de $X$ sur $Y$ est nul.
 Mais pour tous les participants du groupe de traitement avec $Y=1$, il est vrai que $Y=1$ *car* $X=1$.
 De même, pour tous les participants du groupe de traitement avec $Y=0$, il est vrai que $Y=0$ *car* $X=1$.
-L'expérimentation peut obtenir une réponse exacte à la question sur les « effets d'une cause », mais il n'est généralement pas possible d'obtenir une réponse exacte à la question sur la « cause d'un effet ».[^7]
+L'expérimentation peut obtenir une réponse exacte à la question sur les "effets d'une cause", mais il n'est généralement pas possible d'obtenir une réponse exacte à la question sur la "cause d'un effet".[^7]
 
-[^6]: Certains réinterprètent la question des « causes des effets » comme suit : quelles sont les causes qui ont des effets sur les résultats. Voir Andrew Gelman and Guido Imbens, "Why ask why? Forward causal inference and reverse causal questions", NBER Working Paper No. 19614 (Nov. 2013).
-[^7]: Voir, par exemple, Tian, J., Pearl, J. 2000. “Probabilities of Causation: Bounds and Identification.” Annals of Mathematics and Artificial Intelligence 28:287–313.
+[^6]: Certains réinterprètent la question des "causes des effets" comme suit : quelles sont les causes qui ont des effets sur les résultats. Voir Andrew Gelman and Guido Imbens, "Why ask why? Forward causal inference and reverse causal questions", NBER Working Paper No. 19614 (Nov. 2013).
+[^7]: Voir, par exemple, Tian, J., Pearl, J. 2000. "Probabilities of Causation: Bounds and Identification." Annals of Mathematics and Artificial Intelligence 28:287–313.

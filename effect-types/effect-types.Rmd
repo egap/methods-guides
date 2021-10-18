@@ -244,7 +244,7 @@ Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces e
 Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération IPW (inverse-propensity weighting) et par pondération IPW augmentée.
 En combinant l'ajustement de régression avec l'IPW, l'AIPW a la particularité d'être "doublement robuste" : l'estimation est toujours cohérente même si nous avons incorrectement spécifié le modèle de régression ou le score de propension pour la pondération de probabilité.
 
-[^14]: Glynn, Adam N et Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
+[^14]: Glynn, Adam N et Kevin M Quinn. 2010. "An Introduction to the Augmented Inverse Propensity Weighted Estimator." Political Analysis 18 (1):36–56.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 # Exemple adapté de ?estimate.ATE
@@ -352,7 +352,7 @@ la régression par quantile ajuste un modèle linéaire à un quantile condition
 L'approche peut être étendue pour inclure des covariables et des instruments de non-conformité.
 Notez que l'interprétation du QTE est pour un quantile donné, pas un individu à ce quantile.
 
-[^19]: Voir Koenker, Roger et Kevin Hallock. 2001. “Quantile Regression: An Introduction.” Journal of Economic Perspectives 15 (4): 43–56. pour un aperçu concis de la régression par quantile
+[^19]: Voir Koenker, Roger et Kevin Hallock. 2001. "Quantile Regression: An Introduction." Journal of Economic Perspectives 15 (4): 43–56. pour un aperçu concis de la régression par quantile
 
 Ci-dessous, nous montrons un cas où l'ATE est de 0, mais l'effet du traitement est négatif pour les faibles quantiles du résultat et positif pour les quantiles élevés.
 L'estimation de l'effet du traitement par quantile fournit un autre outil pour détecter les effets hétérogènes et nous permet de décrire les conséquences distributionnelles de notre intervention.
@@ -592,62 +592,62 @@ print(ciAE)
 
 Références
 ==
-Aronow, Peter M, and Joel A Middleton. 2013. “A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments.” Journal of Causal Inference 1 (1): 135–54.
+Aronow, Peter M, and Joel A Middleton. 2013. "A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments." Journal of Causal Inference 1 (1): 135–54.
 
-Aronow, Peter M, and Cyrus Samii. 2014. “Does Regression Produce Representative Estimates of Causal Effects?” In EPSA 2013 Annual General Conference Paper. Vol. 585.
+Aronow, Peter M, and Cyrus Samii. 2014. "Does Regression Produce Representative Estimates of Causal Effects?" In EPSA 2013 Annual General Conference Paper. Vol. 585.
 
-Baron, Reuben M, and David A Kenny. 1986. “The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations.” Journal of Personality and Social Psychology 51 (6). American Psychological Association: 1173.
+Baron, Reuben M, and David A Kenny. 1986. "The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations." Journal of Personality and Social Psychology 51 (6). American Psychological Association: 1173.
 
-Bound, John, David A Jaeger, and Regina M Baker. 1995. “Problems with Instrumental Variables Estimation When the Correlation Between the Instruments and the Endogenous Explanatory Variable Is Weak.” Journal of the American Statistical Association 90 (430). Taylor & Francis: 443–50.
+Bound, John, David A Jaeger, and Regina M Baker. 1995. "Problems with Instrumental Variables Estimation When the Correlation Between the Instruments and the Endogenous Explanatory Variable Is Weak." Journal of the American Statistical Association 90 (430). Taylor & Francis: 443–50.
 
-Brambor, Thomas, William R. Clark, and Matt Golder. 2006. “Understanding Interaction Models: Improving Empirical Analyses.” Political Analysis 14 (1): 63–82.
+Brambor, Thomas, William R. Clark, and Matt Golder. 2006. "Understanding Interaction Models: Improving Empirical Analyses." Political Analysis 14 (1): 63–82.
 
-Bullock, John G, Donald P Green, and Shang E Ha. 2010. “Yes, but What’s the Mechanism?(don’t Expect an Easy Answer).” Journal of Personality and Social Psychology 98 (4). American Psychological Association: 550.
+Bullock, John G, Donald P Green, and Shang E Ha. 2010. "Yes, but What’s the Mechanism?(don’t Expect an Easy Answer)." Journal of Personality and Social Psychology 98 (4). American Psychological Association: 550.
 
-Chernozhukov, Victor, and Christian Hansen. 2005. “An IV Model of Quantile Treatment Effects.” Econometrica 73 (1). Wiley Online Library: 245–61.
+Chernozhukov, Victor, and Christian Hansen. 2005. "An IV Model of Quantile Treatment Effects." Econometrica 73 (1). Wiley Online Library: 245–61.
 
-Dunning, Thad. 2010. “Design-Based Inference: Beyond the Pitfalls of Regression Analysis?” Rethinking Social Inquiry: Diverse Tools, Shared Standards. 2nd Ed. Lanham, Md.: Rowman and Littlefield.
+Dunning, Thad. 2010. "Design-Based Inference: Beyond the Pitfalls of Regression Analysis?" Rethinking Social Inquiry: Diverse Tools, Shared Standards. 2nd Ed. Lanham, Md.: Rowman and Littlefield.
 
-Freedman, David A. 2008a. “On Regression Adjustments to Experimental Data.” Advances in Applied Mathematics 40 (2). Elsevier: 180–93. ———. 2008b. “Randomization Does Not Justify Logistic Regression.” Statistical Science 23 (2). Institute of Mathematical Statistics: 237–49.
+Freedman, David A. 2008a. "On Regression Adjustments to Experimental Data." Advances in Applied Mathematics 40 (2). Elsevier: 180–93. ———. 2008b. "Randomization Does Not Justify Logistic Regression." Statistical Science 23 (2). Institute of Mathematical Statistics: 237–49.
 
-Frölich, Markus, and Blaise Melly. 2010. “Estimation of Quantile Treatment Effects with Stata.” Stata Journal 10 (3): 423.
+Frölich, Markus, and Blaise Melly. 2010. "Estimation of Quantile Treatment Effects with Stata." Stata Journal 10 (3): 423.
 
 Gerber, Alan S, and Donald P Green. 2012. Field Experiments: Design, Analysis, and Interpretation. WW Norton.
 
-Green, Donald P. 2009. “Regression Adjustments to Experimental Data: Do David Freedman’s Concerns Apply to Political Science?” In 26th Annual Meeting of the Society for Political Methodology, Yale University, July, 23–25.
+Green, Donald P. 2009. "Regression Adjustments to Experimental Data: Do David Freedman’s Concerns Apply to Political Science?" In 26th Annual Meeting of the Society for Political Methodology, Yale University, July, 23–25.
 
-Hansen, Ben, and Jake Bowers. 2009. “Attributing Effects to a Cluster-Randomized Get-Out-the-Vote Campaign.” Journal of the American Statistical Association 104 (487). Taylor & Francis: 873–85.
+Hansen, Ben, and Jake Bowers. 2009. "Attributing Effects to a Cluster-Randomized Get-Out-the-Vote Campaign." Journal of the American Statistical Association 104 (487). Taylor & Francis: 873–85.
 
-Hartman, Erin, RD Grieve, R Ramsahai, and Jasjeet S Sekhon. forthcoming. “From SATE to PATT: Combining Experimental with Observational Studies.” Journal of the Royal Statistical Society.
+Hartman, Erin, RD Grieve, R Ramsahai, and Jasjeet S Sekhon. forthcoming. "From SATE to PATT: Combining Experimental with Observational Studies." Journal of the Royal Statistical Society.
 
-Hirano, Keisuke, Guido W Imbens, and Geert Ridder. 2003. “Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score.” Econometrica 71 (4). Wiley Online Library: 1161–89.
+Hirano, Keisuke, Guido W Imbens, and Geert Ridder. 2003. "Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score." Econometrica 71 (4). Wiley Online Library: 1161–89.
 
-Holland, Paul W. 1986. “Statistics and Causal Inference.” Journal of the American Statistical Association 81 (396). Taylor & Francis: 945–60.
+Holland, Paul W. 1986. "Statistics and Causal Inference." Journal of the American Statistical Association 81 (396). Taylor & Francis: 945–60.
 
-Imai, K., L. Keele, D. Tingley, and T. Yamamoto. 2011. “Unpacking the Black Box of Causality: Learning About Causal Mechanisms from Experimental and Observational Studies.” American Political Science Review 105 (4). Cambridge Univ Press: 765–89.
+Imai, K., L. Keele, D. Tingley, and T. Yamamoto. 2011. "Unpacking the Black Box of Causality: Learning About Causal Mechanisms from Experimental and Observational Studies." American Political Science Review 105 (4). Cambridge Univ Press: 765–89.
 
-Imai, Kosuke, and Teppei Yamamoto. 2013. “Identification and Sensitivity Analysis for Multiple Causal Mechanisms: Revisiting Evidence from Framing Experiments.” Political Analysis 21 (2). SPM-PMSAPSA: 141–71.
+Imai, Kosuke, and Teppei Yamamoto. 2013. "Identification and Sensitivity Analysis for Multiple Causal Mechanisms: Revisiting Evidence from Framing Experiments." Political Analysis 21 (2). SPM-PMSAPSA: 141–71.
 
-Imai, Kosuke, Luke Keele, and Teppei Yamamoto. 2010. “Identification, Inference and Sensitivity Analysis for Causal Mediation Effects.” Statistical Science. JSTOR, 51–71.
+Imai, Kosuke, Luke Keele, and Teppei Yamamoto. 2010. "Identification, Inference and Sensitivity Analysis for Causal Mediation Effects." Statistical Science. JSTOR, 51–71.
 
-Imai, Kosuke, Gary King, and Elizabeth A Stuart. 2008. “Misunderstandings Between Experimentalists and Observationalists About Causal Inference.” Journal of the Royal Statistical Society: series A (Statistics in Society) 171 (2). Wiley Online Library: 481–502.
+Imai, Kosuke, Gary King, and Elizabeth A Stuart. 2008. "Misunderstandings Between Experimentalists and Observationalists About Causal Inference." Journal of the Royal Statistical Society: series A (Statistics in Society) 171 (2). Wiley Online Library: 481–502.
 
-Imai, Kosuke, Dustin Tingley, and Teppei Yamamoto. 2013. “Experimental Designs for Identifying Causal Mechanisms.” Journal of the Royal Statistical Society: Series A (Statistics in Society) 176 (1). Wiley Online Library: 5–51.
+Imai, Kosuke, Dustin Tingley, and Teppei Yamamoto. 2013. "Experimental Designs for Identifying Causal Mechanisms." Journal of the Royal Statistical Society: Series A (Statistics in Society) 176 (1). Wiley Online Library: 5–51.
 
-Lin, Winston. 2013. “Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman’s Critique.” The Annals of Applied Statistics 7 (1). Institute of Mathematical Statistics: 295–318.
+Lin, Winston. 2013. "Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman’s Critique." The Annals of Applied Statistics 7 (1). Institute of Mathematical Statistics: 295–318.
 
-Lohr, Sharon L. 1999. “Sampling: DesignandAnalysis.” Pacific Grove, CA: Brooks/Cole.
+Lohr, Sharon L. 1999. "Sampling: DesignandAnalysis." Pacific Grove, CA: Brooks/Cole.
 
-Neyman, Jerzy. 1990 [1923]. “On the Application of Probability Theory to Agricultural Experiments. Essay on Principles. Section 9.” Statistical Science 5 (4). Institute of Mathematical Statistics: 465–72 (Translated by D.M. Dabrowska and T.P. Speed from the original Polish).
+Neyman, Jerzy. 1990 [1923]. "On the Application of Probability Theory to Agricultural Experiments. Essay on Principles. Section 9." Statistical Science 5 (4). Institute of Mathematical Statistics: 465–72 (Translated by D.M. Dabrowska and T.P. Speed from the original Polish).
 
-Nickerson, D.W. 2008. “Is Voting Contagious? Evidence from Two Field Experiments.” American Political Science Review 102 (1). Cambridge Univ Press: 49.
+Nickerson, D.W. 2008. "Is Voting Contagious? Evidence from Two Field Experiments." American Political Science Review 102 (1). Cambridge Univ Press: 49.
 
-Rosenbaum, Paul. 2002. “Attributing Effects to Treatment in Matched Observational Studies.” Journal of the American Statistical Association 97 (457). Taylor & Francis: 183–92.
+Rosenbaum, Paul. 2002. "Attributing Effects to Treatment in Matched Observational Studies." Journal of the American Statistical Association 97 (457). Taylor & Francis: 183–92.
 
 Rosenbaum, Paul R. 2002. Observational Studies. Springer.
 
-Rosenbaum, Paul, and Donald B. Rubin. 1983. “The Central Role of the Propensity Score in Observational Studies for Causal Effects.” Biometrika 70 (1). Biometrika Trust: 41–55.
+Rosenbaum, Paul, and Donald B. Rubin. 1983. "The Central Role of the Propensity Score in Observational Studies for Causal Effects." Biometrika 70 (1). Biometrika Trust: 41–55.
 
-Rosenbaum, Paul, and Jeffrey H Silber. 2008. “Aberrant Effects of Treatment.” Journal of the American Statistical Association 103 (481). Taylor & Francis: 240–47.
+Rosenbaum, Paul, and Jeffrey H Silber. 2008. "Aberrant Effects of Treatment." Journal of the American Statistical Association 103 (481). Taylor & Francis: 240–47.
 
-Rosenbaum, PR. 2010. “Design of Observational Studies.” Springer Series in Statistics. New York [etc.]: Springer. Tingley, Dustin, Teppei Yamamoto, Kentaro Hirose, Luke Keele, and Kosuke Imai. 2014. “mediation: R Package for Causal Mediation Analysis.” Journal of Statistical Software 59 (5): 1–38. http://www.jstatsoft.org/v59/i05/.
+Rosenbaum, PR. 2010. "Design of Observational Studies." Springer Series in Statistics. New York [etc.]: Springer. Tingley, Dustin, Teppei Yamamoto, Kentaro Hirose, Luke Keele, and Kosuke Imai. 2014. "mediation: R Package for Causal Mediation Analysis." Journal of Statistical Software 59 (5): 1–38. http://www.jstatsoft.org/v59/i05/.
