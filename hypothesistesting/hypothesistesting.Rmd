@@ -1,6 +1,5 @@
 ---
-bibliography: ../../Research-Group-Bibliography/big.bib
-output: 
+output:
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -8,9 +7,6 @@ output:
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
 ---
 
 <!-- title: "10 choses à savoir sur les tests d'hypothèses" -->
