@@ -73,7 +73,7 @@ set.seed(12345)
 treatment_effect     <- 1
 # Définir les identifiants individuels (i)
 person               <- 1:10
-# Définir l'indicateur de cluster (j)
+# Définir l'indicateur de grappe (j)
 hair_color           <- c(rep("black",5),rep("brown",5))
 # Définir le résultat du contrôle (Y0)
 outcome_if_untreated <- rnorm(n = 10)
@@ -149,33 +149,33 @@ e.nextSibling.nextSibling.style.display="block";
 kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 ```
 
-Alors que la distribution d'échantillonnage pour l'estimation sans grappe de l'effet du traitement a une erreur type d'environ 0,52,
+Alors que la distribution d'échantillonnage pour l'estimation sans grappe de l'effet du traitement a une erreur standard d'environ 0,52,
 celle de l'estimation par grappe est plus du double, à 1,13.
 Rappelons que les données initiales des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
 
-Savoir combien d'unités de notre étude varient intra- et inter-grappes est liée à cette question d'information.
-Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes sur l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *entre* eux.
+Savoir comment les unités de notre étude varient intra- et inter-grappes est liée à cette question d'information.
+Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes à propos de l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *entre* ces villages.
 Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
 Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
 
-On peut formaliser l'idée que les clusters fortement dépendants fournissent moins d'informations que les clusters hautement indépendants avec le **coefficient de corrélation intra-cluster**.
-Pour une variable donnée, $y$, des unités $i$ et des clusters $j$, nous pouvons écrire le coefficient de corrélation intracluster comme suit :
+On peut formaliser l'idée que les grappes fortement dépendantes fournissent moins d'informations que les grappes hautement indépendantes avec le **coefficient de corrélation intra-grappe** (intra-cluster correlation, ICC).
+Pour une variable donnée, $y$, des unités $i$ et des grappes $j$, nous pouvons écrire le coefficient de corrélation intra-grappe comme suit :
 
-$$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
+$$ \text{ICC} \equiv \frac{\text{variance entre grappes dans } y}{\text{variance totale dans } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
 où $\sigma_i^2$ est la variance entre les unités de la population et $\sigma_j^2$ est la variance entre les résultats définis au niveau de la grappe.
-Kish (1965) utilise cette description de la dépendance pour définir son idée du "N effectif" d'une étude (dans le contexte d'une enquête par sondage, où les échantillons peuvent être regroupés par grappe) :
+Kish (1965) utilise cette description de dépendance pour définir son idée du "N effectif" d'une étude (dans le contexte d'une enquête, où les échantillons peuvent être regroupés par grappe) :
 
-$$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
+$$\text{N effectif}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
-où le deuxième terme suit si tous les clusters ont la même taille ($n_1 \ldots n_J \equiv n$).
+où le deuxième terme suit si toutes les grappes ont la même taille ($n_1 \ldots n_J \equiv n$).
 
 Si 200 observations provenaient de 10 grappes avec 20 individus dans chaque grappe, où ICC = 0,5, de sorte que 50 % de la variation pourrait être attribuée aux différences inter-grappe (et non aux différences intra-grappe), la formule de Kish suggère que nous avons une taille d'échantillon effective d'environ 19 observations, au lieu de 200.
 
 Comme le suggère la discussion qui précède,
 le clustering réduit le plus l'information lorsqu'il
 a) restreint considérablement le nombre de façons dont un effet peut être estimé,
-et b) produit des unités dont les résultats sont fortement liés au cluster dont ils sont membres (i.e. lorsqu'il augmente l'ICC).
+et b) produit des unités dont les résultats sont fortement liés à la grappe dont ils sont membres (i.e. lorsqu'il augmente l'ICC).
 
 #3 Que faire à propos de la réduction de l'information
 
@@ -189,11 +189,11 @@ Ainsi, afin d'éviter une confiance excessive dans les résultats expérimentaux
 
 Dans cette section, nous nous limitons aux approches dites "basées sur le design" pour le calcul de l'erreur standard.
 Dans l'approche basée sur le design, nous simulons des répétitions de l'expérience pour dériver et vérifier les moyens de caractériser la variance de l'estimation de l'effet du traitement, en tenant compte de la randomisation par grappe.
-Plus loin dans le guide, nous comparons les approches "basées sur le design  avec celles "basées sur un modèle".
+Plus loin dans le guide, nous comparons les approches "basées sur le design" avec celles "basées sur un modèle".
 Dans l'approche basée sur un modèle, nous affirmons que les résultats ont été générés selon un modèle de probabilité et que les relations au niveau de la grappe suivent également un modèle de probabilité.
 
-Pour commencer, nous allons créer une fonction qui simule une expérience randomisée par grappe avec une corrélation intracluster fixe,
-et l'utiliser pour simuler certaines données à partir d'un design randomisée par grappe simple.
+Pour commencer, nous allons créer une fonction qui simule une expérience randomisée par grappe avec une corrélation intra-grappe fixe,
+et l'utiliser pour simuler certaines données à partir d'un design randomisé par grappe simple.
 
 <style>
 div.hidecode + pre {display: none}
@@ -209,7 +209,7 @@ e.nextSibling.nextSibling.style.display="block";
 make_clustered_data <- function(J = 10, n = 100, treatment_effect = .25, ICC = .1){
      ## Inspiré par Mathieu et al, 2012, Journal of Applied Psychology
      if (J %% 2 != 0 | n %% 2 !=0) {
-          stop(paste("Le nombre de clusters (J) et la taille des clusters (n) doivent être pairs."))
+          stop(paste("Le nombre de grappes (J) et la taille des grappes (n) doivent être pairs."))
      }
      Y0_j         <- rnorm(J,0,sd = (1 + treatment_effect) ^ 2 * sqrt(ICC))
      fake_data    <- expand.grid(i = 1:n,j = 1:J)
@@ -271,10 +271,12 @@ La première ignore le clustering et suppose que la distribution d'échantillonn
 Nous appellerons cela l'erreur standard DII.
 Pour prendre en compte le clustering, nous pouvons utiliser la formule suivante pour l'erreur standard :
 
-$$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho) $$
+TODO
 
-où $\sigma^2=\sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2$ (suivant Arceneaux et Nickerson ( 2009) ).
-Cet ajustement de l'erreur standard IID est communément appelé "erreur standard robuste pour cluster" ( "Robust Clustered Standard Error" / RCSE).
+$$ \text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
+
+où $$ \sigma^2 = \sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2 $$ (suivant Arceneaux et Nickerson (2009) ).
+Cet ajustement de l'erreur standard IID est communément appelé "erreur standard robuste pour grappe" (robust clustered standard error, RCSE).
 
 <style>
 div.hidecode + pre {display: none}
@@ -379,12 +381,12 @@ knitr::kable(rbind(
 Comme l'illustrent ces exemples simples, l'estimation par grappe de l'erreur standard (RCSE) se rapproche de la vérité (l'erreur standard simulée) à mesure que le nombre de grappes augmente.
 Pendant ce temps, l'erreur standard ignorant le clustering (en supposant l'IID) a tendance à être plus petite que l'une ou l'autre des autres erreurs standard.
 
-Plus l'estimation de l'erreur type est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent "statistiquement significatifs".
-Ceci est problématique : dans ce cas, l'erreur type IID nous amène à être trop confiants dans nos résultats car elle ignore la corrélation intra-cluster, i.e. dans quelle mesure les différences entre les unités peuvent être attribuées au cluster dont elles sont membres.
+Plus l'estimation de l'erreur standard est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent "statistiquement significatifs".
+Ceci est problématique : dans ce cas, l'erreur standard IID nous amène à être trop confiants dans nos résultats car elle ignore la corrélation intra-grappe, i.e. dans quelle mesure les différences entre les unités peuvent être attribuées à la grappe dont elles sont membres.
 Si nous estimons les erreurs standard à l'aide de techniques qui sous-estiment notre incertitude, nous sommes plus susceptibles de rejeter à tort des hypothèses nulles alors que nous ne le devrions pas.
 
-Une autre façon d'aborder les problèmes que le clustering introduit dans le calcul des erreurs standard est d'analyser les données au niveau du cluster.
-Dans cette approche, nous prenons des moyennes ou des sommes de résultats au sein des clusters, puis traitons l'étude comme si elle n'avait eu lieu qu'au niveau du cluster.
+Une autre façon d'aborder les problèmes que le clustering introduit dans le calcul des erreurs standard est d'analyser les données au niveau de la grappe.
+Dans cette approche, nous prenons des moyennes ou des sommes de résultats au sein des grappes, puis traitons l'étude comme si elle n'avait eu lieu qu'au niveau de la grappe.
 
 Hansen et Bowers (2008) montrent que l'on peut caractériser la distribution de la différence des moyennes à partir de ce que l'on sait de la distribution de la *somme* du résultat dans le groupe de traitement, qui varie d'une assignation de traitement à l'autre.
 
@@ -400,21 +402,21 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 
-# Agréger les données unitaires au niveau du cluster
-# Somme des résultats au niveau du cluster
+# Agréger les données unitaires au niveau de la grappe
+# Somme des résultats au niveau de la grappe
 Yj <- tapply(pretend_data$Y,pretend_data$j,sum)
-# Indicateur d'assignation globale au niveau du cluster
+# Indicateur d'assignation globale au niveau de la grappe
 Zj <- tapply(pretend_data$Z,pretend_data$j,unique)
-# Calculer la taille de cluster unique
+# Calculer la taille de grappe unique
 n_j <- unique(as.vector(table(pretend_data$j)))
 # Calculer la taille totale de l'échantillon (nos unités sont maintenant en grappe)
 N <- length(Zj)
-# Générer l'identifiant du cluster
+# Générer l'identifiant de la grappe
 j <- 1:N
-# Calculer le nombre de clusters traités
+# Calculer le nombre de grappes traitées
 J_treated <- sum(Zj)
 
-# Faire une fonction pour l'estimateur "différence des moyennes" au niveau du cluster (Voir Hansen & Bowers 2008)
+# Faire une fonction pour l'estimateur "différence des moyennes" au niveau de la grappe (Voir Hansen & Bowers 2008)
 cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      ones <- rep(1, length(Zj))
      ATE_estimate <- crossprod(Zj,Yj)*(N/(n_j*J_treated*(N-J_treated))) -
@@ -422,7 +424,7 @@ cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      return(ATE_estimate)
 }
 
-# Étant donné des clusters de taille égale et sans bloc, ceci est identique à la différence des moyenne au niveau unitaire
+# Étant donné des grappes de taille égale et sans bloc, ceci est identique à la différence des moyennes au niveau unitaire
 ATEs <- colMeans(data.frame(cluster_level_ATE =
                cluster_difference(Yj,Zj,n_j,J_treated,N),
           unit_level_ATE =
@@ -432,8 +434,8 @@ knitr::kable(data.frame(ATEs),align = "c")
 
 ```
 
-Afin de caractériser l'incertitude sur l'ATE au niveau du cluster,
-nous pouvons exploiter le fait que le seul élément aléatoire de l'estimateur est maintenant le produit croisé entre le vecteur d'assignation au niveau du cluster et le résultat au niveau du cluster,
+Afin de caractériser l'incertitude sur l'ATE au niveau de la grappe,
+nous pouvons exploiter le fait que le seul élément aléatoire de l'estimateur est maintenant le produit croisé entre le vecteur d'assignation au niveau de la grappe et le résultat au niveau de la grappe,
 $\mathbf{Z}^\top\mathbf{Y}$, mis à l'échelle par une constante.
 Nous pouvons estimer la variance de cette composante aléatoire par permutation du vecteur d'assignation ou par une approximation de la variance, en supposant que la distribution d'échantillonnage suit une distribution normale.
 
@@ -466,13 +468,13 @@ rownames(ses) <- c("Approximation avec loi normale", "Permutations")
 knitr::kable(ses)
 ```
 
-Cette approche au niveau des clusters a l'avantage de caractériser correctement l'incertitude sur l'effet de traitement pour une randomisation par grappe,
+Cette approche au niveau des grappes a l'avantage de caractériser correctement l'incertitude sur l'effet de traitement pour une randomisation par grappe,
 sans avoir à utiliser l'erreur standard RCSE pour les estimations au niveau de l'unité, qui est trop permissive pour les petits N.
 En effet, le taux de faux positifs des tests basés sur une erreur standard RCSE a tendance à être incorrect lorsque le nombre de grappes est petit, ce qui conduit à un excès de confiance.
-Comme nous le verrons ci-dessous, cependant, lorsque le nombre de clusters est très petit ($J=4$), l'approche au niveau du cluster est trop conservatrice, rejetant la valeur nulle avec une probabilité de 1.
-Un autre inconvénient de l'approche au niveau des clusters est qu'elle ne permet pas d'estimer les quantités d'intérêt au niveau unitaire, telles qu'un effet de traitement hétérogène.
+Comme nous le verrons ci-dessous, cependant, lorsque le nombre de grappes est très petit ($J=4$), l'approche au niveau de la grappe est trop conservatrice, rejetant la valeur nulle avec une probabilité de 1.
+Un autre inconvénient de l'approche au niveau des grappes est qu'elle ne permet pas d'estimer les quantités d'intérêt au niveau unitaire, telles qu'un effet de traitement hétérogène.
 
-#4 Pourquoi le clustering peut avoir de l'importance II : différentes tailles de cluster
+#4 Pourquoi le clustering peut avoir de l'importance II : différentes tailles de grappe
 
 Lorsque les grappes sont de tailles différentes, s'ouvre une classe unique de problèmes liés à l'estimation de l'effet du traitement.
 Surtout lorsque la taille de la grappe est liée d'une manière ou d'une autre aux résultats potentiels des unités qui la composent,
@@ -590,22 +592,22 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(1234)
-# Moyennes pondérées des clusters
+# Moyennes pondérées des grappes
 SATE_estimate_weighted <- NA
 for(i in 1:1000){
-     # Définir les clusters mis en traitement
+     # Définir les grappes assignées au traitement
      treated_clusters <- sample(1:J,J/2,replace = F)
      # Générer un vecteur d'assignation au niveau de l'unité
      Z <- (j %in% treated_clusters)*1
      # Révéler les résultats
      Y <- Z*Y1 + (1-Z)*Y0
-     # Calculer les poids des clusters
+     # Calculer les poids des grappes
      treated_weights <- n_j[1:J%in%treated_clusters]/sum(n_j[1:J%in%treated_clusters])
      control_weights <- n_j[!1:J%in%treated_clusters]/sum(n_j[!1:J%in%treated_clusters])
-     # Calculer les moyennes de chaque cluster
+     # Calculer les moyennes de chaque grappe
      treated_means <- tapply(Y,j,mean)[1:J%in%treated_clusters]
      control_means <- tapply(Y,j,mean)[!1:J%in%treated_clusters]
-     # Calculer l'estimation pondérée par cluster du SATE
+     # Calculer l'estimation pondérée par grappe du SATE
      SATE_estimate_weighted[i] <-
           weighted.mean(treated_means,treated_weights) -
           weighted.mean(control_means,control_weights)
@@ -645,13 +647,13 @@ $$\frac{1}{n}
 \frac{Y_{ilk}(1) - Y_{ilk}(0)}{n_{lk}}
 \right],$$
 
-où $l = 1,2$ indexe les clusters au sein de chaque paire.
-Ainsi, $n_{1k}$ fait référence au nombre d'unités dans la première section de la $k$'ième paire de clusters.
+où $l = 1,2$ indexe les grappes au sein de chaque paire.
+Ainsi, $n_{1k}$ fait référence au nombre d'unités dans la première section de la $k$'ième paire de grappes.
 
 Cette expression indique qu'un biais dû à des tailles de grappes inégales survient si et seulement si deux conditions sont remplies.
-Premièrement, les tailles d'au moins une paire de clusters doivent être inégales :
+Premièrement, les tailles d'au moins une paire de grappes doivent être inégales :
 lorsque $n_{1k}=n_{2k}$ pour tous les $k$, le terme de biais est réduit à 0.
-Deuxièmement, les tailles d'effet pondérées d'au moins une paire de clusters doivent être inégales :
+Deuxièmement, les tailles d'effet pondérées d'au moins une paire de grappes doivent être inégales :
 quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2k}}(Y_{i2k}(1)-Y_{i2k}(0))/n_{2k}$ pour tous les $k$, le biais est également réduit à 0.
 
 #5 Que faire à propos des différentes tailles de grappe
@@ -679,7 +681,7 @@ pair_sizes <- function(j,n_j){
      unique_sizes <- unique(n_j)
      # Trouver le nombre de tailles uniques
      N_unique_sizes <- length(unique_sizes)
-     # Générer une liste de candidats pour l'appariement pour chaque taille de cluster
+     # Générer une liste de candidats pour l'appariement pour chaque taille de grappe
      possible_pairs <- lapply(unique_sizes,function(size){which(n_j==size)})
      # Trouver le nombre de toutes les paires possibles (m)
      m_pairs <- length(unlist(possible_pairs))/2
@@ -750,29 +752,29 @@ Notez également que la variance dans la distribution d'échantillonnage est bea
 Ainsi, l'appariement de paires promet non seulement de réduire les biais, mais peut également grandement atténuer le problème de réduction de l'information induit par le clustering.
 
 Cependant, un tel appariement de paires avant randomisation impose certaines contraintes à l'étude, dont certaines peuvent être difficiles à respecter dans la pratique.
-Par exemple, il peut être difficile voire impossible de trouver des paires parfaitement assorties pour chaque taille de cluster, en particulier
+Par exemple, il peut être difficile voire impossible de trouver des paires parfaitement assorties pour chaque taille de grappe, en particulier
 lorsqu'il y a plusieurs traitements (tels que, au lieu de paires, le traitement est randomisé sur des triplets ou des quadruplés).
 Dans de tels cas, les chercheurs peuvent adopter d'autres solutions, telles que la création de paires basée sur les covariables observées avant la randomisation, où,
 par exemple, la similarité intra-paire des covariables observées est maximisée.
 Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par paire post-randomisation et énoncent certaines des hypothèses qui doivent être formulées pour que ces estimations soient valides.
 
-#6 Pourquoi le clustering peut avoir de l'importance III : les effets de débordement au sein du cluster
+#6 Pourquoi le clustering peut avoir de l'importance III : les effets de débordement au sein de la grappe
 
 Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
 Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est assignée au statut de traitement $z_i \in \{1,0\}$,
 nous pouvons définir cette quantité -- l'ATE (Average Treatment Effect) --
 comme valeur attendue de la différence entre l'échantillon lorsqu'il est assigné au traitement, $Y_1$ et l'échantillon lorsqu'il est assigné au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
 
-Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur du même cluster.
+Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur de la même grappe.
 Dans ce cas, nous désignons les résultats potentiels $Y_{z_j,z_i} \in \{ Y_{00}, Y_{10}, Y_{01}, Y_{11} \}$, où
-une unité non traitée avec un voisin de cluster non traité est définie comme $Y_{00}$,
-une unité non traitée avec un voisin de cluster traité comme $Y_{10}$,
-une unité traitée avec un voisin de cluster non traité comme $Y_{01}$, et
-une unité traitée avec un voisin de cluster traité comme $Y_{11}$.
-Lorsque nous menons une expérience randomisée par grappe, nous supposons généralement que le résultat d'une unité n'est pas fonction du statut de traitement des unités avec lesquelles elle partage un cluster,
+une unité non traitée avec un voisin de grappe non traité est définie comme $Y_{00}$,
+une unité non traitée avec un voisin de grappe traité comme $Y_{10}$,
+une unité traitée avec un voisin de grappe non traité comme $Y_{01}$, et
+une unité traitée avec un voisin de grappe traité comme $Y_{11}$.
+Lorsque nous menons une expérience randomisée par grappe, nous supposons généralement que le résultat d'une unité n'est pas fonction du statut de traitement des unités avec lesquelles elle partage un grappe,
 ou formellement $Y_{01}=Y_{11}=Y_1$ et $Y_{10}=Y_{00 }=Y_0$.
 Pourtant, pour toutes sortes de raisons, cela peut ne pas être le cas : leurs résultats peuvent être très différents
-si le groupe est ou non assigné au traitement, ou si quelqu'un se trouve dans le même groupe que d'autres personnes.
+si la grappe est ou non assignée au traitement, ou si quelqu'un se trouve dans la même grappe que d'autres personnes.
 
 Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignés de manière aléatoire à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
 Supposons que quatre élèves soient végétariens (V) et six mangeurs de viande (M).
@@ -857,13 +859,13 @@ plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traiteme
 et le traitement combiné à l'effet de débordement pour ceux qui ne sont pas appariés $E[Y_{111}-Y_{00x_k}]$.
 Mais surtout, nous ne pouvons pas identifier l'impact du débordement, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
 En effet, c'est une randomisation par grappe :
-il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe, car toutes les unités d'un cluster sont toujours traitées.
+il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe, car toutes les unités d'une grappe sont toujours traitées.
 De manière générale, ce problème est vrai pour toute étude randomisée par grappe :
 pour affirmer que nous identifions l'effet au niveau individuel du traitement, nous devons supposer que $Y_{11}=Y_{1}$ et $Y_{00}=Y_{0}$.
 
-#7 Que faire à propos des effets de débordement intra-clusters
+#7 Que faire à propos des effets de débordement intra-grappes
 
-S'il y a de bonnes raisons de croire que des effets de débordement intra-clusters se produisent,
+S'il y a de bonnes raisons de croire que des effets de débordement intra-grappes se produisent,
 les chercheurs peuvent alors adopter des approches différentes selon la manière dont les grappes sont formées.
 Dans certaines études, les chercheurs doivent eux-mêmes trier les unités en grappe à des fins d'expérimentation :
 par exemple, dans une étude portant sur un programme professionnel, le chercheur peut être en mesure de décider qui est recruté dans quelle classe.
@@ -917,8 +919,8 @@ Dans le cas où les chercheurs ne sont pas en mesure de contrôler la formation 
 ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de débordement possibles.
 Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
 À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
-En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-cluster, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
-Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-cluster.
+En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-grappes, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
+Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-grappe.
 
 #8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
 
@@ -934,10 +936,10 @@ des quantités inconnues, telles que le véritable effet du traitement ou la vé
 De telles approches sont appelées "basées sur un modèle", car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
 Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité.
 Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'intersection et/ou les coefficients varient d'un groupe à l'autre.
-De cette manière, il est possible de modéliser "l'effet d'être une unité dans le cluster A", séparément de l'estimation de l'effet du traitement.
+De cette manière, il est possible de modéliser "l'effet d'être une unité dans la grappe A", séparément de l'estimation de l'effet du traitement.
 L'avantage de telles approches est qu'elles permettent une "mise en commun partielle" de la variance dans la population et de la variance entre les grappes.
 Lorsqu'une grappe donnée est mal estimée, elle contribue moins à l'estimation, et vice versa.
-De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certains clusters :
+De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certaines grappes :
 grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
 Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.
 
@@ -1125,10 +1127,10 @@ error_comparison <- data.frame(round(rbind(
   J_100_error_rates
 ),3))
 
-colnames(error_comparison) <- c("Estimated ATE",
-                                "OLS + RCSE",
-                                "Cluster-Level",
-                                "Multi-Level")
+colnames(error_comparison) <- c("ATE estimé",
+                                "MCO + RCSE",
+                                "Niveau grappe",
+                                "Multi-niveau")
 
 kable(error_comparison,align = "c")
 
@@ -1144,12 +1146,12 @@ Les designs avec peu de grappes doivent envisager soit l'approche au niveau de l
 
 Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
 Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'informations en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du clustering peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
-Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur standard robuste pour cluster (Robust Clustered Standard Error / RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cette appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
+Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur standard robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cette appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
 
 Voici la règle la plus importante concernant la puissance statistique des designs par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
 Ceci peut être démontré par des expériences simulées.
 De manière générale, le moyen le plus flexible d'évaluer la puissance d'un design est la simulation, car elle permet des schémas de grappe et de découpage par bloc complexes et peut incorporer des covariables.
-Dans ce qui suit, nous utilisons l'estimateur des moindres carrés avec une erreur standard robuste pour cluster, afin d'économiser du temps de calcul, mais la même analyse peut être réalisée en utilisant n'importe quel estimateur et statistique de test.
+Dans ce qui suit, nous utilisons l'estimateur des moindres carrés avec une erreur standard robuste pour grappe, afin d'économiser du temps de calcul, mais la même analyse peut être réalisée en utilisant n'importe quel estimateur et statistique de test.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1319,7 +1321,7 @@ power_ICC <- error_ICC <- matrix(
 # Nombre de simulations
 sims <- 100
 
-# Boucle pour les différentes valeurs de corrélations intra-cluster
+# Boucle pour les différentes valeurs de corrélations intra-grappes
 for( i in 1:length(ICCs)){
   # Boucle pour les différentes nombres/tailles de grappes
   for(j in 1:length(J_njs)){

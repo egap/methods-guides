@@ -197,7 +197,7 @@ Et l'implication alors, est que nous ne devrions voir aucune différence entre l
 Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut ajouter une statistique de test au test d'hypothèse.
 Une statistique de test résume la relation entre le traitement et les résultats observés à l'aide d'un seul nombre.
 En général, nous aimerions que nos statistiques de test prennent des valeurs plus importantes plus l'effet du traitement est important.
-Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisées en deux groupes (vous pouvez appuyer sur le bouton "Code" pour voir le code R).
+Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisée en deux groupes (vous pouvez appuyer sur le bouton "Code" pour voir le code R).
 
 ```{r setupdata, results='hide', echo=TRUE}
 ## Tout d'abord, créez des données,

@@ -45,7 +45,7 @@ $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑
 
 Et nous estimons souvent l'ATE en utilisant la différence observée des moyennes:[^4]
 
-[^4] : Les estimations sont souvent écrites avec un chapeau ( $\widehat{ATE}$ ) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
+[^4]: Les estimations sont souvent écrites avec un chapeau ( $\widehat{ATE}$ ) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
 Sauf indication contraire, dans ce guide, nous nous concentrons sur la génération d'estimations d'échantillons et omettons par la suite cette notation explicite par souci de concision.
 Voir Gerber et Green (2012) pour une introduction concise à cette distinction et Imbens et Wooldridge (2007) pour un traitement approfondi de ces concepts.
 
@@ -71,7 +71,7 @@ Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et a
 Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observée.
 Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
 Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
-Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur-type de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
+Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur standard de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
 Enfin, nous démontrons également l'absence de biais de ces estimateurs par simulation.
 
 [^6]: Lin (2013)
@@ -193,10 +193,10 @@ Les expériences avec non-conformité sont composées de "toujours preneurs" ($D
 $$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
 L'estimateur ci-dessus met en évidence le fait que l'ITT et le CACE convergent à mesure que nous approchons d'une conformité totale.
-Calculer l'erreur type pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
-Cette approche simplifie l'estimation de l'erreur type et permet l'inclusion de covariables en tant qu'instruments supplémentaires.
+Calculer l'erreur standard pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
+Cette approche simplifie l'estimation de l'erreur standard et permet l'inclusion de covariables en tant qu'instruments supplémentaires.
 Dans le code ci-dessous, nous présentons les deux stratégies pour les données présentant une non-conformité bilatérale.
-Notez, cependant, que lorsque les instruments ne sont pas puissants (par exemple, l'assignation aléatoire n'a eu qu'un faible effet sur la réception du traitement), les estimateurs des variables instrumentales et leurs erreurs types peuvent être biaisés et incohérents.[^10]
+Notez, cependant, que lorsque les instruments ne sont pas puissants (par exemple, l'assignation aléatoire n'a eu qu'un faible effet sur la réception du traitement), les estimateurs des variables instrumentales et leurs erreurs standard peuvent être biaisés et incohérents.[^10]
 
 [^10]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
 

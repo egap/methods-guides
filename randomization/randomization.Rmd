@@ -141,7 +141,7 @@ dat <-
 with(dat, table(Z_loan, Z_training))
 ```
 
-4 Vous pouvez randomiser des clusters entiers ensemble (mais plus vos clusters sont gros, plus votre puissance statistique est faible !)
+4 Vous pouvez randomiser des grappes entières ensemble (mais plus vos grappes sont grandes, plus votre puissance statistique est faible !)
 ==
 
 Parfois, il est impossible de randomiser au niveau de l'individu.
@@ -150,9 +150,9 @@ Que ce soit par nécessité ou par choix, vous allez parfois randomiser des grap
 
 L'inconvénient de la randomisation par grappe est qu'elle réduit votre puissance statistique, puisque le nombre d'unités assignées de manière aléatoire reflète désormais le nombre de grappes et non pas simplement votre nombre total de sujets.
 Si vous aviez deux grappes assignées de manière aléatoire de 1 000 individus chacune, le nombre fonctionnel d'unités pourrait être plus proche de 2, et non de 2 000.
-Pour cette raison, il est préférable de faire des clusters aussi petits que possible.
+Pour cette raison, il est préférable de faire des grappes aussi petites que possible.
 
-De même, il est également souhaitable d'avoir une hétérogénéité au sein de vos clusters afin qu'ils soient aussi représentatifs que possible de votre population plus large.
+De même, il est également souhaitable d'avoir une hétérogénéité au sein de vos grappes afin qu'elles soient aussi représentatives que possible de votre population plus large.
 Si les individus au sein des groupes individuels sont très similaires les uns aux autres, ils peuvent avoir des résultats potentiels similaires, et ce groupe avec des résultats potentiels similaires sera assigné au traitement ou au contrôle en tant que groupe.
 Dans l'ensemble, cela augmentera votre variance si ce groupe avait des résultats potentiels particulièrement élevés ou faibles, car cela augmente la corrélation globale entre les résultats potentiels et l'assignation au traitement.
 En bref, si vos grappes sont plus représentatives de la population plus large, vos estimations de l'effet moyen du traitement seront plus précises.
@@ -162,10 +162,10 @@ La randomisation en bloc est effectuée afin d'atteindre un équilibre basé sur
 Par exemple, une intervention éducative peut bloquer la randomisation sur les résultats des tests de l'année précédente afin de suivre les progrès des élèves les moins performants et les plus performants.
 La randomisation par grappe se produit lorsque plusieurs unités sont traitées comme un groupe : elles reçoivent toutes le statut de traitement ou de contrôle ensemble.
 Par exemple, la même intervention éducative peut être randomisée au niveau de la classe, de sorte que les salles de classe constituent les grappes.
-Il est possible de randomiser en bloc et en cluster simultanément.
+Il est possible de randomiser par bloc et par grappe simultanément.
 Dans notre exemple, vous pouvez calculer la note moyenne au test pour chaque classe et effectuer une randomisation par bloc en fonction de la note moyenne de la classe.
 
-Le graphique suivant montre à quoi pourraient ressembler vos données dans les cas de randomisation par bloc, par grappe et par bloc + cluster, par rapport à un cas simple de randomisation sans bloc ni cluster.
+Le graphique suivant montre à quoi pourraient ressembler vos données dans les cas de randomisation par bloc, par grappe et par bloc + grappe, par rapport à un cas simple de randomisation sans bloc ni grappe.
 Dans les deux cas où le clustering se produit, vous pouvez dire que l'assignation du traitement (représentée par la couleur) apparaît en petits groupes.
 Dans les deux cas où le découpage par bloc se produit, il y a une répartition uniforme des couleurs dans les quatre quadrants du tracé, les blocs de cette assignation aléatoire.
 

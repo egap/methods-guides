@@ -13,7 +13,7 @@ Résumé
 Ce guide[^1] vous aidera à déterminer quand il est judicieux d'essayer de "contrôler d'autres choses" lors de l'estimation de l'effet du traitement à l'aide de données expérimentales.
 Nous nous concentrons sur les grandes idées et fournissons des exemples dans R.
 
-[^1] : Auteur d'origine : Lindsay Dolan. Révisions : Don Green et Winston Lin, 1er novembre 2016.
+[^1]: Auteur d'origine : Lindsay Dolan. Révisions : Don Green et Winston Lin, 1er novembre 2016.
 Le guide est un document vivant et susceptible d'être mis à jour par les membres de l'EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.
 Merci à Macartan Humphreys et Diana Mutz pour les discussions utiles.
 
@@ -53,7 +53,7 @@ Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l
 
 Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous devez alors contrôler ces probabilités inégales afin d'obtenir des estimations non biaisées de l'effet moyen du traitement. [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) l'aborde de manière pratique.
 
-3 Comment le faire dans une régression
+3 Comment le faire dans une régression ?
 ==
 Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment occurs) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error.
 You can still adjust for covariates on the back end by using multiple regression.
@@ -83,7 +83,7 @@ où $W_i = X_i - \overline{X}$ et $\overline{X}$ est la valeur moyenne de $X_i$ 
 
 Si les sujets reçoivent différentes probabilités d'assignation au traitement en fonction de leurs covariables, alors notre méthode d'estimation doit en tenir compte (encore une fois, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) pour plus de détails).
 
-4 Pourquoi le faire
+4 Pourquoi le faire ?
 ==
 
 Il n'est pas absolument nécessaire de contrôler les covariables lors de l'estimation de l'effet moyen du traitement dans un ECR qui attribue à chaque sujet la même probabilité de recevoir le traitement.
@@ -102,7 +102,7 @@ Dans les grands échantillons, l'assignation aléatoire a tendance à produire d
 Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir des taux de vote légèrement plus élevés lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
 Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode impartiale, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
 
-[^3] : la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui seront produites simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
+[^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui seront produites simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
 Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe témoin avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.
 
 Le contrôle des covariables a tendance à améliorer la précision si les covariables sont prédictives des résultats potentiels.
@@ -332,7 +332,7 @@ La protection contre les biais ex post (conditionnés au déséquilibre observé
 Cependant, ils recommandent : "si les déséquilibres observés sont autorisés à influencer le choix des covariables, les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat, la _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement", et l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".
 ."^[Winston Lin, Donald P. Green et Alexander Coppock (2016), ["Standard Operating Procedures for Don Green's Lab at Columbia,"](https : //github.com/acoppock/Green-Lab-SOP) version 1.05, 7 juin. Italique dans l'original.]
 
-7 Quand ne pas le faire
+7 Quand ne pas le faire ?
 ==
 C'est une mauvaise idée d'ajuster les covariables lorsque vous pensez que ces covariables ont pu être influencées par votre traitement.
 C'est l'une des raisons pour lesquelles de nombreuses covariables sont collectées à partir des enquêtes de base ; parfois, les covariables recueillies à partir d'enquêtes après l'intervention pourraient refléter l'effet du traitement plutôt que les caractéristiques sous-jacentes du sujet.
@@ -385,7 +385,7 @@ Certaines simulations ont suggéré que ce biais a tendance à être négligeabl
 
 [^7]: Green, Donald P. et Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Article en cours : http://ssrn.com/abstract=1466886
 
-9 Comment rendre vos décisions d'ajustement de covariable transparentes
+9 Comment rendre vos décisions d'ajustement de covariable transparentes ?
 ==
 Dans un souci de transparence, si vous ajustez les covariables, pré-spécifiez vos modèles et déclarez à la fois les estimations non corrigées et corrigées des covariables.
 
