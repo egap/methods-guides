@@ -7,9 +7,6 @@ output:
     extensions: +implicit_figure
     code_folding: show
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
 ---
 
 <!-- title: "10 choses sur les mécanismes" -->
