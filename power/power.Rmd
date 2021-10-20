@@ -291,7 +291,7 @@ Si vous pouvez éviter de regrouper vos traitements, c'est préférable pour la 
 À moins que vous ne soyez confronté à des problèmes liés aux effets de débordement, à la logistique ou à l'éthique, réduisez la variation au niveau le plus bas possible.
 
 Le meilleur scénario pour un design par grappe est lorsque le cluster dans lequel se trouve un sujet fournit très peu d'informations sur leurs résultats.
-Supposons que les sujets soient assignés au hasard à des groupes - le groupe n'aiderait pas du tout à prédire les résultats.
+Supposons que les sujets soient assignés de manière aléatoire à des groupes - le groupe n'aiderait pas du tout à prédire les résultats.
 Si le cluster n'est pas prédictif du résultat, alors nous n'avons pas perdu trop de puissance à cause du clustering.
 
 Là où le clustering cause vraiment des problèmes, c'est lorsqu'il existe une relation forte entre le cluster et le résultat.

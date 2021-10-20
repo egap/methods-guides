@@ -70,10 +70,10 @@ Si le mécanisme du climat/conflit est la migration, alors nous pouvons égaleme
 Troisièmement, connaître M nous aide à envisager d'autres moyens de provoquer ou d'éviter de provoquer des changements dans Y.
 Si le mécanisme du climat/conflit est la pauvreté, alors les programmes de développement pourraient diminuer les conflits en réduisant la sensibilité des revenus aux chocs climatiques, même s'ils ne peuvent pas changer les chocs climatiques.
 
-# Mais il est extrêmement difficile d'identifier les mécanismes causaux car les mécanismes eux-mêmes ne sont pas assignés au hasard…
+# Mais il est extrêmement difficile d'identifier les mécanismes causaux car les mécanismes eux-mêmes ne sont pas assignés de manière aléatoire…
 
 Prenons un exemple expérimental. Chong et al. (2015)[^3] ont utilisé une expérience de terrain pour étudier l'effet des informations à propos de la corruption sur la participation électorale.
-Ils ont assigné au hasard certains bureaux de vote au Mexique pour recevoir des informations sur l'utilisation corrompue des fonds au sein de cette municipalité.
+Ils ont assigné de manière aléatoire certains bureaux de vote au Mexique pour recevoir des informations sur l'utilisation corrompue des fonds au sein de cette municipalité.
 Étonnamment, ils ont découvert que les circonscriptions traitées votaient à des taux inférieurs à ceux des circonscriptions de contrôle.
 Ils suggèrent le mécanisme suivant à l'œuvre : les informations sur la corruption convainquent les électeurs que la municipalité est si gravement corrompue que l'élection d'un bon politicien ne la changera pas, de sorte que les individus trouvent que leur vote a moins de valeur.
 
@@ -85,7 +85,7 @@ En bref, leur argument est :[^4]
 
 Réception d'informations sur la corruption (X) $\xrightarrow{+}$ Estime que la corruption est trop grave (M) $\xrightarrow{+}$ Reste à la maison (Y)
 
-Chong et al. font face à un obstacle commun dans l'interprétation de leurs résultats : le mécanisme qu'ils proposent n'a pas été assigné au hasard.
+Chong et al. font face à un obstacle commun dans l'interprétation de leurs résultats : le mécanisme qu'ils proposent n'a pas été assigné de manière aléatoire.
 Certaines personnes sont plus enclines à croire que "tous les politiciens sont des vauriens", tandis que d'autres ont tendance à faire pression pour "un changement auquel nous pouvons croire". Malheureusement, nous ne pouvons observer que le traitement aléatoire qu'un individu a reçu et sa croyance (non aléatoire) au sujet de la corruption ; nous ne pouvons pas dire quelle croyance au sujet de la corruption ils *auraient eu* s'ils avaient reçu l'autre condition de traitement.
 Il nous est donc impossible de déterminer, pour chaque individu, dans quelle mesure sa décision d'aller voter a été causée par le mécanisme proposé par rapport à d'autres mécanismes.
 
@@ -125,7 +125,7 @@ Mais nous passerons à côté de cette relation dans l'ensemble car nous ne sero
 
 [^5]: Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, "The Product and Difference Fallacies for Indirect Effects," American Journal of Political Science 56.1 (2012): 257-269.
 
-Nous pouvons imaginer beaucoup plus de "types" que A et B – le but ici est de démontrer intuitivement que parce que M n'est pas assigné au hasard, et parce qu'il est peu probable que les effets de X sur M *et* M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l'entremise de M pour notre effet.
+Nous pouvons imaginer beaucoup plus de "types" que A et B – le but ici est de démontrer intuitivement que parce que M n'est pas assigné de manière aléatoire, et parce qu'il est peu probable que les effets de X sur M *et* M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l'entremise de M pour notre effet.
 
 # De nombreuses études tentent de décomposer l'effet total d'un traitement entre ses effets "directs" et "indirects".
 
@@ -134,7 +134,7 @@ Parfois, les chercheurs essaieront de le faire grâce à une technique appelée 
 
 Une analyse de décomposition des effets tente de décomposer un effet *total* de X sur Y en l'effet que X a sur Y *directement* et l'effet de X sur Y qui se produit *indirectement* via M.
 L'"effet total" fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
-Toute expérience qui attribue au hasard un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
+Toute expérience qui attribue de manière aléatoire un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
 Ensuite, le chercheur essaie de quantifier la taille de l'effet que X a sur Y à travers le mécanisme M.
 C'est ce qu'on appelle souvent "l'effet indirect" – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
 Enfin, le chercheur tentera d'estimer l'effet de X sur Y qui ne passe pas par M.
@@ -280,7 +280,7 @@ ACDE
 
 # notez que nous avons SUR-estimé l'effet indirect moyen et SOUS-estimé l'effet direct moyen
 
-# les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M car X est assigné au hasard
+# les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M car X est assigné de manière aléatoire
 a
 ATE_M
 c
@@ -288,7 +288,7 @@ ATE
 ```
 
 Relions cet exercice à la question soulevée au point 3. Cette simulation a illustré que la quantification de l'effet de médiation s'avère difficile lorsque les variables prédictives de base confondent la relation entre M et Y.
-Étant donné que M n'est pas attribué au hasard, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
+Étant donné que M n'est pas attribué de manière aléatoire, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
 En principe, s'il n'y a pas de variables de confusion dans cette relation, alors une analyse de décomposition des effets peut être impartiale, mais cette hypothèse est forte et généralement difficile à prouver.
 
 Même si nous ne l'avons pas démontré dans cette simulation, il est également possible de montrer que la décomposition des effets est également inappropriée lorsque l'effet du traitement est hétérogène (nous avons introduit cette intuition au point 4).
@@ -346,7 +346,7 @@ Une autre approche consiste à explorer si le traitement affecte uniquement les 
 
 Par exemple, de nombreux chercheurs en sciences sociales s'intéressent à la manière dont l'éducation de masse influence la démocratie.
 Plusieurs théories de la démocratisation s'attendent à ce que différents mécanismes relient l'éducation et la démocratie.
-Premièrement, selon la théorie de la modernisation, l'éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l'appartenance ethnique ou la religion) au profit du mérite.[^8] Deuxièmement, selon les théoriciens sociaux de l'oppression, l'éducation pourrait saper la démocratie en renforçant l'obéissance à l'autorité, qui est inhérente à une structure de classe.[^9] Troisièmement, selon de nombreux politologues et psychologues, l'éducation peut encourager la participation démocratique en donnant aux individus la capacité d'acquérir et d'agir sur la connaissance.[^10] Friedman et Al. (2011)[^11] décident de séparer ces mécanismes en enquêtant sur les résultats d'une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées au hasard pour recevoir une subvention à l'éducation.
+Premièrement, selon la théorie de la modernisation, l'éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l'appartenance ethnique ou la religion) au profit du mérite.[^8] Deuxièmement, selon les théoriciens sociaux de l'oppression, l'éducation pourrait saper la démocratie en renforçant l'obéissance à l'autorité, qui est inhérente à une structure de classe.[^9] Troisièmement, selon de nombreux politologues et psychologues, l'éducation peut encourager la participation démocratique en donnant aux individus la capacité d'acquérir et d'agir sur la connaissance.[^10] Friedman et Al. (2011)[^11] décident de séparer ces mécanismes en enquêtant sur les résultats d'une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées de manière aléatoire pour recevoir une subvention à l'éducation.
  Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l'œuvre : les filles ont-elles accepté le droit d'un mari de battre sa femme ? Un parent a-t-il participé au choix de leur mari? Dans quelle mesure la fille s'est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.

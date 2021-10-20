@@ -15,21 +15,21 @@ library(lme4)
 
 1 Qu'est ce que la randomisation par grappe ?
 ==
-Les expériences randomisées par grappe[^1] attribuent les traitements à des groupes,
-mais mesurent les résultats au niveau des individus qui composent les groupes.
+Les expériences randomisées par grappe[^1] assignent le traitement à des groupes,
+mais mesurent les résultats au niveau des individus qui composent ces groupes.
 C'est cette divergence entre le niveau auquel l'intervention est assignée et le niveau auquel les résultats sont constatés qui définit une expérience randomisée par grappe.
 
-[^1] : Ce guide a été initialement écrit par Jake Bowers et Ashlea Rundlett (22 novembre 2014).
+[^1]: Ce guide a été initialement écrit par Jake Bowers et Ashlea Rundlett (22 novembre 2014).
 Mises à jour effectuées par Jasper Cooper (25 août 2015).
 
-Considérons une étude qui assigne au hasard des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
+Considérons une étude qui assigne de manière aléatoire des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
 Il s'agit d'un design par grappe car, bien que le traitement soit attribué au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
-Ou considérons une étude qui assigne au hasard certains ménages à recevoir différents messages à la sortie du bureau de vote, où nous nous intéressons au comportement de vote des individus.
+Ou considérons une étude qui assigne de manière aléatoire certains ménages à recevoir différents messages à la sortie du bureau de vote, où nous nous intéressons au comportement de vote des individus.
 Étant donné que l'unité d'attribution du message est le ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
 
-Considérons maintenant une étude dans laquelle les villages sont sélectionnés au hasard, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
+Considérons maintenant une étude dans laquelle les villages sont sélectionnés de manière aléatoire, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
 Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont les mêmes.
-Supposons qu'une étude assigne au hasard des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
+Supposons qu'une étude assigne de manière aléatoire des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
 Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : le niveau d'assignation du traitement et de mesure des résultats est le même.
 
 Le regroupement est important pour deux raisons principales.
@@ -685,7 +685,7 @@ pair_sizes <- function(j,n_j){
      m_pairs <- length(unlist(possible_pairs))/2
      # Générer un vecteur avec des identifiants uniques au niveau de la paire
      pair_indicator <- rep(1:m_pairs,rep(2,m_pairs))
-     # Apparier au hasard les unités de grappes de même taille
+     # Apparier de manière aléatoire les unités de grappes de même taille
      pair_assignment <-
           unlist(lapply(
                possible_pairs,
@@ -702,7 +702,7 @@ SATE_estimate_paired <- NA
 for(i in 1:1000){
      # Parcourez maintenant le vecteur d'assignation des paires
      pair_ATEs <- sapply(unique(pair_indicator),function(pair){
-          # Pour chaque paire, assignez-en une au hasard au traitement
+          # Pour chaque paire, assignez-en une de manière aléatoire au traitement
           Z <- j[pair_indicator==pair] %in% sample(j[pair_indicator==pair],1)*1
           # Révéler les résultats potentiels de la paire
           Y <- Z*Y1[pair_indicator==pair] + (1-Z)*Y0[pair_indicator==pair]
@@ -774,7 +774,7 @@ ou formellement $Y_{01}=Y_{11}=Y_1$ et $Y_{10}=Y_{00 }=Y_0$.
 Pourtant, pour toutes sortes de raisons, cela peut ne pas être le cas : leurs résultats peuvent être très différents
 si le groupe est ou non assigné au traitement, ou si quelqu'un se trouve dans le même groupe que d'autres personnes.
 
-Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignés au hasard à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
+Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignés de manière aléatoire à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
 Supposons que quatre élèves soient végétariens (V) et six mangeurs de viande (M).
 Lorsqu'un couple VV, MM ou VM est assigné au contrôle, ils ne reçoivent pas la subvention et leur bien-être n'est pas affecté.
 Cependant, lorsqu'ils sont assignés au traitement, les couples VM se querellent et cela réduit leur bien-être, alors que les couples VV et MM ne se battent pas et ne sont affectés que par le traitement.

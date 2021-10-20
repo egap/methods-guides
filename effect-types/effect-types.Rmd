@@ -31,12 +31,12 @@ $$τ_{i}=Y_{i}(1)−Y_{i}(0)$$
 
 Puisque nous ne pouvons observer que $Y_{i}(1)$ ou $Y_{i}(0)$, l'effet du traitement individuel est impossible à connaître.
 Soit $D_{i}$ un indicateur pour savoir si nous observons une observation sous traitement ou sous contrôle.
-Si le traitement est assigné au hasard, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $((Y_{i}(1),Y_{i }(0),X_{i}⊥⊥D_{i}))$.[^2]
+Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $((Y_{i}(1),Y_{i }(0),X_{i}⊥⊥D_{i}))$.[^2]
 
 [^2]: Voir Holland and Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
 Supposons que notre design implique $m$ unités sous traitement et $N−m$ sous contrôle.
-Supposons que nous devions réassigner à plusieurs reprises le traitement au hasard et à chaque fois calculer la différence des moyennes entre les groupes traités et témoins, puis enregistrer cette valeur dans une liste.
+Supposons que nous devions réassigner à plusieurs reprises le traitement de manière aléatoire et à chaque fois calculer la différence des moyennes entre les groupes traités et témoins, puis enregistrer cette valeur dans une liste.
 La moyenne des valeurs de cette liste sera la même que la différence des moyennes des véritables résultats potentiels si nous avions observé tous les résultats potentiels pour toutes les observations.[^3] Autrement dit, l'estimateur (i.e. la différence des moyennes observées) est un estimateur sans biais de l'effet causal moyen du traitement.
 
 [^3]:  i.e $(E(Y_i(1)|D=1)=E(Y_i(1)|D=0)=E(Y_i(1)))$ et $(E(Y_i(0)|D=1)=E(Y_i(0)|D=0)=E(Y_i(0)))$
@@ -67,7 +67,7 @@ Un modèle linéaire de régression du résultat observé $Y_{i}$ sur un indicat
 $$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
 puisque nous pouvons réarranger les termes de sorte que $β_{0}$ représente la moyenne parmi les observations de contrôle $(Y_{i}(0)∣D_{i}=0)$ et $β_{1}$ représente la différence des moyennes $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$.
-Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et assignons au hasard un traitement Di avec un effet unitaire constant à la moitié des unités.
+Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et assignons de manière aléatoire un traitement Di avec un effet unitaire constant à la moitié des unités.
 Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observée.
 Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
 Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
@@ -284,7 +284,7 @@ $$ATC=E(Y_i(1)-Y_i(0)|D_i=0)=E(Y_i(1)|D_i=0)-E(Y_i(0)|D_i=0)$$
 
 Simplement, l'ATT est l'effet pour ceux que nous avons traités ; l'ATC est ce que l'effet *serait* pour ceux que nous n'avons pas traités.
 
-Lorsque le traitement est assigné au hasard et que la conformité est totale, $ATE=ATT=ATC$, puisque $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ et $E( Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$.
+Lorsque le traitement est assigné de manière aléatoire et que la conformité est totale, $ATE=ATT=ATC$, puisque $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ et $E( Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$.
 Souvent, en raison de la nature de l'intervention ou de préoccupations ethniques ou spécifiques au coût, la conformité du traitement est incomplète et l'ATE ne sera pas en général égal à l'ATT ou l'ATC.
 Dans de tels cas, nous avons vu dans la section précédente que nous pouvions repondérer les observations par leur probabilité de recevoir le traitement pour récupérer les estimations de l'ATE.
 La même logique peut être étendue pour produire des estimations de l'ATT et de l'ATC dans notre échantillon et dans la population.[^15]

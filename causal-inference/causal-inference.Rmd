@@ -115,7 +115,7 @@ Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quanti
 Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y] (http://egap.org/resource/10-strategies-for- déterminer-si-x-causé-y)).
 Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne se ressemblent pas selon les dimensions pertinentes.
 
-La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés au hasard capturent l'effet moyen de traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
+La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen de traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
 Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes traités et témoins captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, en traitement ou en contrôle.
 En pratique, les groupes de traitement et de contrôle réels ne seront pas identiques.[^10]
 
@@ -150,7 +150,7 @@ Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y a
 
 Bien que cela puisse sembler être deux façons de dire la même chose, il y a une différence entre comprendre quel est l'effet de $X$ sur $Y$ (les "effets d'une cause") et si un résultat $Y$ était *dû* à une cause $X$ (la "cause d'un effet").[^6] Considérez l'exemple suivant.
 Supposons que nous menions une expérience avec un échantillon qui contient un nombre égal d'hommes et de femmes.
-L'expérience assigne au hasard des hommes et des femmes à un traitement binaire $X$ et mesure un résultat binaire $Y$.
+L'expérience assigne de manière aléatoire des hommes et des femmes à un traitement binaire $X$ et mesure un résultat binaire $Y$.
 De plus, supposons que $X$ ait un effet positif de 1 pour tous les hommes, c'est-à-dire
 le résultat potentiel de contrôle des hommes est de zéro ($Y_i(0) = 0$) et leur résultat potentiel traité est de un ($Y_i(1) = 1$).
 Pour toutes les femmes, $X$ a un effet négatif de $-1$, c'est-à-dire que le résultat potentiel de contrôle des femmes est de un ($Y_i(0) = 1$) et leur résultat potentiel traité est de zéro ($Y_i(1) = 0$).

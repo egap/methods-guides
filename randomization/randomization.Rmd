@@ -64,8 +64,8 @@ Si nous devions estimer un effet de traitement, cet effet de traitement serait t
 Cependant, il serait plus difficile de rejeter l'hypothèse nulle selon laquelle ce n'était pas notre traitement mais le sexe qui produisait l'effet.
 Bref, le déséquilibre produit une estimation bruitée, ce qui rend plus difficile pour nous d'avoir confiance en nos estimations.
 
-La randomisation par bloc (parfois appelée stratifiée) aide à truquer notre expérience de manière à ce que nos groupes de traitement et de contrôle soient équilibrés selon des dimensions importantes, mais toujours assignés au hasard.
-Essentiellement, ce type de design de randomisation construit de multiples mini-expériences : par exemple, il pourrait prendre des femmes et affecter au hasard la moitié au traitement et l'autre moitié au contrôle, puis il affecterait la moitié des hommes au traitement et l'autre moitié au contrôle.
+La randomisation par bloc (parfois appelée stratifiée) aide à truquer notre expérience de manière à ce que nos groupes de traitement et de contrôle soient équilibrés selon des dimensions importantes, mais toujours assignés de manière aléatoire.
+Essentiellement, ce type de design de randomisation construit de multiples mini-expériences : par exemple, il pourrait prendre des femmes et affecter de manière aléatoire la moitié au traitement et l'autre moitié au contrôle, puis il affecterait la moitié des hommes au traitement et l'autre moitié au contrôle.
 Cela garantit un équilibre entre les sexes lorsque les groupes de traitement et de contrôle sont mis en commun.
 
 Le [package blockTools](https://cran.r-project.org/web/packages/blockTools/index.html) est un package utile pour effectuer la randomisation par bloc.
@@ -121,7 +121,7 @@ Supposons qu'il existe plusieurs composants d'un traitement que vous souhaitez t
 Par exemple, vous voudrez peut-être évaluer l'impact d'un programme de microfinance.
 Deux traitements spécifiques pourraient consister à prêter de l'argent aux femmes et à leur fournir une formation.
 Un plan factoriel examine toutes les combinaisons possibles de ces traitements : (1) Prêts, (2) Formation, (3) Prêts + Formation et (4) Contrôle.
-Les sujets sont ensuite assignés au hasard à l'une de ces quatre conditions.
+Les sujets sont ensuite assignés de manière aléatoire à l'une de ces quatre conditions.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/factorial-table.png)
 
@@ -148,8 +148,8 @@ Parfois, il est impossible de randomiser au niveau de l'individu.
 Par exemple, un appel à la radio pour amener des individus à un bureau de vote doit par nature être diffusé à l'ensemble d'un marché médiatique ; il est impossible de diffuser uniquement à certains individus mais pas à d'autres.
 Que ce soit par nécessité ou par choix, vous allez parfois randomiser des grappes (clusters) au lieu d'individus.
 
-L'inconvénient de la randomisation par grappe est qu'elle réduit votre puissance statistique, puisque le nombre d'unités assignées au hasard reflète désormais le nombre de grappes et non pas simplement votre nombre total de sujets.
-Si vous aviez deux grappes assignées au hasard de 1 000 individus chacune, le nombre fonctionnel d'unités pourrait être plus proche de 2, et non de 2 000.
+L'inconvénient de la randomisation par grappe est qu'elle réduit votre puissance statistique, puisque le nombre d'unités assignées de manière aléatoire reflète désormais le nombre de grappes et non pas simplement votre nombre total de sujets.
+Si vous aviez deux grappes assignées de manière aléatoire de 1 000 individus chacune, le nombre fonctionnel d'unités pourrait être plus proche de 2, et non de 2 000.
 Pour cette raison, il est préférable de faire des clusters aussi petits que possible.
 
 De même, il est également souhaitable d'avoir une hétérogénéité au sein de vos clusters afin qu'ils soient aussi représentatifs que possible de votre population plus large.
@@ -179,7 +179,7 @@ Des débordements surviennent si le résultat d'une unité est affecté par le s
 Cela peut être délicat si les unités ont la capacité d'interagir les unes avec les autres : un membre d'un village peut apprendre qu'un autre villageois a reçu une subvention en espèces et peut changer son comportement en conséquence.
 
 Une façon de rendre les effets de débordements plus évidents consiste à utiliser la double randomisation.
-Vous assignez d'abord au hasard certains groupes au traitement ou au contrôle, et au sein des groupes, vous assignez certains individus au traitement ou au contrôle.
+Vous assignez d'abord de manière aléatoire certains groupes au traitement ou au contrôle, et au sein des groupes, vous assignez certains individus au traitement ou au contrôle.
 La comparaison des individus témoins de votre groupe de traitement avec les individus de votre groupe témoin vous permettra d'évaluer le rôle des effets de débordements dans votre expérience.
 
 6 Différentes unités peuvent être assignées au traitement avec différentes probabilités
@@ -316,7 +316,7 @@ In the second year, we could compare the dark red treatment group to the light r
 You can see that after the third year, no more comparisons may be made because all units have been treated.
 
 Un design de randomisation avec liste d'attente est une façon de traiter tous les sujets tout en permettant au chercheur de tester expérimentalement l'efficacité du traitement.
-Dans ce design, on peut déployer l'intervention par phases et assigner au hasard les unités à la phase dans laquelle elles seront traitées.
+Dans ce design, on peut déployer l'intervention par phases et assigner de manière aléatoire les unités à la phase dans laquelle elles seront traitées.
 Par exemple, pour un total de 90 villages, on pourrait traiter 30 villages chaque année et mesurer les résultats à la fin de chaque année.
 Si vous vouliez comparer les résultats dans les villages de traitement et de contrôle, vous compareriez les 30 villages traités aux 60 villages non encore traités à la fin de la première année.
 A la fin de la deuxième année, vous pouvez comparer les 30 villages qui ont été traités l'année précédente aux 30 villages qui ne sont pas encore traités.
@@ -327,7 +327,7 @@ Vous pouvez voir qu'après la troisième année, plus aucune comparaison ne peut
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/wait-list-table.png)
 
-La seule exigence est que l'assignation d'un sujet au traitement dans une phase particulière soit assignée au hasard et sans rapport avec ses résultats potentiels d'intérêt.
+La seule exigence est que l'assignation d'un sujet au traitement dans une phase particulière soit assignée de manière aléatoire et sans rapport avec ses résultats potentiels d'intérêt.
 Un design dans lequel des participants plus enthousiastes recevraient un traitement plus tôt violerait cette hypothèse et ne donnerait pas une estimation impartiale de l'effet du traitement, car des facteurs non observés qui les prédisposent à rechercher un traitement peuvent influencer leur calendrier de résultats potentiels.
 Le design avec liste d'attente est un exemple de design de randomisation créatif qui pourrait répondre aux préoccupations éthiques concernant une distribution limitée d'un traitement précieux.
 

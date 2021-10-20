@@ -115,7 +115,7 @@ Le code suivant imite cette expérience en créant de fausses données pour quat
 Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était affectée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment des opinions des hommes dans sa famille.
 Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "vrai" intégré sur la mesure d'indépendance est ici de 1.
 Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 répétitions de notre expérience.
-À chaque répétition, nous assignons le traitement au hasard, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
+À chaque répétition, nous assignons le traitement de manière aléatoire, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
 Ainsi, nous simulons deux méthodes (non corrigées et corrigées par les covariables) pour estimer l'ATE.
 Pour estimer le biais de chaque méthode, nous prenons la différence des moyennes pour 10 000 estimations simulées et le "vrai" effet de traitement.
 
@@ -381,7 +381,7 @@ Soyez prudent avec les mesures qui peuvent être soumises à des effets d'évalu
 ==
 Dans les petits échantillons, l'ajustement par régression peut produire une estimation biaisée de l'effet moyen du traitement.^[David A. Freedman (2008), "On Regression Adjustments in Experiments with Several Treatments," _Annals of Applied Statistics_ 2: 176--196.
 Voir aussi les articles de blog de Winston Lin ([partie I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) et [partie II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849)) à propos de sa réponse à Freedman.]
-Certaines simulations ont suggéré que ce biais a tendance à être négligeable lorsque le nombre d'unités assignées au hasard est supérieur à vingt.[^7] Si vous travaillez avec un petit échantillon, vous pouvez utiliser une méthode d'ajustement de covariable sans biais telle que la post-stratification (diviser l'échantillon en sous-groupes sur la base des valeurs d'une ou plusieurs covariables de base, calculer la différence des moyennes traitement-contrôle pour les résultats de chaque sous-groupe, et prendre une moyenne pondérée de ces estimations d'effet du traitement spécifiques au sous-groupe, avec des poids proportionnels à la taille de l'échantillon).^[Miratrix, Sekhon et Yu (2013), cités ci-dessus.]
+Certaines simulations ont suggéré que ce biais a tendance à être négligeable lorsque le nombre d'unités assignées de manière aléatoire est supérieur à vingt.[^7] Si vous travaillez avec un petit échantillon, vous pouvez utiliser une méthode d'ajustement de covariable sans biais telle que la post-stratification (diviser l'échantillon en sous-groupes sur la base des valeurs d'une ou plusieurs covariables de base, calculer la différence des moyennes traitement-contrôle pour les résultats de chaque sous-groupe, et prendre une moyenne pondérée de ces estimations d'effet du traitement spécifiques au sous-groupe, avec des poids proportionnels à la taille de l'échantillon).^[Miratrix, Sekhon et Yu (2013), cités ci-dessus.]
 
 [^7]: Green, Donald P. et Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Article en cours : http://ssrn.com/abstract=1466886
 

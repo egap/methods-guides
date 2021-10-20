@@ -64,7 +64,7 @@ ggplot() +
 
 # 2. La mesure est le lien entre l'argument substantif et/ou théorique d'un chercheur et un design de recherche (expérimental).
 
-Lorsque nous considérons le design d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement assigné au hasard, $Z$ est assigné et la distribution conjointe de $Z$ et d'un résultat, $Y$.
+Lorsque nous considérons le design d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement assigné de manière aléatoire, $Z$ est assigné et la distribution conjointe de $Z$ et d'un résultat, $Y$.
 En d'autres termes, nous avons tendance à séparer les scores de $Z$ et $Y$ des concepts plus larges lorsque nous considérons les propriétés statistiques d'un design de recherche.
 Dans ce récit, deux expériences complètement séparées avec la même distribution de $Z$ et $Y$ pourraient avoir des propriétés identiques.
 
