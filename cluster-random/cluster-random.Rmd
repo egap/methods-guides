@@ -32,22 +32,22 @@ Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le 
 Supposons qu'une étude assigne de manière aléatoire des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
 Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : le niveau d'assignation du traitement et de mesure des résultats est le même.
 
-Le regroupement est important pour deux raisons principales.
-D'une part, le regroupement réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
+Le clustering est important pour deux raisons principales.
+D'une part, le clustering réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
 Si ce fait n'est pas pris en compte, nous sous-estimons souvent la variance de notre estimateur, ce qui conduit à une confiance excessive dans nos résultats de l'étude.
 D'autre part, le clustering soulève la question de savoir comment combiner les informations provenant de différentes parties de la même expérience en une seule quantité.
 Surtout lorsque les grappes ne sont pas de tailles égales et que les résultats potentiels des unités qu'elles contiennent sont très différents, les estimateurs conventionnels produiront systématiquement une mauvaise réponse en raison des biais.
-Cependant, plusieurs approches lors des phases de design et d'analyse peuvent surmonter les défis posés par les designs randomisées par grappe.
+Cependant, plusieurs approches lors des phases de design et d'analyse permettent de surmonter les défis posés par les designs randomisés par grappe.
 
 #2 Pourquoi le clustering peut être important I : réduction de l'information
 
 Nous pensons généralement à l'information contenue dans les études en termes de taille d'échantillon et de caractéristiques des unités au sein de l'échantillon.
-Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'informations très différentes selon que les unités sont regroupées ou non.
+Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'informations très différentes selon que les unités sont groupées par grappe ou non.
 Cela affectera grandement la précision des inférences que nous faisons sur la base de ces études.
 
-Imaginez une évaluation d'impact avec 10 personnes, où 5 sont affectées au groupe de traitement et 5 au contrôle.
+Imaginez une évaluation d'impact avec 10 personnes, où 5 sont assignées au groupe de traitement et 5 au contrôle.
 Dans une version de l'expérience, le traitement est assigné à des individus - il n'est pas randomisé par grappe.
-Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont affectés au traitement en tant que groupe.
+Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont assignés au traitement en tant que groupe.
 Ce design a deux groupes : "cheveux noirs" et "autre couleur".
 
 Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
@@ -759,9 +759,9 @@ Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par pa
 #6 Pourquoi le clustering peut avoir de l'importance III : les effets de débordement au sein du cluster
 
 Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
-Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est affectée au statut de traitement $z_i \in \{1,0\}$,
+Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est assignée au statut de traitement $z_i \in \{1,0\}$,
 nous pouvons définir cette quantité -- l'ATE (Average Treatment Effect) --
-comme valeur attendue de la différence entre l'échantillon lorsqu'il est affecté au traitement, $Y_1$ et l'échantillon lorsqu'il est affecté au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
+comme valeur attendue de la différence entre l'échantillon lorsqu'il est assigné au traitement, $Y_1$ et l'échantillon lorsqu'il est assigné au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
 
 Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur du même cluster.
 Dans ce cas, nous désignons les résultats potentiels $Y_{z_j,z_i} \in \{ Y_{00}, Y_{10}, Y_{01}, Y_{11} \}$, où

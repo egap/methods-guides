@@ -141,7 +141,7 @@ Nous vous recommandons d'inclure du code dans votre PAP pour montrer comment vou
 **Exemple :** Mesures et construction d'indices<br><br>
 Nous mesurons notre résultat principal, la *conformité fiscale*, à l'aide de données administratives sur les paiements d'impôts par les citoyens.
 La mesure de conformité fiscale prend la valeur $0$ si le ménage n'a pas payé d'impôts et $1$ si le ménage a payé des impôts.<br><br>
-Notre variable explicative est l'assignation du traitement, où les individus assignés au traitement reçoivent $1$ et les individus affectés au contrôle reçoivent $0$.<br><br>
+Notre variable explicative est l'assignation du traitement, où les individus assignés au traitement reçoivent $1$ et les individus assignés au contrôle reçoivent $0$.<br><br>
 Nous créons également un indice de "l'attitude envers le gouvernement" en utilisant des poids de covariance inverse (ICW) de 6 questions d'enquête où des valeurs plus élevées signifient des attitudes plus positives envers le gouvernement.
 L'indice ICW pondère les questions de base par la covariance des réponses dans le groupe de contrôle et pondère les questions post-traitement par la covariance des réponses dans le groupe de contrôle post-traitement.
 Nous standardisons ensuite l'échelle ICW par l'écart type de sorte qu'on peut comparer les réponses pré- et post-traitement.

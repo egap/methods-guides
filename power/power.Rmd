@@ -297,7 +297,7 @@ Si le cluster n'est pas prédictif du résultat, alors nous n'avons pas perdu tr
 Là où le clustering cause vraiment des problèmes, c'est lorsqu'il existe une relation forte entre le cluster et le résultat.
 Pour prendre l'exemple des villages, supposons que certains villages soient, dans l'ensemble, beaucoup plus riches que d'autres.
 Les grappes pourraient alors être assez prédictives du niveau d'instruction.
-Le regroupement peut réduire la taille effective de votre échantillon du nombre total d'individus au nombre total de grappes.
+Le clustering peut réduire la taille effective de votre échantillon du nombre total d'individus au nombre total de grappes.
 
 Il existe des formules qui peuvent vous aider à comprendre les conséquences du clustering — voir Gelman/Hill page 447-449 pour une discussion approfondie.
 Bien que ces formules puissent être utiles, elles peuvent également être assez lourdes à utiliser.

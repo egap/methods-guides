@@ -112,7 +112,7 @@ Dans cette expérience, les auteurs ont randomisé une campagne d'information au
 Ils ont réalisé une enquête de base qui leur a fourni plusieurs covariables.
 
 Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent : la posséssion d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
-Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était affectée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment des opinions des hommes dans sa famille.
+Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était assignée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment des opinions des hommes dans sa famille.
 Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "vrai" intégré sur la mesure d'indépendance est ici de 1.
 Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 répétitions de notre expérience.
 À chaque répétition, nous assignons le traitement de manière aléatoire, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
