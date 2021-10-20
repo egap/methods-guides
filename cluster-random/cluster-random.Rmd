@@ -1163,9 +1163,9 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T}
 
-# A function to test the null hypothesis and the true hypothesis
+# Une fonction pour tester l'hypothèse nulle et l'hypothèse vraie
 test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,ICC = ICC) {
-  # Make data:
+  # Créer les données:
   data <- make_clustered_data(J = J,
                       n = n,
                       treatment_effect = treatment_effect,
@@ -1178,7 +1178,7 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                              return_cov = TRUE), 
              df = linear_fit$df.residual)["Z",]
   
-  # Zero should not be in this CI very often as the null of 0 is false here
+  # Zéro ne devrait pas être trop souvent dans ce CI car l'hypothèse nulle de 0 est fausse ici TODO
   correct_reject <- !((0 >= RCSE_CI[1]) & (0 <= RCSE_CI[2]))
 
   # Test null of true taus (first attempt is use true, second is to make 0 true)
@@ -1205,10 +1205,11 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
 
 ```
 
-We can now analyze how power is affected when the number of clusters and the size of clusters vary, holding the ICC constant at .01 and the treatment effect constant at .2.
-We look both at the power - how often we correctly reject the null of no effect when there really is one - 
-as well as at the error - how often we incorrectly reject the null of no effect when there really isn't an effect.
-Typically we want the power to be around .8 and the error rate to be around .5 (when using a 95% confidence level).
+Nous pouvons maintenant analyser comment la puissance statistique est affectée lorsque le nombre de grappes et la taille des grappes varient,
+en maintenant l'ICC constant à 0,01 et l'effet de traitement constant à 0,2.
+Nous regardons à la fois la puissance - combien de fois nous rejetons correctement l'hypothèse nulle d'absence d'effet quand il y a un effet -
+ainsi que l'erreur - combien de fois nous rejetons à tort l'hypothèse nulle d'absence d'effet alors qu'il n'y a pas d'effet.
+En règle générale, nous voulons que la puissance soit d'environ 0,8 et le taux d'erreur d'environ 0,5 (en utilisant un niveau de confiance de 95%).
 
 <style>
 div.hidecode + pre {display: none}
@@ -1221,13 +1222,13 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# The numbers of clusters we will consider
+# Le nombre de grappes que nous considérerons
 Js <- c(8,20,40,80,160,320)
-# The cluster sizes we will consider
+# Les tailles des grappes que nous considérerons
 n_js <- c(8,20,40,80,160,320)
 
-# Create an empty matrix to store the results
-# The first stores the power and the second stores the error
+# Créer une matrice vide pour stocker les résultats
+# La première stocke la puissance et la seconde stocke l'erreur
 power_J_n <- error_J_n <- matrix(
   data = NA,
   nrow = length(Js),
@@ -1236,28 +1237,28 @@ power_J_n <- error_J_n <- matrix(
     paste("J =",Js),
     paste("n_j =",n_js)
   ))
-# Set the number of simulations
+# Nombre de simulations
 sims <- 100
 
-# Loop through the different cluster numbers
+# Boucle pour les différents nombres de grappes
 for( j in 1:length(Js)){
-  # Loop through the different cluster sizes
+  # Boucle pour les différentes tailles de grappes
   for(n in 1:length(n_js)){
-    # Estimate the power and error rate for each combination
+    # Estime la puissance et le taux d'erreur pour chaque combinaison
     test_sims <- replicate(n = sims,
               expr = test_H0_and_Htrue(J = Js[j],
                                        n = n_js[n],
                                        treatment_effect = .25,
                                        ICC = .01))
     power_error <- rowMeans(test_sims)
-    # Store them in the matrices
+    # Stocke les résultats dans les matrices
     power_J_n[j,n] <- power_error[1]
     error_J_n[j,n] <- power_error[2]
   }
 }
 
-# Plot the power under the different scenarios
-matplot(power_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "power")
+# Figure de la puissance selon les différents scénarios
+matplot(power_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "Puissance")
 axis(side = 1,labels = rownames(power_J_n),at = 1:6)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
@@ -1275,8 +1276,8 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Plot the error rate under the different scenarios
-matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
+# Figure de l'erreur selon les différents scénarios
+matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "Taux d'erreur")
 axis(side = 1,labels = rownames(error_J_n),at = 1:6)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.05)
@@ -1284,15 +1285,15 @@ legend("top", legend = colnames(error_J_n),col = 1:6 ,pch=1,horiz = TRUE)
 
 ```
 
-We see that power is always low when the number of clusters is low, regardless of how large the clusters are.
-Even with huge clusters (with 320 units each), the statistical power of the study is still relatively low when the number of clusters is 8.
-Similarly, it takes a large number of clusters to power a study with small clusters:
-although it is sufficient to have many clusters in order to power an experiment, irrespective of cluster size, power increases much more rapidly when the clusters are larger.
-Note also that while error rates appear systematically related to the number of clusters, the same is not true for cluster sizes.
+Nous voyons que la puissance est toujours faible lorsque le nombre de grappes est faible, quelle que soit la taille des grappes.
+Même avec des grappes énormes (avec 320 unités chacune), la puissance statistique de l'étude est encore relativement faible lorsque le nombre de grappes est de 8.
+De même, il faut un grand nombre de grappes pour alimenter une étude avec de petites grappes :
+bien qu'il soit suffisant d'avoir de nombreuses grappes pour alimenter une expérience, quelle que soit la taille des grappes, la puissance augmente beaucoup plus rapidement lorsque les grappes sont plus grandes.
+Notez également que si les taux d'erreur apparaissent systématiquement liés au nombre de grappes, il n'en va pas de même pour la taille des grappes.
 
-Next, we can evaluate how the intra-cluster correlation affects power.
-We will hold the structure of the sample size constant at $J=80,n_j=80$ and $J=160,n_j=160$,
-and compare across a range of ICC values, from low (.01) to high (.6).
+Ensuite, nous pouvons évaluer comment la corrélation intra-grappe affecte la puissance.
+Nous maintiendrons la structure de la taille de l'échantillon constante à $J=80,n_j=80$ et $J=160,n_j=160$,
+et comparerons pour une plage de corrélations intra-grappe (intra-cluster correlation, ICC), variant de faible (.01) à élevée (.6).
 
 <style>
 div.hidecode + pre {display: none}
@@ -1315,28 +1316,28 @@ power_ICC <- error_ICC <- matrix(
     paste("ICC =",ICCs),
     paste("J =",J_njs,"n_j = ",J_njs)
   ))
-# Set the number of simulations
+# Nombre de simulations
 sims <- 100
 
-# Loop through the different cluster numbers
+# Boucle pour les différentes valeurs de corrélations intra-cluster
 for( i in 1:length(ICCs)){
-  # Loop through the different cluster sizes
+  # Boucle pour les différentes nombres/tailles de grappes
   for(j in 1:length(J_njs)){
-    # Estimate the power and error rate for each combination
+    # Estime la puissance et le taux d'erreur pour chaque combinaison
     test_sims <- replicate(n = sims,
               expr = test_H0_and_Htrue(J = J_njs[j],
                                        n = J_njs[j],
                                        treatment_effect = .25,
                                        ICC = ICCs[i]))
     power_error <- rowMeans(test_sims)
-    # Store them in the matrices
+    # Stocke les résultats dans les matrices
     power_ICC[i,j] <- power_error[1]
     error_ICC[i,j] <- power_error[2]
   }
 }
 
-# Plot the power under the different scenarios
-matplot(power_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "power (high ICC)")
+# Figure de la puissance selon les différents scénarios
+matplot(power_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "Puissance")
 axis(side = 1,labels = rownames(power_ICC),at = 1:7)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
@@ -1354,37 +1355,38 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Plot the error rate under the different scenarios
-matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
+# Figure de la puissance selon les différents scénarios
+matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "Taux d'erreur")
 axis(side = 1,labels = rownames(error_ICC),at = 1:7)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.05)
 legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE) 
 
-``` 
+```
 
-As this example illustrates, high ICC can severely diminish the statistical power of the study, even with many large clusters.
+Comme l'illustre cet exemple, une ICC élevée peut gravement diminuer la puissance statistique de l'étude, même avec de nombreuses et larges grappes.
 
-#10 How to check balance in clustered designs
+#10 Comment vérifier l'équilibre dans les designs par grappe
 
-Randomization checks in clustered designs follow the same form as the preceding discussion.
-A valid test for a treatment effect is a valid test for placebo or covariate balance.
-The only difference from our preceding discussion is that one uses a background covariate or baseline outcome — some variable putatively uninfluenced by the treatment — in place of the outcome itself.
-So, randomization tests with small numbers of clusters may be too quick to declare an experiment ill-randomized if the analyst is not aware of the methods of error-rate analysis that we described above.
+On procède de la même manière pour le contrôle de randomisation dans les designs par grappe que précédemment.
+Un test valide pour un effet de traitement est un test valide pour le placebo ou l'équilibre des covariables.
+La seule différence par rapport à notre discussion précédente est que l'on utilise une covariable de base ou un résultat de base - une variable supposée non influencée par le traitement - à la place du résultat lui-même.
+Ainsi, un test de randomisation avec un petit nombre de grappes peut déclarer trop rapidement une expérience mal randomisée si l'analyste ne connaît pas la méthode d'analyse du taux d'erreur décrite ci-dessus.
 
-One new problem does arise in the context of randomization tests.
-Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself.
-And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare "imbalance" when $p<.05$ would do so falsely for one in every twenty variables tested.
-For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the Hansen and Bowers (2008) $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly.
-However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
+Un nouveau problème se pose dans le contexte des tests de randomisation.
+On a souvent de nombreuses covariables qui pourraient être utilisées pour détecter des déséquilibres malchanceux ou des problèmes de terrain avec la randomisation elle-même.
+Et, si l'on utilise des tests d'hypothèses, alors, bien sûr, un test valide qui nous encourage à déclarer "déséquilibre" lorsque $p<.05$ le ferait à tort pour une variable sur vingt testée.
+Pour cette raison, nous recommandons d'utiliser les tests d'hypothèses un par un comme outil exploratoire et d'utiliser les tests omnibus (comme le test T de Hotelling ou un test F ou le test $d^2$ de Hansen et Bowers (2008)), qui peut combiner des informations sur de nombreux tests dépendants en une seule statistique de test pour effectuer directement des tests d'équilibre.
+Cependant, ces tests doivent tenir compte du design par grappe : un simple test F sans tenir compte du design par grappe incitera probablement un analyste à déclarer un design déséquilibré et à peut-être accuser le personnel de terrain d'un échec de randomisation.
 
-Since cluster randomized experiments tend to have cluster-level covariates (say, village size, etc..) balance checks at the cluster level make sense and do not require explicit changes to account for clustered-assignment.
-Hansen and Bowers (2008) develop such a test and provide software to implement it.
-So, for example, if we had 10 covariates measured at the village level, and we had a large number of villages we could assess an omnibus balance hypothesis using this design-based but large-sample tool.
+Étant donné que les expériences randomisées par grappe ont tendance à avoir des covariables au niveau de la grappe (par exemple, la taille du village, etc.),
+les vérifications d'équilibre au niveau de la grappe ont du sens et ne nécessitent pas de modifications explicites pour tenir compte de l'assignation par grappe.
+Hansen et Bowers (2008) développent un tel test et fournissent un logiciel pour le mettre en œuvre.
+Ainsi, par exemple, si nous avions 10 covariables mesurées au niveau du village et que nous avions un grand nombre de villages, nous pourrions évaluer une hypothèse d'équilibre omnibus en utilisant cet outil basé sur un design à grand échantillon.
 
-Here we show only the omnibus test results.
-The one-by-one assessments that make up the omnibus test are also available in the `balance_test` object.
-Here, the omnibus test tell us that we have little information against the null that these observations arose from a randomized study.
+Ici, nous ne montrons que les résultats du test omnibus.
+Les évaluations une par une qui composent le test omnibus sont également disponibles dans l'objet `balance_test`.
+Ici, le test omnibus nous dit que nous avons peu de preuves contre l'hypothèse nulle que ces observations soient issues d'une étude randomisée.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1400,21 +1402,21 @@ e.nextSibling.nextSibling.style.display="block";
 library(RItools)
 options(digits=3)
 
-# Make a village level dataset
+# Créer un dataset au niveau des villages
 villages <- aggregate(pretend_data,by = list(village = pretend_data$j), mean)
 
-# Generate 10 fake covariates
+# Générer 10 fausses covariables
 set.seed(12345)
 villages[paste("x",1:10,sep="")] <- matrix(rnorm(nrow(villages)*10), ncol=10)
 balance_formula <- reformulate(paste("x",1:10,sep=""), response="Z")
-# Do a design-based, large sample balance test
+# Effectuer un test d'équilibre basé sur un design à grand échantillon
 balance_test <-xBalance(balance_formula, 
                         strata=list(noblocks=NULL),
                         data=villages,
                         report=c("std.diffs","z.scores","adj.means",
                                  "adj.mean.diffs", "chisquare.test","p.values"))
 
-# The results of the 1-by-1 balance tests
+# Les résultats des tests d'équilibre 1 par 1
 kable(round(balance_test$results,2),align = "c") 
 ```
 
@@ -1429,10 +1431,10 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# The overall omnibus p-value
+# La p-valeur du test omnibus global
 kable(round(balance_test$overall,2),align = "c")
 ```
 
-In this case, we cannot reject the omnibus hypotheses of balance even though, as we expected, we have a few covariates with falsely low $p$-values.
-One way to interpret this omnibus result is to say that such imbalances on a few covariates would not appreciably change any statistical inferences we make about treatment effects as long as these covariates did not strongly predict outcomes in the control group.
-Alternatively, we could say that any large experiment can tolerant chance imbalance on a few covariates (no more than roughly 5% if we are using $\alpha=.05$ as our threshold to reject hypotheses).
+Dans ce cas, nous ne pouvons pas rejeter les hypothèses omnibus d'équilibre même si, comme nous nous y attendions, nous avons quelques covariables avec des $p$-valeurs faussement basses.
+Une façon d'interpréter ce résultat omnibus est de dire que de tels déséquilibres sur quelques covariables ne modifieraient pas sensiblement les inférences statistiques que nous faisons sur l'effet du traitement tant que ces covariables ne prédisent pas fortement les résultats dans le groupe témoin.
+Alternativement, nous pourrions dire que toute grande expérience peut tolérer un déséquilibre aléatoire sur quelques covariables (pas plus de 5% si nous utilisons $\alpha=.05$ comme seuil pour rejeter les hypothèses).
