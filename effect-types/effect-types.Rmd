@@ -58,7 +58,7 @@ $$V(ATE) = \frac{N}{N−1} [\frac{V(Y_{i}(1))}{m}+\frac{V(Y_{i}(0))}{N−m}]−\
 
 et estimer cette quantité à partir des estimations de l'échantillon de la variance dans chaque groupe.[^5]
 
-[^5] : La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation prudente (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
+[^5]: La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation prudente (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
 Étant donné que nous sommes généralement soucieux de minimiser le taux d'erreur de type I (rejetant à tort l'hypothèse nulle vraie), nous préférons utiliser des estimations prudentes de la variance.
 Voir aussi Dunning (2010) et Gerber et Green (2012) pour la justification de l'estimateur de variance prudent.
 
@@ -188,7 +188,7 @@ Les expériences avec non-conformité sont composées de "toujours preneurs" ($D
 
 [^8]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
-[^9] : Nous supposons généralement la monotonie, ce qui signifie qu'il n'y a pas de non-conformistes, c'est à dire de personnes qui ne prennent le traitement que lorsqu'elles sont assignées au contrôle ($D_{i}=1$ quand $Z_i=0$) et refusent le traitement lorsqu'elles sont assignées au traitement ($D_{i}=0$ quand $Z_{i}=1$).
+[^9]: Nous supposons généralement la monotonie, ce qui signifie qu'il n'y a pas de non-conformistes, c'est à dire de personnes qui ne prennent le traitement que lorsqu'elles sont assignées au contrôle ($D_{i}=1$ quand $Z_i=0$) et refusent le traitement lorsqu'elles sont assignées au traitement ($D_{i}=0$ quand $Z_{i}=1$).
 
 $$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
@@ -385,7 +385,7 @@ Si oui, quelle part de cet effet total peut être attribuée aux effets de médi
 Baron et Kenny (1986) proposent un cadre général de réflexion sur la médiation en décomposant l'effet total du traitement en son effet indirect sur un médiateur qui affecte ensuite le résultat, appelé effet causal moyen de médiation (average causal mediation effect, ACME), et l'effet moyen direct du traitement (average direct effect, ADE).
 L'estimation impartiale de ces effets, cependant, nécessite un ensemble d'hypothèses fortes sur la relation entre le traitement, les médiateurs, les résultats et les facteurs de confusion potentiels, collectivement appelés ignorabilité séquentielle (Imai, Keele et Yamamoto (2010), Bullock, Green et Ha (2010 )).[^20]
 
-[^20] : Formellement, Imai, Keele et Yamamoto (2010) définissent les conditions nécessaires d'ignorabilité séquentielle comme : ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$.
+[^20]: Formellement, Imai, Keele et Yamamoto (2010) définissent les conditions nécessaires d'ignorabilité séquentielle comme : ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$.
 C'est-à-dire que, premièrement, étant donné les covariables de pré-traitement, les résultats potentiels de Y et M sont indépendants du traitement D
 et, deuxièmement, conditionnés aux covariables de pré-traitement et au statut du traitement, les résultats potentiels sont également indépendants du médiateur.
 

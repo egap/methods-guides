@@ -81,7 +81,7 @@ Ils suggèrent le mécanisme suivant à l'œuvre : les informations sur la corru
 
 En bref, leur argument est :[^4]
 
-[^4] : Notez que Chong et al. testent leur argument en utilisant des données au niveau de l'arrondissement, pas au niveau individuel, mais nous avons adapté leur argument au niveau individuel pour faciliter l'explication.
+[^4]: Notez que Chong et al. testent leur argument en utilisant des données au niveau de l'arrondissement, pas au niveau individuel, mais nous avons adapté leur argument au niveau individuel pour faciliter l'explication.
 
 Réception d'informations sur la corruption (X) $\xrightarrow{+}$ Estime que la corruption est trop grave (M) $\xrightarrow{+}$ Reste à la maison (Y)
 

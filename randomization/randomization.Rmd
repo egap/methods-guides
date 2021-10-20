@@ -302,7 +302,7 @@ Un design aléatoire qui traite un nombre égal de participants à faible revenu
 Si nous pensons que le prêt a des effets bénéfiques, cela soulève des inquiétudes quant à l'éthique de l'allocation des ressources loin des plus nécessiteux.[^5]
 Il faudrait un argumentaire solide pour les avantages sociaux de la recherche et également des designs qui offrent des avantages pour contrôler les groupes.
 
-[^5] : Mais si nous sommes certains des effets du prêt, alors pourquoi mener une expérience pour le tester?
+[^5]: Mais si nous sommes certains des effets du prêt, alors pourquoi mener une expérience pour le tester?
 Dans la recherche médicale, les essais contrôlés randomisés s'arrêtent souvent s'il devient clair dès le début qu'un médicament guérit sans aucun doute des maladies potentiellement mortelles, et donc le refuser aux sujets témoins est dangereux.
 (De même, un essai s'arrêterait également s'il était clair dès le début qu'un médicament provoque sans aucun doute des effets négatifs et nocifs.)
 

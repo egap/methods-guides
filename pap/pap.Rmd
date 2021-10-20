@@ -36,7 +36,7 @@ Des liens vers les registres PAP avec des exemples de plans sont fournis à la f
 Un PAP est un document qui formalise et déclare le design et le plan d'analyse de votre étude.
 Il est rédigé avant la réalisation de l'analyse et est généralement enregistré sur un site Web tiers.[^TOP]
 
-[^TOP] : les PAP sont encouragées dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publié dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques pour les sciences sociales s'engageant à mettre en œuvre les lignes directrices TOP.
+[^TOP]: les PAP sont encouragées dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publié dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques pour les sciences sociales s'engageant à mettre en œuvre les lignes directrices TOP.
 
 Les objectifs du PAP sont d'améliorer les choix de design de recherche, d'accroître la transparence de la recherche et de permettre à d'autres chercheurs de reproduire votre analyse.
 Par conséquent, nous recommandons de concentrer le PAP sur les détails analytiques qui vous aideront à analyser votre étude et permettront à d'autres chercheurs de reproduire votre analyse.

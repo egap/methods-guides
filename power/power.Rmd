@@ -13,7 +13,7 @@ Résumé
 Ce guide[^1] vous aidera à évaluer et à améliorer la puissance statistique de vos expériences.
 Nous nous concentrons sur les grandes idées et fournissons des exemples et des outils que vous pouvez utiliser dans R et Google Spreadsheets.
 
-[^1] : Auteur : Alex Coppock, 20 novembre 2013.
+[^1]: Auteur : Alex Coppock, 20 novembre 2013.
 Le guide est un document vivant et susceptible d'être mis à jour par les membres de EGAP à tout moment.
 Coppock n'est pas responsable des modifications ultérieures apportées à ce guide.
 
@@ -102,7 +102,7 @@ Soyez prudent, cependant, car les hypothèses qui sous-tendent les formules peuv
 
 Voici une formule courante utilisée pour calculer la puissance[^2]
 
-[^2] : Reproduite de Gerber et Green 2012, page 93
+[^2]: Reproduite de Gerber et Green 2012, page 93
 
 $$\beta = \Phi \left(\frac{|\mu_t-\mu_c|\sqrt{N}}{2\sigma}-\Phi^{-1} \left(1-\frac{\alpha}{2}\right) \right)$$
 
@@ -149,7 +149,7 @@ Une analyse de puissance qui examine la puissance pour différentes tailles d'é
 
 En utilisant la formule de la section 4, vous pouvez voir à quel point la puissance est sensible à toutes les hypothèses : la puissance sera plus élevée si vous supposez que l'effet du traitement sera plus important, ou si vous êtes prêt à accepter un niveau alpha plus élevé, ou si vous avez plus ou moins confiance dans le bruit de vos mesures.[^3]
 
-[^3] : pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist] de Kristoffer Magnusson (http://rpsychologist.com/d3/NHST/){target="_blank"}.
+[^3]: pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist] de Kristoffer Magnusson (http://rpsychologist.com/d3/NHST/){target="_blank"}.
 
 <iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850"></iframe>
 
