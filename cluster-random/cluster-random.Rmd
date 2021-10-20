@@ -398,7 +398,7 @@ e.nextSibling.nextSibling.style.display="block";
 </script>
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
-````{r,cache=T}
+```{r,cache=T}
 
 # Agréger les données unitaires au niveau du cluster
 # Somme des résultats au niveau du cluster
@@ -417,15 +417,15 @@ J_treated <- sum(Zj)
 # Faire une fonction pour l'estimateur "différence des moyennes" au niveau du cluster (Voir Hansen & Bowers 2008)
 cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      ones <- rep(1, length(Zj))
-     ATE_estimate <- crossprod(Zj,Yj)*(N/(n_j*J_treated*(N-J_treated))) - 
+     ATE_estimate <- crossprod(Zj,Yj)*(N/(n_j*J_treated*(N-J_treated))) -
           crossprod(ones,Yj)/(n_j*(N-J_treated))
      return(ATE_estimate)
 }
 
 # Étant donné des clusters de taille égale et sans bloc, ceci est identique à la différence des moyenne au niveau unitaire
-ATEs <- colMeans(data.frame(cluster_level_ATE = 
+ATEs <- colMeans(data.frame(cluster_level_ATE =
                cluster_difference(Yj,Zj,n_j,J_treated,N),
-          unit_level_ATE = 
+          unit_level_ATE =
                with(pretend_data,mean(Y[Z==1])-mean(Y[Z==0]))))
 
 knitr::kable(data.frame(ATEs),align = "c")
@@ -447,11 +447,11 @@ e.nextSibling.nextSibling.style.display="block";
 </script>
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
-````{r,cache=T}
+```{r,cache=T}
 
 # Approximation de la variance à l'aide de l'hypothèse de loi normale
 normal_sampling_variance <-
-      (N/(n_j*J_traité*(N-J_traité)))*(var(Yj)/n_j)
+      (N/(n_j*J_treated*(N-J_treated)))*(var(Yj)/n_j)
 # Approximation de la variance à l'aide de permutations
 set.seed(12345)
 sampling_distribution <- replicate(10000,cluster_difference(Yj,sample(Zj),n_j,J_treated,N))
@@ -504,7 +504,7 @@ n_j <- rep(2^(0:(J/2-1)),rep(2,J/2))
 
 # Nombre total d'employés
 N <- sum(n_j)
-# 2046 
+# 2046
 
 # identifiant unique pour chaque employé (unité)
 i <- 1:N
@@ -606,8 +606,8 @@ for(i in 1:1000){
      treated_means <- tapply(Y,j,mean)[1:J%in%treated_clusters]
      control_means <- tapply(Y,j,mean)[!1:J%in%treated_clusters]
      # Calculer l'estimation pondérée par cluster du SATE
-     SATE_estimate_weighted[i] <- 
-          weighted.mean(treated_means,treated_weights) - 
+     SATE_estimate_weighted[i] <-
+          weighted.mean(treated_means,treated_weights) -
           weighted.mean(control_means,control_weights)
 }
 
@@ -639,9 +639,9 @@ $$\frac{1}{n}
 \left[
 \left(
 \frac{n_{1k} + n_{2k}}{{2} - n_{lk}}
-\right) 
+\right)
 \times
-\sum^{n_{lk}}_{i = 1} 
+\sum^{n_{lk}}_{i = 1}
 \frac{Y_{ilk}(1) - Y_{ilk}(0)}{n_{lk}}
 \right],$$
 
@@ -686,7 +686,7 @@ pair_sizes <- function(j,n_j){
      # Générer un vecteur avec des identifiants uniques au niveau de la paire
      pair_indicator <- rep(1:m_pairs,rep(2,m_pairs))
      # Apparier au hasard les unités de grappes de même taille
-     pair_assignment <- 
+     pair_assignment <-
           unlist(lapply(
                possible_pairs,
                function(pair_list){
@@ -834,7 +834,7 @@ assign_reveal_est <- function(k,i,effect,spillover){
 simulate_exp <- function(){
   data <- form_pairs(ID,types)
   spillover <- spillover_or_not(data$type_i,data$type_j)
-  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i) 
+  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i)
   return(estimate)
 }
 
@@ -901,7 +901,7 @@ form_matched_pairs <- function(ID,types){
 simulate_matched_exp <- function(){
   data <- form_matched_pairs(ID,types)
   spillover <- spillover_or_not(data$type_i,data$type_j)
-  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i) 
+  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i)
   return(estimate)
 }
 
@@ -958,7 +958,7 @@ library(lme4)
 
 simple_OLS <- lm(Y ~ Z,data = J_30_clusters)
 multilevel <- lmer(Y ~ Z + (1 | j),
-                   data = J_30_clusters, 
+                   data = J_30_clusters,
                    control = lmerControl(optimizer = 'bobyqa'),
                    REML = TRUE)
 
@@ -990,7 +990,7 @@ confint_HC<-function (coefficients, df, level = 0.95, vcov_mat, ...) {
   coefficients + ses %o% fac
 }
 
-simple_OLS_CI <- 
+simple_OLS_CI <-
   confint_HC(coefficients = coef(simple_OLS),
              vcov_mat = RCSE(model = simple_OLS,
                              cluster = J_30_clusters$j,
@@ -1054,18 +1054,18 @@ sim_0_ate <- function(J,Y) {
   # Rendre la vraie relation entre le traitement et les résultats égale à zéro en mélangeant Z mais sans révéler de nouveaux résultats potentiels
   z.sim <- sample(1:max(J), max(J) / 2)
   Z_new <- ifelse(J %in% z.sim == TRUE, 1, 0)
-  
+
   # Estimation à l'aide du modèle linéaire pour le RCSE
-  linear_fit <- lm(Y ~ Z_new) 
+  linear_fit <- lm(Y ~ Z_new)
   linear_RCSE <- RCSE(model = linear_fit,
                   cluster = J,
                   return_cov = TRUE)
-  linear_CI <- confint_HC(coefficients = coef(linear_fit), 
+  linear_CI <- confint_HC(coefficients = coef(linear_fit),
                       vcov_mat = linear_RCSE,
                       df = linear_fit$df.residual)["Z_new",]
   # Vérifiez si l'intervalle de confiance est borné par 0
   zero_in_CI_RCSE <- (0 >= linear_CI[1]) & (0 <= linear_CI[2])
-  
+
   # Estimation à l'aide d'une approche par agrégat de grappe (Hansen et Bowers 2008)
   Yj <- tapply(Y, J, sum)
   Zj <- tapply(Z_new, J, mean)
@@ -1074,7 +1074,7 @@ sim_0_ate <- function(J,Y) {
   nt <- sum(Zj)
   # Faire le test basé sur Hansen et Bowers 2008 pour la différence des moyennes avec l'assignation au niveau de la grappe (en supposant des grappes de même taille)
   ones <- rep(1, length(Yj))
-  dp   <- crossprod(Zj,Yj) * (n / (m0 * nt * (n - nt))) - 
+  dp   <- crossprod(Zj,Yj) * (n / (m0 * nt * (n - nt))) -
     crossprod(ones,Yj) / (m0 * (n - nt))
   obs_ATE <- dp[1,1]
   # p-valeur bilatérale pour le test d'hypothèse nulle d'absence d'effet
@@ -1087,12 +1087,12 @@ sim_0_ate <- function(J,Y) {
   multilevel_fit <- lmer(Y ~ Z_new + (1 | J),
                          control = lmerControl(optimizer = 'bobyqa'),
                          REML = FALSE)
-  
+
   multilevel_CI <- lme4:::confint.merMod(
     multilevel_fit,parm = "Z_new",method = "Wald")
   # Vérifiez si l'intervalle de confiance est borné par 0
   zero_in_CI_multilevel <- (0 >= multilevel_CI[1]) & (0 <= multilevel_CI[2])
-  
+
   return(
     c(ATE = fixef(multilevel_fit)["Z_new"],
       zero_in_CI_RCSE = zero_in_CI_RCSE,
@@ -1171,32 +1171,32 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                       treatment_effect = treatment_effect,
                       ICC = ICC)
   linear_fit <- lm(Y ~ Z,data = data)
-  
+
   RCSE_CI <- confint_HC(coefficients = coef(linear_fit),
              vcov_mat = RCSE(model = linear_fit,
                              cluster = data$j,
-                             return_cov = TRUE), 
+                             return_cov = TRUE),
              df = linear_fit$df.residual)["Z",]
-  
+
   # Zéro ne devrait pas être trop souvent dans ce CI car l'hypothèse nulle de 0 est fausse ici TODO
   correct_reject <- !((0 >= RCSE_CI[1]) & (0 <= RCSE_CI[2]))
 
   # Test null of true taus (first attempt is use true, second is to make 0 true)
   # Reassign village level treatment so that Y is indep of Z --- so true effect is 0
-  
+
   data$Z_new <- ifelse(data$j %in% sample(1:J, max(J)/2), 1, 0)
-  
+
   linear_fit_true <-lm(Y ~ Z_new,data = data)
-  
+
   RCSE_CI_true <- confint_HC(coefficients = coef(linear_fit_true),
                              vcov_mat = RCSE(model = linear_fit_true,
                                              cluster = data$j,
-                                             return_cov = TRUE), 
+                                             return_cov = TRUE),
                              df = linear_fit$df.residual)["Z_new",]
-  
+
   # Zero should be in this CI very often as the null of 0 is true here
   false_positive <-  !((0 >= RCSE_CI_true[1]) & (0 <= RCSE_CI_true[2]))
-  
+
   return(c(
     correct_reject = correct_reject,
     false_positive = false_positive
@@ -1262,7 +1262,7 @@ matplot(power_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "Puissanc
 axis(side = 1,labels = rownames(power_J_n),at = 1:6)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
-legend("top", legend = colnames(power_J_n),col = 1:6 ,pch=1,horiz = TRUE) 
+legend("top", legend = colnames(power_J_n),col = 1:6 ,pch=1,horiz = TRUE)
 ```
 
 <style>
@@ -1281,7 +1281,7 @@ matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "Taux d'er
 axis(side = 1,labels = rownames(error_J_n),at = 1:6)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.05)
-legend("top", legend = colnames(error_J_n),col = 1:6 ,pch=1,horiz = TRUE) 
+legend("top", legend = colnames(error_J_n),col = 1:6 ,pch=1,horiz = TRUE)
 
 ```
 
@@ -1341,7 +1341,7 @@ matplot(power_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "Puissanc
 axis(side = 1,labels = rownames(power_ICC),at = 1:7)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.8)
-legend("top", legend = colnames(power_ICC),col = 1:2 ,pch=1,horiz = TRUE) 
+legend("top", legend = colnames(power_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 ```
 
 <style>
@@ -1360,7 +1360,7 @@ matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "Taux d'er
 axis(side = 1,labels = rownames(error_ICC),at = 1:7)
 axis(side = 2,at = seq(0,1,.25))
 abline(h=.05)
-legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE) 
+legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 
 ```
 
@@ -1410,14 +1410,14 @@ set.seed(12345)
 villages[paste("x",1:10,sep="")] <- matrix(rnorm(nrow(villages)*10), ncol=10)
 balance_formula <- reformulate(paste("x",1:10,sep=""), response="Z")
 # Effectuer un test d'équilibre basé sur un design à grand échantillon
-balance_test <-xBalance(balance_formula, 
+balance_test <-xBalance(balance_formula,
                         strata=list(noblocks=NULL),
                         data=villages,
                         report=c("std.diffs","z.scores","adj.means",
                                  "adj.mean.diffs", "chisquare.test","p.values"))
 
 # Les résultats des tests d'équilibre 1 par 1
-kable(round(balance_test$results,2),align = "c") 
+kable(round(balance_test$results,2),align = "c")
 ```
 
 <style>
