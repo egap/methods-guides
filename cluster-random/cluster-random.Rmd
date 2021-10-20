@@ -408,11 +408,11 @@ Zj <- tapply(pretend_data$Z,pretend_data$j,unique)
 # Calculer la taille de cluster unique
 n_j <- unique(as.vector(table(pretend_data$j)))
 # Calculer la taille totale de l'échantillon (nos unités sont maintenant en grappe)
-N <- longueur(Zj)
+N <- length(Zj)
 # Générer l'identifiant du cluster
 j <- 1:N
 # Calculer le nombre de clusters traités
-J_traité <- sum(Zj)
+J_treated <- sum(Zj)
 
 # Faire une fonction pour l'estimateur "différence des moyennes" au niveau du cluster (Voir Hansen & Bowers 2008)
 cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
