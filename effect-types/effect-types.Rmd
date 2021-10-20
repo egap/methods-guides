@@ -241,7 +241,7 @@ On pourrait également utiliser un modèle pour repondérer les observations afi
 [^13]: Angrist et Pischke (2008) fournissent une brève introduction des sujets traités plus en détail par Hirano, Imbens et Ridder (2003), Aronow et Middleton (2013), Glynn et Quinn (2010), et Hartman et al. (à venir)
 
 Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces effets mis en œuvre dans le package CausalGAM pour R.[^14]
-Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération IPW (inverse-propensity weighting) et par pondération IPW augmentée.
+Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération inverse du score de propension (inverse-propensity weighting, IPW) et par pondération IPW augmentée (augmented IPW, AIPW).
 En combinant l'ajustement de régression avec l'IPW, l'AIPW a la particularité d'être "doublement robuste" : l'estimation est toujours cohérente même si nous avons incorrectement spécifié le modèle de régression ou le score de propension pour la pondération de probabilité.
 
 [^14]: Glynn, Adam N et Kevin M Quinn. 2010. "An Introduction to the Augmented Inverse Propensity Weighted Estimator." Political Analysis 18 (1):36–56.
