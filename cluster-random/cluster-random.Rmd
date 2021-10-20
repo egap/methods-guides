@@ -52,9 +52,9 @@ Ce design a deux groupes : "cheveux noirs" et "autre couleur".
 
 Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
 Dans la première version, la procédure de randomisation permet 252 combinaisons différentes de personnes en tant que groupes de traitement et de contrôle.
-Cependant, dans la seconde version, la procédure de randomisation affecte tous les sujets aux cheveux noirs soit à un traitement, soit à un contrôle, et ne produit donc jamais que deux façons de combiner les personnes pour estimer un effet.
+Cependant, dans la seconde version, la procédure de randomisation assigne tous les sujets aux cheveux noirs soit à un traitement, soit à un contrôle, et ne produit donc jamais que deux façons de combiner les personnes pour estimer un effet.
 
-Tout au long de ce guide, nous illustrerons des points à l'aide d'exemples écrits en `R`.
+Tout au long de ce guide, nous illustrerons nos arguments à l'aide d'exemples écrits en `R`.
 Vous pouvez copier et coller ceci dans `R` pour voir comment cela fonctionne.
 
 <style>
@@ -80,8 +80,8 @@ outcome_if_untreated <- rnorm(n = 10)
 # Définir le résultat du traitement (Y1)
 outcome_if_treated   <- outcome_if_untreated + treatment_effect
 
-# Version 1 - Non randomisé par grappe
-# Générer toutes les assignations de traitement sans grappe possibles (Z)
+# Version 1 - non randomisée par grappe
+# Générer toutes les assignations de traitement possibles sans grappe (Z)
 non_clustered_assignments <- combn(x = unique(person),m = 5)
 # Estimer l'effet du traitement
 treatment_effects_V1 <-
@@ -111,7 +111,7 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
-# Version 2 - Randomisé par grappe
+# Version 2 - randomisée par grappe
 # Générer toutes les assignations de traitement avec grappe selon la couleur de cheveux (Z)
 clustered_assignments     <- combn(x = unique(hair_color),m = 1)
 # Estimer l'effet du traitement
@@ -151,9 +151,9 @@ kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 
 Alors que la distribution d'échantillonnage pour l'estimation sans grappe de l'effet du traitement a une erreur type d'environ 0,52,
 celle de l'estimation par grappe est plus du double, à 1,13.
-Rappelons que les données entrantes des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
+Rappelons que les données initiales des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
 
-Savoir combien d'unités de notre étude varient intra et inter grappes est liée à cette question d'information.
+Savoir combien d'unités de notre étude varient intra- et inter-grappes est liée à cette question d'information.
 Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes sur l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *entre* eux.
 Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
 Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
