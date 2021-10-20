@@ -23,9 +23,9 @@ C'est cette divergence entre le niveau auquel l'intervention est assignée et le
 Mises à jour effectuées par Jasper Cooper (25 août 2015).
 
 Considérons une étude qui assigne de manière aléatoire des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
-Il s'agit d'un design par grappe car, bien que le traitement soit attribué au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
+Il s'agit d'un design par grappe car, bien que le traitement soit assigné au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
 Ou considérons une étude qui assigne de manière aléatoire certains ménages à recevoir différents messages à la sortie du bureau de vote, où nous nous intéressons au comportement de vote des individus.
-Étant donné que l'unité d'attribution du message est le ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
+Étant donné que l'unité d'assignation du message est le ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
 
 Considérons maintenant une étude dans laquelle les villages sont sélectionnés de manière aléatoire, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
 Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont les mêmes.
@@ -46,7 +46,7 @@ Pourtant, deux études avec exactement la même taille d'échantillon et les mê
 Cela affectera grandement la précision des inférences que nous faisons sur la base de ces études.
 
 Imaginez une évaluation d'impact avec 10 personnes, où 5 sont affectées au groupe de traitement et 5 au contrôle.
-Dans une version de l'expérience, le traitement est attribué à des individus - il n'est pas randomisé par grappe.
+Dans une version de l'expérience, le traitement est assigné à des individus - il n'est pas randomisé par grappe.
 Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont affectés au traitement en tant que groupe.
 Ce design a deux groupes : "cheveux noirs" et "autre couleur".
 

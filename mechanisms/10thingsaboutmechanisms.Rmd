@@ -134,7 +134,7 @@ Parfois, les chercheurs essaieront de le faire grâce à une technique appelée 
 
 Une analyse de décomposition des effets tente de décomposer un effet *total* de X sur Y en l'effet que X a sur Y *directement* et l'effet de X sur Y qui se produit *indirectement* via M.
 L'"effet total" fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
-Toute expérience qui attribue de manière aléatoire un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
+Toute expérience qui assigne de manière aléatoire un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
 Ensuite, le chercheur essaie de quantifier la taille de l'effet que X a sur Y à travers le mécanisme M.
 C'est ce qu'on appelle souvent "l'effet indirect" – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
 Enfin, le chercheur tentera d'estimer l'effet de X sur Y qui ne passe pas par M.
@@ -288,7 +288,7 @@ ATE
 ```
 
 Relions cet exercice à la question soulevée au point 3. Cette simulation a illustré que la quantification de l'effet de médiation s'avère difficile lorsque les variables prédictives de base confondent la relation entre M et Y.
-Étant donné que M n'est pas attribué de manière aléatoire, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
+Étant donné que M n'est pas assigné de manière aléatoire, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
 En principe, s'il n'y a pas de variables de confusion dans cette relation, alors une analyse de décomposition des effets peut être impartiale, mais cette hypothèse est forte et généralement difficile à prouver.
 
 Même si nous ne l'avons pas démontré dans cette simulation, il est également possible de montrer que la décomposition des effets est également inappropriée lorsque l'effet du traitement est hétérogène (nous avons introduit cette intuition au point 4).

@@ -159,7 +159,7 @@ Que l'on émette des hypothèses sur les effets au niveau unitaire directement o
 Une hypothèse se réfère uniquement aux résultats potentiels.
 Ci-dessus, en supposant aucune interaction entre les unités, nous avons imaginé deux résultats potentiels par personne, mais nous n'en observons qu'un par personne.
 **Comment pouvons-nous utiliser ce que nous observons pour en savoir plus sur les modèles théoriques de quantités partiellement observées ?**
-Dans cette expérience simple, nous savons que nous observons l'un des deux résultats potentiels par personne, selon le traitement qui lui a été attribué.
+Dans cette expérience simple, nous savons que nous observons l'un des deux résultats potentiels par personne, selon le traitement qui lui a été assigné.
 Ainsi, nous pouvons lier les résultats contrefactuels non observés à un résultat observé ($Y_i$) en utilisant l'assignation de traitement ($Z_i$) comme suit :
 
 $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}

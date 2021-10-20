@@ -288,7 +288,7 @@ Pour maintenir les blocs et donc le contrôle sur l'équilibre entre les groupes
 
 [^4]: Pour une présentation plus détaillée des procédures de randomisation disponibles dans le package R randomizr, voir: https://declaredesign.org/r/randomizr/articles/randomizr_vignette.html
 
-10 La randomisation peut parfois être une manière éthique d'attribuer un traitement, mais parfois ce n'est pas le cas.
+10 La randomisation peut parfois être une manière éthique d'assigner un traitement, mais parfois ce n'est pas le cas.
 ==
 
 La randomisation est l'ingrédient clé pour isoler l'effet causal d'un traitement du point de vue du design de recherche, mais il est également important de tenir compte des implications éthiques de la randomisation.
