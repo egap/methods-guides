@@ -27,16 +27,16 @@ color: black;
 
 Résumé
 ==
-Ce guide présente l'idée d'un plan de pré-analyse (PAP), propose un modèle et des questions d'orientation pour rédiger des plans de pré-analyse pour vos études et explique les utilisations d'un plan de pré-analyse.
+Ce guide présente l'idée du plan de pré-analyse (PAP), propose un modèle et des questions d'orientation pour rédiger des plans de pré-analyse pour vos études et explique les utilisations d'un plan de pré-analyse.
 Des liens vers les registres PAP avec des exemples de plans sont fournis à la fin de ce document.
 
 1 Qu'est-ce qu'un plan de pré-analyse (PAP)
 ==
 
-Un PAP est un document qui formalise et déclare le design et le plan d'analyse de votre étude.
+Un PAP est un document qui formalise et décrit le design et le plan d'analyse de votre étude.
 Il est rédigé avant la réalisation de l'analyse et est généralement enregistré sur un site Web tiers.[^TOP]
 
-[^TOP]: les PAP sont encouragées dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publié dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques pour les sciences sociales s'engageant à mettre en œuvre les lignes directrices TOP.
+[^TOP]: les PAP sont encouragés dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publiées dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques en sciences sociales s'engageant à mettre en œuvre les lignes directrices TOP.
 
 Les objectifs du PAP sont d'améliorer les choix de design de recherche, d'accroître la transparence de la recherche et de permettre à d'autres chercheurs de reproduire votre analyse.
 Par conséquent, nous recommandons de concentrer le PAP sur les détails analytiques qui vous aideront à analyser votre étude et permettront à d'autres chercheurs de reproduire votre analyse.
@@ -45,7 +45,7 @@ Le PAP n'a pas besoin d'inclure le début d'un article académique si ces sectio
 
 Dans les sections suivantes, nous fournissons des directives pour les détails que vous devez inclure dans les PAP, y compris un exemple de texte.
 Nous vous recommandons également d'inclure autant de code et d'analyse de données simulées que possible.[^DD]
-De nombreux PAP ne pourront pas tout inclure sur notre liste, mais un PAP devrait, au minimum, inclure la liste complète des hypothèses qui vous avez l'intention de tester, comment vous allez mesurer les variables pertinentes pour ces hypothèses et un horodatage vérifiable.
+De nombreux PAP ne pourront pas tout inclure sur notre liste, mais un PAP devrait, au minimum, inclure la liste complète des hypothèses que vous avez l'intention de tester, comment vous allez mesurer les variables pertinentes pour ces hypothèses et un horodatage vérifiable.
 
 [^DD]: Des ressources telles que le projet DeclareDesign peuvent vous aider à simuler et à analyser de fausses données qui imitent les données réelles que votre projet rassemblera.
 [L'analyse de puissance statistique](http://egap.org/resource/10-things-to-know-about-statistical-power) est un élément important d'un PAP et nécessite des données simulées.
@@ -64,14 +64,14 @@ Ces descriptions doivent inclure :
 
 <p class="comment">
 **Exemple:**
-Prenons une version simplifiée d'une intervention au Malawi comme exemple courant. <br><br>
+Prenons une version simplifiée d'une intervention au Malawi comme exemple. <br><br>
 Nous utilisons une expérience randomisée par bloc pour évaluer l'effet de _la fourniture d'informations et de services publics_ (variable explicative) sur la _conformité fiscale_ (résultat) au Malawi, où la prestation de services est faible et la non-conformité fiscale élevée.<br><br>
-Notre unité d'analyse est le ménage occupé par les propriétaires dans une ville du Malawi.
-Nous excluons les locataires car seuls les propriétaires paient les taxes de séjour pertinentes pour notre étude.
+Notre unité d'analyse est un ménage propriétaire de son logement dans une ville du Malawi.
+Nous excluons les locataires car seuls les propriétaires paient les taxes d'habitation pertinentes pour notre étude.
 Nous mettons les ménages dans 80 groupes au niveau du quartier d'environ 20 ménages chacun.
 Chaque quartier est également un bloc tel que 10 ménages dans chaque quartier sont assignés au traitement et 10 ménages sont assignés au contrôle.<br><br>
 Notre intervention est la fourniture d'informations et de services publics.
-Nous mettons en œuvre cette intervention en offrant deux collectes de déchets gratuites, une visite d'un solliciteur pour discuter de la façon dont les paiements d'impôts financent les services municipaux comme la collecte des déchets, et une brochure avec plus d'informations sur les paiements d'impôts.<br><br>
+Nous mettons en œuvre cette intervention en offrant deux collectes de déchets gratuites, une visite d'un solliciteur pour discuter de la façon dont les paiements d'impôts financent les services municipaux comme la collecte des déchets, et une brochure avec plus d'informations sur le paiement des impôts.<br><br>
 Notre principal résultat est la conformité fiscale, que nous étudions en tant que paiement des taxes municipales.
 Nous menons une enquête et collectons des données administratives sur le paiement des impôts avant et après l'intervention.
 </p>
@@ -84,7 +84,7 @@ La formulation d'une hypothèse doit indiquer clairement si elle implique des te
 
 Il existe deux types d'hypothèses qu'il faut envisager d'inclure dans votre PAP : confirmatoire et exploratoire.
 
-**Les hypothèses de confirmation** sont au cœur de la plupart des études ; ce sont les hypothèses que votre étude est conçue pour tester.
+**Les hypothèses confirmatoires** sont au cœur de la plupart des études ; ce sont les hypothèses que votre étude est conçue pour tester.
 Vos analyses pour ces hypothèses seront généralement puissantes et vous disposerez généralement d'une théorie solide menant à ces hypothèses _a priori_.
 
 **Les hypothèses exploratoires** sont des hypothèses que vous souhaiterez peut-être tester mais qui ne sont pas l'objectif principal de votre étude.
@@ -112,7 +112,7 @@ En plus de l'amélioration globale des attitudes envers le gouvernement, nous no
  Nous aimerions explorer quels problèmes peuvent être à l'origine des changements d'attitude globaux avec les hypothèses exploratoires suivantes :
 <ul>
 <li>H : Le traitement augmentera l'opinion selon laquelle la ville mérite de percevoir des impôts parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
-<li>H : Le traitement augmentera les croyances dans la capacité de service de la ville parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
+<li>H : Le traitement augmentera les croyances dans la capacité de la ville à fournir des services parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
 <li>H : Le traitement augmentera les croyances dans la capacité de la ville à faire appliquer les règles  parmi les ménages de traitement par rapport aux ménages de contrôle.</li>
 <!--Nous pourrions également énumérer des hypothèses exploratoires sur le mécanisme par lequel le traitement affecte la conformité fiscale, telles que :
 (1) une croyance accrue dans la capacité des services municipaux,
@@ -142,7 +142,7 @@ Nous vous recommandons d'inclure du code dans votre PAP pour montrer comment vou
 Nous mesurons notre résultat principal, la *conformité fiscale*, à l'aide de données administratives sur les paiements d'impôts par les citoyens.
 La mesure de conformité fiscale prend la valeur $0$ si le ménage n'a pas payé d'impôts et $1$ si le ménage a payé des impôts.<br><br>
 Notre variable explicative est l'assignation du traitement, où les individus assignés au traitement reçoivent $1$ et les individus assignés au contrôle reçoivent $0$.<br><br>
-Nous créons également un indice de "l'attitude envers le gouvernement" en utilisant des poids de covariance inverse (ICW) de 6 questions d'enquête où des valeurs plus élevées signifient des attitudes plus positives envers le gouvernement.
+Nous créons également un indice "attitude envers le gouvernement" en utilisant les poids de covariance inverse (inverse covariance weighting, ICW) de 6 questions d'enquête où des valeurs plus élevées signifient des attitudes plus positives envers le gouvernement.
 L'indice ICW pondère les questions de base par la covariance des réponses dans le groupe de contrôle et pondère les questions post-traitement par la covariance des réponses dans le groupe de contrôle post-traitement.
 Nous standardisons ensuite l'échelle ICW par l'écart type de sorte qu'on peut comparer les réponses pré- et post-traitement.
 </p>
@@ -153,10 +153,10 @@ Nous standardisons ensuite l'échelle ICW par l'écart type de sorte qu'on peut 
 Maintenant que vous avez décrit votre design d'étude, vos hypothèses et vos variables, vous êtes prêt à discuter de vos procédures de test et d'estimation.
 
 Cette section doit clairement spécifier ce que vous estimez (c'est-à-dire l'estimande) et comment vous avez l'intention de l'estimer (c'est-à-dire l'estimateur).
-Par exemple, de nombreuses études estiment l'effet moyen du traitement d'une intervention expérimentale en utilisant la régression linéaire MCO comme estimateur.
+Par exemple, de nombreuses études estiment l'effet moyen du traitement d'une intervention expérimentale en utilisant la régression linéaire MCO (méthode des moindres carrés ordinaires) comme estimateur.
 ^[Vous pouvez également être intéressé par l'estimation d'autres types d'effets.
 Voir ce [guide sur les types d'effets de traitement](https://egap.org/es/methods-guides/10-types-treatment-effect-you-should-know-about) pour plus d'informations sur les types d'effet.]
-Décrivez clairement la spécification de votre modèle, y compris vos résultats, les variables explicatives et les covariables, ainsi que vos statistiques de test.
+Décrivez clairement la spécification de votre modèle, y compris vos résultats, les variables explicatives, les covariables, ainsi que vos statistiques de test.
 
 Nous recommandons d'inclure le code du modèle statistique ou la forme fonctionnelle du modèle statistique dans le PAP.
 
@@ -169,7 +169,7 @@ $Y_{i,j} = \beta_0 + \beta_1Z_{i,j} + X_{i,j}+ \epsilon_{i,j}$<br><br>
 où $i$ est l'individu dans le quartier $j$, $Z$ est l'indicateur de traitement et $Y$ est le résultat.
 $X$ est le résultat de base pour l'individu $i$.
 Nous utiliserons des poids de régression proportionnels à la taille des quartiers $j$.
-Si les résultats de référence et de fin ne sont pas équilibrés, nous utiliserons le score de changement, $Y_i = Y_{i,endline} - Y_{i,baseline}$ et nous n'utiliserons pas $X$.
+Si les résultats de référence et de fin ne sont pas équilibrés, nous utiliserons le score de changement, $Y_i = Y_{i,fin} - Y_{i,référence}$ et nous n'utiliserons pas $X$.
 </p>
 
 6 Qu'y a-t-il dans un PAP? Critères d'inférence{#infcrit}
@@ -179,14 +179,14 @@ Les critères d'inférence sont des règles de décision pour déterminer la dé
 L'établissement de critères d'inférence nécessite de faire plusieurs choix pour croire que l'effet estimé est "statistiquement significativement différent" de l'hypothèse nulle.
 Nous vous recommandons de préciser et de justifier clairement les réponses aux questions suivantes :
 
-1. Quel type d'erreurs standard utiliserez-vous ? Pourquoi utilisez-vous ce type d'erreurs standard ?^[Par exemple, vous pouvez calculer les erreurs standard et les $p$-valeurs en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) basée sur la permutation.
+1. Quel type d'erreur standard utiliserez-vous ? Pourquoi utilisez-vous ce type d'erreur standard ?^[Par exemple, vous pouvez calculer les erreurs standard et les $p$-valeurs en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) basée sur la permutation.
 Ou vous pouvez approcher précisement les erreurs standard et les $p$-valeurs en utilisant des méthodes analytiques [@samii2012]]
 2. Prévoyez-vous de faire un test unilatéral ou bilatéral ?
 3. À quel niveau $\alpha$ rejetterez-vous l'hypothèse nulle d'une $p$-valeur ?
 4. Avez-vous plusieurs hypothèses ? Si oui, quelle procédure utiliserez-vous pour ajuster les [comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) ?
 
 Vous pouvez choisir d'utiliser plusieurs procédures pour les critères d'inférence.
-Par exemple, vous pouvez utiliser les ajustements FWER et FDR pour plusieurs comparaisons et comparer les deux.
+Par exemple, vous pouvez utiliser les ajustements de taux d'erreurs par famille (family-wise error rate, FWER) et de taux de fausse découverte (false discovery rate, FDR) pour plusieurs comparaisons et comparer les deux.
 Ou vous pouvez utiliser les $p$-valeurs de l'inférence de randomisation pour vérifier les $p$-valeurs d'une distribution nulle supposée normale.
 Si vous choisissez d'utiliser plusieurs procédures, vous devez spécifier comment vous interpréterez les résultats si différentes procédures aboutissent à des conclusions différentes.
 
@@ -195,7 +195,7 @@ Si vous choisissez d'utiliser plusieurs procédures, vous devez spécifier comme
 Nous utilisons les erreurs standard HC2 avec notre expérience randomisée par bloc car elle équivaut à l'estimateur de variance Neyman basé sur la randomisation [@samii2012].
 Nous nous attendons à ce que le groupe de traitement paie plus de taxes municipales que le groupe de contrôle, et nous utilisons donc un test unilatéral où $H_1 > H_0$.
 Nous définissons $\alpha = 0,05$ et rejetons l'hypothèse nulle lorsque la $p$-valeur est inférieure à 0,05.
-Comme nous n'avons qu'une seule hypothèse de confirmation, nous n'ajustons pas de comparaisons multiples.
+Comme nous n'avons qu'une seule hypothèse confirmatoire, nous n'ajustons pas pour des comparaisons multiples.
 <br><br>
 Pour vérifier les erreurs standard HC2, nous calculons également les $p$-valeurs directement en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference), avec la différence des moyennes comme statistique de test.
 </p>
@@ -217,17 +217,17 @@ Il est également important de spécifier quand vous vous attendez à voir des r
 
 Les points extrêmes/manquants qui sont aléatoires seront moins problématiques que les points extrêmes/manquants qui semblent avoir un motif.
 
-Les procédures courantes pour traiter les données manquantes ou les points extrêmes sont 1) l'analyse des bornes ; 2) imputation; 3) abandon des observations.
+Les procédures courantes pour traiter les données manquantes ou les points extrêmes sont 1) l'analyse des bornes ; 2) l'imputation; 3) l'abandon des observations.
 Nous vous recommandons de considérer les questions suivantes lors de la détermination de la procédure que vous souhaitez utiliser :
 
 - Quels problèmes peuvent être à l'origine de ces points de données extrêmes/covariables manquantes/résultats manquants ?
   Que pouvez-vous faire à l'avance pour atténuer ces problèmes de données ?
    - Comment jugeriez-vous si les données extrêmes/manquantes sont vraisemblablement aléatoires ?
-     (i.e. les données extrêmes/les données manquantes sont-elles corrélées au traitement, à des covariables/sous-groupes spécifiques ou aux résultats ?
+     (i.e. les données extrêmes/les données manquantes sont-elles corrélées au traitement, à des covariables/sous-groupes spécifiques ou aux résultats ?)
    - Quelles procédures utiliserez-vous pour traiter les données extrêmes/manquants et comment justifiez-vous l'utilisation de votre procédure ?
 
        - Si les données extrêmes/manquantes ne sont pas aléatoires, nous vous recommandons d'inclure une sorte d'analyse des bornes pour déterminer les bornes de votre estimation avec des données extrêmes/manquantes.
-Par exemple, les bornes des valeurs extrêmes peuvent vous aider à déterminer la plage de leffet moyen du traitement en attribuant pour tous les résultats manquants dans le groupe de traitement le plus grand résultat possible et en attribuant pour tous les résultats manquants dans le groupe de contrôle le plus petit résultat possible [@gerber2012field].
+Par exemple, les bornes des valeurs extrêmes peuvent vous aider à déterminer la plage de l'effet moyen du traitement en attribuant pour tous les résultats manquants dans le groupe de traitement le plus grand résultat possible et en attribuant pour tous les résultats manquants dans le groupe de contrôle le plus petit résultat possible [@gerber2012field].
 
       - Si les données extrêmes/manquantes sont aléatoires, nous recommandons d'imputer les points extrêmes ou les données manquantes.
           Vous pouvez également supprimer ces données si les données extrêmes/manquantes sont aléatoires, et vous devez spécifier les conditions dans lesquelles vous choisissez de supprimer les données. Par exemple, envisagez de définir un seuil pour une covariable manquante de sorte que si le pourcentage de données manquantes de la covariable dépasse le seuil, vous supprimez la covariable.
@@ -252,7 +252,7 @@ Si nous avons encore des questions sur les résultats avec un taux de non-répon
   <li>des explorations bivariées de graphiques et/ou de tableaux</li>
   <li>une sélection de variables à l'aide d'un modèle de réseau élastique adaptatif avec des paramètres de réglage choisis par une validation croisée répétée 10 fois au sein du sous-groupe du design.</li>
   </ul>
-<li>Envisagez d'abandonner ces résultats d'enquête et répertoriez la raison de votre décision.</li>
+<li>Envisager d'abandonner ces résultats d'enquête et répertorier la raison de votre décision.</li>
 </ol>
 </ol>
 
@@ -262,11 +262,11 @@ Si nous avons encore des questions sur les résultats avec un taux de non-répon
 Une [analyse de puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) est généralement incluse dans les PAP.
 La puissance statistique est la probabilité que votre étude détecte un effet, s'il y a un effet à détecter.
 
-Il existe des [outils](https://egap.shinyapps.io/Power_Calculator/) pour vous aider à calculer la puissance, mais vous pouvez également produire votre propre analyse de puissance programmatiquement .
+Il existe des [outils](https://egap.shinyapps.io/Power_Calculator/) pour vous aider à calculer la puissance, mais vous pouvez également produire votre propre analyse de puissance programmatiquement.
 L'un des avantages de faire l'analyse de la puissance programmatiquement est qu'elle sert également de code d'analyse finale, ou au minimum de base pour le code d'analyse finale.
 
 À bien des égards, l'analyse de la puissance de calcul implémente toutes les spécifications que vous avez faites dans votre PAP dans le code.
-En fait, vous pouvez combiner le code pour une analyse de puissance de calcul avec le code écrit pour d'autres sections du PAP et créer un PAP de calcul.
+En fait, vous pouvez combiner le code pour une analyse de puissance avec le code écrit pour d'autres sections du PAP et créer un PAP de calcul.
 Un tel outil, qui peut être implémenté avec un logiciel comme [DeclareDesign](https://declaredesign.org), peut alors vous aider à diagnostiquer des problèmes potentiels, vous en apprendre davantage sur votre design et renforcer votre PAP.
 
 9 Pourquoi faire un PAP ?
@@ -279,7 +279,7 @@ Vous avez peut-être entendu des arguments pour et contre les PAP. Cette discuss
 Un manque de transparence de la recherche a conduit à plusieurs problèmes, dont l'un est la crise de réplication.
 
 La crise de réplication est que de nombreuses études universitaires sont difficiles ou impossibles à reproduire.
-Les PAP réduisent le nombre d'études qui ne sont pas reproductibles en raison de mauvaises pratiques en matière de données, telles que le data mining jusqu'à trouver des données montrant une relation causale fallacieuse ou le trucage involontaire des $p$-valeurs.
+Les PAP réduisent le nombre d'études qui ne sont pas reproductibles en raison de mauvaises pratiques en matière de données, telles que le data mining jusqu'à trouver des données montrant une relation causale fallacieuse ou le trucage involontaire des $p$-valeurs (p-hacking).
 Les PAP augmentent également le nombre d'études qui élaborent les procédures nécessaires à la réplication, ce qui permet de tenter de reproduire ces études.
 
 *2. Les PAP aident à contrer les biais de publication.*
@@ -290,21 +290,16 @@ Un biais de publication se produit lorsque les revues publient des études basé
 Ce biais peut conduire à des croyances erronées sur un lien entre les variables $X$ et $Y$ car les revues ne publient que des études qui montrent que $X$ affecte $Y$ et ne publient pas d'études où $X$ n'affecte pas $Y$, même si ces études sont plus nombreuses.
 
 Les registres PAP fonctionnent comme des référentiels de tentatives d'études, à la fois publiées et non publiées.
-Ces registres permettent aux universitaires et aux praticiens d'identifier si les effets publiés sur un sujet représentent avec précision les effets trouvés dans les études non publiées, ou si les effets publiés diffèrent des études non publiées.
+Ces registres permettent aux universitaires et aux praticiens d'identifier si les effets publiés sur un sujet représentent avec précision les effets trouvés dans les études non publiées, ou si les effets publiés diffèrent de ceux des études non publiées.
 
-Pre-registering studies as exploratory or confirmatory further allows researchers to know if future research should build off the study or if future research should corroborate the study.
- _There is nothing wrong with exploratory research_, and many important but unknown relationships can be uncovered through exploratory analyses.
- It is important to acknowledge when findings are exploratory and need to be confirmed in other studies.
- Details in PAP registries allow scholars to do so.
-
-Le pré-enregistrement des études de confirmation ou d'exploration permet en outre aux chercheurs de savoir si les recherches futures devraient s'appuyer sur l'étude ou si les recherches futures devraient corroborer l'étude.
+Le pré-enregistrement des études confirmatoires ou exploratoires permet en outre aux chercheurs de savoir si les recherches futures devraient s'appuyer sur l'étude ou si les recherches futures devraient corroborer l'étude.
 _Il n'y a rien de mal avec la recherche exploratoire_, et de nombreuses relations importantes mais inconnues peuvent être découvertes grâce à des analyses exploratoires.
 Il est important de reconnaître quand les résultats sont exploratoires et doivent être confirmés dans d'autres études.
 Les détails dans les registres PAP permettent aux universitaires de le faire.
 
 *3. Les PAP encouragent la recherche de qualité.*
 
-La création d'un PAP oblige le chercheur à élaborer les nombreuses décisions de design qui doivent être prises lors de la réalisation d'une étude.
+La création d'un PAP oblige le chercheur à élaborer les nombreuses décisions de design qui devront être prises lors de la réalisation d'une étude.
 Dans le cas des études d'observation, la modification ultérieure de ces décisions de design n'est pas un problème.
 Mais pour les études expérimentales ou d'autres études utilisant la collecte de données originales, le chercheur a la chance de collecter les données nécessaires à l'analyse.
 Les PAP aident à garantir que le chercheur réfléchit à toutes les décisions et collecte les bonnes données.
@@ -326,19 +321,20 @@ Ceci est particulièrement utile lorsque le chercheur souhaite utiliser un test 
 
 *1. La recherche est imprévisible et les PAP rendent la recherche inflexible.*
 
-Certaines personnes soutiennent qu'un PAP verrouille l'étude dans une stratégie de design, d'intervention et d'estimation particulière même si les détails de la stratégie de design, d'intervention et d'estimation peuvent changer pendant la réalisation d'une étude.
+Certaines personnes soutiennent qu'un PAP verrouille l'étude dans une stratégie de design, d'intervention et d'estimation particulière alors que les détails de la stratégie de design, d'intervention et d'estimation peuvent changer pendant la réalisation d'une étude.
 Dans les études expérimentales, des difficultés imprévues modifient souvent les aspects de la randomisation ou de l'intervention, ou une nouvelle mesure de résultat peut échouer aux tests de validité.
 Et dans les études d'observation, une réflexion future sur la façon dont une théorie s'applique à vos données peut révéler le besoin de nouvelles variables de contrôle, de médiation et/ou de modération.
 
 Les chercheurs doivent se rappeler que *tout plan de pré-analyse peut être révisé* ! Votre premier PAP ne vous enferme pas dans un design de recherche, une variable de résultat ou une spécification de modèle spécifique.
 *Le PAP rend le processus de recherche transparent et non rigide*.
 Des révisions peuvent être apportées soit en soumettant un nouveau PAP, soit via un amendement décrivant les changements par rapport au PAP précédent.
-<!--Décrivez les avantages et les inconvénients -->.
+<!--Décrivez les avantages et les inconvénients. -->
 <!--Par exemple, dans l'étude du Malawi, il était impossible de délimiter des quartiers d'exactement 20 ménages, de sorte que le PAP a changé pour accueillir des grappes de tailles différentes.
 D'autres études peuvent ne pas réaliser l'importance de leur variable indépendante sur un résultat avant la réalisation de l'étude.-->
 Les analyses exploratoires sont acceptables ! Le but d'un PAP n'est pas d'empêcher ces analyses imprévues, mais de formaliser et d'expliquer le processus qui a conduit aux analyses.
 
 <!--
+*2. Les PAP augmentent le temps nécessaire pour mener l'étude.*
 *2. Les PAP augmentent le temps nécessaire pour mener l'étude.*
 
 Un PAP _est_ un investissement de temps considérable au départ, mais les PAP peuvent réduire le temps d'analyse et de publication.
@@ -355,10 +351,10 @@ Vous pouvez réviser les PAP par le biais d'un avenant à tout moment.
 
 Il existe plusieurs sites tiers sur lesquels vous pouvez enregistrer votre PAP.
 Nous listons ci-dessous les sites communs pour les PAP en sciences sociales.
-Vous pouvez répertorier votre PAP sur plusieurs sites, et certaines revues exigent des articles potentiels pour enregistrer les PAP sur un site spécifique.^[Notez que certaines organisations n'utilisent pas de sites tiers. Par exemple, le [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) utilise Github, qui permet de vérifier que le PAP a été créé avant la réalisation de l'analyse.]
+Vous pouvez répertorier votre PAP sur plusieurs sites, et certaines revues exigent des articles potentiels pour enregistrer les PAP sur un site spécifique.^[Notez que certaines organisations n'utilisent pas de sites tiers. Par exemple, le [U.S. General Services Administration Office of Evaluation Sciences Process](https://oes.gsa.gov/methods/) utilise Github, qui permet de vérifier que le PAP a été créé avant la réalisation de l'analyse.]
 
 - [Registre EGAP](http://egap.org/content/registration)
-- [Registre AEA](https://www.socialscienceregistry.org) (pour les ECRs seulement)
+- [Registre AEA](https://www.socialscienceregistry.org) (pour les essais randomisés contrôlés seulement)
 - [Registre OSF](http://help.osf.io/m/registrations)
 
 # Références

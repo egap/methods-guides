@@ -36,7 +36,7 @@ Ce guide explore le rôle des "mécanismes" dans l'analyse causale et vous aider
 
 Les mécanismes sont depuis longtemps au cœur de la médecine.
 Chaque fois qu'un médecin prescrit un traitement, elle le fait en sachant quels facteurs chimiques ou physiques provoquent une maladie, et elle prescrit un traitement efficace car il interrompt ces facteurs.
-Par exemple, de nombreux psychologues cliniciens recommandent l'exercice aux patients souffrant de dépression.
+Par exemple, de nombreux cliniciens psychologues recommandent l'exercice aux patients souffrant de dépression.
 L'exercice augmente les endorphines dans la chimie du corps, qui déclenchent des sentiments positifs et agissent également comme analgésiques, ce qui réduit la perception de la douleur.
 Les endorphines sont donc un mécanisme par lequel l'exercice aide à réduire la dépression.
 L'exercice peut avoir des effets positifs sur un certain nombre d'autres variables dépendantes (par exemple, les maladies cardiaques) par le biais d'autres mécanismes (par exemple, l'élévation du rythme cardiaque), mais le mécanisme qui l'amène à affecter la dépression en particulier est l'endorphine.
@@ -49,14 +49,14 @@ Supposons que cette étude soit correcte.
 Pourquoi le fait de subir un choc climatique entraînerait-il dans un pays des niveaux de conflit élevés ? Un mécanisme pourrait être la pauvreté : les chocs climatiques nuisent à l'économie, et avec des coûts d'opportunité inférieurs, les individus sont plus enclins à rejoindre des groupes armés.
 Un mécanisme alternatif est physiologique : les gens sont physiquement câblés pour être plus agressifs par temps chaud.
 Le mécanisme est peut-être la migration : les chocs climatiques déplacent les populations des régions côtières, ce qui produit des conflits sociaux entre migrants et autochtones.
-En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément, même dans le même cas ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux ("M") qui pourraient transmettre l'effet total de X sur Y.
+En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux ("M") qui pourraient transmettre l'effet total de X sur Y.
 
-[^1]: Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, "Civil Conflicts Are Associated with the Global Climate," Nature 476.7361 (2011): 438-441.
+[^1]: Solomon M. Hsiang, Kyle C. Meng et Mark A. Cane, "Civil Conflicts Are Associated with the Global Climate," Nature 476.7361 (2011): 438-441.
 
-# Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous *voudrions* le faire.
+# Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous le *voudrions*.
 
 Dans l'exemple climat/conflit ci-dessus, nous pouvons avoir une confiance totale dans la capacité des chercheurs à identifier causalement que les chocs climatiques provoquent des conflits, et pourtant n'avons aucune preuve du ou des mécanismes à l'œuvre.
-Mais les chercheurs en sciences sociales sont intéressés à en apprendre davantage sur les mécanismes parce qu'ils sont étroitement liés aux théories des sciences sociales.
+Mais les chercheurs en sciences sociales aiment en apprendre davantage sur les mécanismes parce qu'ils sont étroitement liés aux théories des sciences sociales.
 Par exemple, le mécanisme de "pauvreté" ci-dessus est étroitement lié à la théorie de Gurr[^2] selon laquelle les individus se rebellent lorsque les coûts d'opportunité du conflit sont faibles, alors que le mécanisme de "migration" pourrait soutenir une théorie du conflit basée sur les griefs entre groupes sociaux.
 Il n'est pas étonnant qu'en apprenant que X cause Y, les chercheurs en sciences sociales demandent immédiatement quel est le mécanisme - ils veulent relier cette découverte à la théorie !
 
@@ -77,7 +77,7 @@ Ils ont assigné de manière aléatoire certains bureaux de vote au Mexique pour
 Étonnamment, ils ont découvert que les circonscriptions traitées votaient à des taux inférieurs à ceux des circonscriptions de contrôle.
 Ils suggèrent le mécanisme suivant à l'œuvre : les informations sur la corruption convainquent les électeurs que la municipalité est si gravement corrompue que l'élection d'un bon politicien ne la changera pas, de sorte que les individus trouvent que leur vote a moins de valeur.
 
-[^3]: Alberto Chong, Ana L. de la O, Dean Karlan, and Leonard Wantchekon, "Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification," The Journal of Politics 77.1 (2015): 55-71.
+[^3]: Alberto Chong, Ana L. de la O, Dean Karlan et Leonard Wantchekon, "Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification," The Journal of Politics 77.1 (2015): 55-71.
 
 En bref, leur argument est :[^4]
 
@@ -99,7 +99,7 @@ Mécaniquement, nos résultats seront biaisés en faveur de la recherche de preu
 # …et parce que l'effet du traitement est rarement homogène.
 
 L'autre problème lorsque l'on essaie de décomposer l'effet moyen de X sur M puis de M sur Y est que cette approche suppose que chaque sujet répond au traitement de manière identique.
-En rappelant notre exemple dans lequel X est le traitement de l'information, M est la conviction que la corruption est trop sévère, et Y le fait de rester à la maison, nous pouvons imaginer deux types de répondants.
+En revenant à notre exemple dans lequel X est le traitement de l'information, M est la conviction que la corruption est trop sévère, et Y le fait de rester à la maison, nous pouvons imaginer deux types de répondants.
 Le type A pensait que la corruption était trop grave pour être résolue jusqu'à ce qu'elle reçoive une lettre contenant des informations sur la corruption dans son district.
 Elle fut surprise de voir que le problème n'était pas aussi grave qu'elle l'avait prévu.
 Formellement, pour le type A, $M(X=0)=1$ et $M(X=1)=0$, donc X a un effet *négatif* sur M.
@@ -115,8 +115,8 @@ B | 1 | 0 | 1 | positive | positive | 1
 
 L'estimation du rôle de M peut être encore plus compliquée lorsque la relation entre M et Y est également hétérogène.
 Imaginez que le type A ne vote que lorsqu'elle est en colère (en d'autres termes, M a un effet *négatif* sur Y).
-Le type A prévoyait de voter pour exprimer sa colère face à l'omniprésence de la corruption dans son district, même si elle savait que cela n'aurait rien changé, jusqu'à ce qu'elle apprenne que la corruption n'était pas aussi grave qu'elle l'avait imaginé.
-Sa passion ardente disparue, elle choisit de rester à la maison le jour des élections.
+Le type A prévoyait de voter pour exprimer sa colère face à l'omniprésence de la corruption dans son district, même si elle savait que cela n'aurait rien changé, jusqu'à ce qu'elle apprenne que la corruption n'était pas aussi grave qu'elle l'avait imaginée.
+Sa colère disparue, elle choisit de rester à la maison le jour des élections.
 Cependant, le type B ne vote que lorsqu'elle pense que son vote peut faire la différence (en d'autres termes, M a un effet *positif* sur Y).
 Le type B allait voter pour les politiciens non corrompus de sa circonscription jusqu'à ce qu'elle apprenne qu'ils étaient tous corrompus.
 Sans aucun espoir de changer la situation, elle a également décidé de rester chez elle le jour du scrutin.
@@ -133,12 +133,12 @@ Parce que l'apprentissage des mécanismes est riche en promesses théoriques, le
 Parfois, les chercheurs essaieront de le faire grâce à une technique appelée "décomposition des effets".
 
 Une analyse de décomposition des effets tente de décomposer un effet *total* de X sur Y en l'effet que X a sur Y *directement* et l'effet de X sur Y qui se produit *indirectement* via M.
-L'"effet total" fait référence à l'effet moyen du traitement (ATE), qui est simplement l'effet moyen de X sur Y.
+L'"effet total" fait référence à l'effet moyen du traitement (average treatment effect, ATE), qui est simplement l'effet moyen de X sur Y.
 Toute expérience qui assigne de manière aléatoire un traitement afin d'observer ses effets sur certains résultats évalue l'ATE.
 Ensuite, le chercheur essaie de quantifier la taille de l'effet que X a sur Y à travers le mécanisme M.
-C'est ce qu'on appelle souvent "l'effet indirect" – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (Average Causally Mediated Effect / ACME).
+C'est ce qu'on appelle souvent "l'effet indirect" – parce que X affecte indirectement Y via M – ou l'effet moyen causal par médiation (average causally mediated effect, ACME).
 Enfin, le chercheur tentera d'estimer l'effet de X sur Y qui ne passe pas par M.
-C'est ce qu'on appelle l'"effet direct" de X sur Y ou l'effet moyen direct contrôlé (Average Controlled Direct Effect / ACDE), car c'est l'effet de X sur Y lorsque nous contrôlons le travail effectué par M.
+C'est ce qu'on appelle l'"effet direct" de X sur Y ou l'effet moyen direct contrôlé (average controlled direct effect, ACDE), car c'est l'effet de X sur Y lorsque nous contrôlons le travail effectué par M.
 
 # Mais soyez prudent lorsque vous utilisez l'analyse de régression pour décomposer les effets.
 
@@ -158,7 +158,7 @@ Une analyse de décomposition des effets multiplierait $a*b$ pour révéler l'ef
 Pour trouver l'effet direct de X sur Y, nous n'avons pas besoin de chercher plus loin que $d$, qui est le coefficient sur X dans l'équation 3 lorsque nous contrôlons pour M.
 En d'autres termes, $d$ est l'effet de X sur Y qui ne passe pas par M.
 Si l'on additionne l'effet indirect et l'effet direct, on obtient "l'effet total" de X sur Y, qui est égal à $c$.
-Pour résumer, l'analyse de décomposition des effets désagrége ostensiblement l'effet total en effet qui est médié via M et l'effet qui n'est pas médié via M, permettant au chercheur de conclure à quel point M est important pour expliquer la relation entre X et Y.[ ^6]
+Pour résumer, l'analyse de décomposition des effets désagrége ostensiblement l'effet total en effet qui est médié via M et l'effet qui n'est pas médié via M, permettant au chercheur de conclure à quel point M est important pour expliquer la relation entre X et Y.[^6]
 
 [^6]: Explication adaptée d'Alan Gerber et Donald Green, Field Experiments, W.W. Norton and Company, 2012, chapter 10.
 
@@ -189,13 +189,13 @@ N <- 1000000
 
 # simuler des données, créer des résultats potentiels (RP), estimer les effets "réels"
 
-# construire dans une caractéristique non observée idéosyncratique
+# construire une caractéristique non observée idéosyncratique
 Q_i <- rnorm(N)
 
 # créer le "vrai modèle" en définissant l'effet du traitement (tau)
 tau_X_on_M <- 0.2 # effet de X sur M
 tau_M_on_Y <- 0.1 # effet de M sur Y
-tau_X_on_Y <- 0.5 # effet total de X sur Y (ATE), à travers M et non
+tau_X_on_Y <- 0.5 # effet total de X sur Y (ATE), à travers M et non M
 
 # construire les résultats potentiels pour le médiateur
 # individu révèle M_1 s'il est traité ; M_0 si non traité
@@ -207,11 +207,11 @@ M_1 <- 1*tau_X_on_M + Q_i
 ATE_M <- mean(M_1 - M_0)
 ATE_M
 
-# construire les résultats potentiels pour le résultat
+# construire les résultats potentiels (RP) pour le résultat
 Y_M0_X0 <- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
 Y_M1_X1 <- tau_M_on_Y*(M_1) + tau_X_on_Y*1 + Q_i
-Y_M0_X1 <- tau_M_on_Y*(M_0) + tau_X_on_Y*1 + Q_i # this is a "complex" PO
-Y_M1_X0 <- tau_M_on_Y*(M_1) + tau_X_on_Y*0 + Q_i # this is a "complex" PO
+Y_M0_X1 <- tau_M_on_Y*(M_0) + tau_X_on_Y*1 + Q_i # Ceci est un RP "complexe"
+Y_M1_X0 <- tau_M_on_Y*(M_1) + tau_X_on_Y*0 + Q_i # Ceci est un RP "complexe"
 
 # certains de ces RP sont "complexes" car nous imaginons ce que nous
 # observrions si nous avions assigné au traitement mais observé le RP de M non traité ou
@@ -252,7 +252,7 @@ ATE_M
 
 # nous assignons la moitié de notre échantillon au traitement et l'autre moitié au contrôle
 X <- sample(c(rep(1,(N/2)),rep(0,(N/2))))
-# nous révélons les RPs pour M et Y en fonction de l'Assignation du traitement
+# nous révélons les RPs pour M et Y en fonction de l'assignation de traitement
 M <- X*M_1 + (1-X)*M_0
 Y <- X*Y_1 + (1-X)*Y_0
 
@@ -268,7 +268,8 @@ model3 <- lm(Y ~ X + M)
 d <- coef(model3)[2] # extrait le coefficient pour obtenir l'effet de X sur Y en contrôlant pour M
 b <- coef(model3)[3] # extrait le coefficient pour obtenir l'effet de M sur Y en contrôlant pour X
 
-# on pourrait multiplier maintenant l'effet moyen de X sur M et l'effet moyen de M sur Y pour obtenir l'ACME de X sur Y via M
+# on pourrait multiplier maintenant l'effet moyen de X sur M et l'effet moyen de M sur Y
+# pour obtenir l'ACME de X sur Y via M
 a*b
 # mais quand on compare cela au vrai ACME, on voit que c'est biaisé
 ACME
@@ -280,7 +281,8 @@ ACDE
 
 # notez que nous avons SUR-estimé l'effet indirect moyen et SOUS-estimé l'effet direct moyen
 
-# les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M car X est assigné de manière aléatoire
+# les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M
+# car X est assigné de manière aléatoire
 a
 ATE_M
 c
@@ -346,7 +348,7 @@ Une autre approche consiste à explorer si le traitement affecte uniquement les 
 
 Par exemple, de nombreux chercheurs en sciences sociales s'intéressent à la manière dont l'éducation de masse influence la démocratie.
 Plusieurs théories de la démocratisation s'attendent à ce que différents mécanismes relient l'éducation et la démocratie.
-Premièrement, selon la théorie de la modernisation, l'éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l'appartenance ethnique ou la religion) au profit du mérite.[^8] Deuxièmement, selon les théoriciens sociaux de l'oppression, l'éducation pourrait saper la démocratie en renforçant l'obéissance à l'autorité, qui est inhérente à une structure de classe.[^9] Troisièmement, selon de nombreux politologues et psychologues, l'éducation peut encourager la participation démocratique en donnant aux individus la capacité d'acquérir et d'agir sur la connaissance.[^10] Friedman et Al. (2011)[^11] décident de séparer ces mécanismes en enquêtant sur les résultats d'une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées de manière aléatoire pour recevoir une subvention à l'éducation.
+Premièrement, selon la théorie de la modernisation, l'éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l'appartenance ethnique ou la religion) au profit du mérite.[^8] Deuxièmement, selon les théoriciens sociaux de l'oppression, l'éducation pourrait saper la démocratie en renforçant l'obéissance à l'autorité, qui est inhérente à une structure de classe.[^9] Troisièmement, selon de nombreux politologues et psychologues, l'éducation peut encourager la participation démocratique en donnant aux individus la capacité d'acquérir et d'agir sur la connaissance.[^10] Friedman et Al. (2011)[^11] décident de séparer ces mécanismes en enquêtant sur les résultats d'une expérience de terrain dans laquelle des filles kenyanes ont été assignées de manière aléatoire pour recevoir une subvention à l'éducation.
  Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l'œuvre : les filles ont-elles accepté le droit d'un mari de battre sa femme ? Un parent a-t-il participé au choix de leur mari? Dans quelle mesure la fille s'est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
@@ -358,13 +360,13 @@ Le tableau suivant décrit la direction des effets que chaque théorie suggérer
 Notez que les divers mécanismes testés ici résultent de théories avec des prédictions divergentes sur certains de ces résultats.
 Les prédictions de chacun des trois mécanismes sont décrites sur les lignes, suivies des résultats réels.
 Nous pouvons voir que deux des résultats recueillis appuient la théorie de la modernisation.
-Cependant, la théorie de la modernisation aurait prédit une diminution de l'association de groupes religieux ou ethniques (en réalité, il n'y avait aucun effet) et n'aurait eu aucune prédiction pour la lecture des journaux (en réalité, la lecture des journaux a augmenté).
+Cependant, la théorie de la modernisation aurait prédit une diminution de l'appartenance aux groupes religieux ou ethniques (en réalité, il n'y avait aucun effet) et n'aurait eu aucune prédiction pour la lecture de l'actualité (en réalité, la lecture de l'actualité a augmenté).
 Aucune des prédictions du mécanisme d'obéissance à l'autorité n'était étayée par les données.
 Cependant, les données corroboraient les quatre prédictions de la théorie de l'autonomisation individuelle.
 Les auteurs concluent qu'il est plus probable que $X→M3→Y$ que $X→M1,M2→Y$.[^12]
 
 [^12]: Dans l'étude proprement dite, les auteurs ont été surpris de découvrir des preuves que l'éducation augmentait également l'acceptation de la violence politique par les individus.
-S'ils soutiennent toujours que l'autonomisation individuelle est responsable de la relation entre l'éducation et la démocratie, ils avertissent que l'éducation ne conduit pas toujours à la démocratisation (c'est-à-dire M3→O mais il est également possible que M3→NON Y).
+S'ils soutiennent toujours que l'autonomisation individuelle est responsable de la relation entre l'éducation et la démocratie, ils avertissent que l'éducation ne conduit pas toujours à la démocratisation (c'est-à-dire M3→Y mais il est également possible que M3→NON Y).
 Néanmoins, leur approche est une démonstration utile de la façon dont de multiples résultats peuvent éclairer les mécanismes.
 
 Mécanisme | Acceptation du droit du mari de battre sa femme (Y1) | Parent impliqué dans la sélection du mari (Y2) | Association avec la religion, l'identité ethnique (Y3) | Lit les actualités (Y4)
@@ -378,10 +380,10 @@ Cette étude, comme l'étude de Sarsons, n'essaie pas de quantifier dans quelle 
 Cependant, grâce à une enquête approfondie sur divers résultats, les auteurs sont en mesure de fournir des preuves suggestives des mécanismes qui semblent les plus plausibles.
 
 **Ce que vous pouvez faire...** Dans de futurs projets, posez-vous la question : si le mécanisme est M,
-devrais-je m'attendre à ce le traitement affecte certains résultats ? devrais-je m'attendre à ce le traitement n'affecte pas certains résultats ?
+devrais-je m'attendre à ce le traitement affecte certains résultats ? Devrais-je m'attendre à ce le traitement n'affecte pas certains résultats ?
 Ensuite, testez si ces prédictions sont étayées par vos données et interprétez cela comme une preuve suggestive pour ou contre le mécanisme proposé M.
 
-# Le design de traitements complexes peut aider à affiner notre compréhension de quelle est la partie du traitement qui "produit l'effet".
+# Le design de traitements complexes peut aider à comprendre quelle partie du traitement "produit l'effet".
 
 Parfois, les chercheurs expérimentaux essaieront de mieux comprendre les mécanismes en ajoutant ou en soustrayant des éléments du traitement qui sont censés déclencher différents mécanismes.
 Cette approche est parfois appelée "analyse de médiation implicite" car différents composants X sont censés manipuler *implicitement* certains mécanismes.
@@ -391,7 +393,7 @@ Par exemple, de nombreux gouvernements, dont le Mexique, le Brésil, la Tanzanie
 Ces programmes fournissent de l'argent aux personnes pauvres, mais ils sont souvent assortis de conditions telles que la fréquentation d'une école ou un programme de formation professionnelle.
 Jusqu'à récemment, nous savions seulement que ces programmes (X) réussissaient à réduire la pauvreté (Y) et que X provoquait Y soit via le cash reçu, soit via l'assiduité requise à l'école ou aux programmes d'emploi.
 Pour distinguer ces mécanismes, Baird et al. (2011)[^13] ont mené une expérience au Malawi, où ils ont assigné un groupe de familles pour recevoir un transfert en espèces *conditionnel* à la fréquentation scolaire régulière de leurs filles, un autre groupe de familles pour recevoir l'argent *sans condition*, et un groupe témoin pour ne recevoir aucun transfert.
-Ce design manipulait "implicitement" M : alors que les filles du groupe de transfert inconditionnel pouvaient également poursuivre une éducation, la fréquentation scolaire (la condition à l'étude) serait probablement plus élevée dans le groupe qui devait la poursuivre.
+Ce design manipulait "implicitement" M : alors que les filles du groupe de transfert inconditionnel pouvaient également poursuivre une éducation, la fréquentation scolaire (la condition étudiée) serait probablement plus élevée dans le groupe qui devait la poursuivre.
 Sans surprise, la fréquentation scolaire et les résultats aux tests étaient meilleurs pour le groupe recevant des transferts monétaires conditionnels.
 Cependant, leurs mesures de Y - le taux auquel les filles sont tombées enceintes ou se sont mariées - étaient en fait meilleures (inférieures) dans le groupe recevant les transferts monétaires inconditionnels.
 Les auteurs ont conclu que les exigences de fréquentation associées aux transferts monétaires conditionnels n'étaient probablement pas le mécanisme responsable du succès de ces programmes dans la réduction des symptômes de la pauvreté.

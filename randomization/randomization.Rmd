@@ -271,7 +271,7 @@ Ces probabilités seraient difficiles à calculer à la main, mais une solution 
 Cette variable peut ensuite être utilisée dans une régression pondérée lors du calcul de l'effet moyen du traitement.
 
 3. La simulation des randomisations possibles est une approche pour calculer la signification statistique.
-Cette approche, appelée inférence de randomisation, génère une valeur p exacte en calculant l'effet moyen de traitement possible qui serait observé dans le cadre d'une assignation aléatoire hypothétique si le traitement n'avait aucun effet.
+Cette approche, appelée inférence de randomisation, génère une valeur p exacte en calculant l'effet moyen du traitement possible qui serait observé dans le cadre d'une assignation aléatoire hypothétique si le traitement n'avait aucun effet.
 La valeur p est alors la proportion des effets estimés du traitement qui est au moins aussi importante que celle observée par votre expérience.
 Cette approche est préférable aux calculs standard de signification statistique lorsque la distribution de vos données n'est pas normale, car l'inférence de randomisation évite de faire des hypothèses de distribution et utilise à la place la distribution des données observées dans votre expérience.
 Pour plus d'informations sur l'inférence de randomisation, y compris des exemples de code, voir [10 choses à savoir sur l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference/).
@@ -334,4 +334,4 @@ Le design avec liste d'attente est un exemple de design de randomisation créati
 
 L'éthique est souvent étroitement liée aux designs randomisés, en particulier dans les sciences sociales et la recherche médicale.
 En tant que chercheur, vous devez examiner attentivement les implications possibles de la randomisation d'un traitement donné.
-Vous devrez également solliciter l'approbation de votre conception de recherche auprès du comité d’éthique pour la recherche de votre établissement.
+Vous devrez également solliciter l'approbation de votre design de recherche auprès du comité d’éthique pour la recherche de votre établissement.

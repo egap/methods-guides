@@ -10,9 +10,9 @@ output:
 
 Résumé
 ==
-Après des mois ou des années de développement et de mise en œuvre, naviguant dans les pièges pratiques, théoriques et inférentiels de la recherche expérimentale en sciences sociales, votre expérience est enfin terminée.
-En comparant les groupes de traitement et de contrôle, vous trouvez un résultat substantiellement et statistiquement significatif sur un résultat d'intérêt théorique.
-Avant de pouvoir faire sauter le champagne pour célébrer une intervention bien évaluée, un collègue sympathique demande : "Mais qu'est-ce que cela nous apprend sur le monde ?"
+Après des mois ou des années de développement et de mise en œuvre, évitant les pièges pratiques, théoriques et inférentiels de la recherche expérimentale en sciences sociales, votre expérience est enfin terminée.
+En comparant les groupes de traitement et de contrôle, vous trouvez un résultat substantiellement et statistiquement significatif pour un résultat d'intérêt théorique.
+Avant de pouvoir faire sauter le champagne pour célébrer une intervention bien évaluée, un collègue sympathique demande : "mais qu'est-ce que cela nous apprend sur le monde ?"
 
 1. Qu'est-ce que la validité externe ?
 ==
@@ -22,10 +22,6 @@ Dans l'économie politique du développement, nous pourrions considérer comment
 
 [^1]: Shadish, W. R., Cook, T. D., & Campbell, D. T. (2002). Experimental and quasi-experimental designs for generalized causal inference. Houghton, Mifflin and Company.
 
-External validity becomes particularly important when making policy recommendations that come from research.
-Extrapolating causal effects from one or more studies to a given policy context requires careful consideration of both theory and empirical evidence.
-This methods guide discusses some key concepts, pitfalls to avoid, and useful references to consider when going from a Local Average Treatment Effect to the larger world.
-
 La validité externe devient particulièrement importante lors de la formulation de recommandations politiques issues de la recherche.
 L'extrapolation des effets causaux d'une ou plusieurs études à un contexte politique donné nécessite un examen attentif à la fois de la théorie et des preuves empiriques.
 Ce guide des méthodes aborde certains concepts clés, les pièges à éviter et les références utiles à prendre en compte lors du passage d'un effet moyen local du traitement au monde plus vaste.
@@ -34,7 +30,7 @@ Ce guide des méthodes aborde certains concepts clés, les pièges à éviter et
 ==
 
 La validité interne fait référence à la qualité des inférences causales faites pour un groupe de sujets donné.
-Comme l'a posé à l'origine Campbell[^2], la validité interne pose la question suivante : "le stimulus expérimental a-t-il en fait fait une différence significative dans ce cas spécifique ?" Ce concept concorde avec l'approche contrefactuelle de la causalité que les expérimentateurs utilisent généralement, qui demande si les résultats changent en fonction de la présence ou de l'absence d'un traitement.[^3]
+Comme l'a posé à l'origine Campbell[^2], la validité interne pose la question suivante : "le stimulus expérimental a-t-il en fait causé une différence significative dans ce cas spécifique ?" Ce concept concorde avec l'approche contrefactuelle de la causalité que les expérimentateurs utilisent généralement, qui demande si les résultats changent en fonction de la présence ou de l'absence d'un traitement.[^3]
 
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
 [^3]: Plus de détails disponibles dans le guide des méthodes d'inférence causale: http://egap.org/resource/10-things-to-know-about-causal-inference
@@ -56,7 +52,7 @@ Comme le dit Imbens,[^4] "sans une solide validité interne, les études ont peu
 [^4]: Imbens, G. (2013). Book Review Feature: Public Policy in an Uncertain World: By Charles F. Manski. The Economic Journal,123(570), F401-F411.
 
 D'autres soutiennent que même sans l'identification complète d'un résultat valable en interne, des informations utiles peuvent être récupérées, surtout si elles sont pertinentes pour des questions importantes qui affectent un large contexte.
-Manski[^5] écrit que "ce qui compte, c'est le caractère informatif d'une étude pour l'élaboration des politiques, qui dépend conjointement de la validité interne et externe". Avec les données d'une étude large mais mal identifiée, soutient Manski, on peut borner l'estimand d'intérêt, ce qui fait toujours avancer la science, même si ce n'est pas aussi utile qu'une estimation ponctuelle précise, .
+Manski[^5] écrit que "ce qui compte, c'est le caractère informatif d'une étude pour l'élaboration des politiques, qui dépend conjointement de la validité interne et externe". Avec les données d'une étude large mais mal identifiée, soutient Manski, on peut borner l'estimande d'intérêt, ce qui fait toujours avancer la science, même si ce n'est pas aussi utile qu'une estimation ponctuelle précise.
 
 [^5]: Manski, C. F. (2013). Response to the review of ‘public policy in an uncertain world’. The Economic Journal 123: F412–F415.
 
@@ -78,8 +74,7 @@ Il existe deux principaux moyens de généraliser les résultats, l'un basé sur
 L'observation de la variation d'un effet de traitement sur une variable de pré-traitement non randomisée peut décrire l'hétérogénéité de l'effet de traitement, qui peut suggérer où ou pour qui l'intervention est susceptible d'être la plus efficace, au-delà de l'échantillon d'origine.
 Notez, cependant, que ce type d'analyse ne peut pas déterminer si l'hétérogénéité de l'effet de traitement est causée par cette variable de pré-traitement.
 Le problème, endémique à la recherche observationnelle, est que la covariable non randomisée peut être corrélée à une variable non observée, et c'est ce facteur "invisible" qui est en fait responsable des impacts hétérogènes du traitement.[^8] Idéalement, par conséquent, nous voulons tirer parti de la variation exogène du modérateur d'intérêt, excluant ainsi la possibilité d'une telle confusion.
-Une conception expérimentale factorielle dans laquelle le chercheur affecte le modérateur indépendamment du traitement principal d'intérêt peut générer des preuves particulièrement convaincantes sur le rôle d'un modérateur.
-Bien que des considérations de coût et de puissance statistique puissent empêcher cette approche dans la pratique.
+Un design expérimental factoriel dans lequelle le chercheur affecte le modérateur indépendamment du traitement principal d'intérêt peut générer des preuves particulièrement convaincantes sur le rôle d'un modérateur ; bien que des considérations de coût et de puissance statistique puissent empêcher cette approche dans la pratique.
 
 [^8]: Gerber, A. S., & Green, D. P. (2012). Field experiments: Design, analysis, and interpretation. WW Norton.
 
@@ -106,7 +101,7 @@ En bref, dans des conditions d'équilibre général, nous pourrions nous attendr
 ==
 La validité interne et externe ne sont pas les seules préoccupations de "validité" qui peuvent être soulevées dans le travail expérimental, et bien que pertinentes, elles sont également distinctes.
 La validité écologique, telle que définie par Shadish, Cook et Campbell[^12], concerne le fait qu'une intervention semble artificielle ou déplacée lorsqu'elle est déployée dans un nouveau contexte.
-Par exemple, un atelier d'information dans une ville rurale mené par des expérimentateurs ressemble-t-il à la manière habituelle de partager l'information pour la population ? De même, si le même atelier se tenait dans une grande ville, semblerait-il déplacé ?
+Par exemple, un atelier d'information dans une ville rurale mené par des expérimentateurs ressemble-t-il à la manière habituelle de partager l'information pour cette population ? De même, si le même atelier se tenait dans une grande ville, semblerait-il déplacé ?
 
 [^12]: Shadish, W. R., Cook, T. D., & Campbell, D. T. (2002). Experimental and quasi-experimental designs for generalized causal inference. Houghton, Mifflin and Company.
 
@@ -114,10 +109,10 @@ La validité de construit considère si un concept théorique testé dans une é
 Si votre expérience teste l'effet de la colère sur la réciprocité politique et que vous manipulez en fait la peur ou la confiance dans votre traitement, la validité de construit peut être violée.
 La validité de construit et la validité écologique sont toutes deux pertinentes pour les généralisations, et donc utiles pour affirmer la validité externe.
 
-8. Extrapolation entre les traitements et les résultats
+8. Extrapolation pour les traitements et les résultats
 ==
 Bien qu'une grande partie de ce guide se soit implicitement centrée sur le transfert d'un traitement donné à un nouveau lieu ou à un nouveau moment, la validité externe prend également en compte les variations dans les traitements et les résultats.
-C'est-à-dire, imaginez que nous ayons fait la même expérience sur le même échantillon, mais avec une variation sur le traitement, prédirions-nous que l'effet causal local sera similaire ? De même, pouvons-nous prédire si un traitement donné produira des effets causals identiques ou différents sur un résultat différent ? Parfois, nous pouvons répondre à ces préoccupations en menant des expériences qui évaluent les traitements alternatifs et les résultats.
+C'est-à-dire, imaginez que nous ayons fait la même expérience sur le même échantillon, mais avec une variation sur le traitement, prédirions-nous que l'effet causal local sera similaire ? De même, pouvons-nous prédire si un traitement donné produira des effets causals identiques ou différents sur un résultat différent ? Parfois, nous pouvons répondre à ces préoccupations en menant des expériences qui évaluent les traitements alternatifs et leurs résultats.
 Lorsque les expériences de suivi sont rares, ces problèmes doivent être réglés analytiquement.
 Plutôt que de considérer les caractéristiques des sujets, l'extrapolation dans ce cas nécessite de réfléchir, à l'aide de la théorie, aux caractéristiques des traitements ou des résultats et de faire des prédictions raisonnables.
 

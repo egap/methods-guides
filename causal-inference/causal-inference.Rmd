@@ -115,7 +115,7 @@ Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quanti
 Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y] (http://egap.org/resource/10-strategies-for- déterminer-si-x-causé-y)).
 Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne se ressemblent pas selon les dimensions pertinentes.
 
-La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen de traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
+La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen du traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
 Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes traités et témoins captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, en traitement ou en contrôle.
 En pratique, les groupes de traitement et de contrôle réels ne seront pas identiques.[^10]
 

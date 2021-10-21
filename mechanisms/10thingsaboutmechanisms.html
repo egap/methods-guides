@@ -236,8 +236,7 @@ Si le mécanisme du climat/conflit est la pauvreté, alors les programmes de dé
 Ils ont assigné de manière aléatoire certains bureaux de vote au Mexique pour recevoir des informations sur l’utilisation corrompue des fonds au sein de cette municipalité.
 Étonnamment, ils ont découvert que les circonscriptions traitées votaient à des taux inférieurs à ceux des circonscriptions de contrôle.
 Ils suggèrent le mécanisme suivant à l’œuvre : les informations sur la corruption convainquent les électeurs que la municipalité est si gravement corrompue que l’élection d’un bon politicien ne la changera pas, de sorte que les individus trouvent que leur vote a moins de valeur.</p>
-<p>En bref, leur argument est :[^4]</p>
-<p>[^4] : Notez que Chong et al. testent leur argument en utilisant des données au niveau de l’arrondissement, pas au niveau individuel, mais nous avons adapté leur argument au niveau individuel pour faciliter l’explication.</p>
+<p>En bref, leur argument est :<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 <p>Réception d’informations sur la corruption (X) <span class="math inline">\(\xrightarrow{+}\)</span> Estime que la corruption est trop grave (M) <span class="math inline">\(\xrightarrow{+}\)</span> Reste à la maison (Y)</p>
 <p>Chong et al. font face à un obstacle commun dans l’interprétation de leurs résultats : le mécanisme qu’ils proposent n’a pas été assigné de manière aléatoire.
 Certaines personnes sont plus enclines à croire que “tous les politiciens sont des vauriens”, tandis que d’autres ont tendance à faire pression pour “un changement auquel nous pouvons croire”. Malheureusement, nous ne pouvons observer que le traitement aléatoire qu’un individu a reçu et sa croyance (non aléatoire) au sujet de la corruption ; nous ne pouvons pas dire quelle croyance au sujet de la corruption ils <em>auraient eu</em> s’ils avaient reçu l’autre condition de traitement.
@@ -310,7 +309,7 @@ Cependant, le type B ne vote que lorsqu’elle pense que son vote peut faire la 
 Le type B allait voter pour les politiciens non corrompus de sa circonscription jusqu’à ce qu’elle apprenne qu’ils étaient tous corrompus.
 Sans aucun espoir de changer la situation, elle a également décidé de rester chez elle le jour du scrutin.
 Pour les types A et B, il existe un “effet indirect” de M (en d’autres termes, X affecte Y à M).
-Mais nous passerons à côté de cette relation dans l’ensemble car nous ne serons pas en mesure d’obtenir des estimations non biaisées de l’effet moyen de X sur M.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+Mais nous passerons à côté de cette relation dans l’ensemble car nous ne serons pas en mesure d’obtenir des estimations non biaisées de l’effet moyen de X sur M.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <p>Nous pouvons imaginer beaucoup plus de “types” que A et B – le but ici est de démontrer intuitivement que parce que M n’est pas assigné de manière aléatoire, et parce qu’il est peu probable que les effets de X sur M <em>et</em> M sur Y soient identiques pour tout le monde, il sera très difficile de caractériser avec précision l’entremise de M pour notre effet.</p>
 </div>
 <div id="de-nombreuses-études-tentent-de-décomposer-leffet-total-dun-traitement-entre-ses-effets-directs-et-indirects." class="section level1" number="5">
@@ -440,21 +439,21 @@ Y &lt;- X * Y_1 + (1 - X) * Y_0
 model1 &lt;- lm(M ~ X)
 a &lt;- coef(model1)[2] # extrait le coefficient pour obtenir l&#39;effet de X sur M
 a</code></pre>
-<pre><code>  X 
-0.2 </code></pre>
+<pre><code>        X 
+0.2001291 </code></pre>
 <pre class="r"><code>model2 &lt;- lm(Y ~ X)
 c &lt;- coef(model2)[2] # extrait le coefficient pour obtenir l&#39;effet total de X sur Y
 c</code></pre>
-<pre><code>   X 
-0.52 </code></pre>
+<pre><code>       X 
+0.520142 </code></pre>
 <pre class="r"><code>model3 &lt;- lm(Y ~ X + M)
 d &lt;- coef(model3)[2] # extrait le coefficient pour obtenir l&#39;effet de X sur Y en contrôlant pour M
 b &lt;- coef(model3)[3] # extrait le coefficient pour obtenir l&#39;effet de M sur Y en contrôlant pour X
 
 # on pourrait multiplier maintenant l&#39;effet moyen de X sur M et l&#39;effet moyen de M sur Y pour obtenir l&#39;ACME de X sur Y via M
 a * b</code></pre>
-<pre><code>   X 
-0.22 </code></pre>
+<pre><code>       X 
+0.220142 </code></pre>
 <pre class="r"><code># mais quand on compare cela au vrai ACME, on voit que c&#39;est biaisé
 ACME</code></pre>
 <pre><code>[1] 0.02</code></pre>
@@ -469,13 +468,13 @@ ACDE</code></pre>
 
 # les estimations qui ne sont pas biaisées sont les effets moyens de X sur Y et de X sur M car X est assigné de manière aléatoire
 a</code></pre>
-<pre><code>  X 
-0.2 </code></pre>
+<pre><code>        X 
+0.2001291 </code></pre>
 <pre class="r"><code>ATE_M</code></pre>
 <pre><code>[1] 0.2</code></pre>
 <pre class="r"><code>c</code></pre>
-<pre><code>   X 
-0.52 </code></pre>
+<pre><code>       X 
+0.520142 </code></pre>
 <pre class="r"><code>ATE</code></pre>
 <pre><code>[1] 0.52</code></pre>
 <p>Relions cet exercice à la question soulevée au point 3. Cette simulation a illustré que la quantification de l’effet de médiation s’avère difficile lorsque les variables prédictives de base confondent la relation entre M et Y.
@@ -506,7 +505,7 @@ Ce n’est pas parce qu’il est difficile de quantifier directement les preuves
 pour voir si différentes populations répondent au traitement différemment conformément à nos théories.
 Par exemple, supposons que nous voulions en savoir plus sur le rôle du revenu dans la médiation de la relation climat/conflit.
 L’une des implications vérifiables d’une théorie dans laquelle le revenu joue un rôle médiateur est que nous nous attendrions à ce que les chocs climatiques soient associés à des conflits dans les zones où le revenu est sensible aux chocs climatiques mais pas là où le revenu est indépendant des chocs climatiques.
-Sarsons (2015)<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> fait exactement cela.
+Sarsons (2015)<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> fait exactement cela.
 Exploitant le fait que les districts en aval des barrages d’irrigation ne dépendent pas des précipitations pour leur revenu contrairement aux districts en amont,
 elle explore le mécanisme de revenu en testant si les chocs pluviométriques prédisent l’incidence des émeutes dans les districts en aval mais pas dans les districts en amont.
 Formellement, elle teste ces hypothèses :</p>
@@ -530,7 +529,7 @@ Au point 7, nous l’avons fait se demandant si le traitement a affecté des sou
 Une autre approche consiste à explorer si le traitement affecte uniquement les résultats induits par notre théorie.</p>
 <p>Par exemple, de nombreux chercheurs en sciences sociales s’intéressent à la manière dont l’éducation de masse influence la démocratie.
 Plusieurs théories de la démocratisation s’attendent à ce que différents mécanismes relient l’éducation et la démocratie.
-Premièrement, selon la théorie de la modernisation, l’éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l’appartenance ethnique ou la religion) au profit du mérite.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> Deuxièmement, selon les théoriciens sociaux de l’oppression, l’éducation pourrait saper la démocratie en renforçant l’obéissance à l’autorité, qui est inhérente à une structure de classe.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Troisièmement, selon de nombreux politologues et psychologues, l’éducation peut encourager la participation démocratique en donnant aux individus la capacité d’acquérir et d’agir sur la connaissance.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> Friedman et Al. (2011)<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> décident de séparer ces mécanismes en enquêtant sur les résultats d’une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées de manière aléatoire pour recevoir une subvention à l’éducation.
+Premièrement, selon la théorie de la modernisation, l’éducation pourrait faciliter le bon fonctionnement de la démocratie en sapant les attachements au groupe (comme l’appartenance ethnique ou la religion) au profit du mérite.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Deuxièmement, selon les théoriciens sociaux de l’oppression, l’éducation pourrait saper la démocratie en renforçant l’obéissance à l’autorité, qui est inhérente à une structure de classe.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> Troisièmement, selon de nombreux politologues et psychologues, l’éducation peut encourager la participation démocratique en donnant aux individus la capacité d’acquérir et d’agir sur la connaissance.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> Friedman et Al. (2011)<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> décident de séparer ces mécanismes en enquêtant sur les résultats d’une expérience sur le terrain dans laquelle des filles kenyanes ont été assignées de manière aléatoire pour recevoir une subvention à l’éducation.
 Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l’œuvre : les filles ont-elles accepté le droit d’un mari de battre sa femme ? Un parent a-t-il participé au choix de leur mari? Dans quelle mesure la fille s’est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?</p>
 <p>Le tableau suivant décrit la direction des effets que chaque théorie suggérerait.
 Notez que les divers mécanismes testés ici résultent de théories avec des prédictions divergentes sur certains de ces résultats.
@@ -539,7 +538,7 @@ Nous pouvons voir que deux des résultats recueillis appuient la théorie de la 
 Cependant, la théorie de la modernisation aurait prédit une diminution de l’association de groupes religieux ou ethniques (en réalité, il n’y avait aucun effet) et n’aurait eu aucune prédiction pour la lecture des journaux (en réalité, la lecture des journaux a augmenté).
 Aucune des prédictions du mécanisme d’obéissance à l’autorité n’était étayée par les données.
 Cependant, les données corroboraient les quatre prédictions de la théorie de l’autonomisation individuelle.
-Les auteurs concluent qu’il est plus probable que <span class="math inline">\(X→M3→Y\)</span> que <span class="math inline">\(X→M1,M2→Y\)</span>.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+Les auteurs concluent qu’il est plus probable que <span class="math inline">\(X→M3→Y\)</span> que <span class="math inline">\(X→M1,M2→Y\)</span>.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
 <table>
 <colgroup>
 <col width="20%" />
@@ -602,7 +601,7 @@ Ceci, bien sûr, est une hypothèse : parce que nous ne mesurons pas M directeme
 <p>Par exemple, de nombreux gouvernements, dont le Mexique, le Brésil, la Tanzanie ou l’Ouganda, ont créé des programmes de transferts monétaires conditionnels pour lutter contre la pauvreté.
 Ces programmes fournissent de l’argent aux personnes pauvres, mais ils sont souvent assortis de conditions telles que la fréquentation d’une école ou un programme de formation professionnelle.
 Jusqu’à récemment, nous savions seulement que ces programmes (X) réussissaient à réduire la pauvreté (Y) et que X provoquait Y soit via le cash reçu, soit via l’assiduité requise à l’école ou aux programmes d’emploi.
-Pour distinguer ces mécanismes, Baird et al. (2011)<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> ont mené une expérience au Malawi, où ils ont assigné un groupe de familles pour recevoir un transfert en espèces <em>conditionnel</em> à la fréquentation scolaire régulière de leurs filles, un autre groupe de familles pour recevoir l’argent <em>sans condition</em>, et un groupe témoin pour ne recevoir aucun transfert.
+Pour distinguer ces mécanismes, Baird et al. (2011)<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> ont mené une expérience au Malawi, où ils ont assigné un groupe de familles pour recevoir un transfert en espèces <em>conditionnel</em> à la fréquentation scolaire régulière de leurs filles, un autre groupe de familles pour recevoir l’argent <em>sans condition</em>, et un groupe témoin pour ne recevoir aucun transfert.
 Ce design manipulait “implicitement” M : alors que les filles du groupe de transfert inconditionnel pouvaient également poursuivre une éducation, la fréquentation scolaire (la condition à l’étude) serait probablement plus élevée dans le groupe qui devait la poursuivre.
 Sans surprise, la fréquentation scolaire et les résultats aux tests étaient meilleurs pour le groupe recevant des transferts monétaires conditionnels.
 Cependant, leurs mesures de Y - le taux auquel les filles sont tombées enceintes ou se sont mariées - étaient en fait meilleures (inférieures) dans le groupe recevant les transferts monétaires inconditionnels.
@@ -628,16 +627,17 @@ Les mécanismes sont un domaine d’investigation passionnant et doivent être p
 <li id="fn1"><p>Solomon M. Hsiang, Kyle C. Meng, and Mark A. Cane, “Civil Conflicts Are Associated with the Global Climate,” Nature 476.7361 (2011): 438-441.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Ted Gurr, Why Men Rebel, Princeton University Press, 1970.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>Alberto Chong, Ana L. de la O, Dean Karlan, and Leonard Wantchekon, “Does Corruption Information Inspire the Fight or Quash the Hope? A Field Experiment in Mexico on Voter Turnout, Choice, and Party Identification,” The Journal of Politics 77.1 (2015): 55-71.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, “The Product and Difference Fallacies for Indirect Effects,” American Journal of Political Science 56.1 (2012): 257-269.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>Heather Sarsons, “Rainfall and Conflict: A Cautionary Tale.” Journal of Development Economics 115 (2015): 62-72.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Dans l’étude proprement dite, les auteurs ont été surpris de découvrir des preuves que l’éducation augmentait également l’acceptation de la violence politique par les individus.
+<li id="fn4"><p>Notez que Chong et al. testent leur argument en utilisant des données au niveau de l’arrondissement, pas au niveau individuel, mais nous avons adapté leur argument au niveau individuel pour faciliter l’explication.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Pour une discussion plus rigoureuse de ces fausses conceptions, voir Adam N. Glynn, “The Product and Difference Fallacies for Indirect Effects,” American Journal of Political Science 56.1 (2012): 257-269.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Heather Sarsons, “Rainfall and Conflict: A Cautionary Tale.” Journal of Development Economics 115 (2015): 62-72.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Dans l’étude proprement dite, les auteurs ont été surpris de découvrir des preuves que l’éducation augmentait également l’acceptation de la violence politique par les individus.
 S’ils soutiennent toujours que l’autonomisation individuelle est responsable de la relation entre l’éducation et la démocratie, ils avertissent que l’éducation ne conduit pas toujours à la démocratisation (c’est-à-dire M3→O mais il est également possible que M3→NON Y).
-Néanmoins, leur approche est une démonstration utile de la façon dont de multiples résultats peuvent éclairer les mécanismes.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>Sarah Baird, Craig McIntosh, Berk Ozler, “Cash or Condition? Evidence from a Cash Transfer Experiment,” Quarterly Journal of Economics 126, 2011.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+Néanmoins, leur approche est une démonstration utile de la façon dont de multiples résultats peuvent éclairer les mécanismes.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Sarah Baird, Craig McIntosh, Berk Ozler, “Cash or Condition? Evidence from a Cash Transfer Experiment,” Quarterly Journal of Economics 126, 2011.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

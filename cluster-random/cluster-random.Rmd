@@ -69,7 +69,7 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(12345)
-# Définir l'effet de traitement moyen de l'échantillon (sample average treatment effect / SATE)
+# Définir l'effet de traitement moyen de l'échantillon (sample average treatment effect, SATE)
 treatment_effect     <- 1
 # Définir les identifiants individuels (i)
 person               <- 1:10
@@ -268,7 +268,7 @@ true_SE
 Cela donne une erreur standard de `r round(true_SE,2)`.
 Nous pouvons comparer la véritable erreur standard à deux autres types d'erreur standard couramment utilisés.
 La première ignore le clustering et suppose que la distribution d'échantillonnage est distribuée de manière identique et indépendante selon une distribution normale.
-Nous appellerons cela l'erreur standard DII.
+Nous appellerons cela l'erreur standard IID.
 Pour prendre en compte le clustering, nous pouvons utiliser la formule suivante pour l'erreur standard :
 
 TODO
@@ -328,7 +328,7 @@ Lorsque nous ignorons l'assignation par grappe, l'erreur standard est trop petit
 nous sommes trop confiants quant à la quantité d'informations que nous fournit l'expérience.
 Le RCSE est légèrement plus prudent que la véritable erreur standard dans ce cas, mais il est très proche.
 L'écart est probablement dû au fait que le RCSE n'est pas une bonne approximation de la véritable erreur standard lorsque le nombre de grappes est aussi petit qu'ici.
-Pour illustrer davantage ce point, nous pouvons comparer une simulation de la véritable erreur standard générée par des permutations aléatoires du traitement aux erreurs standard DII et RCSE.
+Pour illustrer davantage ce point, nous pouvons comparer une simulation de la véritable erreur standard générée par des permutations aléatoires du traitement aux erreurs standard IID et RCSE.
 
 <style>
 div.hidecode + pre {display: none}
@@ -378,7 +378,7 @@ knitr::kable(rbind(
 
 ```
 
-Comme l'illustrent ces exemples simples, l'estimation par grappe de l'erreur standard (RCSE) se rapproche de la vérité (l'erreur standard simulée) à mesure que le nombre de grappes augmente.
+Comme l'illustrent ces exemples simples, le RCSE se rapproche de la vérité (l'erreur standard simulée) à mesure que le nombre de grappes augmente.
 Pendant ce temps, l'erreur standard ignorant le clustering (en supposant l'IID) a tendance à être plus petite que l'une ou l'autre des autres erreurs standard.
 
 Plus l'estimation de l'erreur standard est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent "statistiquement significatifs".
@@ -424,7 +424,8 @@ cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
      return(ATE_estimate)
 }
 
-# Étant donné des grappes de taille égale et sans bloc, ceci est identique à la différence des moyennes au niveau unitaire
+# Étant donné des grappes de taille égale et sans bloc,
+# ceci est identique à la différence des moyennes au niveau unitaire
 ATEs <- colMeans(data.frame(cluster_level_ATE =
                cluster_difference(Yj,Zj,n_j,J_treated,N),
           unit_level_ATE =
@@ -478,7 +479,7 @@ Un autre inconvénient de l'approche au niveau des grappes est qu'elle ne permet
 
 Lorsque les grappes sont de tailles différentes, s'ouvre une classe unique de problèmes liés à l'estimation de l'effet du traitement.
 Surtout lorsque la taille de la grappe est liée d'une manière ou d'une autre aux résultats potentiels des unités qui la composent,
-de nombreux estimateurs conventionnels de l'effet moyen de traitement pour l'échantillon (SATE) peuvent être biaisés.
+de nombreux estimateurs conventionnels de l'effet moyen du traitement pour l'échantillon (sample average treatment effect, SATE) peuvent être biaisés.
 
 Pour se fixer les idées, imaginez une intervention ciblée sur des entreprises de tailles différentes, qui vise à augmenter la productivité des travailleurs.
 En raison des économies d'échelle, la productivité des employés des grandes entreprises augmente de façon beaucoup plus proportionnelle à celle des employés des petites entreprises.
@@ -523,7 +524,7 @@ Y0 <- rnorm(N)
 # Productivité pour les traités
 Y1 <- Y0 + cluster_ATE[j]
 
-# Effet moyen de traitement pour l'échantillon réel
+# Effet moyen du traitement pour l'échantillon réel
 (true_SATE <- mean(Y1-Y0))
 ```
 
@@ -543,7 +544,7 @@ cor(n_j,cluster_ATE)
 ```
 
 Comme nous le voyons, il existe une forte corrélation entre l'effet du traitement et la taille des grappes.
-Simulons maintenant 1000 analyses de cette expérience, en permutant le vecteur d'assignation de traitement à chaque fois, et en prenant la différence non pondérée des moyennes comme une estimation de l'effet moyen de traitement pour l'échantillon.
+Simulons maintenant 1000 analyses de cette expérience, en permutant le vecteur d'assignation de traitement à chaque fois, et en prenant la différence non pondérée des moyennes comme une estimation de l'effet moyen du traitement pour l'échantillon.
 
 <style>
 div.hidecode + pre {display: none}
@@ -578,7 +579,7 @@ abline(v=true_SATE,col="red")
 L'histogramme montre la distribution d'échantillonnage de l'estimateur, avec le vrai SATE en rouge et son estimation non pondérée en bleu.
 L'estimateur est biaisé : en espérance, on ne récupère pas le vrai SATE, on le sous-estime.
 Intuitivement, on pourrait s'attendre à juste titre à ce que le problème soit lié au poids relatif des grappes dans le calcul de l'effet du traitement.
-Cependant, dans cette situation, prendre la différence dans la moyenne pondérée du résultat entre les grappes traitées et les grappes de contrôle n'est pas suffisant pour fournir un estimateur sans biais.
+Cependant, dans cette situation, prendre la différence de la moyenne pondérée du résultat entre les grappes traitées et les grappes de contrôle n'est pas suffisant pour fournir un estimateur sans biais.
 
 <style>
 div.hidecode + pre {display: none}
@@ -627,7 +628,7 @@ L'histogramme montre la distribution d'échantillonnage de l'estimateur pondér�
 En espérance, la version pondérée de l'estimateur donne en fait la même estimation du SATE que la version non pondérée.
 Quelle est la nature du biais ?
 
-Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes "traitement" et "contrôle",
+Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes de traitement et de contrôle,
 imaginez que nous avons jumelé chaque groupe avec un autre groupe et que nous en avons assigné un au traitement au sein de chaque paire.
 L'effet du traitement est alors l'agrégat des estimations au niveau de la paire.
 Ceci est analogue à la procédure d'assignation aléatoire complète employée ci-dessus, dans laquelle les entreprises $J/2$ ont été assignées au traitement.
@@ -745,7 +746,7 @@ kable(round(data.frame(true_SATE = true_SATE,
 ```
 
 Malgré des tailles de grappe inégales, le biais est complètement éliminé par cette technique :
-en espérance, l'estimateur par paire converge vers le véritable effet moyen de traitement pour l'échantillon,
+en espérance, l'estimateur par paire converge vers le véritable effet moyen du traitement pour l'échantillon,
 alors que les estimateurs de la différence des moyennes pondérées et non pondérées sont biaisés.
 
 Notez également que la variance dans la distribution d'échantillonnage est beaucoup plus faible pour l'estimateur par paire, donnant lieu à des estimations beaucoup plus précises.

@@ -13,7 +13,7 @@ Résumé
 Voir ce guide[^1] pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 Notre guide décrit dix types distincts d'effets causaux que les chercheurs peuvent souhaiter estimer.
 Comme indiqué dans notre guide sur l'inférence causale, la randomisation simple permet de produire des estimations de la moyenne des effets causaux au niveau de l'unité pour un échantillon.
-Cet effet causal moyen ou effet moyen de traitement (average treatment effect / ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
+Cet effet causal moyen ou effet moyen du traitement (average treatment effect, ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
 Pourtant, ce n'est pas la seule manière efficace de faire face à ce problème.
 En fait, il existe de nombreux types différents de quantités d'intérêt causal.
 L'objectif de ce guide est de vous aider à choisir des estimandes (i.e. des paramètres d'intérêt) et des estimateurs (procédures pour calculer des estimations de ces paramètres) qui sont appropriés et significatifs pour vos données.
@@ -330,7 +330,7 @@ ATT.ipw<-coef(lm(Y~D,data=samp,weights=W.att))[2]
 ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 ```
 
-7 effet moyen de traitement par quantile
+7 effet moyen du traitement par quantile
 ==
 L'ATE se concentre sur le milieu, en quelque sorte sur l'effet pour une personne typique, mais nous nous soucions souvent aussi des conséquences distributives de notre traitement.
 Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la répartition des revenus dans l'étude plus ou moins égale.

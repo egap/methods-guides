@@ -11,7 +11,7 @@ output:
 Résumé
 ==
 Ce guide[^1] vous aidera à déterminer quand il est judicieux d'essayer de "contrôler d'autres choses" lors de l'estimation de l'effet du traitement à l'aide de données expérimentales.
-Nous nous concentrons sur les grandes idées et fournissons des exemples dans R.
+Nous nous concentrons sur les grandes idées et fournissons des exemples en R.
 
 [^1]: Auteur d'origine : Lindsay Dolan. Révisions : Don Green et Winston Lin, 1er novembre 2016.
 Le guide est un document vivant et susceptible d'être mis à jour par les membres de l'EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.
@@ -40,7 +40,7 @@ Les pré-tests (mesures analogues à la variable de résultat mais limitées aux
 La meilleure façon de contrôler les covariables est d'utiliser la randomisation par bloc pour le faire au stade du design avant même de commencer votre expérience.
 La randomisation par bloc vous permet de créer des groupes de traitement et de contrôle équilibrés pour certaines covariables.
 Par exemple, vous pourriez vous attendre à ce que le sexe et le revenu aident à prédire la variable de résultat.
-La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de populations de femmes/à revenu élevé, de femmes/à faible revenu, d'homme/à revenu élevé et d'homme/à faible revenu.
+La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de femmes/à revenu élevé, de femmes/à faible revenu, d'homme/à revenu élevé et d'homme/à faible revenu.
 Lorsque les variables utilisées pour les blocs aident à prédire les résultats, le découpage par bloc améliore la précision en empêchant les corrélations aléatoires entre l'assignation du traitement et les covariables de base.
 
 Pour plus d'informations sur le découpage par bloc et comment l'implémenter dans R, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization).
