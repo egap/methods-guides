@@ -13,7 +13,7 @@ Résumé
 ==
 Ce guide vous aidera à concevoir et à exécuter différents types de randomisation dans vos expériences.
 Nous nous concentrons sur les grandes idées et fournissons des exemples et des outils que vous pouvez utiliser dans R.
-Pour savoir pourquoi faire de la randomisation, voir [ce guide des méthodes] (http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
+Pour savoir pourquoi faire de la randomisation, voir [ce guide des méthodes](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
 
 1 Certaines méthodes sont meilleures que d'autres
 ==
@@ -40,7 +40,7 @@ La "graine" permet de reproduire le même tirage à chaque fois que vous exécut
 Les générateurs de nombres aléatoires fonctionnent de cette manière afin d'améliorer la vitesse de calcul.
 Cependant, la série de nombres aléatoires générés est aussi aléatoire que nécessaire pour une assignation aléatoire, car elle n'a aucun rapport avec les résultats potentiels de vos sujets.
 
-[^2]: le code a été mis à jour par Alex Coppock le 25 novembre 2020.
+[^2]: Le code a été mis à jour par Alex Coppock le 25 novembre 2020.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE, results='hide'}
 library(randomizr)
@@ -71,10 +71,7 @@ Cela garantit un équilibre entre les sexes lorsque les groupes de traitement et
 Le [package blockTools](https://cran.r-project.org/web/packages/blockTools/index.html) est un package utile pour effectuer la randomisation par bloc.
 Commençons par générer un faux ensemble de données pour 60 sujets, dont 36 hommes et 24 femmes.
 
-Suppose we would like to block on gender.
-Based on our data, blockTools will generate the smallest possible blocks, each a grouping of two units with the same gender, one of which will be assigned to treatment, and one to control.
-
-Supposons que nous voudrions bloquer sur le genre.
+Supposons que nous voudrions découper par bloc selon le genre.
 Sur la base de nos données, blockTools générera les blocs les plus petits possibles, chacun bloc contenant deux unités du même sexe, dont l'une sera assignée au traitement et l'autre au contrôle.
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
@@ -112,7 +109,7 @@ dat <-
 with(dat, table(Z_block_2, block_id))
 ```
 
-Vous pouvez vérifier la moyenne de la variable sur laquelle vous avez découpé en bloc le traitement et le contrôle pour voir que les groupes de traitement et de contrôle sont en fait parfaitement équilibrés selon le sexe.
+Vous pouvez vérifier la moyenne de la variable sur laquelle vous avez découpé en bloc pour voir que les groupes de traitement et de contrôle sont en fait parfaitement équilibrés selon le sexe.
 
 3 Designs factoriels : vous pouvez randomiser plusieurs traitements en même temps sans perdre de puissance statistique
 ==
@@ -153,14 +150,14 @@ Si vous aviez deux grappes assignées de manière aléatoire de 1 000 individus 
 Pour cette raison, il est préférable de faire des grappes aussi petites que possible.
 
 De même, il est également souhaitable d'avoir une hétérogénéité au sein de vos grappes afin qu'elles soient aussi représentatives que possible de votre population plus large.
-Si les individus au sein des groupes individuels sont très similaires les uns aux autres, ils peuvent avoir des résultats potentiels similaires, et ce groupe avec des résultats potentiels similaires sera assigné au traitement ou au contrôle en tant que groupe.
-Dans l'ensemble, cela augmentera votre variance si ce groupe avait des résultats potentiels particulièrement élevés ou faibles, car cela augmente la corrélation globale entre les résultats potentiels et l'assignation au traitement.
+Si les individus au sein d'une grappe donnée sont très similaires les uns aux autres, ils peuvent avoir des résultats potentiels similaires, et cette grappe avec des résultats potentiels similaires sera assignée au traitement ou au contrôle en tant que grappe.
+Dans l'ensemble, cela augmentera votre variance si cette grappe avait des résultats potentiels particulièrement élevés ou faibles, car cela augmente la corrélation globale entre les résultats potentiels et l'assignation au traitement.
 En bref, si vos grappes sont plus représentatives de la population plus large, vos estimations de l'effet moyen du traitement seront plus précises.
 
-Une question fréquemment posée est de savoir en quoi la randomisation en grappe (cluster) diffère de la randomisation en bloc.
-La randomisation en bloc est effectuée afin d'atteindre un équilibre basé sur les covariables de pré-traitement.
+Une question fréquemment posée est de savoir en quoi la randomisation par grappe (cluster) diffère de la randomisation par bloc.
+La randomisation par bloc est effectuée afin d'atteindre un équilibre basé sur les covariables de pré-traitement.
 Par exemple, une intervention éducative peut bloquer la randomisation sur les résultats des tests de l'année précédente afin de suivre les progrès des élèves les moins performants et les plus performants.
-La randomisation par grappe se produit lorsque plusieurs unités sont traitées comme un groupe : elles reçoivent toutes le statut de traitement ou de contrôle ensemble.
+La randomisation par grappe se produit lorsque plusieurs unités sont traitées comme un groupe : elles reçoivent ensemble le même statut de traitement ou de contrôle.
 Par exemple, la même intervention éducative peut être randomisée au niveau de la classe, de sorte que les salles de classe constituent les grappes.
 Il est possible de randomiser par bloc et par grappe simultanément.
 Dans notre exemple, vous pouvez calculer la note moyenne au test pour chaque classe et effectuer une randomisation par bloc en fonction de la note moyenne de la classe.
@@ -174,7 +171,7 @@ Dans les deux cas où le découpage par bloc se produit, il y a une répartition
 
 5 Vous pouvez randomiser d'une manière qui permet de voir plus facilement s'il y a des effets de débordements
 ==
-Lors du design de votre expérience, réfléchissez de manière critique à la question de savoir si les " effets de débordements" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
+Lors du design de votre expérience, réfléchissez de manière critique à la question de savoir si les "effets de débordements" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
 Des débordements surviennent si le résultat d'une unité est affecté par le statut de traitement d'une autre unité.
 Cela peut être délicat si les unités ont la capacité d'interagir les unes avec les autres : un membre d'un village peut apprendre qu'un autre villageois a reçu une subvention en espèces et peut changer son comportement en conséquence.
 
@@ -195,16 +192,12 @@ Vous pouvez résoudre cette contrainte en découpant par bloc géographique et e
 Tant que la probabilité d'assignation au traitement pour les villages les plus accessibles est inférieure à 1, la probabilité d'assignation au traitement pour les villages moins accessibles est supérieure à zéro, et que ces probabilités sont connues, il est possible d'estimer l'effet du traitement.
 
 Cependant, lorsque les sujets ont des probabilités différentes d'assignation au traitement, vous ne pouvez plus simplement fusionner tous les sujets dans l'analyse de vos données.
-Si vous le faites, l'assignation du traitement sera corrélée aux caractéristiques de fond sur lesquelles vous avez découpé par bloc.
+Si vous le faites, l'assignation du traitement sera corrélée aux caractéristiques de fond pour lesquelles vous avez découpé par bloc.
 Il y a deux façons de gérer cela.
 
-La première consiste à estimer l'effet moyen du traitement bloc par bloc, puis à faire la moyenne des effets de traitement, chacun pondéré par la taille du bloc par rapport à l'ensemble de l'échantillon.
+La première consiste à estimer l'effet moyen du traitement bloc par bloc, puis à faire la moyenne des effets de traitement, pondérée par la taille du bloc par rapport à l'ensemble de l'échantillon.
 
-The second way is inverse probability weighting (IPW).
-In IPW, weights are defined as the 1/p for treated units and 1/(1-p) for control units, where p refers to the probability of assignment to treatment.
-This method allows you to run a weighted regression of Y on treatment assignment.
-
-La deuxième méthode est la pondération de probabilité inverse (inverse probability weighting / IPW).
+La deuxième méthode est la pondération de probabilité inverse (inverse probability weighting, IPW).
 Pour l'IPW, les poids sont définis comme 1/p pour les unités traitées et 1/(1-p) pour les unités de contrôle, où p fait référence à la probabilité d'assignation de traitement.
 Cette méthode vous permet d'exécuter une régression pondérée de Y sur l'assignation de traitement.
 
@@ -230,15 +223,6 @@ dat %>%
 
 7 Randomisation restreinte : si vous n'aimez pas ce que vous obtenez, vous pouvez recommencer
 ==
-It might seem inconsistent with the whole idea of randomization that you throw out  a random assignment because you don’t like what is chosen.
-But sometimes this makes sense.
- Sometimes you might want to make sure that randomization does not produce particular types of pattern (for example, too many people who know each other all being in treatment).
- But the patterns you care about might be too hard to set up in advance.
-What you can then do is take a random draw and then see whether the draw meets the criteria you care about or not, if it doesn’t, then draw again.
- Be warned, though, that if you do this, you create a couple of complications: (1)  each unit will not necessarily be assigned with the same probability, (2) units may not be independently assigned to treatment.
- You need to take into account both of these facts in your analysis, for example, by generating inverse probability weights as we did in point 6 but using the same restricted randomization code to figure out how likely it is that each subject is assigned to treatment under these restrictions.
-Next, you use the distribution of possible treatment assignments to implement randomization inference.
-These analyses are complex so proceed with caution.
 
 Cela peut sembler incompatible avec l'idée même de la randomisation de ne pas choisir une assignation aléatoire parce que vous n'aimez pas ce qui est choisi.
 Mais parfois, cela a du sens.
@@ -248,8 +232,7 @@ Ce que vous pouvez ensuite faire, c'est faire un tirage au sort et voir ensuite 
 Soyez averti, cependant, que si vous faites cela, vous créez quelques complications :
 (1) chaque unité ne sera pas nécessairement assignée avec la même probabilité,
 (2) les unités peuvent ne pas être assignées indépendamment au traitement.
-
-Vous devez prendre en compte ces deux faits dans votre analyse, par exemple, en générant des poids de probabilité inverses comme nous l'avons fait au point 6,
+Vous devez prendre en compte ces deux faits dans votre analyse, par exemple, en générant des poids de probabilité inverse comme nous l'avons fait au point 6,
 mais en utilisant le même code de randomisation restreinte pour déterminer la probabilité que chaque sujet soit assigné au traitement sous ces restrictions.
 Ensuite, vous utilisez la distribution des assignations de traitement possibles pour implémenter l'inférence de randomisation.
 Ces analyses étant complexes, procédez avec prudence.
@@ -270,9 +253,9 @@ Peut-être que vous employez à la fois la randomisation par bloc et par grappe,
 Ces probabilités seraient difficiles à calculer à la main, mais une solution simple consiste à exécuter votre code de randomisation de multiples fois et à générer une variable représentant la proportion de fois où chaque individu a été assigné au traitement : cela représente sa probabilité individuelle d'assignation au traitement.
 Cette variable peut ensuite être utilisée dans une régression pondérée lors du calcul de l'effet moyen du traitement.
 
-3. La simulation des randomisations possibles est une approche pour calculer la signification statistique.
-Cette approche, appelée inférence de randomisation, génère une valeur p exacte en calculant l'effet moyen du traitement possible qui serait observé dans le cadre d'une assignation aléatoire hypothétique si le traitement n'avait aucun effet.
-La valeur p est alors la proportion des effets estimés du traitement qui est au moins aussi importante que celle observée par votre expérience.
+3. La simulation des randomisations possibles est une approche pour calculer le niveau de signification statistique.
+Cette approche, appelée inférence de randomisation, génère une p-valeur exacte en calculant l'effet moyen du traitement possible qui serait observé dans le cadre d'une assignation aléatoire hypothétique si le traitement n'avait aucun effet.
+La p-valeur est alors la proportion des effets estimés du traitement qui est au moins aussi importante que celle observée par votre expérience.
 Cette approche est préférable aux calculs standard de signification statistique lorsque la distribution de vos données n'est pas normale, car l'inférence de randomisation évite de faire des hypothèses de distribution et utilise à la place la distribution des données observées dans votre expérience.
 Pour plus d'informations sur l'inférence de randomisation, y compris des exemples de code, voir [10 choses à savoir sur l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference/).
 
@@ -283,9 +266,9 @@ Dans de nombreuses expériences, vous ne connaissez peut-être pas l'intégralit
 Cela présente une complication lorsque nous voulons utiliser un algorithme par bloc simple car l'ajout de sujets à notre pool peut modifier la composition de nos blocs et donc leurs probabilités d'assignation de traitement.
 
 Pour maintenir les blocs et donc le contrôle sur l'équilibre entre les groupes de traitement et de contrôle,
-vous pouvez utiliser des covariables pour calculer la similarité d'un nouveau sujet avec d'autres sujets précédemment assignés et assigner le nouveau sujet à la condition de traitement avec moins d'unités similaires.[^3] [^4]
+vous pouvez utiliser des covariables pour calculer la similarité d'un nouveau sujet avec d'autres sujets précédemment assignés et assigner le nouveau sujet à la condition de traitement avec le moins d'unités similaires.[^3] [^4]
 
-[^3]: voir Moore, Ryan T., and Sally A. Moore. "Blocking for sequential political experiments." Political Analysis 21.4 (2013): 507-523.
+[^3]: Voir Moore, Ryan T., and Sally A. Moore. "Blocking for sequential political experiments." Political Analysis 21.4 (2013): 507-523.
 
 [^4]: Pour une présentation plus détaillée des procédures de randomisation disponibles dans le package R randomizr, voir: https://declaredesign.org/r/randomizr/articles/randomizr_vignette.html
 
@@ -293,34 +276,23 @@ vous pouvez utiliser des covariables pour calculer la similarité d'un nouveau s
 ==
 
 La randomisation est l'ingrédient clé pour isoler l'effet causal d'un traitement du point de vue du design de recherche, mais il est également important de tenir compte des implications éthiques de la randomisation.
-Lorsque nous pensons aux effets à long terme d'une expérience, la randomisation nous permet de tester quels programmes sont les plus efficaces afin que les ressources puissent être dirigées vers les programmes qui font le plus de différence dans la vie des populations futures.
-
+Lorsque nous pensons aux effets à long terme d'une expérience, la randomisation nous permet de tester quels programmes sont les plus efficaces afin que les ressources puissent être dirigées vers les programmes qui font le plus de différences dans la vie future des populations.
 A court terme, la randomisation de l'accès à un programme (par opposition à une distribution basée sur des caractéristiques arbitraires) peut être une manière particulièrement éthique de distribuer des biens rares qui ne peuvent pas être étendus à tout le monde.
 
-Cependant, parfois, ce sont les populations les plus démunies qui ont besoin d'être desservies par une intervention dans une expérimentation.
-Un design aléatoire qui traite un nombre égal de participants à faible revenu et à revenu élevé avec des prêts laisse les ressources aller à moins de personnes dans le besoin.
-Si nous pensons que le prêt a des effets bénéfiques, cela soulève des inquiétudes quant à l'éthique de l'allocation des ressources loin des plus nécessiteux.[^5]
+Cependant, parfois, ce sont les populations les plus démunies qui ont besoin d'être servies par une intervention dans une expérimentation.
+Un design aléatoire qui offre des prêts à un nombre égal de participants à faible revenu et à revenu élevé soustrait en partie ces ressources aux personnes dans le besoin.
+Si nous pensons que le prêt a des effets bénéfiques, cela soulève des inquiétudes quant à l'éthique de ce détournement d'allocation de ressources envers les plus nécessiteux.[^5]
 Il faudrait un argumentaire solide pour les avantages sociaux de la recherche et également des designs qui offrent des avantages pour contrôler les groupes.
 
-[^5]: Mais si nous sommes certains des effets du prêt, alors pourquoi mener une expérience pour le tester?
+[^5]: Mais si nous sommes certains des effets du prêt, alors pourquoi mener une expérience pour le tester ?
 Dans la recherche médicale, les essais contrôlés randomisés s'arrêtent souvent s'il devient clair dès le début qu'un médicament guérit sans aucun doute des maladies potentiellement mortelles, et donc le refuser aux sujets témoins est dangereux.
 (De même, un essai s'arrêterait également s'il était clair dès le début qu'un médicament provoque sans aucun doute des effets négatifs et nocifs.)
-
-A wait list randomization design is one way of treating an entire subject pool while enabling the researcher to test the effectiveness of the treatment experimentally.
-In this design, the program could roll out the intervention in phases and randomly assign the units to the phase in which they will be treated.
-For example, if a program wanted to treat 90 villages in total, it could treat 30 villages each year, and measure outcomes at the end of each year.
-If you wanted to compare outcomes in treatment and control villages, you would compare the 30 treated villages to the 60 yet-untreated villages at the end of the first year.
-At the end of the second year, you could compare the 30 villages that were treated in the previous year to the 30 villages that are yet-untreated.
-Essentially, this creates two experiments, identical but for the year’s time that separates them.
-In the table below, you can see that in the first year, we could compare the dark blue treatment group to the two light blue control groups.
-In the second year, we could compare the dark red treatment group to the light red treatment group, but we would want to avoid pooling the two treatment groups because one has been treated for longer than the other.
-You can see that after the third year, no more comparisons may be made because all units have been treated.
 
 Un design de randomisation avec liste d'attente est une façon de traiter tous les sujets tout en permettant au chercheur de tester expérimentalement l'efficacité du traitement.
 Dans ce design, on peut déployer l'intervention par phases et assigner de manière aléatoire les unités à la phase dans laquelle elles seront traitées.
 Par exemple, pour un total de 90 villages, on pourrait traiter 30 villages chaque année et mesurer les résultats à la fin de chaque année.
-Si vous vouliez comparer les résultats dans les villages de traitement et de contrôle, vous compareriez les 30 villages traités aux 60 villages non encore traités à la fin de la première année.
-A la fin de la deuxième année, vous pouvez comparer les 30 villages qui ont été traités l'année précédente aux 30 villages qui ne sont pas encore traités.
+Si vous vouliez comparer les résultats dans les villages de traitement et de contrôle, vous compareriez les 30 villages traités aux 60 villages pas encore traités à la fin de la première année.
+A la fin de la deuxième année, vous pouvez comparer les 30 villages qui ont été traités l'année précédente aux 30 villages qui ne le sont pas encore.
 Essentiellement, cela crée deux expériences, identiques sauf pour l'année qui les sépare.
 Dans le tableau ci-dessous, vous pouvez voir qu'au cours de la première année, nous avons pu comparer le groupe de traitement bleu foncé aux deux groupes de contrôle bleu clair.
 Au cours de la deuxième année, nous pourrions comparer le groupe de traitement rouge foncé au groupe de traitement rouge clair, mais nous voudrions éviter de regrouper les deux groupes de traitement car l'un a été traité plus longtemps que l'autre.

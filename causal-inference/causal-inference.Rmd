@@ -8,10 +8,10 @@ output:
 <!-- title: "10 choses à savoir sur l'inférence causale" -->
 <!-- author: "Auteur du guide des méthodes: Macartan Humphreys" -->
 
-Abstract
+Résumé
 ==
-Le philosophe David Lewis a décrit la causalité comme "quelque chose qui fait une différence, et cette différence doit être une différence par rapport à ce qui se serait passé sans elle."[^1] Ceci est l'interprétation de la causalité pour la plupart des expérimentalistes. Même si la définition semble simple, elle a de nombreuses implications subtiles. Voici dix idées impliquées par cette notion de causalité qui importent pour le design de recherche.
-^[Originating author: Macartan Humphreys. Minor revisions: Winston Lin and Donald P. Green, 24 Jun 2016. Revisions MH 6 Jan 2020. Revisions Anna Wilke May 2021. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.]
+Le philosophe David Lewis a décrit la causalité comme "quelque chose qui fait une différence, et cette différence doit être une différence par rapport à ce qui se serait passé sans elle".[^1] Ceci est l'interprétation de la causalité pour la plupart des expérimentalistes. Même si la définition semble simple, elle a de nombreuses implications subtiles. Voici dix idées impliquées par cette notion de causalité qui importent pour le design de recherche.
+^[Auteur d'origine : Macartan Humphreys. Révisions mineures : Winston Lin et Donald P. Green, 24 juin 2016. Révisions MH 6 janvier 2020. Révisions Anna Wilke mai 2021. Le guide est un document vivant et peut être mis à jour par les membres de l'EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.]
 
 [^1]: Lewis, David. "Causation." The journal of philosophy (1973): 556-567.
 
@@ -22,10 +22,9 @@ Cette définition requiert une notion de ce qui aurait pu arriver, mais ne s'est
 De même, l'"effet" de $X$ sur $Y$ est considéré comme la différence entre la valeur que $Y$ aurait prise étant donné une valeur de $X$ et la valeur que $Y$ aurait prise étant donné une autre valeur de $X$.
 En raison de l'accent mis sur les différences entre les résultats, cette approche est parfois appelée approche "des différences" ou "contrefactuelle" de la causalité.
 
-__Technical Note:__
-
+__Note technique:__
 Les statisticiens emploient le framework des "résultats potentiels" pour décrire les relations contrefactuelles.
-Dans ce cadre, $Y_i(1)$ désigne le résultat pour l'unité $i$ qui serait observé sous une condition (par exemple, si l'unité $i$ recevait un traitement)
+Dans ce cadre, $Y_i(1)$ désigne le résultat pour l'unité $i$ qui serait observé sous une condition (par exemple, si l'unité $i$ a reçu un traitement)
 et $Y_i(0)$ désigne le résultat qui serait être observé dans une autre condition (par exemple, si l'unité $i$ n'a pas reçu le traitement).
 Un effet causal du traitement pour l'unité $i$ pourrait être une simple différence des résultats potentiels $τ_i=Y_i(1)−Y_i(0)$.
 Un traitement a un effet causal (positif ou négatif) sur $Y$ pour l'unité $i$ si $Y_i(1)≠Y_i(0)$.
@@ -35,19 +34,19 @@ Un traitement a un effet causal (positif ou négatif) sur $Y$ pour l'unité $i$ 
 2. Point de causalité sans manipulation.
 ==
 La définition "contrefactuelle" de la causalité exige que l'on soit capable de réfléchir aux résultats qui peuvent entraîner des conditions différentes.
-À quoi ressembleraient les choses si un parti plutôt qu'un autre était élu?
+À quoi ressembleraient les choses si un parti plutôt qu'un autre était élu ?
 Les déclarations causales de tous les jours ne répondent souvent pas à cette exigence de l'une des deux manières suivantes.
 
 * Premièrement, certaines déclarations ne précisent pas de conditions contrefactuelles claires.
 Par exemple, l'affirmation selon laquelle "la récession a été causée par Wall Street" n'indique pas un contrefactuel évident
 --- devons-nous examiner s'il y aurait eu une récession si Wall Street n'avait pas existé ?
-Ou la déclaration est-elle vraiment une déclaration sur des actions particulières que Wall Street aurait pu prendre mais n'a pas fait.
+Ou la déclaration est-elle vraiment une déclaration sur des actions particulières que Wall Street aurait pu prendre mais n'a pas fait ?
 Si oui, quelles actions ? La validité de telles déclarations est difficile à évaluer et peut dépendre des conditions contrefactuelles impliquées par une déclaration.
 
 * Deuxièmement, certaines déclarations impliquent des conditions contrefactuelles qui ne peuvent être imaginées.
 Par exemple, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il est Peter implique une considération de ce qui se serait passé si Peter n'était pas Peter.
 Alternativement, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il est un homme nécessite de considérer Peter comme autre qu'un homme.
-Le problème est que les contrefactuels dans ces cas impliquent un changement non seulement dans la condition à laquelle fait face un individu, mais dans l'individu lui-même.
+Le problème est que les contrefactuels dans ces cas impliquent un changement non seulement dans la condition à laquelle fait face un individu, mais de l'individu lui-même.
 
 Pour éviter de tels problèmes, certains statisticiens recommandent de restreindre les assertions causales aux traitements qui peuvent en théorie (pas nécessairement en pratique) être manipulés.[^11]
 Par exemple, alors que nous pourrions avoir des difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce qu'il était un homme, nous n'avons pas de telles difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce que l'agence de recrutement pensait qu'il était un homme.
@@ -104,19 +103,19 @@ Même si vous ne pouvez pas observer si $X$ cause $Y$ pour une unité donnée, i
 L'idée clé ici est que l'effet causal moyen est égal à la différence entre le résultat moyen pour toutes les unités si toutes les unités étaient dans la condition de contrôle et le résultat moyen pour toutes les unités si toutes les unités étaient dans la condition de traitement.
 De nombreuses stratégies d'identification causale (voir [10 stratégies pour déterminer si X a causé Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)) se concentrent sur des façons d'en savoir plus sur ces résultats potentiels moyens.^[__Note technique :__ La principale idée technique est que la différence des moyennes est la même que la moyenne des différences.
 C'est-à-dire, en utilisant "l'opérateur d'espérance", $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$.
-Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quantité ne peuvent pas être estimés, mais les termes à l'intérieur des opérateurs d'attentes dans la troisième quantité peuvent l'être.[^3] Voir l'illustration [ici](https://raw.githubusercontent.com/egap/ methodes-guides/master/causal-inference/PO.jpg).]
+Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quantité ne peuvent pas être estimés, mais les termes à l'intérieur de l'opérateur d'espérance dans la troisième quantité peuvent l'être.[^3] Voir l'illustration [ici](https://raw.githubusercontent.com/egap/ methodes-guides/master/causal-inference/PO.jpg).]
 
-[10 choses à savoir sur les tests d'hypothèse] (https://egap.org/resource/10-things-to-know-about-hypothesis-testing/) décrit comment on peut en savoir plus sur les effets causaux individuels plutôt que sur les effets causaux moyens étant donné le problème fondamental de l'inférence causale.
+[10 choses à savoir sur les tests d'hypothèse](https://egap.org/resource/10-things-to-know-about-hypothesis-testing/) décrit comment en savoir plus sur les effets causaux individuels plutôt que sur les effets causaux moyens étant donné le problème fondamental de l'inférence causale.
 
 [^3]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
 
 7. L'estimation de l'effet causal moyen ne nécessite pas que les groupes de traitement et de contrôle soient identiques.
 ==
-Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y] (http://egap.org/resource/10-strategies-for- déterminer-si-x-causé-y)).
+Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)).
 Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne se ressemblent pas selon les dimensions pertinentes.
 
 La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen du traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
-Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes traités et témoins captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, en traitement ou en contrôle.
+Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes traités et témoins captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, dans le traitement ou dans le contrôle.
 En pratique, les groupes de traitement et de contrôle réels ne seront pas identiques.[^10]
 
 [^10]: Pour cette raison, les tests-$t$ pour vérifier si "la randomisation a fonctionné" n'ont pas beaucoup de sens, du moins si vous savez qu'une procédure randomisée a été suivie --- simplement par hasard, 1 test sur 20 montrera des différences statistiquement détectables entre les groupes de traitement et de contrôle.
@@ -129,19 +128,21 @@ Ces tests peuvent alors être particulièrement importants pour des expériences
 Une corrélation entre $X$ et $Y$ est une déclaration sur les relations entre les résultats réels dans le monde, et non sur la relation entre les résultats réels et les résultats contrefactuels.
 Ainsi, les déclarations sur les causes et les corrélations n'ont pas grand-chose à voir les unes avec les autres.
 Des corrélations positives peuvent être cohérentes avec des effets causaux positifs, aucun effet causal ou même des effets causaux négatifs.
-Par exemple, la prise de médicaments contre la toux est positivement corrélée à la toux mais a, espérons-le, un effet causal négatif sur la toux.^[__Note technique :__ Soit $D_i$ un indicateur pour savoir si l'unité $i$ a reçu un traitement ou non.
+Par exemple, la prise de médicaments contre la toux est positivement corrélée à la toux mais a, espérons-le, un effet causal négatif sur la toux.[^11]
 
-Alors, la différence de résultats moyens entre ceux qui reçoivent le traitement et ceux qui n'en reçoivent pas peut s'écrire $\frac{∑_i D_i×Y_i(1)}{∑_iD_i}−\frac{∑_i (1−D_i)× Y_i(0)}{∑_i (1−D_i)}$.
+[^11]: __Note technique__: soit $D_i$ un indicateur pour savoir si l'unité $i$ a reçu un traitement ou non.
+Alors, la différence des résultats moyens entre ceux qui reçoivent le traitement et ceux qui ne le reçoivent pas peut s'écrire $\frac{∑_i D_i×Y_i(1)}{∑_iD_i}−\frac{∑_i (1−D_i)× Y_i(0)}{∑_i (1−D_i)}$.
 En l'absence d'informations sur la manière dont le traitement a été assigné, nous ne pouvons pas dire si cette différence est un bon estimateur de l'effet moyen du traitement, c'est-à-dire de la différence entre les résultats potentiels moyens pour les groupes de traitement et de contrôle pour toutes les unités.
 Ce qui importe est de savoir si $\frac{∑_i D_i×Y_i(1)}{∑_iD_i}$ est une bonne estimation de $\frac{∑_i 1×Y_i(1)}{∑_i1}$ et si $\frac {∑_i (1−D_i)×Y_i(0)}{∑_i (1−D_i)}$ est une bonne estimation de $\frac{∑_i 1×Y_i(0)}{∑_i1}$.
-Cela pourrait être le cas si ceux qui ont reçu un traitement sont un échantillon représentatif de toutes les unités, mais sinon il n'y a aucune raison de s'attendre à ce qu'il le soit.]
+Cela pourrait être le cas si ceux qui ont reçu un traitement sont un échantillon représentatif de toutes les unités, mais sinon il n'y a aucune raison de s'attendre à ce qu'il le soit.
 
 9. Si vous savez qu'en moyenne $A$ cause $B$ et $B$ cause $C$, cela ne veut pas dire qu'en moyenne $A$ cause $C$.
+==
 
 Vous pourriez vous attendre à ce que si $A$ cause $B$ et $B$ cause $C$, alors $A$ cause $C$.[^12]
 Mais il n'y a aucune raison de croire que les relations causales moyennes sont transitives de cette manière.
 Pour voir pourquoi, imaginez que $A$ a causé $B$ pour les hommes mais pas les femmes et $B$ a causé $C$ pour les femmes mais pas les hommes.
-Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y ait toujours personne pour qui $A$ cause $C$ à $B$.
+Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y ait toujours personne pour qui $A$ cause $C$ à travers $B$.
 
 [^12]: Interprétez "$A$ cause $B$, en moyenne" comme "l'effet moyen de $A$ sur $B$ est positif".
 
@@ -152,8 +153,8 @@ Bien que cela puisse sembler être deux façons de dire la même chose, il y a u
 Supposons que nous menions une expérience avec un échantillon qui contient un nombre égal d'hommes et de femmes.
 L'expérience assigne de manière aléatoire des hommes et des femmes à un traitement binaire $X$ et mesure un résultat binaire $Y$.
 De plus, supposons que $X$ ait un effet positif de 1 pour tous les hommes, c'est-à-dire
-le résultat potentiel de contrôle des hommes est de zéro ($Y_i(0) = 0$) et leur résultat potentiel traité est de un ($Y_i(1) = 1$).
-Pour toutes les femmes, $X$ a un effet négatif de $-1$, c'est-à-dire que le résultat potentiel de contrôle des femmes est de un ($Y_i(0) = 1$) et leur résultat potentiel traité est de zéro ($Y_i(1) = 0$).
+le résultat potentiel de contrôle des hommes est de zéro, $Y_i(0) = 0$, et leur résultat potentiel traité est de un, $Y_i(1) = 1$.
+Pour toutes les femmes, $X$ a un effet négatif de $-1$, c'est-à-dire que le résultat potentiel de contrôle des femmes est de un, $Y_i(0) = 1$, et leur résultat potentiel traité est de zéro, $Y_i(1) = 0$.
 Dans cet exemple, l'effet moyen de $X$ sur $Y$ est nul.
 Mais pour tous les participants du groupe de traitement avec $Y=1$, il est vrai que $Y=1$ *car* $X=1$.
 De même, pour tous les participants du groupe de traitement avec $Y=0$, il est vrai que $Y=0$ *car* $X=1$.

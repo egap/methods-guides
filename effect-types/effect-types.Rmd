@@ -10,7 +10,7 @@ output:
 
 Résumé
 ==
-Voir ce guide[^1] pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
+Voir ce guide[^1] pour une discussion plus formelle sur l'indépendance et les hypothèses nécessaires pour estimer les effets causaux.
 Notre guide décrit dix types distincts d'effets causaux que les chercheurs peuvent souhaiter estimer.
 Comme indiqué dans notre guide sur l'inférence causale, la randomisation simple permet de produire des estimations de la moyenne des effets causaux au niveau de l'unité pour un échantillon.
 Cet effet causal moyen ou effet moyen du traitement (average treatment effect, ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
@@ -22,16 +22,16 @@ L'objectif de ce guide est de vous aider à choisir des estimandes (i.e. des par
 
 1 Effet moyen du traitement
 ==
-Nous commençons par examiner comment, avec la randomisation, une simple différence de moyennes fournit une estimation non biaisée de l'ATE.
+Nous commençons par examiner comment, avec la randomisation, une simple différence des moyennes fournit une estimation non biaisée de l'ATE.
 Nous prenons plus de temps pour présenter certains concepts et notations statistiques courants utilisés tout au long de ce guide.
 
-Tout d'abord, nous définissons un effet de traitement pour une observation individuelle (une personne, un ménage, une ville, etc.) comme la différence entre le comportement de cette unité sous le traitement $(Y_{i}(1))$ et sous le contrôle $(Y_{i}( 0))$ :
+Tout d'abord, nous définissons un effet de traitement pour une observation individuelle (une personne, un ménage, une ville, etc.) comme la différence entre le comportement de cette unité sous le traitement $Y_{i}(1)$ et sous le contrôle $Y_{i}( 0)$ :
 
 $$τ_{i}=Y_{i}(1)−Y_{i}(0)$$
 
 Puisque nous ne pouvons observer que $Y_{i}(1)$ ou $Y_{i}(0)$, l'effet du traitement individuel est impossible à connaître.
-Soit $D_{i}$ un indicateur pour savoir si nous observons une observation sous traitement ou sous contrôle.
-Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $((Y_{i}(1),Y_{i }(0),X_{i}⊥⊥D_{i}))$.[^2]
+Soit $D_{i}$ un indicateur pour savoir si c'est une observation sous traitement ou sous contrôle.
+Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $(Y_{i}(1), Y_{i }(0) et X_{i}⊥⊥D_{i})$.[^2]
 
 [^2]: Voir Holland et Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
@@ -43,7 +43,7 @@ La moyenne des valeurs de cette liste sera la même que la différence des moyen
 
 $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑^{N}_{1}Y_{i}(0)}{N}$$
 
-Et nous estimons souvent l'ATE en utilisant la différence observée des moyennes:[^4]
+Et nous estimons souvent l'ATE en utilisant la différence des moyennes observées:[^4]
 
 [^4]: Les estimations sont souvent écrites avec un chapeau ($\widehat{ATE}$) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
 Sauf indication contraire, dans ce guide, nous nous concentrons sur la génération d'estimations d'échantillons et omettons par la suite cette notation explicite par souci de concision.
@@ -68,7 +68,7 @@ $$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
 puisque nous pouvons réarranger les termes de sorte que $β_{0}$ représente la moyenne parmi les observations de contrôle $(Y_{i}(0)∣D_{i}=0)$ et $β_{1}$ représente la différence des moyennes $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$.
 Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et assignons de manière aléatoire un traitement Di avec un effet unitaire constant à la moitié des unités.
-Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observée.
+Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observées.
 Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
 Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
 Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur standard de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
@@ -131,14 +131,14 @@ Alors que le "problème fondamental de l'inférence causale" suggère que la mes
 
 L'assignation aléatoire garantit que le traitement est indépendant des résultats potentiels et de toute covariable (observée et non observée).
 Parfois, cependant, nous avons des informations supplémentaires sur les unités expérimentales telles qu'elles existaient avant que l'expérience ne soit menée, disons $X_{i}$, et ces informations peuvent nous aider à comprendre comment les effets du traitement varient entre les sous-groupes.
-Par exemple, nous pouvons suspecter que les hommes et les femmes réagissent différemment au traitement, et nous pouvons tester cette hétérogénéité en estimant l'ATE conditionnel pour chaque sous-groupe séparément $(CATE=E(Y_{i}(1)−Y_{i}(0 )∣D_{i},X_{i}))$.
+Par exemple, nous pouvons suspecter que les hommes et les femmes réagissent différemment au traitement, et nous pouvons tester cette hétérogénéité en estimant l'ATE conditionnel pour chaque sous-groupe séparément $CATE=E(Y_{i}(1)−Y_{i}(0 )∣D_{i},X_{i})$.
 Si notre covariable est continue, nous pouvons tester ses effets modérateurs en faisant varier la variable continue avec le traitement.
 Notez, cependant, que l'effet du traitement est désormais conditionné à la fois au statut du traitement et à la valeur de la variable de conditionnement pour laquelle l'effet est évalué, nous devons donc ajuster notre interprétation et l'erreur standard en conséquence.[^7]
 
 [^7]: Brambor, Clark et Golder (2006)
 
 Avertissement : examiner l'effet du traitement à travers des dimensions qui sont elles-mêmes influencées par le traitement est une entreprise dangereuse et peut conduire à des inférences incorrectes.
-Par exemple, si vous vouliez voir comment l'administration d'un médicament conduit à des améliorations de la santé, vous pouvez rechercher séparément les hommes et les femmes, mais vous ne pouvez pas rechercher séparément ceux qui ont effectivement pris le médicament et ceux qui ne l'ont pas fait (ceci est un exemple d'inférence pour conformistes qui nécessitent des techniques distinctes décrites au point 4 ci-dessous).
+Par exemple, si vous vouliez voir comment l'administration d'un médicament conduit à des améliorations de la santé, vous pouvez rechercher séparément les hommes et les femmes, mais vous ne pouvez pas rechercher séparément ceux qui ont effectivement pris le médicament et ceux qui ne l'ont pas fait (ceci est un exemple d'inférence pour conformistes qui nécessite des techniques distinctes décrites au point 4 ci-dessous).
 
 3 Effet d'intention de traiter (intent to treat effect, ITT)
 ==
@@ -178,19 +178,19 @@ ITT<-coef(lm(Y~Z,data=samp))[2]
 Que se passe-t-il si vous souhaitez déterminer l'effet du traitement sur les personnes qui ont effectivement suivi le traitement et pas seulement sur celles à qui le traitement a été administré ?
 Par exemple, quel est l'effet des publicités à la radio sur le comportement de vote des personnes qui entendent réellement les publicités ?
 
-Cela s'avère être un problème difficile (pour en savoir plus à ce sujet, consultez ce guide).
+Cela s'avère être un problème difficile (pour en savoir plus à ce sujet, consultez [ce guide](https://TODO)).
 Les raisons de non-conformité au traitement peuvent être considérées comme une variable omise.
 Alors que la réception du traitement n'est plus indépendante des résultats potentiels, l'assignation du statut de traitement l'est.
 Tant que l'assignation aléatoire a eu un effet positif sur la probabilité de recevoir un traitement, nous pouvons l'utiliser comme instrument pour identifier l'effet du traitement sur la sous-population de sujets qui se conforment à l'assignation du traitement.
 
 Suivant la notation d'Angrist et Pischke,[^8] soit $Z$ un indicateur pour savoir si une observation a été assignée au traitement et $D_{i}$ indique si ce sujet a effectivement reçu le traitement.
-Les expériences avec non-conformité sont composées de "toujours preneurs" ($D_{i}=1$, indépendamment de $Z_{i}$), de "jamais-preneurs" ($D_{i}=0$ indépendamment de $Z_{i} $), et de conformistes ($D_{i}=1$ lorsque $Z_{i}=1$ et $0$ lorsque $Z_{i}=0$).[^9] Nous pouvons estimer l'effet causal moyen pour les conformistes (CACE), parfois aussi appelé effet moyen local du traitement (local average treatment effect, LATE), en pondérant l'ITT (l'effet de $Z$ sur $Y$) par l'efficacité de l'assignation aléatoire sur la prise de traitement (l'effet de $Z$ sur $D$).
+Les expériences avec non-conformité sont composées de "toujours preneurs" ($D_{i}=1$, indépendamment de $Z_{i}$), de "jamais-preneurs" ($D_{i}=0$ indépendamment de $Z_{i}$), et de conformistes ($D_{i}=1$ lorsque $Z_{i}=1$ et $0$ lorsque $Z_{i}=0$).[^9] Nous pouvons estimer l'effet causal moyen pour les conformistes (CACE), parfois aussi appelé effet moyen local du traitement (local average treatment effect, LATE), en pondérant l'ITT (l'effet de $Z$ sur $Y$) par l'efficacité de l'assignation aléatoire sur la prise de traitement (l'effet de $Z$ sur $D$).
 
 [^8]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
 [^9]: Nous supposons généralement la monotonie, ce qui signifie qu'il n'y a pas de non-conformistes, c'est à dire de personnes qui ne prennent le traitement que lorsqu'elles sont assignées au contrôle ($D_{i}=1$ quand $Z_i=0$) et refusent le traitement lorsqu'elles sont assignées au traitement ($D_{i}=0$ quand $Z_{i}=1$).
 
-$$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i∣Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
+$$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i|Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
 L'estimateur ci-dessus met en évidence le fait que l'ITT et le CACE convergent à mesure que nous approchons d'une conformité totale.
 Calculer l'erreur standard pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
@@ -221,7 +221,7 @@ samp = data.frame(Z,D,Y)
 Souvent, à partir de notre échantillon, nous voulons généraliser des déclarations pour une population d'intérêt plus large.[^11]
 Soit $S_i$ un indicateur pour savoir si un sujet fait partie de notre échantillon.
 L'effet moyen du traitement pour l'échantillon (sample average treatment effect, SATE) est défini simplement comme $E(Y_i(1)−Y_i(0)|S_i=1)$ et la population $E(Y_i(1)−Y_i(0))$.
-Avec un grand échantillon aléatoire d'une population bien définie et une conformité totale au traitement, nos SATE et PATE sont égaux en espérance et donc une bonne estimation de l'un (comme une différence des moyennes d'échantillon) sera une bonne estimation de l'autre.[ ^12]
+Avec un grand échantillon aléatoire d'une population bien définie et une conformité totale au traitement, nos SATE et PATE sont égaux en espérance et donc une bonne estimation de l'un (comme une différence des moyennes d'échantillon) sera une bonne estimation de l'autre.[^12]
 
 [^11]: Imai, King et Stuart (2008) pour un examen plus détaillé des questions abordées dans cette section.
 
@@ -235,12 +235,12 @@ Par exemple, les personnes participant à un essai médical diffèrent souvent d
 L'erreur due au déséquilibre de traitement reflète les différences de covariables entre les groupes de traitement et de contrôle dans notre échantillon, peut-être en raison d'une assignation non aléatoire et/ou d'une non-conformité.
 
 Bien qu'il n'y ait pas de solutions simples aux problèmes créés par une telle erreur, vous pouvez prendre des mesures à la fois dans le design de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
-Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement (par exemple Nickerson (2008)) en présence de non-conformité.
+Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement en présence de non-conformité (voir par exemple Nickerson (2008)).
 On pourrait également utiliser un modèle pour repondérer les observations afin d'ajuster le déséquilibre des covariables et la probabilité inégale de recevoir le traitement, à la fois au sein de l'échantillon et entre un échantillon et la population d'intérêt.[^13]
 
 [^13]: Angrist et Pischke (2008) fournissent une brève introduction des sujets traités plus en détail par Hirano, Imbens et Ridder (2003), Aronow et Middleton (2013), Glynn et Quinn (2010), et Hartman et al. (à venir)
 
-Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces effets mis en œuvre dans le package CausalGAM pour R.[^14]
+Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces effets mis en œuvre dans le package CausalGAM de R.[^14]
 Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération inverse du score de propension (inverse-propensity weighting, IPW) et par pondération IPW augmentée (augmented IPW, AIPW).
 En combinant l'ajustement de régression avec l'IPW, l'AIPW a la particularité d'être "doublement robuste" : l'estimation est toujours cohérente même si nous avons incorrectement spécifié le modèle de régression ou le score de propension pour la pondération de probabilité.
 
@@ -336,7 +336,7 @@ L'ATE se concentre sur le milieu, en quelque sorte sur l'effet pour une personne
 Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la répartition des revenus dans l'étude plus ou moins égale.
 
 Les affirmations concernant les distributions sont difficiles.
-Même si nous pouvons estimer l'ATE à partir d'une différence des moyennes d'échantillon, en général, nous ne pouvons pas faire de déclarations sur la distribution conjointe des résultats potentiels $(F(Yi(1),Yi(0)))$ sans hypothèse supplémentaire.
+Même si nous pouvons estimer l'ATE à partir d'une différence des moyennes d'échantillon, en général, nous ne pouvons pas faire de déclarations sur la distribution conjointe des résultats potentiels $F(Yi(1),Yi(0))$ sans hypothèse supplémentaire.
 En règle générale, ces hypothèses limitent notre analyse à une sous-population spécifique[^17] ou nous obligent à supposer une certaine forme d'invariance de rang dans la distribution des réponses à l'effet du traitement[^18].
 Voir Frölich et Melly (2010) pour une discussion assez concise sur ces questions.
 Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric Evaluation of Social Programs, Part III : Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation". Handbook of Econometrics 6. Elsevier: 5145-5303.) (2007) pour un aperçu complet.
@@ -346,11 +346,11 @@ Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric 
 [^18]: Chernozhukov et Hansen (2005). C'est-à-dire que le traitement peut avoir des effets hétérogènes, mais l'ordre des résultats potentiels est préservé.
 Voir Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
-Si ces hypothèses sont justifiées pour nos données, nous pouvons obtenir des estimations cohérentes de l'effet du traitement par quantile (QTE) en utilisant la régression par quantile.[^19]
+Si ces hypothèses sont justifiées pour nos données, nous pouvons obtenir des estimations cohérentes de l'effet du traitement par quantile (quantile treatment effect, QTE) en utilisant la régression par quantile.[^19]
 Tout comme la régression linéaire estime l'ATE comme une différence des moyennes (ou, lorsque des covariables sont utilisées dans le modèle, à partir d'une moyenne conditionnelle),
 la régression par quantile ajuste un modèle linéaire à un quantile conditionnel et ce modèle peut ensuite être utilisé pour estimer l'effet du traitement pour ce quantile particulier du résultat.
 L'approche peut être étendue pour inclure des covariables et des instruments de non-conformité.
-Notez que l'interprétation du QTE est pour un quantile donné, pas un individu à ce quantile.
+Notez que l'interprétation du QTE est pour un quantile donné, non pas pour un individu de ce quantile.
 
 [^19]: Voir Koenker, Roger et Kevin Hallock. 2001. "Quantile Regression: An Introduction." Journal of Economic Perspectives 15 (4): 43–56. pour un aperçu concis de la régression par quantile
 
@@ -378,7 +378,7 @@ plot(summary(QTE),parm=2,main="",ylab="QTE",xlab="Quantile",mar = c(5.1, 4.1, 2.
 
 8 Effet de médiation
 ==
-Parfois, nous voulons décrire non seulement l'ampleur et la significance d'un effet causal observé, mais aussi le mécanisme (ou les mécanismes) qui l'ont produit.
+Parfois, nous voulons décrire non seulement l'ampleur et le niveau de signification d'un effet causal observé, mais aussi le mécanisme (ou les mécanismes) qui l'ont produit.
 Notre intervention a-t-elle augmenté la participation dans le groupe de traitement, en partie, en augmentant le sentiment d'utilité politique pour ces sujets ?
 Si oui, quelle part de cet effet total peut être attribuée aux effets de médiation de notre traitement sur le sentiment d'utilité ; et de ce sentiment d'utilité sur la participation au vote ?
 
@@ -396,10 +396,10 @@ Alors que certains modèles expérimentaux peuvent, en théorie, fournir un effe
 Dans certains cas, les informations que nous espérons tirer de l'analyse de médiation peuvent être plus facilement acquises à partir d'analyses de sous-groupes et d'expériences conçues pour tester la modération.
 
 Imai et ses collègues proposent une approche de l'analyse de médiation qui permet aux chercheurs de tester la sensibilité de leurs estimations aux violations de l'ignorabilité séquentielle.[^21]
-Dans le code, nous montrons certaines des caractéristiques de leur approche, implémentée dans le package de médiation dans R (Tingley et al. 2014).
+Dans le code, nous montrons certaines des caractéristiques de leur approche, implémentée dans le package "mediation" en R (Tingley et al. 2014).
 Nous modélisons les relations avec MCO, mais le package est capable de gérer d'autres processus de résultats, tels que des modèles linéaires généralisés ou des modèles additifs généralisés, qui peuvent être plus appropriés pour vos données.
 Plus important encore, le package nous permet de produire les bornes qui reflètent la sensibilité de nos estimations ponctuelles à certaines violations de l'ignorabilité séquentielle.
-Dans nos données simulées, un peu plus de 20 % de l'effet total est médié par notre médiateur proposé, M et le biais d'un facteur de confusion pré-traitement non observé devrait être assez important (ρ = 0,7) avant que nous rejetions la conclusion de un ACME positif.
+Dans nos données simulées, un peu plus de 20 % de l'effet total est médié par notre médiateur proposé, M et le biais d'un facteur de confusion pré-traitement non observé devrait être assez important (ρ = 0,7) avant que nous rejetions la conclusion d'un ACME positif.
 Ces limites ne sont toutefois valables que si nous pensons qu'il n'y a pas de facteurs de confusion post-traitement non observés (comme dans le panneau 4).
 L'analyse de sensibilité est toujours possible, mais plus compliquée dans de tels contextes (Imai et Yamamoto 2013).
 
@@ -456,7 +456,7 @@ Une quantité commune d'intérêt causal pour les résultats dichotomiques est l
 $$\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}$$
 
 Freedman (2008b) montre que l'ajustement de covariables par régression logistique dans les expériences randomisées produit des estimations biaisées de cet effet causal.
-L'intuition de base de l'argument de Freedman vient du fait que prendre le log des moyennes n'est pas la même chose que prendre la moyenne des logs et donc le coefficient de traitement estimé à partir d'une régression logistique conditionnée sur les covariables ne fournira pas un estimateur cohérent des log-odds de succès.
+L'intuition de base de l'argument de Freedman vient du fait que prendre le log des moyennes n'est pas la même chose que prendre la moyenne des logs et donc le coefficient de traitement estimé à partir d'une régression logistique conditionnée aux covariables ne fournira pas un estimateur cohérent des log-odds de succès.
 Au lieu de cela, Freedman recommande de prendre les probabilités prédites de variation du statut de traitement des sujets, mais de maintenir leurs profils de covariables observés pour produire un estimateur cohérent des log-odds.
 
 La procédure de base est décrite dans le code ci-dessous.
@@ -497,7 +497,7 @@ log.odds.adj<-log(mean(aT.adj)/(1-mean(aT.adj)))-
 ==
 Nous concluons par une brève discussion sur une autre quantité d'intérêt causal qui peut être particulièrement utile avec des résultats binaires : l'effet attribuable (Rosenbaum 2010).
 Considérons un cas simple avec un résultat et un traitement dichotomique.
-Soit $A$ le nombre de résultats attribuables au traitement, c'est-à-dire le nombre de cas dans lesquels $Y_i$ était égal à 1 parmi les sujets traités ; ce qui ne se serait pas produit si ces unités avaient été assignées au contrôle.
+Soit $A$ le nombre de résultats attribuables au traitement, c'est-à-dire le nombre de cas pour lesquels $Y_i$ était égal à 1 parmi les sujets traités ; ce qui ne se serait pas produit si ces unités avaient été assignées au contrôle.
 Pour une plage de $A$, nous ajustons le tableau de contingence observée des résultats parmi les traités et comparons cette distribution résultante à une distribution nulle connue (la distribution des résultats que nous aurions observé si le traitement n'avait eu aucun effet).
 La plage résultante de $A$ pour laquelle notre test continue de rejeter l'hypothèse nulle d'absence d'effet fournit une plage d'effets qui sont attribuables à notre traitement.
 
@@ -506,7 +506,7 @@ Table 1|$D=1$              |$D=0$
 $Y=1$  |$\sum Y_iD_i-A$    |$(1-Y_i)(D_i)$
 $Y=0$  |$\sum Y_i(1-D_i)+A$|$\sum (1-Y_i)(1-D_i)$
 
-Rosenbaum (2002) extend ce concept à différents types de résultats (tels que les variables continues).
+Rosenbaum (2002) étend ce concept à différents types de résultats (tels que les variables continues).
 Une logique similaire peut également être appliquée pour détecter des réponses inhabituelles mais importantes au traitement (Rosenbaum et Silber 2008).
 
 Hansen et Bowers (2009) utilisent cette approche pour identifier le nombre de votes supplémentaires attribuables à différentes interventions dans l'expérience de sortie du vote avec une assignation de traitement par grappe et une non-conformité unilatérale.
@@ -525,7 +525,7 @@ $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U�
 = total observé globalement (fixe et observé) - résultat total sous contrôle (non observé, à estimer)
 </center>
 
-Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour les sondages basé sur l'inférence statistique pour les échantillons totaux, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
+Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour sondage basé sur l'inférence statistique pour les échantillons totaux, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
 Nous pouvons utiliser des covariables pour augmenter la précision ici car l'estimateur de régression pour l'enquête nous permet d'estimer le total que nous aurions vu dans le groupe de contrôle : $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+ \sum_{i∈U}(Y_i-\hat{Y}_i)$ avec $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999).
 La littérature sur l'échantillonnage pour les sondages montre que, comme $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$.
 Ainsi, on peut calculer $\widehat{SE}(\hat{t}_c)$ à partir de la théorie de l'échantillonnage standard puis $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t }_c)$.
@@ -592,47 +592,47 @@ print(ciAE)
 
 Références
 ==
-Aronow, Peter M, and Joel A Middleton. 2013. "A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments." Journal of Causal Inference 1 (1): 135–54.
+Aronow, Peter M et Joel A Middleton. 2013. "A Class of Unbiased Estimators of the Average Treatment Effect in Randomized Experiments." Journal of Causal Inference 1 (1): 135–54.
 
-Aronow, Peter M, and Cyrus Samii. 2014. "Does Regression Produce Representative Estimates of Causal Effects?" In EPSA 2013 Annual General Conference Paper. Vol. 585.
+Aronow, Peter M et Cyrus Samii. 2014. "Does Regression Produce Representative Estimates of Causal Effects?" In EPSA 2013 Annual General Conference Paper. Vol. 585.
 
-Baron, Reuben M, and David A Kenny. 1986. "The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations." Journal of Personality and Social Psychology 51 (6). American Psychological Association: 1173.
+Baron, Reuben M et David A Kenny. 1986. "The Moderator–Mediator Variable Distinction in Social Psychological Research: Conceptual, Strategic, and Statistical Considerations." Journal of Personality and Social Psychology 51 (6). American Psychological Association: 1173.
 
-Bound, John, David A Jaeger, and Regina M Baker. 1995. "Problems with Instrumental Variables Estimation When the Correlation Between the Instruments and the Endogenous Explanatory Variable Is Weak." Journal of the American Statistical Association 90 (430). Taylor & Francis: 443–50.
+Bound, John, David A Jaeger et Regina M Baker. 1995. "Problems with Instrumental Variables Estimation When the Correlation Between the Instruments and the Endogenous Explanatory Variable Is Weak." Journal of the American Statistical Association 90 (430). Taylor & Francis: 443–50.
 
-Brambor, Thomas, William R. Clark, and Matt Golder. 2006. "Understanding Interaction Models: Improving Empirical Analyses." Political Analysis 14 (1): 63–82.
+Brambor, Thomas, William R. Clark et Matt Golder. 2006. "Understanding Interaction Models: Improving Empirical Analyses." Political Analysis 14 (1): 63–82.
 
-Bullock, John G, Donald P Green, and Shang E Ha. 2010. "Yes, but What’s the Mechanism?(don’t Expect an Easy Answer)." Journal of Personality and Social Psychology 98 (4). American Psychological Association: 550.
+Bullock, John G, Donald P Green et Shang E Ha. 2010. "Yes, but What’s the Mechanism?(don’t Expect an Easy Answer)." Journal of Personality and Social Psychology 98 (4). American Psychological Association: 550.
 
-Chernozhukov, Victor, and Christian Hansen. 2005. "An IV Model of Quantile Treatment Effects." Econometrica 73 (1). Wiley Online Library: 245–61.
+Chernozhukov, Victor et Christian Hansen. 2005. "An IV Model of Quantile Treatment Effects." Econometrica 73 (1). Wiley Online Library: 245–61.
 
 Dunning, Thad. 2010. "Design-Based Inference: Beyond the Pitfalls of Regression Analysis?" Rethinking Social Inquiry: Diverse Tools, Shared Standards. 2nd Ed. Lanham, Md.: Rowman and Littlefield.
 
 Freedman, David A. 2008a. "On Regression Adjustments to Experimental Data." Advances in Applied Mathematics 40 (2). Elsevier: 180–93. ———. 2008b. "Randomization Does Not Justify Logistic Regression." Statistical Science 23 (2). Institute of Mathematical Statistics: 237–49.
 
-Frölich, Markus, and Blaise Melly. 2010. "Estimation of Quantile Treatment Effects with Stata." Stata Journal 10 (3): 423.
+Frölich, Markus et Blaise Melly. 2010. "Estimation of Quantile Treatment Effects with Stata." Stata Journal 10 (3): 423.
 
-Gerber, Alan S, and Donald P Green. 2012. Field Experiments: Design, Analysis, and Interpretation. WW Norton.
+Gerber, Alan S et Donald P Green. 2012. Field Experiments: Design, Analysis, and Interpretation. WW Norton.
 
 Green, Donald P. 2009. "Regression Adjustments to Experimental Data: Do David Freedman’s Concerns Apply to Political Science?" In 26th Annual Meeting of the Society for Political Methodology, Yale University, July, 23–25.
 
-Hansen, Ben, and Jake Bowers. 2009. "Attributing Effects to a Cluster-Randomized Get-Out-the-Vote Campaign." Journal of the American Statistical Association 104 (487). Taylor & Francis: 873–85.
+Hansen, Ben et Jake Bowers. 2009. "Attributing Effects to a Cluster-Randomized Get-Out-the-Vote Campaign." Journal of the American Statistical Association 104 (487). Taylor & Francis: 873–85.
 
-Hartman, Erin, RD Grieve, R Ramsahai, and Jasjeet S Sekhon. forthcoming. "From SATE to PATT: Combining Experimental with Observational Studies." Journal of the Royal Statistical Society.
+Hartman, Erin, RD Grieve, R Ramsahai et Jasjeet S Sekhon. forthcoming. "From SATE to PATT: Combining Experimental with Observational Studies." Journal of the Royal Statistical Society.
 
-Hirano, Keisuke, Guido W Imbens, and Geert Ridder. 2003. "Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score." Econometrica 71 (4). Wiley Online Library: 1161–89.
+Hirano, Keisuke, Guido W Imbens et Geert Ridder. 2003. "Efficient Estimation of Average Treatment Effects Using the Estimated Propensity Score." Econometrica 71 (4). Wiley Online Library: 1161–89.
 
 Holland, Paul W. 1986. "Statistics and Causal Inference." Journal of the American Statistical Association 81 (396). Taylor & Francis: 945–60.
 
-Imai, K., L. Keele, D. Tingley, and T. Yamamoto. 2011. "Unpacking the Black Box of Causality: Learning About Causal Mechanisms from Experimental and Observational Studies." American Political Science Review 105 (4). Cambridge Univ Press: 765–89.
+Imai, K., L. Keele, D. Tingley et T. Yamamoto. 2011. "Unpacking the Black Box of Causality: Learning About Causal Mechanisms from Experimental and Observational Studies." American Political Science Review 105 (4). Cambridge Univ Press: 765–89.
 
-Imai, Kosuke, and Teppei Yamamoto. 2013. "Identification and Sensitivity Analysis for Multiple Causal Mechanisms: Revisiting Evidence from Framing Experiments." Political Analysis 21 (2). SPM-PMSAPSA: 141–71.
+Imai, Kosuke et Teppei Yamamoto. 2013. "Identification and Sensitivity Analysis for Multiple Causal Mechanisms: Revisiting Evidence from Framing Experiments." Political Analysis 21 (2). SPM-PMSAPSA: 141–71.
 
-Imai, Kosuke, Luke Keele, and Teppei Yamamoto. 2010. "Identification, Inference and Sensitivity Analysis for Causal Mediation Effects." Statistical Science. JSTOR, 51–71.
+Imai, Kosuke, Luke Keele et Teppei Yamamoto. 2010. "Identification, Inference and Sensitivity Analysis for Causal Mediation Effects." Statistical Science. JSTOR, 51–71.
 
-Imai, Kosuke, Gary King, and Elizabeth A Stuart. 2008. "Misunderstandings Between Experimentalists and Observationalists About Causal Inference." Journal of the Royal Statistical Society: series A (Statistics in Society) 171 (2). Wiley Online Library: 481–502.
+Imai, Kosuke, Gary King et Elizabeth A Stuart. 2008. "Misunderstandings Between Experimentalists and Observationalists About Causal Inference." Journal of the Royal Statistical Society: series A (Statistics in Society) 171 (2). Wiley Online Library: 481–502.
 
-Imai, Kosuke, Dustin Tingley, and Teppei Yamamoto. 2013. "Experimental Designs for Identifying Causal Mechanisms." Journal of the Royal Statistical Society: Series A (Statistics in Society) 176 (1). Wiley Online Library: 5–51.
+Imai, Kosuke, Dustin Tingley et Teppei Yamamoto. 2013. "Experimental Designs for Identifying Causal Mechanisms." Journal of the Royal Statistical Society: Series A (Statistics in Society) 176 (1). Wiley Online Library: 5–51.
 
 Lin, Winston. 2013. "Agnostic Notes on Regression Adjustments to Experimental Data: Reexamining Freedman’s Critique." The Annals of Applied Statistics 7 (1). Institute of Mathematical Statistics: 295–318.
 
@@ -646,8 +646,8 @@ Rosenbaum, Paul. 2002. "Attributing Effects to Treatment in Matched Observationa
 
 Rosenbaum, Paul R. 2002. Observational Studies. Springer.
 
-Rosenbaum, Paul, and Donald B. Rubin. 1983. "The Central Role of the Propensity Score in Observational Studies for Causal Effects." Biometrika 70 (1). Biometrika Trust: 41–55.
+Rosenbaum, Paul et Donald B. Rubin. 1983. "The Central Role of the Propensity Score in Observational Studies for Causal Effects." Biometrika 70 (1). Biometrika Trust: 41–55.
 
-Rosenbaum, Paul, and Jeffrey H Silber. 2008. "Aberrant Effects of Treatment." Journal of the American Statistical Association 103 (481). Taylor & Francis: 240–47.
+Rosenbaum, Paul et Jeffrey H Silber. 2008. "Aberrant Effects of Treatment." Journal of the American Statistical Association 103 (481). Taylor & Francis: 240–47.
 
-Rosenbaum, PR. 2010. "Design of Observational Studies." Springer Series in Statistics. New York [etc.]: Springer. Tingley, Dustin, Teppei Yamamoto, Kentaro Hirose, Luke Keele, and Kosuke Imai. 2014. "mediation: R Package for Causal Mediation Analysis." Journal of Statistical Software 59 (5): 1–38. http://www.jstatsoft.org/v59/i05/.
+Rosenbaum, PR. 2010. "Design of Observational Studies." Springer Series in Statistics. New York [etc.]: Springer. Tingley, Dustin, Teppei Yamamoto, Kentaro Hirose, Luke Keele et Kosuke Imai. 2014. "mediation: R Package for Causal Mediation Analysis." Journal of Statistical Software 59 (5): 1–38. http://www.jstatsoft.org/v59/i05/.

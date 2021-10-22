@@ -39,12 +39,12 @@ Un traitement qui augmenterait les revenus des travailleurs de 1% serait diffici
 
 Une préoccupation majeure avant de se lancer dans une expérience est le danger d'un __faux négatif__.
 Supposons que le traitement ait réellement un impact causal sur les résultats.
-Il serait dommage de se donner toutes les peines et les dépenses nécessaires pour randomiser le traitement, collecter des données sur les groupes de traitement et de contrôle et analyser les résultats, pour que l'effet soit finalement noyé par le bruit de fond.
+Il serait dommage de se donner autant de peine et de dépenser autant pour randomiser le traitement, collecter des données sur les groupes de traitement et de contrôle et analyser les résultats, pour que l'effet soit finalement noyé par le bruit de fond.
 
 Si nos expériences ont une grande puissance statistique, nous pouvons être sûrs de ceci :
 s'il y a vraiment un effet de traitement, nous pourrons le voir.
 
-2 Pourquoi vous en avez besoin
+2 Pourquoi vous en avez besoin ?
 ==
 Les expérimentateurs se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
 Après une expérience, nous craignons de conclure à tort qu'il y a un effet alors qu'il n'y en a pas vraiment.
@@ -55,21 +55,21 @@ Répondre à cette question nécessite des conjectures éclairées.
 Vous devrez fournir des suppositions quant à l'ampleur raisonnable de l'effet de votre traitement, combien de sujets répondront à votre enquête, combien de sujets votre organisation peut raisonnablement se permettre de traiter.
 
 D'où viennent ces suppositions ? Avant qu'une expérience ne soit menée, il existe souvent une multitude de données de base disponibles.
-Les sujets seront-ils agés/riches/éduqués ? Quelle a été l'ampleur du plus grand effet de traitement jamais établi pour votre variable dépendante ? Avec l'analyse de puissance statistique, vous pouvez voir à quel point la probabilité d'obtenir des résultats significatifs est sensible aux changements de vos hypothèses.
+Les sujets seront-ils agés, riches, éduqués ? Quelle a été l'ampleur du plus grand effet de traitement jamais établi pour votre variable dépendante ? Avec l'analyse de puissance statistique, vous pouvez voir à quel point la probabilité d'obtenir des résultats significatifs est sensible aux changements de vos hypothèses.
 
 De nombreuses disciplines se sont fixées sur une valeur de puissance cible de 0,80.
 Les chercheurs modifieront leurs designs et leurs hypothèses jusqu'à ce qu'ils puissent être sûrs que leurs expériences donneront des résultats statistiquement significatifs 80 % du temps.
 Bien que cette convention soit une référence utile, assurez-vous que vous êtes à l'aise avec les risques associés à un taux de réussite attendu de 80 %.
 
 Attention : la puissance statistique compte beaucoup.
-Les résultats négatifs d'études de faible puissance peuvent être difficiles à interpréter : n'y a-t-il vraiment aucun effet ? Ou l'étude n'est-elle tout simplement pas en mesure de le mesurer? Les résultats positifs d'une étude de faible puissance peuvent également être trompeurs : à condition d'être statistiquement significatifs, une estimation d'une étude de faible puissance surestime probablement les effets du traitement.
+Les résultats nuls d'études de faible puissance peuvent être difficiles à interpréter : n'y a-t-il vraiment aucun effet ? Ou l'étude n'est-elle tout simplement pas en mesure de le mesurer? Les résultats positifs d'une étude de faible puissance peuvent également être trompeurs : à condition d'être statistiquement significative, une estimation d'une étude de faible puissance surestime probablement l'effet du traitement.
 Les études sous-alimentées sont parfois basées sur des hypothèses trop optimistes ; une analyse de puissance convaincante rend ces hypothèses explicites et devrait vous protéger de la mise en œuvre de designs qui n'ont de manière réaliste aucune chance de répondre aux questions auxquelles vous souhaitez répondre.
 
 3 Les trois ingrédients de la puissance statistique
 ==
 Il existe trois grandes catégories de facteurs qui déterminent la puissance de votre expérience.
 Les deux premiers (l'efficacité du traitement et le bruit de fond) sont des choses que vous ne pouvez pas vraiment contrôler – ce sont les réalités de votre environnement expérimental.
-La dernière, le design expérimental, est la seule chose sur laquelle vous avez le pouvoir – utilisez-le !
+Le dernier facteur, le design expérimental, est la seule chose que vous pouvez contrôler – utilisez-le !
 
 * Efficacité du traitement.
 Au fur et à mesure que l'efficacité de votre traitement augmente, la puissance statistique de votre expérience augmente.
@@ -86,10 +86,6 @@ De plus, de nombreux résultats que nous aimerions étudier sont intrinsèquemen
 De ce point de vue, le bruit est simplement à gérer du mieux que vous pouvez.
 
 * Design expérimental.
-Traditional power analysis focuses on one (albeit very important) element of experimental design: the number of subjects in each experimental group.
-Put simply, a larger number of subjects increases power.
-However, there are other elements of the experimental design that can increase power: how is the randomization conducted? Will other factors be statistically controlled for? How many treatment groups will there be, and can they be combined in some analyses?
-
 L'analyse de puissance statistique traditionnelle se concentre sur un élément (bien que très important) du design expérimental : le nombre de sujets dans chaque groupe expérimental.
 En termes simples, un plus grand nombre de sujets augmente la puissance.
 Cependant, il existe d'autres éléments du design expérimental qui peuvent augmenter la puissance : comment la randomisation est-elle menée ? Est-ce que d'autres facteurs seront contrôlés statistiquement? Combien de groupes de traitement y aura-t-il et peuvent-ils être combinés pour certaines analyses ?
@@ -97,7 +93,7 @@ Cependant, il existe d'autres éléments du design expérimental qui peuvent aug
 4 Formules clés pour calculer la puissance statistique
 ==
 Les statisticiens ont dérivé des formules pour calculer la puissance de nombreux modèles expérimentaux.
-Ils peuvent être utiles pour calculer approximativement la taille de l'échantillon dont vous aurez besoin.
+Elles peuvent être utiles pour calculer approximativement la taille de l'échantillon dont vous aurez besoin.
 Soyez prudent, cependant, car les hypothèses qui sous-tendent les formules peuvent parfois être obscures, ou pire encore, elles peuvent être fausses.
 
 Voici une formule courante utilisée pour calculer la puissance[^2]
@@ -112,13 +108,13 @@ Parce que c'est la probabilité d'obtenir un résultat statistiquement significa
 * $\Phi$ est la fonction de répartition de la distribution normale, et $\Phi^{-1}$ est son inverse.
 * $\mu_t$ est le résultat moyen dans le groupe de traitement. Supposons qu'il soit 65.
 * $\mu_c$ est le résultat moyen dans le groupe témoin. Supposons que c'est 60.
-* Ensemble, les hypothèses sur μt et c définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
+* Ensemble, les hypothèses sur μt et μc définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
 
 * $\sigma$ est l'écart type des résultats. C'est ainsi que nous émettons des hypothèses sur le niveau de bruit de notre expérience - l'une des hypothèses que nous émettons est que le sigma est le même pour les groupes de traitement et de contrôle. Supposons $\sigma=20$
 * $\alpha$ est notre niveau de signification – la convention dans de nombreuses disciplines est que α doit être égal à 0,05.
 $N$ est le nombre total de sujets.
 C'est la seule variable qui est sous le contrôle direct du chercheur.
-Cette formule suppose que chaque sujet a 50/50 de chances d'être en contrôle.
+Cette formule suppose que chaque sujet a 50/50 de chances d'être dans le groupe de contrôle.
 Supposons que $N=500$.
 
 En utilisant la formule, nous trouvons que sous cet ensemble d'hypothèses, $β = 0,80$, ce qui signifie que nous avons 80 % de chances d'avoir un résultat statistiquement significatif avec ce design.
@@ -138,7 +134,7 @@ power_calculator <- function(mu_t, mu_c, sigma, alpha=0.05, N){
 5 Quand croire votre analyse de puissance ?
 ==
 
-Depuis certains points de vue, l'idée d'analyser la puissance statistique n'a aucun sens.
+D'un certain point de vue, l'idée d'analyser la puissance statistique n'a aucun sens.
 Vous voulez déterminer l'ampleur d'un effet de traitement, mais vous devez d'abord effectuer une analyse de puissance qui nécessite que vous connaissiez déjà l'effet de votre traitement et bien plus encore.
 
 Ainsi, dans la plupart des analyses de puissance, vous voyez en fait ce qui se passe avec des nombres qui sont dans une certaine mesure inventés.
@@ -155,7 +151,7 @@ En utilisant la formule de la section 4, vous pouvez voir à quel point la puiss
 
 6 Comment utiliser la simulation pour estimer la puissance ?
 ==
-La puissance est une mesure de la fréquence à laquelle, compte tenu des hypothèses, nous obtiendrions des résultats statistiquement significatifs si nous devions mener notre expérience des milliers de fois.
+La puissance est une mesure de la fréquence pour laquelle, compte tenu des hypothèses, nous obtiendrions des résultats statistiquement significatifs si nous devions mener notre expérience des milliers de fois.
 La formule de calcul de puissance se base sur des hypothèses et renvoie une solution analytique.
 Cependant, en raison des progrès de l'informatique moderne, nous n'avons pas à nous fier à des solutions analytiques pour l'analyse de puissance.
 Nous pouvons dire à nos ordinateurs d'exécuter littéralement l'expérience des milliers de fois et simplement compter la fréquence à laquelle notre expérience est significative.
@@ -165,21 +161,21 @@ Le code ci-dessous montre comment effectuer cette simulation dans R.
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 possible.ns <- seq(from=100, to=2000, by=40) # Les tailles d'échantillon que nous considérerons
 stopifnot(all( (possible.ns %% 2)==0 )) ## nécessite un nombre pair de pools expérimentaux
-powers <- rep(NA, length(possible.ns)) # Objet vide pour collecter les estimations de simulation
+powers <- rep(NA, length(possible.ns)) # objet vide pour collecter les estimations de simulation
 alpha <- 0.05 # Niveau de signification standard
 sims <- 500 # Nombre de simulations à réaliser pour chaque N
 #### Boucle externe pour varier le nombre de sujets ####
 for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisis la jième valeur pour N
   Y0 <- rnorm(n=N, mean=60, sd=20) # résultat potentiel pour le contrôle
-  tau <- 5 # Hypothèse de l'effet du traitement
+  tau <- 5 # hypothèse de l'effet du traitement
   Y1 <- Y0 + tau # résultat potentiel pour le traitement
-  significant.experiments <- rep(NA, sims) # Objet vide pour compter les expériences significatives
-                                  
-  #### Inner loop to conduct experiments "sims" times over for each N #### 
+  significant.experiments <- rep(NA, sims) # objet vide pour compter les expériences significatives
+
+  #### Boucle interne pour mener des expériences "sims" fois pour chaque N ####
         Y0 <- rnorm(n=N, mean=60, sd=20) # résultat potentiel pour le contrôle
         tau <- 5 # Hypothèse de l'effet du traitement
         Y1 <- Y0 + tau # résultat potentiel pour le traitement
-  for (i in 1:sims){ 
+  for (i in 1:sims){
         ## Z.sim <- rbinom(n=N, size=1, prob=.5) # Faire une assignation aléatoire par tirage au sort
         Z.sim <- sample(rep(c(0,1),N/2)) ## Faire une assignation aléatoire par tirage au sort sans remise
         Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Révéler les résultats selon l'assignation
@@ -188,8 +184,8 @@ for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisis la jième valeur
         significant.experiments[i] <- (p.value <= alpha) # Determiner la signification en accord avec p <= 0.05
         }
   powers[j] <- mean(significant.experiments) # stocker le taux de réussite moyen (puissance) pour chaque N
-  } 
-powers 
+  }
+powers
 ```
 
 Le code de cette simulation est disponible [ici](https://egap.org/resource/script-power-analysis-simulations-in-r/){target="_blank"}.
@@ -208,7 +204,7 @@ Comme nous l'avons vu ci-dessus, un choix de design évident est le nombre de su
 Plus il y a de sujets, plus la puissance est élevée.
 
 Cependant, le nombre de sujets n'est pas le seul choix de design qui a des conséquences sur la puissance.
-Il existe deux grandes catégories de choix de design qui sont particulièrement importants à cet égard.
+Il existe deux grandes catégories de choix de design qui sont particulièrement importantes à cet égard.
 
 * Choix de l'estimateur.
 Utilisez-vous la différence des moyennes ? Allez-vous effectuer une transformation, comme un logit ou un probit ?
@@ -219,7 +215,7 @@ Une façon simple d'y penser est d'imaginer quelle commande vous exécuterez dan
 * Protocole de randomisation.
 Quel type de randomisation utiliserez-vous ? La randomisation simple donne à tous les sujets une probabilité égale d'être dans le groupe de traitement, puis effectue un tirage au sort (éventuellement pondéré) pour chacun.
 La randomisation complète est similaire, mais elle garantit qu'un nombre exact d'unités seront assignées au traitement.
-La randomisation en bloc est encore plus puissante : elle garantit qu'un certain nombre au sein d'un sous-groupe seront assignés au traitement.
+La randomisation par bloc est encore plus puissante : elle garantit qu'un certain nombre au sein d'un sous-groupe seront assignés au traitement.
 
 Une assignation aléatoire restreinte rejette certaines assignations aléatoires sur la base d'un certain ensemble de critères — un manque d'équilibre par exemple.
 Ces différents types d'assignation aléatoire peuvent augmenter considérablement la puissance d'une expérience sans frais supplémentaires.
@@ -287,7 +283,7 @@ Si vous pouvez éviter de regrouper vos traitements, c'est préférable pour la 
 À moins que vous ne soyez confronté à des problèmes liés aux effets de débordement, à la logistique ou à l'éthique, réduisez la variation au niveau le plus bas possible.
 
 Le meilleur scénario pour un design par grappe est lorsque la grappe dans laquelle se trouve un sujet fournit très peu d'informations sur leurs résultats.
-Supposons que les sujets soient assignés de manière aléatoire à des groupes - le groupe n'aiderait pas du tout à prédire les résultats.
+Supposons que les sujets soient assignés de manière aléatoire à des grappes - le grappe n'aiderait pas du tout à prédire les résultats.
 Si la grappe n'est pas prédictive du résultat, alors nous n'avons pas perdu trop de puissance à cause du clustering.
 
 Là où le clustering cause vraiment des problèmes, c'est lorsqu'il existe une relation forte entre la grappe et le résultat.
@@ -298,10 +294,10 @@ Le clustering peut réduire la taille effective de votre échantillon du nombre 
 Il existe des formules qui peuvent vous aider à comprendre les conséquences du clustering — voir Gelman/Hill page 447-449 pour une discussion approfondie.
 Bien que ces formules puissent être utiles, elles peuvent également être assez lourdes à utiliser.
 L'idée principale est cependant simple : vous obtenez généralement plus de puissance en augmentant le nombre de grappes qu'en augmentant le nombre de sujets au sein des grappes.
-Mieux vaut avoir 100 groupes avec 10 sujets dans chacun que 10 groupes avec 100 sujets dans chacun.
+Mieux vaut avoir 100 grappes de 10 sujets que 10 grappes avec 100 sujets.
 
 Encore une fois, une approche plus flexible de l'analyse de puissance lorsqu'il s'agit de grappes est la simulation.
-Voir la page de simulations [ici TODO], ou lisez Gelman/Hill page 450-453 pour une autre approche de simulation.
+Voir la page de simulations [ici](https://TODO), ou lisez Gelman/Hill page 450-453 pour une autre approche de simulation.
 
 10 Une bonne analyse de puissance facilite le pré-enregistrement
 ==
