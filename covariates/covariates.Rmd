@@ -55,11 +55,6 @@ Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous 
 
 3 Comment le faire dans une régression ?
 ==
-Sometimes you do not have the opportunity to implement a blocked experimental design (for example, if you join a project after random assignment occurs) or you would prefer to simplify your randomization scheme to reduce opportunities for administrative error.
-You can still adjust for covariates on the back end by using multiple regression.
-Remember that in a bivariate regression---when you regress your outcome on just your treatment indicator---the coefficient on treatment is just a difference-in-means.
- This simple method gives an unbiased estimate of the average treatment effect (ATE).
-When we add baseline covariates that are correlated with outcomes to the model, the coefficient on treatment is an approximately unbiased estimate of the ATE that tends to be more precise than bivariate regression.
 
 Parfois, vous n'avez pas la possibilité de mettre en œuvre un design expérimental par bloc (i.e., si vous rejoignez un projet après l'assignation aléatoire) ou vous préférez simplifier votre schéma de randomisation pour réduire les risques d'erreur administrative.
 Vous pouvez toujours ajuster les covariables de base en utilisant la régression multiple.
@@ -102,21 +97,21 @@ Dans les grands échantillons, l'assignation aléatoire a tendance à produire d
 Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir des taux de vote légèrement plus élevés lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
 Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode impartiale, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
 
-[^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui seront produites simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
+[^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui sera produite simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
 Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe témoin avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.
 
 Le contrôle des covariables a tendance à améliorer la précision si les covariables sont prédictives des résultats potentiels.
 Jetez un œil à l'exemple suivant, qui est vaguement basé sur l'expérience de Giné et Mansuri sur le comportement électoral des femmes au Pakistan.^[Giné, Xavier et Ghazala Mansuri (2012).
 ["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)]
-Dans cette expérience, les auteurs ont randomisé une campagne d'information auprès de femmes en Pakistan pour étudier ses effets sur leur comportement de participation, l'indépendance de leur choix de candidat et leurs connaissances politiques.
+Dans cette expérience, les auteurs ont randomisé une campagne d'information auprès de femmes au Pakistan pour étudier ses effets sur leur participation, l'indépendance de leur choix de candidat et leurs connaissances politiques.
 Ils ont réalisé une enquête de base qui leur a fourni plusieurs covariables.
 
-Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent : la posséssion d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
-Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était assignée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment des opinions des hommes dans sa famille.
-Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "vrai" intégré sur la mesure d'indépendance est ici de 1.
+Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent : la possession d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
+Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était assignée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment de l'opinion des hommes de sa famille.
+Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "réel" sur la mesure d'indépendance est ici de 1.
 Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 répétitions de notre expérience.
 À chaque répétition, nous assignons le traitement de manière aléatoire, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
-Ainsi, nous simulons deux méthodes (non corrigées et corrigées par les covariables) pour estimer l'ATE.
+Ainsi, nous simulons deux méthodes (non corrigée et corrigée par les covariables) pour estimer l'ATE.
 Pour estimer le biais de chaque méthode, nous prenons la différence des moyennes pour 10 000 estimations simulées et le "vrai" effet de traitement.
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
@@ -181,7 +176,7 @@ mean(adjusted.estimates) - true.treatment.effect
 
 Les deux méthodes --- avec et sans covariables --- donnent le véritable effet de traitement de 1 en moyenne.
 Lorsque nous avons exécuté la régression sans covariables, notre ATE estimé était en moyenne de 1,0008 sur les 10 000 répétitions, et avec les covariables, il était en moyenne de 1,0003.
-Notez que l'estimation ajustée par régression est essentiellement sans biais même si notre modèle de régression est mal spécifié --- nous contrôlons l'âge de manière linéaire lorsque le véritable processus de génération de données implique le log de l'âge.^[Le biais estimé est de 0,0003 avec une marge d'erreur (au niveau de confiance de 95 %) de 0,0018.]
+Notez que l'estimation ajustée par régression est essentiellement sans biais même si notre modèle de régression est mal spécifié --- nous contrôlons l'âge de manière linéaire lorsque le véritable processus de génération de données implique le logarithme de l'âge.^[Le biais estimé est de 0,0003 avec une marge d'erreur (au niveau de confiance de 95 %) de 0,0018.]
 
 Les vrais gains viennent de la précision de nos estimations.
 L'erreur standard (l'écart type de la distribution d'échantillonnage) de notre ATE estimé lorsque nous ignorons les covariables est de 0,121.
@@ -198,7 +193,7 @@ Mais si les caractéristiques de base ne sont que faiblement corrélées avec le
 Les covariables que vous voudrez ajuster sont celles qui sont fortement corrélées aux résultats.
 
 Le graphique suivant montre la relation entre le pronostic de votre covariable et les gains que vous obtenez en l'ajustant.
-En abscisse se trouve la taille de l'échantillon, et en ordonnée se trouve la [racine de l'erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Racine_de_l%27erreur_quadratique_moyenne) (RMSE), entre l'estimateur et le vrai ATE.
+En abscisse se trouve la taille de l'échantillon, et en ordonnée se trouve la [racine de l'erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Racine_de_l%27erreur_quadratique_moyenne) (root-mean-square deviation, RMSE), entre l'estimateur et le vrai ATE.
 Nous voulons que notre RMSE soit faible, et l'ajustement des covariables devrait nous aider à le réduire.
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
@@ -246,7 +241,7 @@ lines(n, E0, col = "yellow")
 lines(n, E1, col = "orange")
 lines(n, E2, col = "red")
 legend(x = 'topright',
-       c("No controls",
+       c("Pas de contrôle",
          expression(paste(rho, "=0")), expression(paste(rho, "=0.5")),
          expression(paste(rho, "=0.9"))),
          col=c("black", "yellow","orange", "red"), lty = 1, lwd=2)
@@ -269,7 +264,7 @@ Comment savoir quelles covariables sont susceptibles d'être prédictives avant 
 6 Contrôle des covariables prédictives, qu'elles présentent ou non des déséquilibres
 ==
 
-Les covariables doivent généralement être choisies en fonction de leur capacité attendue à aider à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre le groupe de traitement et le groupe de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
+Les covariables doivent généralement être choisies en fonction de leur capacité attendue à aider à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre les groupes de traitement et de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
 Il y a deux raisons à cette recommandation :
 
 1. L'inférence fréquentiste (erreur standard, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
@@ -281,7 +276,7 @@ Les méthodes typiques d'estimation de l'erreur standard supposeront à tort que
 Pour recevoir le crédit dû pour cette amélioration de la précision, vous devez ajuster la covariable même s'il n'y a pas de déséquilibre.
 Par exemple, supposons que le sexe soit fortement corrélé avec votre résultat, mais il arrive que les groupes de traitement et de contrôle aient exactement la même composition de genre.
 Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le sexe, mais leurs erreurs standard seront différentes.
-L'erreur standard de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence traitement-contrôle non ajustée dans les résultats moyens (qui serait probablement loin du vrai ATE dans ce cas).
+L'erreur standard de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence des moyennes traitement-contrôle non ajustée (qui serait probablement loin du vrai ATE dans ce cas).
 Si vous spécifiez à l'avance que vous ajusterez pour le sexe, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur standard plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
 
 En supposant que l'assignation aléatoire a été mise en œuvre correctement, l'examen des déséquilibres devrait-il jouer un rôle _quelconque_ dans le choix des covariables à corriger ?
@@ -290,14 +285,14 @@ Voici un échantillon de points de vue :
 - Mutz, Pemantle et Pham (2016) soutiennent que, à moins qu'il n'y ait une attrition différentielle, la pratique consistant à sélectionner des covariables sur la base des déséquilibres observés est "non seulement inutile" mais "même pas utile ... et peut en fait être préjudiciable", car cela invalide les intervalles de confiance, détériore la précision (par rapport à l'ajustement prédéfini pour les covariables prédictives) et ouvre la porte à tout.^[Diana C. Mutz, Robin Pemantle et Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
 
 - Permutt (1990), en utilisant la théorie et des simulations pour étudier des scénarios spécifiques, constate que lorsqu'un test d'équilibre est utilisé pour décider s'il faut ajuster pour une covariable, le test de signification pour l'effet du traitement est conservatif (c'est-à-dire qu'il a une probabilité réelle d'erreur de type I inférieure à son niveau nominal).
-Il écrit : "une plus grande puissance statistique peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes." Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : "choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
+Il écrit : "une plus grande puissance statistique peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes". Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : "choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
 Après tout, certaines erreurs de type I peuvent être plus graves que d'autres.
 Signaler une différence significative dans les résultats qui peut être expliquée comme l'effet d'une covariable peut être une erreur plus embarrassante que de signaler une erreur qui disparaît lors de la répétition mais sans explication simple.
 Des considérations similaires peuvent s'appliquer aux erreurs de type II.
 Un résultat positif qui dépend de l'ajustement de covariable peut de toute façon être considéré comme moins convaincant qu'un test positif pour deux échantillons, de sorte que l'erreur de ne pas conclure aussi assurément peut être moins grave.
 Ces justifications, cependant, sont extérieures à la théorie formelle des tests d'hypothèses."^[Thomas Permutt (1990), "Testing for Imbalance of Covariates in Controlled Experiments," _Statistics in Medicine_ 9: 1455--1462.]
 
-- Altman (2005) écrit : "il semble de loin préférable de choisir les variables à ajuster sans tenir compte de l'ensemble de données réel à disposition". Il recommande de contrôler les covariables fortement prédictives, ainsi que celles qui ont été utilisées dans le découpage par bloc.
+- Altman (2005) écrit : "il semble de loin préférable de choisir les variables à ajuster sans tenir compte de l'ensemble de données réelles à disposition". Il recommande de contrôler les covariables fortement prédictives, ainsi que celles qui ont été utilisées dans le découpage par bloc.
 Cependant, il aborde également un dilemme : "dans la pratique, un déséquilibre peut survenir lorsque le besoin éventuel d'ajustement n'a pas été anticipé.
 Que doivent faire les chercheurs ? Ils pourraient choisir d'ignorer le déséquilibre ; comme indiqué, ce serait tout à fait approprié.
 La difficulté est alors une question de crédibilité.
@@ -312,12 +307,12 @@ Une suggestion dans de telles circonstances est d'essayer d'imiter ce qui aurait
 Une source indépendante pourrait être utilisée pour identifier ces variables.
 Alternativement, les données de l'essai pourraient être utilisées pour déterminer quelles variables sont prédictives.
 Cette stratégie pourrait également être pré-spécifiée dans le protocole de l'étude.
-Étant donné que cette analyse serait effectuée sous réserve d'un déséquilibre observé, elle n'élimine pas le biais et ne peut donc pas être considérée comme pleinement satisfaisante."^[Douglas G. Altman (2005), ["Covariate Imbalance, Adjustment for,"](http://doi.org/10.1002/0470011815.b2a01015) in _Encyclopedia of Biostatistics_.]
+Étant donné que cette analyse serait effectuée sous réserve d'un déséquilibre observé, elle n'élimine pas le biais et ne peut donc pas être considérée comme pleinement satisfaisante."^[Douglas G. Altman (2005), ["Covariate Imbalance, Adjustment for,"](http://doi.org/10.1002/0470011815.b2a01015) dans _Encyclopedia of Biostatistics_.]
 
 - Tukey (1991) note que les déséquilibres observés peuvent justifier un ajustement en tant que contrôle de robustesse : bien que "la plupart des statisticiens" accepteraient une analyse d'un essai clinique randomisé qui ne tient pas compte des covariables, "certains cliniciens, et certains statisticiens, semble-t-il, aimeraient être plus sceptiques (peut-être à titre d'analyse supplémentaire) en demandant une analyse qui tienne compte des déséquilibres observés pour ces covariables.
 Gagner plus de confiance dans les résultats d'une telle analyse est en effet approprié, car le degré de protection contre les conséquences d'une randomisation inadéquate ou la survenue (aléatoire) d'une randomisation inhabituelle est considérablement augmenté par l'ajustement.
 _Une plus grande sécurité, plutôt qu'une précision accrue ... sera souvent la raison principale de l'ajustement de la covariance dans un essai randomisé._ ...
-L'objectif principal de permettre [l'ajustement] pour les covariables dans un essai _randomisé_ est défensif : pour indiquer clairement que l'analyse a rempli ses obligations scientifiques."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italics in the original.]
+L'objectif principal de permettre [l'ajustement] pour les covariables dans un essai _randomisé_ est défensif : pour indiquer clairement que l'analyse a rempli ses obligations scientifiques."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italique dans l'original.]
 
 - Certains statisticiens soutiennent que nos inférences devraient être conditionnelles à une mesure du déséquilibre des covariables --- en d'autres termes, lors de l'évaluation du biais, de la variance et de l'erreur quadratique moyenne d'une estimation ponctuelle ou de la probabilité de couverture d'un intervalle de confiance, au lieu de considérer toutes les randomisations possibles, il peut être plus pertinent de ne considérer que les randomisations qui produiraient un déséquilibre des covariables similaire à celui que nous observons.
 De ce point de vue, les déséquilibres observés peuvent être pertinents pour le choix de l'estimateur.^[Voir, par exemple : D. R. Cox et N. Reid (2000), _The Theory of the Design of Experiments_, pp. 29--32 ; D. Holt et T. M. F. Smith (1979), "Post Stratification", _Journal of the Royal Statistical Society, Series A (General)_ 142: 33--46; Richard M. Royall (1976), "Current Advances in Sampling Theory: Implications for Human Observational Studies," _American Journal of Epidemiology_ 104: 463--474.
@@ -328,8 +323,7 @@ Pour une introduction aux désaccords philosophiques sur l'inférence statistiqu
 - Lin, Green et Coppock (2016) écrivent : "Les covariables doivent généralement être choisies sur la base de leur capacité attendue à aider à prédire les résultats, qu'elles semblent bien équilibrées ou déséquilibrées entre les bras de traitement.
 Mais il peut y avoir des occasions où la liste de covariables spécifiée dans le PAP [plan de pré-analyse] a omis une covariable potentiellement importante (en raison d'un oubli ou de la nécessité de garder la liste courte lorsque N est petit) avec un déséquilibre non négligeable.
 La protection contre les biais ex post (conditionnés au déséquilibre observé) est alors une préoccupation légitime.
-
-Cependant, ils recommandent : "si les déséquilibres observés sont autorisés à influencer le choix des covariables, les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat, la _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement", et l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".
+Cependant, ils recommandent : "si les déséquilibres observés sont autorisés à influencer le choix des covariables, les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat. La _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement". Enfin l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".
 ."^[Winston Lin, Donald P. Green et Alexander Coppock (2016), ["Standard Operating Procedures for Don Green's Lab at Columbia,"](https : //github.com/acoppock/Green-Lab-SOP) version 1.05, 7 juin. Italique dans l'original.]
 
 7 Quand ne pas le faire ?
@@ -383,7 +377,7 @@ Dans les petits échantillons, l'ajustement par régression peut produire une es
 Voir aussi les articles de blog de Winston Lin ([partie I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) et [partie II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849)) à propos de sa réponse à Freedman.]
 Certaines simulations ont suggéré que ce biais a tendance à être négligeable lorsque le nombre d'unités assignées de manière aléatoire est supérieur à vingt.[^7] Si vous travaillez avec un petit échantillon, vous pouvez utiliser une méthode d'ajustement de covariable sans biais telle que la post-stratification (diviser l'échantillon en sous-groupes sur la base des valeurs d'une ou plusieurs covariables de base, calculer la différence des moyennes traitement-contrôle pour les résultats de chaque sous-groupe, et prendre une moyenne pondérée de ces estimations d'effet du traitement spécifiques au sous-groupe, avec des poids proportionnels à la taille de l'échantillon).^[Miratrix, Sekhon et Yu (2013), cités ci-dessus.]
 
-[^7]: Green, Donald P. et Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (March 7, 2011). Article en cours : http://ssrn.com/abstract=1466886
+[^7]: Green, Donald P. et Aronow, Peter M., Analyzing Experimental Data Using Regression: When Is Bias a Practical Concern? (7 Mars 2011). Article en cours : http://ssrn.com/abstract=1466886
 
 9 Comment rendre vos décisions d'ajustement de covariable transparentes ?
 ==
@@ -394,7 +388,7 @@ Nous avons mis en évidence quelques règles empiriques ici : n'incluez que les
 Décider quelles covariables inclure, cependant, est souvent une entreprise subjective plutôt qu'objective, donc une autre règle de base est d'être totalement transparent sur vos décisions de covariables.
 Incluez toujours le modèle le plus simple --- la régression simple des résultats du traitement sans contrôle des covariables --- dans votre article ou annexe pour compléter les résultats de votre modèle, y compris les covariables.
 
-Pour minimiser la crainte de vos lecteurs que vous ayez recherché la combinaison particulière de covariables qui produit des résultats favorables à votre hypothèse, pré-spécifiez vos modèles dans un plan de pré-analyse.^[Pour plus de détails sur les plans de pré-analyse, voir, par exemple, Benjamin A. Olken (2015), ["Promises and Perils of Pre-Analysis Plans,"](http://doi.org/10.1257/jep.29.3.61) _Journal of Economic Perspectives_ 29 (3) : 61--80.] Cela vous donne l'opportunité d'expliquer, avant de voir les résultats, quelles covariables de pré-traitement seront prédictives du résultat.
+Pour minimiser la crainte de vos lecteurs qui pensent que vous avez recherché la combinaison particulière de covariables qui produit des résultats favorables à votre hypothèse, pré-spécifiez vos modèles dans un plan de pré-analyse.^[Pour plus de détails sur les plans de pré-analyse, voir, par exemple, Benjamin A. Olken (2015), ["Promises and Perils of Pre-Analysis Plans,"](http://doi.org/10.1257/jep.29.3.61) _Journal of Economic Perspectives_ 29 (3) : 61--80.] Cela vous donne l'opportunité d'expliquer, avant de voir les résultats, quelles covariables de pré-traitement seront prédictives du résultat.
 Vous pouvez même écrire ces régressions dans R en utilisant de fausses données, comme ici, de sorte que lorsque vos résultats du terrain arrivent, tout ce que vous avez à faire est d'exécuter votre code sur les données réelles.
 Ces efforts sont un moyen utile de vous lier les mains en tant que chercheur et d'améliorer votre crédibilité.
 
@@ -409,16 +403,16 @@ Dans de tels cas, on peut souhaiter étudier de plus près la procédure de rand
 
 Pour approfondir
 ==
-Athey, Susan, and Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." In _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
+Athey, Susan et Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." Dans le _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
 
-Gerber, Alan S., and Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapter 4.
+Gerber, Alan S. et Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapitre 4.
 
-Hennessy, Jonathan, Tirthankar Dasgupta, Luke Miratrix, Cassandra Pattanayak, and Pradipta Sarkar (2016). "A Conditional Randomization Test to Account for Covariate Imbalance in Randomized Experiments." _Journal of Causal Inference_ 4: 61--80.
+Hennessy, Jonathan, Tirthankar Dasgupta, Luke Miratrix, Cassandra Pattanayak et Pradipta Sarkar (2016). "A Conditional Randomization Test to Account for Covariate Imbalance in Randomized Experiments." _Journal of Causal Inference_ 4: 61--80.
 
-Judkins, David R., and Kristin E. Porter (2016). "Robustness of Ordinary Least Squares in Randomized Clinical Trials." _Statistics in Medicine_ 35: 1763--1773.
+Judkins, David R. et Kristin E. Porter (2016). "Robustness of Ordinary Least Squares in Randomized Clinical Trials." _Statistics in Medicine_ 35: 1763--1773.
 
-Lin, Winston (2012). "Regression Adjustment in Randomized Experiments: Is the Cure Really Worse than the Disease?" Development Impact blog post, [part I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) and [part II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849).
+Lin, Winston (2012). "Regression Adjustment in Randomized Experiments: Is the Cure Really Worse than the Disease?" Blog sur l'impact du développement, [partie I](https://web.archive.org/web/20151024055802/http://blogs.worldbank.org/impactevaluations/node/847) et [partie II](https://web.archive.org/web/20151024022122/http://blogs.worldbank.org/impactevaluations/node/849).
 
 Raudenbush, Stephen W. (1997). "Statistical Analysis and Optimal Design for Cluster Randomized Trials." _Psychological Methods_ 2: 173--185.
 
-Wager, Stefan, Wenfei Du, Jonathan Taylor, and Robert Tibshirani (2016). "High-Dimensional Regression Adjustments in Randomized Experiments." _Proceedings of the National Academy of Sciences_ 113: 12673--12678. [arXiv](https://arxiv.org/abs/1607.06801) [DOI](http://doi.org/10.1073/pnas.1614732113)
+Wager, Stefan, Wenfei Du, Jonathan Taylor et Robert Tibshirani (2016). "High-Dimensional Regression Adjustments in Randomized Experiments." _Proceedings of the National Academy of Sciences_ 113: 12673--12678. [arXiv](https://arxiv.org/abs/1607.06801) [DOI](http://doi.org/10.1073/pnas.1614732113)

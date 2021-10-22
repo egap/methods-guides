@@ -11,13 +11,13 @@ output:
 
 # 1. La validité des inférences que nous tirons d'une expérience dépend de la validité des mesures utilisées.
 
-Nous expérimentons généralement afin d'estimer l'effet causal d'un traitement, $Z$, sur un résultat, $Y$.
+Nous expérimentons généralement afin d'estimer l'effet causal d'un traitement $Z$ sur un résultat $Y$.
 Pourtant, la raison pour laquelle nous nous soucions d'estimer cet effet causal est, en principe, de comprendre les caractéristiques de la relation entre deux concepts théoriques non observés mesurés par les variables observées $Z$ et $Y$.
 
 À la suite d'Adcock et Collier (2001), considérons le processus de mesure représenté graphiquement dans la figure 1 en trois étapes.
 Premièrement, les chercheurs commencent par un concept systématisé, une construction théorique clairement définie.
 À partir de ce concept, le chercheur développe un indicateur matérialisant le concept sur une échelle ou un ensemble de catégories.
-Enfin, les unités ou les cas sont notés en fonction de l'indicateur, ce qui donne une mesure du traitement, $Z$ et un résultat $Y$.
+Enfin, les unités ou les cas sont notés en fonction de l'indicateur, ce qui donne une mesure du traitement $Z$ et un résultat $Y$.
 Une mesure est valide si la variation de l'indicateur se rapproche étroitement de la variation du concept d'intérêt sous-jacent.
 
 Un design de recherche expérimental devrait permettre à un chercheur d'estimer l'effet causal de $Z$ sur $Y$ sous des hypothèses standard.
@@ -29,18 +29,18 @@ df1 <- data.frame(xmin = c(0,  0, 0,  3, 3, 3),
          ymin = c(0, 1.5, 3,  0, 1.5, 3),
          xmax = c(2, 2,  2, 5,5,  5),
          ymax = c(1, 2.5, 4,  1, 2.5, 4),
-         r = c("Z", "Treatment \nOperationalization", "(Systematized) Treatment\nConcept",
-               "Y", "Outcome\nOperationalization", "(Systematized) Outcome\nConcept"),
-         hs = rep(c("Treatment", "Outcome"), each = 3))
+         r = c("Z", "Opérationalisation \ndu traitement", "Concept (systematisé)\ndu traitement",
+               "Y", "Opérationalisation \ndu résultat", "Concept (systematisé)\ndu résultat"),
+         hs = rep(c("Traitement", "Résultat"), each = 3))
 df2 <- data.frame(x = c(1, 1, 4,4, 2,2),
          xend = c(1, 1, 4, 4, 3, 3),
          y = c(3, 1.5, 3, 1.5, .5, 3.5),
          yend = c(2.5, 1, 2.5, 1, .5, 3.5),
-         lty = c("Measurement", "Measurement", "Measurement", "Measurement", "t", "t"))
+         lty = c("Mesure", "Mesure", "Mesure", "Mesure", "t", "t"))
 
 text <- data.frame(x = c(2.5, 2.5),
                    y = c(.6, 3.75),
-                   text = c("Estimate", "Ultimate\nInference"))
+                   text = c("Estime", "Inférence\nultime"))
 ggplot() +
   scale_x_continuous(name="x") + 
   scale_y_continuous(name="y") +
@@ -64,19 +64,19 @@ ggplot() +
 
 # 2. La mesure est le lien entre l'argument substantif et/ou théorique d'un chercheur et un design de recherche (expérimental).
 
-Lorsque nous considérons le design d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement assigné de manière aléatoire, $Z$ est assigné et la distribution conjointe de $Z$ et d'un résultat, $Y$.
+Lorsque nous considérons le design d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement $Z$ est assigné de manière aléatoire et la distribution conjointe de $Z$ et du résultat $Y$.
 En d'autres termes, nous avons tendance à séparer les scores de $Z$ et $Y$ des concepts plus larges lorsque nous considérons les propriétés statistiques d'un design de recherche.
 Dans ce récit, deux expériences complètement séparées avec la même distribution de $Z$ et $Y$ pourraient avoir des propriétés identiques.
 
-Par exemple, un essai clinique sur l'efficacité de l'aspirine sur les maux de tête et une expérience qui fournit des informations sur le niveau de corruption d'un politicien sortant et demande ensuite à la personne interrogée si elle votera pour le candidat sortant *pourrait* avoir des échantillons, des assignations, des estimandes et réalisations des résultats (données).
-Pourtant, caractériser comme "équivalents" ces deux projets de recherche complètement distincts qui cherchent à faire des inférences complètement distinctes peut nous sembler assez étrange ou même troublante.
+Par exemple, un essai clinique sur l'efficacité de l'aspirine sur les maux de tête et une expérience qui fournit des informations sur le niveau de corruption d'un politicien sortant et demande ensuite à la personne interrogée si elle votera pour le candidat sortant *pourrait* avoir des échantillons de mêmes taille et distribution, des assignations, estimandes et réalisations des résultats (données) identiques.
+Pourtant, caractériser comme "équivalents" ces deux projets de recherche complètement distincts qui cherchent à faire des inférences complètement distinctes peut nous sembler assez étrange ou même troublant.
 
 Cependant, lorsque nous considérons la mesure comme une composante fondamentale du design de recherche, ces expériences sont clairement distinctes.
 Nous observons des mesures de différents concepts dans les données des deux expériences.
 En considérant les indicateurs et les concepts plus larges qui sous-tendent les traitements et les résultats, nous sommes obligés d'examiner les théories ou arguments respectifs des chercheurs.
 Ce faisant, nous pouvons soulever des questions sur la validité des mesures et la relation entre la validité des mesures et la validité des inférences finales et substantielles.
 
-# 3. La mesure des traitements comprend l'opérationnalisation du traitement ainsi que le respect de l'assignation du traitement.
+# 3. La mesure des traitements comprend l'opérationnalisation du traitement ainsi que le respect de l'assignation au traitement.
 
 Dans une expérience, les traitements sont généralement conçus ou, au minimum, décrits par le chercheur.
 Les consommateurs de recherche expérimentale devraient s'intéresser aux caractéristiques du traitement et à la façon dont il manipule un concept d'intérêt.
@@ -88,7 +88,7 @@ Pour comprendre dans quelle mesure le traitement manipule un concept, nous devon
 Cependant, malgré tous les efforts pour opérationnaliser un traitement, dans la recherche expérimentale, le lien entre l'opérationnalisation et l'indicateur de traitement est fondamentalement distinct de la mesure des covariables ou des résultats pour deux raisons.
 Premièrement, en assignant un traitement, les expérimentateurs visent à contrôler les valeurs que prend une unité donnée.
 Deuxièmement, pour l'indicateur de traitement, le score provient de l'assignation de traitement, qui est un produit de la randomisation.
-Un sujet peut ou non avoir reçu le traitement, mais son score sur l'indicateur de traitement est simplement le traitement auquel elle a été assignée, et non le traitement qu'elle a reçu.
+Un sujet peut ou non avoir reçu le traitement, mais son score sur l'indicateur de traitement est simplement le traitement auquel il a été assigné, et non le traitement qu'il a reçu.
 
 Lorsque les sujets reçoivent des traitements autres que ceux auxquels ils sont assignés, nous cherchons généralement à mesurer la conformité --- si les traitements ont été délivrés et dans quelle mesure.
 Pour ce faire, nous définissons ce qui constitue le respect de l'assignation de traitement.
@@ -100,9 +100,9 @@ Les ménages sont assignés à recevoir une visite d'un solliciteur qui partage 
 L'indicateur de traitement est simplement de savoir si un ménage a été assigné au traitement ou non.
 Cependant, si les résidents d'un ménage ne sont pas à la maison lors de la visite du solliciteur, ils ne reçoivent pas l'information.
 Notre définition de la conformité devrait déterminer ce qui constitue un "traité" sur notre mesure (endogène) : "savoir si un ménage a reçu le traitement", ici l'information.
-Certaines définitions courantes de la conformité peuvent être (a) qu'un membre du ménage a ouvert la porte ; ou (b) que quelqu'un du ménage a écouté le script d'information complet.
+Certaines définitions courantes de la conformité peuvent être (a) qu'un membre du ménage a ouvert la porte ; ou (b) qu'un membre du ménage a écouté le script d'information complet.
 
-#4. La plupart des résultats d'intérêt en sciences sociales sont latents.
+# 4. La plupart des résultats d'intérêt en sciences sociales sont latents.
 
 Contrairement à la mesure des indicateurs de traitement et de conformité, la mesure des résultats dans la recherche expérimentale suit de beaucoup plus près le processus décrit dans la figure ci-dessus.
 Nous théorisons comment le traitement peut influencer un concept de résultat.
@@ -111,8 +111,8 @@ Nous opérationnalisons ensuite le concept et enregistrons des scores ou des val
 Un défi particulier dans la mesure des résultats est que bon nombre des résultats d'intérêt les plus courants en sciences sociales sont latents.
 Cela signifie que nous ne pouvons pas observer directement la vraie valeur du concept de résultat.
 En fait, la nature de la vraie valeur peut elle-même être débattue (par exemple, le débat sur la mesure de la "démocratie" est un cas classique où la définition du concept lui-même est contestée).
-Les résultats, y compris les connaissances, les préférences et les attitudes, sont latents.
-Nous enregistrons ou notons ainsi des indicateurs observables supposés être liés au résultat latent dans un effort pour déduire les caractéristiques de la variable latente.
+Les résultats, y compris les connaissances, les préférences ou les attitudes, sont latents.
+Nous enregistrons ou notons ainsi des indicateurs observables supposés être liés au résultat latent en vue de déduire les caractéristiques de la variable latente.
 Même les résultats comportementaux sont souvent utilisés comme des manifestations de concepts latents plus larges (i.e. le comportement électoral estimé est utilisé pour faire des déductions sur la "responsabilité électorale" à un endroit).
 
 Étant donné que ces variables sont latentes, il est difficile de concevoir des indicateurs appropriés.
@@ -124,23 +124,23 @@ Le reste de ce guide se concentre sur ce dernier problème.
 # 5. Il existe deux types d'erreurs de mesure que nous devrions considérer.
 
 On peut formaliser assez simplement les enjeux de mesure.
-Supposons qu'un traitement, $Z_i$ soit supposé changer les préférences pour les normes démocratiques, $\nu_i$.
+Supposons qu'un traitement $Z_i$ soit supposé changer les préférences pour les normes démocratiques $\nu_i$.
 En principe, la quantité que nous aimerions estimer est $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$, l'ATE sur les préférences pour les normes démocratiques.
 Cependant, $\nu_i$ est une variable latente : on ne peut pas la mesurer directement.
 Au lieu de cela, nous demandons si les unités soutiennent divers comportements pensés pour correspondre à ces normes.
 Cet indicateur, $Y_i$, peut être décomposé en la variable latente, $\nu_i$ et deux formes d'erreur de mesure :
 
-- *Erreur de mesure non systématique*, $\delta_i$ : Cette erreur est indépendante de l'assignation du traitement, $\delta_i \perp Z_i$.
-- *Erreur de mesure systématique*, $\kappa_i$ : Cette erreur n'est pas indépendante de l'assignation du traitement, $\kappa_i \not\perp Z_i$.
+- *Erreur de mesure non systématique*, $\delta_i$ : Cette erreur est indépendante de l'assignation au traitement, $\delta_i \perp Z_i$.
+- *Erreur de mesure systématique*, $\kappa_i$ : Cette erreur n'est pas indépendante de l'assignation au traitement, $\kappa_i \not\perp Z_i$.
 
-$$Y_i = \underbrace{\nu_i}_{\text{Latent outcome}} + \underbrace{\delta_i}_{\substack{\text{Non-systematic} \\ \text{measurement error}}} + \underbrace{\kappa_i}_{\substack{\text{Systematic} \\ \text{measurement error}}}$$
+$$Y_i = \underbrace{\nu_i}_{\text{Résultat latent}} + \underbrace{\delta_i}_{\substack{\text{Erreur de mesure} \\ \text{non-systématique}}} + \underbrace{\kappa_i}_{\substack{\text{Erreur de mesure} \\ \text{systématique}}}$$
 
 # 6. L'erreur de mesure réduit la puissance statistique de votre expérience.
 
 L'erreur de mesure non systématique, représentée par $\delta_i$ ci-dessus, fait référence au bruit avec lequel nous mesurons la variable latente.
 En l'absence d'erreur de mesure systématique, on mesure :
 
-$$Y_i = \underbrace{\nu_i}_{\text{Latent outcome}} + \underbrace{\delta_i}_{\substack{\text{Non-systematic} \\ \text{measurement error}}}$$
+$$Y_i = \underbrace{\nu_i}_{\text{Résultat latent}} + \underbrace{\delta_i}_{\substack{\text{Erreur de mesure} \\ \text{non-systématique}}}$$
 
 Maintenant, considérons la [formule de puissance analytique](https://egap.org/resource/10-things-to-know-about-statistical-power) pour une expérience à deux bras.
 Nous pouvons exprimer $\sigma$, ou l'écart type du résultat sous la forme $\sqrt{Var(Y_i)}$.
@@ -153,18 +153,17 @@ En quoi l'erreur de mesure non systématique $\delta_i$ impacte-t-elle la puissa
 
 $$\sqrt{Var(Y_i)} = \sqrt{Var(\nu_i) + Var(\delta_i) + 2 Cov(\nu_i, \delta_i)}$$
 
-Tant que $Cov(\nu_i, \delta_i)\geq 0$ (nous supposons souvent que $Cov(\nu_i, \delta_i)= 0$), il doit être vrai que $Var(Y_i)$ augmente comme erreur de mesure, ou $Var(\delta_i)$ augmente.
+Tant que $Cov(\nu_i, \delta_i)\geq 0$ (nous supposons souvent que $Cov(\nu_i, \delta_i)= 0$), $Var(Y_i)$ augmente quand l'erreur de mesure $Var(\delta_i)$ augmente.
 Cela implique que la puissance diminue à mesure que l'erreur de mesure non systématique augmente.
 En d'autres termes, plus nos mesures d'une variable latente sont bruyantes, plus notre capacité à détecter l'effet du traitement sur une variable latente est faible.
 
-Qu'en est-il du cas où $Cov(\nu_i, \delta_i) < 0$ ? Bien que cela réduise $Var(Y_i)$ (en maintenant $Var(\nu_i)$ et $Var(\delta_i)$ constants), cela atténue également la variation que nous mesurons dans $Y_i$.
-En principe, cela devrait atténuer le numérateur $|\mu_t-\mu_c|$, qui réduira également la puissance, si cela est suffisant par rapport à la réduction de la variance.
+Qu'en est-il du cas où $Cov(\nu_i, \delta_i) < 0$ ? Bien que cela réduise $Var(Y_i)$ (en maintenant $Var(\nu_i)$ et $Var(\delta_i)$ constants), cela atténue également la variation que nous mesurons dans $Y_i$. En principe, cela devrait atténuer le numérateur $|\mu_t-\mu_c|$, qui réduira également la puissance, si cela suffit par rapport à la réduction de la variance.
 
 # 7. L'erreur de mesure systématique biaise les estimations de l'effet causal d'intérêt.
 
 Si nous estimons l'effet de traitement moyen (ATE) de notre traitement $Z_i$, sur les préférences pour les normes démocratiques, $\nu_i$, nous essayons de calculer $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$.
-Cependant, en présence d'une erreur de mesure **systématique**, où l'erreur de mesure est liée à l'assignation du traitement lui-même (disons, le résultat est mesuré différemment dans les groupe de traitement et de contrôle), un estimateur de la différence des moyennes sur le résultat observé, $Y_i$, renvoie une estimation biaisée de l'ATE.
-L'effet du traitement comprend désormais la différence de mesure ainsi que la différence entre les groupe de traitement et de contrôle :
+Cependant, en présence d'une erreur de mesure **systématique**, où l'erreur de mesure est liée à l'assignation du traitement lui-même (disons, le résultat est mesuré différemment dans les groupes de traitement et de contrôle), un estimateur de la différence des moyennes sur le résultat observé, $Y_i$, renvoie une estimation biaisée de l'ATE.
+L'effet du traitement comprend désormais la différence de mesure ainsi que la différence entre les groupes de traitement et de contrôle :
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] =  E[\nu_i + \delta_i + \kappa_i |Z_i = 1] − E[\nu_i + \delta_i + \kappa_i|Z_i =0]$$
 
@@ -172,13 +171,13 @@ En raison de l'erreur de mesure non systématique, $\delta_i$ est indépendant d
 En simplifiant et en réarrangeant, on peut écrire :
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] = \underbrace{E[\nu_i|Z_i = 1] − E[\nu_i|Z_i =0]}_{ATE} +
-\underbrace{E[\kappa_i|Z_i = 1] - E[\kappa_i|Z_i =0]}_{\text{Bias}}$$
+\underbrace{E[\kappa_i|Z_i = 1] - E[\kappa_i|Z_i =0]}_{\text{Biais}}$$
 
 Il existe diverses sources d'erreur de mesure non systématique dans les expériences.
 [L'effet de demande](https://en.wikipedia.org/wiki/Demand_characteristics) et [l'effet Hawthorne](https://fr.wikipedia.org/wiki/Effet_Hawthorne) peuvent être sources d'erreur de mesure systématique.
 De plus, les designs qui mesurent les résultats de manière asymétrique dans les groupes de traitement et de contrôle peuvent être sujets à une erreur de mesure systématique.
-Dans tous les cas, il existe une asymétrie entre les conditions de traitement dans : (a) la manière dont les sujets réagissent à l'observation ; ou (b) la façon dont nous observons les résultats qui sont distincts de tout effet du traitement sur la variable latente d'intérêt.
-L'estimation biaisée de l'ATE devient net de tout effet sur les variables latentes (l'ATE) et l'erreur de mesure non systématique.
+Dans tous les cas, il existe une asymétrie entre les conditions de traitement dans (a) la manière dont les sujets réagissent à l'observation ; ou (b) la façon dont nous observons les résultats qui sont distincts de tout effet du traitement sur la variable latente d'intérêt.
+L'estimation biaisée de l'ATE devient le net de tout effet sur les variables latentes (l'ATE) et l'erreur de mesure non systématique.
 
 # 8. Tirez parti de plusieurs indicateurs pour évaluer la validité d'une mesure, mais soyez conscient des limites de ces tests.
 
@@ -188,7 +187,7 @@ Si elles sont codées dans le même sens, nous nous attendons à ce que la corr�
 Une limitation des tests de validité convergents est que si deux mesures sont faiblement corrélées, en l'absence d'informations supplémentaires, nous ne savons pas si une mesure est valide (et laquelle) ou si les deux mesures sont invalides.
 
 La collecte de plusieurs indicateurs peut également permettre aux chercheurs d'évaluer la *validité prédictive* d'une mesure.
-Dans quelle mesure une mesure d'un concept latent prédit-elle un comportement que l'on pense être façonné par le concept ?
+Dans quelle mesure la mesure d'un concept latent prédit-elle un comportement que l'on pense être façonné par le concept ?
 Par exemple, l'idéologie politique (la variable latente) prédit-elle le choix de vote déclaré pour les partis de gauche ?
 Cela fournit un moyen supplémentaire de valider une mesure.
 Ici, plus la capacité d'un indicateur à prédire le comportement (ou d'autres résultats) est élevée, plus la validité prédictive de l'indicateur est forte.
@@ -217,7 +216,7 @@ Ci-dessous, nous examinons un simple indice de cote $z$ pour deux mesures bruit�
 Nous supposons que les variables latentes et les deux indicateurs "Mesure 1" et "Mesure 2" sont tirés d'une distribution normale multivariée et sont positivement corrélés avec la variable latente et entre eux.
 Pour les besoins de la simulation, nous supposons que nous connaissons la variable latente, bien qu'en pratique cela ne soit pas possible.
 Premièrement, nous pouvons montrer qu'à travers de nombreuses simulations des données, la corrélation entre l'indice de cote $z$ des deux mesures et la variable latente est, en moyenne, plus élevée que la corrélation entre l'un ou l'autre des indicateurs et la variable latente.
-Lors de la représentation graphique de la corrélation des mesures individuelles et de la variable latente par rapport à (sur l'axe des $x$) la corrélation de l'indice et de la variable latente (sur l'axe des $y$), presque tous les points sont au-dessus de la ligne à 45 degrés.
+Lors de la représentation graphique de la corrélation entre mesure seule et variable latente (sur l'axe des $x$) par rapport à la corrélation entre indice et variable latente (sur l'axe des $y$), presque tous les points sont au-dessus de la ligne à 45 degrés.
 Cela montre que l'indice se rapproche de la variable latente avec une plus grande précision.
 
 ```{r, warning = F, message = F, echo = T}
@@ -318,14 +317,14 @@ Cela évite également les questions ex post sur le choix des indicateurs pour u
 
 # 10. Alors que les concepts peuvent être globaux, de nombreux indicateurs sont spécifiques au contexte.
 
-De nombreuses études en sciences sociales se concentrent sur des concepts qui sont généralement supposés être latents, notamment les préférences, les connaissances et les attitudes.
+De nombreuses études en sciences sociales se concentrent sur des concepts qui sont généralement supposés être latents, notamment les préférences, les connaissances ou les attitudes.
 Dans la mesure où nous travaillons sur des concepts communs, il existe une tendance à s'inspirer des opérationnalisations existantes à partir d'études sur des concepts connexes dans des contextes différents.
 Dans des études menées dans de multiples contextes, comme dans [l'initiative Metaketa de EGAP](http://egap.org/metaketa), les chercheurs visent à étudier la même relation causale dans plusieurs contextes nationaux.
 Mais le désir d'étudier des concepts communs n'implique pas nécessairement que les mêmes indicateurs doivent être utilisés dans tous les contextes.
 
 Par exemple, considérons un ensemble d'études qui cherchent à mesurer la variation du concept de connaissance ou de sophistication politique.
-Les connaissances politiques peuvent être évaluées par des questions qui demandent aux sujets de se rappeler un fait sur la politique.
-Une question peut demander aux sujets de se rappeler le nom de l'exécutif actuel (président/premier ministre, etc.), en notant les réponses comme "correctes" ou "incorrectes".
+Les connaissances politiques peuvent être évaluées par des questions qui demandent aux sujets de se rappeler d'un fait politique.
+Une question peut demander aux sujets de se rappeler le nom de l'exécutif actuel (président, premier ministre, etc.), en notant les réponses comme "correctes" ou "incorrectes".
 Dans le pays $A$, 50% des personnes interrogées répondent correctement à la question.
 Dans le pays $B$, 100 % des personnes interrogées répondent correctement à la question.
 Dans le pays $B$, nous ne pouvons identifier aucune variation dans l'indicateur car tout le monde pouvait répondre à la question.

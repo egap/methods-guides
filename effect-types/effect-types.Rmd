@@ -18,7 +18,7 @@ Pourtant, ce n'est pas la seule manière efficace de faire face à ce problème.
 En fait, il existe de nombreux types différents de quantités d'intérêt causal.
 L'objectif de ce guide est de vous aider à choisir des estimandes (i.e. des paramètres d'intérêt) et des estimateurs (procédures pour calculer des estimations de ces paramètres) qui sont appropriés et significatifs pour vos données.
 
-[^1]: Voir Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
+[^1]: Voir Holland (1986), Angrist et Pischke, Angrist, Joshua et Jörn-Steffen Pischke (2008). Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
 
 1 Effet moyen du traitement
 ==
@@ -33,7 +33,7 @@ Puisque nous ne pouvons observer que $Y_{i}(1)$ ou $Y_{i}(0)$, l'effet du traite
 Soit $D_{i}$ un indicateur pour savoir si nous observons une observation sous traitement ou sous contrôle.
 Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, non seulement des résultats potentiels mais aussi de toutes les covariables (observées et non observées) qui pourraient également prédire ces résultats $((Y_{i}(1),Y_{i }(0),X_{i}⊥⊥D_{i}))$.[^2]
 
-[^2]: Voir Holland and Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
+[^2]: Voir Holland et Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
 Supposons que notre design implique $m$ unités sous traitement et $N−m$ sous contrôle.
 Supposons que nous devions réassigner à plusieurs reprises le traitement de manière aléatoire et à chaque fois calculer la différence des moyennes entre les groupes traités et témoins, puis enregistrer cette valeur dans une liste.
@@ -45,7 +45,7 @@ $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑
 
 Et nous estimons souvent l'ATE en utilisant la différence observée des moyennes:[^4]
 
-[^4]: Les estimations sont souvent écrites avec un chapeau ( $\widehat{ATE}$ ) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
+[^4]: Les estimations sont souvent écrites avec un chapeau ($\widehat{ATE}$) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
 Sauf indication contraire, dans ce guide, nous nous concentrons sur la génération d'estimations d'échantillons et omettons par la suite cette notation explicite par souci de concision.
 Voir Gerber et Green (2012) pour une introduction concise à cette distinction et Imbens et Wooldridge (2007) pour un traitement approfondi de ces concepts.
 
@@ -60,7 +60,7 @@ et estimer cette quantité à partir des estimations de l'échantillon de la var
 
 [^5]: La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation prudente (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
 Étant donné que nous sommes généralement soucieux de minimiser le taux d'erreur de type I (rejetant à tort l'hypothèse nulle vraie), nous préférons utiliser des estimations prudentes de la variance.
-Voir aussi Dunning (2010) et Gerber et Green (2012) pour la justification de l'estimateur de variance prudent.
+Voir aussi Dunning (2010) et Gerber & Green (2012) pour la justification de l'estimateur de variance prudent.
 
 Un modèle linéaire de régression du résultat observé $Y_{i}$ sur un indicateur de traitement $D_{i}$ fournit un estimateur pratique de l'ATE (et avec quelques ajustements supplémentaires, de la variance de l'ATE) :
 
@@ -301,7 +301,7 @@ La qualité (non biaisée) de ces estimations est intrinsèquement liée à la q
 La pondération inverse du score de propension et d'autres procédures produisent un équilibre entre les groupes de traitement et de contrôle sur les covariables observées.
 Mais à moins d'avoir le "vrai modèle" (et nous ne connaissons presque jamais le vrai modèle), le potentiel biais des covariables non observées demeure et devrait nous conduire à interpréter notre ATT ou ATC estimé à la lumière de la qualité du modèle qui l'a produit.
 
-[^16]: Rosenbaum and Rubin (1983)
+[^16]: Rosenbaum et Rubin (1983)
 
 ```{r}
 set.seed(1234) # pour la reproductibilité
@@ -330,7 +330,7 @@ ATT.ipw<-coef(lm(Y~D,data=samp,weights=W.att))[2]
 ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 ```
 
-7 effet moyen du traitement par quantile
+7 Effet moyen du traitement par quantile
 ==
 L'ATE se concentre sur le milieu, en quelque sorte sur l'effet pour une personne typique, mais nous nous soucions souvent aussi des conséquences distributives de notre traitement.
 Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la répartition des revenus dans l'étude plus ou moins égale.
@@ -344,7 +344,7 @@ Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric 
 [^17]: Abadie, Angrist et Imbens (2002)
 
 [^18]: Chernozhukov et Hansen (2005). C'est-à-dire que le traitement peut avoir des effets hétérogènes, mais l'ordre des résultats potentiels est préservé.
-Voir Angrist, Joshua, et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+Voir Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
 Si ces hypothèses sont justifiées pour nos données, nous pouvons obtenir des estimations cohérentes de l'effet du traitement par quantile (QTE) en utilisant la régression par quantile.[^19]
 Tout comme la régression linéaire estime l'ATE comme une différence des moyennes (ou, lorsque des covariables sont utilisées dans le modèle, à partir d'une moyenne conditionnelle),
@@ -404,7 +404,7 @@ Ces limites ne sont toutefois valables que si nous pensons qu'il n'y a pas de fa
 L'analyse de sensibilité est toujours possible, mais plus compliquée dans de tels contextes (Imai et Yamamoto 2013).
 
 [^21]: Voir par exemple Imai, Keele et Yamamoto (2010), Imai et al. (2011), Imai, Tingley et Yamamoto (2013), ou Imai et Yamamoto (2013).
-Aussi voir la discussion de Imai, Tingley et Yamamoto (2013) pour différentes perspectives quand aborder une affirmation sur la médiation avec une analyse de sensibilité ou une analyse des bornes de la sensibilité.
+Aussi voir la discussion de Imai, Tingley et Yamamoto (2013) pour différentes perspectives quand aborder une affirmation sur la médiation avec une analyse de sensibilité ou une analyse des bornes de sensibilité.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
 

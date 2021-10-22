@@ -149,11 +149,11 @@ Une analyse de puissance qui examine la puissance pour différentes tailles d'é
 
 En utilisant la formule de la section 4, vous pouvez voir à quel point la puissance est sensible à toutes les hypothèses : la puissance sera plus élevée si vous supposez que l'effet du traitement sera plus important, ou si vous êtes prêt à accepter un niveau alpha plus élevé, ou si vous avez plus ou moins confiance dans le bruit de vos mesures.[^3]
 
-[^3]: pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist] de Kristoffer Magnusson (http://rpsychologist.com/d3/NHST/){target="_blank"}.
+[^3]: Pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist](http://rpsychologist.com/d3/NHST/){target="_blank"} de Kristoffer Magnusson.
 
 <iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850"></iframe>
 
-6 Comment utiliser la simulation pour estimer la puissance
+6 Comment utiliser la simulation pour estimer la puissance ?
 ==
 La puissance est une mesure de la fréquence à laquelle, compte tenu des hypothèses, nous obtiendrions des résultats statistiquement significatifs si nous devions mener notre expérience des milliers de fois.
 La formule de calcul de puissance se base sur des hypothèses et renvoie une solution analytique.
@@ -192,10 +192,6 @@ for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisis la jième valeur
 powers 
 ```
 
-The code for this simulation and others is available [here](https://egap.org/resource/script-power-analysis-simulations-in-r/){target="_blank"}.
-Simulation is a far more flexible, and far more intuitive way to think about power analysis.
-Even the smallest tweaks to an experimental design are difficult to capture in a formula (adding a second treatment group, for example), but are relatively straightforward to include in a simulation.
-
 Le code de cette simulation est disponible [ici](https://egap.org/resource/script-power-analysis-simulations-in-r/){target="_blank"}.
 La simulation est un moyen beaucoup plus flexible et beaucoup plus intuitif de penser à l'analyse de puissance.
 Même les plus petits ajustements d'un design expérimental sont difficiles à capturer dans une formule (ajout d'un deuxième groupe de traitement, par exemple), mais sont relativement simples à inclure dans une simulation.
@@ -205,7 +201,7 @@ Le graphique ci-dessous montre que sous ces hypothèses, vous pouvez vous attend
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/power/simulatedpvals.png)
 
-7 Comment changer votre design pour améliorer votre puissance
+7 Comment changer votre design pour améliorer votre puissance ?
 ==
 En ce qui concerne la puissance statistique, la seule chose que vous contrôlez est le design de l'expérience.
 Comme nous l'avons vu ci-dessus, un choix de design évident est le nombre de sujets à inclure dans l'expérience.
@@ -280,7 +276,7 @@ Ou vous pouvez utiliser la simulation.
 Un exemple de calcul de puissance fait dans R est disponible sur la page des simulations.
 
 
-9 Comment penser à la puissance pour les designs par grappe (cluster)
+9 Comment penser la puissance pour les designs par grappe (cluster) ?
 ==
 
 Lorsqu'une expérience doit assigner des groupes entiers de personnes à un traitement plutôt qu'individuellement, nous avons une expérience par grappe.
