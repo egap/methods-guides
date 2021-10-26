@@ -532,7 +532,8 @@ pMean2
 pMeanRank2
 ## using a development version of the RItools package 
 library(devtools)
-dev_mode()
+dir.create(here("hypothesistesting/R-dev"))
+dev_mode(on=TRUE,path=here("hypothesistesting/R-dev"))
 install_github("markmfredrickson/RItools@randomization-distribution")
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
