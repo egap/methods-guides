@@ -1,6 +1,14 @@
 ---
 bibliography: ../../Research-Group-Bibliography/big.bib
 output: 
+  bookdown::pdf_document2:
+    number_sections: true
+    toc: true
+    extensions: +implicit_figure
+    fig_caption: true
+    pandoc_args: [
+           --filter, pandoc-crossref
+           ]
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -10,7 +18,7 @@ output:
     fig_caption: true
     pandoc_args: [
            --filter, pandoc-crossref
-        ]
+           ]
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
