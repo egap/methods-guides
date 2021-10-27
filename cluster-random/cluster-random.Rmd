@@ -34,7 +34,7 @@ Bien qu'il contienne la même procédure de randomisation que notre premier exem
 
 Le découpage par grappe est important pour deux raisons principales.
 D'une part, le découpage par grappe réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
-Si ce fait n'est pas pris en compte, nous sous-estimons souvent la variance de notre estimateur, ce qui conduit à une confiance excessive dans nos résultats de l'étude.
+Si ce fait n'est pas pris en compte, nous sous-estimons souvent la variance de notre estimateur, ce qui conduit à une confiance excessive dans les résultats de notre étude.
 D'autre part, le découpage par grappe soulève la question de savoir comment combiner les informations provenant de différentes parties de la même expérience en une seule quantité.
 Surtout lorsque les grappes ne sont pas de tailles égales et que les résultats potentiels des unités qu'elles contiennent sont très différents, les estimateurs conventionnels produiront systématiquement une mauvaise réponse en raison des biais.
 Cependant, plusieurs approches lors des phases de design et d'analyse permettent de surmonter les défis posés par les designs randomisés par grappe.
@@ -42,7 +42,7 @@ Cependant, plusieurs approches lors des phases de design et d'analyse permettent
 #2 Pourquoi le découpage par grappe peut être important I : réduction de l'information
 
 Nous pensons généralement à l'information contenue dans les études en termes de taille d'échantillon et de caractéristiques des unités au sein de l'échantillon.
-Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'informations très différentes selon que les unités sont groupées par grappe ou non.
+Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'information très différentes selon que les unités sont groupées par grappe ou non.
 Cela affectera grandement la précision des inférences que nous faisons sur la base de ces études.
 
 Imaginez une évaluation d'impact avec 10 personnes, où 5 sont assignées au groupe de traitement et 5 au contrôle.
@@ -168,7 +168,7 @@ Kish (1965) utilise cette description de dépendance pour définir son idée du 
 
 $$\text{N effectif}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
-où le deuxième terme suit si toutes les grappes ont la même taille ($n_1 \ldots n_J \equiv n$).
+où le deuxième terme est valide si toutes les grappes ont la même taille ($n_1 \ldots n_J \equiv n$).
 
 Si 200 observations provenaient de 10 grappes avec 20 individus dans chaque grappe, où ICC = 0,5, de sorte que 50 % de la variation pourrait être attribuée aux différences inter-grappe (et non aux différences intra-grappe), la formule de Kish suggère que nous avons une taille d'échantillon effective d'environ 19 observations, au lieu de 200.
 
@@ -270,8 +270,6 @@ Nous pouvons comparer la véritable erreur type à deux autres types d'erreur ty
 La première ignore le découpage par grappe et suppose que la distribution d'échantillonnage est distribuée de manière identique et indépendante selon une distribution normale.
 Nous appellerons cela l'erreur type IID.
 Pour prendre en compte le découpage par grappe, nous pouvons utiliser la formule suivante pour l'erreur type :
-
-TODO
 
 $$ \text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
@@ -657,7 +655,7 @@ lorsque $n_{1k}=n_{2k}$ pour tous les $k$, le terme de biais est réduit à 0.
 Deuxièmement, les tailles d'effet pondérées d'au moins une paire de grappes doivent être inégales :
 quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2k}}(Y_{i2k}(1)-Y_{i2k}(0))/n_{2k}$ pour tous les $k$, le biais est également réduit à 0.
 
-#5 Que faire à propos des différentes tailles de grappe
+#5 Que faire à propos des différentes tailles de grappe ?
 
 Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
 il suffit de mettre les grappes en paires qui sont soit de taille égale, soit ont des résultats potentiels presque identiques.
@@ -763,7 +761,7 @@ Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par pa
 
 Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
 Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est assignée au statut de traitement $z_i \in \{1,0\}$,
-nous pouvons définir cette quantité -- l'ATE (Average Treatment Effect) --
+nous pouvons définir cette quantité -- l'effet moyen du traitement (average treatment effect, ATE) --
 comme valeur attendue de la différence entre l'échantillon lorsqu'il est assigné au traitement, $Y_1$ et l'échantillon lorsqu'il est assigné au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
 
 Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur de la même grappe.
@@ -944,7 +942,7 @@ De tels modèles fonctionnent donc souvent bien dans des situations où il y a t
 grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
 Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.
 
-Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence de moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux dans notre configuration d'essai randomisé par grappe très simplifiée.
+Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence de moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d'essai randomisé par grappe très simplifié.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1031,13 +1029,12 @@ VC <- as.data.frame(lme4:::VarCorr.merMod(multilevel))
 round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
 ```
 
-TODO
 Afin d'évaluer les performances de cette approche basée sur un modèle, par opposition aux approches par agrégat de grappe ou avec une erreur type RCSE décrites ci-dessus,
-nous pouvons vérifier à quelle fréquence les différentes approches rejettent à tort l'hypothèse nulle stricte d'absence d'effet pour une unité, lorsque nous savons que cette hypothèse nulle est vraie.
+nous pouvons vérifier à quelle fréquence les différentes approches rejettent à tort l'hypothèse nulle stricte d'absence d'effet pour une unité, lorsque nous savons que l'hypothèse nulle d'absence d'effet est vraie.
 
 Pour ce faire, nous écrivons une fonction qui rompt d'abord la relation entre l'assignation du traitement et le résultat en mélangeant aléatoirement l'assignation,
 puis qui teste si 0 se trouve dans l'intervalle de confiance à 95 % pour chacune des trois approches, comme il se doit.
-TODO Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.
+Rappelez-vous que les tests valides auraient des taux d'erreur dans les 2 erreurs type de simulation de 0,95 - cela signifierait qu'une hypothèse nulle correcte serait rejetée pas plus de 5 % du temps. (TODO Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.)
 
 <style>
 div.hidecode + pre {display: none}
@@ -1146,8 +1143,8 @@ Les designs avec peu de grappes doivent envisager soit l'approche au niveau de l
 #9 Analyse de puissance statistiques pour les designs par grappe
 
 Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
-Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'informations en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
-Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cette appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
+Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'information en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
+Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cet appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
 
 Voici la règle la plus importante concernant la puissance statistique des designs par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
 Ceci peut être démontré par des expériences simulées.
@@ -1181,11 +1178,10 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                              return_cov = TRUE),
              df = linear_fit$df.residual)["Z",]
 
-  # Zéro ne devrait pas être trop souvent dans ce CI car l'hypothèse nulle de 0 est fausse ici TODO
+  # Zéro ne devrait pas être trop souvent dans cet intervalle de confiance car l'hypothèse nulle d'absence d'effet est fausse ici
   correct_reject <- !((0 >= RCSE_CI[1]) & (0 <= RCSE_CI[2]))
 
-  # Test null of true taus (first attempt is use true, second is to make 0 true)
-  # Reassign village level treatment so that Y is indep of Z --- so true effect is 0
+  # Réassigner le traitement au niveau du village de sorte que Y soit indépendant de Z --- donc le vrai effet est 0
 
   data$Z_new <- ifelse(data$j %in% sample(1:J, max(J)/2), 1, 0)
 
@@ -1197,7 +1193,7 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                                              return_cov = TRUE),
                              df = linear_fit$df.residual)["Z_new",]
 
-  # Zero should be in this CI very often as the null of 0 is true here
+  # Zéro devrait être dans cet intervalle de confiance très souvent car l'hypothèse nulle d'absence d'effet est vraie ici
   false_positive <-  !((0 >= RCSE_CI_true[1]) & (0 <= RCSE_CI_true[2]))
 
   return(c(
