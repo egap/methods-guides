@@ -46,10 +46,10 @@ Lorsque les variables utilisées pour les blocs aident à prédire les résultat
 Pour plus d'informations sur le découpage par bloc et comment l'implémenter dans R, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization).
 Les gains de précision du découpage par bloc (par rapport à l'ajustement de covariable sans bloc) ont tendance à être plus importants lorsque la taille des échantillons est petite.^[Miratrix, Luke W., Jasjeet S. Sekhon et Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
 
-Lorsque le découpage par bloc est effectué pour améliorer la précision, l'erreur standard estimée doit tenir compte du découpage.
-(Sinon, l'erreur standard aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage.)
+Lorsque le découpage par bloc est effectué pour améliorer la précision, l'erreur type estimée doit tenir compte du découpage.
+(Sinon, l'erreur type aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage.)
 Une méthode simple et couramment utilisée consiste à régresser le résultat sur la variable muette d'assignation du traitement ainsi que sur les variables muettes de bloc.
-Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l'autre, l'inclusion des variables muettes de bloc dans la régression ne modifie pas l'effet du traitement estimé, mais tend à donner une estimation plus précise de l'erreur standard.^[Voir, e.g., pages 217--219 de Miriam Bruhn et David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
+Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l'autre, l'inclusion des variables muettes de bloc dans la régression ne modifie pas l'effet du traitement estimé, mais tend à donner une estimation plus précise de l'erreur type.^[Voir, e.g., pages 217--219 de Miriam Bruhn et David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
 
 Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous devez alors contrôler ces probabilités inégales afin d'obtenir des estimations non biaisées de l'effet moyen du traitement. [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) l'aborde de manière pratique.
 
@@ -179,8 +179,8 @@ Lorsque nous avons exécuté la régression sans covariables, notre ATE estimé 
 Notez que l'estimation ajustée par régression est essentiellement sans biais même si notre modèle de régression est mal spécifié --- nous contrôlons l'âge de manière linéaire lorsque le véritable processus de génération de données implique le logarithme de l'âge.^[Le biais estimé est de 0,0003 avec une marge d'erreur (au niveau de confiance de 95 %) de 0,0018.]
 
 Les vrais gains viennent de la précision de nos estimations.
-L'erreur standard (l'écart type de la distribution d'échantillonnage) de notre ATE estimé lorsque nous ignorons les covariables est de 0,121.
-Lorsque nous incluons des covariables dans le modèle, notre estimation devient un peu plus stricte : l'erreur standard est de 0,093.
+L'erreur type (l'écart type de la distribution d'échantillonnage) de notre ATE estimé lorsque nous ignorons les covariables est de 0,121.
+Lorsque nous incluons des covariables dans le modèle, notre estimation devient un peu plus stricte : l'erreur type est de 0,093.
 Parce que nos covariables étaient prédictives de nos résultats, les inclure dans la régression a expliqué une partie du bruit présent dans nos données afin que nous puissions resserrer notre estimation de l'ATE.
 
 5 Quand cela sera-t-il utile ?
@@ -267,17 +267,17 @@ Comment savoir quelles covariables sont susceptibles d'être prédictives avant 
 Les covariables doivent généralement être choisies en fonction de leur capacité attendue à aider à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre les groupes de traitement et de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
 Il y a deux raisons à cette recommandation :
 
-1. L'inférence fréquentiste (erreur standard, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
+1. L'inférence fréquentiste (erreur type, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
 Choisir des covariables sur la base des déséquilibres observés rend plus difficile l'obtention d'inférences qui reflètent votre stratégie réelle.
 Par exemple, supposons que vous choisissiez de ne pas contrôler le genre parce que les groupes de traitement et de contrôle ont une composition similaire pour le genre, mais vous _auriez_ contrôlé le genre s'il y avait eu un déséquilibre notable.
-Les méthodes typiques d'estimation de l'erreur standard supposeront à tort que vous ne contrôlerez jamais le sexe, quel que soit le déséquilibre que vous constatez.
+Les méthodes typiques d'estimation de l'erreur type supposeront à tort que vous ne contrôlerez jamais le sexe, quel que soit le déséquilibre que vous constatez.
 
 2. L'ajustement pour une covariable fortement prédictive a tendance à améliorer la précision, comme nous l'avons expliqué ci-dessus.
 Pour recevoir le crédit dû pour cette amélioration de la précision, vous devez ajuster la covariable même s'il n'y a pas de déséquilibre.
 Par exemple, supposons que le sexe soit fortement corrélé avec votre résultat, mais il arrive que les groupes de traitement et de contrôle aient exactement la même composition de genre.
-Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le sexe, mais leurs erreurs standard seront différentes.
-L'erreur standard de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence des moyennes traitement-contrôle non ajustée (qui serait probablement loin du vrai ATE dans ce cas).
-Si vous spécifiez à l'avance que vous ajusterez pour le sexe, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur standard plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
+Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le sexe, mais leurs erreurs types seront différentes.
+L'erreur type de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence des moyennes traitement-contrôle non ajustée (qui serait probablement loin du vrai ATE dans ce cas).
+Si vous spécifiez à l'avance que vous ajusterez pour le sexe, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur type plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
 
 En supposant que l'assignation aléatoire a été mise en œuvre correctement, l'examen des déséquilibres devrait-il jouer un rôle _quelconque_ dans le choix des covariables à corriger ?
 Voici un échantillon de points de vue :

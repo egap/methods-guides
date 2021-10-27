@@ -163,7 +163,7 @@ Il est possible de randomiser par bloc et par grappe simultanément.
 Dans notre exemple, vous pouvez calculer la note moyenne au test pour chaque classe et effectuer une randomisation par bloc en fonction de la note moyenne de la classe.
 
 Le graphique suivant montre à quoi pourraient ressembler vos données dans les cas de randomisation par bloc, par grappe et par bloc + grappe, par rapport à un cas simple de randomisation sans bloc ni grappe.
-Dans les deux cas où le clustering se produit, vous pouvez dire que l'assignation du traitement (représentée par la couleur) apparaît en petits groupes.
+Dans les deux cas où le découpage par grappe se produit, vous pouvez dire que l'assignation du traitement (représentée par la couleur) apparaît en petits groupes.
 Dans les deux cas où le découpage par bloc se produit, il y a une répartition uniforme des couleurs dans les quatre quadrants du tracé, les blocs de cette assignation aléatoire.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)

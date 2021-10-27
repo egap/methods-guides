@@ -71,7 +71,7 @@ Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et a
 Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observées.
 Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
 Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
-Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur standard de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
+Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur type de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
 Enfin, nous démontrons également l'absence de biais de ces estimateurs par simulation.
 
 [^6]: Lin (2013)
@@ -87,8 +87,8 @@ samp = data.frame(D,Y)
 
 ATE = coef(lm(Y~D,data=samp))[2] #idem avec (samp,mean(Y[Z==1])-mean(Y[Z==0]))
 
-# SATE avec Neyman ou avec une erreur standard justifiée par randomisation
-# qui sont les mêmes que les erreurs standard MCO en l'absence de covariables ou de découpage par bloc
+# SATE avec Neyman ou avec une erreur type justifiée par randomisation
+# qui sont les mêmes que les erreurs types MCO en l'absence de covariables ou de découpage par bloc
 library(lmtest) 
 library(sandwich) 
 fit<-lm(Y~D,data=samp) 
@@ -97,7 +97,7 @@ coef(summary(fit))["D",1:2]
 ATE.se<-coeftest(fit,vcovHC(fit,type="HC2"))["D",2] 
 # idem avec (samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D)))
 
-# Évaluer le biais et simuler l'erreur standard
+# Évaluer le biais et simuler l'erreur type
 getATE<-function() {
   D = sample((1:N)%%2) # Traitement: 1 si traité, 0 sinon
   Y = D*Y1 + (1-D)*Y0 
@@ -109,7 +109,7 @@ manyATEs<-replicate(10000,getATE())
 ## Évaluer le biais:
 c(ATE=mean(Y1)-mean(Y0), ExpEstATE=mean(manyATEs)) 
 
-## Erreur standard
+## Erreur type
 ### en utilisant la formule classique
 V<-var(cbind(Y0,Y1)) 
 varc<-V[1,1] 
@@ -119,7 +119,7 @@ n<-sum(D)
 m<-N-n 
 varestATE<-((N-n)/(N-1))*(vart/n) + ((N-m)/(N-1))* (varc/m) + (2/(N-1)) * covtc 
 
-### Comparer les erreurs standard
+### Comparer les erreurs types
 c(SimulatedSE= sd(manyATEs), TrueSE=sqrt(varestATE), ConservativeSE=ATE.se) 
 ```
 
@@ -133,7 +133,7 @@ L'assignation aléatoire garantit que le traitement est indépendant des résult
 Parfois, cependant, nous avons des informations supplémentaires sur les unités expérimentales telles qu'elles existaient avant que l'expérience ne soit menée, disons $X_{i}$, et ces informations peuvent nous aider à comprendre comment les effets du traitement varient entre les sous-groupes.
 Par exemple, nous pouvons suspecter que les hommes et les femmes réagissent différemment au traitement, et nous pouvons tester cette hétérogénéité en estimant l'ATE conditionnel pour chaque sous-groupe séparément $CATE=E(Y_{i}(1)−Y_{i}(0 )∣D_{i},X_{i})$.
 Si notre covariable est continue, nous pouvons tester ses effets modérateurs en faisant varier la variable continue avec le traitement.
-Notez, cependant, que l'effet du traitement est désormais conditionné à la fois au statut du traitement et à la valeur de la variable de conditionnement pour laquelle l'effet est évalué, nous devons donc ajuster notre interprétation et l'erreur standard en conséquence.[^7]
+Notez, cependant, que l'effet du traitement est désormais conditionné à la fois au statut du traitement et à la valeur de la variable de conditionnement pour laquelle l'effet est évalué, nous devons donc ajuster notre interprétation et l'erreur type en conséquence.[^7]
 
 [^7]: Brambor, Clark et Golder (2006)
 
@@ -193,10 +193,10 @@ Les expériences avec non-conformité sont composées de "toujours preneurs" ($D
 $$CACE= \frac{Effet de Z sur Y}{Effet de Z sur D}=\frac{E(Y_i|Z_i=1)-E(Y_i|Z_i=0)}{E(D_i|Z_i=1)-E(D_i|Z_i=0)}$$
 
 L'estimateur ci-dessus met en évidence le fait que l'ITT et le CACE convergent à mesure que nous approchons d'une conformité totale.
-Calculer l'erreur standard pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
-Cette approche simplifie l'estimation de l'erreur standard et permet l'inclusion de covariables en tant qu'instruments supplémentaires.
+Calculer l'erreur type pour les ratios est quelque peu fastidieux et nous estimons donc généralement un CACE en utilisant une régression des moindres carrés en deux étapes avec assignation aléatoire, $Z_i$, servant d'instrument pour la réception du traitement $D_i$ dans la première étape du modèle.
+Cette approche simplifie l'estimation de l'erreur type et permet l'inclusion de covariables en tant qu'instruments supplémentaires.
 Dans le code ci-dessous, nous présentons les deux stratégies pour les données présentant une non-conformité bilatérale.
-Notez, cependant, que lorsque les instruments ne sont pas puissants (par exemple, l'assignation aléatoire n'a eu qu'un faible effet sur la réception du traitement), les estimateurs des variables instrumentales et leurs erreurs standard peuvent être biaisés et incohérents.[^10]
+Notez, cependant, que lorsque les instruments ne sont pas puissants (par exemple, l'assignation aléatoire n'a eu qu'un faible effet sur la réception du traitement), les estimateurs des variables instrumentales et leurs erreurs types peuvent être biaisés et incohérents.[^10]
 
 [^10]: Angrist, Joshua et Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
 

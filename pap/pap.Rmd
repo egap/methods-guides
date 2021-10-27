@@ -179,8 +179,8 @@ Les critères d'inférence sont des règles de décision pour déterminer la dé
 L'établissement de critères d'inférence nécessite de faire plusieurs choix pour croire que l'effet estimé est "statistiquement significativement différent" de l'hypothèse nulle.
 Nous vous recommandons de préciser et de justifier clairement les réponses aux questions suivantes :
 
-1. Quel type d'erreur standard utiliserez-vous ? Pourquoi utilisez-vous ce type d'erreur standard ?^[Par exemple, vous pouvez calculer les erreurs standard et les $p$-valeurs en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) basée sur la permutation.
-Ou vous pouvez approcher précisement les erreurs standard et les $p$-valeurs en utilisant des méthodes analytiques [@samii2012]]
+1. Quel type d'erreur type utiliserez-vous ? Pourquoi utilisez-vous ce type d'erreur type ?^[Par exemple, vous pouvez calculer les erreurs types et les $p$-valeurs en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) basée sur la permutation.
+Ou vous pouvez approcher précisement les erreurs types et les $p$-valeurs en utilisant des méthodes analytiques [@samii2012]]
 2. Prévoyez-vous de faire un test unilatéral ou bilatéral ?
 3. À quel niveau $\alpha$ rejetterez-vous l'hypothèse nulle d'une $p$-valeur ?
 4. Avez-vous plusieurs hypothèses ? Si oui, quelle procédure utiliserez-vous pour ajuster les [comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) ?
@@ -192,12 +192,12 @@ Si vous choisissez d'utiliser plusieurs procédures, vous devez spécifier comme
 
 <p class="comment">
 **Exemple :**<br><br>
-Nous utilisons les erreurs standard HC2 avec notre expérience randomisée par bloc car elle équivaut à l'estimateur de variance Neyman basé sur la randomisation [@samii2012].
+Nous utilisons les erreurs types HC2 avec notre expérience randomisée par bloc car elle équivaut à l'estimateur de variance Neyman basé sur la randomisation [@samii2012].
 Nous nous attendons à ce que le groupe de traitement paie plus de taxes municipales que le groupe de contrôle, et nous utilisons donc un test unilatéral où $H_1 > H_0$.
 Nous définissons $\alpha = 0,05$ et rejetons l'hypothèse nulle lorsque la $p$-valeur est inférieure à 0,05.
 Comme nous n'avons qu'une seule hypothèse confirmatoire, nous n'ajustons pas pour des comparaisons multiples.
 <br><br>
-Pour vérifier les erreurs standard HC2, nous calculons également les $p$-valeurs directement en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference), avec la différence des moyennes comme statistique de test.
+Pour vérifier les erreurs types HC2, nous calculons également les $p$-valeurs directement en utilisant [l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference), avec la différence des moyennes comme statistique de test.
 </p>
 
 7 Qu'y a-t-il dans un PAP? Procédures pour les problèmes de données

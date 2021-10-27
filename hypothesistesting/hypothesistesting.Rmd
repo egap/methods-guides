@@ -244,7 +244,7 @@ observedMeanRankTZ <- meanrankTZ(ys=Y,z=Z)
 
 La première statistique de test est la différence des moyennes (`meanTZ`) et renvoie une valeur observée de `r observedMeanTZ`.
 La seconde statistique de test est la différence des moyennes selon le rang (`meanrankTZ`), qui renvoie une valeur de `r signif(observedMeanRankTZ,2)`.
-On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur standard estimée (voir @chung2013exact pour un argument en faveur de cette statistique de test).
+On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur type estimée (voir @chung2013exact pour un argument en faveur de cette statistique de test).
 Pour tester l'hypothèse nulle stricte d'absence d'effet, on peut choisir presque n'importe quelle statistique de test de telle sorte que les valeurs de cette fonction augmentent à mesure que la différence entre les résultats traités et les résultats de contrôle augmente (voir @rosenbaum:2002, chapitre 2, pour une discussion sur statistiques de test à "effet croissant").
 
 Le test de l'hypothèse nulle faible d'absence d'effet utilise la différence des moyennes (peut-être standardisée ou de Student) comme statistique de test.
