@@ -219,7 +219,7 @@ observedMeanRankTZ <- meanrankTZ(ys=Y,z=Z)
 ```
 
 La primera estadística de prueba es la diferencia de medias (`meanTZ`) y devuelve un valor observado de `r observedMeanTZ ` y el el segundo es la diferencia media de los resultados transformados por rangos (`meanrankTZ`), que devuelve un valor de `r signif(observedMeanRankTZ , 2)`. También se podrían utilizar versiones de estas estadísticas de prueba estandarizadas de acuerdo con el error estándar estimado (consulte @chung2013exact para leer más acerca de las ventajas de esta prueba
-estadística). Para probar la hipótesis nula tajante de que no hay efectos, se puede elegir casi cualquier estadística de prueba de modo que los valores de esa función aumenten a medida que aumenta la diferencia entre los resultados tratados y los controles (ver @rosenbaum: 2002, Capítulo 2, para una discusión de las estadísticas de prueba de "efecto aumentado" ).
+estadística). Para probar la hipótesis nula tajante de que no hay efectos, se puede elegir casi cualquier estadística de prueba de modo que los valores de esa función aumenten a medida que aumenta la diferencia entre los resultados tratados y los controles (ver @rosenbaum2002, Capítulo 2, para una discusión de las estadísticas de prueba de "efecto aumentado" ).
 
 La prueba de hipótesis nula débil de que no hay ningún efecto utiliza la diferencia de medias (quizás estandarizadas o "_studentizadas_") como estadística de prueba.
 
