@@ -1,14 +1,6 @@
 ---
-bibliography: ../../Research-Group-Bibliography/big.bib
+bibliography: hypothesistesting_esp_biber.bib
 output: 
-  bookdown::pdf_document2:
-    number_sections: true
-    toc: true
-    extensions: +implicit_figure
-    fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-           ]
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -16,9 +8,15 @@ output:
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-           ]
+  bookdown::pdf_document2:
+    number_sections: true
+    toc: true
+    extensions: +implicit_figure
+    fig_caption: true
+    keep_tex: true
+    citation_package: biblatex
+    biblio-style: authoryear-comp
+    biblatexoptions: [backend=biber, maxbibnames=999]
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
@@ -143,14 +141,14 @@ Debido a que la mayoría de las discusiones actuales sobre los efectos causales 
 
 Ya sea que se formule una hipótesis sobre los efectos a nivel de unidad directamente o sobre promedios de estos, todavía debemos afrontar el problema de distinguir la señal del ruido. Una hipótesis solo se refiere a posibles resultados. Además, asumiendo que no hay interacción entre las unidades, imaginamos dos resultados potenciales por persona, pero solo observamos uno por persona. **¿Cómo podemos usar lo que observamos para aprender acerca de modelos teóricos de cantidades parcialmente observadas?** En este experimento simple, sabemos que observamos uno de los dos resultados potenciales por persona, según el tratamiento que se le haya asignado. Así que podemos vincular los resultados contrafactuales no observados con un resultado observado ($Y_i$) usando la asignación de tratamiento ($Z_i$) así:
 
-$$Y_i = Z_i y_ {i, 1} + (1 - Z_i) y_ {i, 0}$$ {#eq:identity}
+$$Y_i = Z_i y_ {i, 1} + (1 - Z_i) y_ {i, 0}$$
 
 
-@eq:indentity dice que nuestro resultado observado, $Y_i$ (en este caso, la cantidad de impuestos pagados por la persona $i$), es $ y_{i, 1}$ cuando la persona es asignada al grupo de tratamiento ($Z_i = 1$) y $y_ {i, 0}$ cuando la persona está asignada al grupo de control.
+La ecuación arriba dice que nuestro resultado observado, $Y_i$ (en este caso, la cantidad de impuestos pagados por la persona $i$), es $ y_{i, 1}$ cuando la persona es asignada al grupo de tratamiento ($Z_i = 1$) y $y_ {i, 0}$ cuando la persona está asignada al grupo de control.
 
 **¿Cuánta información contiene nuestro diseño de investigación y conjunto de datos sobre la hipótesis?** Imagine, por ahora, la hipótesis de que el tratamiento incrementa en 5 unidades el pago de impuesto para cada persona de manera que $H_0: y_{i, 1} = y_{i, 0} + \tau_i$ donde $\tau_i = 5$ para todo $i$.
 
-Consideremos este modelo por el bien de la argumentación. ¿Qué implicaría esta hipótesis en lo que observamos? La ecuación @eq:identity  conecta lo observado con lo no observado entonces, este modelo o hipótesis implicaría que:
+Consideremos este modelo por el bien de la argumentación. ¿Qué implicaría esta hipótesis en lo que observamos? La ecuación arriba  conecta lo observado con lo no observado entonces, este modelo o hipótesis implicaría que:
 
 $$\begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 & = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
