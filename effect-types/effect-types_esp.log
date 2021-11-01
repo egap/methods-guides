@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  28 OCT 2021 08:18
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019) (preloaded format=pdflatex 2019.5.8)  1 NOV 2021 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -490,67 +490,6 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \fb@frh=\dimen126
 \FrameRule=\dimen127
 \FrameSep=\dimen128
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/longtable.sty
-Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)+ FMi change
-\LTleft=\skip49
-\LTright=\skip50
-\LTpre=\skip51
-\LTpost=\skip52
-\LTchunksize=\count120
-\LTcapwidth=\dimen129
-\LT@head=\box30
-\LT@firsthead=\box31
-\LT@foot=\box32
-\LT@lastfoot=\box33
-\LT@cols=\count121
-\LT@rows=\count122
-\c@LT@tables=\count123
-\c@LT@chunks=\count124
-\LT@p@ftn=\toks24
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/booktabs/booktabs.sty
-Package: booktabs 2016/04/27 v1.618033 publication quality tables
-\heavyrulewidth=\dimen130
-\lightrulewidth=\dimen131
-\cmidrulewidth=\dimen132
-\belowrulesep=\dimen133
-\belowbottomsep=\dimen134
-\aboverulesep=\dimen135
-\abovetopsep=\dimen136
-\cmidrulesep=\dimen137
-\cmidrulekern=\dimen138
-\defaultaddspace=\dimen139
-\@cmidla=\count125
-\@cmidlb=\count126
-\@aboverulesep=\dimen140
-\@belowrulesep=\dimen141
-\@thisruleclass=\count127
-\@lastruleclass=\count128
-\@thisrulewidth=\dimen142
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/array.sty
-Package: array 2018/12/30 v2.4k Tabular extension package (FMi)
-\col@sep=\dimen143
-\ar@mcellbox=\box34
-\extrarowheight=\dimen144
-\NC@list=\toks25
-\extratabsurround=\skip53
-\backup@length=\skip54
-\ar@cellbox=\box35
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count129
-\calc@Bcount=\count130
-\calc@Adimen=\dimen145
-\calc@Bdimen=\dimen146
-\calc@Askip=\skip55
-\calc@Bskip=\skip56
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count131
-\calc@Cskip=\skip57
-) (/usr/local/texlive/2019/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
-Package: footnotehyper 2018/01/23 v1.1 hyperref aware footnote.sty (JFB)
-\FNH@notes=\box36
-\FNH@width=\dimen147
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
 (/usr/local/texlive/2019/texmf-dist/tex/latex/graphics/graphics.sty
@@ -562,40 +501,40 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
 )
-\Gin@req@height=\dimen148
-\Gin@req@width=\dimen149
+\Gin@req@height=\dimen129
+\Gin@req@width=\dimen130
 )
 No file effect-types_esp.aux.
 \openout1 = `effect-types_esp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 117.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 117.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 107.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 107.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 117.
-LaTeX Font Info:    ... okay on input line 117.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 117.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 107.
+LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 107.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 117.
+LaTeX Info: Redefining \microtypecontext on input line 107.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -610,17 +549,17 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 ) (/usr/local/texlive/2019/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count132
-\scratchdimen=\dimen150
-\scratchbox=\box37
-\nofMPsegments=\count133
-\nofMParguments=\count134
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count135
-\MPscratchDim=\dimen151
-\MPnumerator=\count136
-\makeMPintoPDFobject=\count137
-\everyMPtoPDFconversion=\toks27
+\scratchcounter=\count120
+\scratchdimen=\dimen131
+\scratchbox=\box30
+\nofMPsegments=\count121
+\nofMParguments=\count122
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count123
+\MPscratchDim=\dimen132
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
+\everyMPtoPDFconversion=\toks25
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 (/usr/local/texlive/2019/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -636,18 +575,18 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\AtBeginShipoutBox=\box38
-Package hyperref Info: Link coloring OFF on input line 117.
+\AtBeginShipoutBox=\box31
+Package hyperref Info: Link coloring OFF on input line 107.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/local/texlive/2019/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count138
+\c@section@level=\count126
 )
-LaTeX Info: Redefining \ref on input line 117.
-LaTeX Info: Redefining \pageref on input line 117.
-LaTeX Info: Redefining \nameref on input line 117.
+LaTeX Info: Redefining \ref on input line 107.
+LaTeX Info: Redefining \pageref on input line 107.
+LaTeX Info: Redefining \nameref on input line 107.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -682,68 +621,74 @@ LaTeX Info: Redefining \nameref on input line 117.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
+
+Package hyperref Warning: old toc file detected, not used; run LaTeX again.
+
 \tf@toc=\write4
 \openout4 = `effect-types_esp.toc'.
 
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 126.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 116.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 126.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 116.
 
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 126
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 116
 .
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 126
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 116
 .
 (/usr/local/texlive/2019/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 126.
+(Font)              <10> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 126.
+(Font)              <7> on input line 116.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 126.
-LaTeX Font Info:    Try loading font information for U+msa on input line 126.
+(Font)              <5> on input line 116.
+LaTeX Font Info:    Try loading font information for U+msa on input line 116.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 126.
+LaTeX Font Info:    Try loading font information for U+msb on input line 116.
 (/usr/local/texlive/2019/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2019/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 128.
+(Font)              <8> on input line 118.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 128.
+(Font)              <6> on input line 118.
+[1
 
-! Package inputenc Error: Unicode character τ (U+03C4)
+{/usr/local/texlive/2019/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+! Package inputenc Error: Unicode character ∣ (U+2223)
 (inputenc)                not set up for use with LaTeX.
 
 See the inputenc package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.158 \[τ
-          _{i}=Y_{i}(1)−Y_{i}(0)\] Dado que solo podemos observar \$Y\_ \{i\}
- 
+l.212 ...bservaciones de control \((Y_ {i} (0) ∣
+                                                  D_ {i} = 0)\) 
 Here is how much of TeX's memory you used:
- 13642 strings out of 492616
- 198671 string characters out of 6129482
- 312646 words of memory out of 5000000
- 17343 multiletter control sequences out of 15000+600000
- 43464 words of font info for 57 fonts, out of 8000000 for 9000
+ 13359 strings out of 492616
+ 194609 string characters out of 6129482
+ 312428 words of memory out of 5000000
+ 17038 multiletter control sequences out of 15000+600000
+ 44545 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,8n,38p,815b,332s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,8n,38p,815b,344s stack positions out of 5000i,500n,10000p,200000b,80000s
+
 !  ==> Fatal error occurred, no output PDF file produced!

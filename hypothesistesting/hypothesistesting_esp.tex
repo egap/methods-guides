@@ -1,0 +1,680 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{biblatex}
+\addbibresource{hypothesistesting.bib}
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+
+\hypertarget{las-pruebas-de-hipuxf3tesis-resumen-la-informaciuxf3n-de-los-diseuxf1os-de-investigaciuxf3n-para-pensar-en-tuxe9rminos-de-los-efectos-del-tratamiento}{%
+\section{Las pruebas de hipótesis resumen la información de los diseños de investigación para pensar en términos de los efectos del tratamiento}\label{las-pruebas-de-hipuxf3tesis-resumen-la-informaciuxf3n-de-los-diseuxf1os-de-investigaciuxf3n-para-pensar-en-tuxe9rminos-de-los-efectos-del-tratamiento}}
+
+Cuando los investigadores reportan que ``el efecto promedio estimado del tratamiento es de 5 (\(p = .02\)), están usando una abreviatura para decir''estimado lector, en caso de que nos pregunte si podemos distinguir la señal del ruido en este
+experimento usando promedios, la respuesta es: sí podemos''. Los resultados experimentales \textbf{no son consistentes} con la idea de que el tratamiento no tiene ningún efecto''. Se realizan pruebas de hipótesis tanto en estudios observacionales como en estudios de experimentos aleatorizados. Esta guía se centra en el uso de pruebas de hipótesis para experimentos aleatorios o diseños de investigación que utilizan los datos de tal manera que parezcan ``casi aleatorios'' (como diseños de regresión discontinua, otros diseños naturales o diseños cuasiexperimentales).
+
+El valor \(p\) resume la capacidad de una prueba dada para
+distinguir la señal del ruido. Como vimos en \href{https://egap.org/resource/10-things-to-know-about-statistical-power}{10 cosas que debes saber sobre el poder estadístico}, que un experimento pueda detectar un efecto de tratamiento no depende
+sólo del tamaño del grupo experimental, sino también de la distribución de la variable de resultado\footnote{Los resultados con valores atípicos grandes añaden ruido, los resultados que son en su mayoría 0 tienen
+  poca señal. Los bloques, pre-estratificación o ajuste de covarianza pueden
+  reducir el ruido.}, la distribución del tratamiento y la efectividad
+de la propia intervención. Cuando un investigador calcula un valor de \(p\) como
+resultado de una prueba de hipótesis, está resumiendo todos estos aspectos de un
+diseño de investigación en lo que respecta a una afirmación en particular, por lo general una afirmación de que el tratamiento no tuvo ningún efecto causal.
+
+El resto de esta guía explica las piezas de una prueba de hipótesis parte por parte: La hipótesis nula (la afirmación de que el tratamiento no tuvo efecto causal), la estadística de prueba que resume los datos observados (por ejemplo, una diferencia de medias), la creación de una distribución de probabilidad que permite el cálculo de un valor \(p\). También analiza la idea de rechazar (pero no aceptar) una hipótesis y busca responder la pregunta de qué constituye una buena prueba de hipótesis (pista: una prueba de hipótesis ideal debería arrojar dudas sobre la verdad rara vez y distinguir incluso las señales débiles del ruido). Consulte también \href{https://egap.org/resource/10-things-to-know-about-randomization-inference}{10 cosas que debe saber sobre la inferencia de aleatorización} para obtener más información sobre estos conceptos.
+
+\hypertarget{en-un-experimento-una-hipuxf3tesis-es-una-afirmaciuxf3n-sobre-relaciones-causales-no-observadas}{%
+\section{En un experimento, una hipótesis es una afirmación sobre relaciones causales no observadas}\label{en-un-experimento-una-hipuxf3tesis-es-una-afirmaciuxf3n-sobre-relaciones-causales-no-observadas}}
+
+Hacemos experimentos para hacer comparaciones causales interpretables
+\autocite{kinder1993behalf}, y a menudo estimamos los efectos causales promedio. ¿En qué se relacionan las pruebas de hipótesis y la inferencia causal? En esta sección explicaremos la distinción entre evaluar afirmaciones sobre efectos causales y hacer mejores estimaciones sobre los efectos causales.
+
+\hypertarget{una-descripciuxf3n-general-ruxe1pida-del-problema-fundamental-de-la-inferencia-causal-y-una-introducciuxf3n-a-la-notaciuxf3n}{%
+\subsection{Una descripción general rápida del problema fundamental de la inferencia causal y una introducción a la notación}\label{una-descripciuxf3n-general-ruxe1pida-del-problema-fundamental-de-la-inferencia-causal-y-una-introducciuxf3n-a-la-notaciuxf3n}}
+
+En \href{https://egap.org/resource/10-things-to-know-about-causal-inference}{diez cosas que hay que saber sobre la inferencia causal} vimos que la conceptualización contrafactual de la causalidad utiliza la idea de resultados potenciales para \textbf{definir} la causa y formalizar lo que \textbf{queremos decir} cuando decimos ``X causa Y'' o ``fumar causa cáncer'' o ``la información aumenta el pago de impuestos''. Aunque hay otras formas de pensar la causalidad
+(\textcite{brady2008causation}), la idea contrafactual sugiere que imaginamos que
+cada persona, \(i\), pagaría sus impuestos, \(y_{i}\), si se le diera
+información sobre el uso que se les da a esos impuestos. Escribimos \(Z_i = 1\) para decir que estamos dando esta información a la persona \(i\) y \(Z_i = 0\) si no le estamos dando la información. Utilizamos \(y_{i, Z_i = 1}\) para indicar la cantidad de impuestos pagados por alguien que recibió la información y \(y_{i, Z_i = 0}\) para referirnos a la cantidad de impuestos pagada por alguien a quien no se le brindó ninguna información en particular. En un experimento real, podríamos \href{http://egap.org/metaketa/metaketa-ii-taxation}{aleatorizar la provisión de información a los ciudadanos} para que algunas personas obtengan la información y otras
+no. Observamos los impuestos que pagan las personas en ambas condiciones pero, para una persona en particular solo podemos observar los impuestos que paga en una de las dos
+condiciones. ¿Qué \textbf{queremos decir} por ``efecto causal''? A menudo significa que el resultado en una condición (\(y_ {i, Z_i = 1}\), o simplemente \(y_ {i, 1}\)) y el resultado en la otra condición (\(y_ {i, Z_i = 0}\) o \(y_ {i, 0}\)) \emph{difieren} para una persona determinada, lo cual expresaríamos como \(y_{i, Z_i = 1} \ne y_{i, Z_i = 0}\).
+
+No podemos observar \(y_{i, 1}\) y \(y_{i, 0}\) al mismo tiempo para cada una de las personas. Si brindamos información sobre impuestos a una persona vamos a poder observar \(y_{i, 1}\), pero no \(y_{i, 0}\). Entonces, no podemos usar la observación directa para aprender sobre este efecto causal contrafactual y solo podemos \textbf{inferirlo}
+\textcite{holland1986statistics} llama a esta incapacidad de usar la observación directa para
+aprender acerca de la causalidad contrafactual el ``problema fundamental de la inferencia causal''.
+
+\hypertarget{una-descripciuxf3n-general-de-los-enfoques-basados-en-estimaciones-para-la-inferencia-causal-en-experimentos-aleatorios.}{%
+\subsection{Una descripción general de los enfoques basados en estimaciones para la inferencia causal en experimentos aleatorios.}\label{una-descripciuxf3n-general-de-los-enfoques-basados-en-estimaciones-para-la-inferencia-causal-en-experimentos-aleatorios.}}
+
+Hay tres formas principales en las que la estadística ha abordado este problema. Es decir, cuando se nos pregunta: ``¿mejora la información el pago de impuestos?'', tendemos a decir: ``No podemos responder directamente a esa pregunta. Sin embargo, podemos responder una pregunta relacionada''. En \href{https://egap.org/resource/10-types-treatment-effect-you-should-know-about}{Diez tipos de efectos del tratamiento que debe conocer} presentamos una perspectiva que acreditamos a Jerzy Neyman en la que un investigador puede \textbf{estimar los efectos causales promedio} en un experimento incluso si los efectos causales individuales no son observables. El trabajo de Judea Pearl sobre la estimación de la probabilidad condicional de una variable de resultado basado en un modelo causal de esa variable es similar a esta idea pero centrándose en las probabilidades condicionales de los \(y_ {i}\). Es decir, esos dos enfoques responden a la pregunta causal fundamental cambiando la forma de acercase de la pregunta a través de los promedios o de las probabilidades condicionales. Un enfoque relacionado es el de Don Rubin, el cual comienza \textbf{prediciendo} los resultados potenciales a nivel individual utilizando información de antecedentes y un modelo de probabilidad de \(Z_i\) (por ejemplo, \(Z \sim \text{Bernoulli} (\pi)\)) y un modelo de probabilidad de los dos resultados potenciales, por ejemplo,
+\((y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\boldsymbol{\beta}\mathbf{X}, \boldsymbol{\Sigma})\) con un vector de coeficientes \(\boldsymbol{\beta}\), una matriz de covariables \(\mathbf{X}\) de tamaño \(n \times p\) (que contiene tanto la asignación de tratamiento como otras variables y una matriz de varianza-covarianza, \(\Sigma\), de tamaño \(p \times p\) que describe cómo todas las columnas en \(\mathbf{X}\) se relacionan entre sí).
+
+El segundo enfoque comienza con modelos de probabilidad que relacionan el tratamiento, otras covariables y la variable de resultado entre sí, y
+los combina usando la regla de Bayes para producir distribuciones posteriores de cantidades como los efectos del tratamiento a nivel individual o el efecto promedio del tratamiento (ver \autocite{imbens2007causal} para más información sobre lo que ellos llaman el enfoque bayesiano predictivo de la inferencia causal. El enfoque predictivo cambia la pregunta fundamental de una sobre promedios a otra que se centra en las diferencias en las predicciones de los resultados potenciales para cada persona (aunque la mayoría de estas diferencias de predicciones individuales se resumen utilizando características de las distribuciones posteriores implícitas en los modelos de probabilidad y los datos como el promedio de las predicciones).
+
+\hypertarget{las-pruebas-de-hipuxf3tesis-son-un-enfoque-estaduxedstico-para-abordar-el-problema-fundamental-de-la-inferencia-causal-utilizando-afirmaciones-sobre-lo-no-observado.}{%
+\subsection{Las pruebas de hipótesis son un enfoque estadístico para abordar el problema fundamental de la inferencia causal utilizando afirmaciones sobre lo no observado.}\label{las-pruebas-de-hipuxf3tesis-son-un-enfoque-estaduxedstico-para-abordar-el-problema-fundamental-de-la-inferencia-causal-utilizando-afirmaciones-sobre-lo-no-observado.}}
+
+El tercer enfoque de este problema vuelve a cambiar la pregunta.
+\textcite[Capítulo 2]{fisher:1935} nos muestra que podemos hacer la pregunta fundamental
+sobre si existe un efecto causal para una sola persona, pero la respuesta puede ser dada solo en términos de cuánta información brindan el diseño y los datos de la investigación sobre la pregunta. Es decir, se puede plantear la hipótesis de que, para la persona \(i\), la información no produjo ninguna diferencia en la variable de resultados, de modo que \(y_{i, 1} = y_{i, 0}\)
+o \(y_{i, 1} = y_{i, 0} + \tau_i\) donde \(\tau_i = 0\) para todo \(i\). Sin embargo, la respuesta a esta pregunta debe ser abordada como ``este diseño de investigación y conjunto de datos proporcionan una gran cantidad de información sobre este modelo, idea o hipótesis'' o, como se indicó anteriormente, ``este diseño de investigación no es consistente con esa afirmación''. (Ver
+\textcite{rosenbaum2002}(Capítulo 2), \textcite{rosenbaum2010}(Capítulo 2) y
+\textcite{rosenbaum2017observation}, para obtener más detalles sobre este enfoque).
+
+\hypertarget{la-hipuxf3tesis-nula-de-no-efectos-es-una-afirmaciuxf3n-precisa-sobre-los-resultados-potenciales}{%
+\section{La hipótesis nula de no efectos es una afirmación precisa sobre los resultados potenciales}\label{la-hipuxf3tesis-nula-de-no-efectos-es-una-afirmaciuxf3n-precisa-sobre-los-resultados-potenciales}}
+
+Incluso si no podemos observar directamente los efectos causales contractuales, nos podemos hacer preguntas sobre ellos o hacer modelos teóricos
+que relacionan alguna intervención o tratamiento, las características de contexto y
+los resultados potenciales. El modelo más simple de este tipo establece que la variable de resultado bajo el tratamiento sería la mismo que la variable de resultado para todas las unidades si están en el grupo de control; es decir, diría que independientemente de las características de contexto o de la información proporcionada en la condición experimental, cada persona pagaría el mismo monto en impuestos: \(y_ {i, 1} = y_ {i, 0}\) para todas las unidades \(i\). Para enfatizar lo tentativo y teórico de este modelo, comumente conocido \textbf{hipótesis}, a menudo nos referimos a él como ``la hipótesis nula tajante'', y lo expresamos como: \(H_0: y_{i, 1} -y{i, 0} = \tau_i\) donde \(\tau_i = 0\) para todo \(i\).
+
+\textbf{Nota:} Tenga en cuenta que pensar en hipótesis precisas nos hace darnos cuenta de
+que podríamos hacer \textbf{otros modelos relacionados con \(y_{i, 1}\) y \(y_{i, 0}\)} en los que los resultados potenciales se relacionan de maneras que no son aditivas o lineales, y donde el efecto no necesita ser cero o incluso el mismo para todas las unidades: por ejemplo, podríamos suponer que \(\tau_i = \{5,0, -2 \}\) 5 para la unidad 1, 0 para la unidad 2 y -2 para la unidad 3 en un experimento de 3 unidades. Dése cuenta también que expresar variables de resultado de esta manera, con el resultado potencial para la unidad \(i\) \emph{sólo refiriéndose a \(i\)} y no a otras unidades (\(y_ {i, Z_i}\)), \emph{es parte del modelo}. Es decir, el modelo particular de \(H_0: y_{i, 1} = y_{i, 0}\) implica que el tratamiento no ha tenido ningún efecto en nadie y ningún efecto incluye ningún efecto indirecto. Podemos ser un poco más específicos escribiendo los resultados potenciales de la siguiente manera: resultado potencial de la unidad \(i\) cuando se asigna al tratamiento, y cuando todos de las otras unidades se asignan a cualquier otro conjunto de tratamientos \(\mathbf{Z}_ {~ i} = \{Z_j, Z_k, \ldots \}\) se puede escribir como \(y_{i,Z_i=1,\mathbf{Z}_{~i}}\). Vea \textcite{bowers2013reasoning} y \textcite{bowers2018models} para más información sobre la idea de que una hipótesis es un modelo teórico que se puede probar con datos provenientes de contextos en los que la hipótesis sobre la propagación de los efectos del tratamiento en una red.
+
+\hypertarget{la-hipuxf3tesis-nula-duxe9bil-de-que-no-hay-efectos-es-una-afirmaciuxf3n-sobre-los-resultados-potenciales-agregados}{%
+\section{La hipótesis nula débil de que no hay efectos es una afirmación sobre los resultados potenciales agregados}\label{la-hipuxf3tesis-nula-duxe9bil-de-que-no-hay-efectos-es-una-afirmaciuxf3n-sobre-los-resultados-potenciales-agregados}}
+
+Un experimento puede influir en algunas unidades pero, en promedio, puede no tener ningún efecto. Para codificar esta intuición, podemos escribir una hipótesis nula del \emph{promedio} de los resultados potenciales, o algún otra cantidad que sea un resumen agregado de los resultados potenciales, en lugar de la
+recopilación total de resultados potenciales.
+
+Debido a que la mayoría de las discusiones actuales sobre los efectos causales se refieren al \emph{promedio} de los efectos, expresamos a menudo la hipótesis nula débil como \(H_0: \bar {\tau} = 0\) donde \(\bar{\tau} = (1/N) \sum_{i = 1}^N \tau_i\). De nuevo, la hipótesis es una afirmación o modelo de una relación entre resultados potenciales parcialmente observados. Pero, en este caso se trata del promedio de ellos. Uno podría, en principio, articular hipótesis sobre otros agregados: medianas, percentiles, proporciones, medias recortadas, etc. Sin embargo plantear hipótesis sobre efectos promedio simplifica las matemáticas y las estadísticas: conocemos las propiedades de los promedios de observaciones independientes a medida que aumenta el tamaño de la muestra, de modo que podamos apelar al teorema del límite central para describir la distribución de promedios para grandes muestras. Esto, a su vez, hace que el cálculo de los valores de \(p\) sea rápido y fácil para muestras grandes.
+
+\hypertarget{la-aleatorizaciuxf3n-nos-permite-usar-lo-que-observamos-para-probar-hipuxf3tesis-sobre-lo-que-no-observamos.}{%
+\section{La aleatorización nos permite usar lo que observamos para probar hipótesis sobre lo que no observamos.}\label{la-aleatorizaciuxf3n-nos-permite-usar-lo-que-observamos-para-probar-hipuxf3tesis-sobre-lo-que-no-observamos.}}
+
+Ya sea que se formule una hipótesis sobre los efectos a nivel de unidad directamente o sobre promedios de estos, todavía debemos afrontar el problema de distinguir la señal del ruido. Una hipótesis solo se refiere a posibles resultados. Además, asumiendo que no hay interacción entre las unidades, imaginamos dos resultados potenciales por persona, pero solo observamos uno por persona. \textbf{¿Cómo podemos usar lo que observamos para aprender acerca de modelos teóricos de cantidades parcialmente observadas?} En este experimento simple, sabemos que observamos uno de los dos resultados potenciales por persona, según el tratamiento que se le haya asignado. Así que podemos vincular los resultados contrafactuales no observados con un resultado observado (\(Y_i\)) usando la asignación de tratamiento (\(Z_i\)) así:
+
+\[Y_i = Z_i y_ {i, 1} + (1 - Z_i) y_ {i, 0}\]
+
+La ecuación arriba dice que nuestro resultado observado, \(Y_i\) (en este caso, la cantidad de impuestos pagados por la persona \(i\)), es \(y_{i, 1}\) cuando la persona es asignada al grupo de tratamiento (\(Z_i = 1\)) y \(y_ {i, 0}\) cuando la persona está asignada al grupo de control.
+
+\textbf{¿Cuánta información contiene nuestro diseño de investigación y conjunto de datos sobre la hipótesis?} Imagine, por ahora, la hipótesis de que el tratamiento incrementa en 5 unidades el pago de impuesto para cada persona de manera que \(H_0: y_{i, 1} = y_{i, 0} + \tau_i\) donde \(\tau_i = 5\) para todo \(i\).
+
+Considerando este modelo, ¿qué implicaría esta hipótesis en lo que observamos? La ecuación arriba conecta lo observado con lo no observado entonces, este modelo o hipótesis implicaría que:
+
+\[\begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
+& = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
+& = Z_i \tau_i  + y_{i,0}
+\end{aligned}\]
+
+Lo que observamos, \(Y_i\), sería \(y_{i,0}\) si \(i\) está en el grupo de control,
+\(Z_i=0\) o \(\tau_i + y_{i,0}\) (que sería \(5 + y_{i,0}\) en el grupo de tratamiento).
+
+Esta hipótesis también implica que \(y_{i,0} = Y_i - Z_i \tau_i\) o \(y_{i,0} = Y_i - Z_i 5\). Si restáramos 5 de cada respuesta observada en el grupo de control, nuestra hipótesis implicaría que observaríamos \(y_{i,0}\) para todas las unidades. Esto quiere decir que al restar 5 estaríamos haciendo que los grupos de tratamiento y control tengan valores equivalente en la variable de resultado. \textbf{Con esta lógica tenemos una implicación observable de la hipótesis}
+
+\textbf{La hipótesis nula tajante de que no hay ningún efecto} especifica que \(\tau_i = 0\) para todo \(i\). Y esto a su vez implica que \(y_{i, 0} = Y_i - Z_i \tau_i = Y_i\). Es decir, implica que lo que observamos, \(Y_i\), es lo que observaríamos si cada
+unidad fuera asignados a la condición de control. Y la implicación, entonces, es que no deberíamos ver diferencias entre los grupos de tratamiento y control en los
+los resultados observables.
+
+\textbf{La hipótesis nula débil de ningún efecto} especifica que
+\(\bar{\tau} = \bar{y}_{1} - \bar{y} _0 =0\), y podemos escribir una igualdad similar que vincule el promedio de los resultados potenciales no observados con el promedio
+de los resultados observados en diferentes condiciones de tratamiento.
+
+\hypertarget{las-estaduxedsticas-de-pruebas-resumen-la-relaciuxf3n-entre-los-resultados-observados-y-la-asignaciuxf3n-al-tratamiento.}{%
+\section{Las estadísticas de pruebas resumen la relación entre los resultados observados y la asignación al tratamiento.}\label{las-estaduxedsticas-de-pruebas-resumen-la-relaciuxf3n-entre-los-resultados-observados-y-la-asignaciuxf3n-al-tratamiento.}}
+
+Dada una hipótesis y una función que conecte los resultados no observados con los observados, el siguiente paso en una prueba de hipótesis es definir una estadística de prueba. Una estadística de prueba resume la relación entre el tratamiento y los resultados observados en una sola cantidad. En general, nos gustaría que nuestras estadísticas de prueba tomaran valores más grandes en cuanto mayor sea el efecto del tratamiento. En el siguiente código podemos ver ejemplos de dos pruebas de este tipo de estadísticas utilizando un experimento con 10 unidades aleatorizadas en dos
+grupos (presione el botón ``Code'' para ver el código R).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Primero, creémos datos falsos}
+\DocumentationTok{\#\# y0 es el resultado potencial de las unidades en el grupo control}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{y0 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{400}\NormalTok{,}\DecValTok{500}\NormalTok{)}
+\DocumentationTok{\#\# Diferentes efectos de tratamiento a nivel individual}
+\DocumentationTok{\#\#tau \textless{}{-} c(1,3,2,10,1,2,3,5,1,1)*sd(y0)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{tau }\OtherTok{\textless{}{-}} \FunctionTok{round}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(N,}\AttributeTok{mean=}\FunctionTok{sd}\NormalTok{(y0),}\AttributeTok{sd=}\DecValTok{2}\SpecialCharTok{*}\NormalTok{(}\FunctionTok{sd}\NormalTok{(y0)))) }\DocumentationTok{\#\#c(10,30,200,90,10,20,30,40,90,20)}
+\NormalTok{tau }\OtherTok{\textless{}{-}}\NormalTok{ tau}\SpecialCharTok{*}\NormalTok{(tau}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{)}
+\DocumentationTok{\#\# y1 es el resultado potencial del tratamiento}
+\NormalTok{y1 }\OtherTok{\textless{}{-}}\NormalTok{ y0 }\SpecialCharTok{+}\NormalTok{ tau}
+\CommentTok{\#sd(y0)}
+\CommentTok{\#mean(y1){-}mean(y0)}
+\CommentTok{\# mean(tau)}
+\DocumentationTok{\#\# Z es la asignación al tratamiento}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{complete\_ra}\NormalTok{(N)}
+\DocumentationTok{\#\# Y es la variable de resultado observada}
+\NormalTok{Y }\OtherTok{\textless{}{-}}\NormalTok{ Z}\SpecialCharTok{*}\NormalTok{y1 }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{Z)}\SpecialCharTok{*}\NormalTok{y0}
+\DocumentationTok{\#\# Los datos}
+\NormalTok{dat }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Y=}\NormalTok{Y,}\AttributeTok{Z=}\NormalTok{Z,}\AttributeTok{y0=}\NormalTok{y0,}\AttributeTok{tau=}\NormalTok{tau,}\AttributeTok{y1=}\NormalTok{y1)}
+\CommentTok{\#(mean(y1) {-} mean(y0))/sd(y0)}
+\CommentTok{\#dat}
+\CommentTok{\#pvalue(oneway\_test(Y\textasciitilde{}factor(Z),data=dat,distribution=exact(),alternative="less"))}
+\CommentTok{\#pvalue(wilcox\_test(Y\textasciitilde{}factor(Z),data=dat,distribution=exact(),alternative="less"))}
+\CommentTok{\#pvalue(oneway\_test(Y\textasciitilde{}factor(Z),data=dat,distribution=exact(),alternative="greater"))}
+\CommentTok{\#pvalue(wilcox\_test(Y\textasciitilde{}factor(Z),data=dat,distribution=exact(),alternative="greater"))}
+\DocumentationTok{\#\# The mean difference test statistic}
+\NormalTok{meanTZ }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ys,z)\{ }
+    \FunctionTok{mean}\NormalTok{(ys[z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(ys[z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+\NormalTok{\}}
+
+\DocumentationTok{\#\# La estadística de prueba de diferencia de medias de rangos }
+\NormalTok{meanrankTZ }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ys,z)\{}
+\NormalTok{    ranky }\OtherTok{\textless{}{-}} \FunctionTok{rank}\NormalTok{(ys)}
+    \FunctionTok{mean}\NormalTok{(ranky[z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{]) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(ranky[z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}
+\NormalTok{\}}
+
+\NormalTok{observedMeanTZ }\OtherTok{\textless{}{-}} \FunctionTok{meanTZ}\NormalTok{(}\AttributeTok{ys=}\NormalTok{Y,}\AttributeTok{z=}\NormalTok{Z)}
+\NormalTok{observedMeanRankTZ }\OtherTok{\textless{}{-}} \FunctionTok{meanrankTZ}\NormalTok{(}\AttributeTok{ys=}\NormalTok{Y,}\AttributeTok{z=}\NormalTok{Z)}
+\end{Highlighting}
+\end{Shaded}
+
+La primera estadística de prueba es la diferencia de medias (\texttt{meanTZ}) y devuelve un valor observado de 102 y la segunda es la diferencia media de los resultados transformados por rangos (\texttt{meanrankTZ}), que devuelve un valor de 2.2. También se podrían utilizar versiones de estas estadísticas de prueba estandarizadas de acuerdo con el error estándar estimado (consulte \textcite{chung2013exact} para leer más acerca de las ventajas de esta prueba
+estadística). Para probar la hipótesis nula tajante de que no hay efectos se puede elegir casi cualquier estadística de prueba de modo que los valores de esa función aumenten a medida que aumenta la diferencia entre los resultados tratados y de control (ver \textcite{rosenbaum2002}, Capítulo 2, para una discusión de las estadísticas de prueba de ``efecto aumentado'').
+
+La prueba de hipótesis nula débil de que no hay ningún efecto utiliza la diferencia de medias (quizás estandarizada o ``\emph{studentizadas}'') como estadística de prueba.
+
+\hypertarget{los-valores-p-codifican-cuuxe1nta-informaciuxf3n-obtenemos-de-un-diseuxf1o-de-investigaciuxf3n-y-una-estaduxedstica-de-prueba-sobre-la-hipuxf3tesis.-las-pruebas-de-hipuxf3tesis-requieren-distribuciones-del-estaduxedstico-de-prueba-seguxfan-la-hipuxf3tesis.}{%
+\section{\texorpdfstring{Los valores \(p\) codifican cuánta información obtenemos de un diseño de investigación y una estadística de prueba sobre la hipótesis. Las pruebas de hipótesis requieren distribuciones del estadístico de prueba según la hipótesis.}{Los valores p codifican cuánta información obtenemos de un diseño de investigación y una estadística de prueba sobre la hipótesis. Las pruebas de hipótesis requieren distribuciones del estadístico de prueba según la hipótesis.}}\label{los-valores-p-codifican-cuuxe1nta-informaciuxf3n-obtenemos-de-un-diseuxf1o-de-investigaciuxf3n-y-una-estaduxedstica-de-prueba-sobre-la-hipuxf3tesis.-las-pruebas-de-hipuxf3tesis-requieren-distribuciones-del-estaduxedstico-de-prueba-seguxfan-la-hipuxf3tesis.}}
+
+Una vez tenemos una afirmación sobre los posibles resultados del experimento (es decir, una hipótesis) y una forma de resumir los datos observados en relación con la hipótesis (es decir, una prueba estadística que debería aumentar a medida que los resultados difieran de la hipótesis tal como se explicó anteriormente), queremos ir más allá de la descripción de los datos observados para saber cuánta variación esperaríamos ver en la estadística de prueba dado el diseño de la investigación y teniendo en cuenta la hipótesis (volviendo al tema de la señal y ruido).
+
+Qué tanta evidencia tenemos sobre una hipótesis dependerá del diseño del estudio. Por ejemplo, un experimento grande debería tener más información sobre
+una hipótesis que uno pequeño. Entonces, ¿qué queremos decir con evidencia en contra la hipótesis? ¿Cómo formalizaríamos o resumiríamos esta evidencia para que
+los experimentos grandes tiendan a revelar más y los pequeños tienden a revelar menos información?
+
+Una respuesta a esta pregunta es hacer el experimento mental de repetir
+el estudio. Imagínese, en virtud de nuestro argumento, que la hipótesis era correcta. Si repetimos el estudio y calculamos la estadística de prueba, recibiríamos un número, este número reflejaría el resultado del experimento \emph{bajo la hipótesis}. Ahora, imagine repetir este experimento hipotético muchas veces,
+recalculando la estadística de prueba cada vez. La distribución de la prueba
+estadística representaría todas las estadísticas de prueba que podrían haber ocurrido si la hipótesis nula fuera cierta. Si la estadística de prueba es una suma o media, sabemos que en un experimento grande la distribución de esos números
+se concentrará más de cerca alrededor del valor focal hipotético (digamos,
+\(t(Z, y_0)\)) que en un experimento pequeño.
+
+Cuando comparamos lo que realmente observamos, \(t (z, Y)\), con la distribución de
+lo que pudimos haber observado bajo la hipótesis nula, aprendemos que nuestro estudio es un caso típico o atípico dada la hipótesis nula. Y codificamos esta tipicidad o valor extremo con un valor \(p\).
+
+Tenga en cuenta que el valor \(p\) no nos brinda información acerca de la probabilidad asociada a los datos observados. Se observan los datos. Surge la probabilidad de la repetición hipotética, pero posible, del experimento en sí, la prueba estadística y la hipótesis. El valor de \(p\) de una cola es la probabilidad
+de ver un valor de nuestra estadística de prueba tan mayor o igual que el valor
+observado en el caso de que nuestra hipótesis sea cierta.
+
+\hypertarget{un-ejemplo-prueba-de-hipuxf3tesis-nula-tajante-de-que-no-hay-ninguxfan-efecto}{%
+\subsection{Un ejemplo: prueba de hipótesis nula tajante de que no hay ningún efecto}\label{un-ejemplo-prueba-de-hipuxf3tesis-nula-tajante-de-que-no-hay-ninguxfan-efecto}}
+
+Probemos la hipótesis nula de que no hay ningún efecto. En el caso del experimento ejemplo, el tratamiento se asignó exactamente a 5 observaciones de 10 completamente al azar. Para repetir esa operación, solo necesitamos permutar o barajar el vector \(Z\) dado (puede ver el código haciendo clic en ``Code'').
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{repeatExperiment }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(Z)\{}
+    \FunctionTok{sample}\NormalTok{(Z)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Ya sabemos que \(H_0: y_{i, 1} = y_{i, 0}\) implica que \(Y_i = y_{i, 0}\). Entonces, podemos describir todas las formas en que el experimento puede ocurrir bajo la hipótesis nula simplemente repitiendo el experimento (es decir, reasignando el tratamiento) y recalculando la estadística de prueba cada vez. El siguiente código reasigna repetidamente el tratamiento de acuerdo al diseño y calcula la estadística de prueba en cada iteración.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123457}\NormalTok{)}
+\NormalTok{possibleMeanDiffsH0 }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\FunctionTok{meanTZ}\NormalTok{(}\AttributeTok{ys=}\NormalTok{Y,}\AttributeTok{z=}\FunctionTok{repeatExperiment}\NormalTok{(}\AttributeTok{Z=}\NormalTok{Z)))}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123457}\NormalTok{)}
+\NormalTok{possibleMeanRankDiffsH0 }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{10000}\NormalTok{,}\FunctionTok{meanrankTZ}\NormalTok{(}\AttributeTok{ys=}\NormalTok{Y,}\AttributeTok{z=}\FunctionTok{repeatExperiment}\NormalTok{(}\AttributeTok{Z=}\NormalTok{Z)))}
+\end{Highlighting}
+\end{Shaded}
+
+Y estos gráficos muestran las distribuciones de las dos estadísticas de prueba diferentes que emergerían del mundo en el que la hipótesis nula es cierta (las curvas y lineas cortas en la parte inferior de las parcelas). Las gráficas también muestran los valores observados para las estadísticas de prueba que podemos usar para comparar lo que observamos (las líneas gruesas y largas) con lo que hipotetizamos (las distribuciones).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pMeanTZ }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{( }\FunctionTok{mean}\NormalTok{( possibleMeanDiffsH0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ observedMeanTZ ),}
+           \FunctionTok{mean}\NormalTok{( possibleMeanDiffsH0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ observedMeanTZ ))}
+
+\NormalTok{pMeanRankTZ }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{( }\FunctionTok{mean}\NormalTok{( possibleMeanRankDiffsH0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ observedMeanRankTZ ),}
+            \FunctionTok{mean}\NormalTok{( possibleMeanRankDiffsH0 }\SpecialCharTok{\textless{}=}\NormalTok{ observedMeanRankTZ ))}
+\NormalTok{pMeanTZ}
+\NormalTok{pMeanRankTZ}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}\AttributeTok{mgp=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.5}\NormalTok{,.}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{),}\AttributeTok{oma=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(possibleMeanDiffsH0),}
+     \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{04}\NormalTok{),}
+     \AttributeTok{xlim=}\FunctionTok{range}\NormalTok{(possibleMeanDiffsH0),}
+     \AttributeTok{lwd=}\DecValTok{2}\NormalTok{,}
+     \AttributeTok{main=}\StringTok{""}\NormalTok{,}\CommentTok{\#Mean Difference Test Statistic",}
+     \AttributeTok{xlab=}\StringTok{"Diferencia de medias consistente con H0"}\NormalTok{,}\AttributeTok{cex.lab=}\FloatTok{0.75}\NormalTok{)}
+\FunctionTok{rug}\NormalTok{(possibleMeanDiffsH0)}
+\FunctionTok{rug}\NormalTok{(observedMeanTZ,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{ticksize =}\NormalTok{ .}\DecValTok{51}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(observedMeanTZ}\SpecialCharTok{+}\DecValTok{8}\NormalTok{,.}\DecValTok{022}\NormalTok{,}\StringTok{"Estadístico observado"}\NormalTok{)}
+
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(possibleMeanRankDiffsH0),}\AttributeTok{lwd=}\DecValTok{2}\NormalTok{,}
+     \AttributeTok{ylim=}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{45}\NormalTok{),}
+     \AttributeTok{xlim=}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{,}\DecValTok{10}\NormalTok{), }\CommentTok{\#range(possibleMeanDiffsH0),}
+     \AttributeTok{main=}\StringTok{""}\NormalTok{, }\CommentTok{\#Mean Difference of Ranks Test Statistic",}
+     \AttributeTok{xlab=}\StringTok{"Diferencia de medias de rangos consistente  H0"}\NormalTok{,}\AttributeTok{cex.lab=}\FloatTok{0.75}\NormalTok{)}
+\FunctionTok{rug}\NormalTok{(possibleMeanRankDiffsH0)}
+\FunctionTok{rug}\NormalTok{(observedMeanRankTZ,}\AttributeTok{lwd=}\DecValTok{3}\NormalTok{,}\AttributeTok{ticksize =}\NormalTok{ .}\DecValTok{9}\NormalTok{)}
+\FunctionTok{text}\NormalTok{(observedMeanRankTZ,.}\DecValTok{45}\NormalTok{,}\StringTok{"Estadístico observado"}\NormalTok{)}
+
+\FunctionTok{mtext}\NormalTok{(}\AttributeTok{side=}\DecValTok{3}\NormalTok{,}\AttributeTok{outer=}\ConstantTok{TRUE}\NormalTok{,}\AttributeTok{text=}\FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Distribución de los estadísticos de prueba consistenta con el diseño "}\NormalTok{,H0}\SpecialCharTok{:}\NormalTok{ y[i1]}\SpecialCharTok{==}\NormalTok{y[i0])))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\includegraphics[width=.9\textwidth]{hypothesistesting_esp_files/figure-latex/unnamed-chunk-3-1} \caption{Ejemplo del uso del diseño del experimento para probar una hipótesis.}\label{fig:unnamed-chunk-3}
+\end{figure}
+
+Para formalizar la comparación entre lo observado y lo hipotético, podemos calcular la proporción de los experimentos hipotéticos que arrojan estadísticas de prueba mayores que el experimento observado. En el panel izquierdo de la figura vemos que una amplia gama de diferencias de medias entre los grupos tratados y de control son compatibles con el tratamiento sin efectos (con el rango general entre -425.6 y 425.6). El panel de la derecha muestra que la transformación de los resultados por rango antes de tomar la diferencia de medias reduce el rango de las estadísticas de la prueba, después de que todos los rango pasen de 1 a 10 en lugar de 1 a 280.
+
+\hypertarget{valores-p-de-una-cola}{%
+\subsubsection{\texorpdfstring{Valores \(p\) de una cola}{Valores p de una cola}}\label{valores-p-de-una-cola}}
+
+Los valores \(p\) de una cola son 0.2034 para la diferencia media simple y 0.15 para la diferencia media de los resultados transformados por rango. Cada estadística de prueba arroja una cantidad diferente de duda, o cuantifica una cantidad diferente inesperada sobre la misma hipótesis nula de que no hay ningún efecto. El resultado en sí es tan ruidoso que la diferencia media de los resultados transformados por rango hace un mejor trabajo al captar la señal que la simple diferencia media. Estos datos se generaron incluyendo efectos del tratamiento, por lo que la hipótesis nula de ningún efecto es falsa, pero la información sobre los efectos es ruidosa: el tamaño de la muestra es pequeño y la distribución de la variable de resultado tiene algunos puntos y tratamientos atípicos y los efectos en sí varían mucho.
+
+\hypertarget{valores-p-de-dos-colas}{%
+\subsubsection{\texorpdfstring{Valores \(p\) de dos colas}{Valores p de dos colas}}\label{valores-p-de-dos-colas}}
+
+Supongamos que no sabemos de antemano si nuestro experimento mostrará un efecto negativo o positivo. Podemos hacer dos pruebas de hipótesis: una calculando el valor \(p\) superior de una cola y la otra calculando el valor \(p\) inferior de una cola. Ahora bien, si hiciéramos esto, estaríamos calculando dos valores de \(p\) y, si hiciéramos una práctica estándar de esto, correríamos el riesgo de engañarnos a nosotros mismos. Después de todo, recuerde de las \href{https://egap.org/resource/10-things-to-know-about-multiple-comparisons}{10 cosas sobre las comparaciones múltiples} que incluso si realmente no hay ningún efecto, 100 pruebas de hipótesis de que no hay ningún efecto que sean independientes y que operen bien arrojarán no más de 5 valores \(p\) menores que .05. Una solución fácil al reto de resumir un valor extremo de un experimento en cualquier dirección en lugar de centrarse únicamente en mayor o menor que, es calcular un valor \(p\) de dos colas. Este, por cierto, es el valor estándar de \(p\) producido por la mayoría de funciones de R como \texttt{lm\ ()} y \texttt{t.test\ ()} y \texttt{wilcox.test\ ()}. La idea básica es calcular ambos valores \(p\) y luego multiplicar el valor \(p\) más pequeño por 2. (La idea es que se está penalizando por hacer dos pruebas; consulte \textcite{rosenbaum2010design}, capítulo 2 y \textcite{cox1977role} si quiere más información sobre esta penalización por hacer dos pruebas).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Aquí usamos \textless{}= y \textgreater{}= en vez de \textless{} and \textgreater{} porque la distribución aleatoría es discreta }
+\DocumentationTok{\#\# con solo  10 observaciones. Ver discusiones sobre}
+\DocumentationTok{\#\# el "mid{-}p{-}value" }
+\NormalTok{p2SidedMeanTZ }\OtherTok{\textless{}{-}}     \DecValTok{2}\SpecialCharTok{*}\FunctionTok{min}\NormalTok{( }\FunctionTok{mean}\NormalTok{( possibleMeanDiffsH0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ observedMeanTZ ),}
+               \FunctionTok{mean}\NormalTok{( possibleMeanDiffsH0 }\SpecialCharTok{\textless{}=}\NormalTok{ observedMeanTZ ))}
+
+\NormalTok{p2SidedMeanRankTZ }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\FunctionTok{min}\NormalTok{( }\FunctionTok{mean}\NormalTok{( possibleMeanRankDiffsH0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ observedMeanRankTZ ),}
+\FunctionTok{mean}\NormalTok{( possibleMeanRankDiffsH0 }\SpecialCharTok{\textless{}=}\NormalTok{ observedMeanRankTZ ))}
+\end{Highlighting}
+\end{Shaded}
+
+En este caso, los valores \(p\) de dos colas son 0.4068 y\texttt{r\ p2SidedMeanRankTZ} para las diferencias de medias simples y las diferencias de medias basada en rango, respectivamente. Los interpretamos en términos de ``extremos'': solo veríamos una diferencia media observada tan alejada de cero como la que se manifiesta en nuestros resultados aproximadamente el 18\% de las veces, por ejemplo.
+
+\textbf{Como nota al margen:} La prueba de hipótesis nula tajante que se muestra aquí se puede realizar sin que tenga que escribir el código usted mismo. El código que verá aquí (haciendo clic en Code) muestra cómo usar diferentes paquetes R para probar una hipótesis usando inferencia basada en la aleatorización (randomization inference).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# usando el paquete coin }
+\FunctionTok{library}\NormalTok{(coin)}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{pMean2 }\OtherTok{\textless{}{-}} \FunctionTok{pvalue}\NormalTok{(}\FunctionTok{oneway\_test}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(Z),}\AttributeTok{data=}\NormalTok{dat,}\AttributeTok{distribution=}\FunctionTok{approximate}\NormalTok{(}\AttributeTok{nresample=}\DecValTok{1000}\NormalTok{)))}
+\NormalTok{dat}\SpecialCharTok{$}\NormalTok{rankY }\OtherTok{\textless{}{-}} \FunctionTok{rank}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Y)}
+\NormalTok{pMeanRank2 }\OtherTok{\textless{}{-}} \FunctionTok{pvalue}\NormalTok{(}\FunctionTok{oneway\_test}\NormalTok{(rankY}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(Z),}\AttributeTok{data=}\NormalTok{dat,}\AttributeTok{distribution=}\FunctionTok{approximate}\NormalTok{(}\AttributeTok{nresample=}\DecValTok{1000}\NormalTok{)))}
+\NormalTok{pMean2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.405
+99 percent confidence interval:
+ 0.3650502 0.4458670 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pMeanRank2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.28
+99 percent confidence interval:
+ 0.2440542 0.3180731 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# usando la versión en desarrollo del paquete RItools }
+\FunctionTok{library}\NormalTok{(devtools)}
+\FunctionTok{dir.create}\NormalTok{(}\FunctionTok{here}\NormalTok{(}\StringTok{"R{-}dev"}\NormalTok{))}
+\FunctionTok{dev\_mode}\NormalTok{(}\AttributeTok{on =} \ConstantTok{TRUE}\NormalTok{,}\AttributeTok{path=}\FunctionTok{here}\NormalTok{(}\StringTok{"R{-}dev"}\NormalTok{))}
+\FunctionTok{install\_github}\NormalTok{(}\StringTok{"markmfredrickson/RItools@randomization{-}distribution"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(RItools)}
+\NormalTok{thedesignA }\OtherTok{\textless{}{-}} \FunctionTok{simpleRandomSampler}\NormalTok{(}\AttributeTok{total=}\NormalTok{N,}\AttributeTok{z=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Z,}\AttributeTok{b=}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,N))}
+\NormalTok{pMean4 }\OtherTok{\textless{}{-}} \FunctionTok{RItest}\NormalTok{(}\AttributeTok{y=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Y,}\AttributeTok{z=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Z,}\AttributeTok{samples=}\DecValTok{1000}\NormalTok{, }\AttributeTok{test.stat=}\NormalTok{ meanTZ ,}
+         \AttributeTok{sampler =}\NormalTok{ thedesignA)}
+\NormalTok{pMeanRank4 }\OtherTok{\textless{}{-}} \FunctionTok{RItest}\NormalTok{(}\AttributeTok{y=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Y,}\AttributeTok{z=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Z,}\AttributeTok{samples=}\DecValTok{1000}\NormalTok{, }\AttributeTok{test.stat=}\NormalTok{ meanrankTZ ,}
+             \AttributeTok{sampler =}\NormalTok{ thedesignA)}
+\NormalTok{pMean4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:  RItest(y = dat$Y, z = dat$Z, test.stat = meanTZ, sampler = thedesignA,  
+          samples = 1000)
+
+                        Value Pr(>x)
+Observed Test Statistic   102 0.2024
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pMeanRank4}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:  RItest(y = dat$Y, z = dat$Z, test.stat = meanrankTZ, sampler = thedesignA,  
+          samples = 1000)
+
+                        Value Pr(>x)
+Observed Test Statistic   2.2 0.1508
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dev\_mode}\NormalTok{(}\AttributeTok{on=}\ConstantTok{FALSE}\NormalTok{)}
+
+\DocumentationTok{\#\# utilizando el paqute ri2}
+\FunctionTok{library}\NormalTok{(ri2)}
+\NormalTok{thedesign }\OtherTok{\textless{}{-}} \FunctionTok{declare\_ra}\NormalTok{(}\AttributeTok{N=}\NormalTok{N)}
+\NormalTok{pMean4 }\OtherTok{\textless{}{-}} \FunctionTok{conduct\_ri}\NormalTok{( Y }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Z, }\AttributeTok{declaration =}\NormalTok{ thedesign, }
+             \AttributeTok{sharp\_hypothesis =} \DecValTok{0}\NormalTok{, }\AttributeTok{data =}\NormalTok{ dat, }\AttributeTok{sims =} \DecValTok{1000}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(pMean4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  term estimate two_tailed_p_value
+1    Z      102          0.4047619
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pMeanRank4 }\OtherTok{\textless{}{-}} \FunctionTok{conduct\_ri}\NormalTok{( rankY }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Z, }\AttributeTok{declaration =}\NormalTok{ thedesign, }
+             \AttributeTok{sharp\_hypothesis =} \DecValTok{0}\NormalTok{, }\AttributeTok{data =}\NormalTok{ dat, }\AttributeTok{sims =} \DecValTok{1000}\NormalTok{)}
+\FunctionTok{summary}\NormalTok{(pMeanRank4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  term estimate two_tailed_p_value
+1    Z      2.2          0.3015873
+\end{verbatim}
+
+\hypertarget{ejemplo-prueba-de-hipuxf3tesis-nula-duxe9bil-de-que-no-hay-ninguxfan-efecto-promedio}{%
+\subsection{Ejemplo: Prueba de hipótesis nula débil de que no hay ningún efecto promedio}\label{ejemplo-prueba-de-hipuxf3tesis-nula-duxe9bil-de-que-no-hay-ninguxfan-efecto-promedio}}
+
+La hipótesis nula débil es una afirmación sobre agregados, y casi siempre es expresada en términos de promedios: \(H_0: \ bar {y} _ {1} = \ bar {y} _ {0}\) La estadística para esta hipótesis casi siempre es la diferencia de medias (es decir,
+\texttt{meanTZ()} arriba. El siguiente código muestra el uso de mínimos cuadrados (\texttt{lm()} en R)
+con el fin de calcular las diferencias de medias como un estadístico de prueba para
+hipótesis sobre efectos medios. Observe que los valores de \(p\) basados en MCO difieren
+de los calculados por \texttt{t.test()} y \texttt{difference\_of\_means().} Recuerde que
+la inferencia estadística de MCO se justifica por el supuesto de
+observaciones distribuidas de forma idéntica, sin embargo, en la mayoría de los experimentos, el tratamiento en sí cambia la variación en el grupo de tratamiento (por lo tanto
+violando el supuesto de distribución idéntica / homocedasticidad de MCO). Esta es una de las pocas razones por las que la mejor práctica al probar la hipótesis nula débil de que no hay efectos de tratamiento promedio usa herramientas distintas de las proporcionadas por simples funciones integradas de MCO.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm1 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{Z,}\AttributeTok{data=}\NormalTok{dat)}
+\NormalTok{lm1P }\OtherTok{\textless{}{-}} \FunctionTok{summary}\NormalTok{(lm1)}\SpecialCharTok{$}\NormalTok{coef[}\StringTok{"Z"}\NormalTok{,}\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\NormalTok{ttestP1 }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{Z,}\AttributeTok{data=}\NormalTok{dat)}\SpecialCharTok{$}\NormalTok{p.value}
+\FunctionTok{library}\NormalTok{(estimatr)}
+\NormalTok{ttestP2 }\OtherTok{\textless{}{-}} \FunctionTok{difference\_in\_means}\NormalTok{(Y}\SpecialCharTok{\textasciitilde{}}\NormalTok{Z,}\AttributeTok{data=}\NormalTok{dat)}
+\FunctionTok{c}\NormalTok{(}\AttributeTok{lmPvalue=}\NormalTok{lm1P,}
+\AttributeTok{ttestPvalue=}\NormalTok{ttestP1,}
+\AttributeTok{diffOfMeansPvalue=}\NormalTok{ttestP2}\SpecialCharTok{$}\NormalTok{p.value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+           lmPvalue         ttestPvalue diffOfMeansPvalue.Z 
+          0.5106994           0.5110166           0.5110166 
+\end{verbatim}
+
+Este código produce los mismos resultados sin usar mínimos cuadrados. Después de todo, solo estamos calculando las diferencias de medias y las variaciones de estas tal y como podrían variar a través de experimentos repetidos en el mismo grupo de unidades experimentales.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{varEstATE }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(Y,Z)\{}
+    \FunctionTok{var}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(Z) }\SpecialCharTok{+} \FunctionTok{var}\NormalTok{(Y[Z}\SpecialCharTok{==}\DecValTok{0}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{Z)}
+\NormalTok{\}}
+\NormalTok{seEstATE }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{varEstATE}\NormalTok{(dat}\SpecialCharTok{$}\NormalTok{Y,dat}\SpecialCharTok{$}\NormalTok{Z))}
+\NormalTok{obsTStat }\OtherTok{\textless{}{-}}\NormalTok{ observedMeanTZ}\SpecialCharTok{/}\NormalTok{seEstATE}
+\FunctionTok{c}\NormalTok{(}\AttributeTok{observedTestStat=}\NormalTok{observedMeanTZ,}\AttributeTok{stderror=}\NormalTok{seEstATE,}\AttributeTok{tstat=}\NormalTok{obsTStat,}
+  \AttributeTok{pval=}\DecValTok{2}\SpecialCharTok{*}\FunctionTok{min}\NormalTok{(}\FunctionTok{pt}\NormalTok{(obsTStat,}\AttributeTok{df=}\DecValTok{8}\NormalTok{,}\AttributeTok{lower.tail =} \ConstantTok{TRUE}\NormalTok{),}
+         \FunctionTok{pt}\NormalTok{(obsTStat,}\AttributeTok{df=}\DecValTok{8}\NormalTok{,}\AttributeTok{lower.tail =} \ConstantTok{FALSE}\NormalTok{))}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+observedTestStat         stderror            tstat             pval 
+     102.0000000      148.1816453        0.6883444        0.5106994 
+\end{verbatim}
+
+Observe que todas estas pruebas asumen que la distribución de la estadística de prueba a través de experimentos repetidos estaría bien caracterizada por una distribución \(t\). El panel de la izquierda en la figura presentada arriba muestra la distribución realizada ``en un sentido'' para que la hipótesis nula débil sea verdadea (es decir, si la hipótesis nula tajante es verdadera): hay muchas formas para que la hipótesis nula débil sea verdadera, algunas de las cuales son compatibles con efectos positivos grandes para algunas unidades y efectos negativos grandes para otras unidades, otros son compatibles con otros patrones de efectos de nivel individual. Sin embargo, en este pequeño conjunto de datos en particular, diseñado para tener una distribución de resultados muy sesgada, ninguno de esos patrones producirá una distribución de referencia que parezca una curva Normal o \(t\) si la diferencia de medias se utiliza como estadística de prueba. Volveremos sobre este punto más adelante cuando analicemos las características que una buena prueba debe tener, una de las cuales es una tasa controlada de falsos positivos.
+
+\hypertarget{no-hablamos-de-aceptar-hipuxf3tesis-nulas-en-pruebas-de-hipuxf3tesis-simples}{%
+\section{No hablamos de aceptar hipótesis nulas en pruebas de hipótesis simples}\label{no-hablamos-de-aceptar-hipuxf3tesis-nulas-en-pruebas-de-hipuxf3tesis-simples}}
+
+Algunos buscan a veces utilizar un valor \(p\) para la toma de decisiones. Recuerde que un valor \(p\) usa una estadística de prueba y la idea de repetir el experimento para cuantificar la información del diseño de investigación sobre una hipótesis. Es el diseño, la función estadística de prueba y la hipótesis lo que genera una distribución de probabilidad. Y es la función de estadística de prueba, el diseño y los datos reales lo que crea un único valor observado.
+
+El valor \(p\) simplemente nos dice qué tan extremo es el resultado observado desde la perspectiva de la hipótesis. O podemos pensar que el valor \(p\) codifica la inconsistencia entre nuestros datos observados y la hipótesis. ¿Y si queremos tomar una decisión? \textbf{Podemos tomar decisiones usando un valor \(p\) si estamos dispuestos a aceptar una cierta cantidad de error.} Digamos, por ejemplo, que vemos un \(p = .01\) de una cola: esto significaría que en solo 1 de cada 100 experimentos hipotéticos que representan la hipótesis nula, veríamos un resultado tan o más grande que nuestro resultado real. Podríamos estar tentados a decir que nuestro resultado observado es tan extraño que podemos asumir que la hipótesis nula es falsa. Eso estaría bien --- después de todo, un valor de \(p\) por sí solo no puede controlar el comportamiento de un persona adulta --- pero la persona debe saber que en 1/100 de los casos en los que el valor nulo es verdadero, todavía veríamos esto resultado en este mismo grupo de sujetos con este mismo diseño experimental. Es decir, si usamos un valor \(p\) pequeño para rechazar el nulo, o si asumimos que la hipótesis nula es falsa, aún podríamos estar cometiendo un error. Estos rechazos incorrectos a veces se denominan errores de falsos positivos porque la hipótesis nula suele ser cero y el efecto deseado (por ejemplo, en los ensayos médicos) se codifica con frecuencia como positivo.
+
+Digamos que estaríamos satisfechos si solo cometemos 1 error falso positivo o falso rechazo en cada 20 experimentos. En ese caso, también deberíamos estar satisfechos de rechazar una hipótesis nula si viéramos un \(p \le 1/20\) o \(p \le .05\). Y diríamos que los valores \(p\) menores que .05 son señales de inconsistencia con la hipótesis nula y, por lo tanto, solo deberían llevarnos a errar en un 5\% de experimentos como el que estamos analizando.
+
+\hypertarget{quuxe9-significa-rechazar-una-hipuxf3tesis-nula}{%
+\subsection{¿Qué significa rechazar una hipótesis nula?}\label{quuxe9-significa-rechazar-una-hipuxf3tesis-nula}}
+
+Como puede darse cuenta \(p = .01\) solo refleja el extremo de los datos observados en comparación con la hipótesis. Esto quiere decir que la estadística de prueba observada parece extrema desde la perspectiva de la distribución de la estadística de prueba que se genera dada la hipótesis nula y diseño de investigación. Entonces esperamos que \(p = .01\) (y otros valores pequeños de \(p\)) nos hagan dudar si la hipótesis específica es un buen modelo de los datos observados. A menudo, el único modelo de resultados potenciales que se prueba es el modelo sin efectos, por lo que un valor pequeño de \(p\) debería hacernos dudar del modelo sin efectos. El valor \(p\) que las funciones predeterminadas de los software estadísticos tienden a mostrar está relacionado con está hipótesis nula de no efectos, por lo que incluso si solo se quiere obtener las diferencias de medias de los datos utilizando mínimos cuadrados como su calculadora de diferencia de medias, las funciones mostrarán el valor \(p\).
+
+\hypertarget{quuxe9-significa-no-rechazar-una-hipuxf3tesis-nula}{%
+\subsection{\texorpdfstring{¿Qué significa \textbf{no rechazar} una hipótesis nula?}{¿Qué significa no rechazar una hipótesis nula?}}\label{quuxe9-significa-no-rechazar-una-hipuxf3tesis-nula}}
+
+Como puede darse cuenta \(p = .50\) solo refleja el extremo de los datos observados en relación a la hipótesis, pero los datos observados en este caso, no parecen extremos sino comunes desde la perspectiva de la hipótesis nula. Entonces, \(p = .50\) (y otros valores \(p\) grandes) no arrojan dudas sobre el modelo de la hipótesis nula. No nos lleva a aceptar ese modelo; después de todo, es solo un modelo. No sabemos cuál sería el modelo a priori, por ejemplo. Entonces, un valor \(p\) grande es un argumento a favor de la hipótesis nula, pero no uno muy bueno.
+
+\hypertarget{una-vez-que-estemos-usando-valores-p-para-rechazar-una-hipuxf3tesis-cometeremos-errores}{%
+\section{\texorpdfstring{Una vez que estemos usando valores \(p\) para rechazar una hipótesis, cometeremos errores}{Una vez que estemos usando valores p para rechazar una hipótesis, cometeremos errores}}\label{una-vez-que-estemos-usando-valores-p-para-rechazar-una-hipuxf3tesis-cometeremos-errores}}
+
+Una buena prueba rechaza las hipótesis verdaderas en raras ocasiones (es decir, tiene una tasa de error de falsos positivos controlada) y detecta fácilmente la señal del ruido (es decir, tiene un buen poder estadístico, rara vez comete el error de perder la señal en el ruido).
+
+\hypertarget{cuxf3mo-aprender-sobre-los-errores-de-perder-la-seuxf1al-en-el-ruido}{%
+\subsection{¿Cómo aprender sobre los errores de perder la señal en el ruido?}\label{cuxf3mo-aprender-sobre-los-errores-de-perder-la-seuxf1al-en-el-ruido}}
+
+La guia \href{https://egap.org/resource/10-things-to-know-about-statistical-power}{10 cosas que necesita saber sobre el poder estadístico} explica de qué forma esperamos que las pruebas rechacen falsos hipótesis nulas (es decir, detectar señal de ruido). Cuando pensamos en el poder de las pruebas estadísticas, es necesario considerar la \textbf{hipótesis alternativa}. Sin embargo, como hemos demostrado anteriormente, podemos probar \textbf{hipótesis nulas} sin la idea de rechazar o aceptarlas, aunque entonces el ``poder'' de una prueba es más difícil de definir y trabajar.
+
+\hypertarget{cuxf3mo-aprender-sobre-errores-falsos-positivos}{%
+\subsection{¿Cómo aprender sobre errores falsos positivos?}\label{cuxf3mo-aprender-sobre-errores-falsos-positivos}}
+
+La simulación es la forma más sencilla para aprender sobre errores de falsos positivos. Primero, creamos una versión del mundo en la que la hipótesis nula es cierta y conocida, y luego hacemos pruebas de esa hipótesis nula bajo las muchas formas en las que es posible que no sea cierta. Por ejemplo, en el ejemplo del experimento en el que tenemos 5 de 10 unidades asignadas al tratamiento. Esto significa que hay \(\binom {10} {5} = 252\) formas diferentes de asignar el tratamiento y 252 formas en las que el experimento no tiene efectos en los individuos.
+
+Aquí presentamos el caso en el que la hipótesis nula tajante o estricta es cero, pero también se podría evaluar la tasa de falsos positivos para diferentes hipótesis. A continuación comparamos las tasas de error para algunos de los enfoques presentados hasta ahora, incluida la prueba de la hipóstesis nula débil de no efectos. La siguiente gráfica muestra la proporción de valores de \(p\) menores que cualquier nivel dado de significancia (es decir, umbral de rechazo) para cada una de las cuatro pruebas. Es decir, este es un gráfico de tasas de falsos positivos para cualquier umbral de significancia dado. Una prueba que tiene una tasa de falsos positivos controlada o conocida tendría marcadores en o debajo de la línea en todo el eje X o rango de la gráfica. Como podemos ver aquí, las dos pruebas que utilizan permutaciones de tratamiento para evaluar la hipótesis nula tajante de no efectos tienen esta característica. Las pruebas de hipótesis nula débil que utilizan el estadístico de prueba de diferencia de medias y apelan a la teoría de muestras grandes para justificar el uso de una distribución \(t\) no tienen una tasa de falsos positivos controlada: la proporción de valores de \(p\) por debajo de cualquier valor dado. El umbral de rechazo puede ser demasiado alto o demasiado bajo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{collectPValues }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(y,z)\{}
+    \DocumentationTok{\#\# Hace que Y y Z no tengan relación aleatorizando Z de nuevo}
+\NormalTok{    newz }\OtherTok{\textless{}{-}} \FunctionTok{repeatExperiment}\NormalTok{(z)}
+\NormalTok{        thelm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{newz,}\AttributeTok{data=}\NormalTok{dat)}
+\NormalTok{    ttestP2 }\OtherTok{\textless{}{-}} \FunctionTok{difference\_in\_means}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\NormalTok{newz,}\AttributeTok{data=}\NormalTok{dat)}
+\NormalTok{    owP }\OtherTok{\textless{}{-}} \FunctionTok{pvalue}\NormalTok{(}\FunctionTok{oneway\_test}\NormalTok{(y}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(newz),}\AttributeTok{distribution=}\FunctionTok{exact}\NormalTok{()))}
+\NormalTok{    ranky }\OtherTok{\textless{}{-}} \FunctionTok{rank}\NormalTok{(y)}
+\NormalTok{    owRankP }\OtherTok{\textless{}{-}} \FunctionTok{pvalue}\NormalTok{(}\FunctionTok{oneway\_test}\NormalTok{(ranky}\SpecialCharTok{\textasciitilde{}}\FunctionTok{factor}\NormalTok{(newz),}\AttributeTok{distribution=}\FunctionTok{exact}\NormalTok{()))}
+    \FunctionTok{return}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\AttributeTok{lmp=}\FunctionTok{summary}\NormalTok{(thelm)}\SpecialCharTok{$}\NormalTok{coef[}\StringTok{"newz"}\NormalTok{,}\StringTok{"Pr(\textgreater{}|t|)"}\NormalTok{]}
+\NormalTok{,}
+         \AttributeTok{neyp=}\NormalTok{ttestP2}\SpecialCharTok{$}\NormalTok{p.value[[}\DecValTok{1}\NormalTok{]],}
+         \AttributeTok{rtp=}\NormalTok{owP,}
+         \AttributeTok{rtpRank=}\NormalTok{owRankP))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{12345}\NormalTok{)}
+\NormalTok{pDist }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{5000}\NormalTok{,}\FunctionTok{collectPValues}\NormalTok{(}\AttributeTok{y=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Y,}\AttributeTok{z=}\NormalTok{dat}\SpecialCharTok{$}\NormalTok{Z))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{mgp=}\FunctionTok{c}\NormalTok{(}\FloatTok{1.25}\NormalTok{,.}\DecValTok{5}\NormalTok{,}\DecValTok{0}\NormalTok{),}\AttributeTok{oma=}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{4}\NormalTok{),}\AttributeTok{mar=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{),}\AttributeTok{type=}\StringTok{"n"}\NormalTok{,}
+     \AttributeTok{xlab=}\StringTok{"p{-}value=p"}\NormalTok{,}\AttributeTok{ylab=}\StringTok{"Proportion p{-}values \textless{} p"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(pDist))\{}
+    \FunctionTok{lines}\NormalTok{(}\FunctionTok{ecdf}\NormalTok{(pDist[i,]),}\AttributeTok{pch=}\NormalTok{i,}\AttributeTok{col=}\NormalTok{i)}
+\NormalTok{\}}
+\FunctionTok{abline}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,}\AttributeTok{col=}\StringTok{"gray"}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\AttributeTok{legend=}\FunctionTok{c}\NormalTok{(}\StringTok{"OLS"}\NormalTok{,}\StringTok{"Neyman"}\NormalTok{,}\StringTok{"Rand Inf Mean Diff"}\NormalTok{,}\StringTok{"Rand Inf Mean }\SpecialCharTok{\textbackslash{}n}\StringTok{ Diff Ranks"}\NormalTok{),}
+              \AttributeTok{pch=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\AttributeTok{col=}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{,}\AttributeTok{lty=}\DecValTok{1}\NormalTok{,}\AttributeTok{bty=}\StringTok{"n"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics[width=.9\textwidth]{hypothesistesting_esp_files/figure-latex/unnamed-chunk-7-1}
+
+En este caso particular, en el umbral de \(\alpha = .05\), todas las pruebas
+excepto para la prueba basada en rangos reportan una tasa de falsos positivos inferior al 5\%. Esto es un buen indicador; debería ser un 5\% o menos. Sin embargo, para los experimentos con un \(N\) pequeño un buen resultado en las pruebas basadas en muestras grandes no es garantía de nada. Lo mismo pasa con experimentos en los que la distribución de la variable de resultado es muy asimétrica, etc \ldots{} En caso de duda, puede evaluar la tasa de falsos positivos de una prueba utilizando el código presentado en esta guía para hacer su propia simulación.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{apply}\NormalTok{(pDist,}\DecValTok{1}\NormalTok{,}\ControlFlowTok{function}\NormalTok{(x)\{ }\FunctionTok{mean}\NormalTok{(x}\SpecialCharTok{\textless{}}\NormalTok{.}\DecValTok{05}\NormalTok{)\})}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    lmp    neyp     rtp rtpRank 
+ 0.0378  0.0378  0.0456  0.0450 
+\end{verbatim}
+
+\hypertarget{quuxe9-muxe1s-saber-sobre-las-pruebas-de-hipuxf3tesis.}{%
+\section{Qué más saber sobre las pruebas de hipótesis.}\label{quuxe9-muxe1s-saber-sobre-las-pruebas-de-hipuxf3tesis.}}
+
+Aquí enumeramos algunos otros temas importantes pero avanzados relacionados con la hipótesis.
+pruebas:
+
+\begin{itemize}
+\item
+  Incluso si un procedimiento de prueba determinada controla la tasa de falsos positivos para una sola prueba, puede que no controle la tasa para un conjunto de múltiples pruebas. Consulte \href{https://egap.org/resource/10-things-to-know-about-multiple-comparisons}{10 cosas que necesita saber sobre comparaciones múltiples} para aprender más sobre los enfoques para controlar tales tasas de rechazo en pruebas múltiples.
+\item
+  Un intervalo de confianza de \(100\alpha\)\% se puede definir como el rango de una hipótesis donde todos los valores de \(p\) son mayores o iguales que \(\alpha\). A esto se le llama invertir la prueba de hipótesis. (\textcite{rosenbaum2010design}). Es decir, un \textbf{intervalo de confianza es una colección de pruebas de hipótesis}. Esto significa que valores críticos de \(p\) también son críticos para los intervalos de confianza.
+\item
+  Una estimación puntual basada en pruebas de hipótesis se denomina estimación puntual de Hodges-Lehmann. (\textcite{rosenbaum1993hlp}, \textcite{hodges1963elb})
+\item
+  Un conjunto de pruebas de hipótesis se puede combinar en una sola prueba de hipótesis. Por ejemplo, puede probar la hipótesis de un efecto de tamaño 1 en el resultado 1, un efecto de tamaño 0 en el resultado 2 y un efecto de -10 en el resultado 3. (\textcite{hansen:bowers:2008}, \textcite{caughey2017nonparametric})
+\item
+  En las pruebas de equivalencia, se puede plantear la hipótesis de que dos estadísticas de prueba sean equivalentes (es decir, el grupo de tratamiento es el mismo que el grupo de control) en lugar de solo una estadística de prueba (la diferencia entre dos grupos es cero) (\textcite{hartman2018equivalence})
+\item
+  Dado que una prueba de hipótesis es un modelo de resultados potenciales, se puede usar la prueba de hipótesis para aprender sobre modelos complejos, como los modelos de derrame y propagación de los efectos del tratamiento a través de redes (\textcite{bowers2013reasoning}, \textcite{bowers2016research}, \textcite{bowers2018models}).
+\end{itemize}
+
+\printbibliography[title=Referencias]
+
+\end{document}
