@@ -46,7 +46,7 @@ s'il y a vraiment un effet de traitement, nous pourrons le voir.
 
 2 Pourquoi vous en avez besoin ?
 ==
-Les expérimentateurs se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
+Les expérimentalistes se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
 Après une expérience, nous craignons de conclure à tort qu'il y a un effet alors qu'il n'y en a pas vraiment.
 
 L'analyse de puissance statistique pose la question inverse : en supposant qu'il y ait vraiment un effet de traitement et que vous deviez exécuter votre expérience un grand nombre de fois, à quelle fréquence obtiendrez-vous un résultat statistiquement significatif ?
@@ -107,7 +107,7 @@ Parce que c'est la probabilité d'obtenir un résultat statistiquement significa
 
 * $\Phi$ est la fonction de répartition de la distribution normale, et $\Phi^{-1}$ est son inverse.
 * $\mu_t$ est le résultat moyen dans le groupe de traitement. Supposons qu'il soit 65.
-* $\mu_c$ est le résultat moyen dans le groupe témoin. Supposons que c'est 60.
+* $\mu_c$ est le résultat moyen dans le groupe de contrôle. Supposons que c'est 60.
 * Ensemble, les hypothèses sur μt et μc définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
 
 * $\sigma$ est l'écart type des résultats. C'est ainsi que nous émettons des hypothèses sur le niveau de bruit de notre expérience - l'une des hypothèses que nous émettons est que le sigma est le même pour les groupes de traitement et de contrôle. Supposons $\sigma=20$
@@ -250,7 +250,7 @@ Cette approche ne repose pas sur une formule pour trouver la probabilité d'obte
 8 Analyse de puissance pour plusieurs traitements
 ==
 
-De nombreuses expériences emploient plusieurs traitements qui sont comparés à la fois les uns aux autres et à un groupe témoin.
+De nombreuses expériences emploient plusieurs traitements qui sont comparés à la fois les uns aux autres et à un groupe de contrôle.
 Cette complication supplémentaire change ce que nous entendons lorsque nous disons la "puissance" d'une expérience.
 Dans le cas d'un seul groupe de traitement, la puissance est simplement la probabilité d'obtenir un résultat statistiquement significatif.
 Dans le cas des traitements multiples, cela peut signifier plusieurs choses :

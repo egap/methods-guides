@@ -36,7 +36,7 @@ Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, 
 [^2]: Voir Holland et Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
 Supposons que notre design implique $m$ unités sous traitement et $N−m$ sous contrôle.
-Supposons que nous devions réassigner à plusieurs reprises le traitement de manière aléatoire et à chaque fois calculer la différence des moyennes entre les groupes traités et témoins, puis enregistrer cette valeur dans une liste.
+Supposons que nous devions réassigner à plusieurs reprises le traitement de manière aléatoire et à chaque fois calculer la différence des moyennes entre les groupes de traitement et de contrôle, puis enregistrer cette valeur dans une liste.
 La moyenne des valeurs de cette liste sera la même que la différence des moyennes des véritables résultats potentiels si nous avions observé tous les résultats potentiels pour toutes les observations.[^3] Autrement dit, l'estimateur (i.e. la différence des moyennes observées) est un estimateur sans biais de l'effet causal moyen du traitement.
 
 [^3]:  i.e $(E(Y_i(1)|D=1)=E(Y_i(1)|D=0)=E(Y_i(1)))$ et $(E(Y_i(0)|D=1)=E(Y_i(0)|D=0)=E(Y_i(0)))$

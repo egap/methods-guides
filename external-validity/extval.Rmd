@@ -30,13 +30,13 @@ Ce guide des méthodes aborde certains concepts clés, les pièges à éviter et
 ==
 
 La validité interne fait référence à la qualité des inférences causales faites pour un groupe de sujets donné.
-Comme l'a posé à l'origine Campbell[^2], la validité interne pose la question suivante : "le stimulus expérimental a-t-il en fait causé une différence significative dans ce cas spécifique ?" Ce concept concorde avec l'approche contrefactuelle de la causalité que les expérimentateurs utilisent généralement, qui demande si les résultats changent en fonction de la présence ou de l'absence d'un traitement.[^3]
+Comme l'a posé à l'origine Campbell[^2], la validité interne pose la question suivante : "le stimulus expérimental a-t-il en fait causé une différence significative dans ce cas spécifique ?" Ce concept concorde avec l'approche contrefactuelle de la causalité que les expérimentalistes utilisent généralement, qui demande si les résultats changent en fonction de la présence ou de l'absence d'un traitement.[^3]
 
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
 [^3]: Plus de détails disponibles dans le guide des méthodes d'inférence causale: http://egap.org/resource/10-things-to-know-about-causal-inference
 
 Avant de pouvoir extrapoler un effet causal à une population distincte, il est essentiel que l'effet de traitement moyen original soit basé sur un résultat bien identifié.
-Pour la plupart des expérimentateurs, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait pas d'attrition, d'interférence, de débordement ou d'autres menaces à l'inférence.
+Pour la plupart des expérimentalistes, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait pas d'attrition, d'interférence, de débordement ou d'autres menaces à l'inférence.
 Pour les études observationnelles, des hypothèses d'identification supplémentaires sont nécessaires, telles que l'indépendance conditionnelle du traitement par rapport aux résultats potentiels.
 
 3. Faire des compromis entre validité interne et externe
@@ -101,7 +101,7 @@ En bref, dans des conditions d'équilibre général, nous pourrions nous attendr
 ==
 La validité interne et externe ne sont pas les seules préoccupations de "validité" qui peuvent être soulevées dans le travail expérimental, et bien que pertinentes, elles sont également distinctes.
 La validité écologique, telle que définie par Shadish, Cook et Campbell[^12], concerne le fait qu'une intervention semble artificielle ou déplacée lorsqu'elle est déployée dans un nouveau contexte.
-Par exemple, un atelier d'information dans une ville rurale mené par des expérimentateurs ressemble-t-il à la manière habituelle de partager l'information pour cette population ? De même, si le même atelier se tenait dans une grande ville, semblerait-il déplacé ?
+Par exemple, un atelier d'information dans une ville rurale mené par des expérimentalistes ressemble-t-il à la manière habituelle de partager l'information pour cette population ? De même, si le même atelier se tenait dans une grande ville, semblerait-il déplacé ?
 
 [^12]: Shadish, W. R., Cook, T. D., & Campbell, D. T. (2002). Experimental and quasi-experimental designs for generalized causal inference. Houghton, Mifflin and Company.
 

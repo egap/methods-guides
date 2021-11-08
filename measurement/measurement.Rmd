@@ -86,7 +86,7 @@ Pourtant, fournir des informations inclut également le mode de livraison et qui
 Pour comprendre dans quelle mesure le traitement manipule un concept, nous devons également comprendre ce que le traitement pourrait manipuler d'autre.
 
 Cependant, malgré tous les efforts pour opérationnaliser un traitement, dans la recherche expérimentale, le lien entre l'opérationnalisation et l'indicateur de traitement est fondamentalement distinct de la mesure des covariables ou des résultats pour deux raisons.
-Premièrement, en assignant un traitement, les expérimentateurs visent à contrôler les valeurs que prend une unité donnée.
+Premièrement, en assignant un traitement, les expérimentalistes visent à contrôler les valeurs que prend une unité donnée.
 Deuxièmement, pour l'indicateur de traitement, le score provient de l'assignation de traitement, qui est un produit de la randomisation.
 Un sujet peut ou non avoir reçu le traitement, mais son score sur l'indicateur de traitement est simplement le traitement auquel il a été assigné, et non le traitement qu'il a reçu.
 

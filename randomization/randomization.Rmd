@@ -55,10 +55,10 @@ Il est possible, en randomisant, de spécifier la proportion pour des facteurs p
 même s'il n'est pas possible de spécifier quelles unités particulières sont sélectionnées pour l'un ou l'autre groupe et de maintenir l'assignation aléatoire.
 
 Cela signifie qu'il est possible de spécifier, par exemple, que vos groupes de traitement et de contrôle contiennent des proportions égales d'hommes et de femmes.
-En d'autres termes, cela évite toute randomisation qui pourrait produire un groupe de traitement distinctement masculin et un groupe témoin distinctement féminin, ou vice-versa.
+En d'autres termes, cela évite toute randomisation qui pourrait produire un groupe de traitement distinctement masculin et un groupe de contrôle distinctement féminin, ou vice-versa.
 
 Pourquoi est-ce souhaitable ? Non pas parce que notre estimation de l'effet moyen du traitement serait autrement biaisée, mais parce qu'elle pourrait produite beaucoup de bruit.
-Supposons qu'une assignation aléatoire ait généré un groupe de traitement très masculin et un groupe témoin très féminin.
+Supposons qu'une assignation aléatoire ait généré un groupe de traitement très masculin et un groupe de contrôle très féminin.
 Nous observons une corrélation entre le sexe et le statut de traitement.
 Si nous devions estimer un effet de traitement, cet effet de traitement serait toujours impartial car le sexe n'a pas causé le statut de traitement.
 Cependant, il serait plus difficile de rejeter l'hypothèse nulle selon laquelle ce n'était pas notre traitement mais le sexe qui produisait l'effet.
@@ -177,7 +177,7 @@ Cela peut être délicat si les unités ont la capacité d'interagir les unes av
 
 Une façon de rendre les effets de débordements plus évidents consiste à utiliser la double randomisation.
 Vous assignez d'abord de manière aléatoire certains groupes au traitement ou au contrôle, et au sein des groupes, vous assignez certains individus au traitement ou au contrôle.
-La comparaison des individus témoins de votre groupe de traitement avec les individus de votre groupe témoin vous permettra d'évaluer le rôle des effets de débordements dans votre expérience.
+La comparaison des individus témoins de votre groupe de traitement avec les individus de votre groupe de contrôle vous permettra d'évaluer le rôle des effets de débordements dans votre expérience.
 
 6 Différentes unités peuvent être assignées au traitement avec différentes probabilités
 ==
