@@ -51,10 +51,10 @@ Par exemple, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il es
 Alternativement, l'affirmation selon laquelle Peter a obtenu le poste parce qu'il est un homme nécessite de considérer Peter comme autre qu'un homme.
 Le problème est que les contrefactuels dans ces cas impliquent un changement non seulement de la condition à laquelle fait face un individu, mais de l'individu lui-même.
 
-Pour éviter de tels problèmes, certains statisticiens recommandent de restreindre les assertions causales aux traitements qui peuvent en théorie (pas nécessairement en pratique) être manipulés.[^11]
+Pour éviter de tels problèmes, certains statisticiens recommandent de restreindre les assertions causales aux traitements qui peuvent en théorie (pas nécessairement en pratique) être manipulés.[^111]
 Par exemple, alors que nous pourrions avoir des difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce qu'il était un homme, nous n'avons pas de telles difficultés avec l'affirmation selon laquelle Peter a obtenu le poste parce que l'agence de recrutement pensait qu'il était un homme.
 
-[^11]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
+[^111]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
 
 3. Les causes sont non rivales.
 ==
