@@ -87,7 +87,7 @@ Cependant, l'ajustement des covariables a tendance à améliorer la précision s
 Un estimateur sans biais peut surestimer ou sous-estimer l'ATE sur une répétition donnée, mais son espérance (la moyenne sur toutes les répétitions possibles) sera égale à l'ATE réel.
 Nous préférons généralement des estimateurs sans biais ou approximativement sans biais, mais nous valorisons également la précision (qui est formellement définie comme l'inverse de la variance).
 Imaginez que vous lancez une fléchette sur un jeu de fléchettes.
-Si vous frappez le centre de la cible en moyenne mais que vos tirs sont souvent loin du but, vous disposez d'un estimateur impartial mais imprécis.
+Si vous frappez le centre de la cible en moyenne mais que vos tirs sont souvent loin du but, vous disposez d'un estimateur non biaisé mais imprécis.
 Si vous frappez près du centre à chaque fois, votre estimateur est plus précis.
 Un chercheur peut choisir d'accepter un petit biais en échange d'une grande amélioration de la précision.
 Un critère possible pour évaluer les estimateurs est l'[erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Erreur_quadratique_moyenne), qui est égale à la variance plus le carré du biais.
@@ -95,7 +95,7 @@ Voir, par exemple, Sharon Lohr (2010), _Sampling: Design and Analysis_, 2e éd.,
 
 Dans les grands échantillons, l'assignation aléatoire a tendance à produire des groupes de traitement et de contrôle avec des caractéristiques de base similaires.
 Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir des taux de vote légèrement plus élevés lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
-Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode impartiale, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
+Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode non biaisée, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
 
 [^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui sera produite simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
 Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe de contrôle avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.

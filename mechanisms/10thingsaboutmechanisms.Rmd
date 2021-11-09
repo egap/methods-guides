@@ -291,7 +291,7 @@ ATE
 
 Relions cet exercice à la question soulevée au point 3. Cette simulation a illustré que la quantification de l'effet de médiation s'avère difficile lorsque les variables prédictives de base confondent la relation entre M et Y.
 Étant donné que M n'est pas assigné de manière aléatoire, il est important pour nous de réfléchir à la probabilité que notre M et notre Y soient tous deux affectés par des variables non observées.
-En principe, s'il n'y a pas de variables de confusion dans cette relation, alors une analyse de décomposition des effets peut être impartiale, mais cette hypothèse est forte et généralement difficile à prouver.
+En principe, s'il n'y a pas de variables de confusion dans cette relation, alors une analyse de décomposition des effets peut être non biaisée, mais cette hypothèse est forte et généralement difficile à prouver.
 
 Même si nous ne l'avons pas démontré dans cette simulation, il est également possible de montrer que la décomposition des effets est également inappropriée lorsque l'effet du traitement est hétérogène (nous avons introduit cette intuition au point 4).
 La raison technique de ceci vient de notre loi de l'espérance, qui est : $E[a*b]$ = $E[a]E[b]+cov(a,b)$.
@@ -403,7 +403,7 @@ Les auteurs ont conclu que les exigences de fréquentation associées aux transf
 Des études comme celles-ci aident non seulement les chercheurs en sciences sociales à en savoir plus sur les canaux par lesquels X provoque Y, mais aussi les décideurs politiques à explorer et découvrir de nouveaux traitements.
 Après plusieurs autres études ont confirmé Baird et al. en démontrant les effets remarquables des transferts monétaires inconditionnels, de nombreux gouvernements et organisations ont commencé à mettre en œuvre des programmes de transferts monétaires inconditionnels.
 
-**Ce que vous pouvez faire...** Dans les projets futurs, posez-vous la question : mon traitement peut-il être "décomposé" en plusieurs bras de traitement, certains qui manipulent implicitement M, et d'autres non ? Envisagez d'utiliser un plan factoriel pour identifier les effets des différents bras de traitement.
+**Ce que vous pouvez faire...** Dans les projets futurs, posez-vous la question : mon traitement peut-il être "décomposé" en plusieurs bras de traitement, certains qui manipulent implicitement M, et d'autres non ? Envisagez d'utiliser un design factoriel pour identifier les effets des différents bras de traitement.
 Si vous disposez de suffisamment de puissance statistique, la comparaison des différents bras de traitement vous fournira des preuves suggestives pour ou contre M.
 
 # Malgré les difficultés à mesurer empiriquement les mécanismes, il convient de s'y attarder sérieusement mais d'être prudent dans notre langage.

@@ -383,7 +383,7 @@ Notre intervention a-t-elle augmenté la participation dans le groupe de traitem
 Si oui, quelle part de cet effet total peut être attribuée aux effets de médiation de notre traitement sur le sentiment d'utilité ; et de ce sentiment d'utilité sur la participation au vote ?
 
 Baron et Kenny (1986) proposent un cadre général de réflexion sur la médiation en décomposant l'effet total du traitement en son effet indirect sur un médiateur qui affecte ensuite le résultat, appelé effet causal moyen de médiation (average causal mediation effect, ACME), et l'effet moyen direct du traitement (average direct effect, ADE).
-L'estimation impartiale de ces effets, cependant, nécessite un ensemble d'hypothèses fortes sur la relation entre le traitement, les médiateurs, les résultats et les facteurs de confusion potentiels, collectivement appelés ignorabilité séquentielle (Imai, Keele et Yamamoto (2010), Bullock, Green et Ha (2010 )).[^20]
+L'estimation non biaisée de ces effets, cependant, nécessite un ensemble d'hypothèses fortes sur la relation entre le traitement, les médiateurs, les résultats et les facteurs de confusion potentiels, collectivement appelés ignorabilité séquentielle (Imai, Keele et Yamamoto (2010), Bullock, Green et Ha (2010 )).[^20]
 
 [^20]: Formellement, Imai, Keele et Yamamoto (2010) définissent les conditions nécessaires d'ignorabilité séquentielle comme : ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$.
 C'est-à-dire que, premièrement, étant donné les covariables de pré-traitement, les résultats potentiels de Y et M sont indépendants du traitement D
