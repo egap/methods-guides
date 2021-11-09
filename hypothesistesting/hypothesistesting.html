@@ -324,7 +324,7 @@ Cependant, faire des hypothèses sur l’effet moyen nous simplifie la tâche :
 Une hypothèse se réfère uniquement aux résultats potentiels.
 Ci-dessus, en supposant aucune interaction entre les unités, nous avons imaginé deux résultats potentiels par personne, mais nous n’en observons qu’un par personne.
 <strong>Comment pouvons-nous utiliser ce que nous observons pour en savoir plus sur les modèles théoriques de quantités partiellement observées ?</strong>
-Dans cette expérience simple, nous savons que nous observons l’un des deux résultats potentiels par personne, selon le traitement qui lui a été attribué.
+Dans cette expérience simple, nous savons que nous observons l’un des deux résultats potentiels par personne, selon le traitement qui lui a été assigné.
 Ainsi, nous pouvons lier les résultats contrefactuels non observés à un résultat observé (<span class="math inline">\(Y_i\)</span>) en utilisant l’assignation de traitement (<span class="math inline">\(Z_i\)</span>) comme suit :</p>
 <p><span class="math display">\[ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} \]</span> {#eq:identity}</p>
 <p><span class="citation">@eq:identity</span> signifie que notre résultat observé, <span class="math inline">\(Y_i\)</span> (ici, le montant des impôts payés par la personne <span class="math inline">\(i\)</span>), est <span class="math inline">\(y_{i,1}\)</span> lorsque la personne est assignée au groupe de traitement (<span class="math inline">\(Z_i=1\)</span>), et <span class="math inline">\(y_{i,0}\)</span> lorsque la personne est assignée au groupe de contrôle.</p>
@@ -353,7 +353,7 @@ Et l’implication alors, est que nous ne devrions voir aucune différence entre
 <p>Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut ajouter une statistique de test au test d’hypothèse.
 Une statistique de test résume la relation entre le traitement et les résultats observés à l’aide d’un seul nombre.
 En général, nous aimerions que nos statistiques de test prennent des valeurs plus importantes plus l’effet du traitement est important.
-Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisées en deux groupes (vous pouvez appuyer sur le bouton “Code” pour voir le code R).</p>
+Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisée en deux groupes (vous pouvez appuyer sur le bouton “Code” pour voir le code R).</p>
 <pre class="r"><code>## Tout d&#39;abord, créez des données,
 ## y0 est le résultat potentiel à contrôler
 N &lt;- 10
@@ -396,7 +396,7 @@ observedMeanTZ &lt;- meanTZ(ys = Y, z = Z)
 observedMeanRankTZ &lt;- meanrankTZ(ys = Y, z = Z)</code></pre>
 <p>La première statistique de test est la différence des moyennes (<code>meanTZ</code>) et renvoie une valeur observée de 102.
 La seconde statistique de test est la différence des moyennes selon le rang (<code>meanrankTZ</code>), qui renvoie une valeur de 2.2.
-On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur standard estimée (voir <span class="citation">@chung2013exact</span> pour un argument en faveur de cette statistique de test).
+On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur type estimée (voir <span class="citation">@chung2013exact</span> pour un argument en faveur de cette statistique de test).
 Pour tester l’hypothèse nulle stricte d’absence d’effet, on peut choisir presque n’importe quelle statistique de test de telle sorte que les valeurs de cette fonction augmentent à mesure que la différence entre les résultats traités et les résultats de contrôle augmente (voir <span class="citation">@rosenbaum:2002</span>, chapitre 2, pour une discussion sur statistiques de test à “effet croissant”).</p>
 <p>Le test de l’hypothèse nulle faible d’absence d’effet utilise la différence des moyennes (peut-être standardisée ou de Student) comme statistique de test.</p>
 </div>
@@ -482,7 +482,7 @@ Dans le panneau de gauche de la figure, nous voyons qu’un large éventail des 
 Le panneau de droite montre que remanier les résultats selon le rang avant de prendre la différence des moyennes réduit la plage des statistiques de test — après que tous les rangs eux-mêmes passent de 1 à 10 plutôt que de 1 à 280.</p>
 <div id="p-valeurs-unilatérales" class="section level3" number="7.1.1">
 <h3><span class="header-section-number">7.1.1</span> <span class="math inline">\(P\)</span>-valeurs unilatérales</h3>
-<p>Les <span class="math inline">\(p\)</span>-valeurs unilatérales sont 0.203 pour la différence des moyennes simple et 0.15 pour la différence des moyennes selon le rang.
+<p>Les <span class="math inline">\(p\)</span>-valeurs unilatérales sont 0.2034 pour la différence des moyennes simple et 0.15 pour la différence des moyennes selon le rang.
 Chaque statistique de test jette un degré de doute différent, ou quantifie le degré de surprise, pour la même hypothèse nulle d’absence d’effets.
 Le résultat lui-même contient tant de bruit que la différence des moyennes des résultats selon le rang permet de mieux capter le signal que la simple différence des moyennes.
 Ces données ont été générées avec des effets de traitement intégrés, donc l’hypothèse nulle d’absence d’effet est fausse, mais les informations sur les effets contiennent du bruit — la taille de l’échantillon est petite et la distribution des résultats comporte des points aberrants et l’effet du traitement varie considérablement.</p>
@@ -510,7 +510,7 @@ p2SidedMeanRankTZ &lt;- 2 * min(
   mean(possibleMeanRankDiffsH0 &gt;= observedMeanRankTZ),
   mean(possibleMeanRankDiffsH0 &lt;= observedMeanRankTZ)
 )</code></pre>
-<p>Dans ce cas, les <span class="math inline">\(p\)</span>-valeurs bilatérales sont 0.407 et 0.296 pour, respectivement, la différences des moyennes simple et selon le rang.
+<p>Dans ce cas, les <span class="math inline">\(p\)</span>-valeurs bilatérales sont 0.4068 et 0.296 pour, respectivement, la différences des moyennes simple et selon le rang.
 Nous les interprétons en termes d’“extrémité” — nous verrions seulement une différence des moyennes observée aussi loin de zéro que celle calculée à partir de nos résultats environ 18% du temps, par exemple.</p>
 <p><strong>Remarque :</strong> le test de l’hypothèse nulle stricte montré ici peut être fait sans écrire le code vous-même.
 Le code que vous verrez ici (en cliquant sur le bouton “code”) montre comment utiliser différents packages R pour tester des hypothèses à l’aide d’une inférence de randomisation.</p>
@@ -523,11 +523,11 @@ pMeanRank2 &lt;- pvalue(oneway_test(rankY ~ factor(Z), data = dat, distribution 
 pMean2</code></pre>
 <pre><code>[1] 0.405
 99 percent confidence interval:
- 0.365 0.446 </code></pre>
+ 0.3650502 0.4458670 </code></pre>
 <pre class="r"><code>pMeanRank2</code></pre>
 <pre><code>[1] 0.28
 99 percent confidence interval:
- 0.244 0.318 </code></pre>
+ 0.2440542 0.3180731 </code></pre>
 <pre class="r"><code>## en utilisant le package ri2
 library(ri2)
 thedesign &lt;- declare_ra(N = N)
@@ -537,14 +537,14 @@ pMean4 &lt;- conduct_ri(Y ~ Z,
 )
 summary(pMean4)</code></pre>
 <pre><code>  term estimate two_tailed_p_value
-1    Z      102              0.405</code></pre>
+1    Z      102          0.4047619</code></pre>
 <pre class="r"><code>pMeanRank4 &lt;- conduct_ri(rankY ~ Z,
   declaration = thedesign,
   sharp_hypothesis = 0, data = dat, sims = 1000
 )
 summary(pMeanRank4)</code></pre>
 <pre><code>  term estimate two_tailed_p_value
-1    Z      2.2              0.302</code></pre>
+1    Z      2.2          0.3015873</code></pre>
 </div>
 </div>
 <div id="un-exemple-tester-lhypothèse-nulle-faible-dabsence-deffet" class="section level2" number="7.2">
@@ -566,7 +566,7 @@ c(
   diffOfMeansPvalue = ttestP2$p.value
 )</code></pre>
 <pre><code>           lmPvalue         ttestPvalue diffOfMeansPvalue.Z 
-              0.511               0.511               0.511 </code></pre>
+          0.5106994           0.5110166           0.5110166 </code></pre>
 <p>Ce code produit les mêmes résultats sans utiliser les moindres carrés — après tout, nous calculons simplement les différences de moyennes et les variances de ces moyennes car elles peuvent varier au cours d’expériences répétées dans le même pool d’unités expérimentales.</p>
 <pre class="r"><code>varEstATE &lt;- function(Y, Z) {
   var(Y[Z == 1]) / sum(Z) + var(Y[Z == 0]) / sum(1 - Z)
@@ -581,7 +581,7 @@ c(
   )
 )</code></pre>
 <pre><code>observedTestStat         stderror            tstat             pval 
-         102.000          148.182            0.688            0.511 </code></pre>
+     102.0000000      148.1816453        0.6883444        0.5106994 </code></pre>
 <p>Notez que ces tests supposent tous que la distribution de la statistique de test à travers des expériences répétées serait bien caractérisée par une distribution <span class="math inline">\(t\)</span>.
 La partie gauche de la figure ci-dessus montre la distribution réalisée d’une certaine manière pour que l’hypothese nulle faible soit vraie (i.e. dans ce cas l’hypothese nulle stricte est vraie aussi) :
 il y a plusieurs façons pour que l’hypothese nulle faible soit vraie — certaines sont compatibles avec des effets positifs importants sur certaines unités et des effets négatifs importants sur d’autres unités,
