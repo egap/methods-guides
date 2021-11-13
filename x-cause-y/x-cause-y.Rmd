@@ -11,8 +11,7 @@ output:
 Résumé
 ==
 Les expériences sont un moyen de déterminer si quelque chose cause quelque chose d'autre.
-L'idée de base est : essayez-le et découvrez-le.
-La chose délicate est de trouver comment l'essayer d'une manière qui permette d'avoir assez confiance pour croire les effets causaux.
+L'idée de base est essayez pour savoir. Ce qui est délicat, c'est d'essayer d'une manière qui permette d'avoir assez confiance pour croire les effets causaux.
 L'intervention randomisée est une stratégie qui occupe une place de choix dans la boîte à outils du chercheur.
 C'est la stratégie qui est au cœur de la plupart des recherches expérimentales menées par les membres de EGAP.
 Mais il existe d'autres stratégies qui sont parfois plus appropriées.
@@ -21,9 +20,9 @@ Nous décrivons ici les dix stratégies les plus importantes pour déterminer le
 
 1. Randomisation
 ==
-La stratégie utilisée dans les essais randomisés contrôlés (ou interventions randomisées ou expériences randomisées) consiste à utiliser une forme de loterie pour déterminer qui, parmi un groupe, aura ou n'aura pas accès à un traitement ou à un programme (ou peut-être qui l'aura d'abord et qui l'obtiendra plus tard, ou qui obtiendra une version et qui en obtiendra une autre).
+La stratégie utilisée dans les essais randomisés contrôlés (interventions randomisées, expériences randomisées) consiste à utiliser une forme de loterie pour déterminer qui, dans un groupe, aura ou n'aura pas accès à un traitement ou à un programme (ou peut-être qui aura accès en premier et qui aura accès plus tard, ou qui aura accès à une version et qui aura accès à une autre).
 L'élégance de l'approche est qu'elle utilise le hasard pour déterminer quels sont les effets systématiques d'un programme.
-Le caractère aléatoire réduit le risque qu'une relation observée entre le traitement et les résultats soit due à des "facteurs de confusion" - i.e. d'autres différences entre les groupes (par exemple, on pourrait craindre que les choses s'améliorent dans les zones de traitement précisément parce que les programmes choisissent de bien fonctionner, mais savoir que la sélection est aléatoire efface complètement cette préoccupation).
+Le caractère aléatoire réduit le risque qu'une relation observée entre le traitement et les résultats soit due à des "facteurs de confusion" - i.e. d'autres différences entre les groupes (par exemple, on pourrait craindre que les choses s'améliorent dans les zones de traitement précisément parce que les programmes choisissent une zone qui fonctionne déjà bien, mais savoir que la sélection est aléatoire efface complètement cette préoccupation).
 La randomisation est puissante car elle garantit qu'il n'y a pas de relation systématique entre le traitement et toutes les autres caractéristiques qui peuvent affecter les résultats, que vous en soyez conscient ou non.
 Pour cette raison, c'est souvent considéré comme l'étalon-or.
 Cependant, la randomisation ne peut pas être utilisée toujours et partout, à la fois pour des raisons éthiques et pratiques.
@@ -100,9 +99,9 @@ Une application intelligente pour examiner les effets de la pauvreté sur les co
 Bien que l'on s'inquiète que la corrélation entre conflit et pauvreté soit due au fait que le conflit pourrait causer la pauvreté, il ne semble pas plausible que le conflit provoque des précipitations !
 Ainsi, l'utilisation des précipitations comme instrument ici a augmenté la certitude qu'il existe réellement une relation causale, et pas seulement une corrélation, entre [la pauvreté et le conflit](http://emiguel.econ.berkeley.edu/research/economic-shocks-and-civil-conflict-an-instrumental-variables-approach).
 
-8. Régression sur discontinuité (RSD) (regression discontinuity design, RDD)
+8. La méthode de régression par discontinuité (regression discontinuity design, RDD)
 ==
-La régression sur discontinuité est l'une des approches les plus sous-utilisées, mais elle a un potentiel énorme.
+La régression par discontinuité est l'une des approches les plus sous-utilisées, mais elle a un potentiel énorme.
 La stratégie fonctionne comme suit.
 Disons qu'un programme va être mis à la disposition d'un ensemble de bénéficiaires potentiels.
 Ces bénéficiaires potentiels sont tous classés selon un ensemble de critères pertinents, tels que le niveau d'éducation antérieur, le statut d'emploi, etc.
@@ -117,8 +116,7 @@ Cette information fournit la clé pour estimer l'effet d'un programme en compara
 L'avantage de cette approche est que tout ce qui est nécessaire est que l'organisme en charge utilise un ensemble clair de critères (qui peuvent être transformés en un score) sur lesquels ils prennent la décision d'assignation au traitement.
 L'inconvénient est que des estimations vraiment fiables de l'impact ne peuvent être faites que pour les unités situées juste autour du seuil.
 
-Pour un aperçu de la RSD, voir [Skovron et Titiunik](http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf), [Lee et Lemieux](http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf).
-Pour deux applications intéressantes, voir [Manacorda et al. en Uruguay](http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support) et [Samii au Burundi](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=8963107).
+Pour un aperçu de la régression par discontinuité, voir [Skovron et Titiunik](http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf), [Lee et Lemieux](http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf). Pour deux applications intéressantes, voir [Manacorda et al. en Uruguay](http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support) et [Samii au Burundi](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=8963107).
 
 9. Traçage de processus
 ==

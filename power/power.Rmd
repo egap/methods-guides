@@ -22,9 +22,9 @@ Coppock n'est pas responsable des modifications ultérieures apportées à ce gu
 La puissance est la capacité de distinguer le signal du bruit.
 
 Le signal qui nous intéresse est l'impact d'un traitement sur certains résultats.
-L'éducation augmente-t-elle les revenus ? Les campagnes de santé publique diminuent-elles l'incidence des maladies ? La surveillance internationale peut-elle réduire la corruption gouvernementale ?
+L'éducation augmente-t-elle les revenus ? Les campagnes de santé publique diminuent-elles l'incidence des maladies ? Les observateurs internationaux peuvent-ils réduire la corruption gouvernementale ?
 
-Le bruit qui nous préoccupe vient de la complexité du monde.
+Le bruit qui nous préoccupe provient de la complexité du monde.
 Les résultats varient selon les personnes et les lieux pour une myriade de raisons.
 En termes statistiques, vous pouvez considérer cette variation comme l'écart type de la variable de résultat.
 Par exemple, supposons qu'une expérience utilise les taux d'une maladie rare comme résultat.
@@ -46,7 +46,7 @@ s'il y a vraiment un effet de traitement, nous pourrons le voir.
 
 2 Pourquoi vous en avez besoin ?
 ==
-Les expérimentalistes se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
+Les expérimentateurs se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
 Après une expérience, nous craignons de conclure à tort qu'il y a un effet alors qu'il n'y en a pas vraiment.
 
 L'analyse de puissance statistique pose la question inverse : en supposant qu'il y ait vraiment un effet de traitement et que vous deviez exécuter votre expérience un grand nombre de fois, à quelle fréquence obtiendrez-vous un résultat statistiquement significatif ?
@@ -63,7 +63,7 @@ Bien que cette convention soit une référence utile, assurez-vous que vous ête
 
 Attention : la puissance statistique compte beaucoup.
 Les résultats nuls d'études de faible puissance peuvent être difficiles à interpréter : n'y a-t-il vraiment aucun effet ? Ou l'étude n'est-elle tout simplement pas en mesure de le mesurer? Les résultats positifs d'une étude de faible puissance peuvent également être trompeurs : à condition d'être statistiquement significative, une estimation d'une étude de faible puissance surestime probablement l'effet du traitement.
-Les études sous-alimentées sont parfois basées sur des hypothèses trop optimistes ; une analyse de puissance convaincante rend ces hypothèses explicites et devrait vous protéger de la mise en œuvre de designs qui n'ont de manière réaliste aucune chance de répondre aux questions auxquelles vous souhaitez répondre.
+Les études de faible puissance sont parfois basées sur des hypothèses trop optimistes ; une analyse de puissance convaincante rend ces hypothèses explicites et devrait vous protéger de la mise en œuvre de designs qui n'ont de manière réaliste aucune chance de répondre aux questions auxquelles vous souhaitez répondre.
 
 3 Les trois ingrédients de la puissance statistique
 ==
@@ -81,7 +81,7 @@ Par exemple, les chercheurs impliqués dans l'évaluation du programme ne décid
 À mesure que le bruit de fond de vos variables de résultat augmente, la puissance de votre expérience diminue.
 Dans la mesure du possible, essayez de sélectionner des variables de résultat qui ont une faible variabilité.
 En termes pratiques, cela signifie comparer l'écart type de la variable de résultat à la taille de l'effet de traitement attendu - il n'y a pas de rapport magique à viser, mais plus les deux sont proches, mieux sera votre expérience.
-Dans l'ensemble, les chercheurs ne contrôlent pas le bruit de fond, et choisir des variables de résultat à faible bruit est plus facile à dire qu'à faire.
+Dans l'ensemble, les chercheurs ne contrôlent pas le bruit de fond, et choisir des variables de résultat à bruit faible est plus facile à dire qu'à faire.
 De plus, de nombreux résultats que nous aimerions étudier sont intrinsèquement assez variables.
 De ce point de vue, le bruit est simplement à gérer du mieux que vous pouvez.
 
@@ -98,7 +98,7 @@ Soyez prudent, cependant, car les hypothèses qui sous-tendent les formules peuv
 
 Voici une formule courante utilisée pour calculer la puissance[^2]
 
-[^2]: Reproduite de Gerber et Green 2012, page 93
+[^2]: Formule reproduite de Gerber et Green 2012, page 93
 
 $$\beta = \Phi \left(\frac{|\mu_t-\mu_c|\sqrt{N}}{2\sigma}-\Phi^{-1} \left(1-\frac{\alpha}{2}\right) \right)$$
 
@@ -106,19 +106,19 @@ $$\beta = \Phi \left(\frac{|\mu_t-\mu_c|\sqrt{N}}{2\sigma}-\Phi^{-1} \left(1-\fr
 Parce que c'est la probabilité d'obtenir un résultat statistiquement significatif, β sera un nombre compris entre 0 et 1.
 
 * $\Phi$ est la fonction de répartition de la distribution normale, et $\Phi^{-1}$ est son inverse.
-* $\mu_t$ est le résultat moyen dans le groupe de traitement. Supposons qu'il soit 65.
-* $\mu_c$ est le résultat moyen dans le groupe de contrôle. Supposons que c'est 60.
-* Ensemble, les hypothèses sur μt et μc définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
+* $\mu_t$ est le résultat moyen dans le groupe de traitement. Supposons qu'il soit de 65.
+* $\mu_c$ est le résultat moyen dans le groupe de contrôle. Supposons qu'il soit de 60.
+* Ensemble, les hypothèses sur $\mu_t$ et $\mu_c$ définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
 
-* $\sigma$ est l'écart type des résultats. C'est ainsi que nous émettons des hypothèses sur le niveau de bruit de notre expérience - l'une des hypothèses que nous émettons est que le sigma est le même pour les groupes de traitement et de contrôle. Supposons $\sigma=20$
-* $\alpha$ est notre niveau de signification – la convention dans de nombreuses disciplines est que α doit être égal à 0,05.
+* $\sigma$ est l'écart type des résultats. C'est ainsi que nous émettons des hypothèses sur le niveau de bruit de notre expérience - l'une des hypothèses que nous émettons est que $\sigma$ est le même pour les groupes de traitement et de contrôle. Supposons $\sigma=20$
+* $\alpha$ est notre niveau de signification – la convention dans de nombreuses disciplines est que $\alpha$ doit être égal à 0,05.
 $N$ est le nombre total de sujets.
 C'est la seule variable qui est sous le contrôle direct du chercheur.
-Cette formule suppose que chaque sujet a 50/50 de chances d'être dans le groupe de contrôle.
+Cette formule suppose que chaque sujet ait 50 % de chances d'être dans le groupe de contrôle.
 Supposons que $N=500$.
 
-En utilisant la formule, nous trouvons que sous cet ensemble d'hypothèses, $β = 0,80$, ce qui signifie que nous avons 80 % de chances d'avoir un résultat statistiquement significatif avec ce design.
-Cliquez [ici pour une feuille de calcul Google](https://docs.google.com/spreadsheets/d/117R4cqKkhX1MFqPIh7Yg2YzjHykxD7WsSLXqhEbD33I/edit#gid=0){target="_blank"} qui inclut cette formule.
+En utilisant la formule, nous trouvons que sous cet ensemble d'hypothèses, $\beta = 0,80$, ce qui signifie que nous avons 80 % de chances d'avoir un résultat statistiquement significatif avec ce design.
+Cliquez [ici pour une Google spreadsheet](https://docs.google.com/spreadsheets/d/117R4cqKkhX1MFqPIh7Yg2YzjHykxD7WsSLXqhEbD33I/edit#gid=0){target="_blank"} qui inclut cette formule.
 Vous pouvez copier ces formules directement dans Excel.
 Si vous êtes à l'aise avec R, voici le code pour le même calcul.
 
@@ -141,9 +141,9 @@ Ainsi, dans la plupart des analyses de puissance, vous voyez en fait ce qui se p
 La bonne nouvelle, c'est qu'il est facile de découvrir à quel point vos conclusions dépendent de vos hypothèses : faites simplement varier vos hypothèses et voyez comment les conclusions sur la puissance statistique varient.
 
 Cela se voit plus facilement en pensant à la façon dont la puissance varie avec le nombre de sujets.
-Une analyse de puissance qui examine la puissance pour différentes tailles d'étude inclue simplement une plage de valeurs pour N et voit comment β change.
+Une analyse de puissance qui examine la puissance pour différentes tailles d'étude inclue simplement une plage de valeurs pour N et voit comment $\beta$ change.
 
-En utilisant la formule de la section 4, vous pouvez voir à quel point la puissance est sensible à toutes les hypothèses : la puissance sera plus élevée si vous supposez que l'effet du traitement sera plus important, ou si vous êtes prêt à accepter un niveau alpha plus élevé, ou si vous avez plus ou moins confiance dans le bruit de vos mesures.[^3]
+En utilisant la formule de la section 4, vous pouvez voir à quel point la puissance est sensible à toutes les hypothèses : la puissance sera plus élevée si vous supposez que l'effet du traitement est plus important, ou si vous êtes prêt à accepter un niveau $\alpha$ plus élevé, ou si vous avez plus ou moins confiance dans le bruit de vos mesures.[^3]
 
 [^3]: Pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist](http://rpsychologist.com/d3/NHST/){target="_blank"} de Kristoffer Magnusson.
 
@@ -160,12 +160,12 @@ Le code ci-dessous montre comment effectuer cette simulation dans R.
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 possible.ns <- seq(from=100, to=2000, by=40) # Les tailles d'échantillon que nous considérerons
-stopifnot(all( (possible.ns %% 2)==0 )) ## nécessite un nombre pair de pools expérimentaux
+stopifnot(all( (possible.ns %% 2)==0 )) ## On nécessite un nombre pair de pools expérimentaux
 powers <- rep(NA, length(possible.ns)) # objet vide pour collecter les estimations de simulation
 alpha <- 0.05 # Niveau de signification standard
 sims <- 500 # Nombre de simulations à réaliser pour chaque N
 #### Boucle externe pour varier le nombre de sujets ####
-for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisis la jième valeur pour N
+for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisit la jième valeur pour N
   Y0 <- rnorm(n=N, mean=60, sd=20) # résultat potentiel pour le contrôle
   tau <- 5 # hypothèse de l'effet du traitement
   Y1 <- Y0 + tau # résultat potentiel pour le traitement
@@ -177,10 +177,10 @@ for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisis la jième valeur
         Y1 <- Y0 + tau # résultat potentiel pour le traitement
   for (i in 1:sims){
         ## Z.sim <- rbinom(n=N, size=1, prob=.5) # Faire une assignation aléatoire par tirage au sort
-        Z.sim <- sample(rep(c(0,1),N/2)) ## Faire une assignation aléatoire par tirage au sort sans remise
+        Z.sim <- sample(rep(c(0,1),N/2)) # Faire une assignation aléatoire par tirage au sort en s'assurant de groupes de taille égale
         Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Révéler les résultats selon l'assignation
         fit.sim <- lm(Y.sim ~ Z.sim) # Faire l'analyse (une simple régression)
-        p.value <- summary(fit.sim)$coefficients[2,4] # Extraire p-valeurs
+        p.value <- summary(fit.sim)$coefficients[2,4] # Extraire les p-valeurs
         significant.experiments[i] <- (p.value <= alpha) # Determiner la signification en accord avec p <= 0.05
         }
   powers[j] <- mean(significant.experiments) # stocker le taux de réussite moyen (puissance) pour chaque N
@@ -193,7 +193,7 @@ La simulation est un moyen beaucoup plus flexible et beaucoup plus intuitif de p
 Même les plus petits ajustements d'un design expérimental sont difficiles à capturer dans une formule (ajout d'un deuxième groupe de traitement, par exemple), mais sont relativement simples à inclure dans une simulation.
 
 En plus de compter la fréquence à laquelle vos expériences sont statistiquement significatives, vous pouvez observer directement la distribution des p-valeurs que vous êtes susceptible d'obtenir.
-Le graphique ci-dessous montre que sous ces hypothèses, vous pouvez vous attendre à obtenir quelques p-valeurs dans la plage de 0.01, mais que 80% seront inférieurs à 0.05.
+Le graphique ci-dessous montre que sous ces hypothèses, vous pouvez vous attendre à obtenir quelques p-valeurs dans la plage de 0.01, mais que 80% seront inférieures à 0.05.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/power/simulatedpvals.png)
 
@@ -215,8 +215,7 @@ Une façon simple d'y penser est d'imaginer quelle commande vous exécuterez dan
 * Protocole de randomisation.
 Quel type de randomisation utiliserez-vous ? La randomisation simple donne à tous les sujets une probabilité égale d'être dans le groupe de traitement, puis effectue un tirage au sort (éventuellement pondéré) pour chacun.
 La randomisation complète est similaire, mais elle garantit qu'un nombre exact d'unités seront assignées au traitement.
-La randomisation par bloc est encore plus puissante : elle garantit qu'un certain nombre au sein d'un sous-groupe seront assignés au traitement.
-
+La randomisation par bloc est encore plus puissante : elle garantit qu'un certain nombre d'unités au sein d'un sous-groupe seront assignés au traitement.
 Une assignation aléatoire restreinte rejette certaines assignations aléatoires sur la base d'un certain ensemble de critères — un manque d'équilibre par exemple.
 Ces différents types d'assignation aléatoire peuvent augmenter considérablement la puissance d'une expérience sans frais supplémentaires.
 Renseignez-vous sur les protocoles de randomisation [ici](https://egap.org/resource/10-things-to-know-about-randomization/).
@@ -226,14 +225,15 @@ Pour vous donner une idée de l'approche de simulation, réfléchissez à la man
 
 Si les covariables que vous incluez en tant que variables de contrôle sont fortement liées au résultat, alors vous avez considérablement augmenté la puissance de votre expérience.
 Malheureusement, la puissance supplémentaire qui accompagne l'inclusion des variables de contrôle est très difficile à capturer dans une formule compacte.
-Quasiment aucune des formules de puissance trouvées dans les manuels ou sur Internet ne peut fournir des conseils sur ce que l'inclusion de covariables fera pour votre puissance.
+Quasiment aucune des formules de puissance trouvées dans les manuels ou sur internet ne peut fournir des conseils sur ce que l'inclusion de covariables fera pour votre puissance.
 
 La réponse est la simulation.
 
-* Supposons que nous étudions l'effet d'une intervention éducative sur le revenu
+* Supposons que nous étudiions l'effet d'une intervention éducative sur le revenu
 * Supposons que nous ayons de bonnes données sur la relation entre deux covariables et le revenu : l'âge et le sexe.
 Dans cette économie, les hommes gagnent plus que les femmes et les personnes âgées gagnent plus que les jeunes.
-* Exécutez une régression du revenu sur l'âge et le sexe et enregistrez les coefficients, en utilisant des données d'enquête préexistantes (mieux encore : utilisez les données de référence des futurs participants à votre expérience !) l'âge et le sexe d'une manière qui reflète votre groupe de sujets expérimentaux.
+* Exécutez une régression du revenu sur l'âge et le sexe et enregistrez les coefficients, en utilisant des données d'enquête préexistantes (mieux encore : utilisez les données de référence des futurs participants à votre expérience !)
+* Générez de fausses données de covariables - N sujets au total, mais ventilés par âge et par sexe d'une manière qui reflète votre groupe de sujets expérimentaux.
 * Générez de fausses données de contrôle - où le résultat est fonction de l'âge et du sexe selon vos estimations de régression
 * Faire l'hypothèse d'un effet de traitement pour générer de fausses données de traitement
 * Exécutez l'expérience 10 000 fois et enregistrez la fréquence à laquelle, à l'aide d'une régression avec contrôles, votre expérience s'avère significative.
@@ -241,7 +241,7 @@ Dans cette économie, les hommes gagnent plus que les femmes et les personnes â
 Voici un graphique qui compare la puissance d'expériences avec et sans contrôle par les attributs de base.
 Le R² de la régression reliant le revenu à l'âge et au sexe est assez élevé - environ 0,66 - ce qui signifie que les covariables que nous avons rassemblées (générées) sont hautement prédictives.
 Pour une comparaison approximative, sigma, le niveau de bruit de fond auquel le modèle non ajusté est confronté, est d'environ 33.
-Ce graphique montre que pour n'importe quel N, le modèle corrigé des covariables a plus de puissance, à tel point que le modèle non corrigé aurait besoin de 1500 sujets pour réaliser ce que le modèle corrigé des covariables peut faire avec 500 sujets.
+Ce graphique montre que pour n'importe quel N, le modèle ajusté par les covariables a plus de puissance, à tel point que le modèle non ajusté aurait besoin de 1500 sujets pour réaliser ce que le modèle ajusté peut faire avec 500 sujets.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/power/powergraph21.png)
 
@@ -254,17 +254,17 @@ De nombreuses expériences emploient plusieurs traitements qui sont comparés à
 Cette complication supplémentaire change ce que nous entendons lorsque nous disons la "puissance" d'une expérience.
 Dans le cas d'un seul groupe de traitement, la puissance est simplement la probabilité d'obtenir un résultat statistiquement significatif.
 Dans le cas des traitements multiples, cela peut signifier plusieurs choses :
-A) la probabilité qu'au moins un des traitements devienne significatif,
-B) la probabilité que tous les traitements deviennent significatifs (par rapport au contrôle)
-ou C) la probabilité que les traitements seront classés dans un ordre hypothétique et que ces classements seront statistiquement significatifs.
+A) la probabilité qu'au moins un des traitements soit significatif,
+B) la probabilité que tous les traitements soient significatifs (par rapport au contrôle)
+ou C) la probabilité que les traitements soient classés dans un certain ordre hypothétique et que ce classement soit statistiquement significatif.
 
 Cette question des bras de traitement multiples est liée au problème des comparaisons multiples.
 Les tests de signification standard sont basés sur l'hypothèse que vous effectuez un seul test de signification statistique, et les p-valeurs  dérivées de ces tests reflètent la probabilité sous l'hypothèse nulle de voir un effet de traitement aussi important (ou plus important).
 Si, toutefois, vous effectuez plusieurs tests, cette probabilité n'est plus correcte.
 Dans une série de tests, la probabilité qu'au moins un des tests soit significatif même lorsque l'effet réel est nul est plus élevée, essentiellement parce que vous avez plus de tentatives.
-Une solution couramment citée (sinon couramment utilisée) consiste à utiliser la correction de Bonferroni : spécifiez le nombre de comparaisons que vous effectuerez à l'avance, puis divisez votre niveau de signification (alpha) par ce nombre.
+Une solution couramment citée (sinon couramment utilisée) consiste à utiliser la correction de Bonferroni : spécifiez le nombre de comparaisons que vous effectuerez à l'avance, puis divisez votre niveau de signification $\alpha$ par ce nombre.
 
-Si vous allez utiliser une correction de Bonferroni, les calculateurs de puissance standard seront plus compliqués à utiliser : vous devrez spécifier vos niveaux alpha corrigés de Bonferroni et calculer la puissance séparée de chaque comparaison.
+Si vous allez utiliser une correction de Bonferroni, les calculateurs de puissance standard seront plus compliqués à utiliser : vous devrez spécifier vos niveaux $\alpha$ corrigés de Bonferroni et calculer la puissance séparée de chaque comparaison.
 Pour calculer la probabilité que tous les tests soient significatifs, multipliez toutes les puissances séparées ensemble.
 Pour calculer la probabilité qu'au moins un des tests soit significatif, calculez la probabilité qu'aucun ne le soit, puis soustrayez de un.
 
@@ -279,7 +279,7 @@ Lorsqu'une expérience doit assigner des groupes entiers de personnes à un trai
 Ceci est courant pour les expériences éducatives, où des classes entières d'enfants sont assignées au traitement ou au contrôle, ou dans l'économie du développement, où des villages entiers d'individus sont assignés au traitement ou au contrôle.
 
 En règle générale, le découpage par grappe diminue votre puissance.
-Si vous pouvez éviter de regrouper vos traitements, c'est préférable pour la puissance.
+Si vous pouvez éviter de regrouper vos traitements en grappe, c'est préférable pour la puissance.
 À moins que vous ne soyez confronté à des problèmes liés aux effets de débordement, à la logistique ou à l'éthique, réduisez la variation au niveau le plus bas possible.
 
 Le meilleur scénario pour un design par grappe est lorsque la grappe dans laquelle se trouve un sujet fournit très peu d'informations sur leurs résultats.

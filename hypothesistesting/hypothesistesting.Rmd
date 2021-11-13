@@ -54,7 +54,7 @@ Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de
 Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
 Les gens utilisent des tests d'hypothèses dans des études d'observation ainsi que dans des expériences randomisées.
 Ce guide se concentre sur leur utilisation dans des expériences randomisées ou des designs de recherche qui tentent d'organiser les données
-de sorte qu'elles paraissent "aléatoires" (comme les designs de régression sur discontinuité ou d'autres designs naturels ou quasi expérimentaux).
+de sorte qu'elles paraissent "aléatoires" (comme les designs de régression par discontinuité ou d'autres designs naturels ou quasi expérimentaux).
 
 La valeur $p$ résume la capacité d'un test donné à distinguer le signal du bruit.
 Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique] (https://egap.org/resource/10-things-to-know-about-statistical-power),
