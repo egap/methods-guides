@@ -49,28 +49,27 @@ library(coin)
 
 # Les tests d'hypothèse résument les informations dans les designs de recherche pour aider les gens à raisonner sur les effets du traitement
 
-Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 (p=0,02 $)", ils utilisent un raccourci pour dire :
-"Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, en fait, nous le pouvons.
+Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 (p=0,02 $)", c'est un raccourci pour dire :
+"Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
 Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
-Les gens utilisent des tests d'hypothèses dans des études d'observation ainsi que dans des expériences randomisées.
-Ce guide se concentre sur leur utilisation dans des expériences randomisées ou des designs de recherche qui tentent d'organiser les données
+Les gens utilisent des tests d'hypothèses dans les études d'observation ainsi que dans les expériences randomisées.
+Ce guide se concentre sur leur utilisation dans les expériences randomisées ou les designs de recherche qui tentent d'organiser les données
 de sorte qu'elles paraissent "aléatoires" (comme les designs de régression par discontinuité ou d'autres designs naturels ou quasi expérimentaux).
 
 La valeur $p$ résume la capacité d'un test donné à distinguer le signal du bruit.
-Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique] (https://egap.org/resource/10-things-to-know-about-statistical-power),
-si une expérience peut détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat
+Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power),
+le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat
 ^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
-Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects du design de recherche en fonction d'une affirmation particulière.
----généralement une allégation selon laquelle le traitement n'a eu aucun effet causal.
+Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects du design de recherche en fonction d'une affirmation particulière
+--- généralement l'affirmation selon laquelle le traitement n'a eu aucun effet causal.
 
 Le reste de ce guide explique les étapes d'un test d'hypothèse :
-partir de l'hypothèse nulle (l'affirmation selon laquelle le traitement n'a eu aucun effet causal),
+à partir de l'hypothèse nulle (l'affirmation selon laquelle le traitement n'a eu aucun effet causal),
 vers des statistiques de test résumant les données observées (comme une différence de moyennes),
 jusqu'à la création d'une distribution de probabilité qui permet le calcul d'une $p$-valeur.
-
 Il aborde également l'idée de rejeter (mais ne pas accepter) une hypothèse et aborde la question de ce qui fait un bon test d'hypothèse
 (indice : un test d'hypothèse idéal devrait rarement mettre en doute la vérité et distinguer même les signaux faibles du bruit).
-Voir également [10 choses à savoir sur l'inférence de randomisation] (https://egap.org/resource/10-things-to-know-about-randomization-inference) pour plus de détails sur ces idées.
+Voir également [10 choses à savoir sur l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) pour plus de détails sur ces idées.
 
 # Dans une expérience, une hypothèse est une affirmation sur des relations causales non observées
 
@@ -126,7 +125,7 @@ Le modèle le plus simple de ce type indique que le résultat sous traitement se
 Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle stricte" et utilisent la notation suivante : $H_0 :
 y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ pour toutes les unités $i$.
 
-**Note:** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles liant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
+**Remarque :** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles liant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
 nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience avec 3 unités.
 Notez également que cette manière d'écrire les résultats potentiels, avec le résultat potentiel pour l'unité $i$ *se référant uniquement à $i$* et non à d'autres unités ($y_{i,Z_i}$), *fait partie du modèle*.
 C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de débordement.
@@ -159,7 +158,7 @@ $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 @eq:identity signifie que notre résultat observé, $Y_i$ (ici, le montant des impôts payés par la personne $i$), est $y_{i,1}$ lorsque la personne est assignée au groupe de traitement ($Z_i=1$), et $y_{i,0}$ lorsque la personne est assignée au groupe de contrôle.
 
 **Combien d'informations notre design de recherche et nos données contiennent-ils sur l'hypothèse ?**
-Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 % au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
+Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
 
 Continuons pour les besoins de l'argumentation.
 Qu'impliquerait cette hypothèse pour ce que nous observons ? Nous avons l'équation liant l'observé à l'inobservé dans @eq:identity donc, ce modèle ou cette hypothèse impliquerait que :
@@ -179,14 +178,14 @@ Autrement dit, en soustrayant 5, nous rendrions le groupe de contrôle et le gro
 
 **L'hypothèse nulle stricte d'absence d'effets** spécifie que $\tau_i=0$ pour tous les $i$.
 Et cela implique à son tour que $y_{i,0} = Y_i - Z_i \tau_i = Y_i$.
-C'est-à-dire que cela implique que ce que nous observons, $Y_i$, est ce que nous observerions si chaque unité était assignée à la condition de contrôle.
-Et l'implication alors, est que nous ne devrions voir aucune différence entre les groupes de traitement et de contrôle dans leurs résultats observables.
+C'est-à-dire que ce que nous observons, $Y_i$, est ce que nous observerions si chaque unité était assignée à la condition de contrôle.
+Alors l'implication est que nous ne devrions voir aucune différence entre les groupes de traitement et de contrôle dans leurs résultats observables.
 
 **L'hypothèse nulle faible de l'absence d'effet** spécifie que $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, et nous pouvons écrire une égalité similaire liant la moyenne des résultats potentiels non observés à la moyennes de résultats observés dans différentes conditions de traitement.
 
 # Les statistiques de test résument la relation entre les résultats observés et l'assignation du traitement.
 
-Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut ajouter une statistique de test au test d'hypothèse.
+Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut aussi une statistique de test pour un test d'hypothèse.
 Une statistique de test résume la relation entre le traitement et les résultats observés à l'aide d'un seul nombre.
 En général, nous aimerions que nos statistiques de test prennent des valeurs plus importantes plus l'effet du traitement est important.
 Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisée en deux groupes (vous pouvez appuyer sur le bouton "Code" pour voir le code R).
@@ -219,12 +218,12 @@ dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="less"))
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
-## La statistique du test des différences moyennes
+## La statistique de test des différences moyennes
 meanTZ <- function(ys,z){ 
 	mean(ys[z==1]) - mean(ys[z==0])
 }
 
-## La statistique du test des différences de rangs moyens
+## La statistique de test des différence des moyennes selon le rang
 meanrankTZ <- function(ys,z){
 	ranky <- rank(ys)
 	mean(ranky[z==1]) - mean(ranky[z==0])
@@ -246,14 +245,14 @@ Les tests d'hypothèse nécessitent des distributions de la statistique de test 
 
 Étant donné une affirmation sur les résultats possibles de l'expérience (i.e. une hypothèse) et un moyen de résumer les données observées en fonction de l'hypothèse (i.e. une statistique de test qui augmente à mesure que les résultats divergent de l'hypothèse comme expliqué ci-dessus), nous voulons maintenant aller au-delà de la description des données observées pour savoir quelle variabilité naturelle attendre de la statistique de test étant donné le design de recherche et notre hypothèse (pour nous ramener à la question du signal et du bruit).
 
-Quelle part des preuves dont nous disposons sur une hypothèse dépend du design de l'étude?
+La qunatité des preuves dont nous disposons sur une hypothèse dépend du design de l'étude.
 Une grande expérience, par exemple, devrait avoir plus d'informations sur une hypothèse qu'une petite expérience.
 Alors, qu'entendons-nous par preuve contre l'hypothèse?
 Comment formaliser ou résumer ces preuves de sorte que les expériences plus grandes tendent à révéler plus et que les petites expériences tendent à révéler moins d'informations ?
 
 Une réponse à cette question est de se référer à l'expérience de pensée consistant à répéter l'étude.
 Imaginez, pour les besoins de l'argumentation, que l'hypothèse était correcte.
-Si nous répétions l'étude et calculions la statistique du test, nous trouverions un nombre --- ce nombre refléterait le résultat de l'expérience *sous l'hypothèse*.
+Si nous répétions l'étude et calculions la statistique de test, nous trouverions un nombre --- ce nombre refléterait le résultat de l'expérience *sous l'hypothèse*.
 Maintenant, imaginez répéter l'expérience hypothétique plusieurs fois, en recalculant la statistique de test à chaque fois.
 La distribution des statistiques de test nous indiquerait alors toutes les statistiques de test qui auraient pu se produire si l'hypothèse nulle était vraie.
 Si la statistique de test est une somme ou une moyenne, alors dans une grande expérience, nous savons que la distribution de ces nombres sera plus étroitement centrée autour de la valeur hypothétique focale (disons, $t(Z,y_0)$) que dans une petite expérience.
@@ -269,7 +268,7 @@ La $p$-valeur unilatérale est la probabilité de voir une valeur de notre stati
 
 Testons l'hypothèse nulle stricte d'absence d'effets.
 Dans le cas de cette expérience, le traitement a été assigné à exactement 5 observations sur 10 de manière totalement aléatoire.
-Pour répéter cette opération, il suffit de permuter ou de mélanger le vecteur $Z$ donné (vous pouvez voir le code en cliquant sur le bouton "Code").
+Pour répéter cette opération, il suffit de permuter le vecteur $Z$ donné (vous pouvez voir le code en cliquant sur le bouton "Code").
 
 ```{r}
 repeatExperiment <- function(Z){
@@ -278,7 +277,7 @@ repeatExperiment <- function(Z){
 ```
 
 Nous savons déjà que $H_0 : y_{i,1} = y_{i,0}$ implique que $Y_i=y_{i,0}$.
-Ainsi, nous pouvons décrire toutes les façons dont l'expérience fonctionnerait sous cette valeur nulle en répétant simplement l'expérience (c'est-à-dire en réassignant le traitement) et en recalculant la statistique de test à chaque fois.
+Ainsi, nous pouvons décrire toutes les itérations possibles de l'expérience sous cette hypothèse nulle en répétant simplement l'expérience (c'est-à-dire en réassignant le traitement) et en recalculant la statistique de test à chaque fois.
 Le code suivant réassigne à plusieurs reprises le traitement suivant le design et calcule la statistique de test à chaque fois.
 
 ```{r gendists, cache=FALSE}
@@ -288,8 +287,8 @@ set.seed(123457)
 possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(ys=Y,z=repeatExperiment(Z=Z)))
 ```
 
-Et ces graphiques montrent les distributions des deux statistiques de test différentes sous l'hypothèse nulle (TODO les courbes et les graduations courtes au bas des graphiques).
-Les graphiques montrent également les valeurs observées pour les statistiques de test que nous pouvons utiliser pour comparer les observations (TODO les longues lignes épaisses) à l'hypothèse (les distributions).
+Ces graphiques montrent les distributions des deux statistiques de test différentes sous l'hypothèse nulle (courbes et graduations au bas des graphiques).
+Les graphiques montrent également les valeurs observées pour les statistiques de test que nous pouvons utiliser pour comparer les observations (longues lignes verticales) à l'hypothèse (les distributions).
 
 ```{r calcpvalues, results='hide'}
 pMeanTZ <- min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
@@ -312,7 +311,7 @@ plot(density(possibleMeanDiffsH0),
      xlab="Différences des moyennes sous H0",cex.lab=0.75)
 rug(possibleMeanDiffsH0)
 rug(observedMeanTZ,lwd=3,ticksize = .51)
-text(observedMeanTZ+8,.022,"Statistique de tests observée")
+text(observedMeanTZ+8,.022,"Statistique de test observée")
 
 plot(density(possibleMeanRankDiffsH0),lwd=2,
      ylim=c(0,.45),
@@ -321,30 +320,30 @@ plot(density(possibleMeanRankDiffsH0),lwd=2,
      xlab="Différences des moyennes selon le rang sous H0",cex.lab=0.75)
 rug(possibleMeanRankDiffsH0)
 rug(observedMeanRankTZ,lwd=3,ticksize = .9)
-text(observedMeanRankTZ,.45,"Statistique de tests observée")
+text(observedMeanRankTZ,.45,"Statistique de test observée")
 
 mtext(side=3,outer=TRUE,text=expression(paste("Distributions des statistiques de test cohérentes avec le design et ", H0: y[i1]==y[i0])))
 ```
 
-Pour formaliser la comparaison entre l'observation et l'hypothèse, nous pouvons calculer la proportion des expériences hypothétiques qui donnent des statistiques de test supérieures à l'expérience observée.
-Dans le panneau de gauche de la figure, nous voyons qu'un large éventail des différences de moyennes entre les groupes de traitement et de contrôle sont compatibles avec un traitement sans effet (avec la plage totale entre `r min(possibleMeanDiffsH0)` et `r max(possibleMeanDiffsH0)`).
-Le panneau de droite montre que remanier les résultats selon le rang avant de prendre la différence des moyennes réduit la plage des statistiques de test --- après que tous les rangs eux-mêmes passent de 1 à 10 plutôt que de 1 à 280.
+Pour formaliser la comparaison entre l'observation et l'hypothèse, nous pouvons calculer la proportion des expériences hypothétiques qui donnent des statistiques de test supérieures à celle de l'expérience observée.
+Dans le panneau de gauche de la figure, nous voyons qu'un large éventail des différences de moyennes entre les groupes de traitement et de contrôle est compatible avec un traitement sans effet (avec la plage totale entre `r min(possibleMeanDiffsH0)` et `r max(possibleMeanDiffsH0)`).
+Le panneau de droite montre que remanier les résultats selon le rang avant de prendre la différence des moyennes réduit la plage des statistiques de test --- les rangs eux-mêmes passent de 1 à 10 plutôt que de 1 à 280.
 
-### $P$-valeurs unilatérales
+### $p$-valeurs unilatérales
 
 Les $p$-valeurs unilatérales sont `r pMeanTZ` pour la différence des moyennes simple et `r signif(pMeanRankTZ,2)` pour la différence des moyennes selon le rang.
-Chaque statistique de test jette un degré de doute différent, ou quantifie le degré de surprise, pour la même hypothèse nulle d'absence d'effets.
-Le résultat lui-même contient tant de bruit que la différence des moyennes des résultats selon le rang permet de mieux capter le signal que la simple différence des moyennes.
-Ces données ont été générées avec des effets de traitement intégrés, donc l'hypothèse nulle d'absence d'effets est fausse, mais les informations sur les effets contiennent du bruit --- la taille de l'échantillon est petite et la distribution des résultats comporte des points aberrants et l'effet du traitement varie considérablement.
+Chaque statistique de test jette un degré de doute différent, ou quantifie un degré de surprise différent, pour la même hypothèse nulle d'absence d'effets.
+Le résultat lui-même contient tant de bruit que la différence des moyennes selon le rang permet de mieux capter le signal que la différence des moyennes simple.
+Ces données ont été générées avec des effets de traitement intégrés, donc l'hypothèse nulle d'absence d'effets est fausse, mais les informations sur les effets contiennent du bruit --- la taille de l'échantillon est petite et la distribution des résultats comporte des points aberrants et les effets du traitement varient considérablement.
 
-### $P$-valeurs bilatérales
+### $p$-valeurs bilatérales
 
-Disons que nous ne savions pas à l'avance si notre expérience montrerait un effet négatif ou un effet positif.
+Disons que nous ne sachions pas à l'avance si notre expérience montrerait un effet négatif ou un effet positif.
 Dans ce cas, nous pourrions faire deux tests d'hypothèse --- l'un calculant la $p$-valeur supérieure unilatérale et l'autre calculant la $p$-valeur inférieure unilatérale.
-Maintenant, si nous faisions cela, nous calculerions deux $p$-valeurs et, si nous le faisions de manière standard, nous prendrions le risque de nous tromper.
+Si nous faisions cela, nous calculerions deux $p$-valeurs et, si nous le faisions de manière standard, nous prendrions le risque de nous tromper.
 Après tout, rappelons-nous des [10 choses sur les comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) :
-même s'il n'y a vraiment pas d'effet, 100 tests indépendants et fonctionnant bien pour l'hypothèse nulle d'absence d'effets ne donneront pas plus de 5 $p$-valeurs inférieures à 0,05.
-Une solution facile pour résumer la singularité d'une expérience dans l'une ou l'autre direction est de calculer une valeur $p$ bilatérale.
+même s'il n'y a vraiment pas d'effet, 100 tests indépendants qui fonctionnent bien pour l'hypothèse nulle d'absence d'effets ne donneront pas plus de 5 $p$-valeurs inférieures à 0,05.
+Une solution facile pour résumer la singularité d'une expérience dans l'une ou l'autre direction est de calculer une $p$-valeur bilatérale.
 Ceci, soit dit en passant, est la $p$-valeur standard produite par la plupart des logiciels prédéfinis tels que `lm()` et `t.test()` et `wilcox.test()` dans R.
 L'idée de base est de calculer les deux $p$-valeurs, puis de multiplier la plus petite $p$-valeur par 2.
 (L'idée ici est que vous vous pénalisez pour avoir effectué deux tests - voir @rosenbaum2010design, Chapitre 2 et @cox1977role pour en savoir plus sur l'idée de multiplier la plus petite p-valeur par deux.)
@@ -362,7 +361,7 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 ```
 
 Dans ce cas, les $p$-valeurs bilatérales sont `r p2SidedMeanTZ` et `r p2SidedMeanRankTZ` pour, respectivement, la différences des moyennes simple et selon le rang.
-Nous les interprétons en termes d'"extrémité" --- nous verrions seulement une différence des moyennes observée aussi loin de zéro que celle calculée à partir de nos résultats environ 18% du temps, par exemple.
+Nous les interprétons en termes de "singularité" --- nous verrions seulement une différence des moyennes observée aussi loin de zéro que celle calculée à partir de nos résultats environ 18% du temps, par exemple.
 
 **Remarque :** le test de l'hypothèse nulle stricte montré ici peut être fait sans écrire le code vous-même.
 Le code que vous verrez ici (en cliquant sur le bouton "code") montre comment utiliser différents packages R pour tester des hypothèses à l'aide d'une inférence de randomisation.
@@ -470,7 +469,7 @@ Souvent, le seul modèle de résultats potentiels qui est testé est le modèle 
 Les fabricants de logiciels de régression prédéfinis ont tendance à fournir une $p$-valeur qui se réfère automatiquement à cette hypothèse,
 de sorte qu'il est difficile de ne pas voir les résultats de ce test même si vous voulez simplement décrire les différences de moyennes dans les données mais utiliser la méthode des moindres carrés pour calculer la différence de moyennes.
 
-## Que signifie de ne pas rejeter une hypothèse nulle ?
+## Que signifie de **ne pas rejeter** une hypothèse nulle ?
 
 Notez qu'un $p=.50$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- mais les données observées, dans ce cas, ne semblent pas extrêmes mais communes du point de vue de l'hypothèse nulle.
 Ainsi, $p=.5$ (comme d'autres valeurs p élevées) ne nous incitent pas à douter du modèle de l'hypothèse nulle.
