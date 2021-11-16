@@ -49,7 +49,7 @@ library(coin)
 
 # Les tests d'hypothèse résument les informations dans les designs de recherche pour aider les gens à raisonner sur les effets du traitement
 
-Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 (p=0,02 $)", c'est un raccourci pour dire :
+Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 ($p=0,02$)", c'est un raccourci pour dire :
 "Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
 Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
 Les gens utilisent des tests d'hypothèses dans les études d'observation ainsi que dans les expériences randomisées.
