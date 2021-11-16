@@ -74,84 +74,76 @@ Voir également [10 choses à savoir sur l'inférence de randomisation] (https:/
 
 # Dans une expérience, une hypothèse est une affirmation sur des relations causales non observées
 
-Nous faisons des expériences pour faire des comparaisons causales interprétables [@kinder1993behalf], et nous estimons souvent les effets causaux moyens.
+Nous menons des expériences pour faire des comparaisons causales interprétables
+[@kinder1993behalf], et nous estimons souvent les effets causaux moyens.
 Qu'est-ce que le test d'hypothèse a à voir avec l'inférence causale?
 Dans cette section, nous expliquons la distinction entre :
 évaluer des assertions sur les effets causaux et faire les meilleures suppositions sur les effets causaux.
 
-## Un aperçu rapide du problème fondamental de l'inférence causale et une introduction à quelques notations
+## Un aperçu du problème fondamental de l'inférence causale et une introduction à quelques notations
 
 Dans [10 choses à savoir sur l'inférence causale](https://egap.org/resource/10-things-to-know-about-causal-inference), souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l'idée de résultats potentiels pour **définir** la cause et formaliser ce que nous **entendons** lorsque nous disons "X cause Y" ou "Fumer cause le cancer" ou "L'information augmente la conformité fiscale".
-
-Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imaginons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
-si on lui donne des informations sur l'utilisation qui est faite de ces taxes.
-Écrivez $Z_i=1$ pour signifier que l'information était donnée à la personne et $Z_i=0$ si aucune information n'a été donnée afin que nous puissions écrire $y_{i,Z_i=1}$ pour désigner le montant des taxes payées par quelqu'un a donné des informations et $y_{i,Z_i=0}$ pour désigner le montant des impôts payés par quelqu'un qui n'a pas donné d'informations en particulier.
+Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imagiinons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
+si on lui donne des informations sur l'usage de ces taxes.
+$Z_i=1$ signifie que l'information a été donnée à la personne et $Z_i=0$ signifie qu'aucune information n'a été donnée.
+Donc $y_{i,Z_i=1}$ désigne le montant des taxes payées par quelqu'un à qui on a donné des informations et $y_{i,Z_i=0}$ désigne le montant des impôts payés par quelqu'un à qui on n'a pas donné d'informations.
 Dans une expérience réelle, nous pourrions [randomiser la fourniture d'informations aux citoyens](http://egap.org/metaketa/metaketa-ii-taxation), afin que certaines personnes aient l'information et d'autres pas.
-
-On observe les impôts payés par les gens dans les deux conditions mais, pour une même personne, on ne peut observer que les impôts qu'ils payent dans l'une des deux conditions.
-Qu'est-ce que **signifie** lorsque nous disons "effet causal" ?
-Cela signifie souvent que le résultat dans une condition ($y_{i,Z_i=1}$ s'écrit un peu plus simplement $y_{i,1}$) et le résultat dans l'autre condition ($y_{i,Z_i=0 }$ ou $y_{i,0}$) *différent* pour une personne donnée, de sorte que nous écririons $y_{i,Z_i=1} \ne y_{i,Z_i=0}$.
+On observe les impôts payés par les gens dans les deux conditions mais, pour une même personne, on ne peut observer que les impôts qu'elle paie dans l'une des deux conditions.
+Qu'est-ce que **signifie** "l'effet causal" ?
+Cela signifie souvent que le résultat dans une condition ($y_{i,Z_i=1}$ s'écrit un peu plus simplement $y_{i,1}$) et le résultat dans l'autre condition ($y_{i,Z_i=0 }$ ou $y_{i,0}$) *diffèrent* pour une personne donnée, de sorte que nous écririons $y_{i,Z_i=1} \ne y_{i,Z_i=0}$.
 
 Nous ne pouvons pas observer *à la fois* $y_{i,1}$ et $y_{i,0}$ pour chaque personne
---- si nous avons donné des informations sur les impôts à une personne nous observons $y_{i,1}$ et donc nous ne pouvons pas observer comment ils auraient agi s'ils n'avaient pas reçu cette information ($y_{i,0}$).
-Ainsi, nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur cet effet causal contrefactuel et nous ne pouvons que **déduire** à ce sujet.
+--- si nous avons donné des informations sur les impôts à une personne nous observons $y_{i,1}$ et donc nous ne pouvons pas observer comment elle aurait agi si elle n'avait pas reçu cette information ($y_{i,0}$).
+Ainsi, nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur cet effet causal contrefactuel et nous ne pouvons que **faire des inférences**.
 @holland1986statistics appelle cette incapacité à utiliser l'observation directe pour en savoir plus sur la causalité contrefactuelle le "problème fondamental de l'inférence causale".
 
 ## Un aperçu des approches basées sur l'estimation de l'inférence causale dans les expériences randomisées.
 
 Les sciences statistiques ont abordé ce problème de trois manières principales.
-C'est-à-dire, lorsqu'on lui a demandé : "Est-ce que l'information amène les gens à payer leurs impôts ?" nous avons tendance à dire : "Nous ne pouvons pas répondre directement à cette question.
+C'est-à-dire, lorsque nous nous demandons : "Est-ce que l'information amène les gens à payer leurs impôts ?" nous avons tendance à dire : "Nous ne pouvons pas répondre directement à cette question.
 Cependant, nous pouvons répondre à une question connexe."
 [Dix types d'effet de traitement que vous devriez connaître](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) décrit une idée que nous créditons à Jerzy Neyman où un scientifique peut **estimer les effets causaux moyens** dans une expérience randomisée même si les effets causaux individuels ne sont pas observables.
 Le travail de Judea Pearl sur l'estimation de la probabilité conditionnelle d'un résultat basé sur un modèle causal de ce résultat est similaire à cette idée, où l'accent est mis sur les probabilités conditionnelles des $y_{i}$.
 C'est-à-dire que ces deux approches répondent à la question causale fondamentale en dirigeant la question vers les moyennes ou les probabilités conditionnelles.
-Une approche connexe, de Don Rubin commence par **prédire** les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de $Z_i$ (tel que, disons, $Z \sim \text{Bernoulli}(\pi)$ ) et un modèle de probabilité des deux résultats potentiels tels que, disons,
-$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ avec un vecteur de coefficients $\bbeta$, une matrice $n par p$ de variables $\bX$ (contenant à la fois l'assignation du traitement et d'autres variables et une matrice $p par p$ de variance-covariance $\Sigma$ décrivant comment toutes les colonnes de $\bX$ sont liées).
+Une approche connexe de Don Rubin commence par **prédire** les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de $Z_i$ (tel que, disons, $Z \sim \text{Bernoulli}(\pi)$) et un modèle de probabilité des deux résultats potentiels tels que, disons,
+$(y_{i,1},y_{i,0}) \sim \text{Normale multivariée}(\bbeta \bX, \bSigma)$ avec un vecteur de coefficients $\bbeta$, une matrice $n \times p$ de variables $\bX$ (contenant à la fois l'assignation du traitement et d'autres variables et une matrice $p \times p$ de variance-covariance $\Sigma$ décrivant comment toutes les colonnes de $\bX$ sont liées).
 
-The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and combines them using Bayes Rule to produce posterior distributions for quantities like the individual level treatment effects or average treatment effects (see [@imbens2007causal] for more on what they call the Bayesian Predictive approach to causal inference).
-So, the predictive approach changes the fundamental question from one about averages to one that focuses on differences in predicted potential outcomes for each person
-(although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
-
-La deuxième approche générale commence avec les mêmes modèles de probabilité reliant le traitement, d'autres variables et les résultats.
+La deuxième approche générale commence avec les mêmes modèles de probabilité liant le traitement, d'autres variables et les résultats.
  Ensuite, à l'aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l'effet du traitement au niveau individuel ou l'effet moyen du traitement (voir [@imbens2007causal] pour plus de détails sur l'approche prédictive bayésienne de l'inférence causale).
-Ainsi, l'approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne.
-(bien que la plupart de ces différences prédites individuelles soient résumées en utilisant les caractéristiques des distributions postérieures impliquées par des modèles de probabilité et des données comme la moyenne des prédictions.)
+Ainsi, l'approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne (bien que la plupart de ces différences prédites au niveau individuel soient résumées en utilisant les caractéristiques des distributions postérieures des modèles de probabilité et des données comme la moyenne des prédictions).
 
-## Le test d'hypothèse est une approche statistique du problème fondamental de l'inférence causale en faisant des affirmations sur l'inobservé.
+## Le test d'hypothèse, en faisant des affirmations sur l'inobservé, aborde de manière statistique le problème fondamental de l'inférence causale.
 
 La troisième approche de ce problème amène une nouvelle question.
-@fisher:1935[Chapitre 2], nous apprenons que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais la réponse ne peut être qu'en termes de quantité d'information fournie par le design de recherche et les données.
-C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour son résultat, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ est pour tout le monde.
-Cependant, la réponse à cette question doit être quelque chose comme "Ce design de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Ce design de recherche n'est pas cohérent avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
+@fisher:1935[Chapitre 2] nous a appris que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu'en termes de quantité d'information fournie par le design de recherche et les données.
+C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour ses résultats, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ pour tout le monde.
+Cependant, la réponse à cette question se présenterait ainsi : "Ce design de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Ce design de recherche n'est pas cohérent avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
-# L'hypothèse nulle d'absence d'effet de traitement est une déclaration précise sur les résultats potentiels
+# L'hypothèse nulle d'absence d'effets est une déclaration précise sur les résultats potentiels
 
 Même si nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur les effets causaux contrefactuels, nous pouvons toujours poser des questions à leur sujet ou créer des modèles théoriques qui lient ensemble une intervention (ou un traitement), des caractéristiques de base et des résultats potentiels.
-Le modèle le plus simple de ce type indique que le résultat sous traitement serait le même que le résultat sous contrôle pour toutes les unités ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $ je$.
-Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle stricte". et utilisez le raccourci suivant : $H_0 :
-y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ est pour toutes les unités $i$.
+Le modèle le plus simple de ce type indique que le résultat sous traitement serait le même que le résultat sous contrôle pour toutes les unités ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $i$.
+Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle stricte" et utilisent la notation suivante : $H_0 :
+y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ pour toutes les unités $i$.
 
-**Side Note:** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles reliant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
-nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience de 3 unités.
-
+**Note:** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles liant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
+nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience avec 3 unités.
 Notez également que cette manière d'écrire les résultats potentiels, avec le résultat potentiel pour l'unité $i$ *se référant uniquement à $i$* et non à d'autres unités ($y_{i,Z_i}$), *fait partie du modèle*.
 C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de débordement.
-
 Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l'unité $i$ lorsqu'elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ peut s'écrire $y_{i,Z_i=1,\bZ_{~i}}$.
-
 Voir @bowers2013reasoning et @bowers2018models pour en savoir plus sur l'idée qu'une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d'hypothèses sur la propagation des effets de traitement à travers un réseau.
 
-# L'hypothèse nulle d'absence d'effet de traitement est une déclaration sur les résultats potentiels agrégés
+# L'hypothèse nulle faible d'absence d'effets est une déclaration sur les résultats potentiels agrégés
 
 Une expérience peut influencer certaines unités mais n'avoir, en moyenne, aucun effet.
 Pour codifier cette intuition, les chercheurs peuvent écrire une hypothèse nulle sur une *moyenne* de résultats potentiels, ou un autre agrégat de résultats potentiels, plutôt que sur l'ensemble des résultats potentiels.
 
-Parce que la plupart des discussions actuelles sur les effets causaux parlent de la *moyenne* des effets, les gens écrivent l'hypothèse nulle faible ainsi $H_0 :
+Parce que la plupart des discussions actuelles sur les effets causaux traitent de la *moyenne* des effets, les gens écrivent l'hypothèse nulle faible ainsi $H_0 :
 \bar{\tau}=0$ où $\bar{\tau}=(1/N)\sum_{i=1}^N \tau_i$.
 Encore une fois, l'hypothèse est une déclaration ou un modèle d'une relation entre des résultats potentiels partiellement observés.
 Mais, ici, il s'agit de leur moyenne.
 On pourrait, en principe, articuler des hypothèses sur d'autres agrégats : médianes, centiles, ratios, moyennes tronquées, etc.
-Cependant, faire des hypothèses sur l'effet moyen nous simplifie la tâche : nous connaissons les propriétés de la moyenne d'observations indépendantes à mesure que la taille de l'échantillon augmente, de sorte que nous pouvons faire appel au théorème central limite pour décrire la distribution de la moyenne pour de grands échantillons --- et ceci, à son tour, rend le calcul des $p$-valeurs rapide et facile pour de grands échantillons.
+Cependant, faire des hypothèses sur l'effet moyen nous simplifie la tâche : nous connaissons les propriétés d'une moyenne d'observations indépendantes à mesure que la taille de l'échantillon augmente, de sorte que nous pouvons faire appel au théorème central limite pour décrire la distribution de la moyenne pour de grands échantillons --- et ceci, à son tour, rend le calcul des $p$-valeurs rapide et facile pour de grands échantillons.
 
 # La randomisation nous permet d'utiliser ce que nous observons pour tester des hypothèses sur ce que nous n'observons pas.
 
@@ -170,7 +162,7 @@ $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 % au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
 
 Continuons pour les besoins de l'argumentation.
-Qu'impliquerait cette hypothèse pour ce que nous observons ? Nous avons l'équation reliant l'observé à l'inobservé dans @eq:identity donc, ce modèle ou cette hypothèse impliquerait que :
+Qu'impliquerait cette hypothèse pour ce que nous observons ? Nous avons l'équation liant l'observé à l'inobservé dans @eq:identity donc, ce modèle ou cette hypothèse impliquerait que :
 
 $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 & = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
@@ -185,12 +177,12 @@ Si nous soustrayons 5 de chaque réponse observée dans la condition de traiteme
 Autrement dit, en soustrayant 5, nous rendrions le groupe de contrôle et le groupe de traitement équivalents en termes de résultats observés.
 **Cette logique nous donne une implication observable de l'hypothèse.**
 
-**L'hypothèse nulle stricte d'absence d'effet** spécifie que $\tau_i=0$ pour tous les $i$.
+**L'hypothèse nulle stricte d'absence d'effets** spécifie que $\tau_i=0$ pour tous les $i$.
 Et cela implique à son tour que $y_{i,0} = Y_i - Z_i \tau_i = Y_i$.
 C'est-à-dire que cela implique que ce que nous observons, $Y_i$, est ce que nous observerions si chaque unité était assignée à la condition de contrôle.
 Et l'implication alors, est que nous ne devrions voir aucune différence entre les groupes de traitement et de contrôle dans leurs résultats observables.
 
-**L'hypothèse nulle faible de l'absence d'effet** spécifie que $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, et nous pouvons écrire une égalité similaire reliant la moyenne des résultats potentiels non observés à la moyennes de résultats observés dans différentes conditions de traitement.
+**L'hypothèse nulle faible de l'absence d'effet** spécifie que $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, et nous pouvons écrire une égalité similaire liant la moyenne des résultats potentiels non observés à la moyennes de résultats observés dans différentes conditions de traitement.
 
 # Les statistiques de test résument la relation entre les résultats observés et l'assignation du traitement.
 
@@ -273,9 +265,9 @@ Les données observées sont observées.
 La probabilité découle de la répétition hypothétique, mais possible, de l'expérience elle-même, de la statistique de test et de l'hypothèse.
 La $p$-valeur unilatérale est la probabilité de voir une valeur de notre statistique de test aussi grande ou plus grande que ce que nous avons réellement observé en considérant une hypothèse donnée.
 
-## Un exemple : tester l'hypothèse nulle stricte d'absence d'effet
+## Un exemple : tester l'hypothèse nulle stricte d'absence d'effets
 
-Testons l'hypothèse nulle stricte d'absence d'effet.
+Testons l'hypothèse nulle stricte d'absence d'effets.
 Dans le cas de cette expérience, le traitement a été assigné à exactement 5 observations sur 10 de manière totalement aléatoire.
 Pour répéter cette opération, il suffit de permuter ou de mélanger le vecteur $Z$ donné (vous pouvez voir le code en cliquant sur le bouton "Code").
 
@@ -343,7 +335,7 @@ Le panneau de droite montre que remanier les résultats selon le rang avant de p
 Les $p$-valeurs unilatérales sont `r pMeanTZ` pour la différence des moyennes simple et `r signif(pMeanRankTZ,2)` pour la différence des moyennes selon le rang.
 Chaque statistique de test jette un degré de doute différent, ou quantifie le degré de surprise, pour la même hypothèse nulle d'absence d'effets.
 Le résultat lui-même contient tant de bruit que la différence des moyennes des résultats selon le rang permet de mieux capter le signal que la simple différence des moyennes.
-Ces données ont été générées avec des effets de traitement intégrés, donc l'hypothèse nulle d'absence d'effet est fausse, mais les informations sur les effets contiennent du bruit --- la taille de l'échantillon est petite et la distribution des résultats comporte des points aberrants et l'effet du traitement varie considérablement.
+Ces données ont été générées avec des effets de traitement intégrés, donc l'hypothèse nulle d'absence d'effets est fausse, mais les informations sur les effets contiennent du bruit --- la taille de l'échantillon est petite et la distribution des résultats comporte des points aberrants et l'effet du traitement varie considérablement.
 
 ### $P$-valeurs bilatérales
 
@@ -351,7 +343,7 @@ Disons que nous ne savions pas à l'avance si notre expérience montrerait un ef
 Dans ce cas, nous pourrions faire deux tests d'hypothèse --- l'un calculant la $p$-valeur supérieure unilatérale et l'autre calculant la $p$-valeur inférieure unilatérale.
 Maintenant, si nous faisions cela, nous calculerions deux $p$-valeurs et, si nous le faisions de manière standard, nous prendrions le risque de nous tromper.
 Après tout, rappelons-nous des [10 choses sur les comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) :
-même s'il n'y a vraiment pas d'effet, 100 tests indépendants et fonctionnant bien pour l'hypothèse nulle d'absence d'effet ne donneront pas plus de 5 $p$-valeurs inférieures à 0,05.
+même s'il n'y a vraiment pas d'effet, 100 tests indépendants et fonctionnant bien pour l'hypothèse nulle d'absence d'effets ne donneront pas plus de 5 $p$-valeurs inférieures à 0,05.
 Une solution facile pour résumer la singularité d'une expérience dans l'une ou l'autre direction est de calculer une valeur $p$ bilatérale.
 Ceci, soit dit en passant, est la $p$-valeur standard produite par la plupart des logiciels prédéfinis tels que `lm()` et `t.test()` et `wilcox.test()` dans R.
 L'idée de base est de calculer les deux $p$-valeurs, puis de multiplier la plus petite $p$-valeur par 2.
@@ -409,7 +401,7 @@ pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign,
 summary(pMeanRank4)
 ```
 
-## Un exemple: tester l'hypothèse nulle faible d'absence d'effet
+## Un exemple: tester l'hypothèse nulle faible d'absence d'effets
 
 L'hypothèse nulle faible est une affirmation sur les agrégats et est presque toujours exprimée en termes de moyennes : $H_0: \bar{y}_{1} = \bar{y}_{0}$.
 La statistique de test pour cette hypothèse est presque toujours la différence des moyennes (i.e. `meanTZ()` ci-dessus).
@@ -508,7 +500,7 @@ Nous comparons le taux d'erreur pour quelques-unes des approches utilisées jusq
 Le graphique suivant montre la proportion de $p$-valeurs inférieures à un niveau de signification donné (c'est-à-dire le seuil de rejet) pour chacun des quatre tests.
 C'est-à-dire qu'il s'agit d'un graphique du taux de faux positifs pour un seuil de signification donné.
 Un test qui a un taux de faux positifs contrôlé ou connu aurait des symboles sur ou en dessous de la ligne sur tout l'axe des x ou la plage du tracé.
-Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle forte d'absence d'effet ont cette caractéristique.
+Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle forte d'absence d'effets ont cette caractéristique.
 Les tests pour l'hypothèse nulle faible utilisant comme statistique de test la différence des moyennes et faisant appel à la théorie des grands échantillons pour justifier l'utilisation d'une distribution $t$ n'ont pas un taux de faux positifs contrôlé : la proportion de $p$-valeurs inférieures pour une valeur donnée du seuil de rejet peut être trop élevée ou trop basse.
 
 ```{r}
@@ -553,7 +545,7 @@ En cas de doute, il est facile d'évaluer le taux de faux positifs d'un test en 
 apply(pDist,1,function(x){ mean(x<.05)})
 ```
 
-# Que savoir d'autre sur les tests d'hypothèses.
+# Que savoir d'autre sur les tests d'hypothèses ?
 
 Nous énumérons ici quelques autres sujets importants mais avancés liés aux tests d'hypothèses :
 
