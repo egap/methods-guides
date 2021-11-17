@@ -56,16 +56,16 @@ Les gens utilisent des tests d'hypothèses dans les études d'observation ainsi 
 Ce guide se concentre sur leur utilisation dans les expériences randomisées ou les designs de recherche qui tentent d'organiser les données
 de sorte qu'elles paraissent "aléatoires" (comme les designs de régression par discontinuité ou d'autres designs naturels ou quasi expérimentaux).
 
-La valeur $p$ résume la capacité d'un test donné à distinguer le signal du bruit.
+La $p$-valeur résume la capacité d'un test donné à distinguer le signal du bruit.
 Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power),
 le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat
-^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
+^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart égaux à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
 Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects du design de recherche en fonction d'une affirmation particulière
 --- généralement l'affirmation selon laquelle le traitement n'a eu aucun effet causal.
 
 Le reste de ce guide explique les étapes d'un test d'hypothèse :
 à partir de l'hypothèse nulle (l'affirmation selon laquelle le traitement n'a eu aucun effet causal),
-vers des statistiques de test résumant les données observées (comme une différence de moyennes),
+vers des statistiques de test résumant les données observées (comme une différence des moyennes),
 jusqu'à la création d'une distribution de probabilité qui permet le calcul d'une $p$-valeur.
 Il aborde également l'idée de rejeter (mais ne pas accepter) une hypothèse et aborde la question de ce qui fait un bon test d'hypothèse
 (indice : un test d'hypothèse idéal devrait rarement mettre en doute la vérité et distinguer même les signaux faibles du bruit).
@@ -404,10 +404,10 @@ summary(pMeanRank4)
 
 L'hypothèse nulle faible est une affirmation sur les agrégats et est presque toujours exprimée en termes de moyennes : $H_0: \bar{y}_{1} = \bar{y}_{0}$.
 La statistique de test pour cette hypothèse est presque toujours la différence des moyennes (i.e. `meanTZ()` ci-dessus).
-Le code ci-dessous montre l'utilisation de la méthode des moindres carrés (MC) (`lm()` dans R) pour calculer la différence de moyennes en tant que statistique de test pour les hypothèses sur l'effet moyen.
+Le code ci-dessous montre l'utilisation de la méthode des moindres carrés (MC, `lm()` dans R) pour calculer la différence des moyennes en tant que statistique de test pour les hypothèses sur l'effet moyen.
 Notez que les $p$-valeurs basées sur MC diffèrent de celles calculées par `t.test()` et `difference_of_means()`.
 Rappelons que l'inférence statistique MC est justifiée par l'hypothèse d'observations indépendantes et distribuées de manière identique, mais, dans la plupart des expériences, le traitement lui-même modifie la variation dans le groupe de traitement (violant ainsi l'hypothèse de distribution identique/homoscédasticité de MC).
-C'est l'une des quelques raisons pour lesquelles on préconise, pour tester l'hypothèse nulle faible de l'absence d'effet de traitement moyen, l'utilisation des outils autres que ceux fournis par de simples méthodes des moindres carrés standardisées.
+C'est l'une des raisons pour lesquelles on préconise, pour tester l'hypothèse nulle faible de l'absence d'effet de traitement moyen, l'utilisation d'outils autres que ceux fournis par de simples méthodes des moindres carrés.
 
 ```{r}
 lm1 <- lm(Y~Z,data=dat)
@@ -434,9 +434,9 @@ c(observedTestStat=observedMeanTZ,stderror=seEstATE,tstat=obsTStat,
   )
 ```
 
-Notez que ces tests supposent tous que la distribution de la statistique de test à travers des expériences répétées serait bien caractérisée par une distribution $t$.
-La partie gauche de la figure ci-dessus montre la distribution réalisée d'une certaine manière pour que l'hypothese nulle faible soit vraie (i.e. dans ce cas l'hypothese nulle stricte est vraie aussi) :
-il y a plusieurs façons pour que l'hypothese nulle faible soit vraie --- certaines sont compatibles avec des effets positifs importants sur certaines unités et des effets négatifs importants sur d'autres unités,
+Notez que ces tests supposent tous que la distribution de la statistique de test à travers des expériences répétées soit bien caractérisée par une distribution $t$.
+La partie gauche de la figure ci-dessus montre la distribution réalisée d'une manière à ce que l'hypothèse nulle faible soit vraie (i.e. dans ce cas l'hypothèse nulle stricte est vraie aussi) :
+il y a plusieurs façons pour que l'hypothèse nulle faible soit vraie --- certaines sont compatibles avec des effets positifs importants sur certaines unités et des effets négatifs importants sur d'autres unités,
 d'autres sont compatibles avec d'autres modèles d'effets au niveau individuel.
 Pour notre petit ensemble de données, conçu pour avoir une distribution de résultats très asymétrique, aucun de ces modèles ne produira une distribution de référence qui ressemble à une loi normale ou une courbe-$t$ si la différence des moyennes est utilisée comme statistique de test.
 Nous reviendrons sur ce point plus tard lorsque nous discuterons des caractéristiques d'un bon test --- dont l'un est un taux de faux positifs contrôlé.
@@ -445,37 +445,37 @@ Nous reviendrons sur ce point plus tard lorsque nous discuterons des caractéris
 
 Parfois, les gens veulent prendre une décision en utilisant la $p$-valeur.
 N'oubliez pas qu'une $p$-valeur utilise une statistique de test et l'idée de répétition de l'expérience pour quantifier les informations du design de recherche pour une hypothèse.
-C'est le design, la statistique de test et l'hypothèse qui génèrent une distribution de probabilité.
-Et ce sont les données réelles, le design et la statistique de test qui créent une valeur observée unique.
+C'est le design, la fonction de la statistique de test et l'hypothèse qui génèrent une distribution de probabilité.
+Et ce sont les données réelles, le design et la fonction de la statistique de test qui créent une valeur observée unique.
 
 La $p$-valeur nous indique simplement le degré de singularité du résultat observé du point de vue de l'hypothèse.
 Ou, nous pouvons penser à la $p$-valeur comme une mesure de l'incohérence entre nos données observées et l'hypothèse.
 Et si on voulait prendre une décision ? Il s'avère que **nous pouvons prendre des décisions en utilisant une $p$-valeur si nous sommes prêts à accepter un certain nombre d'erreurs.**
-Disons, par exemple, que nous voyons un $p=.01$ unilatéral : ceci signifierait que dans seulement 1 expérience hypothétique sur 100 représentant l'hypothèse nulle, nous verrions un résultat aussi grand ou plus grand que notre résultat réel.
+Disons, par exemple, que nous voyons une $p$-valeur unilatérale de $0,01$ : ceci signifierait que dans seulement 1 expérience hypothétique sur 100 représentant l'hypothèse nulle, nous verrions un résultat aussi grand ou plus grand que notre résultat réel.
 Nous pourrions être tentés de dire que notre résultat observé est si étrange que nous voulons faire comme si l'hypothèse nulle était fausse.
 Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même pool de sujets avec ce même design expérimental.
 C'est-à-dire que si nous utilisions une petite $p$-valeur pour rejeter l'hypothèse nulle, ou agissons comme si l'hypothèse nulle était fausse, nous pourrions toujours faire une erreur.
 Ces rejets incorrects sont appelés faux positifs car l'hypothèse nulle est souvent zéro et l'effet souhaité (par exemple, dans les essais médicaux) est souvent codé comme positif.
 
 Supposons que nous acceptons d'avoir un faux positif ou faux rejet toutes les 20 expériences.
-Dans ce cas, nous devrions également accepter de rejeter une hypothèse nulle si nous avons vu un $p \le 1/20$ ou  $p \le .05$.
+Dans ce cas, nous devrions également accepter de rejeter une hypothèse nulle si nous avons vu que $p \le 1/20$ ou  $p \le .05$.
 Et une $p$-valeur inférieure à 0,05 signale l'incohérence avec l'hypothèse nulle et ne devrait donc nous conduire à nous tromper que dans 5% des expériences comme celle que nous analysons.
 
 ## Que signifie rejeter une hypothèse nulle ?
 
-Notez qu'une $p=.01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générées à partir de l'hypothèse nulle et du design de recherche.
-Ainsi, nous pensons que $p=.01$ (comme d'autres petites $p$-valeurs ) met en doute le fait que l'hypothèse spécifique est un bon modèle des données observées.
+Notez que $p=0,01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générée à partir de l'hypothèse nulle et du design de recherche.
+Ainsi, nous pensons que $p=0,01$ (comme d'autres petites $p$-valeurs) met en doute le fait que l'hypothèse spécifique est un bon modèle des données observées.
 Souvent, le seul modèle de résultats potentiels qui est testé est le modèle sans effets, donc une petite $p$-valeur devrait nous faire douter du modèle sans effets.
 Les fabricants de logiciels de régression prédéfinis ont tendance à fournir une $p$-valeur qui se réfère automatiquement à cette hypothèse,
-de sorte qu'il est difficile de ne pas voir les résultats de ce test même si vous voulez simplement décrire les différences de moyennes dans les données mais utiliser la méthode des moindres carrés pour calculer la différence de moyennes.
+de sorte qu'il est difficile de ne pas voir les résultats de ce test même si vous voulez simplement décrire les différences de moyennes dans les données mais utiliser la méthode des moindres carrés pour calculer la différence des moyennes.
 
 ## Que signifie de **ne pas rejeter** une hypothèse nulle ?
 
-Notez qu'un $p=.50$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- mais les données observées, dans ce cas, ne semblent pas extrêmes mais communes du point de vue de l'hypothèse nulle.
-Ainsi, $p=.5$ (comme d'autres valeurs p élevées) ne nous incitent pas à douter du modèle de l'hypothèse nulle.
+Notez que $p=0,50$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- mais les données observées, dans ce cas, ne semblent pas extrêmes mais normales du point de vue de l'hypothèse nulle.
+Ainsi, $p=0,5$ (comme d'autres $p$-valeurs élevées) ne nous incitent pas à douter du modèle de l'hypothèse nulle.
 Cela ne nous encourage pas à accepter ce modèle --- ce n'est qu'un modèle après tout.
 On ne sait pas à quel point le modèle était raisonnable a priori, par exemple.
-Ainsi, une seule grande valeur $p$ est un argument en faveur de l'hypothèse nulle, mais pas un argument très marqué.
+Ainsi, une seule grande $p$-valeur est un argument en faveur de l'hypothèse nulle, mais pas un argument très marqué.
 
 # Une fois que vous utilisez des $p$-valeurs pour rejeter une hypothèse, vous ferez des erreurs
 
@@ -483,13 +483,13 @@ Un bon test rejette rarement les hypothèses vraies (i.e. il a un taux de faux p
 
 ## Comment se renseigner sur les risques d'un signal noyé dans le bruit ?
 
-Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) explique comment nous voulons qu'une hypothèse rejette les faux négatifs (i.e. détecter le signal du bruit).
-Lorsque nous pensons à la puissance d'un test statistique, nous devons considérer l'**hypothèse alternative**.
+Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) explique comment nous voulons que l'hypothèse nulle soit rejetée lorsqu'elle est fausse (i.e. détecter le signal du bruit).
+Lorsque nous pensons à la puissance d'une statistique de test, nous devons considérer l'**hypothèse alternative**.
 Cependant, comme nous l'avons montré ci-dessus, nous pouvons tester des **hypothèses nulles** sans avoir l'idée de les rejeter ou de les accepter, bien que la "puissance statistique" du test soit alors plus difficile à définir et à manipuler.
 
 ## Comment étudier les faux positifs ?
 
-Le moyen le plus simple d'en savoir plus sur les faux positifs est la simulation.
+La simulation est le moyen le plus simple d'en savoir plus sur les faux positifs.
 Tout d'abord, nous créons la situation où l'hypothèse nulle est vraie et connue, puis nous testons cette hypothèse nulle pour les cas où elle est vraie.
 Par exemple, dans l'expérience utilisée ici, nous avons 5 unités assignées au traitement sur 10.
 Cela signifie qu'il existe $\binom{10}{5}=252$ différentes manières d'assigner le traitement --- et 252 manières pour que l'expérience n'ait eu aucun effet sur les individus.
@@ -499,8 +499,8 @@ Nous comparons le taux d'erreur pour quelques-unes des approches utilisées jusq
 Le graphique suivant montre la proportion de $p$-valeurs inférieures à un niveau de signification donné (c'est-à-dire le seuil de rejet) pour chacun des quatre tests.
 C'est-à-dire qu'il s'agit d'un graphique du taux de faux positifs pour un seuil de signification donné.
 Un test qui a un taux de faux positifs contrôlé ou connu aurait des symboles sur ou en dessous de la ligne sur tout l'axe des x ou la plage du tracé.
-Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle forte d'absence d'effets ont cette caractéristique.
-Les tests pour l'hypothèse nulle faible utilisant comme statistique de test la différence des moyennes et faisant appel à la théorie des grands échantillons pour justifier l'utilisation d'une distribution $t$ n'ont pas un taux de faux positifs contrôlé : la proportion de $p$-valeurs inférieures pour une valeur donnée du seuil de rejet peut être trop élevée ou trop basse.
+Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle stricte d'absence d'effets ont cette caractéristique.
+Les tests pour l'hypothèse nulle faible utilisant comme statistique de test la différence des moyennes et faisant appel à la théorie des grands échantillons pour justifier l'utilisation d'une distribution $t$ n'ont pas un taux de faux positifs contrôlé : la proportion de $p$-valeurs inférieures à une valeur donnée du seuil de rejet peut être trop élevée ou trop basse.
 
 ```{r}
 collectPValues <- function(y,z){
@@ -536,7 +536,7 @@ legend("topleft",legend=c("Moindre carrés", "Neyman", "Diff des moyennes d'inf�
 			  pch=1:5,col=1:5,lty=1,bty="n")
 ```
 
-Dans ce cas particulier, pour le seuil de $\alpha=.05$, tous les tests, à l'exception du test basé sur le rang, font état de moins de 5 % de faux positifs – c'est bien, cela devrait être inférieur de 5%.
+Dans ce cas particulier, pour le seuil de $\alpha=0,05$, tous les tests, à l'exception du test basé sur le rang, ont de moins de 5 % de faux positifs – c'est bien car cela devrait être inférieur à 5%.
 Cependant, cela ne garantit pas de bonnes performances pour des tests basés sur de grands échantillons dans d'autres petites expériences, ou des expériences avec des résultats très asymétriques, etc.
 En cas de doute, il est facile d'évaluer le taux de faux positifs d'un test en utilisant le code de ce guide pour faire votre propre simulation.
 
@@ -551,10 +551,8 @@ Nous énumérons ici quelques autres sujets importants mais avancés liés aux t
   - Même si une procédure de test donnée contrôle le taux de faux positifs pour un seul test, elle peut ne pas contrôler le taux pour un groupe de tests multiples.
     Voir [10 choses à savoir sur les comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
     pour un guide des approches pour contrôler ces taux de rejet pour plusieurs tests.
-  - Un intervalle de confiance de 100 $\alpha$\% peut être défini comme la plage d'hypothèses où toutes les $p$-valeurs sont supérieures ou égales à $\alpha$.
-C'est ce qu'on appelle l'inversion du test d'hypothèse.
-   (@rosenbaum2010design).
-
+  - Un intervalle de confiance de $100 - \alpha$ % peut être défini comme la plage d'hypothèses où toutes les $p$-valeurs sont supérieures ou égales à $\alpha$.
+C'est ce qu'on appelle l'inversion du test d'hypothèse. (@rosenbaum2010design).
 Autrement dit, un **intervalle de confiance est un ensemble de tests d'hypothèse**.
 Cela signifie qu'une critique de la $p$-valeur est également une critique de l'intervalle de confiance.
 
@@ -564,7 +562,7 @@ Cela signifie qu'une critique de la $p$-valeur est également une critique de l'
  - Un ensemble de tests d'hypothèse peut être combiné en un seul test d'hypothèse. Par exemple, vous pouvez tester l'hypothèse d'un effet de taille 1 sur le résultat 1, un effet de taille 0 sur le résultat 2 et un effet de -10 sur le résultat 3.
 (@hansen:bowers:2008,@caughey2017nonparamétrique)
 
- - Dans les tests d'équivalence, on peut émettre l'hypothèse que deux statistiques de test sont équivalentes (c'est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu'une seule (la différence entre les deux groupes est nulle) {@hartman2018equivalence}
+ - Dans les tests d'équivalence, on peut émettre l'hypothèse que deux statistiques de test sont équivalentes (c'est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu'une seule (la différence entre les deux groupes est égale à zéro) {@hartman2018equivalence}
 
   - Étant donné qu'un test d'hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d'hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de débordement et de propagation des effets de traitement à travers les réseaux (@bowers2013reasoning, @bowers2016research, @bowers2018models)
    (@bowers2013reasoning, @bowers2016research, @bowers2018models)

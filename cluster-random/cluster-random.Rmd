@@ -942,7 +942,7 @@ De tels modèles fonctionnent donc souvent bien dans des situations où il y a t
 grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
 Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.
 
-Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence de moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d'essai randomisé par grappe très simplifié.
+Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence des moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d'essai randomisé par grappe très simplifié.
 
 <style>
 div.hidecode + pre {display: none}
