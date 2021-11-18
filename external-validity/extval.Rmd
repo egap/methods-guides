@@ -35,7 +35,7 @@ Comme l'a posé à l'origine Campbell[^2], la validité interne pose la question
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
 [^3]: Plus de détails disponibles dans le guide des méthodes d'inférence causale: http://egap.org/resource/10-things-to-know-about-causal-inference
 
-Avant de pouvoir extrapoler un effet causal à une population distincte, il est essentiel que l'effet de traitement moyen original soit basé sur un résultat bien identifié.
+Avant de pouvoir extrapoler un effet causal à une population distincte, il est essentiel que l'effet moyen de traitement original soit basé sur un résultat bien identifié.
 Pour la plupart des expérimentalistes, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait pas d'attrition, d'interférence, de débordement ou d'autres menaces à l'inférence.
 Pour les études observationnelles, des hypothèses d'identification supplémentaires sont nécessaires, telles que l'indépendance conditionnelle du traitement par rapport aux résultats potentiels.
 

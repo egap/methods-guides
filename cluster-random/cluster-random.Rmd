@@ -69,7 +69,7 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache=T}
 set.seed(12345)
-# Définir l'effet de traitement moyen de l'échantillon (sample average treatment effect, SATE)
+# Définir l'effet moyen de traitement de l'échantillon (sample average treatment effect, SATE)
 treatment_effect     <- 1
 # Définir les identifiants individuels (i)
 person               <- 1:10

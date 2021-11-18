@@ -1,4 +1,5 @@
 ---
+bibliography: ../../learningdays-resources/learningdays-book.bib
 output:
   bookdown::html_document2:
     number_sections: true
@@ -407,7 +408,7 @@ La statistique de test pour cette hypothèse est presque toujours la différence
 Le code ci-dessous montre l'utilisation de la méthode des moindres carrés (MC, `lm()` dans R) pour calculer la différence des moyennes en tant que statistique de test pour les hypothèses sur l'effet moyen.
 Notez que les $p$-valeurs basées sur MC diffèrent de celles calculées par `t.test()` et `difference_of_means()`.
 Rappelons que l'inférence statistique MC est justifiée par l'hypothèse d'observations indépendantes et distribuées de manière identique, mais, dans la plupart des expériences, le traitement lui-même modifie la variation dans le groupe de traitement (violant ainsi l'hypothèse de distribution identique/homoscédasticité de MC).
-C'est l'une des raisons pour lesquelles on préconise, pour tester l'hypothèse nulle faible de l'absence d'effet de traitement moyen, l'utilisation d'outils autres que ceux fournis par de simples méthodes des moindres carrés.
+C'est l'une des raisons pour lesquelles on préconise, pour tester l'hypothèse nulle faible de l'absence d'effet moyen de traitement, l'utilisation d'outils autres que ceux fournis par de simples méthodes des moindres carrés.
 
 ```{r}
 lm1 <- lm(Y~Z,data=dat)

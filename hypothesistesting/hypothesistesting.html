@@ -57,6 +57,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 
 
@@ -211,7 +233,7 @@ pre code {
 <li><a href="#comment-étudier-les-faux-positifs"><span class="toc-section-number">9.2</span> Comment étudier les faux positifs ?</a></li>
 </ul></li>
 <li><a href="#que-savoir-dautre-sur-les-tests-dhypothèses"><span class="toc-section-number">10</span> Que savoir d’autre sur les tests d’hypothèses ?</a></li>
-<li><a href="#références"><span class="toc-section-number">11</span> Références</a></li>
+<li><a href="#références">Références</a></li>
 </ul>
 </div>
 
@@ -229,7 +251,7 @@ color: black;
 </style>
 <div id="les-tests-dhypothèse-résument-les-informations-dans-les-designs-de-recherche-pour-aider-les-gens-à-raisonner-sur-les-effets-du-traitement" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Les tests d’hypothèse résument les informations dans les designs de recherche pour aider les gens à raisonner sur les effets du traitement</h1>
-<p>Lorsque les chercheurs signalent que “l’effet moyen estimé du traitement est de 5 (<span class="math inline">\(p=0,02\)</span>)”, c’est un raccourci pour dire :
+<p>Lorsque les chercheurs signalent que “l’effet moyen estimé du traitement est de 5 (<span class="math inline">\(p=0,02\)</span>),” c’est un raccourci pour dire :
 “Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
 Les résultats expérimentaux ne sont <strong>pas cohérents</strong> avec l’idée que le traitement n’a eu aucun effet.”
 Les gens utilisent des tests d’hypothèses dans les études d’observation ainsi que dans les expériences randomisées.
@@ -237,8 +259,7 @@ Ce guide se concentre sur leur utilisation dans les expériences randomisées ou
 de sorte qu’elles paraissent “aléatoires” (comme les designs de régression par discontinuité ou d’autres designs naturels ou quasi expérimentaux).</p>
 <p>La <span class="math inline">\(p\)</span>-valeur résume la capacité d’un test donné à distinguer le signal du bruit.
 Comme nous l’avons vu dans <a href="https://egap.org/resource/10-things-to-know-about-statistical-power">10 choses à savoir sur la puissance statistique</a>,
-le fait qu’une expérience puisse détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat
-<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, la distribution du traitement et la force substantielle de l’intervention elle-même.
+le fait qu’une expérience puisse détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> la distribution du traitement et la force substantielle de l’intervention elle-même.
 Lorsqu’une chercheuse calcule une <span class="math inline">\(p\)</span>-valeur à la suite d’un test d’hypothèse, elle résume tous ces aspects du design de recherche en fonction d’une affirmation particulière
 — généralement l’affirmation selon laquelle le traitement n’a eu aucun effet causal.</p>
 <p>Le reste de ce guide explique les étapes d’un test d’hypothèse :
@@ -252,14 +273,14 @@ Voir également <a href="https://egap.org/resource/10-things-to-know-about-rando
 <div id="dans-une-expérience-une-hypothèse-est-une-affirmation-sur-des-relations-causales-non-observées" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Dans une expérience, une hypothèse est une affirmation sur des relations causales non observées</h1>
 <p>Nous menons des expériences pour faire des comparaisons causales interprétables
-<span class="citation">[@kinder1993behalf]</span>, et nous estimons souvent les effets causaux moyens.
+<span class="citation">(<strong>kinder1993behalf?</strong>)</span>, et nous estimons souvent les effets causaux moyens.
 Qu’est-ce que le test d’hypothèse a à voir avec l’inférence causale?
 Dans cette section, nous expliquons la distinction entre :
 évaluer des assertions sur les effets causaux et faire les meilleures suppositions sur les effets causaux.</p>
 <div id="un-aperçu-du-problème-fondamental-de-linférence-causale-et-une-introduction-à-quelques-notations" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Un aperçu du problème fondamental de l’inférence causale et une introduction à quelques notations</h2>
-<p>Dans <a href="https://egap.org/resource/10-things-to-know-about-causal-inference">10 choses à savoir sur l’inférence causale</a>, souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l’idée de résultats potentiels pour <strong>définir</strong> la cause et formaliser ce que nous <strong>entendons</strong> lorsque nous disons “X cause Y” ou “Fumer cause le cancer” ou “L’information augmente la conformité fiscale”.
-Bien qu’il existe d’autres façons de penser la causalité (<span class="citation">@brady2008causation</span>), l’approche contrefactuelle suggère que nous imagiinons que chaque personne, <span class="math inline">\(i\)</span>, paierait ses impôts, <span class="math inline">\(y_{i}\)</span>,
+<p>Dans <a href="https://egap.org/resource/10-things-to-know-about-causal-inference">10 choses à savoir sur l’inférence causale</a>, souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l’idée de résultats potentiels pour <strong>définir</strong> la cause et formaliser ce que nous <strong>entendons</strong> lorsque nous disons “X cause Y” ou “Fumer cause le cancer” ou “L’information augmente la conformité fiscale.”
+Bien qu’il existe d’autres façons de penser la causalité (<span class="citation">Brady (2008)</span>), l’approche contrefactuelle suggère que nous imagiinons que chaque personne, <span class="math inline">\(i\)</span>, paierait ses impôts, <span class="math inline">\(y_{i}\)</span>,
 si on lui donne des informations sur l’usage de ces taxes.
 <span class="math inline">\(Z_i=1\)</span> signifie que l’information a été donnée à la personne et <span class="math inline">\(Z_i=0\)</span> signifie qu’aucune information n’a été donnée.
 Donc <span class="math inline">\(y_{i,Z_i=1}\)</span> désigne le montant des taxes payées par quelqu’un à qui on a donné des informations et <span class="math inline">\(y_{i,Z_i=0}\)</span> désigne le montant des impôts payés par quelqu’un à qui on n’a pas donné d’informations.
@@ -270,7 +291,7 @@ Cela signifie souvent que le résultat dans une condition (<span class="math inl
 <p>Nous ne pouvons pas observer <em>à la fois</em> <span class="math inline">\(y_{i,1}\)</span> et <span class="math inline">\(y_{i,0}\)</span> pour chaque personne
 — si nous avons donné des informations sur les impôts à une personne nous observons <span class="math inline">\(y_{i,1}\)</span> et donc nous ne pouvons pas observer comment elle aurait agi si elle n’avait pas reçu cette information (<span class="math inline">\(y_{i,0}\)</span>).
 Ainsi, nous ne pouvons pas utiliser l’observation directe pour en savoir plus sur cet effet causal contrefactuel et nous ne pouvons que <strong>faire des inférences</strong>.
-<span class="citation">@holland1986statistics</span> appelle cette incapacité à utiliser l’observation directe pour en savoir plus sur la causalité contrefactuelle le “problème fondamental de l’inférence causale”.</p>
+<span class="citation">(<strong>holland1986statistics?</strong>)</span> appelle cette incapacité à utiliser l’observation directe pour en savoir plus sur la causalité contrefactuelle le “problème fondamental de l’inférence causale.”</p>
 </div>
 <div id="un-aperçu-des-approches-basées-sur-lestimation-de-linférence-causale-dans-les-expériences-randomisées." class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Un aperçu des approches basées sur l’estimation de l’inférence causale dans les expériences randomisées.</h2>
@@ -283,15 +304,15 @@ C’est-à-dire que ces deux approches répondent à la question causale fondame
 Une approche connexe de Don Rubin commence par <strong>prédire</strong> les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de <span class="math inline">\(Z_i\)</span> (tel que, disons, <span class="math inline">\(Z \sim \text{Bernoulli}(\pi)\)</span>) et un modèle de probabilité des deux résultats potentiels tels que, disons,
 <span class="math inline">\((y_{i,1},y_{i,0}) \sim \text{Normale multivariée}(\boldsymbol{\beta}\mathbf{X}, \boldsymbol{\Sigma})\)</span> avec un vecteur de coefficients <span class="math inline">\(\boldsymbol{\beta}\)</span>, une matrice <span class="math inline">\(n \times p\)</span> de variables <span class="math inline">\(\mathbf{X}\)</span> (contenant à la fois l’assignation du traitement et d’autres variables et une matrice <span class="math inline">\(p \times p\)</span> de variance-covariance <span class="math inline">\(\Sigma\)</span> décrivant comment toutes les colonnes de <span class="math inline">\(\mathbf{X}\)</span> sont liées).</p>
 <p>La deuxième approche générale commence avec les mêmes modèles de probabilité liant le traitement, d’autres variables et les résultats.
-Ensuite, à l’aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l’effet du traitement au niveau individuel ou l’effet moyen du traitement (voir <span class="citation">[@imbens2007causal]</span> pour plus de détails sur l’approche prédictive bayésienne de l’inférence causale).
+Ensuite, à l’aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l’effet du traitement au niveau individuel ou l’effet moyen du traitement (voir <span class="citation">(<strong>imbens2007causal?</strong>)</span> pour plus de détails sur l’approche prédictive bayésienne de l’inférence causale).
 Ainsi, l’approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne (bien que la plupart de ces différences prédites au niveau individuel soient résumées en utilisant les caractéristiques des distributions postérieures des modèles de probabilité et des données comme la moyenne des prédictions).</p>
 </div>
 <div id="le-test-dhypothèse-en-faisant-des-affirmations-sur-linobservé-aborde-de-manière-statistique-le-problème-fondamental-de-linférence-causale." class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> Le test d’hypothèse, en faisant des affirmations sur l’inobservé, aborde de manière statistique le problème fondamental de l’inférence causale.</h2>
 <p>La troisième approche de ce problème amène une nouvelle question.
-<span class="citation">@fisher:1935 [Chapitre 2]</span> nous a appris que nous pouvons poser la question fondamentale de savoir s’il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu’en termes de quantité d’information fournie par le design de recherche et les données.
+<span class="citation">(<strong>fisher:1935?</strong>Chapitre 2)</span> nous a appris que nous pouvons poser la question fondamentale de savoir s’il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu’en termes de quantité d’information fournie par le design de recherche et les données.
 C’est-à-dire que l’on peut émettre l’hypothèse que, pour la personne <span class="math inline">\(i\)</span>, l’information n’a fait aucune différence pour ses résultats, de sorte que <span class="math inline">\(y_{i,1}=y_{i,0}\)</span> ou <span class="math inline">\(y_{i,1}=y_ {i,0}+\tau_i\)</span> où <span class="math inline">\(\tau_i=0\)</span> pour tout le monde.
-Cependant, la réponse à cette question se présenterait ainsi : “Ce design de recherche et cet ensemble de données fournissent beaucoup d’informations sur ce modèle, cette idée ou cette hypothèse.” ou, comme ci-dessus, “Ce design de recherche n’est pas cohérent avec cette affirmation.” (Voir <span class="citation">@rosenbaum2002</span>(Chapitre 2), <span class="citation">@rosenbaum2010</span>(chapitre 2) et <span class="citation">@rosenbaum2017observation</span>, pour plus de détails sur cette approche.)</p>
+Cependant, la réponse à cette question se présenterait ainsi : “Ce design de recherche et cet ensemble de données fournissent beaucoup d’informations sur ce modèle, cette idée ou cette hypothèse.” ou, comme ci-dessus, “Ce design de recherche n’est pas cohérent avec cette affirmation.” (Voir <span class="citation">(<strong>rosenbaum2002?</strong>)</span>(Chapitre 2), <span class="citation">(<strong>rosenbaum2010?</strong>)</span>(chapitre 2) et <span class="citation">Rosenbaum (2017)</span>, pour plus de détails sur cette approche.)</p>
 </div>
 </div>
 <div id="lhypothèse-nulle-dabsence-deffets-est-une-déclaration-précise-sur-les-résultats-potentiels" class="section level1" number="3">
@@ -304,7 +325,7 @@ nous pourrions émettre l’hypothèse que <span class="math inline">\(\tau_i=\{
 Notez également que cette manière d’écrire les résultats potentiels, avec le résultat potentiel pour l’unité <span class="math inline">\(i\)</span> <em>se référant uniquement à <span class="math inline">\(i\)</span></em> et non à d’autres unités (<span class="math inline">\(y_{i,Z_i}\)</span>), <em>fait partie du modèle</em>.
 C’est-à-dire que le modèle de <span class="math inline">\(H_0 : y_{i,1}=y_{i,0}\)</span> implique que le traitement n’a d’effet sur personne — et aucun effet signifie aussi aucun effet de débordement.
 Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l’unité <span class="math inline">\(i\)</span> lorsqu’elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements <span class="math inline">\(\mathbf{Z}_{~i}=\{Z_j,Z_k,\ldots \}\)</span> peut s’écrire <span class="math inline">\(y_{i,Z_i=1,\mathbf{Z}_{~i}}\)</span>.
-Voir <span class="citation">@bowers2013reasoning</span> et <span class="citation">@bowers2018models</span> pour en savoir plus sur l’idée qu’une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d’hypothèses sur la propagation des effets de traitement à travers un réseau.</p>
+Voir <span class="citation">Bowers, Fredrickson, and Panagopoulos (2013)</span> et <span class="citation">Bowers et al. (2018)</span> pour en savoir plus sur l’idée qu’une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d’hypothèses sur la propagation des effets de traitement à travers un réseau.</p>
 </div>
 <div id="lhypothèse-nulle-faible-dabsence-deffets-est-une-déclaration-sur-les-résultats-potentiels-agrégés" class="section level1" number="4">
 <h1><span class="header-section-number">4</span> L’hypothèse nulle faible d’absence d’effets est une déclaration sur les résultats potentiels agrégés</h1>
@@ -325,11 +346,11 @@ Ci-dessus, en supposant aucune interaction entre les unités, nous avons imagin�
 Dans cette expérience simple, nous savons que nous observons l’un des deux résultats potentiels par personne, selon le traitement qui lui a été assigné.
 Ainsi, nous pouvons lier les résultats contrefactuels non observés à un résultat observé (<span class="math inline">\(Y_i\)</span>) en utilisant l’assignation de traitement (<span class="math inline">\(Z_i\)</span>) comme suit :</p>
 <p><span class="math display">\[ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} \]</span> {#eq:identity}</p>
-<p><span class="citation">@eq:identity</span> signifie que notre résultat observé, <span class="math inline">\(Y_i\)</span> (ici, le montant des impôts payés par la personne <span class="math inline">\(i\)</span>), est <span class="math inline">\(y_{i,1}\)</span> lorsque la personne est assignée au groupe de traitement (<span class="math inline">\(Z_i=1\)</span>), et <span class="math inline">\(y_{i,0}\)</span> lorsque la personne est assignée au groupe de contrôle.</p>
+<p><span class="citation">(<strong>eq:identity?</strong>)</span> signifie que notre résultat observé, <span class="math inline">\(Y_i\)</span> (ici, le montant des impôts payés par la personne <span class="math inline">\(i\)</span>), est <span class="math inline">\(y_{i,1}\)</span> lorsque la personne est assignée au groupe de traitement (<span class="math inline">\(Z_i=1\)</span>), et <span class="math inline">\(y_{i,0}\)</span> lorsque la personne est assignée au groupe de contrôle.</p>
 <p><strong>Combien d’informations notre design de recherche et nos données contiennent-ils sur l’hypothèse ?</strong>
 Imaginez, pour l’instant, l’hypothèse selon laquelle le traitement ajoute 5 au paiement des impôts de chaque personne de telle sorte que <span class="math inline">\(H_0 : y_{i,1} = y_ {i,0} + \tau_i\)</span> où <span class="math inline">\(\tau_i=5\)</span> pour tout <span class="math inline">\(i\)</span>.</p>
 <p>Continuons pour les besoins de l’argumentation.
-Qu’impliquerait cette hypothèse pour ce que nous observons ? Nous avons l’équation liant l’observé à l’inobservé dans <span class="citation">@eq:identity</span> donc, ce modèle ou cette hypothèse impliquerait que :</p>
+Qu’impliquerait cette hypothèse pour ce que nous observons ? Nous avons l’équation liant l’observé à l’inobservé dans <span class="citation">(<strong>eq:identity?</strong>)</span> donc, ce modèle ou cette hypothèse impliquerait que :</p>
 <p><span class="math display">\[ \begin{aligned}  Y_i &amp; = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 &amp; = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
 &amp; = Z_i \tau_i  + y_{i,0}
@@ -394,8 +415,8 @@ observedMeanTZ &lt;- meanTZ(ys = Y, z = Z)
 observedMeanRankTZ &lt;- meanrankTZ(ys = Y, z = Z)</code></pre>
 <p>La première statistique de test est la différence des moyennes (<code>meanTZ</code>) et renvoie une valeur observée de 102.
 La seconde statistique de test est la différence des moyennes selon le rang (<code>meanrankTZ</code>), qui renvoie une valeur de 2.2.
-On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur type estimée (voir <span class="citation">@chung2013exact</span> pour un argument en faveur de cette statistique de test).
-Pour tester l’hypothèse nulle stricte d’absence d’effet, on peut choisir presque n’importe quelle statistique de test de telle sorte que les valeurs de cette fonction augmentent à mesure que la différence entre les résultats traités et les résultats de contrôle augmente (voir <span class="citation">@rosenbaum:2002</span>, chapitre 2, pour une discussion sur statistiques de test à “effet croissant”).</p>
+On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur type estimée (voir <span class="citation">(<strong>chung2013exact?</strong>)</span> pour un argument en faveur de cette statistique de test).
+Pour tester l’hypothèse nulle stricte d’absence d’effet, on peut choisir presque n’importe quelle statistique de test de telle sorte que les valeurs de cette fonction augmentent à mesure que la différence entre les résultats traités et les résultats de contrôle augmente (voir <span class="citation">(<strong>rosenbaum:2002?</strong>)</span>, chapitre 2, pour une discussion sur statistiques de test à “effet croissant”).</p>
 <p>Le test de l’hypothèse nulle faible d’absence d’effet utilise la différence des moyennes (peut-être standardisée ou de Student) comme statistique de test.</p>
 </div>
 <div id="la-p-valeur-contient-la-quantité-dinformation-quun-design-de-recherche-et-une-statistique-de-test-renseignent-sur-lhypothèse." class="section level1" number="7">
@@ -495,7 +516,7 @@ même s’il n’y a vraiment pas d’effet, 100 tests indépendants qui fonctio
 Une solution facile pour résumer la singularité d’une expérience dans l’une ou l’autre direction est de calculer une <span class="math inline">\(p\)</span>-valeur bilatérale.
 Ceci, soit dit en passant, est la <span class="math inline">\(p\)</span>-valeur standard produite par la plupart des logiciels prédéfinis tels que <code>lm()</code> et <code>t.test()</code> et <code>wilcox.test()</code> dans R.
 L’idée de base est de calculer les deux <span class="math inline">\(p\)</span>-valeurs, puis de multiplier la plus petite <span class="math inline">\(p\)</span>-valeur par 2.
-(L’idée ici est que vous vous pénalisez pour avoir effectué deux tests - voir <span class="citation">@rosenbaum2010design</span>, Chapitre 2 et <span class="citation">@cox1977role</span> pour en savoir plus sur l’idée de multiplier la plus petite p-valeur par deux.)</p>
+(L’idée ici est que vous vous pénalisez pour avoir effectué deux tests - voir <span class="citation">Rosenbaum (2010)</span>, Chapitre 2 et <span class="citation">(<strong>cox1977role?</strong>)</span> pour en savoir plus sur l’idée de multiplier la plus petite p-valeur par deux.)</p>
 <pre class="r"><code>## Ici, j&#39;utilise &lt;= et &gt;= plutôt que &lt; et &gt; en raison du caractère discret
 ## de la distribution de randomisation avec seulement 10 observations.
 ## Voir les discussions sur la &quot;p-valeur moyenne&quot;
@@ -526,7 +547,10 @@ pMean2</code></pre>
 <pre><code>[1] 0.28
 99 percent confidence interval:
  0.2440542 0.3180731 </code></pre>
-<pre class="r"><code>## en utilisant le package ri2
+<pre class="r"><code>## en utilisant la version de développement du package RItools
+
+
+## en utilisant le package ri2
 library(ri2)
 thedesign &lt;- declare_ra(N = N)
 pMean4 &lt;- conduct_ri(Y ~ Z,
@@ -552,7 +576,7 @@ La statistique de test pour cette hypothèse est presque toujours la différence
 Le code ci-dessous montre l’utilisation de la méthode des moindres carrés (MC, <code>lm()</code> dans R) pour calculer la différence des moyennes en tant que statistique de test pour les hypothèses sur l’effet moyen.
 Notez que les <span class="math inline">\(p\)</span>-valeurs basées sur MC diffèrent de celles calculées par <code>t.test()</code> et <code>difference_of_means()</code>.
 Rappelons que l’inférence statistique MC est justifiée par l’hypothèse d’observations indépendantes et distribuées de manière identique, mais, dans la plupart des expériences, le traitement lui-même modifie la variation dans le groupe de traitement (violant ainsi l’hypothèse de distribution identique/homoscédasticité de MC).
-C’est l’une des raisons pour lesquelles on préconise, pour tester l’hypothèse nulle faible de l’absence d’effet de traitement moyen, l’utilisation d’outils autres que ceux fournis par de simples méthodes des moindres carrés.</p>
+C’est l’une des raisons pour lesquelles on préconise, pour tester l’hypothèse nulle faible de l’absence d’effet moyen de traitement, l’utilisation d’outils autres que ceux fournis par de simples méthodes des moindres carrés.</p>
 <pre class="r"><code>lm1 &lt;- lm(Y ~ Z, data = dat)
 lm1P &lt;- summary(lm1)$coef[&quot;Z&quot;, &quot;Pr(&gt;|t|)&quot;]
 ttestP1 &lt;- t.test(Y ~ Z, data = dat)$p.value
@@ -693,20 +717,52 @@ En cas de doute, il est facile d’évaluer le taux de faux positifs d’un test
 Voir <a href="https://egap.org/resource/10-things-to-know-about-multiple-comparisons">10 choses à savoir sur les comparaisons multiples</a>
 pour un guide des approches pour contrôler ces taux de rejet pour plusieurs tests.</p></li>
 <li><p>Un intervalle de confiance de <span class="math inline">\(100 - \alpha\)</span> % peut être défini comme la plage d’hypothèses où toutes les <span class="math inline">\(p\)</span>-valeurs sont supérieures ou égales à <span class="math inline">\(\alpha\)</span>.
-C’est ce qu’on appelle l’inversion du test d’hypothèse. (<span class="citation">@rosenbaum2010design</span>).
+C’est ce qu’on appelle l’inversion du test d’hypothèse. (<span class="citation">Rosenbaum (2010)</span>).
 Autrement dit, un <strong>intervalle de confiance est un ensemble de tests d’hypothèse</strong>.
 Cela signifie qu’une critique de la <span class="math inline">\(p\)</span>-valeur est également une critique de l’intervalle de confiance.</p></li>
 <li><p>Une estimation de position basée sur un test d’hypothèse est appelée une estimation de position de Hodges-Lehmann.
-(<span class="citation">@rosenbaum1993hlp</span>, <span class="citation">@hodges1963elb</span>)</p></li>
+(<span class="citation">Rosenbaum (1993)</span>, <span class="citation">Hodges and Lehmann (1963)</span>)</p></li>
 <li><p>Un ensemble de tests d’hypothèse peut être combiné en un seul test d’hypothèse. Par exemple, vous pouvez tester l’hypothèse d’un effet de taille 1 sur le résultat 1, un effet de taille 0 sur le résultat 2 et un effet de -10 sur le résultat 3.
-(<span class="citation">@hansen:bowers:2008</span>,<span class="citation">@caughey2017nonparamétrique</span>)</p></li>
-<li><p>Dans les tests d’équivalence, on peut émettre l’hypothèse que deux statistiques de test sont équivalentes (c’est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu’une seule (la différence entre les deux groupes est égale à zéro) {<span class="citation">@hartman2018equivalence</span>}</p></li>
-<li><p>Étant donné qu’un test d’hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d’hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de débordement et de propagation des effets de traitement à travers les réseaux (<span class="citation">@bowers2013reasoning</span>, <span class="citation">@bowers2016research</span>, <span class="citation">@bowers2018models</span>)
-(<span class="citation">@bowers2013reasoning</span>, <span class="citation">@bowers2016research</span>, <span class="citation">@bowers2018models</span>)</p></li>
+(<span class="citation">Hansen and Bowers (2008)</span>,<span class="citation">(<strong>caughey2017nonparamétrique?</strong>)</span>)</p></li>
+<li><p>Dans les tests d’équivalence, on peut émettre l’hypothèse que deux statistiques de test sont équivalentes (c’est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu’une seule (la différence entre les deux groupes est égale à zéro) {<span class="citation">Hartman and Hidalgo (2018)</span>}</p></li>
+<li><p>Étant donné qu’un test d’hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d’hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de débordement et de propagation des effets de traitement à travers les réseaux (<span class="citation">Bowers, Fredrickson, and Panagopoulos (2013)</span>, <span class="citation">Bowers, Fredrickson, and Aronow (2016)</span>, <span class="citation">Bowers et al. (2018)</span>)
+(<span class="citation">Bowers, Fredrickson, and Panagopoulos (2013)</span>, <span class="citation">Bowers, Fredrickson, and Aronow (2016)</span>, <span class="citation">Bowers et al. (2018)</span>)</p></li>
 </ul>
 </div>
-<div id="références" class="section level1" number="11">
-<h1><span class="header-section-number">11</span> Références</h1>
+<div id="références" class="section level1 unnumbered">
+<h1>Références</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bowers2018models" class="csl-entry">
+Bowers, Jake, Bruce A Desmarais, Mark Frederickson, Nahomi Ichino, Hsuan-Wei Lee, and Simi Wang. 2018. <span>“Models, Methods and Network Topology: Experimental Design for the Study of Interference.”</span> <em>Social Networks</em> 54: 196–208.
+</div>
+<div id="ref-bowers2013reasoning" class="csl-entry">
+Bowers, Jake, Mark M Fredrickson, and Costas Panagopoulos. 2013. <span>“<span class="nocase">Reasoning about Interference Between Units: A General Framework</span>.”</span> <em>Political Analysis</em> 21 (1): 97–124.
+</div>
+<div id="ref-bowers2016research" class="csl-entry">
+Bowers, Jake, Mark Fredrickson, and Peter M Aronow. 2016. <span>“Research Note: A More Powerful Test Statistic for Reasoning about Interference Between Units.”</span> <em>Political Analysis</em> 24 (3): 395–403.
+</div>
+<div id="ref-brady2008causation" class="csl-entry">
+Brady, Henry E. 2008. <span>“Causation and Explanation in Social Science.”</span> In <em>The Oxford Handbook of Political Science</em>. <a href="https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199286546.001.0001/oxfordhb-9780199286546-e-10">https://www.oxfordhandbooks.com/view/10.1093/oxfordhb/9780199286546.001.0001/oxfordhb-9780199286546-e-10</a>.
+</div>
+<div id="ref-hansen:bowers:2008" class="csl-entry">
+Hansen, Ben B., and Jake Bowers. 2008. <span>“Covariate Balance in Simple, Stratified and Clustered Comparative Studies.”</span> <em>Statistical Science</em> 23 (2): 219–36.
+</div>
+<div id="ref-hartman2018equivalence" class="csl-entry">
+Hartman, Erin, and F Daniel Hidalgo. 2018. <span>“An Equivalence Approach to Balance and Placebo Tests.”</span> <em>American Journal of Political Science</em> 62 (4): 1000–1013.
+</div>
+<div id="ref-hodges1963elb" class="csl-entry">
+Hodges, J. L., and E. L. Lehmann. 1963. <span>“<span class="nocase">Estimates of location based on rank tests</span>.”</span> <em>Ann. Math. Statist</em> 34: 598–611.
+</div>
+<div id="ref-rosenbaum1993hlp" class="csl-entry">
+Rosenbaum, Paul R. 1993. <span>“Hodges-Lehmann Point Estimates of Treatment Effect in Observational Studies.”</span> <em>Journal of the American Statistical Association</em> 88 (424): 1250–53.
+</div>
+<div id="ref-rosenbaum2010design" class="csl-entry">
+———. 2010. <span>“<span class="nocase">Design of observational studies</span>.”</span> <em>Springer Series in Statistics</em>.
+</div>
+<div id="ref-rosenbaum2017observation" class="csl-entry">
+———. 2017. <em>Observation and Experiment: An Introduction to Causal Inference</em>. Harvard University Press.
+</div>
+</div>
 </div>
 <div class="footnotes">
 <hr />
