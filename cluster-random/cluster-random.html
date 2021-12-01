@@ -196,7 +196,7 @@ e.nextSibling.nextSibling.style.display="block";
 [Cliquer pour voir le code]
 </div>
 <pre class="r"><code>set.seed(12345)
-# Définir l&#39;effet de traitement moyen de l&#39;échantillon (sample average treatment effect, SATE)
+# Définir l&#39;effet moyen de traitement de l&#39;échantillon (sample average treatment effect, SATE)
 treatment_effect     &lt;- 1
 # Définir les identifiants individuels (i)
 person               &lt;- 1:10
@@ -979,7 +979,7 @@ abline(v = mean(est_matched_effects,na.rm = T),col = &quot;blue&quot;)</code></p
 <p>Dans notre discussion sur la perte d’informations, nous avons évalué les approches qui nécessitent (1) que le traitement soit randomisé comme prévu et (2) que le traitement assigné à une unité n’a pas changé les résultats potentiels pour toute autre unité.</p>
 <p>Dans les cas où ces hypothèses peuvent être violées, il est parfois plus simple de spécifier des modèles statistiques qui tentent de décrire les caractéristiques d’un design complexe. Même si nous ne considérons pas le modèle comme une description scientifique d’un processus connu, cela peut être une manière plus informative et flexible d’analyser une expérience plutôt que de dériver de nouvelles expressions complexes pour un estimateur basé sur le design.</p>
 <p>Dans les approches basées sur un modèle, la distribution d’échantillonnage d’un estimateur est approchée à l’aide d’une distribution de probabilité pour caractériser notre incertitude sur des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe. De telles approches sont appelées “basées sur un modèle”, car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes. Souvent, ces approches utilisent des “modèles à plusieurs niveaux”, dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité. Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l’intersection et/ou les coefficients varient d’un groupe à l’autre. De cette manière, il est possible de modéliser “l’effet d’être une unité dans la grappe A”, séparément de l’estimation de l’effet du traitement. L’avantage de telles approches est qu’elles permettent une “mise en commun partielle” de la variance dans la population et de la variance entre les grappes. Lorsqu’une grappe donnée est mal estimée, elle contribue moins à l’estimation, et vice versa. De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certaines grappes : grâce à la spécification d’une distribution a posteriori bayésienne, ils sont capables d’exploiter les informations de toutes les parties de l’étude. Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.</p>
-<p>Ici, nous montrons que l’effet estimé est le même que nous utilisions une simple différence de moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d’essai randomisé par grappe très simplifié.</p>
+<p>Ici, nous montrons que l’effet estimé est le même que nous utilisions une simple différence des moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d’essai randomisé par grappe très simplifié.</p>
 <style>
 div.hidecode + pre {display: none}
 </style>
