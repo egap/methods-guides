@@ -115,15 +115,15 @@ C'est-à-dire, imaginez que nous ayons mené la même expérience sur le même �
 Lorsque les expériences de suivi sont rares, ces problèmes doivent être réglés analytiquement.
 Plutôt que de considérer les caractéristiques des sujets, l'extrapolation dans ce cas nécessite de réfléchir, à l'aide de la théorie, aux caractéristiques des traitements ou des résultats et de faire des prédictions raisonnables.
 
-9. La réplication est importante
+9. La reproductibilité est importante
 ==
 Aucune étude n'a le dernier mot sur une question scientifique.
 Suivant la logique de la mise à jour bayésienne, des preuves supplémentaires en faveur ou contre une théorie donnée permettent à la communauté scientifique et politique de mettre à jour leurs croyances sur la force et la validité d'une relation causale.
 
-La réplication des études en est une partie importante : les chercheurs doivent pouvoir reproduire des études dans des contextes qui semblent très différents, mais aussi dans certains contextes qui semblent très similaires.
+La reproductibilité des études en est une partie importante : les chercheurs doivent pouvoir reproduire des études dans des contextes qui semblent très différents, mais aussi dans certains contextes qui semblent très similaires.
 Le premier nous permet d'identifier des relations causales locales qui peuvent être triangulées avec les preuves existantes et généralisées le cas échéant.
 Dans le même temps, il est important de répliquer directement les études existantes dans des conditions aussi proches que possible de l'original afin de vérifier que les effets locaux qu'on cherche à extrapoler sont bien fiables.
-L'Open Science Collaboration[^13] a constaté, par exemple, que lors de la reproduction de 100 expériences majeures en psychologie, seulement 47 % des tailles d'effet initialement signalées se situaient dans l'intervalle de confiance de 95 % de la taille d'effet indiquée dans la réplication.
+L'Open Science Collaboration[^13] a constaté, par exemple, que lors de la reproduction de 100 expériences majeures en psychologie, seulement 47 % des tailles d'effet initialement signalées se situaient dans l'intervalle de confiance de 95 % de la taille d'effet indiquée dans l'étude reproduite.
 
 [^13]: Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716.
 
