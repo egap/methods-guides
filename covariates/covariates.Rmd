@@ -20,46 +20,46 @@ Merci à Macartan Humphreys et Diana Mutz pour les discussions utiles.
 1 Qu'est-ce que l'ajustement de covariable ?
 ==
 Les "covariables" sont les caractéristiques de base de vos sujets expérimentaux.
-Lorsque vous exécutez une expérience, vous êtes principalement intéressé par la collecte de données des variables de résultat que votre intervention peut affecter,
+Lorsque vous menez une expérience, vous êtes principalement intéressé par la collecte de données des variables de résultat que votre intervention peut affecter,
 i.e. les décisions de dépenses, les attitudes envers la démocratie ou les contributions à un bien public dans une expérience de laboratoire.
-Mais c'est aussi une bonne idée de collecter des données sur les caractéristiques de base des sujets avant l'assignation du traitement, i.e. le sexe, le niveau d'éducation ou le groupe ethnique.
+Mais c'est aussi une bonne idée de collecter des données sur les caractéristiques de base des sujets avant l'assignation du traitement, i.e. le genre, le niveau d'éducation ou le groupe ethnique.
 Si vous faites cela, vous pouvez explorer comment l'effet du traitement varie en fonction de ces caractéristiques (voir [10 choses à savoir sur les effets de traitement hétérogènes](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)).
 Mais cela vous permet également d'effectuer un ajustement de covariable.
 
 L'ajustement de covariable est un autre nom pour contrôler les variables de base lors de l'estimation de l'effet du traitement.
 Souvent, cela est fait pour améliorer la précision.
 Les résultats des sujets sont susceptibles d'avoir une certaine corrélation avec des variables qui peuvent être mesurées avant l'assignation aléatoire.
-La prise en compte de variables telles que le sexe vous permettra de mettre de côté la variation des résultats qui est prédite par ces variables de base, afin que vous puissiez isoler l'effet du traitement sur les résultats avec plus de précision et de puissance.
+La prise en compte de variables telles que le genre vous permettra de mettre de côté la variation des résultats qui est prédite par ces variables de base, afin que vous puissiez isoler l'effet du traitement sur les résultats avec plus de précision et de puissance.
 
-L'ajustement des covariables peut être un moyen moins coûteux d'améliorer la précision plutôt que d'augmenter le nombre de sujets dans l'expérience.
-C'est en partie pour cette raison que les chercheurs recueillent souvent de nombreuses données sur les covariables avant l'assignation aléatoire.
+L'ajustement de covariables peut être un moyen moins coûteux d'améliorer la précision plutôt que d'augmenter le nombre de sujets dans l'expérience.
+C'est en partie pour cette raison que les chercheurs collectent souvent de nombreuses données sur les covariables avant l'assignation aléatoire.
 Les pré-tests (mesures analogues à la variable de résultat mais limitées aux périodes précédant l'assignation aléatoire) peuvent être particulièrement utiles pour prédire les résultats, et les enquêtes initiales peuvent interroger les sujets sur d'autres caractéristiques de base.
 
 2 Contrôle des covariables au stade du design (découpage par bloc)
 ==
 La meilleure façon de contrôler les covariables est d'utiliser la randomisation par bloc pour le faire au stade du design avant même de commencer votre expérience.
 La randomisation par bloc vous permet de créer des groupes de traitement et de contrôle équilibrés pour certaines covariables.
-Par exemple, vous pourriez vous attendre à ce que le sexe et le revenu aident à prédire la variable de résultat.
-La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de femmes/à revenu élevé, de femmes/à faible revenu, d'homme/à revenu élevé et d'homme/à faible revenu.
+Par exemple, vous pourriez vous attendre à ce que le genre et le revenu aident à prédire la variable de résultat.
+La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de femmes à revenu élevé, de femmes à faible revenu, d'hommes à revenu élevé et d'hommes à faible revenu.
 Lorsque les variables utilisées pour les blocs aident à prédire les résultats, le découpage par bloc améliore la précision en empêchant les corrélations aléatoires entre l'assignation du traitement et les covariables de base.
 
 Pour plus d'informations sur le découpage par bloc et comment l'implémenter dans R, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization).
 Les gains de précision du découpage par bloc (par rapport à l'ajustement de covariable sans bloc) ont tendance à être plus importants lorsque la taille des échantillons est petite.^[Miratrix, Luke W., Jasjeet S. Sekhon et Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
 
 Lorsque le découpage par bloc est effectué pour améliorer la précision, l'erreur type estimée doit tenir compte du découpage.
-(Sinon, l'erreur type aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage.)
+(Sinon, l'erreur type aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage par bloc.)
 Une méthode simple et couramment utilisée consiste à régresser le résultat sur la variable muette d'assignation du traitement ainsi que sur les variables muettes de bloc.
 Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l'autre, l'inclusion des variables muettes de bloc dans la régression ne modifie pas l'effet du traitement estimé, mais tend à donner une estimation plus précise de l'erreur type.^[Voir, e.g., pages 217--219 de Miriam Bruhn et David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
 
 Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous devez alors contrôler ces probabilités inégales afin d'obtenir des estimations non biaisées de l'effet moyen du traitement. [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) l'aborde de manière pratique.
 
-3 Comment le faire dans une régression ?
+3 Comment le faire avec une régression ?
 ==
 
 Parfois, vous n'avez pas la possibilité de mettre en œuvre un design expérimental par bloc (i.e., si vous rejoignez un projet après l'assignation aléatoire) ou vous préférez simplifier votre schéma de randomisation pour réduire les risques d'erreur administrative.
 Vous pouvez toujours ajuster les covariables de base en utilisant la régression multiple.
 N'oubliez pas que dans une régression bivariée --- lorsque vous régressez votre résultat uniquement sur votre indicateur de traitement --- le coefficient de traitement n'est qu'une différence des moyennes.
-Cette méthode simple donne une estimation non biaisée de l'effet moyen du traitement (ATE).
+Cette méthode simple donne une estimation non biaisée de l'effet moyen du traitement (average treatment effect, ATE).
 Lorsque nous ajoutons au modèle des covariables de base corrélées aux résultats, le coefficient de traitement est une estimation approximativement non biaisée de l'ATE qui a tendance à être plus précise que la régression bivariée.
 
 Pour ajuster les covariables par régression multiple, utilisez le modèle :
@@ -69,7 +69,7 @@ $$Y_i = \alpha + \beta Z_i + \gamma X_i + \epsilon_i$$
 où $Y_i$ est la variable de résultat, $Z_i$ est l'indicateur de traitement et $X_i$ est un vecteur d'une ou plusieurs covariables.
 Le reste $\epsilon_i$ est votre terme de perturbation --- le bruit inexpliqué restant.
 
-Lorsque les groupes de traitement et de contrôle sont de taille inégale, les gains de précision de l'ajustement des covariables peuvent être plus importants si vous incluez les interactions entre le traitement et les covariables (voir [ce blog](https://web.archive.org/web/20151024055802 /http://blogs.worldbank.org/impactevaluations/node/847) pour plus d'information).
+Lorsque les groupes de traitement et de contrôle sont de tailles inégales, les gains de précision de l'ajustement de covariables peuvent être plus importants si vous incluez les interactions entre le traitement et les covariables (voir [ce blog](https://web.archive.org/web/20151024055802 /http://blogs.worldbank.org/impactevaluations/node/847) pour plus d'information).
 Pour faciliter l'interprétation, recentrez les covariables pour avoir une moyenne nulle :
 
 $$Y_i = \alpha + \beta Z_i + \gamma W_i + \delta Z_i*W_i + \epsilon_i$$
@@ -81,9 +81,9 @@ Si les sujets reçoivent différentes probabilités d'assignation au traitement 
 4 Pourquoi le faire ?
 ==
 
-Il n'est pas absolument nécessaire de contrôler les covariables lors de l'estimation de l'effet moyen du traitement dans un ECR qui attribue à chaque sujet la même probabilité de recevoir le traitement.
+Il n'est pas absolument nécessaire de contrôler les covariables lors de l'estimation de l'effet moyen du traitement dans un ECR qui assigne à chaque sujet la même probabilité de recevoir le traitement.
 La différence des moyennes traitement-contrôle non ajustée pour les résultats est un estimateur sans biais de l'ATE.
-Cependant, l'ajustement des covariables a tendance à améliorer la précision si les covariables sont de bons prédicteurs du résultat.^[Un bref examen du biais et de la précision : imaginez répéter l'expérience plusieurs fois (sans changer l'échantillon expérimental et les conditions, mais en refaisant l'assignation aléatoire du traitement chaque fois).
+Cependant, l'ajustement de covariables a tendance à améliorer la précision si les covariables sont de bons prédicteurs du résultat.^[Un bref examen du biais et de la précision : imaginez répéter l'expérience plusieurs fois (sans changer l'échantillon expérimental et les conditions, mais en refaisant l'assignation aléatoire du traitement chaque fois).
 Un estimateur sans biais peut surestimer ou sous-estimer l'ATE sur une répétition donnée, mais son espérance (la moyenne sur toutes les répétitions possibles) sera égale à l'ATE réel.
 Nous préférons généralement des estimateurs sans biais ou approximativement sans biais, mais nous valorisons également la précision (qui est formellement définie comme l'inverse de la variance).
 Imaginez que vous lancez une fléchette sur un jeu de fléchettes.
@@ -94,25 +94,25 @@ Un critère possible pour évaluer les estimateurs est l'[erreur quadratique moy
 Voir, par exemple, Sharon Lohr (2010), _Sampling: Design and Analysis_, 2e éd., pp. 31--32.]
 
 Dans les grands échantillons, l'assignation aléatoire a tendance à produire des groupes de traitement et de contrôle avec des caractéristiques de base similaires.
-Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir des taux de vote légèrement plus élevés lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
+Pourtant, par "chance du tirage au sort", un groupe peut être légèrement plus éduqué, ou un groupe peut avoir un taux de vote légèrement plus élevé lors des élections précédentes, ou un groupe peut être légèrement plus âgé en moyenne.
 Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonnage", ce qui signifie que vous obtiendrez des estimations de l'ATE qui ont été produites par une méthode non biaisée, mais qui ont manqué la cible.[^3] Une variabilité d'échantillonnage élevée contribue au bruit (imprécision), pas au biais.
 
 [^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui sera produite simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
 Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe de contrôle avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.
 
 Le contrôle des covariables a tendance à améliorer la précision si les covariables sont prédictives des résultats potentiels.
-Jetez un œil à l'exemple suivant, qui est vaguement basé sur l'expérience de Giné et Mansuri sur le comportement électoral des femmes au Pakistan.^[Giné, Xavier et Ghazala Mansuri (2012).
+Voyez l'exemple suivant vaguement basé sur l'expérience de Giné et Mansuri sur le comportement électoral des femmes au Pakistan.^[Giné, Xavier et Ghazala Mansuri (2012).
 ["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)]
 Dans cette expérience, les auteurs ont randomisé une campagne d'information auprès de femmes au Pakistan pour étudier ses effets sur leur participation, l'indépendance de leur choix de candidat et leurs connaissances politiques.
 Ils ont réalisé une enquête de base qui leur a fourni plusieurs covariables.
 
-Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent : la possession d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
-Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si elle était assignée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment de l'opinion des hommes de sa famille.
+Le code suivant imite cette expérience en créant de fausses données pour quatre des covariables qu'ils collectent à propos des femmes : la possession d'une carte d'identité, la scolarité, l'âge et l'accès à la télévision.
+Cela crée également deux [résultats potentiels](https://egap.org/resource/10-things-to-know-about-causal-inference) (les résultats qui se produiraient si la femme est assignée au traitement ou non) pour mesurer à quel point la femme a voté indépendamment de l'opinion des hommes de sa famille.
 Les résultats potentiels sont corrélés avec les quatre covariables, et l'effet de traitement "réel" sur la mesure d'indépendance est ici de 1.
 Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 répétitions de notre expérience.
 À chaque répétition, nous assignons le traitement de manière aléatoire, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
-Ainsi, nous simulons deux méthodes (non corrigée et corrigée par les covariables) pour estimer l'ATE.
-Pour estimer le biais de chaque méthode, nous prenons la différence des moyennes pour 10 000 estimations simulées et le "vrai" effet de traitement.
+Ainsi, nous simulons deux méthodes (non ajustée et ajustée par les covariables) pour estimer l'ATE.
+Pour estimer le biais de chaque méthode, nous prenons la différence de la moyenne des 10 000 estimations simulées et le "vrai" effet de traitement.
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())
@@ -183,18 +183,18 @@ L'erreur type (l'écart type de la distribution d'échantillonnage) de notre ATE
 Lorsque nous incluons des covariables dans le modèle, notre estimation devient un peu plus stricte : l'erreur type est de 0,093.
 Parce que nos covariables étaient prédictives de nos résultats, les inclure dans la régression a expliqué une partie du bruit présent dans nos données afin que nous puissions resserrer notre estimation de l'ATE.
 
-5 Quand cela sera-t-il utile ?
+5 Quand est-ce utile ?
 ==
 Quand l'ajustement pour les covariables est-il le plus susceptible d'améliorer la précision ?
 
-L'ajustement des covariables sera plus utile lorsque vos covariables sont fortement prédictives (ou "pronostiques") de vos résultats.
-L'ajustement des covariables vous permet essentiellement d'utiliser des informations sur les relations entre les caractéristiques de base et votre résultat afin que vous puissiez mieux identifier la relation entre le traitement et le résultat.
-Mais si les caractéristiques de base ne sont que faiblement corrélées avec le résultat, l'ajustement des covariables ne vous sera d'aucune utilité.
+L'ajustement de covariables sera plus utile lorsque vos covariables sont fortement prédictives (ou "pronostiques") de vos résultats.
+L'ajustement de covariables vous permet essentiellement d'utiliser des informations sur les relations entre les caractéristiques de base et votre résultat afin que vous puissiez mieux identifier la relation entre le traitement et le résultat.
+Mais si les caractéristiques de base ne sont que faiblement corrélées avec le résultat, l'ajustement de covariables ne vous sera d'aucune utilité.
 Les covariables que vous voudrez ajuster sont celles qui sont fortement corrélées aux résultats.
 
-Le graphique suivant montre la relation entre le pronostic de votre covariable et les gains que vous obtenez en l'ajustant.
-En abscisse se trouve la taille de l'échantillon, et en ordonnée se trouve la [racine de l'erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Racine_de_l%27erreur_quadratique_moyenne) (root-mean-square deviation, RMSE), entre l'estimateur et le vrai ATE.
-Nous voulons que notre RMSE soit faible, et l'ajustement des covariables devrait nous aider à le réduire.
+Le graphique suivant montre la relation entre la prédictivité de votre covariable et les gains que vous obtenez en l'ajustant.
+En abscisse se trouve la taille de l'échantillon, et en ordonnée se trouve la [racine de l'erreur quadratique moyenne](https://fr.wikipedia.org/wiki/Racine_de_l%27erreur_quadratique_moyenne) (root-mean-square error, RMSE) entre l'estimateur et le vrai ATE.
+Nous voulons que notre RMSE soit faible, et l'ajustement de covariables devrait nous aider à le réduire.
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
 rm(list=ls())
@@ -259,30 +259,30 @@ La ligne jaune est presque identique à la ligne noire.
 Vous n'avez obtenu aucune amélioration de la précision en contrôlant une covariable non prédictive ; en fait, vous avez payé une légère pénalité parce que vous avez perdu un degré de liberté, ce qui est particulièrement coûteux lorsque la taille de l'échantillon est petite.
 Cet exercice démontre que vous obtiendrez le plus de gains de précision en contrôlant les covariables qui prédisent fortement les résultats.
 
-Comment savoir quelles covariables sont susceptibles d'être prédictives avant de lancer votre expérience ? Des expériences antérieures ou même des études d'observation peuvent offrir des indications sur les caractéristiques de base qui prédisent le mieux les résultats.
+Comment savoir quelles covariables sont susceptibles d'être prédictives avant de lancer votre expérience ? Des expériences antérieures ou même des études observationnelles peuvent offrir des indications sur les caractéristiques de base qui prédisent le mieux les résultats.
 
 6 Contrôle des covariables prédictives, qu'elles présentent ou non des déséquilibres
 ==
 
-Les covariables doivent généralement être choisies en fonction de leur capacité attendue à aider à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre les groupes de traitement et de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
+Les covariables doivent généralement être choisies en fonction de leur capacité attendue à prédire les résultats, qu'elles présentent ou non des "déséquilibres" (i.e., qu'il existe ou non des différences notables entre les groupes de traitement et de contrôle dans les valeurs moyennes ou d'autres aspects des distributions de covariables).
 Il y a deux raisons à cette recommandation :
 
-1. L'inférence fréquentiste (erreur type, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
+1. L'inférence statistique fréquentiste (erreur type, intervalles de confiance, p-valeurs, etc.) suppose que l'analyse suit une stratégie prédéfinie.
 Choisir des covariables sur la base des déséquilibres observés rend plus difficile l'obtention d'inférences qui reflètent votre stratégie réelle.
 Par exemple, supposons que vous choisissiez de ne pas contrôler le genre parce que les groupes de traitement et de contrôle ont une composition similaire pour le genre, mais vous _auriez_ contrôlé le genre s'il y avait eu un déséquilibre notable.
-Les méthodes typiques d'estimation de l'erreur type supposeront à tort que vous ne contrôlerez jamais le sexe, quel que soit le déséquilibre que vous constatez.
+Les méthodes typiques d'estimation de l'erreur type supposeront à tort que vous ne contrôlerez jamais le genre, quel que soit le déséquilibre que vous constatez.
 
 2. L'ajustement pour une covariable fortement prédictive a tendance à améliorer la précision, comme nous l'avons expliqué ci-dessus.
-Pour recevoir le crédit dû pour cette amélioration de la précision, vous devez ajuster la covariable même s'il n'y a pas de déséquilibre.
-Par exemple, supposons que le sexe soit fortement corrélé avec votre résultat, mais il arrive que les groupes de traitement et de contrôle aient exactement la même composition de genre.
-Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le sexe, mais leurs erreurs types seront différentes.
+Pour recevoir le crédit dû à cette amélioration de la précision, vous devez ajuster la covariable même s'il n'y a pas de déséquilibre.
+Par exemple, supposons que le genre soit fortement corrélé avec votre résultat, mais il arrive que les groupes de traitement et de contrôle aient exactement la même composition de genre.
+Dans ce cas, l'estimation non ajustée de l'ATE sera exactement la même que l'estimation ajustée à partir d'une régression du résultat sur le traitement et le genre, mais leurs erreurs types seront différentes.
 L'erreur type de l'estimation non ajustée a tendance à être plus grande car elle suppose que même si les groupes de traitement et de contrôle avaient des compositions de genre très différentes, vous utiliseriez toujours la différence des moyennes traitement-contrôle non ajustée (qui serait probablement loin du vrai ATE dans ce cas).
-Si vous spécifiez à l'avance que vous ajusterez pour le sexe, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur type plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
+Si vous spécifiez à l'avance que vous ajusterez pour le genre, quel que soit l'ampleur du déséquilibre que vous constatez, vous aurez tendance à obtenir une erreur type plus petite, un intervalle de confiance plus serré et un test de signification plus puissant.
 
 En supposant que l'assignation aléatoire a été mise en œuvre correctement, l'examen des déséquilibres devrait-il jouer un rôle _quelconque_ dans le choix des covariables à corriger ?
 Voici un échantillon de points de vue :
 
-- Mutz, Pemantle et Pham (2016) soutiennent que, à moins qu'il n'y ait une attrition différentielle, la pratique consistant à sélectionner des covariables sur la base des déséquilibres observés est "non seulement inutile" mais "même pas utile ... et peut en fait être préjudiciable", car cela invalide les intervalles de confiance, détériore la précision (par rapport à l'ajustement prédéfini pour les covariables prédictives) et ouvre la porte à tout.^[Diana C. Mutz, Robin Pemantle et Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
+- Mutz, Pemantle et Pham (2016) soutiennent que, à moins qu'il n'y ait une attrition différentielle, la pratique consistant à sélectionner des covariables sur la base des déséquilibres observés est "non seulement inutile" mais "même pas utile ... et peut en fait être préjudiciable", car cela invalide les intervalles de confiance, détériore la précision (par rapport à l'ajustement prédéfini pour les covariables prédictives) et ouvre la porte aux dérives.^[Diana C. Mutz, Robin Pemantle et Philip Pham (2016), ["Model Choice in Experimental Design: Messy Analyses of Clean Data."](https://www.math.upenn.edu/~pemantle/papers/Preprints/balance.pdf)]
 
 - Permutt (1990), en utilisant la théorie et des simulations pour étudier des scénarios spécifiques, constate que lorsqu'un test d'équilibre est utilisé pour décider s'il faut ajuster pour une covariable, le test de signification pour l'effet du traitement est conservatif (c'est-à-dire qu'il a une probabilité réelle d'erreur de type I inférieure à son niveau nominal).
 Il écrit : "une plus grande puissance statistique peut être obtenue en ajustant toujours pour une covariable qui est fortement corrélée avec la réponse quelle que soit sa distribution entre les groupes". Cependant, il n'exclut pas complètement de considérer les déséquilibres observés : "choisir des covariables sur la base de la différence entre les moyennes des groupes de traitement et de contrôle n'est pas irrationnel.
@@ -312,7 +312,7 @@ Cette stratégie pourrait également être pré-spécifiée dans le protocole de
 - Tukey (1991) note que les déséquilibres observés peuvent justifier un ajustement en tant que contrôle de robustesse : bien que "la plupart des statisticiens" accepteraient une analyse d'un essai clinique randomisé qui ne tient pas compte des covariables, "certains cliniciens, et certains statisticiens, semble-t-il, aimeraient être plus sceptiques (peut-être à titre d'analyse supplémentaire) en demandant une analyse qui tienne compte des déséquilibres observés pour ces covariables.
 Gagner plus de confiance dans les résultats d'une telle analyse est en effet approprié, car le degré de protection contre les conséquences d'une randomisation inadéquate ou la survenue (aléatoire) d'une randomisation inhabituelle est considérablement augmenté par l'ajustement.
 _Une plus grande sécurité, plutôt qu'une précision accrue ... sera souvent la raison principale de l'ajustement de la covariance dans un essai randomisé._ ...
-L'objectif principal de permettre [l'ajustement] pour les covariables dans un essai _randomisé_ est défensif : pour indiquer clairement que l'analyse a rempli ses obligations scientifiques."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italique dans l'original.]
+L'objectif principal de permettre l'ajustement pour les covariables dans un essai _randomisé_ est défensif : pour indiquer clairement que l'analyse a rempli ses obligations scientifiques."^[John W. Tukey (1991), "Use of Many Covariates in Clinical Trials," _International Statistical Review_ 59: 123--137. Italique dans l'original.]
 
 - Certains statisticiens soutiennent que nos inférences devraient être conditionnelles à une mesure du déséquilibre des covariables --- en d'autres termes, lors de l'évaluation du biais, de la variance et de l'erreur quadratique moyenne d'une estimation ponctuelle ou de la probabilité de couverture d'un intervalle de confiance, au lieu de considérer toutes les randomisations possibles, il peut être plus pertinent de ne considérer que les randomisations qui produiraient un déséquilibre des covariables similaire à celui que nous observons.
 De ce point de vue, les déséquilibres observés peuvent être pertinents pour le choix de l'estimateur.^[Voir, par exemple : D. R. Cox et N. Reid (2000), _The Theory of the Design of Experiments_, pp. 29--32 ; D. Holt et T. M. F. Smith (1979), "Post Stratification", _Journal of the Royal Statistical Society, Series A (General)_ 142: 33--46; Richard M. Royall (1976), "Current Advances in Sampling Theory: Implications for Human Observational Studies," _American Journal of Epidemiology_ 104: 463--474.
@@ -320,11 +320,10 @@ Pour une introduction aux désaccords philosophiques sur l'inférence statistiqu
 
 
 
-- Lin, Green et Coppock (2016) écrivent : "Les covariables doivent généralement être choisies sur la base de leur capacité attendue à aider à prédire les résultats, qu'elles semblent bien équilibrées ou déséquilibrées entre les bras de traitement.
-Mais il peut y avoir des occasions où la liste de covariables spécifiée dans le PAP [plan de pré-analyse] a omis une covariable potentiellement importante (en raison d'un oubli ou de la nécessité de garder la liste courte lorsque N est petit) avec un déséquilibre non négligeable.
+- Lin, Green et Coppock (2016) écrivent : "Les covariables doivent généralement être choisies sur la base de leur capacité attendue à prédire les résultats, qu'elles semblent bien équilibrées ou déséquilibrées entre les bras de traitement.
+Mais il peut y avoir des occasions où dans la liste de covariables spécifiée dans le PAP (plan de pré-analyse) il manque une covariable potentiellement importante (en raison d'un oubli ou de la nécessité de garder la liste courte lorsque N est petit) avec un déséquilibre non négligeable.
 La protection contre les biais ex post (conditionnés au déséquilibre observé) est alors une préoccupation légitime.
-Cependant, ils recommandent : "si les déséquilibres observés sont autorisés à influencer le choix des covariables, les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat. La _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement". Enfin l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".
-."^[Winston Lin, Donald P. Green et Alexander Coppock (2016), ["Standard Operating Procedures for Don Green's Lab at Columbia,"](https : //github.com/acoppock/Green-Lab-SOP) version 1.05, 7 juin. Italique dans l'original.]
+Cependant, ils recommandent : si les déséquilibres observés sont autorisés à influencer le choix des covariables, "les vérifications de l'équilibre et les décisions d'ajustement doivent être finalisées à l'aveugle, avant de voir les données de résultat. La _direction_ du déséquilibre observé (par exemple, si le groupe de traitement ou le groupe de contrôle semble plus avantagé au départ) ne devrait pas être autorisé à influencer les décisions concernant l'ajustement". Enfin l'estimateur pré-spécifié devrait "toujours être déclaré et étiqueté comme tel, même si des estimations alternatives sont également déclarées".^[Winston Lin, Donald P. Green et Alexander Coppock (2016), ["Standard Operating Procedures for Don Green's Lab at Columbia,"](https : //github.com/acoppock/Green-Lab-SOP) version 1.05, 7 juin. Italique dans l'original.]
 
 7 Quand ne pas le faire ?
 ==
@@ -338,7 +337,7 @@ Mais inclure cette variable, même si elle prédit fortement le résultat, peut 
 
 Créons cette fausse variable, qui est corrélée (comme la mesure des résultats) avec les covariables de base et également avec le traitement.
 Ici, par construction, l'effet du traitement sur le nombre de rassemblements politiques suivis est de 2.
-Lorsque nous avons inclus la variable des rallyes comme covariable, l'effet moyen du traitement estimé sur l'indépendance du choix du candidat était en moyenne de 0,54 sur les 10 000 répétitions.
+Lorsque nous avons inclus la variable de rassemblements politiques comme covariable, l'effet moyen du traitement estimé sur l'indépendance du choix du candidat était en moyenne de 0,54 sur les 10 000 répétitions.
 Rappelons que le véritable effet du traitement sur ce résultat est 1.
 Il s'agit d'un biais important, tout cela parce que nous avons contrôlé avec une covariable post-traitement !^[Le biais estimé est de $-$ 0,459  avec une marge d'erreur (au niveau de confiance de 95 %) de 0,002.] Ce biais résulte du fait que la covariable est corrélée au traitement.
 
@@ -368,7 +367,7 @@ mean(post.adjusted.estimates) - true.treatment.effect
 ```
 
 Ce n'est pas parce que vous ne devez pas ajuster les covariables post-traitement que vous ne pouvez pas collecter de données sur les covariables post-traitement, mais vous devez faire preuve de prudence.
-Certaines mesures pourraient être recueillies après le traitement, mais il est peu probable qu'elles soient affectées par le traitement (par exemple, l'âge et le sexe).
+Certaines mesures pourraient être recueillies après le traitement, mais il est peu probable qu'elles soient affectées par le traitement (par exemple, l'âge et le genre).
 Soyez prudent avec les mesures qui peuvent être soumises à des effets d'évaluation : par exemple, les femmes traitées peuvent être plus conscientes des attentes de participation politique et peuvent déclarer rétrospectivement qu'elles étaient plus actives politiquement qu'elles ne l'étaient réellement plusieurs années auparavant.
 
 8 Préoccupations concernant le biais lié aux petits échantillons
@@ -381,7 +380,7 @@ Certaines simulations ont suggéré que ce biais a tendance à être négligeabl
 
 9 Comment rendre vos décisions d'ajustement de covariable transparentes ?
 ==
-Dans un souci de transparence, si vous ajustez les covariables, pré-spécifiez vos modèles et déclarez à la fois les estimations non corrigées et corrigées des covariables.
+Dans un souci de transparence, si vous ajustez les covariables, pré-spécifiez vos modèles et déclarez à la fois les estimations non ajustées et ajustées des covariables.
 
 Les simulations ci-dessus ont montré que les résultats peuvent changer légèrement ou pas si légèrement selon les covariables que vous choisissez d'inclure dans votre modèle.
 Nous avons mis en évidence quelques règles empiriques ici : n'incluez que les covariables de pré-traitement qui sont prédictives des résultats.
@@ -403,7 +402,7 @@ Dans de tels cas, on peut souhaiter étudier de plus près la procédure de rand
 
 Pour approfondir
 ==
-Athey, Susan et Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." Dans le _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo and A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
+Athey, Susan et Guido W. Imbens (2017). "The Econometrics of Randomized Experiments." Dans le _Handbook of Economic Field Experiments_, vol. 1 (E. Duflo et A. Banerjee, eds.). [arXiv](http://arxiv.org/abs/1607.00698) [DOI](http://dx.doi.org/10.1016/bs.hefe.2016.10.003)
 
 Gerber, Alan S. et Donald P. Green (2012). _Field Experiments: Design, Analysis, and Interpretation_, chapitre 4.
 
