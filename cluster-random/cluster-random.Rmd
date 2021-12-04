@@ -1,5 +1,5 @@
 ---
-output: 
+output:
   html_document:
     toc: true
     theme: journal
@@ -159,7 +159,7 @@ Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes
 Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
 Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
 
-On peut formaliser l'idée que les grappes fortement dépendantes fournissent moins d'informations que les grappes hautement indépendantes avec le **coefficient de corrélation intra-grappe** (intra-cluster correlation, ICC).
+On peut formaliser l'idée que les grappes fortement dépendantes fournissent moins d'informations que les grappes fortement indépendantes avec le **coefficient de corrélation intra-grappe** (intra-cluster correlation, ICC).
 Pour une variable donnée, $y$, des unités $i$ et des grappes $j$, nous pouvons écrire le coefficient de corrélation intra-grappe comme suit :
 
 $$ \text{ICC} \equiv \frac{\text{variance entre grappes dans } y}{\text{variance totale dans } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
@@ -173,8 +173,7 @@ où le deuxième terme est valide si toutes les grappes ont la même taille ($n_
 
 Si 200 observations provenaient de 10 grappes avec 20 individus dans chaque grappe, où ICC = 0,5, de sorte que 50 % de la variation pourrait être attribuée aux différences inter-grappe (et non aux différences intra-grappe), la formule de Kish suggère que nous avons une taille d'échantillon effective d'environ 19 observations, au lieu de 200.
 
-Comme le suggère la discussion qui précède,
-le découpage par grappe réduit le plus l'information lorsqu'il
+Comme le suggère la discussion qui précède, le découpage par grappe réduit l'information d'autant plus qu'il
 a) restreint considérablement le nombre de façons dont un effet peut être estimé,
 et b) produit des unités dont les résultats sont fortement liés à la grappe dont ils sont membres (i.e. lorsqu'il augmente l'ICC).
 
@@ -273,7 +272,7 @@ La première ignore le découpage par grappe et suppose que la distribution d'é
 Nous appellerons cela l'erreur type IID.
 Pour prendre en compte le découpage par grappe, nous pouvons utiliser la formule suivante pour l'erreur type :
 
-$$ \text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
+$$ \text{Var}_\text{par grappe}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
 où $$\sigma^2 = \sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2 $$ (suivant Arceneaux et Nickerson (2009) ).
 Cet ajustement de l'erreur type IID est communément appelé "erreur type robuste pour grappe" (robust clustered standard error, RCSE).
@@ -326,8 +325,8 @@ knitr::kable(round(data.frame(
 
 Lorsque nous ignorons l'assignation par grappe, l'erreur type est trop petite :
 nous sommes trop confiants quant à la quantité d'informations que nous fournit l'expérience.
-Le RCSE est légèrement plus prudent que la véritable erreur type dans ce cas, mais il est très proche.
-L'écart est probablement dû au fait que le RCSE n'est pas une bonne approximation de la véritable erreur type lorsque le nombre de grappes est aussi petit qu'ici.
+La RCSE est légèrement plus prudente que la véritable erreur type dans ce cas, mais elle est très proche.
+L'écart est probablement dû au fait que la RCSE n'est pas une bonne approximation de la véritable erreur type lorsque le nombre de grappes est aussi petit qu'ici.
 Pour illustrer davantage ce point, nous pouvons comparer une simulation de la véritable erreur type générée par des permutations aléatoires du traitement aux erreurs types IID et RCSE.
 
 <style>
@@ -378,16 +377,14 @@ knitr::kable(rbind(
 
 ```
 
-Comme l'illustrent ces exemples simples, le RCSE se rapproche de la vérité (l'erreur type simulée) à mesure que le nombre de grappes augmente.
-Pendant ce temps, l'erreur type ignorant le découpage par grappe (en supposant l'IID) a tendance à être plus petite que l'une ou l'autre des autres erreurs types.
-
+Comme l'illustrent ces exemples simples, la RCSE se rapproche de la vérité (l'erreur type simulée) à mesure que le nombre de grappes augmente.
+Pendant ce temps, l'erreur type ignorant le découpage par grappe (en supposant l'IID) a tendance à être plus petite que les autres erreurs types.
 Plus l'estimation de l'erreur type est petite, plus les estimations nous semblent précises et plus nous avons de chances de trouver des résultats qui semblent "statistiquement significatifs".
 Ceci est problématique : dans ce cas, l'erreur type IID nous amène à être trop confiants dans nos résultats car elle ignore la corrélation intra-grappe, i.e. dans quelle mesure les différences entre les unités peuvent être attribuées à la grappe dont elles sont membres.
 Si nous estimons les erreurs types à l'aide de techniques qui sous-estiment notre incertitude, nous sommes plus susceptibles de rejeter à tort des hypothèses nulles alors que nous ne le devrions pas.
 
 Une autre façon d'aborder les problèmes que le découpage par grappe introduit dans le calcul des erreurs types est d'analyser les données au niveau de la grappe.
-Dans cette approche, nous prenons des moyennes ou des sommes de résultats au sein des grappes, puis traitons l'étude comme si elle n'avait eu lieu qu'au niveau de la grappe.
-
+Dans cette approche, nous calculons des moyennes ou des sommes de résultats au sein des grappes, puis traitons l'étude comme si elle n'avait eu lieu qu'au niveau de la grappe.
 Hansen et Bowers (2008) montrent que l'on peut caractériser la distribution de la différence des moyennes à partir de ce que l'on sait de la distribution de la *somme* du résultat dans le groupe de traitement, qui varie d'une assignation de traitement à l'autre.
 
 <style>
@@ -483,7 +480,7 @@ Surtout lorsque la taille de la grappe est liée d'une manière ou d'une autre a
 de nombreux estimateurs conventionnels de l'effet moyen du traitement pour l'échantillon (sample average treatment effect, SATE) peuvent être biaisés.
 
 Pour se fixer les idées, imaginez une intervention ciblée sur des entreprises de tailles différentes, qui vise à augmenter la productivité des travailleurs.
-En raison des économies d'échelle, la productivité des employés des grandes entreprises augmente de façon beaucoup plus proportionnelle à celle des employés des petites entreprises.
+En raison des économies d'échelle, la productivité des employés des grandes entreprises augmente de façon beaucoup plus proportionnelle comparé à celle des employés des petites entreprises.
 Imaginez que l'expérience comprend 20 entreprises dont la taille varie d'entrepreneurs individuels à de grandes entreprises de plus de 500 employés.
 La moitié des entreprises est assignée au traitement et l'autre moitié est assignée au contrôle.
 Les résultats sont définis au niveau de l'employé.
@@ -632,7 +629,7 @@ Quelle est la nature du biais ?
 Au lieu d'assigner le traitement à la moitié des groupes et de comparer les résultats au niveau des groupes de traitement et de contrôle,
 imaginez que nous avons jumelé chaque groupe avec un autre groupe et que nous en avons assigné un au traitement au sein de chaque paire.
 L'effet du traitement est alors l'agrégat des estimations au niveau de la paire.
-Ceci est analogue à la procédure d'assignation aléatoire complète employée ci-dessus, dans laquelle les entreprises $J/2$ ont été assignées au traitement.
+Ceci est analogue à la procédure d'assignation aléatoire complète employée ci-dessus, dans laquelle $J/2$ entreprises ont été assignées au traitement.
 Maintenant, nous allons plutôt nous référer au $k$ième des $m$ paires, où $2m = J$.
 
 Compte tenu de cette configuration, Imai, King et Nall (2009) donnent la définition formelle suivante du biais dans l'estimateur de la différence des moyennes pondérée par grappe
@@ -650,7 +647,7 @@ $$\frac{1}{n}
 \right],$$
 
 où $l = 1,2$ indexe les grappes au sein de chaque paire.
-Ainsi, $n_{1k}$ fait référence au nombre d'unités dans la première section de la $k$'ième paire de grappes.
+Ainsi, $n_{1k}$ fait référence au nombre d'unités dans la première grappe de la $k$'ième paire de grappes.
 
 Cette expression indique qu'un biais dû à des tailles de grappes inégales survient si et seulement si deux conditions sont remplies.
 Premièrement, les tailles d'au moins une paire de grappes doivent être inégales :
@@ -662,7 +659,7 @@ quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2
 ==
 
 Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
-il suffit de mettre les grappes en paires qui sont soit de taille égale, soit ont des résultats potentiels presque identiques.
+il suffit de mettre les grappes en paires qui sont de taille égale ou ont des résultats potentiels presque identiques.
 
 Nous démontrons cette approche ci-dessous en utilisant les mêmes données que celles que nous avons examinées dans l'exemple d'une expérience hypothétique de productivité des employés randomisée par entreprise.
 
@@ -748,11 +745,11 @@ kable(round(data.frame(true_SATE = true_SATE,
 ```
 
 Malgré des tailles de grappe inégales, le biais est complètement éliminé par cette technique :
-en espérance, l'estimateur par paire converge vers le véritable effet moyen du traitement pour l'échantillon,
+en espérance, l'estimateur par paire récupère vers le véritable effet moyen du traitement pour l'échantillon,
 alors que les estimateurs de la différence des moyennes pondérées et non pondérées sont biaisés.
 
 Notez également que la variance dans la distribution d'échantillonnage est beaucoup plus faible pour l'estimateur par paire, donnant lieu à des estimations beaucoup plus précises.
-Ainsi, l'appariement de paires promet non seulement de réduire les biais, mais peut également grandement atténuer le problème de réduction de l'information induit par le découpage par grappe.
+Ainsi, l'appariement promet non seulement de réduire les biais, mais peut également grandement atténuer le problème de réduction de l'information induit par le découpage par grappe.
 
 Cependant, un tel appariement de paires avant randomisation impose certaines contraintes à l'étude, dont certaines peuvent être difficiles à respecter dans la pratique.
 Par exemple, il peut être difficile voire impossible de trouver des paires parfaitement assorties pour chaque taille de grappe, en particulier
@@ -767,23 +764,23 @@ Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par pa
 Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
 Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est assignée au statut de traitement $z_i \in \{1,0\}$,
 nous pouvons définir cette quantité -- l'effet moyen du traitement (average treatment effect, ATE) --
-comme valeur attendue de la différence entre l'échantillon lorsqu'il est assigné au traitement, $Y_1$ et l'échantillon lorsqu'il est assigné au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
+comme valeur en espérance de la différence entre l'échantillon lorsqu'il est assigné au traitement, $Y_1$ et l'échantillon lorsqu'il est assigné au contrôle $Y_0$ : $E[Y_1 - Y_0]$.
 
-Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, à l'intérieur de la même grappe.
+Cependant, il se peut que le résultat d'une unité dépende du statut de traitement $z_j$ d'une autre unité, $j$, au sein de la même grappe.
 Dans ce cas, nous désignons les résultats potentiels $Y_{z_j,z_i} \in \{ Y_{00}, Y_{10}, Y_{01}, Y_{11} \}$, où
 une unité non traitée avec un voisin de grappe non traité est définie comme $Y_{00}$,
 une unité non traitée avec un voisin de grappe traité comme $Y_{10}$,
 une unité traitée avec un voisin de grappe non traité comme $Y_{01}$, et
 une unité traitée avec un voisin de grappe traité comme $Y_{11}$.
-Lorsque nous menons une expérience randomisée par grappe, nous supposons généralement que le résultat d'une unité n'est pas fonction du statut de traitement des unités avec lesquelles elle partage un grappe,
+Lorsque nous menons une expérience randomisée par grappe, nous supposons généralement que le résultat d'une unité n'est pas fonction du statut de traitement des unités avec lesquelles elle partage une grappe,
 ou formellement $Y_{01}=Y_{11}=Y_1$ et $Y_{10}=Y_{00 }=Y_0$.
 Pourtant, pour toutes sortes de raisons, cela peut ne pas être le cas : leurs résultats peuvent être très différents
-si la grappe est ou non assignée au traitement, ou si quelqu'un se trouve dans la même grappe que d'autres personnes.
+si la grappe est ou non assignée au traitement, ou si certaines personnes se retrouvent dans la même grappe.
 
-Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignés de manière aléatoire à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
+Considérons une expérience dans laquelle cinq paires d'étudiants vivant en dortoirs sont assignées de manière aléatoire à recevoir ou non une subvention alimentaire, et leur bien-être déclaré est le résultat d'intérêt.
 Supposons que quatre élèves soient végétariens (V) et six mangeurs de viande (M).
 Lorsqu'un couple VV, MM ou VM est assigné au contrôle, ils ne reçoivent pas la subvention et leur bien-être n'est pas affecté.
-Cependant, lorsqu'ils sont assignés au traitement, les couples VM se querellent et cela réduit leur bien-être, alors que les couples VV et MM ne se battent pas et ne sont affectés que par le traitement.
+Cependant, lorsqu'ils sont assignés au traitement, les couples VM se querellent et cela réduit leur bien-être, alors que les paires VV et MM ne se disputent pas et ne sont affectés que par le traitement.
 Notons $x_k \in \{0,1\}$ un indicateur pour savoir si la paire est incompatible, où le résultat de l'unité est noté $Y_{z_j,z_j,x_k}$.
 Cela implique que $Y_{110} = Y_1$ et $Y_{000} = Y_{001} = Y_0$, alors que $Y_{111} \neq Y_1$.
 Pour comprendre en quoi cela est important, simulons une telle expérience.
@@ -855,12 +852,10 @@ abline(v = mean(est_effects,na.rm = T),col = "blue")
 ```
 
 Comme le montre le graphique ci-dessus, il s'agit d'un estimateur biaisé du véritable effet du traitement au niveau individuel, $Y_{01} - Y_{00}$.
-
 En espérance, nous estimons un effet proche de 0, obtenant des effets très négatifs dans près de la moitié des simulations de cette expérience.
-
-Le point clé ici est que l'estimation est modifiée :
-plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont appariés (ne subissent pas d'effets de débordement) $E[Y_{110}-Y_{00x_k}]$,
-et le traitement combiné à l'effet de débordement pour ceux qui ne sont pas appariés $E[Y_{111}-Y_{00x_k}]$.
+Le point clé ici est que l'estimande est modifié :
+plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont compatibles (ne subissent pas d'effets de débordement) $E[Y_{110}-Y_{00x_k}]$,
+et de l'effet combiné du traitement et du débordement pour ceux qui ne sont pas compatibles $E[Y_{111}-Y_{00x_k}]$.
 Mais surtout, nous ne pouvons pas identifier l'impact du débordement, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
 En effet, c'est une randomisation par grappe :
 il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe, car toutes les unités d'une grappe sont toujours traitées.
@@ -876,8 +871,8 @@ Dans certaines études, les chercheurs doivent eux-mêmes trier les unités en g
 par exemple, dans une étude portant sur un programme professionnel, le chercheur peut être en mesure de décider qui est recruté dans quelle classe.
 Dans de tels cas, si le chercheur peut faire des hypothèses plausibles sur les effets de débordement, alors l'effet du traitement au niveau individuel peut être récupérable.
 
-Prenons l'exemple d'un chercheur qui a mené l'étude précédente ci-dessus et qui a correctement supposé que des retombées se produiraient entre des paires non appariées.
-Dans ce cas, le chercheur peut récupérer le véritable effet du traitement individuel en formant des grappes qui ne sont pas susceptibles aux effets de débordement.
+Prenons l'exemple d'un chercheur qui a mené l'étude précédente ci-dessus et qui a correctement supposé que des débordements se produiraient entre des paires non compatibles.
+Dans ce cas, le chercheur peut récupérer le véritable effet du traitement individuel en formant des grappes qui ne sont pas sujets aux effets de débordement.
 
 <style>
 div.hidecode + pre {display: none}
@@ -924,7 +919,7 @@ Dans le cas où les chercheurs ne sont pas en mesure de contrôler la formation 
 ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de débordement possibles.
 Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
 À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
-En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
+En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets de débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
 Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-grappe.
 
 8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
@@ -933,23 +928,22 @@ Par conséquent, afin d'interpréter correctement les résultats, les chercheurs
 Dans notre discussion sur la perte d'informations, nous avons évalué les approches qui nécessitent
 (1) que le traitement soit randomisé comme prévu et
 (2) que le traitement assigné à une unité n'a pas changé les résultats potentiels pour toute autre unité.
-
 Dans les cas où ces hypothèses peuvent être violées, il est parfois plus simple de spécifier des modèles statistiques qui tentent de décrire les caractéristiques d'un design complexe.
 Même si nous ne considérons pas le modèle comme une description scientifique d'un processus connu, cela peut être une manière plus informative et flexible d'analyser une expérience plutôt que de dériver de nouvelles expressions complexes pour un estimateur basé sur le design.
 
 Dans les approches basées sur un modèle, la distribution d'échantillonnage d'un estimateur est approchée à l'aide d'une distribution de probabilité pour caractériser notre incertitude sur
 des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe.
 De telles approches sont appelées "basées sur un modèle", car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
-Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences intra-grappe - sont eux-mêmes compris comme résultant de distributions de probabilité.
-Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'intersection et/ou les coefficients varient d'un groupe à l'autre.
+Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences inter-grappe - sont eux-mêmes compris comme résultant de distributions de probabilité.
+Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'ordonnée à l'origine et/ou les coefficients varient d'un groupe à l'autre.
 De cette manière, il est possible de modéliser "l'effet d'être une unité dans la grappe A", séparément de l'estimation de l'effet du traitement.
 L'avantage de telles approches est qu'elles permettent une "mise en commun partielle" de la variance dans la population et de la variance entre les grappes.
 Lorsqu'une grappe donnée est mal estimée, elle contribue moins à l'estimation, et vice versa.
 De tels modèles fonctionnent donc souvent bien dans des situations où il y a très peu de données dans certaines grappes :
-grâce à la spécification d'une distribution a posteriori bayésienne, ils sont capables d'exploiter les informations de toutes les parties de l'étude.
+grâce à la spécification d'une distribution a posteriori bayésienne, elles sont capables d'exploiter les informations de toutes les parties de l'étude.
 Le compromis est que de tels modèles à fortes hypothèses ne sont corrects que dans la mesure où les hypothèses qui les sous-tendent sont correctes.
 
-Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence des moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour ce setup d'essai randomisé par grappe très simplifié.
+Ici, nous montrons que l'effet estimé est le même que nous utilisions une simple différence des moyennes (via la méthode des moindres carrés) ou un modèle à plusieurs niveaux pour cet essai randomisé par grappe très simplifié.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1019,7 +1013,7 @@ knitr::kable(round(rbind(
 
 ```
 
-Nous pouvons calculer une estimation de l'ICC directement à partir des quantités du modèle (la variance de la distribution normale antérieure qui représente les différences inter-grappe dans l'intersection divisée par la variance totale de la distribution normale postérieure).
+Nous pouvons calculer une estimation de l'ICC directement à partir des quantités du modèle (la variance de la distribution normale antérieure qui représente les différences inter-grappe à l'origine divisée par la variance totale de la distribution normale postérieure).
 
 <style>
 div.hidecode + pre {display: none}
@@ -1037,11 +1031,11 @@ round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
 ```
 
 Afin d'évaluer les performances de cette approche basée sur un modèle, par opposition aux approches par agrégat de grappe ou avec une erreur type RCSE décrites ci-dessus,
-nous pouvons vérifier à quelle fréquence les différentes approches rejettent à tort l'hypothèse nulle stricte d'absence d'effet pour une unité, lorsque nous savons que l'hypothèse nulle d'absence d'effet est vraie.
+nous pouvons vérifier à quelle fréquence les différentes approches rejettent à tort l'hypothèse nulle stricte d'absence d'effet pour toute unité, lorsque nous savons que l'hypothèse nulle d'absence d'effet est vraie.
 
 Pour ce faire, nous écrivons une fonction qui rompt d'abord la relation entre l'assignation du traitement et le résultat en mélangeant aléatoirement l'assignation,
 puis qui teste si 0 se trouve dans l'intervalle de confiance à 95 % pour chacune des trois approches, comme il se doit.
-Rappelez-vous que les tests valides auraient des taux d'erreur dans les 2 erreurs type de simulation de 0,95 - cela signifierait qu'une hypothèse nulle correcte serait rejetée pas plus de 5 % du temps. (TODO Recall that, valid tests would have error rates within 2 simulation standard errors of .95 - this would mean that a correct null hypothesis would be rejected no more than 5% of the time.)
+Rappelez-vous que les tests valides auraient des taux d'erreur dans un intervalle égal à $2 \times erreur type de simulation de 0,95 $- cela signifierait qu'une hypothèse nulle correcte serait rejetée pas plus de 5 % du temps.
 
 <style>
 div.hidecode + pre {display: none}
@@ -1062,7 +1056,7 @@ sim_0_ate <- function(J,Y) {
   z.sim <- sample(1:max(J), max(J) / 2)
   Z_new <- ifelse(J %in% z.sim == TRUE, 1, 0)
 
-  # Estimation à l'aide du modèle linéaire pour le RCSE
+  # Estimation à l'aide du modèle linéaire pour la RCSE
   linear_fit <- lm(Y ~ Z_new)
   linear_RCSE <- RCSE(model = linear_fit,
                   cluster = J,
@@ -1087,7 +1081,7 @@ sim_0_ate <- function(J,Y) {
   # p-valeur bilatérale pour le test d'hypothèse nulle d'absence d'effet
   Vdp <- (n / (m0 * nt * (n - nt))) * (var(Yj) / m0)
   HB_pval <- 2 * (1 - pnorm(abs(obs_ATE) / sqrt(Vdp)))
-  # Vérifiez si la p-valeur est supérieure à 0.05
+  # Vérifiez si la p-valeur est supérieure à 0,05
   zero_not_rej_HB <- HB_pval >= .05
 
   # Estimation à l'aide du modèle multi-niveaux
@@ -1145,14 +1139,14 @@ Dans ce système simple, les approches au niveau individuel se comportent à peu
 Cela a du sens : les deux approches reposent sur le théorème central limite afin qu'une loi normale puisse décrire la distribution de la statistique de test sous l'hypothèse nulle.
 L'approche au niveau de la grappe est toujours valide, mais produit parfois des intervalles de confiance trop grands (lorsque le nombre de grappes est petit).
 Lorsque le nombre de grappes est important (disons 100), alors toutes les approches sont équivalentes en termes de taux d'erreur.
-Les designs avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale montrée ici, soit même des approches basées sur la permutation directe pour permettre l'inférence statistique.
+Les designs avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale utilisée ici, soit même des approches basées sur la permutation directe pour l'inférence statistique.
 
 9 Analyse de puissance statistique pour les designs par grappe
 ==
 
 Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
 Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'information en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
-Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et cet appariement de paires peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
+Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et que l'appariement peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
 
 Voici la règle la plus importante concernant la puissance statistique des designs par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
 Ceci peut être démontré par des expériences simulées.
@@ -1300,7 +1294,7 @@ Notez également que si les taux d'erreur apparaissent systématiquement liés a
 
 Ensuite, nous pouvons évaluer comment la corrélation intra-grappe affecte la puissance.
 Nous maintiendrons la structure de la taille de l'échantillon constante à $J=80,n_j=80$ et $J=160,n_j=160$,
-et comparerons pour une plage de corrélations intra-grappe (intra-cluster correlation, ICC), variant de faible (.01) à élevée (.6).
+et comparerons pour une plage de corrélations intra-grappe (intra-cluster correlation, ICC), variant de faible (0,01) à élevée (0,6).
 
 <style>
 div.hidecode + pre {display: none}
@@ -1376,15 +1370,15 @@ Comme l'illustre cet exemple, une ICC élevée peut gravement diminuer la puissa
 10 Comment vérifier l'équilibre dans les designs par grappe
 ==
 
-On procède de la même manière pour le contrôle de randomisation dans les designs par grappe que précédemment.
-Un test valide pour un effet de traitement est un test valide pour le placebo ou l'équilibre des covariables.
+Pour vérifier la randomisation des designs par grappe, on procède de la même manière que précédemment.
+Un test valide pour un effet de traitement est un test placebo valide ou l'équilibre des covariables.
 La seule différence par rapport à notre discussion précédente est que l'on utilise une covariable de base ou un résultat de base - une variable supposée non influencée par le traitement - à la place du résultat lui-même.
-Ainsi, un test de randomisation avec un petit nombre de grappes peut déclarer trop rapidement une expérience mal randomisée si l'analyste ne connaît pas la méthode d'analyse du taux d'erreur décrite ci-dessus.
+Ainsi, un test de randomisation avec un petit nombre de grappes peut déclarer trop facilement une expérience mal randomisée si l'analyste ne connaît pas la méthode d'analyse du taux d'erreur décrite ci-dessus.
 
 Un nouveau problème se pose dans le contexte des tests de randomisation.
 On a souvent de nombreuses covariables qui pourraient être utilisées pour détecter des déséquilibres malchanceux ou des problèmes de terrain avec la randomisation elle-même.
 Et, si l'on utilise des tests d'hypothèses, alors, bien sûr, un test valide qui nous encourage à déclarer "déséquilibre" lorsque $p<.05$ le ferait à tort pour une variable sur vingt testée.
-Pour cette raison, nous recommandons d'utiliser les tests d'hypothèses un par un comme outil exploratoire et d'utiliser les tests omnibus (comme le test T de Hotelling ou un test F ou le test $d^2$ de Hansen et Bowers (2008)), qui peut combiner des informations sur de nombreux tests dépendants en une seule statistique de test pour effectuer directement des tests d'équilibre.
+Pour cette raison, nous recommandons d'utiliser les tests d'hypothèses un par un comme outil exploratoire et d'utiliser les tests omnibus (comme le test T de Hotelling ou un test F ou le test $d^2$ de Hansen et Bowers (2008)), qui peuvent combiner des informations sur de nombreux tests dépendants en une seule statistique de test pour effectuer directement des tests d'équilibre.
 Cependant, ces tests doivent tenir compte du design par grappe : un simple test F sans tenir compte du design par grappe incitera probablement un analyste à déclarer un design déséquilibré et à peut-être accuser le personnel de terrain d'un échec de randomisation.
 
 Étant donné que les expériences randomisées par grappe ont tendance à avoir des covariables au niveau de la grappe (par exemple, la taille du village, etc.),
@@ -1445,4 +1439,4 @@ kable(round(balance_test$overall,2),align = "c")
 
 Dans ce cas, nous ne pouvons pas rejeter les hypothèses omnibus d'équilibre même si, comme nous nous y attendions, nous avons quelques covariables avec des $p$-valeurs faussement basses.
 Une façon d'interpréter ce résultat omnibus est de dire que de tels déséquilibres sur quelques covariables ne modifieraient pas sensiblement les inférences statistiques que nous faisons sur l'effet du traitement tant que ces covariables ne prédisent pas fortement les résultats dans le groupe de contrôle.
-Alternativement, nous pourrions dire que toute grande expérience peut tolérer un déséquilibre aléatoire sur quelques covariables (pas plus de 5% si nous utilisons $\alpha=.05$ comme seuil pour rejeter les hypothèses).
+Alternativement, nous pourrions dire que toute grande expérience peut tolérer un déséquilibre aléatoire sur quelques covariables (pas plus de 5% si nous utilisons $\alpha=0,05$ comme seuil pour rejeter les hypothèses).
