@@ -13,7 +13,7 @@ library(knitr)
 library(lme4)
 ```
 
-1 Qu'est ce que la randomisation par grappe ?
+1 Qu'est ce que le découpage par grappe ?
 ==
 Les expériences randomisées par grappe[^1] assignent le traitement à des groupes,
 mais mesurent les résultats au niveau des individus qui composent ces groupes.
@@ -24,13 +24,13 @@ Mises à jour effectuées par Jasper Cooper (25 août 2015).
 
 Considérons une étude qui assigne de manière aléatoire des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
 Il s'agit d'un design par grappe car, bien que le traitement soit assigné au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
-Ou considérons une étude qui assigne de manière aléatoire certains ménages à recevoir différents messages à la sortie du bureau de vote, où nous nous intéressons au comportement de vote des individus.
-Étant donné que l'unité d'assignation du message est le ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
+Ou considérons une étude qui assigne de manière aléatoire certains ménages à recevoir différents messages incitant à voter, où nous nous intéressons au comportement de vote des individus.
+Étant donné que le message est assigné au niveau du ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
 
 Considérons maintenant une étude dans laquelle les villages sont sélectionnés de manière aléatoire, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
-Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont les mêmes.
+Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont indentiques.
 Supposons qu'une étude assigne de manière aléatoire des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
-Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : le niveau d'assignation du traitement et de mesure des résultats est le même.
+Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : l'assignation du traitement et la mesure des résultats sont réalisés au même niveau.
 
 Le découpage par grappe est important pour deux raisons principales.
 D'une part, le découpage par grappe réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
@@ -39,7 +39,8 @@ D'autre part, le découpage par grappe soulève la question de savoir comment co
 Surtout lorsque les grappes ne sont pas de tailles égales et que les résultats potentiels des unités qu'elles contiennent sont très différents, les estimateurs conventionnels produiront systématiquement une mauvaise réponse en raison des biais.
 Cependant, plusieurs approches lors des phases de design et d'analyse permettent de surmonter les défis posés par les designs randomisés par grappe.
 
-#2 Pourquoi le découpage par grappe peut être important I : réduction de l'information
+2 Pourquoi le découpage par grappe peut avoir de l'importance I : réduction de l'information
+==
 
 Nous pensons généralement à l'information contenue dans les études en termes de taille d'échantillon et de caractéristiques des unités au sein de l'échantillon.
 Pourtant, deux études avec exactement la même taille d'échantillon et les mêmes participants pourraient en théorie contenir des quantités d'information très différentes selon que les unités sont groupées par grappe ou non.
@@ -52,7 +53,7 @@ Ce design a deux groupes : "cheveux noirs" et "autre couleur".
 
 Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
 Dans la première version, la procédure de randomisation permet 252 combinaisons différentes de personnes en tant que groupes de traitement et de contrôle.
-Cependant, dans la seconde version, la procédure de randomisation assigne tous les sujets aux cheveux noirs soit à un traitement, soit à un contrôle, et ne produit donc jamais que deux façons de combiner les personnes pour estimer un effet.
+Cependant, dans la seconde version, la procédure de randomisation assigne tous les sujets aux cheveux noirs soit au traitement, soit au contrôle, et ne produit donc jamais que deux façons de combiner les personnes pour estimer un effet.
 
 Tout au long de ce guide, nous illustrerons nos arguments à l'aide d'exemples écrits en `R`.
 Vous pouvez copier et coller ceci dans `R` pour voir comment cela fonctionne.
@@ -154,7 +155,7 @@ celle de l'estimation par grappe est plus du double, à 1,13.
 Rappelons que les données initiales des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
 
 Savoir comment les unités de notre étude varient intra- et inter-grappes est liée à cette question d'information.
-Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes à propos de l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *entre* ces villages.
+Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes à propos de l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *au sein de* ces villages.
 Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
 Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
 
@@ -177,7 +178,8 @@ le découpage par grappe réduit le plus l'information lorsqu'il
 a) restreint considérablement le nombre de façons dont un effet peut être estimé,
 et b) produit des unités dont les résultats sont fortement liés à la grappe dont ils sont membres (i.e. lorsqu'il augmente l'ICC).
 
-#3 Que faire à propos de la réduction de l'information
+3 Que faire de la réduction de l'information
+==
 
 Afin de caractériser notre incertitude sur l'effet du traitement, nous souhaitons généralement calculer une erreur type :
  une estimation de combien l'effet du traitement *aurait* varié, si nous pouvions répéter l'expérience un très grand nombre de fois et observer les unités alternativement dans leurs états traités et non traités.
@@ -273,7 +275,7 @@ Pour prendre en compte le découpage par grappe, nous pouvons utiliser la formul
 
 $$ \text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^n_j (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
-où $$ \sigma^2 = \sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2 $$ (suivant Arceneaux et Nickerson (2009) ).
+où $$\sigma^2 = \sum_{j=1}^J \sum_{i=1}^n_j (Y_{ij} - \bar{Y}_{ij})^2 $$ (suivant Arceneaux et Nickerson (2009) ).
 Cet ajustement de l'erreur type IID est communément appelé "erreur type robuste pour grappe" (robust clustered standard error, RCSE).
 
 <style>
@@ -473,7 +475,8 @@ En effet, le taux de faux positifs des tests basés sur une erreur type RCSE a t
 Comme nous le verrons ci-dessous, cependant, lorsque le nombre de grappes est très petit ($J=4$), l'approche au niveau de la grappe est trop conservatrice, rejetant la valeur nulle avec une probabilité de 1.
 Un autre inconvénient de l'approche au niveau des grappes est qu'elle ne permet pas d'estimer les quantités d'intérêt au niveau unitaire, telles qu'un effet de traitement hétérogène.
 
-#4 Pourquoi le découpage par grappe peut avoir de l'importance II : différentes tailles de grappe
+4 Pourquoi le découpage par grappe peut avoir de l'importance II : différentes tailles de grappe
+==
 
 Lorsque les grappes sont de tailles différentes, s'ouvre une classe unique de problèmes liés à l'estimation de l'effet du traitement.
 Surtout lorsque la taille de la grappe est liée d'une manière ou d'une autre aux résultats potentiels des unités qui la composent,
@@ -655,7 +658,8 @@ lorsque $n_{1k}=n_{2k}$ pour tous les $k$, le terme de biais est réduit à 0.
 Deuxièmement, les tailles d'effet pondérées d'au moins une paire de grappes doivent être inégales :
 quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2k}}(Y_{i2k}(1)-Y_{i2k}(0))/n_{2k}$ pour tous les $k$, le biais est également réduit à 0.
 
-#5 Que faire à propos des différentes tailles de grappe ?
+5 Que faire des différentes tailles de grappe ?
+==
 
 Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
 il suffit de mettre les grappes en paires qui sont soit de taille égale, soit ont des résultats potentiels presque identiques.
@@ -757,7 +761,8 @@ Dans de tels cas, les chercheurs peuvent adopter d'autres solutions, telles que 
 par exemple, la similarité intra-paire des covariables observées est maximisée.
 Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par paire post-randomisation et énoncent certaines des hypothèses qui doivent être formulées pour que ces estimations soient valides.
 
-#6 Pourquoi le découpage par grappe peut avoir de l'importance III : les effets de débordement au sein de la grappe
+6 Pourquoi le découpage par grappe peut avoir de l'importance III : les effets de débordement au sein de la grappe
+==
 
 Dans de nombreuses ou la plupart des expériences, nous aimerions estimer l'effet causal moyen du traitement au sein d'une population ou d'un échantillon.
 Soit $Y_{z_i}$ le résultat $Y$ de l'unité $i$ lorsqu'elle est assignée au statut de traitement $z_i \in \{1,0\}$,
@@ -862,9 +867,10 @@ il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe
 De manière générale, ce problème est vrai pour toute étude randomisée par grappe :
 pour affirmer que nous identifions l'effet au niveau individuel du traitement, nous devons supposer que $Y_{11}=Y_{1}$ et $Y_{00}=Y_{0}$.
 
-#7 Que faire à propos des effets de débordement intra-grappes
+7 Que faire des effets de débordement intra-grappe
+==
 
-S'il y a de bonnes raisons de croire que des effets de débordement intra-grappes se produisent,
+S'il y a de bonnes raisons de croire que des effets de débordement intra-grappe se produisent,
 les chercheurs peuvent alors adopter des approches différentes selon la manière dont les grappes sont formées.
 Dans certaines études, les chercheurs doivent eux-mêmes trier les unités en grappe à des fins d'expérimentation :
 par exemple, dans une étude portant sur un programme professionnel, le chercheur peut être en mesure de décider qui est recruté dans quelle classe.
@@ -918,10 +924,11 @@ Dans le cas où les chercheurs ne sont pas en mesure de contrôler la formation 
 ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de débordement possibles.
 Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
 À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
-En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-grappes, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
+En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets du débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
 Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-grappe.
 
-#8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
+8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
+==
 
 Dans notre discussion sur la perte d'informations, nous avons évalué les approches qui nécessitent
 (1) que le traitement soit randomisé comme prévu et
@@ -933,7 +940,7 @@ Même si nous ne considérons pas le modèle comme une description scientifique 
 Dans les approches basées sur un modèle, la distribution d'échantillonnage d'un estimateur est approchée à l'aide d'une distribution de probabilité pour caractériser notre incertitude sur
 des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe.
 De telles approches sont appelées "basées sur un modèle", car elles décrivent les relations causales comme résultant de distributions de probabilité interdépendantes.
-Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences intra-grappes - sont eux-mêmes compris comme résultant de distributions de probabilité.
+Souvent, ces approches utilisent des "modèles à plusieurs niveaux", dans lesquels des paramètres inconnus - tels que les différences intra-grappe - sont eux-mêmes compris comme résultant de distributions de probabilité.
 Ainsi, par exemple, il pourrait y avoir un modèle pour les résultats au niveau individuel, dont l'intersection et/ou les coefficients varient d'un groupe à l'autre.
 De cette manière, il est possible de modéliser "l'effet d'être une unité dans la grappe A", séparément de l'estimation de l'effet du traitement.
 L'avantage de telles approches est qu'elles permettent une "mise en commun partielle" de la variance dans la population et de la variance entre les grappes.
@@ -968,7 +975,7 @@ kable(round(data.frame(
   ),3))
 ```
 
-Les intervalles de confiance diffèrent même si les estimations sont les mêmes — et il existe plusieurs façons de calculer les intervalles de confiance et les tests d'hypothèse pour les modèles à plusieurs niveaux.
+Les intervalles de confiance diffèrent même si les estimations sont identiques — et il existe plusieurs façons de calculer les intervalles de confiance et les tests d'hypothèse pour les modèles à plusieurs niveaux.
 Le logiciel R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) comprend trois méthodes par défaut et Gelman et Hill (2007) recommandent l'échantillonnage de Monte-Carlo par chaînes de Markov (MCMC) à partir de la distribution postérieure implicite. Ici, nous nous concentrons sur la méthode de Wald uniquement parce qu'elle est la plus rapide à calculer.
 
 <style>
@@ -1140,7 +1147,8 @@ L'approche au niveau de la grappe est toujours valide, mais produit parfois des 
 Lorsque le nombre de grappes est important (disons 100), alors toutes les approches sont équivalentes en termes de taux d'erreur.
 Les designs avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale montrée ici, soit même des approches basées sur la permutation directe pour permettre l'inférence statistique.
 
-#9 Analyse de puissance statistiques pour les designs par grappe
+9 Analyse de puissance statistique pour les designs par grappe
+==
 
 Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
 Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'information en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
@@ -1318,7 +1326,7 @@ power_ICC <- error_ICC <- matrix(
 # Nombre de simulations
 sims <- 100
 
-# Boucle pour les différentes valeurs de corrélations intra-grappes
+# Boucle pour les différentes valeurs de corrélations intra-grappe
 for( i in 1:length(ICCs)){
   # Boucle pour les différentes nombres/tailles de grappes
   for(j in 1:length(J_njs)){
@@ -1365,7 +1373,8 @@ legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 
 Comme l'illustre cet exemple, une ICC élevée peut gravement diminuer la puissance statistique de l'étude, même avec de nombreuses et larges grappes.
 
-#10 Comment vérifier l'équilibre dans les designs par grappe
+10 Comment vérifier l'équilibre dans les designs par grappe
+==
 
 On procède de la même manière pour le contrôle de randomisation dans les designs par grappe que précédemment.
 Un test valide pour un effet de traitement est un test valide pour le placebo ou l'équilibre des covariables.
