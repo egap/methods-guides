@@ -33,7 +33,7 @@ Before you can extrapolate a causal effect to a distinct population, it is vital
 ==
 There has been an ongoing debate within the social sciences regarding the relative importance of identifying internally valid results, which by definition apply to a local sample, and generating results that can be extrapolated to broader populations of interest. It is helpful to be familiar with this discussion when considering design trade-offs that inevitably crop up in resource-limited interventions. That both sides of the argument include luminaries of econometrics attests to the importance of the topic. 
 
-On one side of the argument fall advocates of “identification first,” who argue that with internally valid results, a study simply does not contribute useful information, regardless of whether it is a local or general population or context. As put by Imbens,[^4] “without strong internal validity studies have little to contribute to policy debates, whereas [internally valid] studies with very limited external validity often are, and in my view should be, taken seriously in such discussions.”
+On one side of the argument fall advocates of “identification first,” who argue that without internally valid results, a study simply does not contribute useful information, regardless of whether it is a local or general population or context. As put by Imbens,[^4] “without strong internal validity studies have little to contribute to policy debates, whereas [internally valid] studies with very limited external validity often are, and in my view should be, taken seriously in such discussions.”
 
 [^4]: Imbens, G. (2013). Book Review Feature: Public Policy in an Uncertain World: By Charles F. Manski. The Economic Journal,123(570), F401-F411.
 

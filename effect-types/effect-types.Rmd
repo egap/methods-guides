@@ -50,55 +50,55 @@ A linear model regressing the observed outcome $Y_{i}$ on a treatment indicator 
 
 $$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
-since we can rearrange terms so that $β_{0}$ estimates the average among control observations $(Y_{i}(0)∣D_{i}=0)$ and $β_{1}$ estimates the differences of means $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$. In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment effects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference.[^6] Finally, we also demonstrate the unbiasedness of these estimators through simulation.
+since we can rearrange terms so that $β_{0}$ estimates the average among control observations $(Y_{i}(0)∣D_{i}=0)$ and $β_{1}$ estimates the differences of means $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$. In the code below, we create a sample of 1,000 observations and randomly assign a treatment Di with a constant unit effect to half of the units. We estimate the ATE using ordinary least squares (OLS) regression to calculate the observed mean difference. Calculating the means in each group and taking their difference would also produce an unbiased estimate of the ATE. Note that the estimated ATE from OLS is unbiased, but the errors in this linear model are assumed to be independent and identically distributed. When our treatment affects both the average value of the outcome and the distribution of responses, this assumption no longer holds and we need to adjust the standard errors from OLS using a Huber-White sandwich estimator to obtain the correct estimates (based on the variance of the ATE) for statistical inference.[^6] Finally, we also demonstrate the unbiasedness of these estimators through simulation.
 
 [^6]: Lin (2013)
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-set.seed(1234) # For replication 
-N = 1000 # Population size 
-Y0 = runif(N) # Potential outcome under control condition 
-Y1 = Y0 + 1 # Potential outcome under treatment condition 
-D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
-samp = data.frame(D,Y) 
+set.seed(1234) # For replication
+N = 1000 # Population size
+Y0 = runif(N) # Potential outcome under control condition
+Y1 = Y0 + 1 # Potential outcome under treatment condition
+D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise
+Y = D*Y1 + (1-D)*Y0 # Outcome in population
+samp = data.frame(D,Y)
 
-ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0])) 
+ATE = coef(lm(Y~D,data=samp))[2] #same as with(samp,mean(Y[Z==1])-mean(Y[Z==0]))
 
-# SATE with Neyman/Randomization Justified Standard Errors 
-# which are the same as OLS standard errors when no covariates or blocking 
-library(lmtest) 
-library(sandwich) 
-fit<-lm(Y~D,data=samp) 
+# SATE with Neyman/Randomization Justified Standard Errors
+# which are the same as OLS standard errors when no covariates or blocking
+library(lmtest)
+library(sandwich)
+fit<-lm(Y~D,data=samp)
 coef(summary(fit))["D",1:2]
 
-ATE.se<-coeftest(fit,vcovHC(fit,type="HC2"))["D",2] 
-# same as with(samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D))) 
+ATE.se<-coeftest(fit,vcovHC(fit,type="HC2"))["D",2]
+# same as with(samp,sqrt(var(Y[D==1])/sum(D)+var(Y[D==0])/(n-sum(D)))
 
-# Assess unbiasedness and simulate standard errors 
+# Assess unbiasedness and simulate standard errors
 getATE<-function() {
-  D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise 
-  Y = D*Y1 + (1-D)*Y0 
-  coef(lm(Y~D))[["D"]] 
-} 
+  D = sample((1:N)%%2) # Treatment: 1 if treated, 0 otherwise
+  Y = D*Y1 + (1-D)*Y0
+  coef(lm(Y~D))[["D"]]
+}
 
-manyATEs<-replicate(10000,getATE()) 
+manyATEs<-replicate(10000,getATE())
 
-## Unbiasedness: 
-c(ATE=mean(Y1)-mean(Y0), ExpEstATE=mean(manyATEs)) 
+## Unbiasedness:
+c(ATE=mean(Y1)-mean(Y0), ExpEstATE=mean(manyATEs))
 
-## Standard Error 
-### True SE formula 
-V<-var(cbind(Y0,Y1)) 
-varc<-V[1,1] 
-vart<-V[2,2] 
-covtc<-V[1,2] 
-n<-sum(D) 
-m<-N-n 
-varestATE<-((N-n)/(N-1))*(vart/n) + ((N-m)/(N-1))* (varc/m) + (2/(N-1)) * covtc 
+## Standard Error
+### True SE formula
+V<-var(cbind(Y0,Y1))
+varc<-V[1,1]
+vart<-V[2,2]
+covtc<-V[1,2]
+n<-sum(D)
+m<-N-n
+varestATE<-((N-n)/(N-1))*(vart/n) + ((N-m)/(N-1))* (varc/m) + (2/(N-1)) * covtc
 
-### Compare SEs 
-c(SimulatedSE= sd(manyATEs), TrueSE=sqrt(varestATE), ConservativeSE=ATE.se) 
+### Compare SEs
+c(SimulatedSE= sd(manyATEs), TrueSE=sqrt(varestATE), ConservativeSE=ATE.se)
 ```
 
 2 Conditional Average Treatment Effects
@@ -115,19 +115,19 @@ A word of warning: looking at treatment effects across dimensions that are thems
 ==
 Outside of a controlled laboratory setting, the subjects we assign to treatment often are not the same as the subjects who actually receive the treatment. When some subjects assigned to treatment fail to receive it, we call this an experiment with one-sided non-compliance. When additionally, some subjects assigned to control also receive the treatment, we say there is two-sided non-compliance. For example, in a get-out-the-vote experiment, some people assigned to receive a mailer may not receive it. Perhaps they’ve changed addresses or never check their mail. Similarly, some observations assigned to control may receive the treatment. Perhaps they just moved in, and the previous tenant’s mail is still arriving.
 
-When non-compliance occurs, the receipt of treatment is no longer independent of potential outcomes and confounders. The people who actually read their mail probably differ in a number of ways from the people who throw their mail away (or read their neighbors’ mail) and these differences likely also effect their probability of voting. The difference-of-means between subjects assigned to treatment and control no longer estimates the ATE, but instead estimates what is called an intent-to-treat effect (ITT). We often interpret the ITT as the effect of giving someone the opportunity to receive treatment. The ITT is particularly relevant then for assessing programs and interventions with voluntary participation.
+When non-compliance occurs, the receipt of treatment is no longer independent of potential outcomes and confounders. The people who actually read their mail probably differ in a number of ways from the people who throw their mail away (or read their neighbors’ mail) and these differences likely also affect their probability of voting. The difference-of-means between subjects assigned to treatment and control no longer estimates the ATE, but instead estimates what is called an intent-to-treat effect (ITT). We often interpret the ITT as the effect of giving someone the opportunity to receive treatment. The ITT is particularly relevant then for assessing programs and interventions with voluntary participation.
 
 In the code below, we create some simple data with one-sided non-compliance. Although the true treatment effect for people who actually received the treatment is 2, our estimated ITT is smaller (about 1) because only some of the people assigned to treatment actually receive it.
 
 ```{r}
 set.seed(1234) # For replication
-n = 1000 # Population size 
-Y0 = runif(n) # Potential outcome under control condition 
-C = sample((1:n)%%2) # Whether someone is a complier or not 
-Y1 = Y0 + 1 +C # Potential outcome under treatment 
-Z = sample((1:n)%%2) # Treatment assignment 
-D = Z*C # Treatment Uptake 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
+n = 1000 # Population size
+Y0 = runif(n) # Potential outcome under control condition
+C = sample((1:n)%%2) # Whether someone is a complier or not
+Y1 = Y0 + 1 +C # Potential outcome under treatment
+Z = sample((1:n)%%2) # Treatment assignment
+D = Z*C # Treatment Uptake
+Y = D*Y1 + (1-D)*Y0 # Outcome in population
 samp = data.frame(Z,Y)
 ITT<-coef(lm(Y~Z,data=samp))[2]
 ```
@@ -136,7 +136,7 @@ ITT<-coef(lm(Y~Z,data=samp))[2]
 ==
 What if you are interested in figuring out the effects of a treatment on those people who actually took up the treatment and not just those people that were administered the treatment? For example what is the effect of radio ads on voting behavior for those people that actually hear the ads?
 
-This turns out to be a hard problem (for more on this see this guide). The reasons for non-compliance with treatment can be thought of as an omitted variable. While the receipt of treatment is no-longer independent of potential outcomes, the assignment of treatment status is. As long as random assignment had some positive effect on the probability of receiving treatment, we can use it as an instrument to identify the effects of treatment on the sub-population of subjects who comply with treatment assignment.
+This turns out to be a hard problem (for more on this see [this guide](https://to_be_added)). The reasons for non-compliance with treatment can be thought of as an omitted variable. While the receipt of treatment is no-longer independent of potential outcomes, the assignment of treatment status is. As long as random assignment had some positive effect on the probability of receiving treatment, we can use it as an instrument to identify the effects of treatment on the sub-population of subjects who comply with treatment assignment.
 
 Following the notation of Angrist and Pischke,[^8] let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicate whether that subject actually received the treatment. Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
 
@@ -151,17 +151,17 @@ The estimator above highlights the fact that the ITT and CACE converge as we app
 [^10]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.; Bound, Jaeger, and Baker (1995)
 
 ```{r}
-set.seed(1234) # For replication 
-n = 1000 # Population size 
-Y0 = runif(n) # Potential outcome under control condition 
-Y1 = Y0 + 1 # Potential outcome under treatment 
-Z = sample((1:n)%%2) # Treatment assignment 
-pD<-pnorm(-1+rnorm(n,mean=2*Z)) # Non-compliance 
-D<-rbinom(n,1,pD) # Treatment receipt with non-compliance 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
-samp = data.frame(Z,D,Y) 
+set.seed(1234) # For replication
+n = 1000 # Population size
+Y0 = runif(n) # Potential outcome under control condition
+Y1 = Y0 + 1 # Potential outcome under treatment
+Z = sample((1:n)%%2) # Treatment assignment
+pD<-pnorm(-1+rnorm(n,mean=2*Z)) # Non-compliance
+D<-rbinom(n,1,pD) # Treatment receipt with non-compliance
+Y = D*Y1 + (1-D)*Y0 # Outcome in population
+samp = data.frame(Z,D,Y)
 
-# IV estimate library(AER) CACE = coef(ivreg(Y ~ D | Z, data = samp))[2] 
+# IV estimate library(AER) CACE = coef(ivreg(Y ~ D | Z, data = samp))[2]
 
 # Wald Estimator ITT<-coef(lm(Y~Z,data=samp))[2] ITT.D<-coef(lm(D~Z,data=samp))[2] CACE.wald<-ITT/ITT.D
 ```
@@ -176,7 +176,7 @@ Often we want to generalize from our sample to make statements about some broade
 
 In practice, the experimental pool may consist of a group of units selected in an unknown manner from a vaguely defined population of such units and compliance with treatment assignment may be less than complete. In such cases our SATE may diverge from the PATE and recovering estimates of each becomes more complicated. Imai, King, and Stuart (2008) decompose the divergence between these estimates into error that arises from sample selection and treatment imbalance. Error from sample selection arises from different distributions of (observed and unobserved) covariates in our sample and population. For example people in a medical trial often differ from the population for whom the drug would be available. Error from treatment imbalance reflects differences in covariates between treatment and control groups in our sample, perhaps because of non-random assignment and/or non-compliance.
 
-While there are no simple solutions to the problems created by such error, there are steps you can take in both the design of your study and the analysis of your data to address these challenges to estimating the PATE or CACE/LATE. For example, including a placebo intervention provides additional information on the probability of receiving treatment, that can be used to re-weight the effect of actually receiving it (e.g Nickerson (2008)) in the presence of non-compliance. One could also use a model to re-weighting observations to adjust for covariate imbalance and the unequal probability of receiving the treatment, both within the sample and between a sample and the population of interest.[^13]
+While there are no simple solutions to the problems created by such error, there are steps you can take in both the design of your study and the analysis of your data to address these challenges to estimating the PATE or CACE/LATE. For example, including a placebo intervention provides additional information on the probability of receiving treatment, that can be used to re-weight the effect of actually receiving it (e.g Nickerson (2008)) in the presence of non-compliance. One could also use a model to re-weight observations to adjust for covariate imbalance and the unequal probability of receiving the treatment, both within the sample and between a sample and the population of interest.[^13]
 
 [^13]: Angrist and Pischke (2008) provide a brief introduction of topics covered in more detail by Hirano, Imbens, and Ridder (2003), Aronow and Middleton (2013), Glynn and Quinn (2010), and Hartman et al. (forthcoming)
 
@@ -185,37 +185,37 @@ In the code below, we demonstrate several approaches to estimating these effects
 [^14]: Glynn, Adam N, and Kevin M Quinn. 2010. “An Introduction to the Augmented Inverse Propensity Weighted Estimator.” Political Analysis 18 (1):36–56.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-# Example adapted from ?estimate.ATE 
-library(CausalGAM) 
-set.seed(1234) # For replication 
-n = 1000 # Sample size 
-X1 = rnorm(n) # Pre-treatment covariates 
-X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
-D = rbinom(n, 1, p) # Treatment 
-Y0 = rnorm(n) # Potential outcomes 
-Y1 = Y0 + 1 + X1 + X2 
-Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
-samp = data.frame(X1,X2,D,Y) 
+# Example adapted from ?estimate.ATE
+library(CausalGAM)
+set.seed(1234) # For replication
+n = 1000 # Sample size
+X1 = rnorm(n) # Pre-treatment covariates
+X2 = rnorm(n)
+p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment
+D = rbinom(n, 1, p) # Treatment
+Y0 = rnorm(n) # Potential outcomes
+Y1 = Y0 + 1 + X1 + X2
+Y = D*Y1 + (1-D)*Y0 # Observed outcomes
+samp = data.frame(X1,X2,D,Y)
 
-# Estimate ATE with AIPW, IPW, Regression weights 
-ATE.out <- estimate.ATE(pscore.formula = D ~ X1 +X2, 
-                        pscore.family = binomial, 
-                        outcome.formula.t = Y ~ X1 
-                        +X2, 
-                        outcome.formula.c = Y ~ X1 
-                        +X2, 
-                        outcome.family = gaussian, 
-                        treatment.var = "D", 
-                        data=samp, 
-                        divby0.action="t", 
-                        divby0.tol=0.001, 
+# Estimate ATE with AIPW, IPW, Regression weights
+ATE.out <- estimate.ATE(pscore.formula = D ~ X1 +X2,
+                        pscore.family = binomial,
+                        outcome.formula.t = Y ~ X1
+                        +X2,
+                        outcome.formula.c = Y ~ X1
+                        +X2,
+                        outcome.family = gaussian,
+                        treatment.var = "D",
+                        data=samp,
+                        divby0.action="t",
+                        divby0.tol=0.001,
                         var.gam.plot=FALSE, nboot=50)
 ```
 
 6 Average Treatment Effects on the Treated and the Control
 ==
-To evaluate the policy implications of a particular intervention, we often need to know the effects of the treatment not just on the whole population but specifically for those to whom the treatment is administered We define the average effects of treatment among the treated (ATT) and the control (ATC) as simple counter-factual comparisons:
+To evaluate the policy implications of a particular intervention, we often need to know the effects of the treatment not just on the whole population but specifically for those to whom the treatment is administered. We define the average effects of treatment among the treated (ATT) and the control (ATC) as simple counter-factual comparisons:
 
 $$ATT=E(Y_i(1)-Y_i(0)|D_i=1)=E(Y_i(1)|D_i=1)-E(Y_i(0)|D_i=1)$$
 $$ATC=E(Y_i(1)-Y_i(0)|D_i=0)=E(Y_i(1)|D_i=0)-E(Y_i(0)|D_i=0)$$
@@ -226,34 +226,34 @@ When treatment is randomly assigned and there is full compliance, the $ATE=ATT=A
 
 [^15]: See Hartman et al. (forthcoming) for an example of efforts to combine experimental and observational data to move from a sample ATE to an estimate of a population ATT.
 
-Below, we create an case where the probability of receiving treatment varies and but can be estimated using a propensity score model.[^16] The predicted probabilities from this model are then used as weights to recover the estimates of the ATE, ATT, and ATC. Inverse propensity score weighting attempts to balance the distribution of covariates between treatment and control groups when estimating the ATE. For the ATT, this weighting approach treats subjects in the the treated group as a sample from the target population (people who received the treatment) and weights subjects in the control by their odds of receiving the treatment. In a similar fashion, the estimate of the ATC weights treated observations to look like controls. The quality (unbiasedness) of these estimates is inherently linked to the quality of our models for predicting the receipt of treatment. Inverse propensity score weighting and other procedures produce balance between treatment and control groups on observed covariates, but unless we have the “true model” (and we almost never know the true model) the potential for bias from unobserved covariates remains and should lead us to interpret our the estimated ATT or ATC in light of the quality of the model that produced it.
+Below, we create a case where the probability of receiving treatment varies but can be estimated using a propensity score model.[^16] The predicted probabilities from this model are then used as weights to recover the estimates of the ATE, ATT, and ATC. Inverse propensity score weighting attempts to balance the distribution of covariates between treatment and control groups when estimating the ATE. For the ATT, this weighting approach treats subjects in the the treated group as a sample from the target population (people who received the treatment) and weights subjects in the control by their odds of receiving the treatment. In a similar fashion, the estimate of the ATC weights treated observations to look like controls. The quality (unbiasedness) of these estimates is inherently linked to the quality of our models for predicting the receipt of treatment. Inverse propensity score weighting and other procedures produce balance between treatment and control groups on observed covariates, but unless we have the “true model” (and we almost never know the true model) the potential for bias from unobserved covariates remains and should lead us to interpret our the estimated ATT or ATC in light of the quality of the model that produced it.
 
 [^16]: Rosenbaum and Rubin (1983)
 
 ```{r}
 set.seed(1234) # For replication
-n = 1000 # Sample size 
-X1 = rnorm(n) # Pre-treatment covariates 
-X2 = rnorm(n) 
-p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment 
-D = rbinom(n, 1, p) # Treatment 
-Y0 = rnorm(n) # Potential outcomes 
-Y1 = Y0 +1 +X1 +X2 
-Y = D*Y1 + (1-D)*Y0 # Observed outcomes 
-samp = data.frame(X1,X2,D,Y) 
-# Propensity score model 
+n = 1000 # Sample size
+X1 = rnorm(n) # Pre-treatment covariates
+X2 = rnorm(n)
+p = pnorm(-0.5 + 0.75*X2) # Unequal probabilty of Treatment
+D = rbinom(n, 1, p) # Treatment
+Y0 = rnorm(n) # Potential outcomes
+Y1 = Y0 +1 +X1 +X2
+Y = D*Y1 + (1-D)*Y0 # Observed outcomes
+samp = data.frame(X1,X2,D,Y)
+# Propensity score model
 samp$p.score<-
-predict(glm(D~X1+X2,samp,family=binomial),type="response") 
+predict(glm(D~X1+X2,samp,family=binomial),type="response")
 
 
-# Inverse Propability Weights 
-samp$W.ipw<-with(samp, ifelse(D==1,1/p.score,1/(1-p.score))) 
-samp$W.att<-with(samp, ifelse(D==1,1,p.score/(1-p.score))) 
-samp$W.atc<-with(samp, ifelse(D==1,(1-p.score)/p.score,1)) 
+# Inverse Propability Weights
+samp$W.ipw<-with(samp, ifelse(D==1,1/p.score,1/(1-p.score)))
+samp$W.att<-with(samp, ifelse(D==1,1,p.score/(1-p.score)))
+samp$W.atc<-with(samp, ifelse(D==1,(1-p.score)/p.score,1))
 
-# IPW: ATE, ATT, ATC 
+# IPW: ATE, ATT, ATC
 ATE.ipw<-coef(lm(Y~D,data=samp,weights=W.ipw))[2]
-ATT.ipw<-coef(lm(Y~D,data=samp,weights=W.att))[2] 
+ATT.ipw<-coef(lm(Y~D,data=samp,weights=W.att))[2]
 ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 ```
 
@@ -271,31 +271,31 @@ If these assumptions are justified for our data, we can obtain consistent estima
 
 [^19]: See Koenker, Roger, and Kevin Hallock. 2001. “Quantile Regression: An Introduction.” Journal of Economic Perspectives 15 (4): 43–56. for a concise overview of quantile regression
 
-Below we show a case where the ATE is 0, but the treatment effect is negative for low quantiles of the response and positive for high quantiles. Estimating quantile treatment effects provide another tool for detecting heterogeneous effects and allow us to describe distributional consequences of our intervention. These added insights come at the cost of requiring more stringent statistical assumptions of our data and more nuanced interpretations of our results.
+Below we show a case where the ATE is 0, but the treatment effect is negative for low quantiles of the response and positive for high quantiles. Estimating quantile treatment effects provides another tool for detecting heterogeneous effects and allows us to describe distributional consequences of our intervention. These added insights come at the cost of requiring more stringent statistical assumptions of our data and more nuanced interpretations of our results.
 
 ```{r, warning=FALSE, error=FALSE, message=FALSE}
 set.seed(1234) # For replication
 n = 1000 # Population size
 Y0 = runif(n) # Potential outcome under control condition
-Y1= Y0 
-Y1[Y0 <.5] = Y0[Y0 <.5]-rnorm(length(Y0[Y0 <.5])) 
-Y1[Y0 >.5] = Y0[Y0 >.5]+rnorm(length(Y0[Y0 >.5])) 
-D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
-samp = data.frame(D,Y) 
-library(quantreg) 
-ATE = coef(lm(Y~D,data=samp))[2] 
-QTE = rq(Y~D,tau = 
-seq(.05,.95,length.out=10),data=samp,method = "fn") 
+Y1= Y0
+Y1[Y0 <.5] = Y0[Y0 <.5]-rnorm(length(Y0[Y0 <.5]))
+Y1[Y0 >.5] = Y0[Y0 >.5]+rnorm(length(Y0[Y0 >.5]))
+D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise
+Y = D*Y1 + (1-D)*Y0 # Outcome in population
+samp = data.frame(D,Y)
+library(quantreg)
+ATE = coef(lm(Y~D,data=samp))[2]
+QTE = rq(Y~D,tau =
+seq(.05,.95,length.out=10),data=samp,method = "fn")
 
-plot(summary(QTE),parm=2,main="",ylab="QTE",xlab="Quantile",mar = c(5.1, 4.1, 2.1, 2.1)) 
+plot(summary(QTE),parm=2,main="",ylab="QTE",xlab="Quantile",mar = c(5.1, 4.1, 2.1, 2.1))
 ```
 
 8 Mediation Effects
 ==
 Sometimes we want to describe not just the magnitude and significance of an observed causal effect, but also the mechanism (or mechanisms) that produced it. Did our intervention raise turnout in the treatment group, in part, by increasing these subjects’ sense of political efficacy? If so, how much of that total effect can be attributed to the mediated effects of our treatment on efficacy and efficacy on turnout?
 
-Baron and Kenny (1986) offer a general framework for thinking about mediation by decomposing the total effect of treatment into its indirect effect on a mediator that then effects the outcome, called an average causal mediation effect (ACME), and the remaining average direct effect (ADE) of the treatment. Unbiased estimation of these effects, however, requires a set strong assumptions about the relationship between treatment, mediators, outcomes, and potential confounders, collectively called sequential ignorability (Imai, Keele, and Yamamoto (2010), Bullock, Green, and Ha (2010)).[^20]
+Baron and Kenny (1986) offer a general framework for thinking about mediation by decomposing the total effect of treatment into its indirect effect on a mediator that then affects the outcome, called an average causal mediation effect (ACME), and the remaining average direct effect (ADE) of the treatment. Unbiased estimation of these effects, however, requires a set strong assumptions about the relationship between treatment, mediators, outcomes, and potential confounders, collectively called sequential ignorability (Imai, Keele, and Yamamoto (2010), Bullock, Green, and Ha (2010)).[^20]
 
 [^20]:  Formally, Imai, Keele, and Yamamoto (2010) define the necessary conditions of sequential ignorability as: ${Y_i(d',m),M_i(d)}⊥D_i|X_i=x, Y_i(d',m)⊥M_i(d)|D_i=d,X_i=x$. That is, first, given pre-treatment covariates, the potential outcomes of Y and M are independent of treatment D, and, second, that conditional on pre-treatment covariates and treatment status, potential outcomes are also independent of the mediator.
 
@@ -308,38 +308,38 @@ Imai and colleagues propose an approach to mediation analysis that allows resear
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/effect-types/effect-types_fig2.png)
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
-set.seed(1234) # Replication 
-n = 1000 # Sample size 
-Y0 = runif(n) # Potential outcome under control condition 
-D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise 
-X<-rnorm(n) # Covariate 
-M<-rnorm(n=n,mean=D+rnorm(n)) # Mediator influenced by Treatment 
-Y1 = Y0 + 1 + M # Potential outcome under treatment 
-Y = D*Y1 + (1-D)*Y0 # Outcome in population 
-samp<-data.frame(D,M,Y) 
+set.seed(1234) # Replication
+n = 1000 # Sample size
+Y0 = runif(n) # Potential outcome under control condition
+D = sample((1:n)%%2) # Treatment: 1 if treated, 0 otherwise
+X<-rnorm(n) # Covariate
+M<-rnorm(n=n,mean=D+rnorm(n)) # Mediator influenced by Treatment
+Y1 = Y0 + 1 + M # Potential outcome under treatment
+Y = D*Y1 + (1-D)*Y0 # Outcome in population
+samp<-data.frame(D,M,Y)
 
-library(mediation) 
-med.f<-lm(M~D+X,data=samp) # Model for mediator 
-out.f<-lm(Y~M+D+X,data=samp) # Model for outcome 
+library(mediation)
+med.f<-lm(M~D+X,data=samp) # Model for mediator
+out.f<-lm(Y~M+D+X,data=samp) # Model for outcome
 
-#Estimate ACME and ADE 
-library(mediation) 
+#Estimate ACME and ADE
+library(mediation)
 med.out<-
-mediate(med.f,out.f,treat="D",mediator="M",robustSE=T,sims=1000) 
-# Sensitivity of ACME to unobserved pre-treatment confounder 
-s.out<-medsens(med.out) 
+mediate(med.f,out.f,treat="D",mediator="M",robustSE=T,sims=1000)
+# Sensitivity of ACME to unobserved pre-treatment confounder
+s.out<-medsens(med.out)
 
-plot(s.out) # Plot sensistivity bounds 
+plot(s.out) # Plot sensistivity bounds
 ```
 
 ```{r}
-# Structural equations estimates of ACME ADE 
-# f1<-formula(Y~D+X) 
-# f2<-formula(M~D+X) 
-# f3<-formula(Y~D+M+X) 
-# 
-# med.sys<-systemfit(list(f1,f2,f3),data=samp) 
-# ACME<-coef(med.sys)["eq1_D"]-coef(med.sys)["eq3_D"] 
+# Structural equations estimates of ACME ADE
+# f1<-formula(Y~D+X)
+# f2<-formula(M~D+X)
+# f3<-formula(Y~D+M+X)
+#
+# med.sys<-systemfit(list(f1,f2,f3),data=samp)
+# ACME<-coef(med.sys)["eq1_D"]-coef(med.sys)["eq3_D"]
 # ADE<-coef(med.sys)["eq3_D"]
 ```
 
@@ -354,32 +354,32 @@ Freedman (2008b) shows that logistic regression adjusting for covariates in a ra
 The basic procedure is outlined in the code below. The coefficients from the logistics regression controlling for covariate X, tend to overestimate the effect of treatment on the log odds, while the adjusted estimates from the predicted probabilities produce consistent results.
 
 ```{r}
-set.seed(1234) # For replication 
-n = 1000 # Sample size 
-U = runif(n) 
-X = runif(n) # Observed Covariate 
-Y0 = ifelse(U>.5,1,0) # Potential Outcomes 
-Y1 = ifelse(U+X>.75,1,0) 
-D = rbinom(n,1,.75) # Randomly assign 3/4 to treatment 
-Y = D*Y1+Y0*(1-D) 
-samp = data.frame(X,D,Y) 
-aT<-with(samp, mean(Y[D==1])) 
-aC<-with(samp, mean(Y[D==0])) 
+set.seed(1234) # For replication
+n = 1000 # Sample size
+U = runif(n)
+X = runif(n) # Observed Covariate
+Y0 = ifelse(U>.5,1,0) # Potential Outcomes
+Y1 = ifelse(U+X>.75,1,0)
+D = rbinom(n,1,.75) # Randomly assign 3/4 to treatment
+Y = D*Y1+Y0*(1-D)
+samp = data.frame(X,D,Y)
+aT<-with(samp, mean(Y[D==1]))
+aC<-with(samp, mean(Y[D==0]))
 
-# Unconditional log odds 
-log.odds<-log(aT/(1-aT))-log(aC/(1-aC)) 
+# Unconditional log odds
+log.odds<-log(aT/(1-aT))-log(aC/(1-aC))
 
-# Logistic regression conditioning on X overestimates log odds 
-fit<-glm(Y~D+X,data=samp,binomial("logit")) 
+# Logistic regression conditioning on X overestimates log odds
+fit<-glm(Y~D+X,data=samp,binomial("logit"))
 log.odds.logit<-
-  coef(glm(Y~D+X,data=samp,binomial("logit")))[2] 
+  coef(glm(Y~D+X,data=samp,binomial("logit")))[2]
 
-# Dataframes using original covariates for predicted probabilities 
-D1<-data.frame(D=1,samp[,c("X")]) 
-D0<-data.frame(D=0,samp[,c("X")]) 
-#Adjusted log-odds produces consisted estimator of log-odds 
-aT.adj<-predict(fit,newdata=D1,type="response") 
-aC.adj<-predict(fit,newdata=D0,type="response") 
+# Dataframes using original covariates for predicted probabilities
+D1<-data.frame(D=1,samp[,c("X")])
+D0<-data.frame(D=0,samp[,c("X")])
+#Adjusted log-odds produces consisted estimator of log-odds
+aT.adj<-predict(fit,newdata=D1,type="response")
+aC.adj<-predict(fit,newdata=D0,type="response")
 log.odds.adj<-log(mean(aT.adj)/(1-mean(aT.adj)))-
   log(mean(aC.adj)/(1-mean(aC.adj)))
 ```
@@ -409,7 +409,7 @@ $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U�
 
 Third, this representation allows us to produce a design-based confidence interval for A^ by drawing on the survey sampling literature about statistical inference for sample totals because the observed total outcomes, tU, is fixed across randomizations. We can use covariates to increase precision here because the survey regression estimator allows us to estimate the total that we would have see in the control group: $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+\sum_{i∈U}(Y_i-\hat{Y}_i)$ with $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999). The survey sampling literature shows that as $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$. So, one can calculate $\widehat{SE}(\hat{t}_c)$ from standard sampling theory and then the $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t}_c)$.
 
-In the code below, we provide an illustration using simulated data for a binary response and treatment. In 85 percent of the treatment group, $Y=1$ compared to 52 percent in the control. A difference of this size is consistent with our treatment having caused $Y=1$ for between 92 and 138 of subjects, for whom $Y$ would have otherwise equaled 0 had they not received the treatment. The regression estimator, which leverage precision gained from including covariates, produces tighter confidence intervals (98.8 to 135.1) for the attributable effects.
+In the code below, we provide an illustration using simulated data for a binary response and treatment. In 85 percent of the treatment group, $Y=1$ compared to 52 percent in the control. A difference of this size is consistent with our treatment having caused $Y=1$ for between 92 and 138 of subjects, for whom $Y$ would have otherwise equaled 0 had they not received the treatment. The regression estimator, which leverages precision gained from including covariates, produces tighter confidence intervals (98.8 to 135.1) for the attributable effects.
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
 set.seed(1234) # For replication 
