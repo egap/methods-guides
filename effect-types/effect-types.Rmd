@@ -68,7 +68,7 @@ $$Y_{i}=Y_{i}(0)∗(1−D_{i})+Y_{i}(1)∗D_{i}=β_{0}+β_{1}D_{i}+u$$
 
 puisque nous pouvons réarranger les termes de sorte que $β_{0}$ représente la moyenne parmi les observations de contrôle $(Y_{i}(0)∣D_{i}=0)$ et $β_{1}$ représente la différence des moyennes $(Y_{i}(1)∣D_{i}=1)–(Y_{i}(1)∣D_{i}=0)$.
 Dans le code ci-dessous, nous créons un échantillon de 1 000 observations et assignons de manière aléatoire un traitement Di avec un effet unitaire constant à la moitié des unités.
-Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observées.
+Nous estimons l'ATE en utilisant la méthode des moindres carrés ordinaires (MCO) pour calculer la différence des moyennes observée.
 Le calcul des moyennes dans chaque groupe et la prise de leur différence produiraient également une estimation non biaisée de l'ATE.
 Notez que l'ATE estimé à partir de MCO n'est pas biaisé, mais les erreurs dans ce modèle linéaire sont supposées être indépendantes et distribuées de manière identique.
 Lorsque notre traitement affecte à la fois la valeur moyenne du résultat et la distribution des réponses, cette hypothèse ne tient plus et nous devons ajuster l'erreur type de MCO à l'aide d'un estimateur sandwich Huber-White pour obtenir les estimations correctes (basées sur la variance de l'ATE) pour l'inférence statistique.[^6]
@@ -85,7 +85,7 @@ D = sample((1:N)%%2) # Traitement: 1 si traité, 0 sinon
 Y = D*Y1 + (1-D)*Y0 # Résultat dans la population
 samp = data.frame(D,Y) 
 
-ATE = coef(lm(Y~D,data=samp))[2] #idem avec (samp,mean(Y[Z==1])-mean(Y[Z==0]))
+ATE = coef(lm(Y~D,data=samp))[2] # idem avec (samp,mean(Y[Z==1])-mean(Y[Z==0]))
 
 # SATE avec Neyman ou avec une erreur type justifiée par randomisation
 # qui sont les mêmes que les erreurs types MCO en l'absence de covariables ou de découpage par bloc
@@ -216,9 +216,9 @@ samp = data.frame(Z,D,Y)
 # Wald Estimator ITT<-coef(lm(Y~Z,data=samp))[2] ITT.D<-coef(lm(D~Z,data=samp))[2] CACE.wald<-ITT/ITT.D
 ```
 
-5 Effet moyen du traitement sur une population ou un échantillon
+5 Effet moyen du traitement d'une population ou d'un échantillon
 ==
-Souvent, à partir de notre échantillon, nous voulons généraliser des déclarations pour une population d'intérêt plus large.[^11]
+Souvent, à partir de notre échantillon, nous voulons en tirer des généralisations pour une population d'intérêt plus large.[^11]
 Soit $S_i$ un indicateur pour savoir si un sujet fait partie de notre échantillon.
 L'effet moyen du traitement pour l'échantillon (sample average treatment effect, SATE) est défini simplement comme $E(Y_i(1)−Y_i(0)|S_i=1)$ et la population $E(Y_i(1)−Y_i(0))$.
 Avec un grand échantillon aléatoire d'une population bien définie et une conformité totale au traitement, nos SATE et PATE sont égaux en espérance et donc une bonne estimation de l'un (comme une différence des moyennes d'échantillon) sera une bonne estimation de l'autre.[^12]
@@ -231,10 +231,10 @@ Dans la pratique, le pool expérimental peut consister en un groupe d'unités s�
 Dans de tels cas, notre SATE peut diverger du PATE et la récupération des estimations de chacun devient plus compliquée.
 Imai, King et Stuart (2008) décomposent la divergence entre ces estimations en erreurs résultant de la sélection de l'échantillon et du déséquilibre de traitement.
 L'erreur de sélection de l'échantillon provient de différentes distributions de covariables (observées et non observées) dans notre échantillon et notre population.
-Par exemple, les personnes participant à un essai médical diffèrent souvent de la population pour laquelle le médicament serait disponible.
+Par exemple, les personnes participant à un essai médical diffèrent souvent de la population pour laquelle le médicament sera disponible.
 L'erreur due au déséquilibre de traitement reflète les différences de covariables entre les groupes de traitement et de contrôle dans notre échantillon, peut-être en raison d'une assignation non aléatoire et/ou d'une non-conformité.
 
-Bien qu'il n'y ait pas de solutions simples aux problèmes créés par une telle erreur, vous pouvez prendre des mesures à la fois dans le design de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
+Bien qu'il n'y ait pas de solutions simples aux problèmes créés par de telles erreurs, vous pouvez prendre des mesures à la fois dans le design de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
 Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement en présence de non-conformité (voir par exemple Nickerson (2008)).
 On pourrait également utiliser un modèle pour repondérer les observations afin d'ajuster le déséquilibre des covariables et la probabilité inégale de recevoir le traitement, à la fois au sein de l'échantillon et entre un échantillon et la population d'intérêt.[^13]
 
@@ -291,13 +291,12 @@ La même logique peut être étendue pour produire des estimations de l'ATT et d
 
 [^15]: Hartman et al. (à paraître) pour voir les efforts visant à combiner des données expérimentales et observationnelles pour passer d'un ATE pour un échantillon à un ATT pour une population.
 
-Ci-dessous, nous créons une étude de cas où la probabilité de recevoir un traitement varie et peut être estimée à l'aide d'un modèle de score de propension.[^16]
+Ci-dessous, nous créons une étude de cas où la probabilité de recevoir un traitement varie mais peut être estimée à l'aide d'un modèle de score de propension.[^16]
 Les probabilités prédites à partir de ce modèle sont ensuite utilisées comme pondérations pour récupérer les estimations de l'ATE, de l'ATT et de l'ATC.
 Une pondération inverse du score de propension tente d'équilibrer la distribution des covariables entre les groupes de traitement et de contrôle lors de l'estimation de l'ATE.
 Pour l'ATT, cette approche de pondération traite les sujets du groupe traité comme un échantillon de la population cible (personnes ayant reçu le traitement) et pondère les sujets du groupe de contrôle en fonction de leur probabilité de recevoir le traitement.
-
 De la même manière, l'estimation de l'ATC pondère les observations pour les traités pour qu'elles ressemblent au contrôle.
-La qualité (non biaisée) de ces estimations est intrinsèquement liée à la qualité de nos modèles pour prédire la réception du traitement.
+La qualité (l'absence de biais) de ces estimations est intrinsèquement liée à la qualité de nos modèles pour prédire la réception du traitement.
 La pondération inverse du score de propension et d'autres procédures produisent un équilibre entre les groupes de traitement et de contrôle sur les covariables observées.
 Mais à moins d'avoir le "vrai modèle" (et nous ne connaissons presque jamais le vrai modèle), le potentiel biais des covariables non observées demeure et devrait nous conduire à interpréter notre ATT ou ATC estimé à la lumière de la qualité du modèle qui l'a produit.
 
@@ -333,13 +332,13 @@ ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 7 Effet moyen du traitement par quantile
 ==
 L'ATE se concentre sur le milieu, en quelque sorte sur l'effet pour une personne typique, mais nous nous soucions souvent aussi des conséquences distributives de notre traitement.
-Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la répartition des revenus dans l'étude plus ou moins égale.
+Nous voulons savoir non seulement si notre traitement a augmenté le revenu moyen, mais aussi s'il a rendu la distribution des revenus dans l'étude plus ou moins égale.
 
 Les affirmations concernant les distributions sont difficiles.
 Même si nous pouvons estimer l'ATE à partir d'une différence des moyennes d'échantillon, en général, nous ne pouvons pas faire de déclarations sur la distribution conjointe des résultats potentiels $F(Yi(1),Yi(0))$ sans hypothèse supplémentaire.
 En règle générale, ces hypothèses limitent notre analyse à une sous-population spécifique[^17] ou nous obligent à supposer une certaine forme d'invariance de rang dans la distribution des réponses à l'effet du traitement[^18].
 Voir Frölich et Melly (2010) pour une discussion assez concise sur ces questions.
-Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric Evaluation of Social Programs, Part III : Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation". Handbook of Econometrics 6. Elsevier: 5145-5303.) (2007) pour un aperçu complet.
+Voir Abbring et Heckman (Abbring, Jaap H et James J Heckman. 2007. "Econometric Evaluation of Social Programs, Part III : Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation". Handbook of Econometrics 6. Elsevier: 5145-5303.) pour un aperçu complet.
 
 [^17]: Abadie, Angrist et Imbens (2002)
 
@@ -455,7 +454,7 @@ Une quantité commune d'intérêt causal pour les résultats dichotomiques est l
 
 $$\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}$$
 
-Freedman (2008b) montre que l'ajustement de covariables par régression logistique dans les expériences randomisées produit des estimations biaisées de cet effet causal.
+Freedman (2008b) montre que l'ajustement de covariables dans une régression logistique dans les expériences randomisées produit des estimations biaisées de cet effet causal.
 L'intuition de base de l'argument de Freedman vient du fait que prendre le log des moyennes n'est pas la même chose que prendre la moyenne des logs et donc le coefficient de traitement estimé à partir d'une régression logistique conditionnée aux covariables ne fournira pas un estimateur cohérent des log-odds de succès.
 Au lieu de cela, Freedman recommande de prendre les probabilités prédites de variation du statut de traitement des sujets, mais de maintenir leurs profils de covariables observés pour produire un estimateur cohérent des log-odds.
 
@@ -551,10 +550,9 @@ samp = data.frame(D,Y,X1,X2)
 
 attribute<-function(treat,out,A,data){ 
   # Contingence de l'état du traitement et des résultats
-  attr.tab<-with(data,table(treat,out)) # 
+  attr.tab<-with(data,table(treat,out))
   # Matrice des p-valeurs pour les effets attribuables, A
-  attr.ps<-
-    matrix(NA,nc=2,nr=A,dimnames=list(NULL,c("A","p"))) 
+  attr.ps<-matrix(NA,nc=2,nr=A,dimnames=list(NULL,c("A","p")))
   for(i in 1:A){ 
     attr.ps[i,]<-
       c(i,fisher.test(attr.tab+matrix(c(0,i,0,-i),2,2))$p) 
@@ -576,7 +574,7 @@ attribute(treat = D, out= Y, A=200,data=samp)
 # Estimateur de régression
 fit1<-lm(Y~X1+X2,data=samp,subset=D==0) 
 hatYcU<-predict(fit1,newdata=samp) 
-ec<-Y[D==0]-hatYcU[D==0] ## idem aux residuals(fit1)
+ec<-Y[D==0]-hatYcU[D==0] # idem aux residuals(fit1)
 hatTotYc<-sum(hatYcU)+sum(ec) 
 N<-length(Y) 
 nctrls<-sum(1-D) 
