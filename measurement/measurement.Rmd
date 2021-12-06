@@ -319,7 +319,7 @@ Cela évite également les questions ex post sur le choix des indicateurs pour u
 
 De nombreuses études en sciences sociales se concentrent sur des concepts qui sont généralement supposés être latents, notamment les préférences, les connaissances ou les attitudes.
 Dans la mesure où nous travaillons sur des concepts communs, il existe une tendance à s'inspirer des opérationnalisations existantes à partir d'études sur des concepts connexes dans des contextes différents.
-Dans des études menées dans de multiples contextes, comme dans [l'initiative Metaketa de EGAP](http://egap.org/metaketa), les chercheurs visent à étudier la même relation causale dans plusieurs contextes nationaux.
+Dans des études menées dans de multiples contextes, comme dans [l'initiative Metaketa de EGAP](https://egap.org/our-work-0/the-metaketa-initiative/), les chercheurs visent à étudier la même relation causale dans plusieurs contextes nationaux.
 Mais le désir d'étudier des concepts communs n'implique pas nécessairement que les mêmes indicateurs doivent être utilisés dans tous les contextes.
 
 Par exemple, considérons un ensemble d'études qui cherchent à mesurer la variation du concept de connaissance ou de sophistication politique.
