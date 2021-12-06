@@ -58,9 +58,9 @@ $$V(ATE) = \frac{N}{N−1} [\frac{V(Y_{i}(1))}{m}+\frac{V(Y_{i}(0))}{N−m}]−\
 
 et estimer cette quantité à partir des estimations de l'échantillon de la variance dans chaque groupe.[^5]
 
-[^5]: La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation prudente (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
-Étant donné que nous sommes généralement soucieux de minimiser le taux d'erreur de type I (rejetant à tort l'hypothèse nulle vraie), nous préférons utiliser des estimations prudentes de la variance.
-Voir aussi Dunning (2010) et Gerber & Green (2012) pour la justification de l'estimateur de variance prudent.
+[^5]: La covariance de $Y_{i}(1),Y_{i}(0)$ est impossible à observer mais l'estimateur "Neyman" de la variance en omettant le terme de covariance fournit une estimation conservatrice (trop grande) de la vraie variance de l'échantillon parce que nous avons tendance à supposer que la covariance est positive.
+Étant donné que nous sommes généralement soucieux de minimiser le taux d'erreur de type I (rejetant à tort l'hypothèse nulle vraie), nous préférons utiliser des estimations conservatrices de la variance.
+Voir aussi Dunning (2010) et Gerber & Green (2012) pour la justification de l'estimateur de variance conservateur.
 
 Un modèle linéaire de régression du résultat observé $Y_{i}$ sur un indicateur de traitement $D_{i}$ fournit un estimateur pratique de l'ATE (et avec quelques ajustements supplémentaires, de la variance de l'ATE) :
 
@@ -238,7 +238,7 @@ Bien qu'il n'y ait pas de solutions simples aux problèmes créés par de telles
 Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement en présence de non-conformité (voir par exemple Nickerson (2008)).
 On pourrait également utiliser un modèle pour repondérer les observations afin d'ajuster le déséquilibre des covariables et la probabilité inégale de recevoir le traitement, à la fois au sein de l'échantillon et entre un échantillon et la population d'intérêt.[^13]
 
-[^13]: Angrist et Pischke (2008) fournissent une brève introduction des sujets traités plus en détail par Hirano, Imbens et Ridder (2003), Aronow et Middleton (2013), Glynn et Quinn (2010), et Hartman et al. (à venir)
+[^13]: Angrist et Pischke (2008) fournissent une brève introduction des sujets traités plus en détail par Hirano, Imbens et Ridder (2003), Aronow et Middleton (2013), Glynn et Quinn (2010), et Hartman et al. (à paraître)
 
 Dans le code ci-dessous, nous présentons plusieurs approches pour estimer ces effets mis en œuvre dans le package CausalGAM de R.[^14]
 Plus précisément, le package produit des estimateurs de l'ATE par régression, par pondération inverse du score de propension (inverse-propensity weighting, IPW) et par pondération IPW augmentée (augmented IPW, AIPW).
@@ -459,7 +459,7 @@ L'intuition de base de l'argument de Freedman vient du fait que prendre le log d
 Au lieu de cela, Freedman recommande de prendre les probabilités prédites de variation du statut de traitement des sujets, mais de maintenir leurs profils de covariables observés pour produire un estimateur cohérent des log-odds.
 
 La procédure de base est décrite dans le code ci-dessous.
-Les coefficients de la régression logistique contrôlant la covariable X ont tendance à surestimer l'effet du traitement sur les probabilités logarithmiques, tandis que les estimations ajustées à partir des probabilités prédites produisent des résultats cohérents.
+Les coefficients de la régression logistique contrôlant la covariable X ont tendance à surestimer l'effet du traitement sur les log odds, tandis que les estimations ajustées à partir des probabilités prédites produisent des résultats cohérents.
 
 ```{r}
 set.seed(1234) # pour la reproductibilité
@@ -495,10 +495,10 @@ log.odds.adj<-log(mean(aT.adj)/(1-mean(aT.adj)))-
 10 Effet attribuable
 ==
 Nous concluons par une brève discussion sur une autre quantité d'intérêt causal qui peut être particulièrement utile avec des résultats binaires : l'effet attribuable (Rosenbaum 2010).
-Considérons un cas simple avec un résultat et un traitement dichotomique.
+Considérons un cas simple avec un résultat dichotomique et un traitement.
 Soit $A$ le nombre de résultats attribuables au traitement, c'est-à-dire le nombre de cas pour lesquels $Y_i$ était égal à 1 parmi les sujets traités ; ce qui ne se serait pas produit si ces unités avaient été assignées au contrôle.
-Pour une plage de $A$, nous ajustons le tableau de contingence observée des résultats parmi les traités et comparons cette distribution résultante à une distribution nulle connue (la distribution des résultats que nous aurions observé si le traitement n'avait eu aucun effet).
-La plage résultante de $A$ pour laquelle notre test continue de rejeter l'hypothèse nulle d'absence d'effet fournit une plage d'effets qui sont attribuables à notre traitement.
+Pour une plage de $A$, nous ajustons le tableau de contingence observée des résultats parmi les traités et comparons cette distribution résultante à une distribution nulle connue (la distribution des résultats que nous aurions observée si le traitement n'avait eu aucun effet).
+La plage résultante de $A$ pour laquelle notre test continue de rejeter l'hypothèse nulle d'absence d'effet fournit une plage des effets qui sont attribuables à notre traitement.
 
 Table 1|$D=1$              |$D=0$
 -------|-------------------|--------------
@@ -508,7 +508,7 @@ $Y=0$  |$\sum Y_i(1-D_i)+A$|$\sum (1-Y_i)(1-D_i)$
 Rosenbaum (2002) étend ce concept à différents types de résultats (tels que les variables continues).
 Une logique similaire peut également être appliquée pour détecter des réponses inhabituelles mais importantes au traitement (Rosenbaum et Silber 2008).
 
-Hansen et Bowers (2009) utilisent cette approche pour identifier le nombre de votes supplémentaires attribuables à différentes interventions dans l'expérience de sortie du vote avec une assignation de traitement par grappe et une non-conformité unilatérale.
+Hansen et Bowers (2009) utilisent cette approche pour identifier le nombre de votes supplémentaires attribuables à différentes interventions incitant au vote avec une assignation de traitement par grappe et une non-conformité unilatérale.
 Ils montrent que, dans de grands échantillons, on peut approximer l'intervalle de confiance pour les effets attribuables sans évaluer chaque attribution.
 Voici un exemple de cette approche où des covariables sont utilisées pour augmenter la précision.
 
@@ -524,12 +524,12 @@ $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U�
 = total observé globalement (fixe et observé) - résultat total sous contrôle (non observé, à estimer)
 </center>
 
-Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour sondage basé sur l'inférence statistique pour les échantillons totaux, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
+Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour sondage basé sur l'inférence statistique pour les totaux des échantillons, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
 Nous pouvons utiliser des covariables pour augmenter la précision ici car l'estimateur de régression pour l'enquête nous permet d'estimer le total que nous aurions vu dans le groupe de contrôle : $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+ \sum_{i∈U}(Y_i-\hat{Y}_i)$ avec $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999).
 La littérature sur l'échantillonnage pour les sondages montre que, comme $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$.
 Ainsi, on peut calculer $\widehat{SE}(\hat{t}_c)$ à partir de la théorie de l'échantillonnage standard puis $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t }_c)$.
 
-Dans le code ci-dessous, nous fournissons une illustration utilisant des données simulées pour une réponse et un traitement binaires.
+Dans le code ci-dessous, nous fournissons une illustration utilisant des données simulées pour une réponse binaire et un traitement.
 Pour 85 % du groupe de traitement, $Y=1$ comparativement à 52 % dans le groupe de contrôle.
 Une différence de cette taille est cohérente avec le fait que notre traitement a causé $Y=1$ pour 92 à 138 sujets, pour lesquels $Y$ aurait autrement été égal à 0 s'ils n'avaient pas reçu le traitement.
 L'estimateur de régression, qui tire parti de la précision obtenue en incluant des covariables, produit des intervalles de confiance plus serrés (de 98,8 à 135,1) pour les effets attribuables.
