@@ -1099,7 +1099,7 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T, error=FALSE, message=FALSE, warning=FALSE}
 # This function calculates confidence intervals for linear models
-# with custom variance-covariance marices
+# with custom variance-covariance matrices
 confint_HC<-function (coefficients, df, level = 0.95, vcov_mat, ...) {
   a <- (1 - level)/2
   a <- c(a, 1 - a)
@@ -1435,9 +1435,9 @@ power_ICC <- error_ICC <- matrix(
 # Set the number of simulations
 sims <- 100
 
-# Loop through the different cluster numbers
+# Loop through the different ICCs
 for( i in 1:length(ICCs)){
-  # Loop through the different cluster sizes
+  # Loop through the different cluster counts and sizes
   for(j in 1:length(J_njs)){
     # Estimate the power and error rate for each combination
     test_sims <- replicate(n = sims,

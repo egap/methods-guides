@@ -41,7 +41,7 @@ The objectives of the PAP are to improve research design choices, increase resea
 
 In the following sections, we provide guidelines for the details you should include in PAPs, including example text.  We also recommend that you include as much code and analysis of simulated data as possible.[^DD]  Many PAPs will not be able to include everything on our list, but a PAP should, at a minimum, include the full list of hypotheses that you intend to test, how you will measure variables relevant to those hypotheses, and a verifiable time stamp.
 
-[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.  [Power analysis](http://egap.org/resource/10-things-to-know-about-statistical-power), an important component of a PAP, requires simulated data.
+[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.  [Power analysis](https://egap.org/resource/10-things-to-know-about-statistical-power), an important component of a PAP, requires simulated data.
 
 
 2 What is in a PAP? Study Design Overview
@@ -110,7 +110,7 @@ We also create a "government attitudes" index using inverse-covariance weights (
 
 Now that you have described your study design, hypotheses, and variables, you are ready to discuss your testing and estimation procedures.  
 
-This section should clearly specify what you are estimating (i.e. the estimand) and how you intend to estimate it (i.e. the estimator).  For example, many studies estimate the average treatment effect of an experimental intervention using OLS linear regression as the estimator.^[You may also be interested in estimating other types of effects.  See this [guide on types of treatment effects](https://egap.org/es/methods-guides/10-types-treatment-effect-you-should-know-about) for more information about effect types.]  Clearly specify your model specification, including your outcomes, explanatory variables, and covariates, and your test statistic.
+This section should clearly specify what you are estimating (i.e. the estimand) and how you intend to estimate it (i.e. the estimator).  For example, many studies estimate the average treatment effect of an experimental intervention using OLS linear regression as the estimator.^[You may also be interested in estimating other types of effects.  See this [guide on types of treatment effects](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) for more information about effect types.]  Clearly specify your model specification, including your outcomes, explanatory variables, and covariates, and your test statistic.
 
 We recommend including code for the statistical model or the functional form of the statistical model in the PAP.
 
@@ -246,7 +246,7 @@ Your PAP is now complete and you are ready to register it!  For experimental stu
 
 There are several third-party sites on which you can register your PAP.  We list common sites for social science PAPs below.  You can list your PAP on multiple sites, and certain journals require potential articles to register PAPs with a specific site.^[Note that some organizations do not use third party sites.  For example, the [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) uses Github, which has timestamps that verify the PAP was created before the analysis was conducted.]
 
-- [EGAP Registry](http://egap.org/content/registration)
+- [EGAP Registry](https://egap.org/registry-0/)
 - [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
 - [OSF Registry](http://help.osf.io/m/registrations)
 

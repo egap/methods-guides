@@ -12,7 +12,7 @@ Abstract
 ==
 This guide[^1] for more formal discussion of independence and the assumptions necessary to estimate causal effects. describes ten distinct types of causal effect researchers can be interested in estimating. As discussed in our guide to causal inference, simple randomization allows one to produce estimates of the average of the unit level causal effects in a sample. This average causal effect or average treatment effect (ATE) is a powerful concept because it is one solution to the problem of not observing all relevant counterfactuals. Yet, it is not the only productive engagement with this problem. In fact, there are many different types of quantities of causal interest. The goal of this guide is to help you choose estimands (a parameter of interest) and estimators (procedures for calculating estimates of those parameters) that are appropriate and meaningful for your data.
 
-[^1]: See Holland (1986) and Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
+[^1]: See Holland (1986) and Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
 
 1 Average Treatment Effects
 ==
@@ -34,7 +34,7 @@ $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑
 
 And we often estimate the ATE using the observed difference in means:[^4]
 
-[^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, of target of our estimation that is unobserved. Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity. See Gerber and Green (2012) for concise introduction to this distinction and Imbens and Wooldridge (2007) for a thorough treatment of these concepts.
+[^4]: Estimates are often written with a hat ( $\widehat{ATE}$ ) to reflect the difference between the estimate from our particular sample and the estimand, target of our estimation that is unobserved. Unless otherwise stated, in this guide we focus on generating sample estimates and subsequently omit this explicit notation for brevity. See Gerber and Green (2012) for concise introduction to this distinction and Imbens and Wooldridge (2007) for a thorough treatment of these concepts.
 
 $$\widehat{ATE} =\frac{∑^m_1Z_{i}Y_{i}}{m}−\frac{∑^{N}_{m+1}(1−Z_{i})Y_{i}}{N−m}$$
 
@@ -138,7 +138,7 @@ What if you are interested in figuring out the effects of a treatment on those p
 
 This turns out to be a hard problem (for more on this see [this guide](https://to_be_added)). The reasons for non-compliance with treatment can be thought of as an omitted variable. While the receipt of treatment is no-longer independent of potential outcomes, the assignment of treatment status is. As long as random assignment had some positive effect on the probability of receiving treatment, we can use it as an instrument to identify the effects of treatment on the sub-population of subjects who comply with treatment assignment.
 
-Following the notation of Angrist and Pischke,[^8] let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicate whether that subject actually received the treatment. Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
+Following the notation of Angrist and Pischke,[^8] let $Z$ be an indicator for whether an observation was assigned to treatment and $D_{i}$ indicates whether that subject actually received the treatment. Experiments with non-compliance are composed of always-takers ($D_{i}=1$, regardless of $Z_{i}$), never-takers ($D_{i}=0$ regardless of $Z_{i}$), and compliers ($D_{i}=1$ when $Z_{i}=1$ and $0$ when $Z_{i}=0$).[^9] We can estimate a complier average causal effect (CACE), sometimes also called a local average treatment effect (LATE), by weighting the ITT (the effect of $Z$ on $Y$) by the effectiveness of random assignment on treatment uptake (the effect of $Z$ on $D$).
 
 [^8]: Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
@@ -222,7 +222,7 @@ $$ATC=E(Y_i(1)-Y_i(0)|D_i=0)=E(Y_i(1)|D_i=0)-E(Y_i(0)|D_i=0)$$
 
 Informally, the ATT is the effect for those that we treated; ATC is what the effect *would* be for those we did not treat.
 
-When treatment is randomly assigned and there is full compliance, the $ATE=ATT=ATC$, since $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ and $E(Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$ Often either because of the nature of the intervention or specific concerns about cost and ethnics, treatment compliance is incomplete and the ATE will not in general equal the ATT or ATC. In such instances, we saw in the previous section that we could re-weight observations by their probability of receiving the treatment to recover estimates of the ATE. The same logic can be extended to produce estimates of the ATT and ATC in both our sample and the population.[^15]
+When treatment is randomly assigned and there is full compliance, $ATE=ATT=ATC$, since $E(Y_i(0)∣D_i=1)=E(Y_i(0)∣D_i=0)$ and $E(Y_i(1)∣D_i=0)=E(Y_i(1)∣D_i=1)$ Often either because of the nature of the intervention or specific concerns about cost and ethnics, treatment compliance is incomplete and the ATE will not in general equal the ATT or ATC. In such instances, we saw in the previous section that we could re-weight observations by their probability of receiving the treatment to recover estimates of the ATE. The same logic can be extended to produce estimates of the ATT and ATC in both our sample and the population.[^15]
 
 [^15]: See Hartman et al. (forthcoming) for an example of efforts to combine experimental and observational data to move from a sample ATE to an estimate of a population ATT.
 
@@ -261,11 +261,11 @@ ATC.ipw<-coef(lm(Y~D,data=samp,weights=W.atc))[2]
 ==
 The ATE focuses on the middle, in a way on the effect for a typical person, but we often also care about the distributional consequences of our treatment. We want to know not just whether our treatment raised average income, but also whether it made the distribution of income in the study more or less equal.
 
-Claims about distributions are difficult. Even though we can estimate the ATE from a difference of sample means, in general, we cannot make statements about the joint distribution of potential outcomes $(F(Yi(1),Yi(0)))$ without further assumptions. Typically, these assumptions either limit our analysis to a specific sub-population[^17] or require us to assume some form of rank invariance in the distribution of responses to treatment effects[^18] and Frölich and Melly (2010) for fairly concise discussions of these issues and Abbring and Heckman (Abbring, Jaap H, and James J Heckman. 2007. “Econometric Evaluation of Social Programs, Part III: Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation.” Handbook of Econometrics 6. Elsevier: 5145–5303.) (2007) for a thorough overview.
+Claims about distributions are difficult. Even though we can estimate the ATE from a difference of sample means, in general, we cannot make statements about the joint distribution of potential outcomes $(F(Yi(1),Yi(0)))$ without further assumptions. Typically, these assumptions either limit our analysis to a specific sub-population[^17] or require us to assume some form of rank invariance in the distribution of responses to treatment effects[^18] and see Frölich and Melly (2010) for fairly concise discussions of these issues and Abbring and Heckman (Abbring, Jaap H, and James J Heckman. 2007. “Econometric Evaluation of Social Programs, Part III: Distributional Treatment Effects, Dynamic Treatment Effects, Dynamic Discrete Choice, and General Equilibrium Policy Evaluation.” Handbook of Econometrics 6. Elsevier: 5145–5303.) (2007) for a thorough overview.
 
 [^17]: Abadie, Angrist, and Imbens (2002)
 
-[^18]:Chernozhukov and Hansen (2005). That is, treatment can have heterogeneous effects but the ordering of potential outcomes is preserved. See Angrist and Pischke  Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
+[^18]:Chernozhukov and Hansen (2005). That is, treatment can have heterogeneous effects but the ordering of potential outcomes is preserved. See Angrist, Joshua, and Jörn-Steffen Pischke. 2008. Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton university press.
 
 If these assumptions are justified for our data, we can obtain consistent estimates of quantile treatment effects (QTE) using quantile regression.[^19] Just as linear regression estimates the ATE as a difference in means (or, when covariates are used in the model, from a conditional mean), quantile regression fits a linear model to a conditional quantile and this model can then be used to estimates the effects of treatment for that particular quantile of the outcome. The approach can be extended to include covariates and instruments for non-compliance. Note that the interpretation of the QTE is for a given quantile, not an individual at that quantile.
 

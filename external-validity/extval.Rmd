@@ -25,7 +25,7 @@ External validity becomes particularly important when making policy recommendati
 Internal validity refers to the quality of causal inferences being made for a given subject pool. As originally posited by Campbell,[^2] internal validity asks, “did in fact the experimental stimulus make some significant difference in this specific instance.” This concept dovetails with the counterfactual approach to causality that experimentalists typically use, which asks whether outcomes change depending on the presence or absence of a treatment.[^3]
 
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
-[^3]: More details can be found in the causal inference methods guide: http://egap.org/resource/10-things-to-know-about-causal-inference
+[^3]: More details can be found in the causal inference methods guide: https://egap.org/resource/10-things-to-know-about-causal-inference
 
 Before you can extrapolate a causal effect to a distinct population, it is vital that the original Average Treatment Effect be based on a well-identified result. For most experimentalists, random assignment provides the requisite identifying variation, provided no attrition, interference, spillovers, or other threats to inference. For observational studies, additional identifying assumptions are needed, such as conditional independence of the treatment from potential outcomes. 
 
