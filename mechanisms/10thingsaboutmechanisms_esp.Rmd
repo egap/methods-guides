@@ -32,7 +32,7 @@ opts_chunk$set(strip.white=TRUE,
 ```
 A los científicos sociales nos encantan las preguntas causales. Tan pronto nos enteramos de que X causa Y, queremos entender *por qué* X causa Y. Esta guía explora el rol de los "mecanismos" en el análisis causal, y además le ayudará a entender qué tipo de conclusiones puede sacar sobre estos.
 
-# Los mecanismos son los caminos a través de los cuales X causa la variable de resultado Y.
+# Los mecanismos son los caminos a través de los cuales X causa la variable de resultado Y
 
 Desde hace ya mucho tiempo, los mecanismos han sido parte principal de la medicina. Cada vez que un médico prescribe un tratamiento, lo hace a partir de la comprensión de los factores químicos o físicos que causan una enfermedad, y prescribe un tratamiento que es eficaz porque interrumpe estos factores. Por ejemplo, muchos psicólogos clínicos recomiendan hacer ejercicio a los pacientes que sufren depresión. El ejercicio aumenta las endorfinas en la química del cuerpo, lo cual desencadena sensaciones positivas y actúan como analgésicos, que reducen el dolor. Las endorfinas, por lo tanto, son un mecanismo por el cual el ejercicio ayuda a reducir la depresión. El ejercicio puede tener efectos positivos sobre otras variables dependientes (por ejemplo, las enfermedades cardíacas) a través de otros mecanismos (por ejemplo, elevando la frecuencia cardíaca), pero el mecanismo que hace que afecte a la depresión en particular son las endorfinas. También podríamos concluir que otro tratamiento, como un fármaco que eleve las endorfinas, pueda tener efectos similares sobre la depresión.
 
@@ -40,7 +40,7 @@ Los mecanismos son igual de importantes para las ciencias sociales. Consideremos
 
 [^1]: Solomon M. Hsiang, Kyle C. Meng y Mark A. Cane, "Civil Conflicts Are Associated with the Global Climate", Nature 476.7361 (2011): 438-441.
 
-# Aunque no *necesitamos* conocer el mecanismo para concluir que X causa Y, hay varias razones por las que *queremos* conocerlo.
+# Aunque no *necesitamos* conocer el mecanismo para concluir que X causa Y, hay varias razones por las que *queremos* conocerlo
 
 En el ejemplo anterior sobre clima y conflicto, podemos confiar plenamente en la capacidad de los investigadores para identificar de forma causal que las perturbaciones climáticas provocan conflictos, y sin embargo no tenemos evidencia de cuáles mecanismo(s) está(n) operando. Pero a los científicos sociales les interesa conocer dichos mecanismos porque están estrechamente relacionados con las teorías de las ciencias sociales. Por ejemplo, el mecanismo de la "pobreza" mencionado anteriormente está estrechamente relacionado con la teoría de Gurr[^2] de que los individuos se rebelan cuando sus costos de oportunidad del conflicto son bajos, mientras que el mecanismo de la "migración" podría apoyar una teoría del conflicto basada en los descontentos entre grupos sociales. No es de extrañar que al enterarse de que X causa Y, los científicos sociales se pregunten inmediatamente cuál es el mecanismo: ¡quieren relacionar este hallazgo con la teoría!
 
@@ -64,7 +64,7 @@ Chong et al. se enfrentan a un obstáculo común a la hora de interpretar sus re
 
 Algunos investigadores intentan resolver este problema al estimar el efecto *promedio* del tratamiento sobre el mecanismo, para luego estimar el efecto *promedio* del mecanismo sobre la variable de resultado. Una de las razones por las que esto es problemático es que podemos imaginar varios factores distintos al tratamiento que podrían estar causando tanto M como Y. Supongamos que el nivel de apatía -llamémoslo Q- varía entre los ciudadanos de nuestro estudio, y que Q tiene un efecto muy fuerte tanto en M como en Y. Los individuos muy apáticos podrían ser más propensos a creer que los problemas no tienen solución, y también podrían ser más propensos a quedarse en casa el día de las elecciones. Por lo tanto, es probable que observemos una fuerte correlación entre M y Y, impulsada por el factor de confusión de Q, no por nuestro tratamiento X. Mecánicamente, nuestros resultados estarán sesgados a favor de encontrar pruebas del efecto de X sobre Y a través de M, simplemente porque Q ha producido una relación entre M y Y.
 
-# …y porque los efectos del tratamiento rara vez son homogéneos.
+# …y porque los efectos del tratamiento rara vez son homogéneos
 
 Otro problema al intentar descomponer los efectos promedios de X en M y luego de M en Y es que este enfoque supone que cada sujeto responde al tratamiento de manera idéntica. Si recordamos nuestro ejemplo en el que X es el tratamiento de información, M es la convicción de que la corrupción es demasiado grave, y Y es quedarse en casa, podemos imaginar dos tipos diferentes de encuestados. El Tipo A pensaba que la corrupción era demasiado grave como para poder solucionarla, hasta que recibió una tarjeta postal con información sobre la corrupción en su distrito. Se sorprendió al ver que el problema no era tan grave como imaginaba. Formalmente, para el Tipo A, $M(X=0)=1$ y $M(X=1)=0$, por lo que X tiene un efecto *negativo* sobre M. El Tipo B pensaba que la corrupción era un problema manejable, hasta que recibió una información por correo sobre la corrupción en su distrito. Se sorprendió tanto de la magnitud del problema, que perdió la esperanza de resolverlo. Formalmente, para el Tipo B, $M(X=0)=0$ y $M(X=1)=1$, por lo que X tiene un efecto *positivo* sobre M. Si promediáramos los efectos de estos dos tipos, no veríamos ninguna relación entre X y M.
 
@@ -79,13 +79,13 @@ Estimar el rol de M puede complicarse aún más cuando la relación entre M y Y 
 
 Podemos imaginar muchos más "tipos" distintos aparte de A y B - el punto aquí es demostrar de manera intuitiva que debido a que M no se asigna al azar (y porque es poco probable que los efectos de X en M *y* M en Y sean idénticos para todos), será muy difícil caracterizar con precisión cuánto de nuestro efecto está mediado a través de M.
 
-# Muchos estudios intentan descomponer el efecto total del tratamiento en sus efectos "directos" e "indirectos".
+# Muchos estudios intentan descomponer el efecto total del tratamiento en sus efectos "directos" e "indirectos"
 
 Dado que aprender sobre mecanismos es tan prometedor desde el punto de vista teórico, a los investigadores les encantaría cuantificar qué parte del efecto de X sobre Y opera a través de M. A veces los investigadores intentan hacer esto mediante una técnica llamada "descomposición de efectos".
 
 Un análisis de descomposición de efectos trata de descomponer un efecto *total* de X sobre Y en el efecto que X tiene sobre Y *directamente*, y el efecto de X sobre Y que se produce *indirectamente* a través de M. El "efecto total" se refiere al Efecto Promedio del Tratamiento (ATE, por sus siglas en inglés), que es simplemente el efecto promedio que X tiene sobre Y. Cualquier experimento que asigne de manera aleatoria un tratamiento para observar sus efectos sobre alguna variable de resultado, está estimando el ATE. A continuación el investigador trata de cuantificar el tamaño del efecto que X tiene sobre Y a través del mecanismo M. Esto se conoce como el "efecto indirecto" -porque X está afectando a Y indirectamente a través de M- o también se conoce como el Efecto  Causal Mediado Promedio (ACME, por sus siglas en inglés). Por último, el investigador tratará de estimar el efecto de X sobre Y que no pasa por M. Esto se conoce como el "efecto directo" de X sobre Y o como el Efecto Directo Controlado Promedio (ACDE, por sus siglas en inglés), porque es el efecto de X sobre Y cuando controlamos el trabajo que está haciendo M.
 
-# Pero tenga cuidado al utilizar el análisis de regresión para descomponer efectos.
+# Pero tenga cuidado al utilizar el análisis de regresión para descomponer efectos
 
 Aunque es utilizado comúnmente, el uso del análisis de regresión de mediación asume algunas suposiciones fuertes y poco realistas. Utilizaremos un código para exponer lo que implica este método y demostrar las condiciones en las que puede producir estimaciones sesgadas. 
 
@@ -223,7 +223,7 @@ Aunque no fue verificado en esta simulación, también es posible mostrar que la
 
 Si la respuesta a cualquiera de estas preguntas es afirmativa, le recomendamos que proceda con precaución. Piense cuidadosamente en cómo las variables no observadas y los efectos heterogéneos del tratamiento afectarían a su estrategia de estimación.
 
-# A veces, el análisis de subgrupos puede proporcionar pruebas a favor o en contra de un mecanismo.
+# A veces, el análisis de subgrupos puede proporcionar pruebas a favor o en contra de un mecanismo
 
 
 En los puntos 3 a 6, hemos advertido a los investigadores de que no intenten cuantificar con certeza la proporción de un efecto que está mediado por un mecanismo particular, pero puede haber otras formas de aprender más sobre los mecanismos en funcionamiento de un estudio concreto. En el punto 1 subrayamos la estrecha relación entre los mecanismos y la teoría. El hecho de que sea un reto cuantificar directamente las evidencias de un mecanismo, no significa que no podamos explorar las predicciones comprobables de la teoría en la que aparece nuestro mecanismo.
@@ -239,14 +239,14 @@ Sin embargo se descubrió que la relación entre las lluvias y la incidencia de 
 
 **Lo que puede hacer...** En futuros proyectos, pregúntese: Si el mecanismo es M, ¿qué grupos o unidades esperaría que mostraran un efecto del tratamiento y qué grupos o unidades esperaría que no respondieran al tratamiento? A continuación, compruebe si estas predicciones están respaldadas por sus datos e interprételos como pruebas sugerentes a favor o en contra del mecanismo M propuesto. Tenga en cuenta que estas pruebas no son decisivas porque los grupos podrían diferir en otros aspectos que afectarían a la capacidad de respuesta al tratamiento.
 
-# También podemos buscar pruebas sugerentes al observar los efectos de nuestro tratamiento en ciertas variables de resultado.
+# También podemos buscar pruebas sugerentes al observar los efectos de nuestro tratamiento en ciertas variables de resultado
 
-Aunque es difícil cuantificar pruebas de un mecanismo que esté operando, siempre podemos explorar las implicaciones comprobables de la teoría en la que figura nuestro mecanismo. En el punto 7, hicimos esto al revisar si el tratamiento afectaba a subgrupos concretos para los que nuestra teoría implicaba un efecto del tratamiento. Otro enfoque puede ser el explorar si el tratamiento afecta sólo a las variables de resultado insinuadas por nuestra teoría.
+Aunque es difícil cuantificar pruebas de un mecanismo, siempre podemos explorar las implicaciones comprobables de la teoría en la que figura nuestro mecanismo. En el punto 7, hicimos esto al revisar si el tratamiento afectaba a subgrupos concretos para los que nuestra teoría implicaba un efecto del tratamiento. Otro enfoque puede ser el explorar si el tratamiento afecta sólo a las variables de resultado insinuadas por nuestra teoría.
 
 Por ejemplo, muchos científicos sociales están interesados en cómo la educación de masas influye en la democracia. Varias teorías de democratización esperan que diferentes mecanismos conectasen educación y democracia. En primer lugar, según la teoría de la modernización, la educación podría facilitar el buen funcionamiento de la democracia al socavar los vínculos de grupo (como la etnia o la religión) en favor del mérito[^8] En segundo lugar, según los teóricos sociales que estudian opresión, la educación podría debilitar a la democracia al reforzar la obediencia a la autoridad, algo que es inherente a la estructura de los centros educativos. [^9] En tercer lugar, según muchos politólogos y psicólogos, la educación puede fomentar la participación democrática al empoderar a los individuos con la capacidad de adquirir conocimiento y actuar en consecuencia[^10] Friedman et al. (2011)[^11] deciden trabajar estos mecanismos investigando los resultados de un experimento de campo en el que se asignó al azar a niñas kenianas para que recibieran un subsidio educativo. Hicieron un seguimiento de las estudiantes cinco años después del programa y les plantearon varias preguntas para comprobar cuál de estos tres mecanismos estaba en funcionamiento: ¿Aceptaban las niñas el derecho del marido a pegar a su mujer? ¿Participaron sus padres en la elección de cónyuge? ¿En qué medida se identificaba la niña con su grupo religioso o étnico? ¿Leía la niña las noticias de manera regular?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
-[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999. 
+[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999.
 [^10]: Gabriel Almond and Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes and Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
 [^11]: Willa Friedman, Michael Kremer, Edward Miguel, and Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
 
@@ -265,7 +265,7 @@ Este estudio, al igual que el de Sarsons, no trata de cuantificar qué parte del
 
 **Lo que puedes hacer... Para futuros proyectos hágase esta pregunta: Si el mecanismo es M, ¿cuáles variables de resultado esperaría que se vieran afectadas por mi tratamiento, y cuales esperaría que no se vieran afectados por mi tratamiento? Luego compruebe si estas predicciones se ven respaldadas por sus datos e interprételos como evidencias sugestivas a favor o en contra de su mecanismo M propuesto.
 
-# El diseño de tratamientos complejos puede ayudarnos a comprender mejor qué parte del tratamiento está "haciendo el trabajo".
+# El diseño de tratamientos complejos puede ayudarnos a comprender mejor qué parte del tratamiento está "haciendo el trabajo"
 
 A veces, los investigadores experimentales intentan comprender mejor los mecanismos al sumar o restar elementos del tratamiento que se cree que desencadenan diferentes mecanismos. Este enfoque se denomina "análisis de mediación implícita" porque se cree que los diferentes componentes X manipulan *implícitamente* ciertos mecanismos. Esto, por supuesto, es una suposición: como no estamos midiendo M directamente, nos basamos en una afirmación teórica de que el componente A desencadenará M, mientras que el componente B no lo hará.
 
@@ -277,7 +277,7 @@ Estudios como éste no sólo ayudan a los científicos sociales a aprender más 
 
 **Lo que puede hacer...** Para futuros proyectos hágase esta pregunta: ¿Puede mi tratamiento ser "descompuesto" en múltiples brazos de tratamiento, algunos que implícitamente manipulan M, y otros que no? Considere la posibilidad de utilizar un diseño factorial para identificar los efectos de los diferentes brazos de tratamiento. Si tiene suficiente poder, la comparación de los distintos brazos de tratamiento le proporcionará pruebas sugestivas a favor o en contra de M.
 
-# A pesar de las dificultades para medir empíricamente los mecanismos, vale la pena prestarles mucha atención, pero también siendo cautos en nuestro lenguaje.
+# A pesar de las dificultades para medir empíricamente los mecanismos, vale la pena prestarles mucha atención, pero también siendo cautos en nuestro lenguaje
 
 El intentar identificar los mecanismos causales es un esfuerzo noble. Articular los mecanismos causales es lo que nos permite extraer los tratamientos de "caja negra" y comprender por qué y cómo funcionan determinados tratamientos. Aunque se pueden hacer (y a menudo se hacen) afirmaciones causales sin pruebas de un mecanismo causal, explorar los mecanismos causales es lo que nos permite ampliar la frontera de la investigación y reevaluar cómo nuestras evidencias se corresponden con nuestras teorías. Por estas razones, el público (ya sea el público en general o los revisores académicos) suele estar comprensiblemente ansioso de que usted exponga los mecanismos causales después de demostrar las pruebas de una provocativa afirmación causal. Para anticiparse a esto, vale la pena considerar si es posible diseñar una forma de probar los mecanismos causales antes de realizar un experimento. Si no es así, considere si ciertas medidas de variable de resultado o interacciones entre tratamientos y covariables podrían proporcionar algún apoyo a un mecanismo causal concreto, y sea explícito sobre las limitaciones de este tipo de análisis en su redacción. Los mecanismos son un campo de investigación apasionante y deben tenerse en cuenta tanto en el diseño como en el análisis de un experimento, pero debemos asegurarnos de hablar de los mecanismos con la precaución adecuada a nuestra capacidad para identificar un mecanismo concreto y evitar exagerar con los argumentos.
 
