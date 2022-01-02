@@ -1,12 +1,8 @@
 ---
 output:
-  word_document: 
-    toc: yes
   html_document:
     toc: yes
     theme: journal
-  pdf_document:
-    toc: yes
 ---
 
 <!-- title: "10 Types of Treatment Effect You Should Know About" -->
