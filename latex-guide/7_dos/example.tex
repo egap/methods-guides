@@ -1,0 +1,93 @@
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage[capitalise]{cleveref}
+\usepackage{lipsum}
+
+\begin{document}
+
+As an example consider the two equations
+%
+\begin{align}
+  \langle u, v \rangle & = \langle f, v\rangle\\
+                       & = G(v)
+\end{align}
+%
+versus the following
+%
+\begin{align}
+\langle u, v \rangle & =
+\langle f, v\rangle\\
+& = G(v).
+\end{align}
+
+In addition compare the tabular environments~\cref{tab:exptry1,tab:exptry2}.
+%
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{|l||c|c|c|c|}
+    \hline
+& $n$ &$t$& $\rho$ & $m$\\
+    \hline
+    \hline
+experiment 1 & 19929  & 0.32 & 0.8 & 55\\
+    \hline
+    experiment 2 &  7729292      & 0.78       & 0.7 & 85\\
+    \hline
+  exp 3         & 888173928 & 1.25 & 0.65 & 2\\
+    \hline
+  \end{tabular}
+  \caption{3 experiments}\label{tab:exptry1}
+\end{table}
+%
+\begin{table}[!ht]
+  \centering
+  \begin{tabular}{lrllr}
+  \toprule
+                 & \multicolumn{1}{c}{$n$}
+                 & \multicolumn{1}{c}{$t$}
+                 & \multicolumn{1}{c}{$\rho$}
+                 & \multicolumn{1}{c}{$m$} \\
+  \midrule
+    experiment 1 & \num{    19929} & 0.32 & 0.8    & 55  \\
+    experiment 2 & \num{  7729292} & 0.78 & 0.7    & 85  \\
+    experiment 3 & \num{888173928} & 1.25 & 0.65   & 2   \\
+  \bottomrule
+  \end{tabular}
+  \caption{3 experiments}\label{tab:exptry2}
+\end{table}
+
+\lipsum[1-1]
+%
+\begin{equation}
+  A x = b
+\end{equation}
+%
+\lipsum[2-2]
+%
+\begin{align}
+  A x = b
+\end{align}
+%
+\lipsum[3-3]
+
+Consider the PDE with boundary conditions
+% TODO should we add extra alignment?
+\begin{subequations}
+  \begin{align}
+    -\nabla \cdot \nabla u & = f \quad \text{in $\Omega$}\\
+                         u & = g \quad \text{on $\partial\Omega$}.
+  \end{align}
+\end{subequations}
+Then again we also have the following in 2D\@:
+\begin{equation}
+\begin{split}
+  \mathcal{L} u & = -\Delta u\\
+                & = -\nabla \cdot \nabla u\\
+                & = -u_{xx} -u_{yy}
+\end{split}
+\end{equation}
+\end{document}

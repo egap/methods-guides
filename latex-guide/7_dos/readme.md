@@ -1,0 +1,5 @@
+- Which `align` environment is more readable?
+- Which `tabular` environment is more readable?
+- Try changing `!ht`
+- What do you notice about an `equation` environment versus an `align` environment?
+- Compare the equation tags on the last `align` and `split` environments.  What do you notice?
