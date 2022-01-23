@@ -10,7 +10,7 @@ output:
 
 Resumen
 ==
-Esta guía le ayudará a diseñar y ejecutar diferentes tipos de asignación aleatoria en sus experimentos. Aquí nos centramos en  ideas generales y proporcionamos ejemplos y herramientas que puede utilizar en R. Para saber saber más sobre por qué aleatorizar, consulte [esta guía de métodos](http://egap.org/resource/10-strategies-for-figuring-out- si-x-causó-y).
+Esta guía le ayudará a diseñar y ejecutar diferentes tipos de asignación aleatoria en sus experimentos. Aquí nos centramos en  ideas generales y proporcionamos ejemplos y herramientas que puede utilizar en R. Para saber saber más sobre por qué aleatorizar, consulte [esta guía de métodos](http://egap.org/resource/10-estrategias-para-determinar-si-x-causo-y).
 
 1 Unas formas son mejores que otras
 ==

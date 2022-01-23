@@ -61,11 +61,11 @@ library(here)
 
 # Las pruebas de hipótesis resumen la información de los diseños de investigación para pensar en términos de los efectos del tratamiento
 
-Cuando los investigadores reportan que "el efecto promedio estimado del tratamiento es de 5 ($p = .02$), están usando una abreviatura para decir "estimado lector, en caso de que nos pregunte si podemos distinguir la señal del ruido en este
-experimento usando promedios, la respuesta es: sí podemos". Los resultados experimentales  **no son consistentes** con la idea de que el tratamiento no tiene ningún efecto". Se realizan pruebas de hipótesis tanto en estudios observacionales como en estudios de experimentos aleatorizados. Esta guía se centra en el uso de pruebas de hipótesis para experimentos aleatorios o diseños de investigación que utilizan los datos de tal manera que parezcan "casi aleatorios" (como diseños de regresión discontinua, otros diseños naturales o diseños cuasiexperimentales).
+Cuando los investigadores reportan que "el efecto promedio estimado del tratamiento es de 5 ($p = .02$), están usando una abreviatura para decir: estimado lector, en caso de que nos pregunte si podemos distinguir la señal del ruido en este
+experimento usando promedios, la respuesta es: sí podemos". Los resultados experimentales  **no son consistentes** con la idea de que el tratamiento no tiene ningún efecto". Se realizan pruebas de hipótesis tanto en estudios observacionales como en estudios de experimentos aleatorizados. Esta guía se centra en el uso de pruebas de hipótesis para experimentos aleatorios o diseños de investigación que utilizan los datos de tal manera que parezcan "casi aleatorios" (como diseños de regresión discontinua, otros experimentos naturales o cuasi-experimentales).
 
 El valor $p$ resume la capacidad de una prueba dada para
-distinguir la señal del ruido. Como vimos en [10 cosas que debes saber sobre el  poder estadístico](https://egap.org/resource/10-things-to-know-about-statistical-power), que un experimento pueda detectar un efecto de tratamiento no depende
+distinguir la señal del ruido. Como vimos en [10 cosas que debes saber sobre el  poder estadístico](https://egap.org/resource/10-cosas-que-usted-debe-saber-sobre-el-poder-estadistico), que un experimento pueda detectar un efecto de tratamiento no depende
 sólo  del tamaño del grupo experimental, sino también de la distribución de la variable de resultado^[Los resultados con valores atípicos grandes añaden ruido, los resultados que son en su mayoría 0 tienen
 poca señal. Los bloques, pre-estratificación o ajuste de covarianza pueden
 reducir el ruido.], la distribución del tratamiento y la efectividad
@@ -73,7 +73,7 @@ de la propia intervención. Cuando un investigador calcula un valor de $p$ como
 resultado de una prueba de hipótesis, está resumiendo todos estos aspectos de un
 diseño de investigación en lo que respecta a una afirmación en particular, por lo general una afirmación de que el tratamiento no tuvo ningún efecto causal.
 
-El resto de esta guía explica las piezas de una prueba de hipótesis parte por parte: La hipótesis nula (la afirmación de que el tratamiento no tuvo efecto causal), la estadística de prueba que resume los datos observados (por ejemplo, una diferencia de medias), la creación de una distribución de probabilidad que permite el cálculo de un valor $p$. También analiza la idea de rechazar (pero no aceptar) una hipótesis y busca responder la pregunta de qué constituye una buena prueba de hipótesis (pista: una prueba de hipótesis ideal debería arrojar dudas sobre la verdad rara vez y distinguir incluso las señales débiles del ruido). Consulte también [10 cosas que debe saber sobre la inferencia de aleatorización](https://egap.org/resource/10-things-to-know-about-randomization-inference) para obtener más información sobre estos conceptos.
+El resto de esta guía explica las piezas de una prueba de hipótesis por partes: La hipótesis nula (la afirmación de que el tratamiento no tuvo efecto causal), la estadística de prueba que resume los datos observados (por ejemplo, una diferencia de medias), la creación de una distribución de probabilidad que permite el cálculo de un valor $p$. También analiza la idea de rechazar (pero no aceptar) una hipótesis y busca responder la pregunta de qué constituye una buena prueba de hipótesis (pista: una prueba de hipótesis ideal debería arrojar dudas sobre la verdad rara vez y distinguir incluso las señales débiles del ruido). Consulte también [10 cosas que debe saber sobre la inferencia basada en la aleatorización](https://egap.org/resource/10-cosas-que-debe saber-sobre-la-inferencia-basada-en-la-aleatorizacion) para obtener más información sobre estos conceptos.
 
 
 
@@ -86,25 +86,24 @@ Hacemos experimentos para hacer comparaciones causales interpretables
 
 ## Una descripción general rápida del problema fundamental de la inferencia causal y una introducción a la notación
 
-En [diez cosas que hay que saber sobre la inferencia causal](https://egap.org/resource/10-things-to-know-about-causal-inference) vimos que la conceptualización contrafactual de la causalidad utiliza la idea de resultados potenciales  para **definir** la causa y formalizar lo que **queremos decir** cuando decimos "X causa Y" o "fumar causa cáncer" o "la información aumenta el pago de impuestos". Aunque hay otras formas de pensar  la causalidad
+En [10 cosas que debe saber sobre la inferencia causal](https://egap.org/resource/10-cosas-que-debe-saber-sobre-la-inferencia-causal) vimos que la conceptualización contrafactual de la causalidad utiliza la idea de resultados potenciales  para **definir** la causa y formalizar lo que **queremos decir** cuando decimos "X causa Y" o "fumar causa cáncer" o "la información aumenta el pago de impuestos". Aunque hay otras formas de pensar  la causalidad
 (@brady2008causation), la idea contrafactual sugiere que imaginamos que
 cada persona, $i$, pagaría sus impuestos, $y_{i}$, si se le diera
 información sobre el uso que se les da a esos impuestos. Escribimos $Z_i = 1$ para decir que estamos dando esta información a la persona $i$ y $Z_i = 0$ si no le estamos dando la información. Utilizamos $y_{i, Z_i = 1}$ para indicar la cantidad de impuestos pagados por alguien que recibió la  información y $y_{i, Z_i = 0}$ para referirnos a la cantidad de impuestos pagada por alguien a quien no se le brindó ninguna información en particular. En un experimento real, podríamos [aleatorizar la provisión de información a los ciudadanos](http://egap.org/metaketa/metaketa-ii-taxation) para que algunas personas obtengan la información y otras
 no. Observamos los impuestos que pagan las personas en ambas condiciones pero, para una persona en particular solo podemos observar los impuestos que paga en una de las dos
 condiciones. ¿Qué **queremos decir** por "efecto causal"? A menudo significa que el resultado en una condición ($y_ {i, Z_i = 1}$, o simplemente $y_ {i, 1}$) y el resultado en la otra condición ($y_ {i, Z_i = 0}$ o $y_ {i, 0}$) *difieren* para una persona determinada, lo cual expresaríamos como $y_{i, Z_i = 1} \ne y_{i, Z_i = 0}$.
 
-No podemos observar $y_{i, 1}$ y $y_{i, 0}$ al mismo tiempo para cada una de las personas. Si brindamos información sobre impuestos a una persona vamos a poder observar $y_{i, 1}$, pero no $y_{i, 0}$. Entonces, no podemos usar la observación directa para aprender sobre este efecto causal contrafactual y solo podemos **inferirlo** 
-@holland1986statistics llama a esta incapacidad de usar la observación directa para
+No podemos observar $y_{i, 1}$ y $y_{i, 0}$ al mismo tiempo para cada una de las personas. Si brindamos información sobre impuestos a una persona vamos a poder observar $y_{i, 1}$, pero no $y_{i, 0}$. Entonces, no podemos usar la observación directa para aprender sobre este efecto causal contrafactual y solo podemos **inferirlo.** @holland1986statistics llama a esta incapacidad de usar la observación directa para
 aprender acerca de la causalidad contrafactual el "problema fundamental de la  inferencia causal".
 
 
 ## Una descripción general de los enfoques basados en estimaciones para la inferencia causal en experimentos aleatorios.
 
-Hay tres formas principales en las que la estadística ha abordado este problema. Es decir, cuando se nos pregunta: "¿mejora la información el pago de impuestos?", tendemos a decir: "No podemos responder directamente a esa pregunta. Sin embargo, podemos responder una pregunta relacionada". En [Diez tipos de efectos del tratamiento que debe conocer](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) presentamos una perspectiva que acreditamos a Jerzy Neyman en la que un investigador puede **estimar los efectos causales promedio** en un experimento incluso si los efectos causales individuales no son observables. El trabajo de Judea Pearl  sobre la estimación de la probabilidad condicional de una variable de resultado basado en un modelo causal de esa variable es similar a esta idea pero centrándose en las probabilidades condicionales de los $y_ {i}$.  Es decir, esos dos enfoques responden a la pregunta causal fundamental cambiando la forma de acercase de la pregunta a través de los promedios o de las probabilidades condicionales. Un enfoque relacionado es el de Don Rubin, el cual comienza **prediciendo** los resultados potenciales a nivel individual utilizando información de antecedentes y un modelo de probabilidad de $Z_i$ (por ejemplo, $Z \sim \text{Bernoulli} (\pi)$) y un modelo de probabilidad de los dos resultados potenciales, por ejemplo,
+Hay tres formas principales en las que la estadística ha abordado este problema. Es decir, cuando se nos pregunta: "¿mejora la información el pago de impuestos?", tendemos a decir: "No podemos responder directamente a esa pregunta. Sin embargo, podemos responder una pregunta relacionada". En [10 tipos de efectos del tratamiento que debe conocer](https://egap.org/resource/10-tipos-de-efectos-del tratamiento-que-debe-conocer) presentamos una perspectiva que acreditamos a Jerzy Neyman en la que un investigador puede **estimar los efectos causales promedio** en un experimento incluso si los efectos causales individuales no son observables. El trabajo de Judea Pearl  sobre la estimación de la probabilidad condicional de una variable de resultado basado en un modelo causal de esa variable es similar a esta idea pero centrándose en las probabilidades condicionales de los $y_ {i}$.  Es decir, esos dos enfoques responden a la pregunta causal fundamental cambiando la forma de acercase de la pregunta a través de los promedios o de las probabilidades condicionales. Un enfoque relacionado es el de Don Rubin, el cual comienza **prediciendo** los resultados potenciales a nivel individual utilizando información de antecedentes y un modelo de probabilidad de $Z_i$ (por ejemplo, $Z \sim \text{Bernoulli} (\pi)$) y un modelo de probabilidad de los dos resultados potenciales, por ejemplo,
 $(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ con un vector de coeficientes $\bbeta$, una matriz de covariables $\bX$ de tamaño $n \times p$ (que contiene tanto la asignación de tratamiento como otras variables y una matriz de varianza-covarianza, $\Sigma$,  de tamaño $p \times p$  que describe cómo todas las columnas en $\bX$ se relacionan entre sí).
 
 El segundo enfoque comienza con modelos de probabilidad que relacionan el tratamiento, otras covariables y la variable de resultado entre sí, y
-los combina usando la regla de Bayes para producir distribuciones posteriores de cantidades como los efectos del tratamiento a nivel individual o el efecto promedio del tratamiento (ver [@imbens2007causal] para más información sobre lo que ellos llaman el enfoque bayesiano predictivo de la inferencia causal. El enfoque predictivo cambia la pregunta fundamental de una sobre promedios a otra que se centra en las diferencias en las predicciones de los resultados potenciales  para cada persona (aunque la mayoría de estas diferencias de predicciones individuales  se resumen utilizando características de las distribuciones posteriores implícitas en los modelos de probabilidad y los datos como el promedio de las predicciones).
+los combina usando la regla de Bayes para producir distribuciones posteriores de cantidades como los efectos del tratamiento a nivel individual o el efecto promedio del tratamiento (ver [@imbens2007causal] para más información sobre lo que ellos llaman el enfoque bayesiano predictivo de la inferencia causal.) El enfoque predictivo cambia la pregunta fundamental de una sobre promedios a otra que se centra en las diferencias en las predicciones de los resultados potenciales  para cada persona (aunque la mayoría de estas diferencias de predicciones individuales  se resumen utilizando características de las distribuciones posteriores implícitas en los modelos de probabilidad y los datos como el promedio de las predicciones).
 
 ## Las pruebas de hipótesis son un enfoque estadístico para abordar el problema fundamental de la inferencia causal utilizando afirmaciones sobre lo no observado.
 
@@ -117,11 +116,11 @@ o $y_{i, 1} = y_{i, 0} + \tau_i$ donde $\tau_i = 0$ para todo $i$. Sin embargo, 
 
 # La hipótesis nula de no efectos es una afirmación precisa sobre los resultados potenciales
 
-Incluso si no podemos observar directamente los efectos causales contractuales, nos podemos hacer preguntas sobre ellos o hacer modelos teóricos
+Incluso si no podemos observar directamente los efectos causales contrafactuales, nos podemos hacer preguntas sobre ellos o hacer modelos teóricos
 que relacionan alguna intervención o tratamiento, las características de contexto y
-los resultados potenciales. El modelo más simple de este tipo establece que la variable de resultado bajo el tratamiento sería la mismo que la variable de resultado  para todas las unidades si están en el grupo de control; es decir, diría que independientemente de las características de contexto o de la información proporcionada en la condición  experimental, cada persona pagaría el mismo monto en impuestos: $y_ {i, 1} = y_ {i, 0}$ para todas las unidades $i$. Para enfatizar lo tentativo y teórico de este modelo, comumente conocido **hipótesis**, a menudo nos referimos a él como "la hipótesis nula tajante", y lo expresamos como: $H_0: y_{i, 1} -y{i, 0} = \tau_i$ donde $\tau_i = 0$ para todo $i$.
+los resultados potenciales. El modelo más simple de este tipo establece que la variable de resultado bajo el tratamiento sería la mismo que la variable de resultado  para todas las unidades si están en el grupo de control; es decir, diría que independientemente de las características de contexto o de la información proporcionada en la condición  experimental, cada persona pagaría el mismo monto en impuestos: $y_ {i, 1} = y_ {i, 0}$ para todas las unidades $i$. Para enfatizar lo tentativo y teórico de este modelo, comúnmente conocido como **hipótesis**, a menudo nos referimos a él como "la hipótesis nula tajante", y lo expresamos como: $H_0: y_{i, 1} -y{i, 0} = \tau_i$ donde $\tau_i = 0$ para todo $i$.
 
-**Nota:** Tenga en cuenta que pensar en hipótesis precisas nos hace darnos cuenta de
+**Nota:** Tenga en cuenta que pensar en hipótesis precisas nos hace notar
 que podríamos hacer **otros modelos relacionados con $y_{i, 1}$ y $y_{i, 0}$** en los que los resultados potenciales se relacionan de maneras que no son aditivas o lineales, y donde el efecto no necesita ser cero o incluso el mismo para todas las unidades: por ejemplo, podríamos suponer que $\tau_i = \{5,0, -2 \}$ 5 para la unidad 1, 0 para la unidad 2 y -2 para la unidad 3 en un experimento de 3 unidades. Dése cuenta también que expresar variables de resultado de esta manera, con el resultado potencial para la unidad $i$ *sólo refiriéndose a $i$* y no a otras unidades ($y_ {i, Z_i}$), *es parte del modelo*. Es decir, el modelo particular de $H_0: y_{i, 1} = y_{i, 0}$ implica que el tratamiento no ha  tenido ningún efecto en nadie y ningún efecto incluye ningún efecto indirecto. Podemos ser un poco más específicos escribiendo los resultados potenciales de la siguiente manera: resultado potencial de la unidad $i$ cuando se asigna al tratamiento, y cuando todos de las otras unidades se asignan a cualquier otro conjunto de tratamientos $\bZ_ {~ i} = \{Z_j, Z_k, \ldots \}$ se puede escribir como $y_{i,Z_i=1,\bZ_{~i}}$. Vea @bowers2013reasoning y @bowers2018models para más información sobre la idea de que una hipótesis es un modelo teórico que se puede probar con datos provenientes de contextos en los que la hipótesis sobre la propagación de los efectos del tratamiento en una red.
 
 
@@ -144,11 +143,11 @@ La ecuación arriba dice que nuestro resultado observado, $Y_i$ (en este caso, l
 
 **¿Cuánta información contiene nuestro diseño de investigación y conjunto de datos sobre la hipótesis?** Imagine, por ahora, la hipótesis de que el tratamiento incrementa en 5 unidades el pago de impuesto para cada persona de manera que $H_0: y_{i, 1} = y_{i, 0} + \tau_i$ donde $\tau_i = 5$ para todo $i$.
 
-Considerando este modelo, ¿qué implicaría esta hipótesis en lo que observamos? La ecuación arriba  conecta lo observado con lo no observado entonces, este modelo o hipótesis implicaría que:
+Considerando este modelo, ¿qué implicaría esta hipótesis en lo que observamos? La ecuación arriba  conecta lo observado con lo no observado, entonces este modelo o hipótesis implicaría que:
 
 $$\begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 & = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
-& = Z_i \tau_i  + y_{i,0}
+& = Z_i \tau_i  + y_{i,0}.
 \end{aligned}$$
 
 Lo que observamos, $Y_i$, sería $y_{i,0}$ si $i$ está en el grupo de control,
@@ -158,7 +157,7 @@ Esta hipótesis también implica que $y_{i,0} = Y_i - Z_i \tau_i$ o $y_{i,0} = Y
 
 
 **La hipótesis nula tajante de que no hay ningún efecto** especifica que $\tau_i = 0$ para todo $i$. Y esto a su vez implica que $y_{i, 0} = Y_i - Z_i \tau_i = Y_i$. Es decir, implica que lo que observamos, $Y_i$, es lo que observaríamos si cada
-unidad fuera asignados a la condición de control. Y la implicación, entonces, es que no deberíamos ver diferencias entre los grupos de tratamiento y  control en los
+unidad fuera asignada a la condición de control. Y la implicación, entonces, es que no deberíamos ver diferencias entre los grupos de tratamiento y  control en los
 los resultados observables.
 
 **La hipótesis nula débil de ningún efecto** especifica que
@@ -224,8 +223,8 @@ La prueba de hipótesis nula débil de que no hay ningún efecto utiliza la dife
 Una vez tenemos una afirmación sobre los posibles resultados del experimento (es decir, una hipótesis) y  una forma de resumir los datos observados en relación con la hipótesis (es decir, una prueba estadística que debería aumentar a medida que los resultados difieran de la hipótesis tal como se explicó anteriormente),  queremos ir más allá de la descripción de los datos observados para saber cuánta variación esperaríamos ver en la estadística de prueba dado el diseño de la investigación y teniendo en cuenta la hipótesis (volviendo al tema de la señal y ruido).
 
 Qué tanta evidencia tenemos sobre una hipótesis dependerá del diseño del estudio. Por ejemplo, un  experimento grande debería tener más información sobre
-una hipótesis que uno pequeño. Entonces, ¿qué queremos decir con evidencia en contra la hipótesis? ¿Cómo formalizaríamos o resumiríamos esta evidencia para que
-los experimentos grandes tiendan a revelar más y los pequeños tienden a revelar menos información?
+una hipótesis que uno pequeño. Entonces, ¿qué queremos decir con evidencia en contra de la hipótesis? ¿Cómo formalizaríamos o resumiríamos esta evidencia para que
+los experimentos grandes tiendan a revelar más y los pequeños tiendan a revelar menos información?
 
 Una respuesta a esta pregunta es hacer el experimento mental de repetir
 el estudio. Imagínese, en virtud de nuestro argumento, que la hipótesis era correcta. Si repetimos el estudio y calculamos la estadística de prueba, recibiríamos un número, este número reflejaría el resultado del experimento *bajo la hipótesis*. Ahora, imagine repetir este experimento hipotético muchas veces,
@@ -265,7 +264,7 @@ set.seed(123457)
 possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(ys=Y,z=repeatExperiment(Z=Z)))
 ```
 
-Y estos gráficos muestran las distribuciones de las dos estadísticas de prueba diferentes que emergerían del mundo en el que la hipótesis nula es cierta (las curvas y lineas cortas en la parte inferior de las parcelas). Las gráficas también muestran los valores observados para las estadísticas de prueba que podemos usar para comparar lo que observamos (las líneas gruesas y largas) con lo que hipotetizamos (las distribuciones).
+Y estos gráficos muestran las distribuciones de las dos estadísticas de prueba diferentes que emergerían del mundo en el que la hipótesis nula es cierta (las curvas y lineas cortas en la parte inferior de las gráficas). Las gráficas también muestran los valores observados para las estadísticas de prueba que podemos usar para comparar lo que observamos (las líneas gruesas y largas) con lo que hipotetizamos (las distribuciones).
 
 
 
@@ -308,7 +307,7 @@ Para formalizar la comparación entre lo observado y lo hipotético, podemos cal
 
 ### Valores $p$ de una cola
 
-Los valores $p$ de una cola son `r pMeanTZ` para la diferencia media simple y `r signif (pMeanRankTZ, 2)` para la diferencia media de los resultados transformados por rango. Cada estadística de prueba arroja una cantidad diferente de duda, o cuantifica una cantidad diferente inesperada sobre la misma hipótesis nula de que no hay ningún efecto. El resultado en sí es tan ruidoso que la diferencia media de los resultados transformados por rango hace un mejor trabajo al captar la señal que la simple diferencia media. Estos datos se generaron incluyendo efectos del tratamiento, por lo que la hipótesis nula de ningún efecto es falsa, pero la información sobre los efectos es ruidosa: el tamaño de la muestra es pequeño y la distribución de la variable de  resultado tiene algunos puntos y tratamientos atípicos y los efectos en sí varían mucho.
+Los valores $p$ de una cola son `r pMeanTZ` para la diferencia media simple y `r signif (pMeanRankTZ, 2)` para la diferencia media de los resultados transformados por rango. Cada estadística de prueba arroja una cantidad diferente de duda, o cuantifica una cantidad diferente inesperada sobre la misma hipótesis nula de que no hay ningún efecto. El resultado en sí es tan ruidoso que la diferencia media de los resultados transformados por rango hace un mejor trabajo al captar la señal que la simple diferencia de medias. Estos datos se generaron incluyendo efectos del tratamiento, por lo que la hipótesis nula de ningún efecto es falsa, pero la información sobre los efectos es ruidosa: el tamaño de la muestra es pequeño y la distribución de la variable de  resultado tiene algunos puntos y tratamientos atípicos y los efectos en sí varían mucho.
 
 ### Valores $p$ de dos colas
 
@@ -327,7 +326,7 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 
 ```
 
-En este caso, los valores  $p$ de dos colas son `r p2SidedMeanTZ` y` r p2SidedMeanRankTZ` para las diferencias de medias simples y las diferencias de medias basada en rango, respectivamente. Los interpretamos en términos de "extremos": solo veríamos una diferencia media observada tan alejada de cero como la que se manifiesta en nuestros resultados aproximadamente el 18% de las veces, por ejemplo.
+En este caso, los valores  $p$ de dos colas son `r p2SidedMeanTZ` y `r p2SidedMeanRankTZ` para las diferencias de medias simples y las diferencias de medias basada en rango, respectivamente. Los interpretamos en términos de "extremos": solo veríamos una diferencia media observada tan alejada de cero como la que se manifiesta en nuestros resultados aproximadamente el 18% de las veces, por ejemplo.
 
 **Como nota al margen:** La prueba de hipótesis nula tajante que se muestra aquí se puede realizar sin que tenga que escribir el código usted mismo. El código que verá aquí (haciendo clic en Code) muestra cómo usar diferentes paquetes R para probar una hipótesis usando inferencia basada en la aleatorización (randomization inference).
 
@@ -369,7 +368,7 @@ summary(pMeanRank4)
 
 ## Ejemplo: Prueba de hipótesis nula débil de que no hay ningún efecto promedio
 
-La hipótesis nula débil es una afirmación sobre agregados, y casi siempre es expresada en términos de promedios: $H_0: \ bar {y} _ {1} = \ bar {y} _ {0}$ La estadística para esta hipótesis casi siempre es la diferencia de medias (es decir,
+La hipótesis nula débil es una afirmación sobre agregados, y casi siempre es expresada en términos de promedios: $H_0: \bar {y} _ {1} = \bar {y} _ {0}$ La estadística para esta hipótesis casi siempre es la diferencia de medias (es decir,
 `meanTZ()` arriba. El siguiente código muestra el uso de mínimos cuadrados (`lm()` en R)
 con el fin de calcular las diferencias de medias como un estadístico de prueba para
 hipótesis sobre efectos medios. Observe que los valores de $p$ basados en MCO difieren
@@ -412,7 +411,7 @@ Observe que todas estas pruebas asumen que la distribución de la estadística d
 
 Algunos buscan a veces utilizar un valor $p$ para la toma de decisiones. Recuerde que un valor  $p$ usa una estadística de prueba y la idea de repetir el experimento para cuantificar la información del diseño de investigación sobre una hipótesis. Es el diseño, la función estadística de prueba y la hipótesis lo que genera una distribución de probabilidad. Y es la función de estadística de prueba, el diseño y los datos reales lo que crea un único valor observado.
 
-El valor $p$ simplemente nos dice qué tan extremo es el resultado observado desde la perspectiva de la hipótesis. O podemos pensar que el valor $p$ codifica la inconsistencia entre nuestros datos observados y la hipótesis. ¿Y si queremos tomar una decisión?  **Podemos tomar decisiones usando un valor $p$ si estamos dispuestos a aceptar una cierta cantidad de error.** Digamos, por ejemplo, que vemos un $p = .01$ de una cola: esto significaría que en solo 1 de cada 100 experimentos hipotéticos que representan la hipótesis nula, veríamos un resultado tan o más  grande que nuestro resultado real. Podríamos estar tentados a decir que nuestro resultado observado es tan extraño que podemos asumir que la hipótesis nula es falsa. Eso estaría bien — después de todo, un valor de $p$ por sí solo no puede controlar el comportamiento de un persona adulta — pero la persona debe saber que en 1/100 de los casos en los que el valor nulo es verdadero, todavía veríamos esto resultado en este mismo grupo de sujetos con este mismo diseño experimental. Es decir, si usamos un valor $p$ pequeño para rechazar el nulo, o si asumimos que la hipótesis nula es falsa, aún podríamos estar cometiendo un error. Estos rechazos incorrectos a veces se denominan errores de falsos positivos porque la hipótesis nula suele ser cero y el efecto deseado (por ejemplo, en los ensayos médicos) se codifica con frecuencia como positivo.
+El valor $p$ simplemente nos dice qué tan extremo es el resultado observado desde la perspectiva de la hipótesis. O podemos pensar que el valor $p$ codifica la inconsistencia entre nuestros datos observados y la hipótesis. ¿Y si queremos tomar una decisión?  **Podemos tomar decisiones usando un valor $p$ si estamos dispuestos a aceptar una cierta cantidad de error.** Digamos, por ejemplo, que vemos un $p = .01$ de una cola: esto significaría que en solo 1 de cada 100 experimentos hipotéticos que representan la hipótesis nula, veríamos un resultado tan o más  grande que nuestro resultado real. Podríamos estar tentados a decir que nuestro resultado observado es tan extraño que podemos asumir que la hipótesis nula es falsa. Eso estaría bien — después de todo, un valor de $p$ por sí solo no puede controlar el comportamiento de un persona adulta — pero la persona debe saber que en 1/100 de los casos en los que el valor nulo es verdadero, todavía veríamos este resultado en este mismo grupo de sujetos con este mismo diseño experimental. Es decir, si usamos un valor $p$ pequeño para rechazar el nulo, o si asumimos que la hipótesis nula es falsa, aún podríamos estar cometiendo un error. Estos rechazos incorrectos a veces se denominan errores de falsos positivos porque la hipótesis nula suele ser cero y el efecto deseado (por ejemplo, en los ensayos médicos) se codifica con frecuencia como positivo.
 
 Digamos que estaríamos satisfechos si solo cometemos 1 error falso positivo o falso rechazo en cada 20 experimentos. En ese caso, también deberíamos estar satisfechos de rechazar una hipótesis nula si viéramos un $p \le 1/20$ o $p \le .05$. Y diríamos que los valores $p$ menores que .05 son  señales de inconsistencia con la hipótesis nula y, por lo tanto, solo deberían llevarnos a errar en un 5% de experimentos como el que estamos analizando.
 
@@ -423,7 +422,7 @@ Digamos que estaríamos satisfechos si solo cometemos 1 error falso positivo o f
 
 ## ¿Qué significa rechazar una hipótesis nula?
 
-Como puede darse cuenta $p = .01$ solo refleja el extremo de los datos observados en comparación con la hipótesis. Esto quiere decir que la estadística de prueba observada parece extrema  desde la perspectiva de la distribución de la estadística de prueba que se genera dada la hipótesis nula y diseño de investigación. Entonces esperamos que $p = .01$ (y otros valores pequeños de $p$) nos hagan dudar si la hipótesis específica es un buen modelo de los datos observados. A menudo, el único modelo de resultados potenciales que se prueba es el modelo sin efectos, por lo que un valor pequeño de $p$ debería hacernos dudar del modelo sin efectos. El valor  $p$ que las funciones predeterminadas de los software estadísticos tienden a mostrar está relacionado con está hipótesis nula de no efectos, por lo que incluso si solo se quiere obtener las diferencias de medias de los datos  utilizando mínimos cuadrados como su calculadora de diferencia de medias, las funciones mostrarán el valor  $p$.
+Como puede darse cuenta $p = .01$ solo refleja el extremo de los datos observados en comparación con la hipótesis. Esto quiere decir que la estadística de prueba observada parece extrema  desde la perspectiva de la distribución de la estadística de prueba que se genera dada la hipótesis nula y diseño de investigación. Entonces esperamos que $p = .01$ (y otros valores pequeños de $p$) nos hagan dudar si la hipótesis específica es un buen modelo de los datos observados. A menudo, el único modelo de resultados potenciales que se prueba es el modelo sin efectos, por lo que un valor pequeño de $p$ debería hacernos dudar del modelo sin efectos. El valor  $p$ que las funciones predeterminadas de los software estadísticos tienden a mostrar está relacionado con esta hipótesis nula de no efectos, por lo que incluso si solo se quiere obtener las diferencias de medias de los datos  utilizando mínimos cuadrados como su calculadora de diferencia de medias, las funciones mostrarán el valor  $p$.
 
 ## ¿Qué significa **no rechazar** una hipótesis nula?
 
@@ -436,10 +435,10 @@ Una buena prueba rechaza las hipótesis verdaderas en raras ocasiones (es decir,
 
 ## ¿Cómo aprender sobre los errores de perder la señal en el ruido?
 
-La guia [10 cosas que necesita saber sobre el poder estadístico](https://egap.org/resource/10-things-to-know-about-statistical-power) explica  de qué forma esperamos que las pruebas rechacen falsos hipótesis nulas (es decir, detectar señal de ruido). Cuando pensamos en el poder de las pruebas estadísticas, es necesario considerar la **hipótesis alternativa**. Sin embargo, como hemos demostrado anteriormente, podemos probar **hipótesis nulas** sin la idea de rechazar o aceptarlas, aunque entonces el "poder" de una prueba es más difícil de definir y trabajar.
+La guia [10 cosas que debe saber sobre el poder estadístico](https://egap.org/resource/10-cosas-que-debe-saber-sobre-el-poder-estadístico) explica  de qué forma esperamos que las pruebas rechacen falsas hipótesis nulas (es decir, detectar señal de ruido). Cuando pensamos en el poder de las pruebas estadísticas, es necesario considerar la **hipótesis alternativa**. Sin embargo, como hemos demostrado anteriormente, podemos probar **hipótesis nulas** sin la idea de rechazar o aceptarlas, aunque entonces el "poder" de una prueba es más difícil de definir y trabajar.
 
 
-## ¿Cómo aprender sobre errores falsos positivos?
+## ¿Cómo aprender sobre errores de falsos positivos?
 
 La simulación es la forma más sencilla para aprender sobre errores de falsos positivos. Primero, creamos una versión del mundo en la que la hipótesis nula es cierta y conocida, y luego hacemos pruebas de esa hipótesis nula bajo las muchas formas en las que es posible que no  sea cierta. Por ejemplo, en el ejemplo del experimento  en el que tenemos 5 de 10 unidades asignadas al tratamiento. Esto significa que hay $\binom {10} {5} = 252$ formas diferentes de asignar el tratamiento  y 252 formas en las que el experimento no tiene efectos en los individuos.
 
