@@ -1,4 +1,5 @@
 ---
+bibliography: cluster_random.bib
 output: 
   html_document:
     toc: true
@@ -185,7 +186,7 @@ We can formalize the idea that the highly dependent clusters provide less inform
 
 $$ \text{ICC} \equiv \frac{\text{variance between clusters in } y}{\text{total variance in } y} \equiv \frac{\sigma_j^2}{\sigma_j^2 + \sigma_i^2} $$
 
-where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level. Kish (1965) uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
+where $\sigma_i^2$ is the variance between units in the population and $\sigma_j^2$ is the variance between outcomes defined at the cluster level. @kish1965survey uses this description of dependence to define his idea of the “effective N” of a study (in the sample survey context, where samples may be clustered):
 
 $$\text{effective N}=\frac{N}{1+(n_j -1)\text{ICC}}=\frac{Jn}{1+(n-1)\text{ICC}},$$
 
@@ -312,7 +313,7 @@ standard error:
 
 $$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^{n_j} (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
-where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^{n_j} (Y_{ij} - \bar{Y}_{ij})^2$ (following Arceneaux and Nickerson (2009) ).
+where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^{n_j} (Y_{ij} - \bar{Y}_{ij})^2$ (following @arceneaux2009modeling ).
 This adjustment to the IID standard error 
 is commonly known as the “Robust Clustered Standard Error” or RCSE. 
 
@@ -424,7 +425,7 @@ As these simple examples illustrate, the clustered estimate of the standard erro
 The smaller the estimate of the standard error is, the more precise the estimates seem to us, and the more likely we will find results that appear 'statistically significant'. This is problematic: in this case, the IID standard error is leads us to be over confident in our results because it ignores intra-cluster correlation, the extent to which differences between units can be attributed to the cluster they are a member of. If we estimate standard errors using techniques that understate our uncertainty, we are more likely to falsely reject null hypotheses when we should not. 
 
 Another way to approach the problems that clustering introduces into the calculation of standard errors is to analyze the data at the level of the cluster. In this approach, we take averages or sums of the outcomes within the clusters, and then treat the study as though it only took place at the level of the cluster. 
-Hansen and Bowers (2008) show that we can characterize the distribution of the difference of means using what we know about the distribution of the *sum* of the outcome in the treatment group, which varies from one assignment of treatment to another.
+@hansen2008covariate show that we can characterize the distribution of the difference of means using what we know about the distribution of the *sum* of the outcome in the treatment group, which varies from one assignment of treatment to another.
 
 <style>
 div.hidecode + pre {display: none}
@@ -688,7 +689,7 @@ This is analogous to the complete random assignment procedure employed
 above, in which $J/2$ firms were assigned to treatment. Now, we will instead
 refer to the $k$'th of the $m$ pairs, where $2m = J$. 
 
-Given this setup, Imai, King and Nall (2009) give the following formal definition of the  
+Given this setup, @imai2009essential give the following formal definition of the  
 bias in the cluster-weighted difference-in-means estimator
 
 $$\frac{1}{n}
@@ -828,7 +829,7 @@ treatment is randomized over triplets or quadruplets). In such
 cases, researchers may adopt several other solutions, such as 
 creating pairs by matching on observed covariates prior to the 
 randomization, whereby, for example, the within-pair similarity of
-observed covariates is maximized. Imai, King and Nall (2009)
+observed covariates is maximized. @imai2009essential
 recommend a mixture model for post-randomization pair-matched 
 estimation, and spell out some of the assumptions that must be 
 made for such estimates to be valid.
@@ -1085,7 +1086,7 @@ kable(round(data.frame(
   ),3))
 ```
 
-The confidence intervals differ even though the estimates are the same — and there is more than one way to calculate confidence intervals and hypothesis tests for multilevel models. The software in R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) includes three methods by default and Gelman and Hill (2007) recommend MCMC sampling from the implied posterior. Here we focus on the Wald method only because it is the fastest to compute. 
+The confidence intervals differ even though the estimates are the same — and there is more than one way to calculate confidence intervals and hypothesis tests for multilevel models. The software in R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) includes three methods by default and @gelman2006data recommend MCMC sampling from the implied posterior. Here we focus on the Wald method only because it is the fastest to compute. 
 
 <style>
 div.hidecode + pre {display: none}
@@ -1263,7 +1264,7 @@ In our simple setup, the individual-level approaches behave about the same way: 
 
 # 9 Power analysis for clustered designs
 
-We want designs that are likely to reject hypotheses inconsistent with the data, and unlikely to reject hypotheses consistent with the data. We’ve seen that the assumptions required for the validity of common tests (typically, large numbers of observations, or large quantities of information in general) are challenged by clustered designs, and the tests which account for clustering can be invalid if the number of clusters is small (or information is low at the cluster level in general). We’ve also seen that we can produce valid statistical tests for hypotheses about the average treatment effect using either Robust Clustered Standard Errors (RCSE), multilevel models or using the cluster-level approach described by Hansen and Bowers (2008), and that pair-matching can drastically minimize bias in designs with unequal cluster sizes.
+We want designs that are likely to reject hypotheses inconsistent with the data, and unlikely to reject hypotheses consistent with the data. We’ve seen that the assumptions required for the validity of common tests (typically, large numbers of observations, or large quantities of information in general) are challenged by clustered designs, and the tests which account for clustering can be invalid if the number of clusters is small (or information is low at the cluster level in general). We’ve also seen that we can produce valid statistical tests for hypotheses about the average treatment effect using either Robust Clustered Standard Errors (RCSE), multilevel models or using the cluster-level approach described by @hansen2008covariate, and that pair-matching can drastically minimize bias in designs with unequal cluster sizes.
 
 The most important rule regarding the statistical power of clustered designs is that more small clusters are better than fewer larger ones. This can be demonstrated through simulated experiments. Generally speaking, the most flexible way to evaluate the power of a design is through simulation, as it allows for complex clustering and blocking schemes, and can incorporate covariates. In the following we use the OLS estimator with Robust Clustered Standard Errors, in order to save on computation time, but the same analysis can be achieved using any estimator and test statistic. 
 
@@ -1487,9 +1488,9 @@ statistical power of the study, even with many large clusters.
 
 Randomization checks in clustered designs follow the same form as the preceding discussion. A valid test for a treatment effect is a valid test for placebo or covariate balance. The only difference from our preceding discussion is that one uses a background covariate or baseline outcome — some variable putatively uninfluenced by the treatment — in place of the outcome itself. So, randomization tests with small numbers of clusters may be too quick to declare an experiment ill-randomized if the analyst is not aware of the methods of error-rate analysis that we described above.
 
-One new problem does arise in the context of randomization tests. Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself. And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare “imbalance” when $p<.05$ would do so falsely for one in every twenty variables tested. For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the Hansen and Bowers (2008) $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly. However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
+One new problem does arise in the context of randomization tests. Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself. And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare “imbalance” when $p<.05$ would do so falsely for one in every twenty variables tested. For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the @hansen2008covariate $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly. However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
 
-Since cluster randomized experiments tend to have cluster-level covariates (say, village size, etc..) balance checks at the cluster level make sense and do not require explicit changes to account for clustered-assignment. Hansen and Bowers (2008) develop such a test and provide software to implement it. So, for example, if we had 10 covariates measured at the village level, and we had a large number of villages we could assess an omnibus balance hypothesis using this design-based but large-sample tool.
+Since cluster randomized experiments tend to have cluster-level covariates (say, village size, etc..) balance checks at the cluster level make sense and do not require explicit changes to account for clustered-assignment. @hansen2008covariate develop such a test and provide software to implement it. So, for example, if we had 10 covariates measured at the village level, and we had a large number of villages we could assess an omnibus balance hypothesis using this design-based but large-sample tool.
 
 Here we show only the omnibus test results. The one-by-one assessments that make up the omnibus test are also available in the `balance_test` object. Here, the omnibus test tell us that we have little information against the null that these observations arose from a randomized study.
 
@@ -1541,3 +1542,6 @@ kable(round(balance_test$overall,2),align = "c")
 ```
 
 In this case, we cannot reject the omnibus hypotheses of balance even though, as we expected, we have a few covariates with falsely low $p$-values. One way to interpret this omnibus result is to say that such imbalances on a few covariates would not appreciably change any statistical inferences we make about treatment effects as long as these covariates did not strongly predict outcomes in the control group. Alternatively, we could say that any large experiment can tolerant chance imbalance on a few covariates (no more than roughly 5% if we are using $\alpha=.05$ as our threshold to reject hypotheses).
+
+
+# References
