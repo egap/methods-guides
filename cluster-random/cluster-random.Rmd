@@ -682,7 +682,7 @@ estimate of the SATE as the non-weighted version. What is the nature of the bias
 Instead of assigning treatment to half of the clusters
 and comparing outcomes at the level of the 'treatment' and 'control' 
 groups, imagine that we paired each cluster with one other 
-cluster, and assigned one to treatment within each pair. The treatment
+cluster, and assigned one to treatment within each pair. Our estimate of the treatment
 effect is then the aggregate of the pair-level estimates. 
 This is analogous to the complete random assignment procedure employed
 above, in which $J/2$ firms were assigned to treatment. Now, we will instead
