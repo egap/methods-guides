@@ -195,7 +195,7 @@ If 200 observations arose from 10 clusters with 20 individuals within each clust
 
 As the foregoing discussion suggests,
 clustering reduces information most when it a) greatly restricts the number of 
-ways an effect can be estimated, and b) produces units whose
+ways in which subjects can be assigned to treatment and control groups, and b) produces units whose
 outcomes are strongly related to the cluster they are a member of (i.e. when it increases the ICC). 
 
 #3 What to do about information reduction
