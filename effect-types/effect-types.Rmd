@@ -111,7 +111,7 @@ Random assignment ensures that treatment is independent of potential outcomes an
 
 [^7]: Brambor, Clark, and Golder (2006)
 
-A word of warning: looking at treatment effects across dimensions that are themselves affected by treatment is a dangerous business and can lead to incorrect inferences. For example if you wanted to see how administering a drug led to health improvements you could look separately for men and women, but you could not look separately for those that in fact took the drug and those that did not (this is an example of inference for compliers which requires separate techniques described in point 4 below).
+A word of warning: looking at treatment effects across dimensions that are themselves affected by treatment is a dangerous business and can lead to incorrect inferences. For example if you wanted to see how administering a drug led to health improvements you could run separate analyses for men and women, but you could not run separate analyses for those who in fact took the drug and those who did not (this is an example of inference for compliers which requires separate techniques described in point 4 below).
 
 3 Intent-to-Treat Effects
 ==
