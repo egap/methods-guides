@@ -160,7 +160,7 @@ Le code ci-dessous montre comment effectuer cette simulation dans R.
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
 possible.ns <- seq(from=100, to=2000, by=40) # Les tailles d'échantillon que nous considérerons
-stopifnot(all( (possible.ns %% 2)==0 )) ## On nécessite un nombre pair de pools expérimentaux
+stopifnot(all( (possible.ns %% 2)==0 )) ## On nécessite un nombre pair d'échantillons expérimentaux
 powers <- rep(NA, length(possible.ns)) # objet vide pour collecter les estimations de simulation
 alpha <- 0.05 # Niveau de signification standard
 sims <- 500 # Nombre de simulations à réaliser pour chaque N

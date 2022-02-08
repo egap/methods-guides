@@ -35,11 +35,11 @@ Ce guide explore le rôle des "mécanismes" dans l'analyse causale et vous aider
 # Les mécanismes sont des voies par lesquelles X cause le résultat Y.
 
 Les mécanismes sont depuis longtemps au cœur de la médecine.
-Chaque fois qu'un médecin prescrit un traitement, elle le fait en sachant quels facteurs chimiques ou physiques provoquent une maladie, et elle prescrit un traitement efficace car il interrompt ces facteurs.
+Chaque fois qu'une médecin prescrit un traitement, elle le fait en sachant quels facteurs chimiques ou physiques provoquent une maladie, et elle prescrit un traitement efficace car il interrompt ces facteurs.
 Par exemple, de nombreux cliniciens psychologues recommandent l'exercice aux patients souffrant de dépression.
 L'exercice augmente les endorphines dans la chimie du corps, qui déclenchent des sentiments positifs et agissent également comme analgésiques, ce qui réduit la perception de la douleur.
 Les endorphines sont donc un mécanisme par lequel l'exercice aide à réduire la dépression.
-L'exercice peut avoir des effets positifs sur un certain nombre d'autres variables dépendantes (par exemple, les maladies cardiaques) par le biais d'autres mécanismes (par exemple, l'élévation du rythme cardiaque), mais le mécanisme qui l'amène à affecter la dépression en particulier est l'endorphine.
+L'exercice peut avoir des effets positifs sur un certain nombre d'autres variables dépendantes (par exemple, les maladies cardiaques) par voie d'autres mécanismes (par exemple, l'élévation du rythme cardiaque), mais le mécanisme qui l'amène à affecter la dépression en particulier est l'endorphine.
 Nous pourrions également conclure qu'un autre traitement, tel qu'un médicament qui augmente les endorphines, peut avoir des effets similaires sur la dépression.
 
 Les mécanismes sont tout aussi importants pour les sciences sociales.
@@ -49,13 +49,13 @@ Supposons que cette étude soit correcte.
 Pourquoi subir un choc climatique causerait des niveaux de conflit élevés dans un pays ? Un mécanisme pourrait être la pauvreté : les chocs climatiques nuisent à l'économie, et avec des coûts d'opportunité inférieurs, les individus sont plus enclins à rejoindre des groupes armés.
 Un mécanisme alternatif est physiologique : les gens sont physiquement câblés pour être plus agressifs par temps chaud.
 Le mécanisme est peut-être la migration : les chocs climatiques déplacent les populations des régions côtières, ce qui produit des conflits sociaux entre migrants et autochtones.
-En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux ("M") qui pourraient transmettre l'effet total de X sur Y.
+En réalité, plusieurs ou tous ces mécanismes (ainsi que d'autres non listés ici) pourraient fonctionner simultanément ! Dans bon nombre des questions les plus intéressantes en sciences sociales, il existe plusieurs canaux (ou mécanismes "M") qui pourraient transmettre l'effet total de X sur Y.
 
 [^1]: Solomon M. Hsiang, Kyle C. Meng et Mark A. Cane, "Civil Conflicts Are Associated with the Global Climate," Nature 476.7361 (2011): 438-441.
 
-# Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous le *voulons*.
+# Bien que nous n'ayons pas *besoin* de connaître le mécanisme pour conclure que X cause Y, il y a plusieurs raisons pour lesquelles nous le *voudrions*.
 
-Dans l'exemple climat/conflit ci-dessus, nous pouvons avoir une confiance totale dans la capacité des chercheurs à identifier que les chocs climatiques causent des conflits, et pourtant n'avons aucune preuve du ou des mécanismes à l'œuvre.
+Dans l'exemple climat/conflit ci-dessus, nous pouvons avoir une confiance totale dans la capacité des chercheurs à identifier que les chocs climatiques causent des conflits, et pourtant n'avons aucune preuve des mécanismes qui sont à l'œuvre.
 Mais les chercheurs en sciences sociales aiment en apprendre davantage sur les mécanismes parce qu'ils sont étroitement liés aux théories des sciences sociales.
 Par exemple, le mécanisme de "pauvreté" ci-dessus est étroitement lié à la théorie de Gurr[^2] selon laquelle les individus se rebellent lorsque les coûts d'opportunité du conflit sont faibles, alors que le mécanisme de "migration" pourrait soutenir une théorie du conflit basée sur des griefs entre groupes sociaux.
 Il n'est pas étonnant qu'en apprenant que X cause Y, les chercheurs en sciences sociales se demandent immédiatement quel est le mécanisme - ils veulent relier cette découverte à la théorie !
@@ -383,7 +383,7 @@ Cependant, grâce à une enquête approfondie sur divers résultats, les auteurs
 devrais-je m'attendre à ce le traitement affecte certains résultats ? Devrais-je m'attendre à ce le traitement n'affecte pas certains résultats ?
 Ensuite, testez si ces prédictions sont étayées par vos données et interprétez cela comme une preuve suggestive pour ou contre le mécanisme proposé M.
 
-# Le design de traitements complexes peut aider à comprendre quelle partie du traitement "produit l'effet".
+# L'élaboration de traitements complexes peut aider à comprendre quelle partie du traitement "produit l'effet".
 
 Parfois, les chercheurs expérimentaux essaieront de mieux comprendre les mécanismes en ajoutant ou en soustrayant des éléments du traitement qui sont censés déclencher différents mécanismes.
 Cette approche est parfois appelée "analyse de médiation implicite" car différents composants de X sont censés manipuler *implicitement* certains mécanismes.

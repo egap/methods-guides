@@ -48,7 +48,7 @@ library(randomizr)
 library(coin)
 ```
 
-# Les tests d'hypothèse résument les informations dans les designs de recherche pour aider les gens à raisonner sur les effets du traitement
+# Les tests d'hypothèse présentent, de manière compacte, les informations contenues dans un design de recherche et proposent une solution pour évaluer les effets d'un traitement
 
 Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 ($p=0,02$)", c'est un raccourci pour dire :
 "Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
@@ -59,7 +59,7 @@ de sorte qu'elles paraissent "aléatoires" (comme les designs de régression par
 
 La $p$-valeur résume la capacité d'un test donné à distinguer le signal du bruit.
 Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power),
-le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille du pool expérimental, mais aussi de la distribution du résultat
+le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille de l'échantillon expérimental, mais aussi de la distribution du résultat
 ^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart égaux à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
 Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects du design de recherche en fonction d'une affirmation particulière
 --- généralement l'affirmation selon laquelle le traitement n'a eu aucun effet causal.
@@ -69,10 +69,10 @@ Le reste de ce guide explique les étapes d'un test d'hypothèse :
 vers des statistiques de test résumant les données observées (comme une différence des moyennes),
 jusqu'à la création d'une distribution de probabilité qui permet le calcul d'une $p$-valeur.
 Il aborde également l'idée de rejeter (mais ne pas accepter) une hypothèse et aborde la question de ce qui fait un bon test d'hypothèse
-(indice : un test d'hypothèse idéal devrait rarement mettre en doute la vérité et distinguer même les signaux faibles du bruit).
+(un test d'hypothèse idéal devrait rarement mettre en doute la vérité et distinguer même les signaux faibles du bruit).
 Voir également [10 choses à savoir sur l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) pour plus de détails sur ces idées.
 
-# Dans une expérience, une hypothèse est une affirmation sur des relations causales non observées
+# Dans une expérience, une hypothèse est un postulat sur des relations causales non observées
 
 Nous menons des expériences pour faire des comparaisons causales interprétables
 [@kinder1993behalf], et nous estimons souvent les effets causaux moyens.
@@ -83,7 +83,7 @@ Dans cette section, nous expliquons la distinction entre :
 ## Un aperçu du problème fondamental de l'inférence causale et une introduction à quelques notations
 
 Dans [10 choses à savoir sur l'inférence causale](https://egap.org/resource/10-things-to-know-about-causal-inference), souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l'idée de résultats potentiels pour **définir** la cause et formaliser ce que nous **entendons** lorsque nous disons "X cause Y" ou "Fumer cause le cancer" ou "L'information augmente la conformité fiscale".
-Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imagiinons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
+Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imaginons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
 si on lui donne des informations sur l'usage de ces taxes.
 $Z_i=1$ signifie que l'information a été donnée à la personne et $Z_i=0$ signifie qu'aucune information n'a été donnée.
 Donc $y_{i,Z_i=1}$ désigne le montant des taxes payées par quelqu'un à qui on a donné des informations et $y_{i,Z_i=0}$ désigne le montant des impôts payés par quelqu'un à qui on n'a pas donné d'informations.
@@ -104,7 +104,7 @@ C'est-à-dire, lorsque nous nous demandons : "Est-ce que l'information amène le
 Cependant, nous pouvons répondre à une question connexe."
 [Dix types d'effet de traitement que vous devriez connaître](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) décrit une idée que nous créditons à Jerzy Neyman où un scientifique peut **estimer les effets causaux moyens** dans une expérience randomisée même si les effets causaux individuels ne sont pas observables.
 Le travail de Judea Pearl sur l'estimation de la probabilité conditionnelle d'un résultat basé sur un modèle causal de ce résultat est similaire à cette idée, où l'accent est mis sur les probabilités conditionnelles des $y_{i}$.
-C'est-à-dire que ces deux approches répondent à la question causale fondamentale en dirigeant la question vers les moyennes ou les probabilités conditionnelles.
+Ces deux approches répondent à la question causale fondamentale en dirigeant la question vers les moyennes ou les probabilités conditionnelles.
 Une approche connexe de Don Rubin commence par **prédire** les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de $Z_i$ (tel que, disons, $Z \sim \text{Bernoulli}(\pi)$) et un modèle de probabilité des deux résultats potentiels tels que, disons,
 $(y_{i,1},y_{i,0}) \sim \text{Normale multivariée}(\bbeta \bX, \bSigma)$ avec un vecteur de coefficients $\bbeta$, une matrice $n \times p$ de variables $\bX$ (contenant à la fois l'assignation du traitement et d'autres variables et une matrice $p \times p$ de variance-covariance $\Sigma$ décrivant comment toutes les colonnes de $\bX$ sont liées).
 
@@ -112,17 +112,17 @@ La deuxième approche générale commence avec les mêmes modèles de probabilit
  Ensuite, à l'aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l'effet du traitement au niveau individuel ou l'effet moyen du traitement (voir [@imbens2007causal] pour plus de détails sur l'approche prédictive bayésienne de l'inférence causale).
 Ainsi, l'approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne (bien que la plupart de ces différences prédites au niveau individuel soient résumées en utilisant les caractéristiques des distributions postérieures des modèles de probabilité et des données comme la moyenne des prédictions).
 
-## Le test d'hypothèse, en faisant des affirmations sur l'inobservé, aborde de manière statistique le problème fondamental de l'inférence causale.
+## Le test d'hypothèse est une approche statistique du problème fondamental de l'inférence causale, par le biais de postulats sur des faits non-observés
 
 La troisième approche de ce problème amène une nouvelle question.
 @fisher:1935[Chapitre 2] nous a appris que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu'en termes de quantité d'information fournie par le design de recherche et les données.
 C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour ses résultats, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ pour tout le monde.
 Cependant, la réponse à cette question se présenterait ainsi : "Ce design de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Ce design de recherche n'est pas cohérent avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
-# L'hypothèse nulle d'absence d'effets est une déclaration précise sur les résultats potentiels
+# L'hypothese nulle stricte est un postulat d'absence d'effet du traitement pour chacune des unités inclues dans une experience
 
 Même si nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur les effets causaux contrefactuels, nous pouvons toujours poser des questions à leur sujet ou créer des modèles théoriques qui lient ensemble une intervention (ou un traitement), des caractéristiques de base et des résultats potentiels.
-Le modèle le plus simple de ce type indique que le résultat sous traitement serait le même que le résultat sous contrôle pour toutes les unités ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $i$.
+Le modèle le plus simple de ce type indique que le résultat serait le même que le résultat pour toutes les unités qu'elles soient dans le groupe de contrôle ou de traitement ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $i$.
 Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle stricte" et utilisent la notation suivante : $H_0 :
 y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ pour toutes les unités $i$.
 
@@ -133,7 +133,7 @@ C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitem
 Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l'unité $i$ lorsqu'elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ peut s'écrire $y_{i,Z_i=1,\bZ_{~i}}$.
 Voir @bowers2013reasoning et @bowers2018models pour en savoir plus sur l'idée qu'une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d'hypothèses sur la propagation des effets de traitement à travers un réseau.
 
-# L'hypothèse nulle faible d'absence d'effets est une déclaration sur les résultats potentiels agrégés
+# L'hypothese nulle faible est un postulat d'absence d'effet moyen du traitement, au niveau aggregé (entre chacune des unités).
 
 Une expérience peut influencer certaines unités mais n'avoir, en moyenne, aucun effet.
 Pour codifier cette intuition, les chercheurs peuvent écrire une hypothèse nulle sur une *moyenne* de résultats potentiels, ou un autre agrégat de résultats potentiels, plutôt que sur l'ensemble des résultats potentiels.
@@ -184,7 +184,7 @@ Alors l'implication est que nous ne devrions voir aucune différence entre les g
 
 **L'hypothèse nulle faible de l'absence d'effet** spécifie que $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, et nous pouvons écrire une égalité similaire liant la moyenne des résultats potentiels non observés à la moyennes de résultats observés dans différentes conditions de traitement.
 
-# Les statistiques de test résument la relation entre les résultats observés et l'assignation du traitement.
+# Les statistiques de test résument l'effet du traitement sur les résultats.
 
 Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut aussi une statistique de test pour un test d'hypothèse.
 Une statistique de test résume la relation entre le traitement et les résultats observés à l'aide d'un seul nombre.
@@ -241,7 +241,8 @@ Pour tester l'hypothèse nulle stricte d'absence d'effet, on peut choisir presqu
 
 Le test de l'hypothèse nulle faible d'absence d'effet utilise la différence des moyennes (peut-être standardisée ou de Student) comme statistique de test.
 
-# La $p$-valeur contient la quantité d'information qu'un design de recherche et une statistique de test renseignent sur l'hypothèse.
+# La $p$-valeur indique ce que la statistique de test a à nous dire au sujet de l'hypothèse.
+
 Les tests d'hypothèse nécessitent des distributions de la statistique de test sous l'hypothèse.
 
 Étant donné une affirmation sur les résultats possibles de l'expérience (i.e. une hypothèse) et un moyen de résumer les données observées en fonction de l'hypothèse (i.e. une statistique de test qui augmente à mesure que les résultats divergent de l'hypothèse comme expliqué ci-dessus), nous voulons maintenant aller au-delà de la description des données observées pour savoir quelle variabilité naturelle attendre de la statistique de test étant donné le design de recherche et notre hypothèse (pour nous ramener à la question du signal et du bruit).
@@ -421,7 +422,7 @@ ttestPvalue=ttestP1,
 diffOfMeansPvalue=ttestP2$p.value)
 ```
 
-Ce code produit les mêmes résultats sans utiliser les moindres carrés --- après tout, nous calculons simplement les différences de moyennes et les variances de ces moyennes car elles peuvent varier au cours d'expériences répétées dans le même pool d'unités expérimentales.
+Ce code produit les mêmes résultats sans utiliser les moindres carrés --- après tout, nous calculons simplement les différences de moyennes et les variances de ces moyennes car elles peuvent varier au cours d'expériences répétées dans le même échantillon d'unités expérimentales.
 
 ```{r byhand}
 varEstATE <- function(Y,Z){
@@ -454,7 +455,7 @@ Ou, nous pouvons penser à la $p$-valeur comme une mesure de l'incohérence entr
 Et si on voulait prendre une décision ? Il s'avère que **nous pouvons prendre des décisions en utilisant une $p$-valeur si nous sommes prêts à accepter un certain nombre d'erreurs.**
 Disons, par exemple, que nous voyons une $p$-valeur unilatérale de $0,01$ : ceci signifierait que dans seulement 1 expérience hypothétique sur 100 représentant l'hypothèse nulle, nous verrions un résultat aussi grand ou plus grand que notre résultat réel.
 Nous pourrions être tentés de dire que notre résultat observé est si étrange que nous voulons faire comme si l'hypothèse nulle était fausse.
-Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même pool de sujets avec ce même design expérimental.
+Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même échantillon de sujets avec ce même design expérimental.
 C'est-à-dire que si nous utilisions une petite $p$-valeur pour rejeter l'hypothèse nulle, ou agissons comme si l'hypothèse nulle était fausse, nous pourrions toujours faire une erreur.
 Ces rejets incorrects sont appelés faux positifs car l'hypothèse nulle est souvent zéro et l'effet souhaité (par exemple, dans les essais médicaux) est souvent codé comme positif.
 
@@ -462,7 +463,7 @@ Supposons que nous acceptons d'avoir un faux positif ou faux rejet toutes les 20
 Dans ce cas, nous devrions également accepter de rejeter une hypothèse nulle si nous avons vu que $p \le 1/20$ ou  $p \le .05$.
 Et une $p$-valeur inférieure à 0,05 signale l'incohérence avec l'hypothèse nulle et ne devrait donc nous conduire à nous tromper que dans 5% des expériences comme celle que nous analysons.
 
-## Que signifie rejeter une hypothèse nulle ?
+## Que signifie de rejeter une hypothèse nulle ?
 
 Notez que $p=0,01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générée à partir de l'hypothèse nulle et du design de recherche.
 Ainsi, nous pensons que $p=0,01$ (comme d'autres petites $p$-valeurs) met en doute le fait que l'hypothèse spécifique est un bon modèle des données observées.
@@ -482,7 +483,7 @@ Ainsi, une seule grande $p$-valeur est un argument en faveur de l'hypothèse nul
 
 Un bon test rejette rarement les hypothèses vraies (i.e. il a un taux de faux positifs contrôlé) et il détecte facilement le signal du bruit (i.e. il a une bonne puissance statistique, il fait rarement l'erreur de rater le signal dans le bruit).
 
-## Comment se renseigner sur les risques d'un signal noyé dans le bruit ?
+## Comment percevoir les risques d'un signal noyé dans le bruit ?
 
 Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) explique comment nous voulons que l'hypothèse nulle soit rejetée lorsqu'elle est fausse (i.e. détecter le signal du bruit).
 Lorsque nous pensons à la puissance d'une statistique de test, nous devons considérer l'**hypothèse alternative**.

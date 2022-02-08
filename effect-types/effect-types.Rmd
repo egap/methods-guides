@@ -227,7 +227,7 @@ Avec un grand échantillon aléatoire d'une population bien définie et une conf
 
 [^12]: Imbens, Guido et Jeffrey M Wooldridge. 2007. What’s New in Econometrics? NBER.
 
-Dans la pratique, le pool expérimental peut consister en un groupe d'unités sélectionnées de manière inconnue à partir d'une population vaguement définie de ces unités et la conformité à l'assignation du traitement peut être moins que complète.
+Dans la pratique, l'échantillon expérimental peut consister en un groupe d'unités sélectionnées de manière inconnue à partir d'une population vaguement définie de ces unités et la conformité à l'assignation du traitement peut être moins que complète.
 Dans de tels cas, notre SATE peut diverger du PATE et la récupération des estimations de chacun devient plus compliquée.
 Imai, King et Stuart (2008) décomposent la divergence entre ces estimations en erreurs résultant de la sélection de l'échantillon et du déséquilibre de traitement.
 L'erreur de sélection de l'échantillon provient de différentes distributions de covariables (observées et non observées) dans notre échantillon et notre population.
@@ -450,7 +450,7 @@ L'effet moyen du traitement semble un peu difficile à interpréter lorsque les 
 Par exemple, un résultat binaire très courant dans l'étude des élections est codé comme 1 lorsque les sujets ont voté et 0 lorsqu'ils ne l'ont pas fait.
 L'effet moyen peut être de 0,2, mais qu'est-ce que cela signifie vraiment de dire qu'un traitement a augmenté mon vote de 0,2 ?
 L'estimation des effets causaux des résultats dichotomiques nécessite des précautions supplémentaires, en particulier lors de l'inclusion de covariables.
-Une quantité commune d'intérêt causal pour les résultats dichotomiques est l'effet du traitement sur les log-odds de succès, défini pour le pool expérimental comme :
+Une quantité commune d'intérêt causal pour les résultats dichotomiques est l'effet du traitement sur les log-odds de succès, défini pour l'échantillon expérimental comme :
 
 $$\Delta = log\frac{E(Y_i(1))}{1-E(Y_i(1))} - log\frac{E(Y_i(0))}{1-E(Y_i(0))}$$
 
@@ -515,7 +515,7 @@ Voici un exemple de cette approche où des covariables sont utilisées pour augm
 Premièrement, nous définissons un effet attribuable comme $A=∑_iZ_iτ_i$, où $τ_i=Y_i(1)−Y_i(0)$ et $y∈0,1$ selon Rosenbaum (2002).
 C'est-à-dire que l'effet attribuable est le nombre de réponses "oui" ou "1" parmi les personnes traitées que nous n'aurions pas vues si elles avaient été dans le groupe de contrôle.
 
-Deuxièmement, notez que si nous écrivons l'ensemble $U$ comme pool expérimental et que l'ensemble des unités de contrôle est un sous-ensemble de l'ensemble, $C⊆U$, alors nous pouvons écrire $∑_{i∈C}Y_i −Y_i(0)=0$.
+Deuxièmement, notez que si nous écrivons l'ensemble $U$ comme échantillon expérimental et que l'ensemble des unités de contrôle est un sous-ensemble de l'ensemble, $C⊆U$, alors nous pouvons écrire $∑_{i∈C}Y_i −Y_i(0)=0$.
 Cela signifie que nous pouvons représenter $A$ ainsi :
 
 $$A = ∑_{i=1}^NZ_iτ_i=∑_{i=1}^NZ_i(Y_i(1)−Y_i(0))=∑_{i∉C}y_i(1)−∑_{i∉C}y_i(0)$$

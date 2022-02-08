@@ -10,7 +10,7 @@ output:
 
 Résumé
 ==
-Après des mois ou des années de développement et de mise en œuvre, évitant les pièges pratiques, théoriques et inférentiels de la recherche expérimentale en sciences sociales, votre expérience est enfin terminée.
+Après des mois ou des années de développement et de mise en œuvre, naviguant entre les écueils pratiques, théoriques et inférentiels de la recherche expérimentale en sciences sociales, votre expérience est enfin terminée.
 En comparant les groupes de traitement et de contrôle, vous trouvez un résultat substantiellement et statistiquement significatif pour un résultat d'intérêt théorique.
 Avant de pouvoir sabrer le champagne pour célébrer une intervention bien évaluée, un collègue sympathique demande : "mais qu'est-ce que cela nous apprend sur le monde ?"
 
@@ -26,7 +26,7 @@ La validité externe devient particulièrement importante lors de la formulation
 L'extrapolation des effets causaux d'une ou plusieurs études à un contexte politique donné nécessite un examen attentif à la fois de la théorie et des preuves empiriques.
 Ce guide des méthodes aborde certains concepts clés, les pièges à éviter et les références utiles à prendre en compte lors du passage d'un effet moyen local du traitement au monde plus vaste.
 
-2. En quoi est-ce différent de la validité interne ?
+2. En quoi est-elle différente de la validité interne ?
 ==
 
 La validité interne fait référence à la qualité des inférences causales faites pour un groupe de sujets donné.

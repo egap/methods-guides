@@ -22,7 +22,7 @@ Le guide est un document vivant et peut être mis à jour par les membres de EGA
 ==
 Pour la plupart des expérimentalistes, la déclaration "$X$ a causé $Y$" signifie que $Y$ est présent *et* $Y$ n'aurait pas été présent si $X$ n'avait pas été présent.
 Cette définition requiert une notion de ce qui aurait pu arriver, mais ne s'est pas produit.[^2]
-De même, "l'effet" de $X$ sur $Y$ est considéré comme la différence entre la valeur que $Y$ aurait prise étant donné une valeur de $X$ et la valeur que $Y$ aurait prise étant donné une autre valeur de $X$.
+De même, "l'effet" de $X$ sur $Y$ est la différence entre la valeur que $Y$ aurait prise étant donné une valeur de $X$ et la valeur que $Y$ aurait prise étant donné une autre valeur de $X$.
 En raison de l'accent mis sur les différences entre les résultats, cette approche est parfois appelée approche "des différences" ou "contrefactuelle" de la causalité.
 
 __Note technique:__
@@ -34,10 +34,10 @@ Un traitement a un effet causal (positif ou négatif) sur $Y$ pour l'unité $i$ 
 
 [^2]: Holland, Paul W. "Statistics and causal inference." Journal of the American Statistical Association 81.396 (1986): 945-960.
 
-2. Point de causalité sans manipulation.
+2. Pas de causalité sans manipulation.
 ==
 La définition "contrefactuelle" de la causalité exige que l'on soit capable de réfléchir aux résultats qui peuvent entraîner des conditions différentes.
-À quoi ressembleraient les choses si un parti plutôt qu'un autre était élu ?
+Quelle serait la situation si un parti plutôt qu'un autre était élu ?
 Les déclarations causales de tous les jours ne répondent souvent pas à cette exigence de l'une des deux manières suivantes.
 
 * Premièrement, certaines déclarations ne précisent pas de conditions contrefactuelles claires.
@@ -59,7 +59,7 @@ Par exemple, alors que nous pourrions avoir des difficultés avec l'affirmation 
 3. Les causes sont non rivales.
 ==
 
-Même si nous pouvons nous concentrer sur l'effet d'une seule cause $X$ sur un résultat $Y$, nous ne nous attendons généralement pas à ce qu'il n'y ait jamais qu'une seule cause de $Y$.[^5]
+Même si nous pouvons nous concentrer sur l'effet d'une seule cause $X$ sur un résultat $Y$, nous ne nous attendons généralement pas à ce qu'il n'y ait qu'une seule cause de $Y$.[^5]
 De plus, si vous additionnez les effets causaux de différentes causes, il n'y a aucune raison de s'attendre à ce qu'ils totalisent 100 %.
 Par conséquent, il ne sert à rien d'essayer de "répartir" les résultats entre différents facteurs de causalité.
 En d'autres termes, les causes sont non rivales.
@@ -93,17 +93,16 @@ Mackie, John L. "The cement of the universe." London: Oxford Uni (1974).
 5. Le problème fondamental de l'inférence causale.
 ==
 
-Si les effets causaux sont des déclarations sur la différence entre ce qui s'est produit et ce qui aurait pu se produire, alors les effets causaux ne peuvent pas être mesurés.
-C'est une mauvaise nouvelle.
-De manière prospective, vous pouvez organiser les choses de manière à pouvoir observer ce qui se passe si une personne reçoit un traitement ou ce qui se passe si elle ne reçoit pas le traitement.
-Pourtant, pour la même personne, vous ne pourrez jamais observer ces deux résultats et donc pas non plus la différence entre eux.
+Si les effets causaux sont des déclarations sur la différence entre ce qui s'est produit et ce qui aurait pu se produire, alors les effets causaux ne peuvent pas être mesurés. Mauvaise nouvelle !
+De manière prospective, vous pouvez organiser les choses de manière à observer ce qui se passe si une personne reçoit un traitement ou ce qui se passe si elle ne reçoit pas le traitement.
+Pourtant, pour la même personne, vous ne pourrez jamais observer ces deux résultats et leur différence.
 Cette incapacité à observer les effets causaux au niveau de l'unité est souvent appelée le "problème fondamental de l'inférence causale".
 
 6. Vous pouvez estimer l'effet causal moyen même si vous ne pouvez observer aucun effet causal individuel.
 ==
 
 Même si vous ne pouvez pas observer si $X$ cause $Y$ pour une unité donnée, il est peut-être toujours possible de déterminer si $X$ cause $Y$ en moyenne.
-L'idée clé ici est que l'effet causal moyen est égal à la différence entre le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de contrôle et le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de traitement.
+L'effet causal moyen est égal à la différence entre le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de contrôle et le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de traitement.
 De nombreuses stratégies d'identification causale (voir [10 stratégies pour déterminer si X a causé Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)) se concentrent sur des façons d'en savoir plus sur ces résultats potentiels moyens.^[__Note technique :__ La principale idée technique est que la différence des moyennes est la même que la moyenne des différences.
 C'est-à-dire, en utilisant "l'opérateur d'espérance", $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$.
 Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quantité ne peuvent pas être estimés, mais les termes à l'intérieur de l'opérateur d'espérance dans la troisième quantité peuvent l'être.[^3]Voir l'illustration [ici](https://raw.githubusercontent.com/egap/ methodes-guides/master/causal-inference/PO.jpg).]
@@ -115,7 +114,7 @@ Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quanti
 7. L'estimation de l'effet causal moyen ne nécessite pas que les groupes de traitement et de contrôle soient identiques.
 ==
 Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)).
-Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne se ressemblent pas selon les dimensions pertinentes.
+Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne sont pas comparables sur certaines dimensions importantes.
 
 La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen du traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
 Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes de traitement et de contrôle captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, dans le traitement ou dans le contrôle.
@@ -128,7 +127,7 @@ Ces tests peuvent alors être particulièrement importants pour des expériences
 8. La corrélation n'est pas la causalité.
 ==
 
-Une corrélation entre $X$ et $Y$ est une déclaration sur les relations entre les résultats réels dans le monde, et non sur la relation entre les résultats réels et les résultats contrefactuels.
+Une corrélation entre $X$ et $Y$ est une déclaration sur les relations entre les résultats réels, et non sur la relation entre les résultats réels et les résultats contrefactuels.
 Ainsi, les déclarations sur les causes et les corrélations n'ont pas grand-chose à voir les unes avec les autres.
 Des corrélations positives peuvent être cohérentes avec des effets causaux positifs, aucun effet causal ou même des effets causaux négatifs.
 Par exemple, la prise de médicaments contre la toux est positivement corrélée à la toux mais a, espérons-le, un effet causal négatif sur la toux.[^11]
@@ -143,9 +142,9 @@ Cela pourrait être le cas si ceux qui ont reçu un traitement sont un échantil
 ==
 
 Vous pourriez vous attendre à ce que si $A$ cause $B$ et $B$ cause $C$, alors $A$ cause $C$.[^12]
-Mais il n'y a aucune raison de croire que les relations causales moyennes sont transitives de cette manière.
-Pour voir pourquoi, imaginez que $A$ a causé $B$ pour les hommes mais pas les femmes et $B$ a causé $C$ pour les femmes mais pas les hommes.
-Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais il se peut qu'il n'y ait toujours personne pour qui $A$ cause $C$ à travers $B$.
+Mais il n'y a aucune raison que les relations causales moyennes soient transitives.
+Imaginez que $A$ cause $B$ pour les hommes mais pas les femmes et $B$ cause $C$ pour les femmes mais pas les hommes.
+Ensuite, en moyenne, $A$ cause $B$ et $B$ cause $C$, mais $A$ ne cause pas $C$ à travers $B$.
 
 [^12]: Interprétez "$A$ cause $B$, en moyenne" comme "l'effet moyen de $A$ sur $B$ est positif".
 
