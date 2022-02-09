@@ -108,7 +108,7 @@ La validité de construit considère si un concept théorique testé dans une é
 Si votre expérience teste l'effet de la colère sur la réciprocité politique et que vous manipulez en fait la peur ou la confiance dans votre traitement, la validité de construit peut être violée.
 La validité de construit et la validité écologique sont toutes deux pertinentes pour les généralisations, et donc utiles pour affirmer la validité externe.
 
-8. Extrapolation pour les traitements et les résultats
+8. Extrapolation entre les traitements et les résultats
 ==
 Bien qu'une grande partie de ce guide se soit implicitement centrée sur le transfert d'un traitement donné à un nouveau lieu ou moment, la validité externe prend également en compte les variations dans les traitements et les résultats.
 C'est-à-dire, imaginez que nous ayons mené la même expérience sur le même échantillon, mais avec une variation sur le traitement, prédirions-nous que l'effet causal local sera similaire ? De même, pouvons-nous prédire si un traitement donné produira des effets causaux identiques ou différents sur un résultat différent ? Parfois, nous pouvons répondre à ces préoccupations en menant des expériences qui évaluent les traitements alternatifs et leurs résultats.

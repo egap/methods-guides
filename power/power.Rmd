@@ -229,7 +229,7 @@ Quasiment aucune des formules de puissance trouvées dans les manuels ou sur int
 
 La réponse est la simulation.
 
-* Supposons que nous étudiions l'effet d'une intervention éducative sur le revenu
+* Supposons que nous étudions l'effet d'une intervention éducative sur le revenu
 * Supposons que nous ayons de bonnes données sur la relation entre deux covariables et le revenu : l'âge et le sexe.
 Dans cette économie, les hommes gagnent plus que les femmes et les personnes âgées gagnent plus que les jeunes.
 * Exécutez une régression du revenu sur l'âge et le sexe et enregistrez les coefficients, en utilisant des données d'enquête préexistantes (mieux encore : utilisez les données de référence des futurs participants à votre expérience !)

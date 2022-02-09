@@ -11,8 +11,8 @@ output:
 Résumé
 ==
 Voir ce guide[^1] pour une discussion plus formelle sur l'indépendance et les hypothèses nécessaires pour estimer les effets causaux.
-Notre guide décrit dix types distincts d'effets causaux que les chercheurs peuvent souhaiter estimer.
-Comme indiqué dans notre guide sur l'inférence causale, la randomisation simple permet de produire des estimations de la moyenne des effets causaux au niveau de l'unité pour un échantillon.
+Ce guide décrit dix types distincts d'effets causaux que les chercheurs peuvent souhaiter estimer.
+Comme discuté dans notre guide sur l'inférence causale, la randomisation simple permet de produire des estimations de la moyenne des effets causaux au niveau de l'unité dans un échantillon.
 Cet effet causal moyen ou effet moyen du traitement (average treatment effect, ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
 Pourtant, ce n'est pas la seule manière efficace de faire face à ce problème.
 En fait, il existe de nombreux types différents de quantités d'intérêt causal.

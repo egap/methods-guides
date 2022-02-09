@@ -132,7 +132,7 @@ hist(treatment_effects_V2,xlim = c(-1,2.5),breaks = 20)
 ```
 
 Comme le montrent les histogrammes, le découpage par grappe fournit une vue beaucoup plus "grossière" de ce que pourrait être l'effet du traitement.
-Quel que soit le nombre de sujets ou le nombre de fois où l'on randomise le traitement, dans une procédure de randomisation par grappe, le nombre d'estimations possibles de l'effet du traitement sera strictement déterminé par le nombre de grappes assignées aux différentes conditions de traitement.
+Indépendamment de nombre de fois où l'on randomise le traitement et du nombre de sujets, dans une procédure de randomisation par grappe, le nombre d'estimations possibles de l'effet du traitement sera strictement déterminé par le nombre de grappes assignées aux différentes conditions de traitement.
 Cela a des implications importantes pour l'erreur type de l'estimateur.
 
 <style>
@@ -154,7 +154,7 @@ Alors que la distribution d'échantillonnage pour l'estimation sans grappe de l'
 celle de l'estimation par grappe est plus du double, à 1,13.
 Rappelons que les données initiales des deux études sont identiques, la seule différence entre les études réside dans la façon dont le mécanisme d'assignation de traitement révèle l'information.
 
-Savoir comment les unités de notre étude varient intra- et inter-grappes est liée à cette question d'information.
+Liée à cette question d'information, se pose la question de savoir dans quelle mesure les unités de notre étude varient au sein des grappes et entre celles-ci.
 Deux études randomisées par grappe avec $J=10$ villages et $n_j=100$ personnes par village peuvent avoir des informations différentes à propos de l'effet du traitement sur les individus si, dans une étude, les différences *entre* villages sont beaucoup plus importantes que les différences de résultats *au sein de* ces villages.
 Si, disons, tous les individus d'un village agissaient exactement de la même manière mais que des villages différents montraient des résultats différents, alors nous aurions de l'ordre de 10 éléments d'information : toutes les informations sur les effets causaux dans cette étude seraient au niveau du village.
 Alternativement, si les individus au sein d'un village agissaient plus ou moins indépendamment les uns des autres, alors nous aurions de l'ordre de 10 $\times$ 100=1000 éléments d'information.
@@ -659,7 +659,7 @@ quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2
 ==
 
 Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
-il suffit de mettre les grappes en paires qui sont de taille égale ou ont des résultats potentiels presque identiques.
+il suffit de mettre en paire les grappes qui sont de taille égale ou ont des résultats potentiels presque identiques.
 
 Nous démontrons cette approche ci-dessous en utilisant les mêmes données que celles que nous avons examinées dans l'exemple d'une expérience hypothétique de productivité des employés randomisée par entreprise.
 
@@ -745,8 +745,8 @@ kable(round(data.frame(true_SATE = true_SATE,
 ```
 
 Malgré des tailles de grappe inégales, le biais est complètement éliminé par cette technique :
-en espérance, l'estimateur par paire récupère vers le véritable effet moyen du traitement pour l'échantillon,
-alors que les estimateurs de la différence des moyennes pondérées et non pondérées sont biaisés.
+en espérance, l'estimateur par paire recouvre le véritable effet moyen du traitement pour l'échantillon,
+alors que les estimateurs de différence des moyennes pondérées et non pondérées sont biaisés.
 
 Notez également que la variance dans la distribution d'échantillonnage est beaucoup plus faible pour l'estimateur par paire, donnant lieu à des estimations beaucoup plus précises.
 Ainsi, l'appariement promet non seulement de réduire les biais, mais peut également grandement atténuer le problème de réduction de l'information induit par le découpage par grappe.
@@ -754,7 +754,7 @@ Ainsi, l'appariement promet non seulement de réduire les biais, mais peut égal
 Cependant, un tel appariement de paires avant randomisation impose certaines contraintes à l'étude, dont certaines peuvent être difficiles à respecter dans la pratique.
 Par exemple, il peut être difficile voire impossible de trouver des paires parfaitement assorties pour chaque taille de grappe, en particulier
 lorsqu'il y a plusieurs traitements (tels que, au lieu de paires, le traitement est randomisé sur des triplets ou des quadruplés).
-Dans de tels cas, les chercheurs peuvent adopter d'autres solutions, telles que la création de paires basée sur les covariables observées avant la randomisation, où,
+Dans de tels cas, les chercheurs peuvent adopter d'autres solutions, telles que la création de paires en faisant correspondre les covariables observées avant la randomisation, de sorte que,
 par exemple, la similarité intra-paire des covariables observées est maximisée.
 Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par paire post-randomisation et énoncent certaines des hypothèses qui doivent être formulées pour que ces estimations soient valides.
 
@@ -922,7 +922,7 @@ Cependant, dans les deux cas, des hypothèses doivent être formulées sur la na
 En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets de débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
 Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-grappe.
 
-8 Performance des analyses d'études par grappe basées sur un design vs. un modèle
+8 Performance des études par grappe basées sur un design vs. un modèle
 ==
 
 Dans notre discussion sur la perte d'informations, nous avons évalué les approches qui nécessitent
@@ -970,7 +970,7 @@ kable(round(data.frame(
 ```
 
 Les intervalles de confiance diffèrent même si les estimations sont identiques — et il existe plusieurs façons de calculer les intervalles de confiance et les tests d'hypothèse pour les modèles à plusieurs niveaux.
-Le logiciel R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) comprend trois méthodes par défaut et Gelman et Hill (2007) recommandent l'échantillonnage de Monte-Carlo par chaînes de Markov (MCMC) à partir de la distribution postérieure implicite. Ici, nous nous concentrons sur la méthode de Wald uniquement parce qu'elle est la plus rapide à calculer.
+Le logiciel R (Bates, Maechler, Bolker, et al. (2014a), Bates, Maechler, Bolker, et al. (2014b)) inclut trois méthodes par défaut et Gelman et Hill (2007) recommandent l'échantillonnage de Monte-Carlo par chaînes de Markov (MCMC) à partir de la distribution postérieure implicite. Ici, nous nous concentrons sur la méthode de Wald uniquement parce qu'elle est la plus rapide à calculer.
 
 <style>
 div.hidecode + pre {display: none}
@@ -983,7 +983,8 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Cliquer pour voir le code]</div>
 ```{r,cache = T, error=FALSE, message=FALSE, warning=FALSE}
-# Cette fonction calcule les intervalles de confiance pour des modèles linéaires avec des matrices de variance-covariance personnalisées
+# Cette fonction calcule les intervalles de confiance pour des modèles linéaires
+# avec des matrices de variance-covariance personnalisées
 confint_HC<-function (coefficients, df, level = 0.95, vcov_mat, ...) {
   a <- (1 - level)/2
   a <- c(a, 1 - a)
@@ -1052,7 +1053,8 @@ e.nextSibling.nextSibling.style.display="block";
 # par agrégat de grappe, avec une erreur type RCSE ou avec un modèle multi-niveaux
 
 sim_0_ate <- function(J,Y) {
-  # Rendre la vraie relation entre le traitement et les résultats égale à zéro en mélangeant Z mais sans révéler de nouveaux résultats potentiels
+  # Rendre la vraie relation entre le traitement et les résultats égale à zéro
+  # en mélangeant Z mais sans révéler de nouveaux résultats potentiels
   z.sim <- sample(1:max(J), max(J) / 2)
   Z_new <- ifelse(J %in% z.sim == TRUE, 1, 0)
 
@@ -1073,7 +1075,8 @@ sim_0_ate <- function(J,Y) {
   m0 <- unique(table(J))
   n  <- length(Zj)
   nt <- sum(Zj)
-  # Faire le test basé sur Hansen et Bowers 2008 pour la différence des moyennes avec l'assignation au niveau de la grappe (en supposant des grappes de même taille)
+  # Faire le test basé sur Hansen et Bowers 2008 pour la différence des moyennes
+  # avec l'assignation au niveau de la grappe (en supposant des grappes de même taille)
   ones <- rep(1, length(Yj))
   dp   <- crossprod(Zj,Yj) * (n / (m0 * nt * (n - nt))) -
     crossprod(ones,Yj) / (m0 * (n - nt))
@@ -1180,7 +1183,8 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                              return_cov = TRUE),
              df = linear_fit$df.residual)["Z",]
 
-  # Zéro ne devrait pas être trop souvent dans cet intervalle de confiance car l'hypothèse nulle d'absence d'effet est fausse ici
+  # Zéro ne devrait pas être trop souvent dans cet intervalle de confiance
+  # car l'hypothèse nulle d'absence d'effet est fausse ici
   correct_reject <- !((0 >= RCSE_CI[1]) & (0 <= RCSE_CI[2]))
 
   # Réassigner le traitement au niveau du village de sorte que Y soit indépendant de Z --- donc le vrai effet est 0
@@ -1195,7 +1199,8 @@ test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,IC
                                              return_cov = TRUE),
                              df = linear_fit$df.residual)["Z_new",]
 
-  # Zéro devrait être dans cet intervalle de confiance très souvent car l'hypothèse nulle d'absence d'effet est vraie ici
+  # Zéro devrait être dans cet intervalle de confiance très souvent
+  # car l'hypothèse nulle d'absence d'effet est vraie ici
   false_positive <-  !((0 >= RCSE_CI_true[1]) & (0 <= RCSE_CI_true[2]))
 
   return(c(
