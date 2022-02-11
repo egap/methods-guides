@@ -75,3 +75,18 @@ rmarkdown::render("x-cause-y/x-cause-y.Rmd")
 rmarkdown::render("randomization/randomization.Rmd")
 
 
+rmarkdown::render("causal-inference/causal-inference.Rmd",output_format='pdf_document')
+rmarkdown::render("cluster-random/cluster-random.Rmd",output_format='pdf_document')
+rmarkdown::render("covariates/covariates.Rmd",output_format='pdf_document')
+rmarkdown::render("design/design.rmd",output_format='pdf_document')
+rmarkdown::render("effect-types/effect-types.Rmd",output_format='pdf_document')
+rmarkdown::render("external-validity/extval.Rmd",output_format='pdf_document')
+rmarkdown::render("hypothesistesting/hypothesistesting.Rmd",output_format='pdf_document')
+rmarkdown::render("measurement/measurement.Rmd",output_format='pdf_document')
+rmarkdown::render("mechanisms/10thingsaboutmechanisms.Rmd",output_format='pdf_document')
+rmarkdown::render("pap/pap.Rmd",output_format='pdf_document')
+rmarkdown::render("power/power.Rmd",output_format='pdf_document')
+rmarkdown::render("x-cause-y/x-cause-y.Rmd",output_format='pdf_document')
+rmarkdown::render("randomization/randomization.Rmd",output_format='pdf_document')
+
+
