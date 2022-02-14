@@ -659,7 +659,7 @@ quand $\sum_{i = 1}^{n_{1k}}(Y_{i1k}(1)-Y_{i1k}(0))/n_{1k} = \sum_{i = 1}^{n_{ 2
 ==
 
 Comme le suggère l'expression ci-dessus, afin de réduire à près de 0 le biais des tailles de grappes inégales,
-il suffit de mettre en paire les grappes qui sont de taille égale ou ont des résultats potentiels presque identiques.
+il suffit de mettre par paire les grappes qui sont de taille égale ou ont des résultats potentiels presque identiques.
 
 Nous démontrons cette approche ci-dessous en utilisant les mêmes données que celles que nous avons examinées dans l'exemple d'une expérience hypothétique de productivité des employés randomisée par entreprise.
 
