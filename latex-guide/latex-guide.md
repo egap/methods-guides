@@ -8,11 +8,15 @@ secnumdepth: 2
 number-sections: true
 bibliography: latex-guide.bib
 linkReferences: true
+listings: true
 html_document:
   toc: true
   toc_depth: 1
   number-sections: true
+  listings: true
   theme: journal
+  highlight: pygment
+  pandoc_args: ["--from= markdown+autolink_bare_uris+tex_math_single_backslash+inline_code_attributes"]
 ---
 
 Writing is a time-consuming process; writing high-quality publications requires
@@ -47,7 +51,7 @@ more efficient and higher quality paper writing workflow. Specifically we focus 
 
 <!-- We provide a pile of links to graphical interfaces to LaTeX at the end of the document, however emphasizing that value of  -->
 
-To help people **practice** these commands we have hands-on examples ready in a [JupyterLab](TODO)
+To help people **practice** these commands we have hands-on examples ready in a [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)
 session, through [Binder](https://mybinder.org/).  Here you can follow along, processing
 documents in a terminal session. You can start this environment here:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bowers-illinois-edu/egap-latex-guide/HEAD?urlpath=lab).
@@ -56,34 +60,44 @@ To use LaTeX on your own computer, you will need to [install it](https://www.lat
 
 # 1. Structure and Markup
 
-A LaTeX document (or a `.tex` file) is a [plain
-text](https://en.wikipedia.org/wiki/Plain_text) document that contains commands
-that guides the LaTeX processing program how to create a beautiful pdf. These commands
-can be "markup" like `\textbf{this is bold}` for **bold text** or `$\alpha +
-\beta \frac{1}{x^2}$` for math like $\alpha + \beta \frac{1}{x^2}$ or commands
-that tell LaTeX about document structure like `\section{Introduction}` or even
-commands to identify a bibliography like
-`\bibliography{refs_example.bib}`.
+A LaTeX document (or a `.tex` file) is a [plain text](https://en.wikipedia.org/wiki/Plain_text) document that contains commands that tell the LaTeX processing program how to create a beautiful pdf. These commands can be "markup" like `\textbf{this is bold}` for **bold text** or `$\alpha + \beta \frac{1}{x^2}$` for math like $\alpha + \beta \frac{1}{x^2}$ or commands that tell LaTeX about document structure like `\section{Introduction}` or even commands to identify a bibliography like `\bibliography{refs_example.bib}`.
 
-Once you have a plain text document with markup, you then process it using a
-set of programs to create a publishable output like a `.pdf` file.
-This figure shows an example of a LaTeX document and highlights different
- parts of the document and their role.
+Once you have a plain text document with markup, you then process it using a set of programs to create a publishable output like a `.pdf` file.  This figure shows an example of a LaTeX document and highlights different parts of the document and their role.
+
+<center>
 
 ![The Structure of a LaTeX document\label{fig:struct}](document_structure.png)
 
-After processing that document (via, say, the command `latexmk -pdflatex
-example.tex`, assuming that the document is called `example.tex`), one can see
+</center>
+
+
+Imagine we have a document called `example.tex`. After processing that document via, say, the command `latexmk -pdflatex example.tex`, one can see
 a pdf file like the following image:
 
-![The associated pdf document\label{fig:struct_image}](document_structure_compiled.png){ style="width: 50%; margin: auto; text-align: center; border: 1px;" }
+<style type="text/css">
+.caption {
+    font-size: large;
+    font-weight: bold;
+}
+</style>
+
+<center>
+
+![Above see an image of the pdf document associated with the <code>example.tex</code> file in the `1_structure` subdirectory.\label{fig:struct_image}](document_structure_compiled.png){ style="width: 50%; margin: auto; text-align: center;  border: 1px;" }
+
+</center>
 
 ## Takeaways
 
-- A LaTeX document is comprised of mainly two sections: preamble, which defines the styling, and the document text.
-- The LaTeX system separates concerns by allowing you to focus writing
-content in a plain text document, following by processing.
-- Processing the typed document delivers a layout that automatically handles spacing (as we will see later).
+- A LaTeX document contains mainly two sections: a preamble, which defines the
+  styling and defines title and author, and the document text.
+- The LaTeX system separates concerns having to do with writing from concerns
+  having to do with format. It allows you to focus on writing content
+  in a plain text document, following by processing to make a nice pdf file
+  including automatically formatted citations, bibliography, cross-references,
+  figures, tables, etc.
+- Processing the typed document delivers a layout that automatically handles
+  spacing (as we will see later).
 
 ## Practice
 
@@ -98,9 +112,10 @@ repository](https://github.com/bowers-illinois-edu/egap-latex-guide)
 2. Then clicking on the `Terminal` icon in the JupyterLab pane
 3. Once you are there, try typing `latexmk -pdflatex example.tex` and then looking at the pdf.
 
-You can also copy the github repository to your own local machine and launch
-the Terminal to see a Unix command prompt if you are using a Mac or Linux
-machine. Windows machine also offer a unix command prompt, but it is a [bit
+You can also copy the GitHub repository to your own local machine and launch
+the Terminal to see a Unix command prompt if you are using a
+[Mac](https://support.apple.com/guide/terminal/welcome/mac) or Linux
+machine. Windows machines also offer a Unix command prompt, but it is a [bit
 more involved to install
 it](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
@@ -135,10 +150,10 @@ Here is a list of the common programs that one might use to create a pdf file fr
   font](https://www.overleaf.com/learn/latex/XeLaTeX) to one that is installed
   on your system).
 - `lualatex`: extends latex so that more programming can be done within it
-  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com)). TODO fix link
+  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F)).
 
 For example, at the command prompt in the Terminal, you might type
-`pdflatex example.tex` create an `example.pdf` file (if you only do it once,
+`pdflatex example.tex` to create an `example.pdf` file (if you only do it once,
 the citation will show up as a `?` and no bibliography will be printed).
 
 Notice also:
@@ -152,7 +167,11 @@ Notice also:
  The following figure shows how it may require three runs of `pdflatex` (plus a
  run of `bibtex`) to go from an `example.tex` file to an `example.pdf` file:
 
+<center>
+
  ![From LaTeX to PDF commands \label{fig:flavors}](from_tex_to_pdf.png)
+
+</center>
 
 You can replace those multiple lines with a single call to `latexmk -pdflatex example.tex`.
 
@@ -162,6 +181,9 @@ You can replace those multiple lines with a single call to `latexmk -pdflatex ex
    plain TeX
 - Always use PDF output (`pdflatex`) and PDF figures (or PNG ... more on this
    later) rather than DVI or PS format for sharing generated documents
+- We recommend using tools like `latexmk` to automate the process repeatedly using both
+  `pdflatex` and `bibtex` (or `biber` for those using `biblatex`) to process a
+  file.
 
 ## Practice
 
@@ -172,14 +194,15 @@ example.tex`?
 # 3. LaTeX workflows
 
 A given scientific paper will require many files and often involves many
-authors. For example, several `.tex` files (for different sections), multiple
-figures (in the form of `.pdf`s), and bibliographis (in `.bib` files) may all
-be part of the paper.  Organizing these files is a consistent fashion will
-lead to a clear process when dealing with revisions at a later date.
+authors. For example, a single paper will often use several `.tex` files (for
+different sections), multiple figures (in `.pdf` form), and bibliographies (in
+`.bib` files). Further, each figure might depend on a pipeline of raw data and
+code. Organizing these files in a consistent fashion will lead to a
+clear process when dealing with revisions later.
 
-As a specific example a `main.tex` file might look like this:
+For example a `main.tex` file might look like this:
 
-```{.latex}
+```{.tex}
 \documentclass{article}
 \title{My Title}
 \begin{document}
@@ -194,7 +217,7 @@ As a specific example a `main.tex` file might look like this:
 
 But `results.tex` might look like this:
 
-```{#lst:figex .latex}
+```{#lst:figex .tex}
 \section{Results}
 
 Figure~\ref{fig:vaccine_by_pop} shows that opposition to vaccination peaks at a population of 100,000.
@@ -208,15 +231,16 @@ Figure~\ref{fig:vaccine_by_pop} shows that opposition to vaccination peaks at a 
 
 ```
 
-The number `100,000` and the figure `vaccine_by_pop.pdf` are derived from the R
+The number `100,000` and the figure `vaccine_by_pop.pdf` might derive from the R
 file called `vaccine_by_pop.R`. This R file relies on data that is cleaned by
-`vaccine_data_cleaning.py`, in addition to data that are downloaded, cleaned, and merged from the web.
+`vaccine_data_cleaning.py`. The data themselves may also require code to
+download, clean, and merge with other files.
 
 So how do we organize the data, the files, and the overall workflow? There are many possibilities, but we're reminded by a slice of the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2):
 
-> Simple is better than complex.
-Complex is better than complicated.
-Flat is better than nested.
+> Simple is better than complex. <br>
+> Complex is better than complicated. <br>
+> Flat is better than nested.
 
 We provide two specific examples of workflows below, first noting two aspects
 that will greatly improve your process.  The **first** is to separate your data
@@ -227,14 +251,16 @@ from your processing and presentation:
   - Plotting data (e.g.  `temp_vs_time.csv`)
   - Plotting script (e.g.  `temp_vs_time.py`)
 
-The **second** aspect, directly related to the LaTeX, is to establish a predictable
-naming convention.  For example, each output like a table or figure uses one script with the same
-name:`temp_vs_time.pdf &lt;—&gt;  temp_vs_time.py` and that LaTeX labelling
-follow this convention `\label{fig:temp_vs_time}`.  When editing the document, the path from figure to the associated plotting script and related data is then clear.
+The **second** aspect, directly related to the LaTeX, is to establish a
+predictable naming convention.  For example, each output like a table or figure
+uses one script with the same name:`temp_vs_time.pdf <—> temp_vs_time.py` and
+that LaTeX labelling follow this convention `\label{fig:temp_vs_time}`.  When
+editing the document, the path from figure to the associated plotting script and
+related data is then clear.
 
 ## On Directory Structure
 
-Here are a two examples of directory structures have have worked for us:
+Here are two examples of directory structures have have worked for us:
 
 In this example,
 we use [Matt West's directory structure](https://lagrange.mechse.illinois.edu/latex_quick_ref/),
@@ -319,11 +345,11 @@ paper_topic_name_dir_name              | string used for repo, tex, and bib file
 - Separate data from processing from presentation.
 - Create consistent labels in the LaTeX to script that generates it to the associated data.
 - Commit to a workflow!  Anything is better than nothing and
-from the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2) `Now is better than never.`
+from the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2) recall that `Now is better than never.`
 
 ## Practice
 
-See the directory `3_workflows` and the `readme.md` file therein.
+Feel free to play with the directory `3_workflows` and the `readme.md` file therein.
 
 # 4. On collaboration
 
@@ -334,7 +360,7 @@ How do you track changes and version in your LaTeX document?
 
 We strongly recommend [git version control via github](https://github.com/git-guides),
 either when working along on a document or when multiple authors are involved.
-We do not git describe it in-depth here, but instead offer the following high-level
+We do not describe git and github in-depth here, but instead offer the following high-level
 *best* practices.
 
 What files should you track (in version control)?
@@ -356,14 +382,20 @@ What should you **not** track (in version control)?
 Version control is invaluable as a collaboration tool, however it does require diligence
 when working with co-authors on a LaTeX document. We recommend the following recipe:
 
-- Agree with your co-authors on how you will organize the text in your documents. Specifically address expectations on
+- Agree with your co-authors on how you will organize the text in your
+  documents. Specifically address expectations on
    - one sentence per line (of the LaTeX document)?
    - hard wrapping at say 80 characters?
-   - nothing, free for all (plus or minus pre-commit automatic reformatting or checking of files)?
+   - nothing, free for all (plus or minus pre-commit automatic reformatting or
+     checking of files)?
 - Commit changes *often*
-- For large edits, take specific sections at a time, to reduce merge conflicts
-- Before you commit and push, clean your LaTeX compile (`latexmk myfile.tex -C`) and recompile to verify there are **no** errors.
-- In the rare event when style files rely on a specific version, consider tracking the style file in your paper repository.
+- Avoid merge conflicts in large edits by working in specific sections at a time
+  or even by breaking the paper into sub-files and working a file at a time.
+- Before you commit and push, remove the intermediate files that LaTeX has
+  created, for example using `latexmk myfile.tex -C`, and recompile to verify
+  there are **no** errors.
+- In the rare event when style files rely on a specific version, consider
+  tracking the style file in your paper repository.
 
 ## Collaborating synchronously
 
@@ -380,8 +412,8 @@ There are other systems for editing plain text at the same time such as [Teletyp
 
 - Agree on a tracking strategy with your collaborators
 - Do not add generated files such as log files to the repository
-- Do add files (such as figures, even though generated) in order to build the paper
-- Use the git for version control.
+- Do add files (such as figures, even though generated) to make building the paper easier
+- Use git and GitHub for version control.
 
 ## Practice
 
@@ -390,17 +422,18 @@ See the directory `4_git` and the `readme.md` file therein.
 # 5. Style
 
 The overarching *style* of your document is often decided by the journal.  With
-this in mind, it is best to typeset your document with the journal's style
-file.  The Society for Industrial and Applied Mathematics (SIAM) provides
-[style files directly](https://www.siam.org/publications/journals/about-siam-journals/information-for-authors#dnn_ctr2112_ContentPane)
-whereas others, e.g. American Mathematical Society journals, are included with
-your TeX distribution and available in
+this in mind, it is best to typeset your document with the journal's style file.
+For example here is the style file for [Political
+Analysis](https://www.overleaf.com/latex/templates/template-for-submission-to-political-analysis/csxqmspqzntv).
+The Society for Industrial and Applied Mathematics (SIAM) provides [style files
+directly](https://www.siam.org/publications/journals/about-siam-journals/information-for-authors#dnn_ctr2112_ContentPane)
+whereas others, e.g. are included with your TeX distribution and available in
 [CTAN](https://ctan.org/pkg/amsart?lang=en). In any case, committing and not
 deviating from the expected format will accelerate your time-to-publication by
 not slowing down the copy editing at the journal. The style files will provide
 macros for author formats, custom figure environments, and almost certainly the
-preferred style for the bibilography. In addition, most journal provide a
-*style guide* that will detail the expectations on punctuation, hyphens, commas, etc.
+preferred style for the bibilography. In addition, most journal provide a *style
+guide* that will detail the expectations on punctuation, hyphens, commas, etc.
 
 ## Takeaways
 
@@ -417,8 +450,8 @@ re-writing". However, you might not know about linters.
 
 ## Linters?
 
-A linter is a program that analyzes your text (sometimes in realtime, as you
-write it). When your mis-spelled words are highlighted in your email client,
+A linter is a program that analyzes your text (sometimes in real-time, as you
+write it). When your misspelled words are highlighted in your email client,
 you are seeing the results of a linter alerting you to improve your text.
 Linters are also used in programming --- catching code errors before running
 the code, by alerting you to unmatched parentheses or missing semi-colons.
@@ -429,7 +462,7 @@ Other linters can look for issues with **style**. Consider the following terribl
 
 One linter, the [write-good](https://github.com/btford/write-good), highlights several potential problems:
 
-```
+```{bash}
 col 16 error| [write-good] "is needed" may be passive voice [E]
 col 71 error| [write-good] "in order to" is wordy or unneeded [E]
 col 102 error| [write-good] "very" is a weasel word and can weaken meaning [E]
@@ -448,16 +481,18 @@ reading paragraphs and sentences out loud to "edit by ear" @howardsbecker1986a
 to guides specific to academic writing: @gopen1990science and @howardsbecker1986a.
 Here, we offer a few directions that improve your writing specifically in LaTeX:
 
-- Linters such as [alex](https://alexjs.com), [proselint](http://proselint.com), and
-  [write-good](https://github.com/btford/write-good) can be integrated into many
-  text editors (such as [vim](https://www.vim.org/) to highlight your `.tex` document
-  on-the-fly.
-- In general, avoid the urge to constantly re-compile your document to view its output (figures/diagrams are a different case). Your first task is writing not reading.
-- Mark open items and second pass items with  `% TODO`, a comment in the `.tex` file. You can find all places
-  where you have `% TODO` in your document using: `grep TODO
-  paper_randnoise.tex`
+- Linters such as [alex](https://alexjs.com), [proselint](http://proselint.com),
+  and [write-good](https://github.com/btford/write-good) can be integrated into
+  many text editors (such as [vim](https://www.vim.org/) to highlight your
+  `.tex` document on-the-fly.
+- In general, avoid the urge to constantly re-compile your document to view its
+  output (figures/diagrams are a different case). Your first task is writing not
+  reading.
+- Mark open items and second pass items with  `% TODO`, `%` marks a line as a comment in the `.tex`
+  file. You can find all places where you have `% TODO` in your document using:
+  `grep TODO paper_randnoise.tex`.
 - Outline. Write. Revise.
-- Polish and make it look visually appealing!
+- Polish and make the paper look appealing!
 
 ## Takeaways
 
@@ -475,7 +510,7 @@ See the directory `6_linting` and the `readme.md` file therein.
 # 7. LaTeX dos and don'ts
 
 You will find that authors have their own macros, their own style in the `.tex` document,
-and they're own preferences when using LaTeX.  Here we offer general principles that can
+and their own preferences when using LaTeX.  Here we offer general principles that can
 help improve your overall LaTeX workflow:
 
 #### DO keep your LaTeX readable!
@@ -506,7 +541,8 @@ help improve your overall LaTeX workflow:
 
 #### DON'T overuse macros
 
-- Macros are intended for complex arrangements with repeated use.
+- Macros are intended for complex arrangements with repeated use. For example,
+  to avoid writing `$\vec{H}(\text{curl},\Omega)$` to produce $\vec{H}(\text{curl},\Omega)$ we might use a macro to create a shortcut command like `$\Hcurl$`:
 ```tex
 \newcommand{\Hcurl}{\vec{H}(\text{curl},\Omega)}
 ```
@@ -557,7 +593,7 @@ Central to TeX is an algorithm for placing and spacing figures and text so that
 you don't have to.  Float environments (figure, table, etc) should be attached
 to the paragraph of their first reference (more in the next section).
 **Avoid** use of `\FloatBarrier`, `\newpage`, `\vspace`, `\hspace`, etc to
-muscle your own spacing. ```
+muscle your own spacing.
 
 ## Takeaways
 
@@ -609,13 +645,13 @@ BibTeX file for this essay:
 
 ## General workflow
 
-- Typically you do not need to write your own `.bib` entry. Grab the full citation online at citation’s journal and/or Google Scholar [see
+- Typically you do not need to write your own `.bib` entry. Grab the full citation online at  the citation’s journal and/or Google Scholar [see
   instructions here for getting BibTeX formatted entries from Google
   Scholar](https://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/)
 - Clean up entry (removing abstracts or other fields).  Align as desired for readability.
 - Format cleanly.  Use `{ }` instead of `“ “`
 - `{ }` also force capitalization: for example `title = {All about {Krylov} methods}`
-- *Important*: some journal require specific fields in certain `.bib` entries.  This can generate warnings.
+- *Important*: some journals require specific fields in certain `.bib` entries.  This can generate warnings.
 
 
 ## Takeaways
@@ -630,29 +666,29 @@ See the directory `8_citations` and the `readme.md` file therein.
 
 # 9. On Figures and Tables and Math
 
-Figures, tables, and math break up the text of a document and convey
-information that can make or break the overall flow of your story.
-In general, if a figure or table has been created using code, your project
-should have a figure or table script: `linear_simulations_N100.R`
-creates one figure `linear_simulations_N100.pdf`. This figure
-creation file might require as input another file with simulation results, and
-in turn the simulation results creator file may need data;
-this dependency may be described in a `readme` or `Makefile`. For example in line 1
-`Data/clean_data.csv: Data/clean_data.R Data/raw_data.csv` means that the file
-`Data/clean_data.csv` depends on `Data/clean_data.R Data/raw_data.csv` (is
-created by the `.R` file and the `.csv` file together). And line 2 is a command
-used to create `Data/clean_data.csv` (in this case, the command is `R ---file
+Figures, tables, and math break up the text of a document and convey information
+that can make or break the overall flow of your story. In general, if a figure
+or table has been created using code, your project should have a figure or table
+creation file like `linear_simulations_N100.R` which creates one figure
+`linear_simulations_N100.pdf`. This figure creation file might require as input
+another file with simulation results, and in turn the simulation results creator
+file may need data; this dependency may be described in a `readme` or
+`Makefile`. For example in line 1 of the Makefile below we see `Data/clean_data.csv: Data/clean_data.R
+Data/raw_data.csv` which means that the file `Data/clean_data.csv` depends on
+`Data/clean_data.R` and `Data/raw_data.csv`. And line 2 is a command used to create
+`Data/clean_data.csv` (in this case, the command is `R ---file
 Data/clean_data.R`.
 
-```{.makefile .numberLines}
-Data/clean_data.csv: Data/clean_data.R Data/raw_data.csv
-    R ---file Data/clean_data.R
 
-Analysis/linear_simulations.rda: Analysis/linear_simulations.R Data/clean_data.csv
-    R --file Analysis/linear_simulations.R
-
-Figures/linear_simulations_N100.pdf: Figures/linear_simulations_N100.R Analysis/linear_simulations.rda
-    R --file Figures/linear_simulations_N100.R
+```{.r .numberLines .lineAnchors startFrom="11"}
+1  Data/clean_data.csv: Data/clean_data.R Data/raw_data.csv
+2      R ---file Data/clean_data.R
+3  
+4  Analysis/linear_simulations.rda: Analysis/linear_simulations.R Data/clean_data.csv
+5      R --file Analysis/linear_simulations.R
+6  
+7  Figures/linear_simulations_N100.pdf: Figures/linear_simulations_N100.R Analysis/linear_simulations.rda
+8      R --file Figures/linear_simulations_N100.R
 ```
 
 In general figures, tables, and math should appear close to where they are
@@ -671,7 +707,7 @@ for working with LaTeX and figures:
 example, if we wanted to include a figure but scale it to 1/3 of the width of
 the text (the area within the left and right margins), we would use:
 ```{.latex}
-\includegraphics[width=0.3\textwidth]{myfig.pdf}`
+\includegraphics[width=0.3\textwidth]{myfig.pdf}
 ```
 - You should attach a float environment after the paragraph of first reference. For example:
 ```{.latex}
@@ -721,7 +757,11 @@ Catalogue](https://tug.org/FontCatalogue/mathfonts.html).
 See the directory `9_figures` and the `readme.md` file therein.  In particular,
 you will consider the following "bad" figure and how to improve it in your LaTeX document.
 
-![A terrible figure\label{fig:bad_figure}](bad_figure.png){ "width: 50%; margin: auto; text-align: center;" }
+<center>
+
+![A terrible figure\label{fig:bad_figure}](bad_figure.png){ style="width: 50%; margin: auto; text-align: center;" }
+
+</center>
 
 # 10. Helpful tools
 
@@ -743,8 +783,9 @@ you will consider the following "bad" figure and how to improve it in your LaTeX
 
 ### Ways to type a document using LaTeX markup
 
-A LaTeX document is a plain text file. This means that you can use any text
-editor to write a LaTeX document. However, a text editor that (1) recognizes
+A LaTeX document is a [plain text
+file](https://en.wikipedia.org/wiki/Plain_text). This means that you can use any [text
+editor](https://en.wikipedia.org/wiki/Text_editor) to write a LaTeX document. However, a text editor that (1) recognizes
 that `\textbf{}` is a LaTeX command or that (2) keeps track of matching braces
 and parentheses makes it easier to write LaTeX markup. To that end, we use
 [neovim](http://neovim.io) (sometimes with the [vimr
