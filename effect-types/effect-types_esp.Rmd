@@ -21,8 +21,8 @@ Esta guía [^1] presenta una discusión más formal de la independencia y de los
 ==
 Comenzamos revisando cómo, con la aleatorización, una simple diferencia de medias proporciona una estimación no sesgada del ATE. A continuación, presentamos algunos conceptos estadísticos comunes y la notación que  utilizamos a lo largo de esta guía.
 
-Primero definimos el efecto del tratamiento para una observación individual (una persona, hogar, ciudad, etc.) como la diferencia entre el comportamiento de esa unidad bajo tratamiento $(Y_ {i} (1))$ y control 
-$$\tau_{i}=Y_{i}(1)-Y_{i}(0)$$
+Primero definimos el efecto del tratamiento para una observación individual (una persona, hogar, ciudad, etc.) como la diferencia entre el comportamiento de esa unidad bajo tratamiento $(Y_ {i} (1))$ y su control 
+$$\tau_{i}=Y_{i}(1)-Y_{i}(0).$$
 Dado que solo podemos observar $Y_{i}(1) $ o $Y_ {i} (0)$, no tenemos forma de saber cuál es el efecto del tratamiento individual. Ahora sea $D_{i}$ un indicador de si una observación está en el grupo de  tratamiento o control. Si el tratamiento se asigna al azar, $D_ {i}$ es independiente, no solo de los resultados potenciales sino también de cualquier covariable (observada y no observada) que pueda predecir también esos resultados $((Y_ {i} (1), Y_ {i } (0),X_ {i} \perp \perp D_ {i}))$ [^2].
 
 [^2]: Ver Holland, Angrist y Pischke para una discusión más formal sobre la independencia y los supuestos necesarios para estimar los efectos causales.
@@ -56,9 +56,9 @@ y estimar esta cantidad a partir de las estimaciones muestrales de la varianza e
 Un modelo lineal que regresa el resultado observado $Y_ {i}$ en un indicador de la asignación del tratamiento $D_{i}$ nos sirve como estimador  del ATE (y con algunos ajustes adicionales de la varianza del ATE):
 
 $$Y_{i}=Y_{i}(0)(1-D_{i})+Y_{i}(1)D_{i}=\beta_{0}+\beta_{1}D_{i}+u$$
-ya que podemos reorganizar los términos de modo que $\beta_{0}$ estime el promedio entre las observaciones de control $(Y_ {i} (0) ∣D_ {i} = 0)$ y $\beta_{1}$ estime las diferencias de las medias $(Y_ {i} (1) ∣D_ {i} = 1) - (Y_ {i} (1) ∣D_ {i} = 0)$. En el siguiente código, creamos una muestra de 1000 observaciones y asignamos aleatoriamente un tratamiento $D_i$ con un efecto constante para la mitad de las unidades. Estimamos el ATE utilizando la regresión de mínimos cuadrados ordinarios (MCO) para calcular la diferencia de medias observada. El cálculo de las medias en cada grupo y su diferencia también produciría una estimación no sesgada del ATE. Tenga en cuenta que el ATE estimado del estimador de MCO es insesgado porque suponemos que los errores en este modelo lineal son independientes y están distribuidos de manera idéntica. Cuando nuestro tratamiento afecta tanto al valor promedio del resultado como a la distribución de las respuestas, esta supuesto ya no se cumple y necesitamos ajustar los errores estándar de MCO utilizando un estimador sándwich de Huber-White para obtener las estimaciones correctas (basadas en la varianza de el ATE) para hacer inferencia estadística. [^6] Finalmente, través de la simulación demostramos que estos  estimadores son insesgados.
+ya que podemos reorganizar los términos de modo que $\beta_{0}$ estime el promedio entre las observaciones de control $(Y_ {i} (0) ∣D_ {i} = 0)$ y $\beta_{1}$ estime las diferencias de las medias $(Y_ {i} (1) ∣D_ {i} = 1) - (Y_ {i} (1) ∣D_ {i} = 0)$. En el siguiente código, creamos una muestra de 1000 observaciones y asignamos aleatoriamente un tratamiento $D_i$ con un efecto constante para la mitad de las unidades. Estimamos el ATE utilizando la regresión de mínimos cuadrados ordinarios (MCO) para calcular la diferencia de medias observada. El cálculo de las medias en cada grupo y su diferencia también produciría una estimación no sesgada del ATE. Tenga en cuenta que el ATE estimado del estimador de MCO es insesgado porque suponemos que los errores en este modelo lineal son independientes y están distribuidos de manera idéntica. Cuando nuestro tratamiento afecta tanto al valor promedio del resultado como a la distribución de las respuestas, esta supuesto ya no se cumple y necesitamos ajustar los errores estándar de MCO utilizando un estimador sándwich de Huber-White para obtener las estimaciones correctas (basadas en la varianza del ATE) para hacer inferencia estadística. [^6] Finalmente, a través de la simulación demostramos que estos  estimadores son insesgados.
 
-          
+           
 [^6]: Lin (2013)
 
 ```{r, error=FALSE, message=FALSE, warning=FALSE}
@@ -409,7 +409,7 @@ log.odds.adj<-log(mean(aT.adj)/(1-mean(aT.adj)))-
 
 10 Efectos atribuibles
 ==
-Concluimos con una breve discusión de una cantidad alternativa de interés causal que puede ser particularmente útil con resultados binarios: el efecto atribuible (Rosenbaum 2010). Considere un caso simple con un resultado y un tratamiento dicotómicos. Sea $A$ el número de resultados atribuibles al tratamiento, es decir, el número de casos en los que $Y_i$ es igual a 1 entre los sujetos tratados y que de haber sido asginados al control no habrían producido el mismo resultado. Para un rango de $A$, ajustamos la tabla de contingencia observada de resultados entre las unidades tratadas y comparamos esta distribución resultante con una distribución nula conocida (la distribución de resultados que hubiéramos observado si el tratamiento no hubiera tenido efecto). El rango resultante de $A$ para el cual nuestra prueba continúa rechazando la hipótesis nula de ningún efecto proporciona un rango de efectos que son atribuibles a nuestro tratamiento.
+Concluimos con una breve discusión de un caso alternativo de interés causal que puede ser particularmente útil con resultados binarios: el efecto atribuible (Rosenbaum 2010). Considere un caso simple con un resultado y un tratamiento dicotómicos. Sea $A$ el número de resultados atribuibles al tratamiento, es decir, el número de casos en los que $Y_i$ es igual a 1 entre los sujetos tratados y que de haber sido asginados al control no habrían producido el mismo resultado. Para un rango de $A$, ajustamos la tabla de contingencia observada de resultados entre las unidades tratadas y comparamos esta distribución resultante con una distribución nula conocida (la distribución de resultados que hubiéramos observado si el tratamiento no hubiera tenido efecto). El rango resultante de $A$ para el cual nuestra prueba continúa rechazando la hipótesis nula de ningún efecto proporciona un rango de efectos que son atribuibles a nuestro tratamiento.
 
  Tabla 1|$D=1$              |$D=0$
     -------|-------------------|--------------
@@ -417,7 +417,7 @@ Concluimos con una breve discusión de una cantidad alternativa de interés caus
     $Y=0$  |$\sum Y_i(1-D_i)+A$|$\sum (1-Y_i)(1-D_i)$
     
 
-Rosenbaum (2002) presenta extensiones de este concepto para diferentes tipos de resultados (como las variables continuas). Se puede aplicar una lógica similar para detectar respuestas  poco comunes al tratamiento, pero extremas (Rosenbaum y Silber 2008).
+Rosenbaum (2002) presenta extensiones de este concepto para diferentes tipos de resultados (como las variables continuas). Se puede aplicar una lógica similar para detectar respuestas  poco comunes, pero extremas al tratamiento (Rosenbaum y Silber 2008).
 
 Hansen y Bowers (2009) utilizan este enfoque para identificar el número de votos adicionales atribuibles a diferentes intervenciones en un experimento para incentivar el voto con asignación al tratamiento por conglomerados e incumplimiento unilateral. Ellos muestran que en muestras grandes se puede aproximar el intervalo de confianza para los efectos atribuibles sin evaluar cada atribución. A continuación presentamos un ejemplo de ese enfoque en el que se utilizan covariables para aumentar la precisión.
 
