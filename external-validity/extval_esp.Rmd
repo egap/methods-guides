@@ -29,7 +29,7 @@ La validez externa adquiere especial importancia cuando se formulan recomendacio
 La validez interna se refiere a la calidad de las inferencias causales que se hacen para un determinado grupo de sujetos. Tal y como planteó Campbell[^2], la validez interna pregunta: "¿tuvo el estímulo experimental alguna diferencia significativa en este caso específico?". Este concepto encaja con el enfoque contrafactual de la causalidad que suelen utilizar los experimentalistas, que se pregunta si las variables de resultado cambian en función de la presencia o ausencia de un tratamiento[^3].
 
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
-[^3]: Se pueden encontrar más detalles en la guía de métodos de inferencia causal: http://egap.org/resource/10-things-to-know-about-causal-inference
+[^3]: Se pueden encontrar más detalles en la guía de métodos de inferencia causal: http://egap.org/resource/10-cosas-que-debe-saber sobre-la-inferencia-causal
 
 Antes de poder extrapolar un efecto causal a una población distinta, es vital que el Efecto Promedio del Tratamiento original se base en un resultado bien identificado. Para la mayoría de los experimentalistas, la asignación aleatoria proporciona la variación de identificación necesaria, siempre que no haya desgaste, interferencia, efectos secundarios u otras amenazas para la inferencia. En el caso de los estudios observacionales, se necesitan supuestos de identificación adicionales, como la independencia condicional del tratamiento de las variables de resultado potenciales. 
 
