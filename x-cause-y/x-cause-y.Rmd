@@ -77,7 +77,7 @@ Les méthodes spécifiques comprennent :
 
 * [appariement complet optimal](http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf), voir le [package optmatch](https://github.com/markmfredrickson/optmatch)
 * [appariement optimal avec équilibrage précis via une programmation mixte en nombres entiers](https://projecteuclid.org/euclid.aoas/1396966284), voir aussi [le package designmatch](https://cran.rstudio.com/web/packages/designmatch) et [l'article comparant les approches](http://jrzubizarreta.com/evaluation.pdf)
-* [appariement multi-niveaux optimal (pour les designs avec des écoles et des étudiants)](https://projecteuclid.org/euclid.aoas/1536652962)
+* [appariement multi-niveaux optimal (pour les conceptions avec des écoles et des étudiants)](https://projecteuclid.org/euclid.aoas/1536652962)
 * [appariement creux optimal](https://www.stat.berkeley.edu/~spi/software.html)
 * [appariement généralisé complet](https://arxiv.org/abs/1703.03882)
 * [appariement grossier exact](http://gking.harvard.edu/cem)

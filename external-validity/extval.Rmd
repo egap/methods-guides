@@ -43,7 +43,7 @@ Pour les études observationnelles, des hypothèses d'identification supplément
 ==
 
 Il y a débat au sein des sciences sociales concernant l'importance relative de l'identification de résultats valides en interne, qui par définition s'appliquent à un échantillon local, et la génération de résultats qui peuvent être extrapolés à des populations d'intérêt plus larges.
-Il est utile de se familiariser avec cette discussion lorsque l'on considère les compromis de design qui surgissent inévitablement dans les interventions à ressources limitées.
+Il est utile de se familiariser avec cette discussion lorsque l'on considère les compromis de conception qui surgissent inévitablement dans les interventions à ressources limitées.
 Des sommités de l'économétrie ont pris partie des deux côtés, ce qui atteste l'importance du sujet.
 
 D'un côté, les partisans de "l'identification d'abord", qui soutiennent que sans des résultats valides en interne, une étude ne fournit tout simplement pas d'informations utiles, qu'il s'agisse d'une population ou d'un contexte local ou général.
@@ -52,7 +52,7 @@ Comme le dit Imbens,[^4] "sans une solide validité interne, les études ont peu
 [^4]: Imbens, G. (2013). Book Review Feature: Public Policy in an Uncertain World: By Charles F. Manski. The Economic Journal,123(570), F401-F411.
 
 D'autres soutiennent que même sans l'identification complète d'un résultat valide en interne, des informations utiles peuvent être récupérées, surtout si elles sont pertinentes pour des questions importantes qui affectent un large contexte.
-Manski[^5] écrit que "ce qui compte, c'est le caractère informatif d'une étude pour l'élaboration des politiques, qui dépend conjointement de la validité interne et externe". Avec les données d'une étude large mais mal identifiée, soutient Manski, on peut borner l'estimande d'intérêt, ce qui fait toujours avancer la science, même si ce n'est pas aussi utile qu'une estimation ponctuelle précise.
+Manski[^5] écrit que "ce qui compte, c'est le caractère informatif d'une étude pour l'élaboration des politiques, qui dépend conjointement de la validité interne et externe". Avec les données d'une étude large mais mal identifiée, soutient Manski, on peut borner le paramètre d'intérêt, ce qui fait toujours avancer la science, même si ce n'est pas aussi utile qu'une estimation ponctuelle précise.
 
 [^5]: Manski, C. F. (2013). Response to the review of ‘public policy in an uncertain world’. The Economic Journal 123: F412–F415.
 
@@ -61,7 +61,7 @@ Manski[^5] écrit que "ce qui compte, c'est le caractère informatif d'une étud
 L'extrapolation d'une découverte à un contexte, un résultat, une population ou un traitement distincts n'est pas un processus mécanique.
 Comme discuté par Samii[^6] et Rosenbaum,[^7] une théorie pertinente doit être utilisée pour guider la généralisation, en prenant les preuves existantes pertinentes et en faisant des prédictions pour d'autres contextes d'une manière fondée sur des principes.
 Les théories font d'un problème complexe une représentation plus parcimonieuse, aidant ainsi à élucider les facteurs qui comptent.
-Tout comme la théorie guide le contenu des interventions et des designs de recherche, les propositions théoriques peuvent vous indiquer quelles conditions sur la portée de l'expérience sont pertinentes pour extrapoler un résultat.
+Tout comme la théorie guide le contenu des interventions et des conceptions de recherche, les propositions théoriques peuvent vous indiquer quelles conditions sur la portée de l'expérience sont pertinentes pour extrapoler un résultat.
 Quelles covariables importent ? Quelles informations contextuelles sont importantes ?
 
 [^6]: Samii, Cyrus. (2016). "Causal Empiricism in Quantitative Research." Journal of Politics 78(3):941–955.
@@ -74,7 +74,7 @@ Il existe deux principaux moyens de généraliser les résultats, l'un basé sur
 L'observation de la variation d'un effet de traitement sur une variable de pré-traitement non randomisée peut décrire l'hétérogénéité de l'effet de traitement, qui peut suggérer où ou pour qui l'intervention est susceptible d'être la plus efficace, au-delà de l'échantillon d'origine.
 Notez, cependant, que ce type d'analyse ne peut pas déterminer si l'hétérogénéité de l'effet de traitement est causée par cette variable de pré-traitement.
 Le problème, endémique à la recherche observationnelle, est que la covariable non randomisée peut être corrélée à une variable non observée, et c'est ce facteur "invisible" qui est en fait responsable des impacts hétérogènes du traitement.[^8] Idéalement, par conséquent, nous voulons tirer parti de la variation exogène du modérateur d'intérêt, excluant ainsi la possibilité d'une telle confusion.
-Un design expérimental factoriel dans lequelle le chercheur assigne le modérateur indépendamment du traitement principal d'intérêt peut générer des preuves particulièrement convaincantes sur le rôle d'un modérateur ; bien que des considérations de coût et de puissance statistique puissent empêcher cette approche dans la pratique.
+Une conception expérimentale factorielle dans laquelle le chercheur assigne le modérateur indépendamment du traitement principal d'intérêt peut générer des preuves particulièrement convaincantes sur le rôle d'un modérateur ; bien que des considérations de coût et de puissance statistique puissent empêcher cette approche dans la pratique.
 
 [^8]: Gerber, A. S., & Green, D. P. (2012). Field experiments: Design, analysis, and interpretation. WW Norton.
 

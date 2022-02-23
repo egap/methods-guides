@@ -23,21 +23,21 @@ C'est cette divergence entre le niveau auquel l'intervention est assignée et le
 Mises à jour effectuées par Jasper Cooper (25 août 2015).
 
 Considérons une étude qui assigne de manière aléatoire des villages pour recevoir différents programmes de développement, où le bien-être des ménages dans le village est le résultat d'intérêt.
-Il s'agit d'un design par grappe car, bien que le traitement soit assigné au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
+Il s'agit d'une conception par grappe car, bien que le traitement soit assigné au village dans son ensemble, nous nous intéressons aux résultats définis au niveau du ménage.
 Ou considérons une étude qui assigne de manière aléatoire certains ménages à recevoir différents messages incitant à voter, où nous nous intéressons au comportement de vote des individus.
 Étant donné que le message est assigné au niveau du ménage, mais que le résultat est défini comme un comportement individuel, cette étude est randomisée par grappe.
 
 Considérons maintenant une étude dans laquelle les villages sont sélectionnés de manière aléatoire, et 10 personnes de chaque village sont assignées au traitement ou au contrôle, et nous mesurons le bien-être de ces individus.
 Dans ce cas, l'étude n'est pas randomisée par grappe, car le niveau auquel le traitement est assigné et le niveau auquel les résultats sont constatés sont indentiques.
 Supposons qu'une étude assigne de manière aléatoire des villages à différents programmes de développement et mesure ensuite la cohésion sociale dans le village.
-Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas un design par grappe car nous nous intéressons ici aux résultats au niveau du village : l'assignation du traitement et la mesure des résultats sont réalisés au même niveau.
+Bien qu'il contienne la même procédure de randomisation que notre premier exemple, ce n'est pas une conception par grappe car nous nous intéressons ici aux résultats au niveau du village : l'assignation du traitement et la mesure des résultats sont réalisés au même niveau.
 
 Le découpage par grappe est important pour deux raisons principales.
 D'une part, le découpage par grappe réduit la quantité d'informations dans une expérience car il restreint le nombre de possibilités pour composer les groupes de traitement et de contrôle, par rapport à une randomisation au niveau individuel.
 Si ce fait n'est pas pris en compte, nous sous-estimons souvent la variance de notre estimateur, ce qui conduit à une confiance excessive dans les résultats de notre étude.
 D'autre part, le découpage par grappe soulève la question de savoir comment combiner les informations provenant de différentes parties de la même expérience en une seule quantité.
 Surtout lorsque les grappes ne sont pas de tailles égales et que les résultats potentiels des unités qu'elles contiennent sont très différents, les estimateurs conventionnels produiront systématiquement une mauvaise réponse en raison des biais.
-Cependant, plusieurs approches lors des phases de design et d'analyse permettent de surmonter les défis posés par les designs randomisés par grappe.
+Cependant, plusieurs approches lors des phases de conception et d'analyse permettent de surmonter les défis posés par les conceptions randomisées par grappe.
 
 2 Pourquoi le découpage par grappe peut avoir de l'importance I : réduction de l'information
 ==
@@ -49,7 +49,7 @@ Cela affectera grandement la précision des inférences que nous faisons sur la 
 Imaginez une évaluation d'impact avec 10 personnes, où 5 sont assignées au groupe de traitement et 5 au contrôle.
 Dans une version de l'expérience, le traitement est assigné à des individus - il n'est pas randomisé par grappe.
 Dans une autre version de l'expérience, les 5 individus aux cheveux noirs et les 5 individus avec une autre couleur de cheveux sont assignés au traitement en tant que groupe.
-Ce design a deux groupes : "cheveux noirs" et "autre couleur".
+Cette conception a deux groupes : "cheveux noirs" et "autre couleur".
 
 Une simple application de la règle *n* parmi *k* montre pourquoi cela est important.
 Dans la première version, la procédure de randomisation permet 252 combinaisons différentes de personnes en tant que groupes de traitement et de contrôle.
@@ -188,13 +188,13 @@ et devons donc utiliser des procédures statistiques pour déduire cette quantit
 Les méthodes conventionnelles de calcul des erreurs types ne prennent pas en compte le découpage par grappe, qui, comme nous l'avons noté plus haut, peut fortement augmenter la variation de l'estimation d'une répétition de l'expérience à l'autre.
 Ainsi, afin d'éviter une confiance excessive dans les résultats expérimentaux, il est important de prendre en compte le découpage par grappe.
 
-Dans cette section, nous nous limitons aux approches dites "basées sur le design" pour le calcul de l'erreur type.
-Dans l'approche basée sur le design, nous simulons des répétitions de l'expérience pour dériver et vérifier les moyens de caractériser la variance de l'estimation de l'effet du traitement, en tenant compte de la randomisation par grappe.
-Plus loin dans le guide, nous comparons les approches "basées sur le design" avec celles "basées sur un modèle".
+Dans cette section, nous nous limitons aux approches dites "basées sur la conception" pour le calcul de l'erreur type.
+Dans l'approche basée sur la conception, nous simulons des répétitions de l'expérience pour dériver et vérifier les moyens de caractériser la variance de l'estimation de l'effet du traitement, en tenant compte de la randomisation par grappe.
+Plus loin dans le guide, nous comparons les approches "basées sur la conception" avec celles "basées sur un modèle".
 Dans l'approche basée sur un modèle, nous affirmons que les résultats ont été générés selon un modèle de probabilité et que les relations au niveau de la grappe suivent également un modèle de probabilité.
 
 Pour commencer, nous allons créer une fonction qui simule une expérience randomisée par grappe avec une corrélation intra-grappe fixe,
-et l'utiliser pour simuler certaines données à partir d'un design randomisé par grappe simple.
+et l'utiliser pour simuler certaines données à partir d'une conception randomisée par grappe simple.
 
 <style>
 div.hidecode + pre {display: none}
@@ -853,7 +853,7 @@ abline(v = mean(est_effects,na.rm = T),col = "blue")
 
 Comme le montre le graphique ci-dessus, il s'agit d'un estimateur biaisé du véritable effet du traitement au niveau individuel, $Y_{01} - Y_{00}$.
 En espérance, nous estimons un effet proche de 0, obtenant des effets très négatifs dans près de la moitié des simulations de cette expérience.
-Le point clé ici est que l'estimande est modifié :
+Le point clé ici est que le paramètre est modifié :
 plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont compatibles (ne subissent pas d'effets de débordement) $E[Y_{110}-Y_{00x_k}]$,
 et de l'effet combiné du traitement et du débordement pour ceux qui ne sont pas compatibles $E[Y_{111}-Y_{00x_k}]$.
 Mais surtout, nous ne pouvons pas identifier l'impact du débordement, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
@@ -920,16 +920,16 @@ ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'e
 Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
 À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
 En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets de débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
-Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur estimande et tenir compte du potentiel de débordement intra-grappe.
+Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur paramètre et tenir compte du potentiel de débordement intra-grappe.
 
-8 Performance des études par grappe basées sur un design vs. un modèle
+8 Performance des études par grappe basées sur une conception vs. un modèle
 ==
 
 Dans notre discussion sur la perte d'informations, nous avons évalué les approches qui nécessitent
 (1) que le traitement soit randomisé comme prévu et
 (2) que le traitement assigné à une unité n'a pas changé les résultats potentiels pour toute autre unité.
-Dans les cas où ces hypothèses peuvent être violées, il est parfois plus simple de spécifier des modèles statistiques qui tentent de décrire les caractéristiques d'un design complexe.
-Même si nous ne considérons pas le modèle comme une description scientifique d'un processus connu, cela peut être une manière plus informative et flexible d'analyser une expérience plutôt que de dériver de nouvelles expressions complexes pour un estimateur basé sur le design.
+Dans les cas où ces hypothèses peuvent être violées, il est parfois plus simple de spécifier des modèles statistiques qui tentent de décrire les caractéristiques d'une conception complexe.
+Même si nous ne considérons pas le modèle comme une description scientifique d'un processus connu, cela peut être une manière plus informative et flexible d'analyser une expérience plutôt que de dériver de nouvelles expressions complexes pour un estimateur basé sur une conception.
 
 Dans les approches basées sur un modèle, la distribution d'échantillonnage d'un estimateur est approchée à l'aide d'une distribution de probabilité pour caractériser notre incertitude sur
 des quantités inconnues, telles que le véritable effet du traitement ou la véritable moyenne du résultat au niveau de la grappe.
@@ -1138,22 +1138,22 @@ kable(error_comparison,align = "c")
 
 ```
 
-Dans ce système simple, les approches au niveau individuel se comportent à peu près de la même manière : ni l'approche basée sur un design, ni l'approche basée sur un modèle ne produisent des inférences statistiques valides avant d'avoir au moins 30 grappes.
+Dans ce système simple, les approches au niveau individuel se comportent à peu près de la même manière : ni l'approche basée sur une conception, ni l'approche basée sur un modèle ne produisent des inférences statistiques valides avant d'avoir au moins 30 grappes.
 Cela a du sens : les deux approches reposent sur le théorème central limite afin qu'une loi normale puisse décrire la distribution de la statistique de test sous l'hypothèse nulle.
 L'approche au niveau de la grappe est toujours valide, mais produit parfois des intervalles de confiance trop grands (lorsque le nombre de grappes est petit).
 Lorsque le nombre de grappes est important (disons 100), alors toutes les approches sont équivalentes en termes de taux d'erreur.
-Les designs avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale utilisée ici, soit même des approches basées sur la permutation directe pour l'inférence statistique.
+Les conceptions avec peu de grappes doivent envisager soit l'approche au niveau de la grappe en utilisant l'approximation normale utilisée ici, soit même des approches basées sur la permutation directe pour l'inférence statistique.
 
-9 Analyse de puissance statistique pour les designs par grappe
+9 Analyse de puissance statistique pour les conceptions par grappe
 ==
 
-Nous voulons des designs susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
-Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'information en général) sont remises en question par les designs par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
-Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et que l'appariement peut considérablement minimiser les biais dans les designs avec des tailles de grappe inégales.
+Nous voulons des conceptions susceptibles de rejeter des hypothèses incohérentes avec les données, et peu susceptibles de rejeter des hypothèses cohérentes avec les données.
+Nous avons vu que les hypothèses requises pour la validité des tests communs (généralement, un grand nombre d'observations, ou de grandes quantités d'information en général) sont remises en question par les conceptions par grappe, et les tests qui tiennent compte du découpage par grappe peuvent être invalides si le nombre de grappes est petit (ou l'information est faible au niveau de la grappe en général).
+Nous avons également vu que nous pouvons produire des tests statistiques valides pour les hypothèses sur l'effet moyen du traitement en utilisant soit une erreur type robuste pour grappe (robust clustered standard error, RCSE), un modèle à plusieurs niveaux ou en utilisant l'approche au niveau des grappes décrite par Hansen et Bowers (2008), et que l'appariement peut considérablement minimiser les biais dans les conceptions avec des tailles de grappe inégales.
 
-Voici la règle la plus importante concernant la puissance statistique des designs par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
+Voici la règle la plus importante concernant la puissance statistique des conceptions par grappe : mieux vaut plus de petites grappes que moins de grappes plus grandes.
 Ceci peut être démontré par des expériences simulées.
-De manière générale, le moyen le plus flexible d'évaluer la puissance d'un design est la simulation, car elle permet des schémas de grappe et de découpage par bloc complexes et peut incorporer des covariables.
+De manière générale, le moyen le plus flexible d'évaluer la puissance d'une conception est la simulation, car elle permet des schémas de grappe et de découpage par bloc complexes et peut incorporer des covariables.
 Dans ce qui suit, nous utilisons l'estimateur des moindres carrés avec une erreur type robuste pour grappe, afin d'économiser du temps de calcul, mais la même analyse peut être réalisée en utilisant n'importe quel estimateur et statistique de test.
 
 <style>
@@ -1372,10 +1372,10 @@ legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 
 Comme l'illustre cet exemple, une ICC élevée peut gravement diminuer la puissance statistique de l'étude, même avec de nombreuses et larges grappes.
 
-10 Comment vérifier l'équilibre dans les designs par grappe
+10 Comment vérifier l'équilibre dans les conceptions par grappe
 ==
 
-Pour vérifier la randomisation des designs par grappe, on procède de la même manière que précédemment.
+Pour vérifier la randomisation des conceptions par grappe, on procède de la même manière que précédemment.
 Un test valide pour un effet de traitement est un test placebo valide ou l'équilibre des covariables.
 La seule différence par rapport à notre discussion précédente est que l'on utilise une covariable de base ou un résultat de base - une variable supposée non influencée par le traitement - à la place du résultat lui-même.
 Ainsi, un test de randomisation avec un petit nombre de grappes peut déclarer trop facilement une expérience mal randomisée si l'analyste ne connaît pas la méthode d'analyse du taux d'erreur décrite ci-dessus.
@@ -1384,12 +1384,12 @@ Un nouveau problème se pose dans le contexte des tests de randomisation.
 On a souvent de nombreuses covariables qui pourraient être utilisées pour détecter des déséquilibres malchanceux ou des problèmes de terrain avec la randomisation elle-même.
 Et, si l'on utilise des tests d'hypothèses, alors, bien sûr, un test valide qui nous encourage à déclarer "déséquilibre" lorsque $p<.05$ le ferait à tort pour une variable sur vingt testée.
 Pour cette raison, nous recommandons d'utiliser les tests d'hypothèses un par un comme outil exploratoire et d'utiliser les tests omnibus (comme le test T de Hotelling ou un test F ou le test $d^2$ de Hansen et Bowers (2008)), qui peuvent combiner des informations sur de nombreux tests dépendants en une seule statistique de test pour effectuer directement des tests d'équilibre.
-Cependant, ces tests doivent tenir compte du design par grappe : un simple test F sans tenir compte du design par grappe incitera probablement un analyste à déclarer un design déséquilibré et à peut-être accuser le personnel de terrain d'un échec de randomisation.
+Cependant, ces tests doivent tenir compte de la conception par grappe : un simple test F sans tenir compte de la conception par grappe incitera probablement un analyste à déclarer une conception déséquilibrée et à peut-être accuser le personnel de terrain d'un échec de randomisation.
 
 Étant donné que les expériences randomisées par grappe ont tendance à avoir des covariables au niveau de la grappe (par exemple, la taille du village, etc.),
 les vérifications d'équilibre au niveau de la grappe ont du sens et ne nécessitent pas de modifications explicites pour tenir compte de l'assignation par grappe.
 Hansen et Bowers (2008) développent un tel test et fournissent un logiciel pour le mettre en œuvre.
-Ainsi, par exemple, si nous avions 10 covariables mesurées au niveau du village et que nous avions un grand nombre de villages, nous pourrions évaluer une hypothèse d'équilibre omnibus en utilisant cet outil basé sur un design à grand échantillon.
+Ainsi, par exemple, si nous avions 10 covariables mesurées au niveau du village et que nous avions un grand nombre de villages, nous pourrions évaluer une hypothèse d'équilibre omnibus en utilisant cet outil basé sur une conception à grand échantillon.
 
 Ici, nous ne montrons que les résultats du test omnibus.
 Les évaluations une par une qui composent le test omnibus sont également disponibles dans l'objet `balance_test`.
@@ -1416,7 +1416,7 @@ villages <- aggregate(pretend_data,by = list(village = pretend_data$j), mean)
 set.seed(12345)
 villages[paste("x",1:10,sep="")] <- matrix(rnorm(nrow(villages)*10), ncol=10)
 balance_formula <- reformulate(paste("x",1:10,sep=""), response="Z")
-# Effectuer un test d'équilibre basé sur un design à grand échantillon
+# Effectuer un test d'équilibre basé sur une conception à grand échantillon
 balance_test <-xBalance(balance_formula,
                         strata=list(noblocks=NULL),
                         data=villages,

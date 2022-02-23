@@ -48,20 +48,20 @@ library(randomizr)
 library(coin)
 ```
 
-# Les tests d'hypothèse présentent, de manière compacte, les informations contenues dans un design de recherche et proposent une solution pour évaluer les effets d'un traitement
+# Les tests d'hypothèse présentent, de manière compacte, les informations contenues dans une conception de recherche et proposent une solution pour évaluer les effets d'un traitement
 
 Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 ($p=0,02$)", c'est un raccourci pour dire :
 "Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
 Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
 Les gens utilisent des tests d'hypothèses dans les études d'observation ainsi que dans les expériences randomisées.
-Ce guide se concentre sur leur utilisation dans les expériences randomisées ou les designs de recherche qui tentent d'organiser les données
-de sorte qu'elles paraissent "aléatoires" (comme les designs de régression par discontinuité ou d'autres designs naturels ou quasi expérimentaux).
+Ce guide se concentre sur leur utilisation dans les expériences randomisées ou les conceptions de recherche qui tentent d'organiser les données
+de sorte qu'elles paraissent "aléatoires" (comme les conceptions de régression par discontinuité ou d'autres conceptions naturelles ou quasi expérimentales).
 
 La $p$-valeur résume la capacité d'un test donné à distinguer le signal du bruit.
 Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power),
 le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille de l'échantillon expérimental, mais aussi de la distribution du résultat
 ^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart égaux à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
-Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects du design de recherche en fonction d'une affirmation particulière
+Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects de la conception de recherche en fonction d'une affirmation particulière
 --- généralement l'affirmation selon laquelle le traitement n'a eu aucun effet causal.
 
 Le reste de ce guide explique les étapes d'un test d'hypothèse :
@@ -115,9 +115,9 @@ Ainsi, l'approche prédictive change la question fondamentale : on ne se focalis
 ## Le test d'hypothèse est une approche statistique du problème fondamental de l'inférence causale, par le biais de postulats sur des faits non-observés
 
 La troisième approche de ce problème amène une nouvelle question.
-@fisher:1935[Chapitre 2] nous a appris que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu'en termes de quantité d'information fournie par le design de recherche et les données.
+@fisher:1935[Chapitre 2] nous a appris que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu'en termes de quantité d'information fournie par la conception de recherche et les données.
 C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour ses résultats, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ pour tout le monde.
-Cependant, la réponse à cette question se présenterait ainsi : "Ce design de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Ce design de recherche n'est pas cohérent avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
+Cependant, la réponse à cette question se présenterait ainsi : "Cette conception de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Cette conception de recherche n'est pas cohérente avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
 # L'hypothese nulle stricte est un postulat d'absence d'effet du traitement pour chacune des unités inclues dans une experience
 
@@ -158,7 +158,7 @@ $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 
 @eq:identity signifie que notre résultat observé, $Y_i$ (ici, le montant des impôts payés par la personne $i$), est $y_{i,1}$ lorsque la personne est assignée au groupe de traitement ($Z_i=1$), et $y_{i,0}$ lorsque la personne est assignée au groupe de contrôle.
 
-**Combien d'informations notre design de recherche et nos données contiennent-ils sur l'hypothèse ?**
+**Combien d'informations notre conception de recherche et nos données contiennent-ils sur l'hypothèse ?**
 Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
 
 Continuons pour les besoins de l'argumentation.
@@ -245,9 +245,9 @@ Le test de l'hypothèse nulle faible d'absence d'effet utilise la différence de
 
 Les tests d'hypothèse nécessitent des distributions de la statistique de test sous l'hypothèse.
 
-Étant donné une affirmation sur les résultats possibles de l'expérience (i.e. une hypothèse) et un moyen de résumer les données observées en fonction de l'hypothèse (i.e. une statistique de test qui augmente à mesure que les résultats divergent de l'hypothèse comme expliqué ci-dessus), nous voulons maintenant aller au-delà de la description des données observées pour savoir quelle variabilité naturelle attendre de la statistique de test étant donné le design de recherche et notre hypothèse (pour nous ramener à la question du signal et du bruit).
+Étant donné une affirmation sur les résultats possibles de l'expérience (i.e. une hypothèse) et un moyen de résumer les données observées en fonction de l'hypothèse (i.e. une statistique de test qui augmente à mesure que les résultats divergent de l'hypothèse comme expliqué ci-dessus), nous voulons maintenant aller au-delà de la description des données observées pour savoir quelle variabilité naturelle attendre de la statistique de test étant donné la design de recherche et notre hypothèse (pour nous ramener à la question du signal et du bruit).
 
-La qunatité des preuves dont nous disposons sur une hypothèse dépend du design de l'étude.
+La qunatité des preuves dont nous disposons sur une hypothèse dépend de la conception de l'étude.
 Une grande expérience, par exemple, devrait avoir plus d'informations sur une hypothèse qu'une petite expérience.
 Alors, qu'entendons-nous par preuve contre l'hypothèse?
 Comment formaliser ou résumer ces preuves de sorte que les expériences plus grandes tendent à révéler plus et que les petites expériences tendent à révéler moins d'informations ?
@@ -280,7 +280,7 @@ repeatExperiment <- function(Z){
 
 Nous savons déjà que $H_0 : y_{i,1} = y_{i,0}$ implique que $Y_i=y_{i,0}$.
 Ainsi, nous pouvons décrire toutes les itérations possibles de l'expérience sous cette hypothèse nulle en répétant simplement l'expérience (c'est-à-dire en réassignant le traitement) et en recalculant la statistique de test à chaque fois.
-Le code suivant réassigne à plusieurs reprises le traitement suivant le design et calcule la statistique de test à chaque fois.
+Le code suivant réassigne à plusieurs reprises le traitement suivant la conception et calcule la statistique de test à chaque fois.
 
 ```{r gendists, cache=FALSE}
 set.seed(123457)
@@ -303,7 +303,7 @@ pMeanRankTZ
 ```
 
 
-```{r fig.cap="Tester une hypothèse en utilisant un design d'expérience."}
+```{r fig.cap="Tester une hypothèse en utilisant une conception d'expérience."}
 par(mfrow=c(1,2),mgp=c(1.5,.5,0),mar=c(3,3,0,0),oma=c(0,0,3,0))
 plot(density(possibleMeanDiffsH0),
      ylim=c(0,.04),
@@ -324,7 +324,7 @@ rug(possibleMeanRankDiffsH0)
 rug(observedMeanRankTZ,lwd=3,ticksize = .9)
 text(observedMeanRankTZ,.45,"Statistique de test observée")
 
-mtext(side=3,outer=TRUE,text=expression(paste("Distributions des statistiques de test cohérentes avec le design et ", H0: y[i1]==y[i0])))
+mtext(side=3,outer=TRUE,text=expression(paste("Distributions des statistiques de test cohérentes avec la conception et ", H0: y[i1]==y[i0])))
 ```
 
 Pour formaliser la comparaison entre l'observation et l'hypothèse, nous pouvons calculer la proportion des expériences hypothétiques qui donnent des statistiques de test supérieures à celle de l'expérience observée.
@@ -446,16 +446,16 @@ Nous reviendrons sur ce point plus tard lorsque nous discuterons des caractéris
 # Dans les tests d'hypothèse simples, nous n'acceptons pas l'hypothèse nulle.
 
 Parfois, les gens veulent prendre une décision en utilisant la $p$-valeur.
-N'oubliez pas qu'une $p$-valeur utilise une statistique de test et l'idée de répétition de l'expérience pour quantifier les informations du design de recherche pour une hypothèse.
-C'est le design, la fonction de la statistique de test et l'hypothèse qui génèrent une distribution de probabilité.
-Et ce sont les données réelles, le design et la fonction de la statistique de test qui créent une valeur observée unique.
+N'oubliez pas qu'une $p$-valeur utilise une statistique de test et l'idée de répétition de l'expérience pour quantifier les informations de la conception de recherche pour une hypothèse.
+C'est la conception, la fonction de la statistique de test et l'hypothèse qui génèrent une distribution de probabilité.
+Et ce sont les données réelles, la conception et la fonction de la statistique de test qui créent une valeur observée unique.
 
 La $p$-valeur nous indique simplement le degré de singularité du résultat observé du point de vue de l'hypothèse.
 Ou, nous pouvons penser à la $p$-valeur comme une mesure de l'incohérence entre nos données observées et l'hypothèse.
 Et si on voulait prendre une décision ? Il s'avère que **nous pouvons prendre des décisions en utilisant une $p$-valeur si nous sommes prêts à accepter un certain nombre d'erreurs.**
 Disons, par exemple, que nous voyons une $p$-valeur unilatérale de $0,01$ : ceci signifierait que dans seulement 1 expérience hypothétique sur 100 représentant l'hypothèse nulle, nous verrions un résultat aussi grand ou plus grand que notre résultat réel.
 Nous pourrions être tentés de dire que notre résultat observé est si étrange que nous voulons faire comme si l'hypothèse nulle était fausse.
-Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même échantillon de sujets avec ce même design expérimental.
+Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même échantillon de sujets avec cette même conception expérimentale.
 C'est-à-dire que si nous utilisions une petite $p$-valeur pour rejeter l'hypothèse nulle, ou agissons comme si l'hypothèse nulle était fausse, nous pourrions toujours faire une erreur.
 Ces rejets incorrects sont appelés faux positifs car l'hypothèse nulle est souvent zéro et l'effet souhaité (par exemple, dans les essais médicaux) est souvent codé comme positif.
 
@@ -465,7 +465,7 @@ Et une $p$-valeur inférieure à 0,05 signale l'incohérence avec l'hypothèse n
 
 ## Que signifie de rejeter une hypothèse nulle ?
 
-Notez que $p=0,01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générée à partir de l'hypothèse nulle et du design de recherche.
+Notez que $p=0,01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générée à partir de l'hypothèse nulle et de la conception de recherche.
 Ainsi, nous pensons que $p=0,01$ (comme d'autres petites $p$-valeurs) met en doute le fait que l'hypothèse spécifique est un bon modèle des données observées.
 Souvent, le seul modèle de résultats potentiels qui est testé est le modèle sans effets, donc une petite $p$-valeur devrait nous faire douter du modèle sans effets.
 Les fabricants de logiciels de régression prédéfinis ont tendance à fournir une $p$-valeur qui se réfère automatiquement à cette hypothèse,

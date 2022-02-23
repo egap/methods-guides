@@ -20,10 +20,10 @@ Premièrement, les chercheurs commencent par un concept systématisé, une const
 Enfin, les unités ou les cas sont notés en fonction de l'indicateur, ce qui donne une mesure du traitement $Z$ et un résultat $Y$.
 Une mesure est valide si la variation de l'indicateur se rapproche étroitement de la variation du concept d'intérêt sous-jacent.
 
-Un design de recherche expérimental devrait permettre à un chercheur d'estimer l'effet causal de $Z$ sur $Y$ sous des hypothèses standard.
+Une conception de recherche expérimentale devrait permettre à un chercheur d'estimer l'effet causal de $Z$ sur $Y$ sous des hypothèses standard.
 Mais si le but ultime est de faire une inférence sur l'effet causal du concept que $Z$ mesure sur le concept que $Y$ mesure, les inférences que nous pouvons espérer faire sur la base de nos preuves expérimentales sont valides si et seulement si les deux mesures sont valides.
 
-```{r, echo = F, warning = F, message = F, fig.cap="Le processus de mesure dans le contexte d'un design de recherche expérimental."}
+```{r, echo = F, warning = F, message = F, fig.cap="Le processus de mesure dans le contexte d'une conception de recherche expérimentale."}
 library(ggplot2)
 df1 <- data.frame(xmin = c(0,  0, 0,  3, 3, 3),
          ymin = c(0, 1.5, 3,  0, 1.5, 3),
@@ -62,16 +62,16 @@ ggplot() +
         axis.text = element_blank())
 ```
 
-# 2. La mesure est le lien entre l'argument substantif et/ou théorique d'un chercheur et un design de recherche (expérimental).
+# 2. La mesure est le lien entre l'argument substantif et/ou théorique d'un chercheur et une conception de recherche (expérimentale).
 
-Lorsque nous considérons le design d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement $Z$ est assigné de manière aléatoire et sur la distribution conjointe de $Z$ et du résultat $Y$.
-En d'autres termes, nous avons tendance à séparer les scores de $Z$ et $Y$ des concepts plus larges lorsque nous considérons les propriétés statistiques d'un design de recherche.
+Lorsque nous considérons la conception d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement $Z$ est assigné de manière aléatoire et sur la distribution conjointe de $Z$ et du résultat $Y$.
+En d'autres termes, nous avons tendance à séparer les scores de $Z$ et $Y$ des concepts plus larges lorsque nous considérons les propriétés statistiques d'une conception de recherche.
 Dans ce cas, deux expériences complètement différentes avec la même distribution de $Z$ et $Y$ pourraient avoir des propriétés identiques.
 
-Par exemple, un essai clinique sur l'efficacité de l'aspirine sur les maux de tête et une expérience qui fournit des informations sur le niveau de corruption d'un politicien sortant pour demander ensuite à la personne interrogée si elle votera pour le candidat sortant *pourraient* avoir des échantillons de mêmes taille et distribution, des assignations, estimandes et réalisations des résultats (données) identiques.
+Par exemple, un essai clinique sur l'efficacité de l'aspirine sur les maux de tête et une expérience qui fournit des informations sur le niveau de corruption d'un politicien sortant pour demander ensuite à la personne interrogée si elle votera pour le candidat sortant *pourraient* avoir des échantillons de mêmes taille et distribution, des assignations, paramètres et réalisations des résultats (données) identiques.
 Pourtant, caractériser comme "équivalents" ces deux projets de recherche complètement distincts qui cherchent à faire des inférences complètement distinctes peut nous sembler assez étrange ou même troublant.
 
-Cependant, lorsque nous considérons la mesure comme une composante fondamentale du design de recherche, ces expériences sont clairement distinctes.
+Cependant, lorsque nous considérons la mesure comme une composante fondamentale de la conception de recherche, ces expériences sont clairement distinctes.
 Nous observons des mesures de différents concepts dans les données des deux expériences.
 En considérant les indicateurs et les concepts plus larges qui sous-tendent les traitements et les résultats, nous sommes obligés d'examiner les théories ou arguments respectifs des chercheurs.
 Ce faisant, nous pouvons soulever des questions sur la validité des mesures et la relation entre la validité des mesures et la validité des inférences finales et substantielles.
@@ -117,7 +117,7 @@ Même les résultats comportementaux sont souvent utilisés comme des manifestat
 
 Étant donné que ces variables sont latentes, il est difficile de concevoir des indicateurs appropriés.
 Une mauvaise opérationnalisation a des conséquences assez drastiques sur la validité de nos inférences sur le concept d'intérêt pour deux raisons.
-Comme dans la section 1 ci-dessus, si ces indicateurs ne mesurent pas conceptuellement le concept d'intérêt, alors les inférences que nous faisons sur la relation entre $Z$ et $Y$ (même avec un design "parfait" en termes de puissance statistique et de données manquantes, etc.) peuvent ne pas nous renseigner sur "l'inférence ultime" que nous cherchons.
+Comme dans la section 1 ci-dessus, si ces indicateurs ne mesurent pas conceptuellement le concept d'intérêt, alors les inférences que nous faisons sur la relation entre $Z$ et $Y$ (même avec une conception "parfaite" en termes de puissance statistique et de données manquantes, etc.) peuvent ne pas nous renseigner sur "l'inférence ultime" que nous cherchons.
 De plus, l'erreur de mesure peut miner notre capacité à estimer l'effet de $Z$ et $Y$ conduisant à des inférences incorrectes.
 Le reste de ce guide se concentre sur ce dernier problème.
 
@@ -175,7 +175,7 @@ $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] = \underbrace{E[\nu_i|Z_i = 1] − E[\nu_i|Z_i
 
 Il existe diverses sources d'erreur de mesure non systématique dans les expériences.
 [L'effet de demande](https://en.wikipedia.org/wiki/Demand_characteristics) et [l'effet Hawthorne](https://fr.wikipedia.org/wiki/Effet_Hawthorne) peuvent être sources d'erreur de mesure systématique.
-De plus, les designs qui mesurent les résultats de manière asymétrique dans les groupes de traitement et de contrôle peuvent être sujets à une erreur de mesure systématique.
+De plus, les conceptions qui mesurent les résultats de manière asymétrique dans les groupes de traitement et de contrôle peuvent être sujettes à une erreur de mesure systématique.
 Dans tous les cas, il existe une asymétrie entre les conditions de traitement dans (a) la manière dont les sujets réagissent à l'observation ; ou (b) la façon dont nous observons les résultats qui est distincte de tout effet du traitement sur la variable latente d'intérêt.
 L'estimation biaisée de l'ATE devient le net de tout effet sur les variables latentes (l'ATE) et l'erreur de mesure non systématique.
 

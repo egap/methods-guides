@@ -35,9 +35,9 @@ L'ajustement de covariables peut être un moyen moins coûteux d'améliorer la p
 C'est en partie pour cette raison que les chercheurs collectent souvent de nombreuses données sur les covariables avant l'assignation aléatoire.
 Les pré-tests (mesures analogues à la variable de résultat mais limitées aux périodes précédant l'assignation aléatoire) peuvent être particulièrement utiles pour prédire les résultats, et les enquêtes initiales peuvent interroger les sujets sur d'autres caractéristiques de base.
 
-2 Contrôle des covariables au stade du design (découpage par bloc)
+2 Contrôle des covariables au stade de la conception (découpage par bloc)
 ==
-La meilleure façon de contrôler les covariables est d'utiliser la randomisation par bloc pour le faire au stade du design avant même de commencer votre expérience.
+La meilleure façon de contrôler les covariables est d'utiliser la randomisation par bloc pour le faire au stade de la conception avant même de commencer votre expérience.
 La randomisation par bloc vous permet de créer des groupes de traitement et de contrôle équilibrés pour certaines covariables.
 Par exemple, vous pourriez vous attendre à ce que le genre et le revenu aident à prédire la variable de résultat.
 La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de femmes à revenu élevé, de femmes à faible revenu, d'hommes à revenu élevé et d'hommes à faible revenu.
@@ -56,7 +56,7 @@ Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous 
 3 Comment le faire avec une régression ?
 ==
 
-Parfois, vous n'avez pas la possibilité de mettre en œuvre un design expérimental par bloc (i.e., si vous rejoignez un projet après l'assignation aléatoire) ou vous préférez simplifier votre schéma de randomisation pour réduire les risques d'erreur administrative.
+Parfois, vous n'avez pas la possibilité de mettre en œuvre une conception expérimentale par bloc (i.e., si vous rejoignez un projet après l'assignation aléatoire) ou vous préférez simplifier votre schéma de randomisation pour réduire les risques d'erreur administrative.
 Vous pouvez toujours ajuster les covariables de base en utilisant la régression multiple.
 N'oubliez pas que dans une régression bivariée --- lorsque vous régressez votre résultat uniquement sur votre indicateur de traitement --- le coefficient de traitement n'est qu'une différence des moyennes.
 Cette méthode simple donne une estimation non biaisée de l'effet moyen du traitement (average treatment effect, ATE).

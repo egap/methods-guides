@@ -112,22 +112,22 @@ with(dat, table(Z_block_2, block_id))
 
 Vous pouvez vérifier la moyenne de la variable sur laquelle vous avez découpé en bloc pour voir que les groupes de traitement et de contrôle sont en fait parfaitement équilibrés selon le genre.
 
-3 Designs factoriels : vous pouvez randomiser plusieurs traitements en même temps sans perdre de puissance statistique
+3 Conceptions factorielles : vous pouvez randomiser plusieurs traitements en même temps sans perdre de puissance statistique
 ==
 
 Supposons qu'il existe plusieurs composants d'un traitement que vous souhaitez tester.
 Par exemple, vous voudrez peut-être évaluer l'impact d'un programme de microfinance.
 Deux traitements spécifiques pourraient consister à prêter de l'argent aux femmes et à leur fournir une formation.
-Un design factoriel examine toutes les combinaisons possibles de ces traitements : (1) Prêts, (2) Formation, (3) Prêts + Formation et (4) Contrôle.
+Une conception factorielle examine toutes les combinaisons possibles de ces traitements : (1) Prêts, (2) Formation, (3) Prêts + Formation et (4) Contrôle.
 Les sujets sont ensuite assignés de manière aléatoire à l'une de ces quatre conditions.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/factorial-table.png)
 
-Les designs factoriels sont particulièrement utiles lors de l'évaluation d'interventions qui incluent un ensemble de traitements.
+Les conceptions factorielles sont particulièrement utiles lors de l'évaluation d'interventions qui incluent un ensemble de traitements.
 Comme dans l'exemple ci-dessus, de nombreuses interventions de développement comportent plusieurs bras de traitement, et il est parfois difficile de dire quels bras produisent l'effet observé.
-Un design factoriel sépare ces différents traitements et permet également de voir l'interaction entre eux.
+Une conception factorielle sépare ces différents traitements et permet également de voir l'interaction entre eux.
 
-Le code suivant vous montre comment randomiser pour un design factoriel.
+Le code suivant vous montre comment randomiser pour une conception factorielle.
 
 ```{r, results='hide'}
 dat <-
@@ -168,11 +168,11 @@ Dans les deux cas où le découpage par grappe se produit, vous voyez que l'assi
 Dans les deux cas où le découpage par bloc se produit, il y a une distribution uniforme des couleurs dans les quatre quadrants du tracé, les blocs de cette assignation aléatoire.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
-<center>_Illustration des patterns pour les unités de traitement et de contrôle que vous pourriez voir sous différents types de designs par bloc et par grappe._</center>
+<center>_Illustration des patterns pour les unités de traitement et de contrôle que vous pourriez voir sous différents types de conceptions par bloc et par grappe._</center>
 
 5 Vous pouvez randomiser d'une manière qui permet de voir plus facilement s'il y a des effets de débordement
 ==
-Lors du design de votre expérience, demandez-vous de manière critique si les "effets de débordement" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
+Lors de la conception de votre expérience, demandez-vous de manière critique si les "effets de débordement" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
 Des débordements surviennent si le résultat d'une unité est affecté par le statut de traitement d'une autre unité.
 Cela peut être délicat si les unités ont la capacité d'interagir les unes avec les autres : un membre d'un village peut apprendre qu'un autre membre de son village a reçu une subvention en espèces et peut changer son comportement en conséquence.
 
@@ -276,21 +276,21 @@ vous pouvez utiliser des covariables pour calculer la similarité d'un nouveau s
 10 La randomisation peut parfois être une manière éthique d'assigner un traitement, mais parfois ce n'est pas le cas.
 ==
 
-La randomisation est l'ingrédient clé pour isoler l'effet causal d'un traitement du point de vue du design de recherche, mais il est également important de tenir compte des implications éthiques de la randomisation.
+La randomisation est l'ingrédient clé pour isoler l'effet causal d'un traitement du point de vue de la conception de recherche, mais il est également important de tenir compte des implications éthiques de la randomisation.
 Lorsque nous pensons aux effets à long terme d'une expérience, la randomisation nous permet de tester quels programmes sont les plus efficaces afin que les ressources puissent être dirigées vers les programmes qui font le plus de différences dans la vie future des populations.
 A court terme, la randomisation de l'accès à un programme (par opposition à une distribution basée sur des caractéristiques arbitraires) peut être une manière particulièrement éthique de distribuer des biens rares qui ne peuvent pas être étendus à tout le monde.
 
 Cependant, parfois, ce sont les populations les plus démunies qui ont besoin d'être servies par une intervention dans une expérience.
-Un design aléatoire qui offre des prêts à un nombre égal de participants à faible revenu et à revenu élevé soustrait en partie ces ressources aux personnes dans le besoin.
+Une conception aléatoire qui offre des prêts à un nombre égal de participants à faible revenu et à revenu élevé soustrait en partie ces ressources aux personnes dans le besoin.
 Si nous pensons que le prêt a des effets bénéfiques, cela soulève des inquiétudes quant à l'éthique de ce détournement d'allocation de ressources envers les plus nécessiteux.[^5]
-Il faudrait déployer un argumentaire solide en faveur des avantages sociaux de la recherche et également tendre vers des designs qui offrent finalement aussi les avantages au groupe de contrôle.
+Il faudrait déployer un argumentaire solide en faveur des avantages sociaux de la recherche et également tendre vers des conceptions qui offrent finalement aussi les avantages au groupe de contrôle.
 
 [^5]: Mais si nous sommes certains des effets du prêt, alors pourquoi mener une expérience pour le tester ?
 Dans la recherche médicale, les essais contrôlés randomisés s'arrêtent souvent s'il devient clair dès le début qu'un médicament guérit sans aucun doute des maladies potentiellement mortelles, et donc le refuser aux sujets témoins est dangereux.
 (De même, un essai s'arrêterait également s'il était clair dès le début qu'un médicament provoque sans aucun doute des effets négatifs et nocifs.)
 
-Un design de randomisation avec liste d'attente est une façon de traiter tous les sujets tout en permettant au chercheur de tester expérimentalement l'efficacité du traitement.
-Dans ce design, on peut déployer l'intervention par phases et assigner de manière aléatoire les unités à la phase dans laquelle elles seront traitées.
+Une conception de randomisation avec liste d'attente est une façon de traiter tous les sujets tout en permettant au chercheur de tester expérimentalement l'efficacité du traitement.
+Dans cette conception, on peut déployer l'intervention par phases et assigner de manière aléatoire les unités à la phase dans laquelle elles seront traitées.
 Par exemple, pour un total de 90 villages, on pourrait traiter 30 villages chaque année et mesurer les résultats à la fin de chaque année.
 Si vous vouliez comparer les résultats dans les villages de traitement et de contrôle, vous compareriez les 30 villages traités aux 60 villages pas encore traités à la fin de la première année.
 A la fin de la deuxième année, vous pourriez comparer les 30 villages qui ont été traités l'année précédente aux 30 villages qui ne le sont pas encore.
@@ -302,9 +302,9 @@ Vous pouvez voir qu'après la troisième année, plus aucune comparaison ne peut
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/wait-list-table.png)
 
 La seule exigence est que l'assignation d'un sujet au traitement dans une phase particulière soit assignée de manière aléatoire et sans rapport avec ses résultats potentiels d'intérêt.
-Un design dans lequel des participants plus enthousiastes recevraient un traitement plus tôt violerait cette hypothèse et ne donnerait pas une estimation non biaisée de l'effet du traitement, car des facteurs non observés qui les prédisposent à rechercher un traitement peuvent influencer leurs résultats potentiels.
-Le design avec liste d'attente est un exemple de design de randomisation créatif qui pourrait répondre aux préoccupations éthiques concernant une distribution limitée d'un traitement précieux.
+Une conception dans laquel des participants plus enthousiastes recevraient un traitement plus tôt violerait cette hypothèse et ne donnerait pas une estimation non biaisée de l'effet du traitement, car des facteurs non observés qui les prédisposent à rechercher un traitement peuvent influencer leurs résultats potentiels.
+La conception avec liste d'attente est un exemple de conception de randomisation créatif qui pourrait répondre aux préoccupations éthiques concernant une distribution limitée d'un traitement précieux.
 
-L'éthique est souvent étroitement liée aux designs randomisés, en particulier dans les sciences sociales et la recherche médicale.
+L'éthique est souvent étroitement liée aux conceptions randomisées, en particulier dans les sciences sociales et la recherche médicale.
 En tant que chercheur, vous devez examiner attentivement les implications possibles de la randomisation d'un traitement donné.
-Vous devrez également solliciter l'approbation de votre design de recherche auprès du comité d’éthique pour la recherche de votre établissement.
+Vous devrez également solliciter l'approbation de votre conception de recherche auprès du comité d’éthique pour la recherche de votre établissement.

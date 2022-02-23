@@ -16,7 +16,7 @@ Comme discuté dans notre guide sur l'inférence causale, la randomisation simpl
 Cet effet causal moyen ou effet moyen du traitement (average treatment effect, ATE) est un concept puissant car c'est une solution à l'impossibilité d'observer tous les contrefactuels pertinents.
 Pourtant, ce n'est pas la seule manière efficace de faire face à ce problème.
 En fait, il existe de nombreux types différents de quantités d'intérêt causal.
-L'objectif de ce guide est de vous aider à choisir des estimandes (i.e. des paramètres d'intérêt) et des estimateurs (procédures pour calculer des estimations de ces paramètres) qui sont appropriés et significatifs pour vos données.
+L'objectif de ce guide est de vous aider à choisir des paramètres (i.e. des paramètres d'intérêt) et des estimateurs (procédures pour calculer des estimations de ces paramètres) qui sont appropriés et significatifs pour vos données.
 
 [^1]: Voir Holland (1986), Angrist et Pischke, Angrist, Joshua et Jörn-Steffen Pischke (2008). Mostly Harmless Econometrics: An Empiricist’s Companion. Princeton University Press.
 
@@ -35,7 +35,7 @@ Si le traitement est assigné de manière aléatoire, $D_{i}$ est indépendant, 
 
 [^2]: Voir Holland et Angrist & Pischke encore une fois pour une discussion plus formelle de l'indépendance et des hypothèses nécessaires pour estimer les effets causaux.
 
-Supposons que notre design implique $m$ unités sous traitement et $N−m$ sous contrôle.
+Supposons que notre conception implique $m$ unités sous traitement et $N−m$ sous contrôle.
 Supposons que nous devions réassigner à plusieurs reprises le traitement de manière aléatoire et à chaque fois calculer la différence des moyennes entre les groupes de traitement et de contrôle, puis enregistrer cette valeur dans une liste.
 La moyenne des valeurs de cette liste sera la même que la différence des moyennes des véritables résultats potentiels si nous avions observé tous les résultats potentiels pour toutes les observations.[^3] Autrement dit, l'estimateur (i.e. la différence des moyennes observées) est un estimateur sans biais de l'effet causal moyen du traitement.
 
@@ -45,7 +45,7 @@ $$ATE≡\frac{1}{N}∑^{N}_{i=1}τ_{i}=\frac{∑^{N}_{1}Y_{i}(1)}{N}−\frac{∑
 
 Et nous estimons souvent l'ATE en utilisant la différence des moyennes observées:[^4]
 
-[^4]: Les estimations sont souvent écrites avec un chapeau ($\widehat{ATE}$) pour refléter la différence entre l'estimation de notre échantillon particulier et l'estimande, cible de notre estimation qui n'est pas observée.
+[^4]: Les estimations sont souvent écrites avec un chapeau ($\widehat{ATE}$) pour refléter la différence entre l'estimation de notre échantillon particulier et le paramètre, cible de notre estimation qui n'est pas observée.
 Sauf indication contraire, dans ce guide, nous nous concentrons sur la génération d'estimations d'échantillons et omettons par la suite cette notation explicite par souci de concision.
 Voir Gerber et Green (2012) pour une introduction concise à cette distinction et Imbens et Wooldridge (2007) pour un traitement approfondi de ces concepts.
 
@@ -234,7 +234,7 @@ L'erreur de sélection de l'échantillon provient de différentes distributions 
 Par exemple, les personnes participant à un essai médical diffèrent souvent de la population pour laquelle le médicament sera disponible.
 L'erreur due au déséquilibre de traitement reflète les différences de covariables entre les groupes de traitement et de contrôle dans notre échantillon, peut-être en raison d'une assignation non aléatoire et/ou d'une non-conformité.
 
-Bien qu'il n'y ait pas de solutions simples aux problèmes créés par de telles erreurs, vous pouvez prendre des mesures à la fois dans le design de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
+Bien qu'il n'y ait pas de solutions simples aux problèmes créés par de telles erreurs, vous pouvez prendre des mesures à la fois dans la conception de votre étude et dans l'analyse de vos données pour relever ces défis liés à l'estimation du PATE ou du CACE/LATE.
 Par exemple, l'inclusion d'une intervention placebo fournit des informations supplémentaires sur la probabilité de recevoir un traitement, qui peuvent être utilisées pour repondérer l'effet de le recevoir réellement en présence de non-conformité (voir par exemple Nickerson (2008)).
 On pourrait également utiliser un modèle pour repondérer les observations afin d'ajuster le déséquilibre des covariables et la probabilité inégale de recevoir le traitement, à la fois au sein de l'échantillon et entre un échantillon et la population d'intérêt.[^13]
 
@@ -524,7 +524,7 @@ $$  = ∑_{i∉C}Y_i−∑_{i∉C}Y_i(0)=∑_{i=1}^NY_i−∑_{i=1}^NY_i(0)=t_U�
 = total observé globalement (fixe et observé) - résultat total sous contrôle (non observé, à estimer)
 </center>
 
-Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur un design pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour sondage basé sur l'inférence statistique pour les totaux des échantillons, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
+Troisièmement, cette représentation nous permet de produire un intervalle de confiance basé sur une conception pour A^ en s'appuyant sur la littérature sur l'échantillonnage pour sondage basé sur l'inférence statistique pour les totaux des échantillons, car les résultats totaux observés, tU, sont fixés à travers une randomisation.
 Nous pouvons utiliser des covariables pour augmenter la précision ici car l'estimateur de régression pour l'enquête nous permet d'estimer le total que nous aurions vu dans le groupe de contrôle : $\hat{t}_c=\sum_{i∈U}\hat{Y}_i+ \sum_{i∈U}(Y_i-\hat{Y}_i)$ avec $\hat{Y}_i=f(X_i,\beta)$ (Lohr 1999).
 La littérature sur l'échantillonnage pour les sondages montre que, comme $N→∞$, $CI(\hat{t}_c) \approx \hat{t}_c \pm z_{a/2}SE(\hat{t}_c)$.
 Ainsi, on peut calculer $\widehat{SE}(\hat{t}_c)$ à partir de la théorie de l'échantillonnage standard puis $CI(\hat{A}) \approx t_U-\widehat{CI}(\hat{t }_c)$.

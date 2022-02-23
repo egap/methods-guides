@@ -12,7 +12,7 @@ Résumé
 ==
 Le philosophe David Lewis a décrit la causalité comme "quelque chose qui fait une différence, et cette différence doit être une différence par rapport à ce qui se serait passé sans elle".[^1]
 Ceci est l'interprétation de la causalité pour la plupart des expérimentalistes. Même si la définition semble simple, elle a de nombreuses implications subtiles.
-Voici dix idées impliquées par cette notion de causalité qui importent pour le design de recherche.
+Voici dix idées impliquées par cette notion de causalité qui importent pour la conception de recherche.
 ^[Auteur d'origine : Macartan Humphreys. Révisions mineures : Winston Lin et Donald P. Green, 24 juin 2016. Révisions MH 6 janvier 2020. Révisions Anna Wilke mai 2021.
 Le guide est un document vivant et peut être mis à jour par les membres de EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.]
 

@@ -33,12 +33,12 @@ Des liens vers les registres de PAP avec des exemples de plans sont fournis à l
 1 Qu'est-ce qu'un plan de pré-analyse (pre-analysis plan, PAP)
 ==
 
-Un PAP est un document qui formalise et décrit le design et le plan d'analyse de votre étude.
+Un PAP est un document qui formalise et décrit la conception et le plan d'analyse de votre étude.
 Il est rédigé avant la réalisation de l'analyse et est généralement enregistré sur un site web tiers.[^TOP]
 
 [^TOP]: Les PAP sont encouragés dans le cadre des [directives pour la promotion de la transparence et de l'ouverture (Transparency and Openness Promotion, TOP)](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], publiées dans [Science](http://science.sciencemag.org/content/348/6242/1422.full), avec les principales revues scientifiques en sciences sociales s'engageant à mettre en œuvre les directives TOP.
 
-Les objectifs du PAP sont d'améliorer les choix de design de recherche, d'accroître la transparence de la recherche et de permettre à d'autres chercheurs de reproduire votre analyse.
+Les objectifs du PAP sont d'améliorer les choix de conception de recherche, d'accroître la transparence de la recherche et de permettre à d'autres chercheurs de reproduire votre analyse.
 Par conséquent, nous recommandons de concentrer le PAP sur les détails analytiques qui vous aideront à analyser votre étude et permettront à d'autres chercheurs de reproduire votre analyse.
 Une brève section sur la théorie devrait être incluse dans la mesure où elle aide à formuler les hypothèses, mais une analyse détaillée de la théorie et de la littérature n'a pas besoin d'être incluse.
 Le PAP n'a pas besoin d'inclure le début d'un article académique si ces sections n'aident pas à réfléchir sur votre analyse ou à aider les lecteurs à reproduire votre analyse.
@@ -50,10 +50,10 @@ De nombreux PAP ne pourront pas inclure toute notre liste, mais un PAP devrait, 
 [^DD]: Des ressources telles que le projet DeclareDesign peuvent vous aider à simuler et à analyser de fausses données qui imitent les données réelles que votre projet collectera.
 [L'analyse de puissance statistique](http://egap.org/resource/10-things-to-know-about-statistical-power) est un élément important d'un PAP et nécessite des données simulées.
 
-2 Qu'y a-t-il dans un PAP? Aperçu du design de l'étude
+2 Qu'y a-t-il dans un PAP? Aperçu de la conception de l'étude
 ==
 
-La première section d'un PAP doit fournir un bref aperçu du design de votre étude.
+La première section d'un PAP doit fournir un bref aperçu de la conception de votre étude.
 Si cette étude est une expérience, décrivez la procédure de randomisation et l'intervention ou la procédure expérimentale.
 Si l'étude n'est pas une expérience, décrivez les données.
 Ces descriptions doivent inclure :
@@ -150,9 +150,9 @@ Nous standardisons ensuite l'échelle ICW par l'écart type de sorte qu'on puiss
 5 Qu'y a-t-il dans un PAP? Procédure d'estimation
 ==
 
-Maintenant que vous avez décrit votre design d'étude, vos hypothèses et vos variables, vous êtes prêt à discuter de vos procédures de test et d'estimation.
+Maintenant que vous avez décrit votre conception d'étude, vos hypothèses et vos variables, vous êtes prêt à discuter de vos procédures de test et d'estimation.
 
-Cette section doit clairement spécifier ce que vous estimez (c'est-à-dire l'estimande) et comment vous allez l'estimer (c'est-à-dire l'estimateur).
+Cette section doit clairement spécifier ce que vous estimez (c'est-à-dire le paramètre) et comment vous allez l'estimer (c'est-à-dire l'estimateur).
 Par exemple, de nombreuses études estiment l'effet moyen du traitement d'une intervention expérimentale en utilisant la régression linéaire MCO (méthode des moindres carrés ordinaires) comme estimateur.
 ^[Vous pouvez également être intéressé par l'estimation d'autres types d'effets.
 Voir ce [guide sur les types d'effets de traitement](https://egap.org/es/methods-guides/10-types-treatment-effect-you-should-know-about) pour plus d'informations sur les types d'effet.]
@@ -246,7 +246,7 @@ Si nous avons encore des questions sur les résultats avec un taux de non-répon
 <li>Décrire la relation entre la non-réponse à cette question et d'autres données sur les personnes via </li>
   <ul>
   <li>des explorations bivariées de graphiques et/ou de tableaux</li>
-  <li>une sélection de variables à l'aide d'un modèle de réseau élastique adaptatif avec des paramètres de réglage choisis par une validation croisée répétée 10 fois au sein du sous-groupe du design.</li>
+  <li>une sélection de variables à l'aide d'un modèle de réseau élastique adaptatif avec des paramètres de réglage choisis par une validation croisée répétée 10 fois au sein du sous-groupe de la conception.</li>
   </ul>
 <li>Envisager d'abandonner ces résultats d'enquête et répertorier la raison de notre décision.</li>
 </ol>
@@ -263,7 +263,7 @@ L'un des avantages de faire l'analyse de la puissance programmatiquement est qu'
 
 À bien des égards, l'analyse de la puissance de calcul implémente toutes les spécifications que vous avez faites dans votre code de PAP.
 En fait, vous pouvez combiner le code de l'analyse de puissance avec celui écrit pour d'autres sections du PAP et créer un PAP de calcul.
-Un tel outil, qui peut être implémenté avec un logiciel comme [DeclareDesign](https://declaredesign.org), peut alors vous aider à diagnostiquer des problèmes potentiels, vous en apprendre davantage sur votre design et renforcer votre PAP.
+Un tel outil, qui peut être implémenté avec un logiciel comme [DeclareDesign](https://declaredesign.org), peut alors vous aider à diagnostiquer des problèmes potentiels, vous en apprendre davantage sur votre conception et renforcer votre PAP.
 
 9 Pourquoi faire un PAP ?
 ==
@@ -295,8 +295,8 @@ Les détails dans les registres PAP permettent aux universitaires de le faire.
 
 *3. Les PAP encouragent la recherche de qualité.*
 
-La création d'un PAP oblige le chercheur à élaborer les nombreuses décisions de design qui devront être prises lors de la réalisation d'une étude.
-Dans le cas des études d'observation, la modification ultérieure de ces décisions de design n'est pas un problème.
+La création d'un PAP oblige le chercheur à élaborer les nombreuses décisions de conception qui devront être prises lors de la réalisation d'une étude.
+Dans le cas des études d'observation, la modification ultérieure de ces décisions de conception n'est pas un problème.
 Mais pour les études expérimentales ou d'autres études utilisant la collecte de données originales, le chercheur a une seule opportunité pour collecter les données nécessaires à l'analyse.
 Les PAP aident à garantir que le chercheur ait réfléchi à toutes les décisions et collecte les bonnes données.
 
@@ -317,11 +317,11 @@ Ceci est particulièrement utile lorsque le chercheur souhaite utiliser un test 
 
 *1. La recherche est imprévisible et les PAP rendent la recherche inflexible.*
 
-Certaines personnes soutiennent qu'un PAP verrouille l'étude dans une stratégie de design, d'intervention et d'estimation particulière bien que les détails de la stratégie de design, d'intervention et d'estimation puissent changer pendant la réalisation d'une étude.
+Certaines personnes soutiennent qu'un PAP verrouille l'étude dans une stratégie de conception, d'intervention et d'estimation particulière bien que les détails de la stratégie de conception, d'intervention et d'estimation puissent changer pendant la réalisation d'une étude.
 Dans les études expérimentales, des difficultés imprévues modifient souvent les aspects de la randomisation ou de l'intervention, ou une nouvelle mesure de résultat peut échouer aux tests de validité.
 Et dans les études d'observation, une réflexion future sur la façon dont une théorie s'applique à vos données peut révéler le besoin de nouvelles variables de contrôle, de médiation et/ou de modération.
 
-Les chercheurs doivent se rappeler que *tout plan de pré-analyse peut être révisé* ! Votre premier PAP ne vous enferme pas dans un design de recherche, une variable de résultat ou une spécification de modèle spécifique.
+Les chercheurs doivent se rappeler que *tout plan de pré-analyse peut être révisé* ! Votre premier PAP ne vous enferme pas dans une conception de recherche, une variable de résultat ou une spécification de modèle spécifique.
 *Le PAP rend le processus de recherche transparent et non rigide*.
 Des révisions peuvent être apportées soit en soumettant un nouveau PAP, soit via un amendement décrivant les changements par rapport au PAP précédent.
 <!--Décrivez les avantages et les inconvénients. -->
