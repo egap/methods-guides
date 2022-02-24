@@ -185,7 +185,10 @@ Where clustering really causes trouble is when there is a strong relationship be
 
 There are formulas that can help you understand the consequences of clustering — see Gelman/Hill page 447-449 for an extended discussion. While these formulas can be useful, they can also be quite cumbersome to work with. The core insight however is a simple one: you generally get more power from increasing the number of clusters than you do from increasing the number of subjects within clusters. Better to have 100 clusters with 10 subjects in each than 10 clusters with 100 subjects in each.
 
-Again, a more flexible approach to power analysis when dealing with clusters is simulation. See the (simulations page)[https://TODO] for starter code, or continue reading Gelman/Hill page 450-453 for another simulation approach.
+Again, a more flexible approach to power analysis when dealing with clusters is simulation.
+See the (Declare Design library for block and cluster randomized experiments)[https://declaredesign.org/r/designlibrary/reference/block_cluster_two_arm_designer.html] for some starter code.
+The (DeclareDesign)[https://declaredesign.org] software aims to make simulations for power analysis (among many other tasks) easier.
+See also Gelman/Hill page 450-453 for another simulation approach.
 
 10 Good Power Analysis Makes Preregistration Easy
 ==
