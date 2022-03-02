@@ -32,6 +32,17 @@ sed -i.bak 's|href="http|target="_blank" href="http|g' *.html
 
 ```
 
+## To recreate all of the guides 
+
+Here is a one liner if you've installed the `fd` utility for OS X using homebrew
+or on linux:
+
+```
+for X in `fd  Rmd .`;do Rscript -e "rmarkdown::render('$X')"; done
+```
+
+
+
 ## When writing new guides
 
 To ensure that links are opened in a new tab write links like this `[Hello, world!](http://example.com/){target="_blank"}`
