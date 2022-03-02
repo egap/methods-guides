@@ -82,8 +82,7 @@ For example, consider a door-to-door canvassing campaign that distributes inform
 
 
 
-#4. Most outcomes of interest in social science are latent.
-
+# 4. Most outcomes of interest in social science are latent.
 
 In contrast to measuring treatment indicators and compliance, measuring outcomes in experimental research follows much more closely the process outlined in the figure above. We theorize how the treatment may influence an outcome concept. We then operationalize the concept and record scores or values to complete our measurement of the outcome. 
 
@@ -122,7 +121,7 @@ What about the case in which $Cov(\nu_i, \delta_i) < 0$? While this reduces $Var
 
 # 7. Systematic measurement error biases estimates of causal effects of interests.
 
-If we are estimating the Average Treatment Effect (ATE) of our treatment $Z_i$, on preferences for democratic norms, $\nu_i$, we are trying to recover the the ATE, or $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$. However, in the presence of **systematic** measurement error, where measurement error is related to the treatment assignment itself (say, the outcome is measured differently in the treatment group than in the control group) a difference-in-means estimator on the observed outcome, $Y_i$, recovers a biased estimate of the ATE. The effect of the treatment now includes the measurement difference as well as the difference between treated and control groups:
+If we are estimating the Average Treatment Effect (ATE) of our treatment $Z_i$, on preferences for democratic norms, $\nu_i$, we are trying to recover the ATE, or $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$. However, in the presence of **systematic** measurement error, where measurement error is related to the treatment assignment itself (say, the outcome is measured differently in the treatment group than in the control group) a difference-in-means estimator on the observed outcome, $Y_i$, recovers a biased estimate of the ATE. The effect of the treatment now includes the measurement difference as well as the difference between treated and control groups:
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] =  E[\nu_i + \delta_i + \kappa_i |Z_i = 1] − E[\nu_i + \delta_i + \kappa_i|Z_i =0]$$
 Because non-systematic measurement error, $\delta_i$ is independent of treatment assignment, $E[\delta_i|Z_i = 1] = E[\delta_i |Z_i = 0]$. Simplifying and rearranging, we can write: 
@@ -241,7 +240,7 @@ We have examined an index composed of just two indicators. In principle, there a
 
 # 10. While concepts may be global, many indicators are context-specific. 
 
-Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts, as in EGAP's [Metaketa Initiative](http://egap.org/metaketa), researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts. 
+Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts, as in EGAP's [Metaketa Initiative](https://egap.org/our-work-0/the-metaketa-initiative/), researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts.
 
 For example, consider a set of studies that seek to measure variation in the concept of political knowledge or sophistication. Political knowledge may be assessed through questions that ask subjects to recall a fact about politics. One question may ask subjects to recall the current executive's (president/prime minister etc.) name, scoring answers as "correct" or "incorrect." In country $A$, 50% of respondents answer the question correctly. In Country $B$, 100% of respondents answer the question correctly. In Country $B$, we are unable to identify any variation in the indicator because everyone could answer the question. This does not imply that there is no variation in political knowledge in Country $B$, just that this indicator is a poor measure of the variation that exists. In Country $A$, however, this question may be a completely appropriate indicator of political knowledge. If political knowledge was the outcome of an experiment, the lack of variation in the outcome in Country $B$ fails to allow us to identify any difference in political knowledge between treatment and control groups.
 
