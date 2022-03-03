@@ -5,37 +5,85 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Strategies for Figuring out if X Causes Y" -->
-<!-- author: "Methods Guide Author: Macartan Humphreys" -->
+<!-- title: "10 stratégies pour déterminer si X cause Y" -->
+<!-- author: "Auteur du guide des méthodes: Macartan Humphreys" -->
 
-Abstract
+Résumé
 ==
-Experiments are a way of figuring out if something causes something else. The basic idea is: try it and find out. The tricky thing is figuring out how to try it out in a way that allows for confidence in beliefs about causal effects. A strategy that holds pride of place in the researcher’s toolkit is the randomized intervention. This is the strategy that is at the heart of most of the experimental research done by EGAP members. But there are other strategies that are sometimes more appropriate. Here we describe the ten most prominent strategies for figuring out causal effects.^[Originating author: Macartan Humphreys. Minor revisions: Winston Lin, 30 August 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.]
+Les expériences sont un moyen de déterminer si quelque chose cause quelque chose d'autre.
+L'idée de base, c'est d'essayer pour savoir. Ce qui est délicat, c'est d'essayer d'une manière qui permette d'avoir assez confiance pour croire les effets causaux.
+L'intervention randomisée est une stratégie qui occupe une place de choix dans la boîte à outils du chercheur.
+C'est la stratégie qui est au cœur de la plupart des recherches expérimentales menées par les membres de EGAP.
+Mais il existe d'autres stratégies qui sont parfois plus appropriées.
+Nous décrivons ici les dix stratégies les plus importantes pour déterminer les effets causaux.
+^[Auteur d'origine : Macartan Humphreys. Révisions mineures : Winston Lin, 30 août 2016. Le guide est un document vivant et sujet à une mise à jour par les membres de EGAP à tout moment ; les contributeurs répertoriés ne sont pas responsables des modifications ultérieures.]
 
-1. Randomization
+1. Randomisation
 ==
-The strategy used in randomized control trials (or randomized interventions, randomized experiments) is to use some form of a lottery to determine who, among some group, will or won’t get access to a treatment or program (or perhaps who will get it first and who will get it later, or who will get one version and who will get another). The elegance of the approach is that it uses randomness to work out what the systematic effects of a program are. The randomness reduces the chance that an observed relationship between treatment and outcomes is due to "confounders"—other things that are different between groups (for example one might be worried that things look better in treatment areas precisely because programs choose to work in well-functioning areas, but knowing that the selection was random completely removes this concern). It is powerful because it guarantees that there is no systematic relationship between treatment and all other features that can affect outcomes, whether you are aware of them or not. For this reason it is often considered to be the gold standard. Randomization cannot be used always and everywhere however, both for ethical and practical reasons. But it can be used in many more situations than people think. See [Humphreys and Weinstein](http://www.columbia.edu/~mh2245/papers1/HW_ARPS09.pdf) for a discussion of strengths and limitations of the approach for research in the political economy of development.
+La stratégie utilisée dans les essais randomisés contrôlés (interventions randomisées, expériences randomisées) consiste à utiliser une forme de loterie pour déterminer qui, dans un groupe, aura ou n'aura pas accès à un traitement ou à un programme (ou peut-être qui aura accès en premier et qui aura accès plus tard, ou qui aura accès à une version et qui aura accès à une autre).
+L'élégance de l'approche est qu'elle utilise le hasard pour déterminer quels sont les effets systématiques d'un programme.
+Le caractère aléatoire réduit le risque qu'une relation observée entre le traitement et les résultats soit due à des "facteurs de confusion" - i.e. d'autres différences entre les groupes (par exemple, on pourrait craindre que les choses s'améliorent dans les zones de traitement précisément parce que les programmes choisissent une zone qui fonctionne déjà bien, mais savoir que la sélection est aléatoire efface complètement cette préoccupation).
+La randomisation est puissante car elle garantit qu'il n'y a pas de relation systématique entre le traitement et toutes les autres caractéristiques qui peuvent affecter les résultats, que vous en soyez conscient ou non.
+Pour cette raison, c'est souvent considéré comme l'étalon-or.
+Cependant, la randomisation ne peut être utilisée toujours et partout, à la fois pour des raisons éthiques et pratiques.
+Mais elle peut être utilisée dans beaucoup plus de situations que les gens ne le pensent.
+Voir [Humphreys et Weinstein](http://www.columbia.edu/~mh2245/papers1/HW_ARPS09.pdf) pour une discussion sur les forces et les limites de l'approche en économie politique du développement.
 
-2. Experimental Control (induced unit homogeneity)
+2. Contrôle expérimental (homogénéité unitaire induite)
 ==
-A second strategy used more in lab settings and also in the physical sciences is to use experimental control to ensure that two units are identical to each other in all relevant respects except for treatment. For example if you wanted to see if a heavy ball falls faster than a lighter ball you might make sure that they have the same shape and size and drop them both at the same time, under the same weather conditions, and so on. You then attribute any differences in outcomes to the feature that you did not keep constant between the two units. This strategy is fundamentally different to that used in randomized trials. In randomized trials you normally give up on the idea of keeping everything fixed and seek instead to make sure that natural variation—on variables that you can or cannot observe—does not produce bias in your estimates; in addition you normally seek to assess average effects across a range of background conditions rather than for a fixed set of background conditions. The merits of the control approach depend on your confidence that you can indeed control all relevant factors; if you cannot, then a randomized approach may be superior.
+Une deuxième stratégie plus utilisée en laboratoire et également en sciences physiques consiste à utiliser un contrôle expérimental pour s'assurer que deux unités sont identiques à tous les égards pertinents, à l'exception du traitement.
+Par exemple, si vous vouliez voir si une balle lourde tombe plus vite qu'une balle plus légère, vous pouvez vous assurer qu'elles ont la même forme et la même taille et les laisser tomber toutes les deux en même temps, dans les mêmes conditions météorologiques, et ainsi de suite.
+Vous attribuez ensuite toute différence de résultats à la caractéristique que vous n'avez pas maintenue constante entre les deux unités.
+Cette stratégie est fondamentalement différente de celle utilisée dans les essais randomisés.
+Dans les essais randomisés, vous abandonnez l'idée de tout garder fixe et cherchez plutôt à vous assurer que la variation naturelle - sur des variables que vous pouvez ou ne pouvez pas observer - ne produit pas de biais dans vos estimations ; en outre, vous cherchez à évaluer les effets moyens pour une plage de conditions de base plutôt que pour un ensemble fixe de conditions de base.
+Les mérites de l'approche du contrôle expérimental dépendent de votre confiance dans le contrôle effectif de tous les facteurs pertinents ; si le contrôle n'est pas effectif, alors une approche randomisée peut être meilleure.
 
-3. Natural experiments (as-if randomization)
+3. Expériences naturelles (randomisation supposée)
 ==
-Sometimes researchers are not able to randomize, but causal inference is still possible because nature has done the randomization for you. The key feature of the "natural experiment" approach is that you have reason to believe that variation in some natural treatment is "as-if random." For example say that seats in a school are allocated by lottery. Then you might be able to analyze the effects of school attendance as if it were a randomized control trial. One clever study of the effects of conflict on children by [Annan and Blattman](http://www.chrisblattman.com/documents/research/2010.Consequences.RESTAT.pdf) used the fact that the Lord’s Resistance Army (LRA) in Uganda abducted children in a fairly random fashion. Another clever study on Disarmament, Demobilization, and Reintegration (DDR) programs by [Gilligan, Mvukiyehe, and Samii](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1911968) used the fact that an NGO’s operations were interrupted because of a contract dispute, which resulted in a “natural” control group of ex-combatants that did not receive demobilization programs. See [Dunning’s book](http://www.cambridge.org/us/academic/subjects/politics-international-relations/research-methods-politics/natural-experiments-social-sciences-design-based-approach) for a guide to finding and analyzing natural experiments.
+Parfois, les chercheurs ne sont pas en mesure de randomiser, mais l'inférence causale est toujours possible car la nature a fait la randomisation pour vous.
+La caractéristique clé de l'approche "expérience naturelle" est que vous avez des raisons de croire que la variation de certains traitements naturels est "supposée aléatoire". Par exemple, disons que les places dans une école sont attribuées par tirage au sort.
+Ensuite, vous pourrez peut-être analyser les effets de la fréquentation scolaire comme s'il s'agissait d'un essai randomisé contrôlé.
+Une étude intelligente des effets des conflits sur les enfants par [Annan et Blattman](http://www.chrisblattman.com/documents/research/2010.Consequences.RESTAT.pdf) a utilisé le fait que la Lord’s Resistance Army (LRA) en Ouganda a enlevé des enfants de façon assez aléatoire.
+Une autre étude intelligente sur les programmes de Désarmement, Démobilisation et Réintégration (DDR) par [Gilligan, Mvukiyehe et Samii](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1911968) a utilisé le fait que les opérations d'une ONG ont été interrompues en raison d'un différend contractuel, ce qui a donné lieu à un groupe de contrôle "naturel" d'ex-combattants qui n'ont pas bénéficié de programmes de démobilisation.
+Voir [le livre de Dunning](http://www.cambridge.org/us/academic/subjects/politics-international-relations/research-methods-politics/natural-experiments-social-sciences-design-based-approach) pour trouver et analyser des expériences naturelles.
 
-4. Before/after comparisons
+4. Comparaisons avant/après
 ==
+<<<<<<< HEAD
 Often the first thing that people look to in order to work out causal effects is the comparison of units before and after treatment. Here you use the past as a control for the present. The basic idea is very intuitive: you switch the lightswitch off and you see the light switch off; attributing the light change to the action seems easy even in the absence of any randomization or control. But for many social interventions the approach is not that reliable, especially in changing environments. The problem is that things get better or worse for many reasons unrelated to treatments or programs you are interested in. In fact it is possible that because of all the other things that are changing, things can get worse in a program area even if the programs had a positive effect (so they get worse but are still not as bad as they would have been without the program!). A more sophisticated approach than simple before/after comparison is called "difference in differences" – basically you compare the before/after difference in treatment areas with those in control areas. This is a good approach but you still need to be sure that you have good control groups and in particular that control and treatment groups are not likely to change differently for reasons other than the treatment.
+=======
+Souvent, la première chose vers laquelle les gens se tournent pour déterminer les effets causaux est la comparaison des unités avant et après le contrôle.
+Ici, vous utilisez le passé comme un contrôle pour le présent.
+L'idée de base est très intuitive : vous éteignez la lumière et vous voyez la lumière s'éteindre ; attribuer le changement de lumière à l'action semble facile même en l'absence de toute randomisation ou contrôle.
+Mais pour de nombreuses interventions sociales, l'approche n'est pas si fiable, en particulier dans des environnements changeants.
+Le problème est que les choses s'améliorent ou empirent pour de nombreuses raisons sans rapport avec les traitements ou les programmes qui vous intéressent.
+En fait, il est possible qu'en raison de toutes les autres choses qui changent, les choses peuvent empirer dans un domaine du programme même si les programmes ont eu un effet positif (donc les choses empirent mais ne sont toujours pas aussi mauvaises qu'elles l'auraient été sans le programme!).
+Une approche plus sophistiquée que la simple comparaison avant/après est appelée "méthode des doubles différences" – en gros, vous comparez la différence avant/après dans les zones de traitement avec celles dans les zones de contrôle.
+C'est une bonne approche mais vous devez toujours être sûr que vous avez de bons groupes de contrôle et en particulier que les groupes de contrôle et de traitement ne sont pas susceptibles de changer différemment pour des raisons autres que le traitement.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-5. Ex Post Controlling I: Regression
+5. Contrôle ex post I : régression
 ==
+<<<<<<< HEAD
 Perhaps the most common approach to causal identification in applied statistical work is the use of multiple regression to control for possible confounders. The idea is to try to use whatever information you have about why treatment and control areas are not readily comparable and adjust for these differences statistically. This approach works well to the extent that you can figure out and measure the confounders and how they are related to treatment, but is not good if you don’t know what the confounders are. In general we just don’t know what all the confounders are and that exposes this approach to all kinds of biases (indeed if you control for the wrong variables it is possible to *introduce* bias where none existed previously).
+=======
+L'approche la plus courante de l'identification causale dans les travaux de statistique appliqués est peut-être l'utilisation de la régression multiple pour contrôler les facteurs de confusion possibles.
+L'idée est d'essayer d'utiliser toutes les informations dont vous disposez sur les raisons pour lesquelles les zones de traitement et de contrôle ne sont pas facilement comparables et d'ajuster statistiquement ces différences.
+Cette approche fonctionne bien dans la mesure où vous pouvez déterminer et mesurer les facteurs de confusion et savoir comment ils sont liés au traitement, mais elle n'est pas correcte si vous ne savez pas quels sont les facteurs de confusion.
+En général, nous ne savons tout simplement pas quels sont tous les facteurs de confusion et cela expose cette approche à toutes sortes de biais (en effet, si vous contrôlez les mauvaises variables, il est possible *d'introduire* un biais là où il n'y en avait pas auparavant).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-6. Ex Post Controlling II: Matching and Weighting
+
+6. Contrôle ex post II: appariement et pondération
 ==
-A variety of alternative approaches seek to account for confounding variables by carefully matching treatment units to one or many control units. Matching has some advantages over regression (for example, estimates can be less sensitive to choices of functional form), but the basic idea is nevertheless similar, and indeed matching methods can be implemented in a regression framework using appropriate weights. Like regression, at its core, this strategy depends on a conviction that there are no important confounding variables that the researcher is unaware of or is unable to measure. Specific methods include: 
+Diverses approches alternatives cherchent à tenir compte des variables de confusion en associant soigneusement les unités de traitement à une ou plusieurs unités de contrôle.
+L'appariement présente certains avantages par rapport à la régression (par exemple, les estimations peuvent être moins sensibles aux choix de la forme fonctionnelle),
+mais l'idée de base est néanmoins similaire.
+En effet, les méthodes d'appariement peuvent être mises en œuvre dans un cadre de régression en utilisant des poids appropriés.
+Comme la régression, cette stratégie repose sur la conviction qu'il n'y a pas de variables de confusion importantes que le chercheur ignore ou est incapable de mesurer.
+Les méthodes spécifiques comprennent :
 
+<<<<<<< HEAD
 * [optimal full- and pair-matching](http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf) and see the [optmatch package](https://github.com/markmfredrickson/optmatch)
 * [optimal pair-matching with fine-balance via mixed integer programming](https://projecteuclid.org/euclid.aoas/1396966284). [See also the designmatch package](https://cran.rstudio.com/web/packages/designmatch) and the [paper comparing approaches](http://jrzubizarreta.com/evaluation.pdf)
 * [optimal multi-level matching (for designs with schools and students)](https://projecteuclid.org/euclid.aoas/1536652962)
@@ -47,21 +95,80 @@ A variety of alternative approaches seek to account for confounding variables by
 * [inverse propensity weighting](http://pan.oxfordjournals.org/content/18/1/36.short)
 * [stable balancing weights](http://www.columbia.edu/~jz2313/sbw.pdf), and the use of
 * [synthetic controls](http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf).
+=======
+* [appariement complet optimal](http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf), voir le [package optmatch](https://github.com/markmfredrickson/optmatch)
+* [appariement optimal avec équilibrage précis via une programmation mixte en nombres entiers](https://projecteuclid.org/euclid.aoas/1396966284), voir aussi [le package designmatch](https://cran.rstudio.com/web/packages/designmatch) et [l'article comparant les approches](http://jrzubizarreta.com/evaluation.pdf)
+* [appariement multi-niveaux optimal (pour les conceptions avec des écoles et des étudiants)](https://projecteuclid.org/euclid.aoas/1536652962)
+* [appariement creux optimal](https://www.stat.berkeley.edu/~spi/software.html)
+* [appariement généralisé complet](https://arxiv.org/abs/1703.03882)
+* [appariement grossier exact](http://gking.harvard.edu/cem)
+* [appariement génétique](http://sekhon.berkeley.edu/papers/GenMatch.pdf)
+* [équilibre d'entropie](http://web.stanford.edu/~jhain/Paper/PA2012.pdf)
+* [pondération inverse du score de propension](http://pan.oxfordjournals.org/content/18/1/36.short)
+* [pondération de l'équilibre stable](http://www.columbia.edu/~jz2313/sbw.pdf)
+* [contrôles synthétiques](http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-7. Instrumental variables (IV)
+7. Variables instrumentales
 ==
+<<<<<<< HEAD
 Another approach to identifying causal effects is to look for a feature that explains why a given group got a treatment but which is otherwise unrelated to the outcome of interest. Such a feature is called an instrument. For example say you are interested in the effect of a livelihoods program on employment, and say it turned out that most people who got access to the livelihoods program did so because they were a relative of a particular program officer. Now suppose that being a relative of the program officer does not affect job prospects in any way other than through its effect on getting access to the livelihoods program. If so, then you can work out the effect of the program by understanding the effect of being a relative of the program officer on job prospects. This has been a fairly popular approach but the enthusiasm for it has died a bit, basically because it is hard to find a good instrument. One smart application are studies on the effects of poverty on conflict which use rainfall in Africa as an instrument for income/growth. While there are worries that the correlation between conflict and poverty may be due to the fact that conflict causes poverty, it does not seem plausible that conflict causes rainfall! So using rainfall as an instrument here gave a lot more confidence that really there is a causal, and not just correlational, relationship between [poverty and conflict](http://emiguel.econ.berkeley.edu/research/economic-shocks-and-civil-conflict-an-instrumental-variables-approach).
+=======
+Une approche très différente pour estimer les effets causaux peut être utilisée si les chercheurs peuvent trouver une caractéristique qui explique pourquoi un groupe donné a reçu un traitement mais qui n'est par ailleurs pas liée au résultat d'intérêt.
+Une telle caractéristique est appelée un instrument.
+Par exemple, disons que vous êtes intéressé par l'effet sur l'emploi d'un programme d'aide à la précarité, et que la plupart des personnes ont accédé à ce programme parce qu'elles avaient un lien de parenté avec un agent travaillant pour ce programme particulier.
+Ensuite, s'il n'y avait pas d'autres façons d'établir une relation entre le lien de parenté de cette personne et ses perspectives d'emploi, alors vous pouvez déterminer l'effet du programme en calculant l'effet d'être un parent de cette personne sur les perspectives d'emploi.
+Cela a été une approche assez populaire, mais l'enthousiasme pour cette approche est un peu retombé, essentiellement parce qu'il est difficile de trouver un bon instrument.
+Une application intelligente pour examiner les effets de la pauvreté sur les conflits a utilisé les précipitations en Afrique comme instrument de revenu/croissance.
+Bien que l'on s'inquiète que la corrélation entre conflit et pauvreté soit due au fait que le conflit pourrait causer la pauvreté, il ne semble pas plausible que le conflit provoque des précipitations !
+Ainsi, l'utilisation des précipitations comme instrument ici a augmenté la certitude qu'il existe réellement une relation causale, et pas seulement une corrélation, entre [pauvreté et conflit](http://emiguel.econ.berkeley.edu/research/economic-shocks-and-civil-conflict-an-instrumental-variables-approach).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-8. Regression discontinuity designs (RDD)
+8. La méthode de régression par discontinuité (regression discontinuity design, RDD)
 ==
+<<<<<<< HEAD
 The regression discontinuity approach works as follows. Say that some program is going to be made available to a set of potential beneficiaries. These potential beneficiaries are all ranked on a set of relevant criteria, such as prior education levels, employment status, and so on. These criteria can be quantitative; but they can also include qualitative information such as assessments from interviews. These individual criteria are then aggregated into a single score and a threshold is identified. Candidates scoring above this threshold are admitted to the program, while those below are not. "Project" and "comparison" groups are then identified by selecting applicants that are close to this threshold on either side. Using this method we can be sure that treated and control units are similar, at least around the threshold. Moreover, we have a direct measure of the main feature on which they differ (their score on the selection criteria). This information provides the key to estimating a program effect from comparing outcomes between these two groups. The advantage of this approach is that all that is needed is that the implementing agency uses a clear set of criteria (which can be turned into a score) upon which they make treatment assignment decisions. The disadvantage is that really reliable estimates of impact can only be made for units right around the threshold. For overviews of RDD, see [Skovron and Titiunik](http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf) and [Lee and Lemieux](http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf); for two interesting applications, see [Manacorda et al. on Uruguay](http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support) and [Samii on Burundi](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=8963107).
+=======
+La régression par discontinuité est l'une des approches les plus sous-utilisées, mais elle a un potentiel énorme.
+La stratégie fonctionne comme suit.
+Disons qu'un programme va être mis à la disposition d'un ensemble de bénéficiaires potentiels.
+Ces bénéficiaires potentiels sont tous classés selon un ensemble de critères pertinents, tels que le niveau d'éducation antérieur, le statut d'emploi, etc.
+Ces critères peuvent être quantitatifs ; mais ils peuvent également inclure des informations qualitatives telles que des évaluations issues d'entretiens.
+Ces critères individuels sont ensuite agrégés en un seul score et un seuil est identifié.
+Les candidats dont le score est supérieur à ce seuil sont admis au programme, tandis que les autres ne le sont pas.
+Les groupes "projet" et "comparaison" sont ensuite identifiés en sélectionnant des candidats proches de ce seuil de part et d'autre.
+En utilisant cette méthode, nous pouvons être sûrs que les unités traitées et témoins sont similaires, au moins autour du seuil.
+De plus, nous avons une mesure directe de la principale caractéristique sur laquelle ils diffèrent (leur score sur les critères de sélection).
+Cette information fournit la clé pour estimer l'effet d'un programme en comparant les résultats entre ces deux groupes.
+L'avantage de cette approche est que tout ce qui est nécessaire est que l'organisme en charge utilise un ensemble clair de critères (qui peuvent être transformés en un score) sur lesquels ils prennent la décision d'assignation au traitement.
+L'inconvénient est que des estimations vraiment fiables de l'impact ne peuvent être faites que pour les unités situées juste autour du seuil.
+Pour un aperçu de la régression par discontinuité, voir [Skovron et Titiunik](http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf), [Lee et Lemieux](http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf). Pour deux applications intéressantes, voir [Manacorda et al. en Uruguay](http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support) et [Samii au Burundi](http://journals.cambridge.org/action/displayAbstract?fromPage=online&aid=8963107).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-9. Process tracing
+9. Traçage de processus
 ==
-In much qualitative work researchers try to establish causality by looking not just at whether being in a program is associated with better outcomes but (a) looking for steps in the process along the way that would tell you whether a program had the effects you think it had and (b) looking for evidence of other outcomes that should be seen if (or perhaps: if and only if) the program was effective. For example not just whether people in a livelihoods program got a job but whether they got trained in something useful, got help from people in the program to find an employer in that area, and so on. If all these steps are there, that gives confidence that the relationship is causal and not spurious. If a program was implemented but no one actually took part in it, this might give grounds to suspect that any correlation between treatment and outcomes is spurious. The difficulty with this approach is that it can be hard to know whether any piece of within-case evidence has probative value. For example a program may have positive (or negative) effects through lots of processes that you don’t know anything about and processes that you think are important, might not be. See [Humphreys and Jacobs](http://www.columbia.edu/%7Emh2245/papers1/BIQQ.pdf) for a description of the Bayesian logic underlying process tracing and illustrations of how to combine it with other statistical approaches.
+Dans de nombreux travaux qualitatifs, les chercheurs essaient d'établir la causalité en cherchant à savoir si le fait d'être dans un programme est associé à de meilleurs résultats,
+mais aussi (a) en recherchant les étapes du processus qui montreraient que le programme a eu les effets que vous pensez qu'il a eu
+(b) et en recherchant des preuves d'autres résultats qui devraient être observés si (ou peut-être : si et seulement si) le programme était efficace.
+Par exemple, ils veulent savoir si les personnes participant à un programme d'aide à la précarité ont obtenu un emploi, mais aussi si elles ont été formées à quelque chose d'utile, ont obtenu de l'aide des personnes participant au programme pour trouver un employeur dans ce domaine, etc.
+Si toutes ces étapes sont présentes, cela donne l'assurance que la relation est causale et non fausse.
+Si un programme a été mis en œuvre mais que personne n'y a réellement participé, cela peut laisser penser que toute corrélation entre le traitement et les résultats est fausse.
+La difficulté avec cette approche est qu'il peut être difficile de savoir si un élément de preuve au sein du processus a une valeur probante.
+Par exemple, un programme peut avoir des effets positifs (ou négatifs) à travers de nombreux processus dont vous ne savez rien et des processus que vous jugez importants, peuvent ne pas l'être.
+Voir [Humphreys et Jacobs](http://www.columbia.edu/%7Emh2245/papers1/BIQQ.pdf) pour une description de la logique bayésienne sous-jacente au traçage des processus et des illustrations sur la façon de le combiner avec d'autres approches statistiques.
 
-10. Front Door Strategies (Argument from mechanisms)
+10. Stratégies "porte d'entrée" (argument basé sur les mécanismes)
 ==
+<<<<<<< HEAD
 A final approach, conceptually close to process tracing, is to make use of mechanisms. Say you know, as depicted in the picture below, that $A$ can cause $C$ only through $B$. Say moreover that you know that no third variable causes both $B$ and $C$ (other than, perhaps, via $A$) and no third variable causes both $A$ and $B$. Then covariation between $A$ and $B$ and between $B$ and $C$ can be used to assess the effect of $A$ on $C$. The advantage is that causality can be established even in the presence of confounders — for example even if, as in the picture below, unobserved variables cause both $A$ and $C$. The difficulty however is that the strategy requires a lot of confidence in your beliefs about the structure of causal relations. For more see [Pearl (2000)](https://books.google.com/books?id=wnGU_TsW3BQC&hl=en). 
 
 ![](dag.png)
+=======
+Une dernière approche, conceptuellement proche du traçage de processus, consiste à argumenter à partir des mécanismes.
+Supposons que vous sachiez que seul $A$ peut causer $C$ uniquement via $B$.
+De plus, vous savez que rien d'autre ne cause à la fois $B$ et $C$ (autre que, peut-être, via $A$) et que rien d'autre ne cause à la fois $A$ et $B$.
+Ensuite, la covariation entre $A$ et $B$ et entre $B$ et $C$ peut être utilisée pour évaluer l'effet de $A$ sur $C$.
+L'avantage est que la causalité peut être établie même en présence de facteurs de confusion — par exemple si des variables non observées causent à la fois $A$ et $C$.
+La difficulté cependant est que la stratégie nécessite une confiance forte en vos croyances sur la structure des relations causales.
+Pour en savoir plus, voir [Pearl (2000)](https://books.google.com/books?id=wnGU_TsW3BQC&hl=en).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7

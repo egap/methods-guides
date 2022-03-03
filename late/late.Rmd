@@ -6,49 +6,104 @@ output:
 ---
 
 <!-- title: "10 Things You Need to Know About the Local Average Treatment Effect" -->
-<!-- author: "Methods Guide Author: Peter van der Windt" -->
+<!-- author: "Auteur du guide des méthodes: Peter van der Windt" -->
 
 Abstract
 ==
-Sometimes a treatment or a program is delivered but for some reason or another only some individuals or groups actually take the treatment. In this case it can be hard to estimate treatment effects for the whole population. For example maybe people for whom the treatment would have had a big effect decided not to take up the treatment. In these cases it is still possible to estimate what's called the "Local Average Treatment Effect," or LATE. This guide[^1] discusses the LATE: what it is, how to estimate it, and how to interpret it.^[For more extensive overviews, see: J. D. Angrist, G. W. Imbens, and D. B. Rubin (1996), "Identification of Causal Effects Using Instrumental Variables" (with discussion), Journal of the American Statistical Association 91: 444-472; J. D. Angrist (2006), "Instrumental Variables Methods in Experimental Criminological
+Sometimes a treatment or a program is delivered but for some reason or another only some individuals or groups actually take the treatment.
+In this case it can be hard to estimate treatment effects for the whole population.
+For example maybe people for whom the treatment would have had a big effect decided not to take up the treatment.
+In these cases it is still possible to estimate what's called the "Local Average Treatment Effect," or LATE.
+This guide[^1] discusses the LATE: what it is, how to estimate it, and how to interpret it.^[For more extensive overviews, see: J. D. Angrist, G. W. Imbens, and D. B. Rubin (1996), "Identification of Causal Effects Using Instrumental Variables" (with discussion), Journal of the American Statistical Association 91: 444-472; J. D. Angrist (2006), "Instrumental Variables Methods in Experimental Criminological
 Research: What, Why and How," Journal of Experimental Criminology 2: 23-44; J. D. Angrist and J.-S. Pischke (2009), _Mostly Harmless Econometrics_, sections 4.4-4.6 and 6.2; T. Dunning (2012), _Natural Experiments in the Social Sciences_; M. Baiocchi, J. Cheng, and D. S. Small (2014), "Instrumental Variable Methods for Causal Inference," Statistics in Medicine 33: 2297-2340 (with correction in Statistics in Medicine 33: 4859-4860).]
 
-[^1]: Originating author: Peter van der Windt, 20 October 2014. Revisions: Winston Lin, 22 August 2016. The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits. Thanks to Albert Fang for point 10.
+[^1]: Originating author: Peter van der Windt, 20 October 2014.
+Revisions: Winston Lin, 22 August 2016.
+The guide is a live document and subject to updating by EGAP members at any time; contributors listed are not responsible for subsequent edits.
+Thanks to Albert Fang for point 10.
 
 #1 What it is
 
-When subjects do not receive the treatment to which they were assigned, the experimenter faces a "noncompliance" problem. Some subjects may need the treatment so badly that they will always take up treatment, irrespective of whether they are assigned to the treatment or to the control group. These are called "Always-Takers". Other subjects may not take the treatment even if they are assigned to the treatment group: the "Never-Takers". Some subjects are "Compliers". These are the subjects that do what they are supposed to do: they are treated when assigned to the treatment group, and they are not treated when they are assigned to the control group. Finally, some subjects do the exact opposite of what they are supposed to do. They are called "Defiers". Table 1 shows these four different types of subjects in the population.
+When subjects do not receive the treatment to which they were assigned, the experimenter faces a "noncompliance" problem.
+Some subjects may need the treatment so badly that they will always take up treatment, irrespective of whether they are assigned to the treatment or to the control group.
+These are called "Always-Takers".
+Other subjects may not take the treatment even if they are assigned to the treatment group: the "Never-Takers".
+Some subjects are "Compliers".
+These are the subjects that do what they are supposed to do: they are treated when assigned to the treatment group, and they are not treated when they are assigned to the control group.
+Finally, some subjects do the exact opposite of what they are supposed to do.
+They are called "Defiers".
+Table 1 shows these four different types of subjects in the population.
 
 ![](figs/Table1pvdw.png) 
 
-Noncompliance can make it impossible to estimate the average treatment effect (ATE) for the population. For example, say that in a population of 200, 100 people are randomly assigned to treatment and we find that only 80 people are actually treated. What is the impact of the treatment? One method to answer this question is simply to ignore the noncompliance and compare the outcome in the treatment (100 people) and control (100 people) groups. This method estimates the average intention-to-treat effect (ITT). While informative, this method does not give a measure of the effect of the treatment itself. Another approach would be to compare the 120 really-untreated and 80 really-treated subjects. Doing so, however, might give you biased estimates. The reason is that the 20 subjects that did not comply with their assignment are likely to be a nonrandom subset of those that were assigned to treatment.
+Noncompliance can make it impossible to estimate the average treatment effect (ATE) for the population.
+For example, say that in a population of 200, 100 people are randomly assigned to treatment and we find that only 80 people are actually treated.
+What is the impact of the treatment? One method to answer this question is simply to ignore the noncompliance and compare the outcome in the treatment (100 people) and control (100 people) groups.
+This method estimates the average intention-to-treat effect (ITT).
+While informative, this method does not give a measure of the effect of the treatment itself.
+Another approach would be to compare the 120 really-untreated and 80 really-treated subjects.
+Doing so, however, might give you biased estimates.
+The reason is that the 20 subjects that did not comply with their assignment are likely to be a nonrandom subset of those that were assigned to treatment.
 
-So what now? In some cases it is possible to estimate the "Local Average Treatment Effect" (LATE), also known as the "Complier Average Causal Effect" (CACE). The LATE is the average treatment effect for the Compliers. Under assumptions discussed below, the LATE equals the ITT effect divided by the share of compliers in the population.
+So what now? In some cases it is possible to estimate the "Local Average Treatment Effect" (LATE), also known as the "Complier Average Causal Effect" (CACE).
+The LATE is the average treatment effect for the Compliers.
+Under assumptions discussed below, the LATE equals the ITT effect divided by the share of compliers in the population.
 
 # 2 With one-sided noncompliance you need to satisfy an exclusion restriction to estimate the LATE
 
-The example introduced above is termed one-sided noncompliance: 80% of the population respond to the treatment assignment (the "Compliers") and 20% do not (the "Never-Takers"). Say that after the treatment, the experimenter measures the average outcome to be 50 in the treatment group and 10 in the control group. This situation is illustrated in Table 2. Note that only those indicated with blue in Table 2 were in fact treated.
+The example introduced above is termed one-sided noncompliance: 80% of the population respond to the treatment assignment (the "Compliers") and 20% do not (the "Never-Takers").
+Say that after the treatment, the experimenter measures the average outcome to be 50 in the treatment group and 10 in the control group.
+This situation is illustrated in Table 2.
+Note that only those indicated with blue in Table 2 were in fact treated.
 
 ![](figs/Table2pvdw_0.png) 
 
 
-Before we can calculate the LATE under one-sided noncompliance we need to make an assumption. The exclusion restriction (also called "excludability") stipulates that outcomes respond to treatments, not treatment assignments. In normal words this simply means that the outcome for a Never-Taker is the same regardless of whether they are assigned to the treatment or control group: in both cases the subject is not treated, and that is what matters.
+Before we can calculate the LATE under one-sided noncompliance we need to make an assumption.
+The exclusion restriction (also called "excludability") stipulates that outcomes respond to treatments, not treatment assignments.
+In normal words this simply means that the outcome for a Never-Taker is the same regardless of whether they are assigned to the treatment or control group: in both cases the subject is not treated, and that is what matters.
 
-Because the treatment was randomly assigned, we know that if there are 20% Never-Takers in the treatment group (left column), there are probably about 20% Never-Takers in the control group. Because of the exclusion restriction, the Never-Takers have the same outcome under both assignment conditions, and thus the difference in average outcomes (40) cannot be attributed to the Never-Takers. We can thus attribute the entire ITT effect to the Compliers. The LATE can therefore be estimated by dividing the ITT estimate by the share of Compliers: 40/0.8 = 50.
+Because the treatment was randomly assigned, we know that if there are 20% Never-Takers in the treatment group (left column), there are probably about 20% Never-Takers in the control group.
+Because of the exclusion restriction, the Never-Takers have the same outcome under both assignment conditions, and thus the difference in average outcomes (40) cannot be attributed to the Never-Takers.
+We can thus attribute the entire ITT effect to the Compliers.
+The LATE can therefore be estimated by dividing the ITT estimate by the share of Compliers: 40/0.8 = 50.
 
 # 3 With two-sided noncompliance the LATE can be estimated assuming both the exclusion restriction and a "no defiers" assumption
 
-The experimenter may also face two-sided noncompliance. In this case, some subjects in the treatment group go untreated and some in the control group receive the treatment. In this world, the population consists of the Compliers, the Never-Takers, the Always-Takers, and the Defiers. To estimate LATE under two-sided noncompliance we need a second assumption: that the population contains no Defiers (the assumption is also called the "monotonicity" assumption). To see the use of this assumption look at Table 3, which illustrates our example under two-sided noncompliance. Again, after the treatment the experimenter measures the average outcome to be 50 in the treatment group and 10 in the control group. Note that those subjects in blue were in fact treated.
+The experimenter may also face two-sided noncompliance.
+In this case, some subjects in the treatment group go untreated and some in the control group receive the treatment.
+In this world, the population consists of the Compliers, the Never-Takers, the Always-Takers, and the Defiers.
+To estimate LATE under two-sided noncompliance we need a second assumption: that the population contains no Defiers (the assumption is also called the "monotonicity" assumption).
+To see the use of this assumption look at Table 3, which illustrates our example under two-sided noncompliance.
+Again, after the treatment the experimenter measures the average outcome to be 50 in the treatment group and 10 in the control group.
+Note that those subjects in blue were in fact treated.
 
 ![](figs/Table3pvdw.png) 
 
-With the exclusion restriction and the no Defiers assumption we can estimate the LATE. Because of the exclusion restriction, we can attribute the entire ITT effect to Compliers and not to Never-Takers or Always-Takers. Given that we have an estimate of the ITT effect (40), what remains is to estimate the share of Compliers in the population. (Table 3 shows the subjects' types as seen by an omniscient deity. The experimenter cannot observe these types, but can estimate their shares, as explained below.)
+With the exclusion restriction and the no Defiers assumption we can estimate the LATE.
+Because of the exclusion restriction, we can attribute the entire ITT effect to Compliers and not to Never-Takers or Always-Takers.
+Given that we have an estimate of the ITT effect (40), what remains is to estimate the share of Compliers in the population.
+(Table 3 shows the subjects' types as seen by an omniscient deity.
+The experimenter cannot observe these types, but can estimate their shares, as explained below.)
 
-We cannot observe whether any given subject is a Complier, but we do observe whether they took the treatment. In the treatment group, we observe that 90 people took the treatment (and thus must be either Compliers or Always-Takers) and 10 did not (and thus must be Never-Takers, since there are no Defiers). Thus, 10% of the treatment group are Never-Takers, and since treatment was assigned randomly, we estimate that about 10% of the control group are Never-Takers. Similarly, in the control group, we observe that 10 people took the treatment (and thus must be Always-Takers, since there are no Defiers) and 90 did not (and thus must be either Compliers or Never-Takers). Thus, 10% of the control group are Always-Takers, and we estimate that about 10% of the treatment group are Always-Takers. From all this, we can estimate the share of Compliers as 100% - 10% (Never-Takers) - 10% (Always-Takers) = 80%. Finally, we can estimate the LATE as 40/0.8=50.
+We cannot observe whether any given subject is a Complier, but we do observe whether they took the treatment.
+In the treatment group, we observe that 90 people took the treatment (and thus must be either Compliers or Always-Takers) and 10 did not (and thus must be Never-Takers, since there are no Defiers).
+Thus, 10% of the treatment group are Never-Takers, and since treatment was assigned randomly, we estimate that about 10% of the control group are Never-Takers.
+Similarly, in the control group, we observe that 10 people took the treatment (and thus must be Always-Takers, since there are no Defiers) and 90 did not (and thus must be either Compliers or Never-Takers).
+Thus, 10% of the control group are Always-Takers, and we estimate that about 10% of the treatment group are Always-Takers.
+From all this, we can estimate the share of Compliers as 100% - 10% (Never-Takers) - 10% (Always-Takers) = 80%.
+Finally, we can estimate the LATE as 40/0.8=50.
 
 #4 The LATE is an instrumental variables estimate
 
-The LATE estimate is equivalent to an instrumental variables estimate. This is most easily illustrated following a set of regressions. Say that 50 individuals from a population of 100 are randomly assigned to treatment. Regressing treatment status (D) on the treatment assignment (Z) gives the estimated share of compliers: 80%. The ITT effect is estimated by regressing outcome Y on the assignment to treatment (Z). Again, LATE is estimated by dividing the ITT estimate by the estimated share of compliers. A researcher will get exactly the same results when running a two-stage least squares (2SLS) regression in which the outcome (Y) is regressed on the treatment (D), using the assignment to treatment as an instrumental variable (Z). This is shown in the code below.
+The LATE estimate is equivalent to an instrumental variables estimate.
+This is most easily illustrated following a set of regressions.
+Say that 50 individuals from a population of 100 are randomly assigned to treatment.
+Regressing treatment status (D) on the treatment assignment (Z) gives the estimated share of compliers: 80%.
+The ITT effect is estimated by regressing outcome Y on the assignment to treatment (Z).
+Again, LATE is estimated by dividing the ITT estimate by the estimated share of compliers.
+A researcher will get exactly the same results when running a two-stage least squares (2SLS) regression in which the outcome (Y) is regressed on the treatment (D), using the assignment to treatment as an instrumental variable (Z).
+This is shown in the code below.
 
 ```{r include=FALSE, cache=FALSE}
 library(AER)
@@ -85,7 +140,14 @@ summary(ivreg(Y~ D | Z))
 
 # 5 The LATE only estimates the treatment effect for the compliers
 
-While LATE is better than nothing, it provides a consistent estimate of the average treatment effect only for a subgroup of the population: the Compliers. It does not measure the effect of the treatment for everyone (ATE). For instance, Angrist and Evans (1998) study the effect of childbearing on a mother's labor supply. In their paper, compliers account for only 6% of the total population, while we would like to know the effect for everyone, or at least for a larger subgroup of the population of interest.[^2] Whether or not only obtaining the effect for Compliers is problematic depends on an experimenter's objectives. Sometimes the LATE is exactly what the researcher is interested in: the average effect on those that actually comply with the assignment to treatment. Moreover, LATE might not be very different from the ATE if the share of compliers is large and the treatment effects for the different types in the population are similar enough. To explore the latter, researchers can compare the background attributes of the Compliers and Never-takers in the treatment group. Another approach is to compare the average outcomes of Always-Takers and Compliers among those that are treated (those in blue in Table 3), and the average outcomes of Never-Takers and Compliers among those that are not treated.[^3]
+While LATE is better than nothing, it provides a consistent estimate of the average treatment effect only for a subgroup of the population: the Compliers.
+It does not measure the effect of the treatment for everyone (ATE).
+For instance, Angrist and Evans (1998) study the effect of childbearing on a mother's labor supply.
+In their paper, compliers account for only 6% of the total population, while we would like to know the effect for everyone, or at least for a larger subgroup of the population of interest.[^2] Whether or not only obtaining the effect for Compliers is problematic depends on an experimenter's objectives.
+Sometimes the LATE is exactly what the researcher is interested in: the average effect on those that actually comply with the assignment to treatment.
+Moreover, LATE might not be very different from the ATE if the share of compliers is large and the treatment effects for the different types in the population are similar enough.
+To explore the latter, researchers can compare the background attributes of the Compliers and Never-takers in the treatment group.
+Another approach is to compare the average outcomes of Always-Takers and Compliers among those that are treated (those in blue in Table 3), and the average outcomes of Never-Takers and Compliers among those that are not treated.[^3]
 
 [^2]: Angrist, J. D. Evans, W. N. 1998. Children and their Parents' Labor Supply: Evidence from Exogenous variation in family size. American Economic Review, 88(3), 450-477.
 
@@ -94,26 +156,56 @@ While LATE is better than nothing, it provides a consistent estimate of the aver
 
 # 6 A different instrument will give a different LATE
 
-Whether a subject is a Defier, Complier, Never-Taker or Always-Taker depends on the experimental design and the context in which the experiment is conducted. For example, using phone calls instead of a monetary incentive to encourage treatment take-up can alter the share of compliers in the population. As a result, different instruments will estimate different LATEs.
+Whether a subject is a Defier, Complier, Never-Taker or Always-Taker depends on the experimental design and the context in which the experiment is conducted.
+For example, using phone calls instead of a monetary incentive to encourage treatment take-up can alter the share of compliers in the population.
+As a result, different instruments will estimate different LATEs.
 
 # 7 The LATE estimate is always larger than the ITT estimate
 
-The LATE estimate is calculated as the intention-to-treat estimate (ITT) divided by the estimated share of Compliers in the population. With noncompliance, the share of Compliers in the population is smaller than one. As a result, the LATE estimate will always be larger than the ITT estimate. Another way to look at this is that following the exclusion restriction (reminder: the exclusion restriction states that the outcome for a Never-Taker or Always-Taker is the same regardless of whether they are assigned to the treatment or control group), the ITT effect for the Never-Takers and the Always-Takers is zero. Thus, given any positive number of Never and/or Always-Takers, the average ITT effect is smaller than the LATE.
+The LATE estimate is calculated as the intention-to-treat estimate (ITT) divided by the estimated share of Compliers in the population.
+With noncompliance, the share of Compliers in the population is smaller than one.
+As a result, the LATE estimate will always be larger than the ITT estimate.
+Another way to look at this is that following the exclusion restriction (reminder: the exclusion restriction states that the outcome for a Never-Taker or Always-Taker is the same regardless of whether they are assigned to the treatment or control group), the ITT effect for the Never-Takers and the Always-Takers is zero.
+Thus, given any positive number of Never and/or Always-Takers, the average ITT effect is smaller than the LATE.
 
 # 8 You can use LATE for "encouragement" designs
 
-In an encouragement design, subjects are randomly invited to participate in the treatment. The reason to do so is that in some cases it might be unethical to make subjects adhere to the treatment assignment. In other cases, it might require unnecessarily large incentives to obtain adherence. As a result, in encouragement designs subjects self-select into treatment. For example, Hirano et al (2000) study the impact of a letter encouraging inoculation of patients at risk for flu, sent to a randomly selected set of physicians. The outcome of interest is an indicator for flu-related hospital visits. Needless to say, the incentives for the treatment (the letter) have only a limited effect on the actual treatment received (a flu shot by the physician), and thus the study population will consist of Compliers, Always-Takers, and Never-Takers. (We assume there are no Defiers, patients who would get the flu shot if and only if their physician did not get the letter.) It is thus easy to see how such an encouragement design corresponds to the two-sided noncompliance case.[^4]
+In an encouragement design, subjects are randomly invited to participate in the treatment.
+The reason to do so is that in some cases it might be unethical to make subjects adhere to the treatment assignment.
+In other cases, it might require unnecessarily large incentives to obtain adherence.
+As a result, in encouragement designs subjects self-select into treatment.
+For example, Hirano et al (2000) study the impact of a letter encouraging inoculation of patients at risk for flu, sent to a randomly selected set of physicians.
+The outcome of interest is an indicator for flu-related hospital visits.
+Needless to say, the incentives for the treatment (the letter) have only a limited effect on the actual treatment received (a flu shot by the physician), and thus the study population will consist of Compliers, Always-Takers, and Never-Takers.
+(We assume there are no Defiers, patients who would get the flu shot if and only if their physician did not get the letter.) It is thus easy to see how such an encouragement design corresponds to the two-sided noncompliance case.[^4]
 
 [^4]:Hirano, K., Imbens, G.W., Rubin, D.B. & Zhou, X. (2000). Assessing the Effect of an Influenza Vaccine in an Encouragement Design. Biostatistics, 1(1), 69-88.]
 
 # 9 You can use the LATE to implement downstream experiments
 
-Downstream experiments are studies in which an initial randomization (e.g. distribution of school vouchers) causes a change in an outcome (e.g. education level), and this outcome is then considered a treatment affecting a subsequent outcome (e.g. income).[^5] Also, these experiments correspond to our two-sided noncompliance setup. Noncompliance occurs because the random intervention is just one of many "encouragements" that cause people to take the treatment. Downstream experiments place particular pressure on the exclusion restriction, which requires that (following the example) school vouchers influences income only through higher education. This assumption would be violated if school vouchers affected income for reasons other than education.
+Downstream experiments are studies in which an initial randomization (e.g. distribution of school vouchers) causes a change in an outcome (e.g. education level), and this outcome is then considered a treatment affecting a subsequent outcome (e.g. income).[^5] Also, these experiments correspond to our two-sided noncompliance setup.
+Noncompliance occurs because the random intervention is just one of many "encouragements" that cause people to take the treatment.
+Downstream experiments place particular pressure on the exclusion restriction, which requires that (following the example) school vouchers influences income only through higher education.
+This assumption would be violated if school vouchers affected income for reasons other than education.
 
 [^5]: See: Green, D. P. & Gerber, A. S. 2002. The Downstream Benefits of Experimentation. Political Analysis, Vol. 10(4), 394-402.
 
 # 10 Addressing partial compliance can be complicated
 
-"Partial compliance" occurs when a subject is assigned to a treatment but receives less than "all" of the treatment. This is possible in designs with compound treatments, multi-arm designs like factorial designs, and in dose-response trials where the treatment variable is continuous. For example, subjects assigned to a three-session job training program may only attend two of the three sessions. Patients in a clinical trial assigned to receive 100 mg dosages of an experimental drug once every week for five weeks may only receive four of the five assigned doses. Addressing partial compliance can be especially complicated because the effective number of treatment conditions exceeds the number intended in the original design. This expansion of the number of treatment conditions affects the definition of the LATE and how to estimate it. First, the number and definition of compliance statuses changes. The categories used in designs with a binary treatment (Always-Takers, Never-Takers, Compliers, and Defiers) no longer suffice. Instead, the set of possible compliance statuses is determined by all possible combinations of treatment assignment and treatment receipt. In the binary case, we ruled out Defiers. In the partial compliance case, we can make similar (design-specific) monotonicity assumptions that rule out some theoretically possible compliance statuses. Finally, we are no longer interested in a single LATE. Partial compliance means that the number of quantities we are trying to estimate increases. Unfortunately, the IV/2SLS estimator used under one- and two-way noncompliance in two-group designs is a biased estimator of LATEs under partial compliance. Instead, Bayesian approaches have emerged as an alternative method for inference.[^6]
+"Partial compliance" occurs when a subject is assigned to a treatment but receives less than "all" of the treatment.
+This is possible in designs with compound treatments, multi-arm designs like factorial designs, and in dose-response trials where the treatment variable is continuous.
+For example, subjects assigned to a three-session job training program may only attend two of the three sessions.
+Patients in a clinical trial assigned to receive 100 mg dosages of an experimental drug once every week for five weeks may only receive four of the five assigned doses.
+Addressing partial compliance can be especially complicated because the effective number of treatment conditions exceeds the number intended in the original design.
+This expansion of the number of treatment conditions affects the definition of the LATE and how to estimate it.
+First, the number and definition of compliance statuses changes.
+The categories used in designs with a binary treatment (Always-Takers, Never-Takers, Compliers, and Defiers) no longer suffice.
+Instead, the set of possible compliance statuses is determined by all possible combinations of treatment assignment and treatment receipt.
+In the binary case, we ruled out Defiers.
+In the partial compliance case, we can make similar (design-specific) monotonicity assumptions that rule out some theoretically possible compliance statuses.
+Finally, we are no longer interested in a single LATE.
+Partial compliance means that the number of quantities we are trying to estimate increases.
+Unfortunately, the IV/2SLS estimator used under one- and two-way noncompliance in two-group designs is a biased estimator of LATEs under partial compliance.
+Instead, Bayesian approaches have emerged as an alternative method for inference.[^6]
 
 [^6]: See Qi Long, Roderick J. A. Little, and Xihong Lin. 2010. Estimating Causal Effects in Trials Involving Multi-Treatment Arms Subject to Non-compliance: A Bayesian framework. Journal of the Royal Statistical Society: Series C (Applied Statistics), 59(3): 513-531.; Jin, H. & Rubin, D. B. (2009). Public schools versus private schools: Causal inference with Partial Compliance. Journal of Educational and Behavioral Statistics, 34, 24-45; Jin, H. & Rubin, D. B. (2008). Principal Stratification for Causal Inference with Extended Partial Compliance. Journal of the American Statistical Association, 103, 101-111.
