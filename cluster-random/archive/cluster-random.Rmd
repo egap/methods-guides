@@ -50,7 +50,7 @@ The fact that most clustered designs contain less information than observations 
 
 How would an estimate of the average treatment effect vary if we repeated the experiment on the same group of villages? The standard error of an estimate of the average treatment effect is one answer to this question. Below, we simulate a simple, individual-level experiment to develop intuition about what a standard error is.[^3]
 
-[^3]: See http://egap.org/resource/10-types-treatment-effect-you-should-know-about for a demonstration that the difference of means in the observed treatment and control groups is an unbiased estimator of the average treatment effect itself and what it means to be unbiased.
+[^3]: See https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/ for a demonstration that the difference of means in the observed treatment and control groups is an unbiased estimator of the average treatment effect itself and what it means to be unbiased.
 
 ```{r}
 N<-100
