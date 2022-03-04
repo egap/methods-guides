@@ -36,7 +36,7 @@ Comme l'a postulé à l'origine Campbell[^2], la validité interne pose la quest
 [^3]: Plus de détails disponibles dans le guide des méthodes d'inférence causale: http://egap.org/resource/10-things-to-know-about-causal-inference
 
 Avant de pouvoir extrapoler un effet causal à une population distincte, il est essentiel que l'effet moyen de traitement original soit basé sur un résultat bien identifié.
-Pour la plupart des expérimentalistes, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait ni attrition, ni interférence, ni débordement ou autres menaces à l'inférence.
+Pour la plupart des expérimentalistes, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait ni attrition, ni interférence, ni contamination ou autres menaces à l'inférence.
 Pour les études observationnelles, des hypothèses d'identification supplémentaires sont nécessaires, telles que l'indépendance conditionnelle du traitement par rapport aux résultats potentiels.
 
 3. Faire des compromis entre validité interne et externe

@@ -129,7 +129,7 @@ y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ pour toutes les unités $i$.
 **Remarque :** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles liant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
 nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience avec 3 unités.
 Notez également que cette manière d'écrire les résultats potentiels, avec le résultat potentiel pour l'unité $i$ *se référant uniquement à $i$* et non à d'autres unités ($y_{i,Z_i}$), *fait partie du modèle*.
-C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de débordement.
+C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de contamination.
 Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l'unité $i$ lorsqu'elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ peut s'écrire $y_{i,Z_i=1,\bZ_{~i}}$.
 Voir @bowers2013reasoning et @bowers2018models pour en savoir plus sur l'idée qu'une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d'hypothèses sur la propagation des effets de traitement à travers un réseau.
 
@@ -566,7 +566,7 @@ Cela signifie qu'une critique de la $p$-valeur est également une critique de l'
 
  - Dans les tests d'équivalence, on peut émettre l'hypothèse que deux statistiques de test sont équivalentes (c'est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu'une seule (la différence entre les deux groupes est égale à zéro) {@hartman2018equivalence}
 
-  - Étant donné qu'un test d'hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d'hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de débordement et de propagation des effets de traitement à travers les réseaux (@bowers2013reasoning, @bowers2016research, @bowers2018models)
+  - Étant donné qu'un test d'hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d'hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de contamination et de propagation des effets de traitement à travers les réseaux (@bowers2013reasoning, @bowers2016research, @bowers2018models)
    (@bowers2013reasoning, @bowers2016research, @bowers2018models)
 
 # Références
