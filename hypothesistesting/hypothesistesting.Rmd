@@ -99,6 +99,27 @@ Ainsi, nous ne pouvons pas utiliser l'observation directe pour en savoir plus su
 
 ## Un aperçu des approches basées sur l'estimation de l'inférence causale dans les expériences randomisées.
 
+<<<<<<< HEAD
+Recall from [Ten Things to Know about Causal Inference](https://egap.org/resource/10-things-to-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of potential
+outcomes to **define** cause and to formalize what we **mean** when we
+say "X causes Y" or "Smoking causes cancer" or "Information increases tax
+compliance."  Although there are other ways to think about causality
+(@brady2008causation), the counterfactual idea suggests that we imagine that
+each person, $i$, would pay their taxes, $y_{i}$,  if given
+information about the use to which those taxes are put. Write $Z_i=1$ to mean
+that information was giving to the person and $Z_i=0$ if no information was
+given so that we can write $y_{i,Z_i=1}$ to refer to the amount of taxes paid
+by someone given information and $y_{i,Z_i=0}$ to refer to the amount of taxes
+paid by someone not given any information in particular. In an actual
+experiment, we might [randomize the provision of information to citizens](https://egap.org/our-work-0/the-metaketa-initiative/roundtwo-taxation/), so some people will have the information and others
+will not. We observe the taxes paid by people in both conditions but, for any
+one person, we can only observe the taxes that they pay in one of the two
+conditions. What does it **mean** when we say "causal effect"? It often means
+that the outcome in one condition ($y_{i,Z_i=1}$ written slightly more simply
+as $y_{i,1}$) and the outcome in the other condition ($y_{i,Z_i=0}$ or
+$y_{i,0}$) *differ* for a given person, such that we would write $y_{i,Z_i=1}
+\ne y_{i,Z_i=0}$.
+=======
 Les sciences statistiques ont abordé ce problème de trois manières principales.
 C'est-à-dire, lorsque nous nous demandons : "Est-ce que l'information amène les gens à payer leurs impôts ?" nous avons tendance à dire : "Nous ne pouvons pas répondre directement à cette question.
 Cependant, nous pouvons répondre à une question connexe."
@@ -107,6 +128,7 @@ Le travail de Judea Pearl sur l'estimation de la probabilité conditionnelle d'u
 Ces deux approches répondent à la question causale fondamentale en dirigeant la question vers les moyennes ou les probabilités conditionnelles.
 Une approche connexe de Don Rubin commence par **prédire** les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de $Z_i$ (tel que, disons, $Z \sim \text{Bernoulli}(\pi)$) et un modèle de probabilité des deux résultats potentiels tels que, disons,
 $(y_{i,1},y_{i,0}) \sim \text{Normale multivariée}(\bbeta \bX, \bSigma)$ avec un vecteur de coefficients $\bbeta$, une matrice $n \times p$ de variables $\bX$ (contenant à la fois l'assignation du traitement et d'autres variables et une matrice $p \times p$ de variance-covariance $\Sigma$ décrivant comment toutes les colonnes de $\bX$ sont liées).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 La deuxième approche générale commence avec les mêmes modèles de probabilité liant le traitement, d'autres variables et les résultats.
  Ensuite, à l'aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l'effet du traitement au niveau individuel ou l'effet moyen du traitement (voir [@imbens2007causal] pour plus de détails sur l'approche prédictive bayésienne de l'inférence causale).
@@ -119,7 +141,25 @@ La troisième approche de ce problème amène une nouvelle question.
 C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour ses résultats, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ pour tout le monde.
 Cependant, la réponse à cette question se présenterait ainsi : "Cette conception de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Cette conception de recherche n'est pas cohérente avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
+<<<<<<< HEAD
+There are three main ways that the statistical sciences have engaged with this
+problem. That is, when asked, "Does information cause people to pay their
+taxes?" we tend to say, "We cannot answer that question directly. However, we can
+answer a related question." [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) describes an insight that we credit to Jerzy Neyman
+where a scientist can **estimate average causal effects** in a randomized
+experiment even if individual causal effects are unobservable. Judea
+Pearl's work on estimating the conditional probability of an outcome
+based on a causal model of that outcome is similar to this idea, where a focus
+is on the conditional probabilities of the $y_{i}$'s. That is, those two approaches answer the
+fundamental causal question by changing the question focus on averages
+or conditional probabilities. A related approach, from Don Rubin begins by **predicting** the
+individual level potential outcomes using background information and a
+probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
+probability model of the two potential outcomes such that, say,
+$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). 
+=======
 # L'hypothese nulle stricte est un postulat d'absence d'effet du traitement pour chacune des unités inclues dans une experience
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Même si nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur les effets causaux contrefactuels, nous pouvons toujours poser des questions à leur sujet ou créer des modèles théoriques qui lient ensemble une intervention (ou un traitement), des caractéristiques de base et des résultats potentiels.
 Le modèle le plus simple de ce type indique que le résultat serait le même que le résultat pour toutes les unités qu'elles soient dans le groupe de contrôle ou de traitement ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $i$.
@@ -473,17 +513,35 @@ de sorte qu'il est difficile de ne pas voir les résultats de ce test même si v
 
 ## Que signifie de **ne pas rejeter** une hypothèse nulle ?
 
+<<<<<<< HEAD
+Notice that a $p=.50$ only reflects extremity of the observed data compared
+with the hypothesis---but the observed data, in this case, do not look
+extreme but common from the perspective of the null hypothesis. So, $p=.5$
+(and other large p-values) do not encourage us to doubt the model of the null
+hypothesis. It does not encourage us to accept that model---it is only a
+model after all. We do not know how reasonable the model was a priori, for example.
+So, a single large $p$-value is some argument in favor of the null,
+but not a very clear argument.
+=======
 Notez que $p=0,50$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- mais les données observées, dans ce cas, ne semblent pas extrêmes mais normales du point de vue de l'hypothèse nulle.
 Ainsi, $p=0,5$ (comme d'autres $p$-valeurs élevées) ne nous incitent pas à douter du modèle de l'hypothèse nulle.
 Cela ne nous encourage pas à accepter ce modèle --- ce n'est qu'un modèle après tout.
 On ne sait pas à quel point le modèle était raisonnable a priori, par exemple.
 Ainsi, une seule grande $p$-valeur est un argument en faveur de l'hypothèse nulle, mais pas un argument très marqué.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 # Une fois que vous utilisez des $p$-valeurs pour rejeter une hypothèse, vous ferez des erreurs
 
 Un bon test rejette rarement les hypothèses vraies (i.e. il a un taux de faux positifs contrôlé) et il détecte facilement le signal du bruit (i.e. il a une bonne puissance statistique, il fait rarement l'erreur de rater le signal dans le bruit).
 
+<<<<<<< HEAD
+A good test rarely rejects true hypotheses (i.e. has a controlled false
+positive error rate) and easily detects signal from noise (i.e. has good
+statistical power, it rarely makes the error of missing the signal in the
+noise).
+=======
 ## Comment percevoir les risques d'un signal noyé dans le bruit ?
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) explique comment nous voulons que l'hypothèse nulle soit rejetée lorsqu'elle est fausse (i.e. détecter le signal du bruit).
 Lorsque nous pensons à la puissance d'une statistique de test, nous devons considérer l'**hypothèse alternative**.
@@ -496,6 +554,30 @@ Tout d'abord, nous créons la situation où l'hypothèse nulle est vraie et conn
 Par exemple, dans l'expérience utilisée ici, nous avons 5 unités assignées au traitement sur 10.
 Cela signifie qu'il existe $\binom{10}{5}=252$ différentes manières d'assigner le traitement --- et 252 manières pour que l'expérience n'ait eu aucun effet sur les individus.
 
+<<<<<<< HEAD
+The easiest way to learn about false positive errors is by simulation. First,
+we create the situation where the null is true and known, and then we test
+that null under the many ways that it is possible for that null to be true.
+For example, in the example experiment used here, we have 5 units assigned to
+treatment out of 10. This means that there are  $\binom{10}{5}=252$ different
+ways to assign treatment --- and  252 ways for the experiment to have had no
+effects on the individuals.
+
+We demonstrate here setting the sharp or strict null hypothesis to be zero,
+but one could also assess the false positive rate for different hypotheses. We
+compare error rates for a few of the approaches used so far, including the
+test of the weak null of no effects. The following plot shows the proportion
+of $p$-values less than any given level of significance (i.e. rejection
+threshold) for each of four tests. That is, this is a plot of false positive
+rates for any given significance threshold. A test that has a controlled or
+known false positive rate would have symbols on or below the line across the
+whole x-axis or range of the plot. As we can see here, the two tests using
+permutations of treatment to assess the sharp null of no effects have this feature. The tests of the
+weak null using the mean difference test statistic and appealing to the large
+sample theory to justify the use of a $t$-distribution do not have
+a controlled false positive rate: the proportion of $p$-values below any given
+rejection threshold can be too high or too low.
+=======
 Nous le démontrons ici en définissant l'hypothèse nulle stricte comme égale à zéro, mais on pourrait également évaluer le taux de faux positifs pour différentes hypothèses.
 Nous comparons le taux d'erreur pour quelques-unes des approches utilisées jusqu'à présent, y compris le test de l'hypothèse nulle faible d'absence d'effets.
 Le graphique suivant montre la proportion de $p$-valeurs inférieures à un niveau de signification donné (c'est-à-dire le seuil de rejet) pour chacun des quatre tests.
@@ -503,6 +585,7 @@ C'est-à-dire qu'il s'agit d'un graphique du taux de faux positifs pour un seuil
 Un test qui a un taux de faux positifs contrôlé ou connu aurait des symboles sur ou en dessous de la ligne sur tout l'axe des x ou la plage du tracé.
 Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle stricte d'absence d'effets ont cette caractéristique.
 Les tests pour l'hypothèse nulle faible utilisant comme statistique de test la différence des moyennes et faisant appel à la théorie des grands échantillons pour justifier l'utilisation d'une distribution $t$ n'ont pas un taux de faux positifs contrôlé : la proportion de $p$-valeurs inférieures à une valeur donnée du seuil de rejet peut être trop élevée ou trop basse.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 ```{r}
 collectPValues <- function(y,z){
@@ -538,9 +621,19 @@ legend("topleft",legend=c("Moindre carrés", "Neyman", "Diff des moyennes d'inf�
 			  pch=1:5,col=1:5,lty=1,bty="n")
 ```
 
+<<<<<<< HEAD
+In this particular case, at the threshold of $\alpha=.05$, all of the tests
+except for the rank based test report less than a 5% false positive rate --
+this is good, it should be 5% or less. However, this is no  guarantee  of good
+performance by the large-sample based tests in other small experiments, or
+experiments with highly skewed  outcomes,  etc... When in doubt it is  easy to
+assess the false positive rate  of a test by using the code in this guide to
+make your own simulation.
+=======
 Dans ce cas particulier, pour le seuil de $\alpha=0,05$, tous les tests, à l'exception du test basé sur le rang, ont de moins de 5 % de faux positifs – c'est bien car cela devrait être inférieur à 5%.
 Cependant, cela ne garantit pas de bonnes performances pour des tests basés sur de grands échantillons dans d'autres petites expériences, ou des expériences avec des résultats très asymétriques, etc.
 En cas de doute, il est facile d'évaluer le taux de faux positifs d'un test en utilisant le code de ce guide pour faire votre propre simulation.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 ```{r fpr05}
 apply(pDist,1,function(x){ mean(x<.05)})

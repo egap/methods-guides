@@ -100,6 +100,10 @@ Cette incapacité à observer les effets causaux au niveau de l'unité est souve
 
 6. Vous pouvez estimer l'effet causal moyen même si vous ne pouvez observer aucun effet causal individuel.
 ==
+<<<<<<< HEAD
+Even though you cannot observe whether $X$ causes $Y$ for any given unit, it can still be possible to figure out whether $X$ causes $Y$ on average. The key insight here is that the average causal effect equals the difference between the average outcome across all units if all units were in the control condition and the average outcome across all units if all units were in the treatment condition. Many strategies for causal identification (see [10 Strategies for Figuring Out If X Caused Y](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)) focus on ways to learn about these average potential outcomes.^[__Technical Note:__ The key technical insight is that the difference of averages is the same as the average of differences. That is, using the "expectations operator," $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$. The terms inside the expectations operator in the second quantity cannot be estimated, but the terms inside the expectations operators in the third quantity can be.[^3] See illustration [here](https://raw.githubusercontent.com/egap/methods-guides/master/causal-inference/PO.jpg).]
+=======
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Même si vous ne pouvez pas observer si $X$ cause $Y$ pour une unité donnée, il est peut-être toujours possible de déterminer si $X$ cause $Y$ en moyenne.
 L'effet causal moyen est égal à la différence entre le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de contrôle et le résultat moyen pour toutes les unités si elles étaient toutes dans la condition de traitement.
@@ -113,8 +117,12 @@ Les termes à l'intérieur de l'opérateur d'espérance dans la deuxième quanti
 
 7. L'estimation de l'effet causal moyen ne nécessite pas que les groupes de traitement et de contrôle soient identiques.
 ==
+<<<<<<< HEAD
+One strategy that people use to learn about average causal effects is to create treatment and control groups through randomization (see [10 Strategies for Figuring Out If X Caused Y](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)). When doing so, researchers sometimes worry if they find that the resulting treatment and control groups do not look the same along relevant dimensions.
+=======
 Une stratégie que les gens utilisent pour en savoir plus sur l'effet causal moyen consiste à créer des groupes de traitement et de contrôle par randomisation (voir [10 Stratégies pour déterminer si X a causé Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)).
 Ce faisant, les chercheurs s'inquiètent parfois s'ils constatent que les groupes de traitement et de contrôle qui en résultent ne sont pas comparables sur certaines dimensions importantes.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 La bonne nouvelle est que l'argument expliquant pourquoi les différences dans les résultats moyens entre les groupes de traitement et de contrôle assignés de manière aléatoire capturent l'effet moyen du traitement (en espérance pour des randomisations répétées au sein du même groupe d'unités) ne repose *pas* sur le fait que les groupes de traitement et de contrôle ont des caractéristiques observées similaires.
 Il repose uniquement sur l'idée que, en moyenne, les résultats dans les groupes de traitement et de contrôle captureront les résultats moyens pour toutes les unités du groupe expérimental si elles étaient, respectivement, dans le traitement ou dans le contrôle.

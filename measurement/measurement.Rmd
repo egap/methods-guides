@@ -130,10 +130,14 @@ Cependant, $\nu_i$ est une variable latente : on ne peut pas la mesurer directem
 Au lieu de cela, nous demandons si les unités soutiennent divers comportements pensés correspondre à ces normes.
 Cet indicateur, $Y_i$, peut être décomposé en la variable latente, $\nu_i$ et deux formes d'erreur de mesure :
 
+<<<<<<< HEAD
+# 4. Most outcomes of interest in social science are latent.
+=======
 - *Erreur de mesure non systématique*, $\delta_i$ : cette erreur est indépendante de l'assignation au traitement, $\delta_i \perp Z_i$.
 - *Erreur de mesure systématique*, $\kappa_i$ : cette erreur n'est pas indépendante de l'assignation au traitement, $\kappa_i \not\perp Z_i$.
 
 $$Y_i = \underbrace{\nu_i}_{\text{Résultat latent}} + \underbrace{\delta_i}_{\substack{\text{Erreur de mesure} \\ \text{non-systématique}}} + \underbrace{\kappa_i}_{\substack{\text{Erreur de mesure} \\ \text{systématique}}}$$
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 # 6. L'erreur de mesure réduit la puissance statistique de votre expérience.
 
@@ -161,9 +165,13 @@ Qu'en est-il du cas où $Cov(\nu_i, \delta_i) < 0$ ? Bien que cela réduise $Var
 
 # 7. L'erreur de mesure systématique biaise les estimations de l'effet causal d'intérêt.
 
+<<<<<<< HEAD
+If we are estimating the Average Treatment Effect (ATE) of our treatment $Z_i$, on preferences for democratic norms, $\nu_i$, we are trying to recover the ATE, or $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$. However, in the presence of **systematic** measurement error, where measurement error is related to the treatment assignment itself (say, the outcome is measured differently in the treatment group than in the control group) a difference-in-means estimator on the observed outcome, $Y_i$, recovers a biased estimate of the ATE. The effect of the treatment now includes the measurement difference as well as the difference between treated and control groups:
+=======
 Si nous estimons l'effet moyen de traitement (ATE) de notre traitement $Z_i$, sur les préférences pour les normes démocratiques, $\nu_i$, nous essayons de calculer $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$.
 Cependant, en présence d'une erreur de mesure **systématique**, où l'erreur de mesure est liée à l'assignation du traitement lui-même (disons, le résultat est mesuré différemment dans les groupes de traitement et de contrôle), un estimateur de la différence des moyennes sur le résultat observé, $Y_i$, renvoie une estimation biaisée de l'ATE.
 L'effet du traitement comprend désormais la différence de mesure ainsi que la différence entre les groupes de traitement et de contrôle :
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] =  E[\nu_i + \delta_i + \kappa_i |Z_i = 1] − E[\nu_i + \delta_i + \kappa_i|Z_i =0]$$
 
@@ -317,10 +325,14 @@ Cela évite également les questions ex post sur le choix des indicateurs pour u
 
 # 10. Alors que les concepts peuvent être globaux, de nombreux indicateurs sont spécifiques au contexte.
 
+<<<<<<< HEAD
+Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts, as in EGAP's [Metaketa Initiative](https://egap.org/our-work-0/the-metaketa-initiative/), researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts.
+=======
 De nombreuses études en sciences sociales se concentrent sur des concepts qui sont généralement supposés être latents, notamment les préférences, les connaissances ou les attitudes.
 Dans la mesure où nous travaillons sur des concepts communs, il existe une tendance à s'inspirer des opérationnalisations existantes à partir d'études sur des concepts connexes dans des contextes différents.
 Dans des études menées dans de multiples contextes, comme dans [l'initiative Metaketa de EGAP](https://egap.org/our-work-0/the-metaketa-initiative/), les chercheurs visent à étudier la même relation causale dans plusieurs contextes nationaux.
 Mais le désir d'étudier des concepts communs n'implique pas nécessairement que les mêmes indicateurs doivent être utilisés dans tous les contextes.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Par exemple, considérons un ensemble d'études qui cherchent à mesurer la variation du concept de connaissance ou de sophistication politique.
 Les connaissances politiques peuvent être évaluées par des questions qui demandent aux sujets de se rappeler d'un fait politique.

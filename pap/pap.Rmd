@@ -47,8 +47,12 @@ Dans les sections suivantes, nous fournissons des directives pour les détails q
 Nous vous recommandons également d'inclure autant de code et d'analyse de données simulées que possible.[^DD]
 De nombreux PAP ne pourront pas inclure toute notre liste, mais un PAP devrait, au minimum, inclure la liste complète des hypothèses que vous avez l'intention de tester, comment vous allez mesurer les variables pertinentes pour ces hypothèses et un horodatage vérifiable.
 
+<<<<<<< HEAD
+[^DD]: Resources like the DeclareDesign project can assist you with simulating and analyzing fake data that mimics the real data your project will gather.  [Power analysis](https://egap.org/resource/10-things-to-know-about-statistical-power), an important component of a PAP, requires simulated data.
+=======
 [^DD]: Des ressources telles que le projet DeclareDesign peuvent vous aider à simuler et à analyser de fausses données qui imitent les données réelles que votre projet collectera.
 [L'analyse de puissance statistique](http://egap.org/resource/10-things-to-know-about-statistical-power) est un élément important d'un PAP et nécessite des données simulées.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 2 Qu'y a-t-il dans un PAP? Aperçu de la conception de l'étude
 ==
@@ -130,10 +134,14 @@ En plus de l'amélioration globale des attitudes envers le gouvernement, nous no
 Le PAP doit spécifier la manière dont vous mesurez ou opérationnalisez les variables d'intérêt, y compris les résultats, les covariables et les variables explicatives.
 Cette opérationnalisation peut avoir sa propre partie ou être incluse après l'hypothèse pour laquelle chaque variable est pertinente.
 
+<<<<<<< HEAD
+This section should clearly specify what you are estimating (i.e. the estimand) and how you intend to estimate it (i.e. the estimator).  For example, many studies estimate the average treatment effect of an experimental intervention using OLS linear regression as the estimator.^[You may also be interested in estimating other types of effects.  See this [guide on types of treatment effects](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) for more information about effect types.]  Clearly specify your model specification, including your outcomes, explanatory variables, and covariates, and your test statistic.
+=======
 Pour chaque variable, le PAP doit énumérer la manière dont la variable est mesurée (comme les questions de l'enquête ou de l'entretien, les données administratives, les mesures comportementales/observationnelles, etc.) et à quelle(s) hypothèse(s) la variable se rapporte.
 Les détails de ces mesures, tels que la formulation précise des questions de l'enquête, doivent être inclus soit dans cette section, soit dans une annexe.
 Si vous utilisez des indices ou des facteurs, ou si vous combinez des résultats d'une autre manière, précisez comment les résultats combinés seront construits.
 Si vous manipulez ou transformez les résultats d'une manière ou d'une autre (comme l'enregistrement d'une variable), décrivez le processus de manipulation ou de transformation.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Nous vous recommandons d'inclure du code dans votre PAP pour montrer comment vous prévoyez d'exécuter toutes les transformations de données.
 
@@ -349,8 +357,14 @@ Il existe plusieurs sites tiers sur lesquels vous pouvez enregistrer votre PAP.
 Nous listons ci-dessous les sites communs pour les PAP en sciences sociales.
 Vous pouvez répertorier votre PAP sur plusieurs sites, et certaines revues exigent d'enregistrer un PAP sur un site spécifique pour potentiellement publier un article.^[Notez que certaines organisations n'utilisent pas de sites tiers. Par exemple, le [U.S. General Services Administration Office of Evaluation Sciences Process](https://oes.gsa.gov/methods/) utilise Github, qui permet de vérifier que le PAP a été créé avant la réalisation de l'analyse.]
 
+<<<<<<< HEAD
+- [EGAP Registry](https://egap.org/registry-0/)
+- [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
+- [OSF Registry](http://help.osf.io/m/registrations)
+=======
 - [Registre EGAP](http://egap.org/content/registration)
 - [Registre AEA](https://www.socialscienceregistry.org) (pour les essais randomisés contrôlés seulement)
 - [Registre OSF](http://help.osf.io/m/registrations)
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 # Références

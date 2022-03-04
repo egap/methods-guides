@@ -11,9 +11,13 @@ output:
 
 Résumé
 ==
+<<<<<<< HEAD
+This guide will help you design and execute different types of randomization in your experiments. We focus on the big ideas and provide examples and tools that you can use in R.  For why to do randomization see [this methods guide](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
+=======
 Ce guide vous aidera à concevoir et à mettre en œuvre différents types de randomisation dans vos expériences.
 Nous nous concentrons sur les grandes lignes et fournissons des exemples et des outils que vous pouvez utiliser dans R.
 Pour savoir pourquoi faire de la randomisation, voir [ce guide des méthodes](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 1 Certaines méthodes sont meilleures que d'autres
 ==

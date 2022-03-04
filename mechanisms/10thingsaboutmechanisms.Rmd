@@ -167,6 +167,9 @@ L'une de ces hypothèses est que les termes d'erreur dans les régressions 1 et 
 Nous avons décrit ce problème intuitivement au point 3 lorsque nous avons introduit Q, une variable de confusion qui contribue à la fois à M et à Y et engendre donc une relation très forte entre eux, même si l'effet de X sur Y ne s'exerce pas du tout à travers M.
 Décrivons maintenant ce problème à l'aide d'une simulation.
 
+<<<<<<< HEAD
+In the following code, we start by creating this Q variable for each individual and defining the “true” effects of X on M, M on Y, and X on Y. Next, we create hypothetical potential outcomes for M—that is, for each individual, we define what value of M they would reveal if they were treated, and what value of M they would reveal if they were untreated. These values are related not only to the “true” effect of X on M, but also to Q. Then we can also define hypothetical potential outcomes for Y. We do this for four scenarios, all of which assume constant effects, an assumption we will relax later. Two of these are simple potential outcomes of Y: the Y exhibited by the individual who is untreated and reveals her untreated M potential outcome, and the Y exhibited by the individual who is treated and reveals her treated M potential outcome. However, we also define two complex potential outcomes of Y: the Y exhibited by the individual who is untreated but reveals her treated M potential outcome, and the Y exhibited by the individual who is treated but reveals her untreated M potential outcome. While these potential outcomes bend the mind a bit, they are important to define in the hypothetical so that we can calculate the “true” (but inherently unobservable) direct and indirect effects to compare our decomposition analysis to.
+=======
 Dans le code suivant, nous commençons par créer cette variable Q pour chaque individu et définir les "vrais" effets de X sur M, M sur Y et X sur Y.
 Ensuite, nous créons des résultats potentiels hypothétiques pour M, c'est-à-dire que pour chaque individu, nous définissons quelle valeur de M ils révéleraient s'ils étaient traités, et quelle valeur de M ils révéleraient s'ils n'étaient pas traités.
 Ces valeurs sont liées non seulement au "vrai" effet de X sur M, mais aussi à Q.
@@ -175,6 +178,7 @@ Nous faisons cela pour quatre scénarios, qui supposent tous des effets constant
 Deux d'entre eux sont des résultats potentiels simples de Y : le Y présenté par l'individu qui n'est pas traité et révèle son résultat potentiel M non traité, et le Y présenté par l'individu qui est traité et révèle son résultat potentiel M traité.
 Cependant, nous définissons également deux résultats potentiels complexes de Y : le Y présenté par l'individu qui n'est pas traité mais qui révèle son résultat potentiel M traité, et le Y présenté par l'individu qui est traité mais qui révèle son résultat potentiel M non traité.
 Bien que ces résultats potentiels compliquent la compréhension, ils sont importants à définir afin que nous puissions calculer les effets directs et indirects "vrais" (mais intrinsèquement inobservables) auxquels comparer notre analyse de décomposition.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Dans la seconde moitié du code, nous effectuons une assignation aléatoire du traitement et procédons à l'analyse de décomposition des effets décrite ci-dessus, en utilisant les données que nous "observons". Sous les hypothèses (fortes) selon lesquelles les termes d'erreur ne sont pas corrélés et les effets sont constants entre les sujets, $a*b$ = ACME, $d$ = ACDE et $c$ = ATE.
 Cependant, la simulation révèle que $a*b$ > ACME et $d$ < ACDE ; c'est-à-dire que nous avons surestimé l'ACME et sous-estimé l'ACDE.
@@ -243,8 +247,13 @@ Y_0 <- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
 ATE <- mean(Y_1 - Y_0)
 
 ATE
+<<<<<<< HEAD
+ACDE + ACME # note that the direct and indirect effects sum to the total
+ACDE
+=======
 ACDE + ACME # noter que les effets directs et indirects s'additionnent au total
 ACDE 
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 ACME
 ATE_M
 
@@ -330,10 +339,15 @@ Formellement, elle teste ces hypothèses :
 - X$\rightarrow$Y dans les endroits où X est connu pour affecter M [Les chocs pluviométriques augmenteront les émeutes dans les zones où les chocs pluviométriques affecteront négativement les revenus (en amont du barrage).]
 - X n'a ​​pas d'effet sur Y dans les endroits où X n'a ​​pas d'effet sur M [Les chocs pluviométriques n'auront aucun effet sur les émeutes dans les zones où le revenu n'est pas sensible aux précipitations (en aval du barrage).]
 
+<<<<<<< HEAD
+- X$\rightarrow$Y in places where X is known to affect M [Rainfall shocks will increase riots in areas where rainfall shocks will negatively affect income (upstream of dam).]
+- X has no effect on Y in places where X has no effect on M [Rainfall shocks will have no effect on riots in areas where income is not sensitive to rainfall (downstream of dam).]
+=======
 Cependant, elle a constaté que la relation entre les chocs pluviométriques et l'incidence des émeutes était tout aussi étroite dans les districts en aval où le revenu n'était pas sensible aux précipitations.
 Elle interprète ce résultat comme une preuve "suggestive" *contre* le mécanisme de revenu.
 Pour être clair, Sarsons n'a mené aucune analyse de médiation : elle n'a pas mesuré le revenu de chaque village et quantifié l'effet direct des chocs pluviométriques sur les émeutes et l'effet indirect des chocs pluviométriques sur les émeutes par le biais des revenus.
 Au lieu de cela, elle a recherché un effet du traitement hétérogène que la théorie aurait impliqué et, n'en trouvant aucune preuve, a conclu que le mécanisme de revenu peut être moins important qu'on ne le pensait auparavant.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 **Ce que vous pouvez faire...** Dans les projets futurs, demandez-vous : si le mécanisme est M,
 pour quels groupes ou unités s'attendre à un effet de traitement, et pour quels groupes ou unités ne pas s'attendre à une réponse au traitement ?
@@ -352,9 +366,15 @@ Premièrement, selon la théorie de la modernisation, l'éducation pourrait faci
  Ils ont effectué un suivi auprès des élèves cinq ans après le programme et leur ont posé plusieurs questions visant à tester lequel de ces trois mécanismes était à l'œuvre : les filles ont-elles accepté le droit d'un mari de battre sa femme ? Un parent a-t-il participé au choix de son mari? Dans quelle mesure la fille s'est-elle identifiée à son groupe religieux ou ethnique ? La fille lisait-elle régulièrement les actualités ?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
+<<<<<<< HEAD
+[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999.
+[^10]: Gabriel Almond and Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes and Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
+[^11]: Willa Friedman, Michael Kremer, Edward Miguel, and Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
+=======
 [^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., "Public Schooling, Indoctrination and Totalitarianism," Journal of Political Economy 107(6), 1999.
 [^10]: Gabriel Almond et Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes et Michael Bratton, "Learning about Democracy in Africa: Awareness, Performance, and Experience," American Journal of Political Science, 51(1), 2007.
 [^11]: Willa Friedman, Michael Kremer, Edward Miguel et Rebecca Thornton, "Education as Liberation?" NBER Working Paper 16939, 2011.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Le tableau suivant décrit la direction des effets que chaque théorie suggérerait.
 Notez que les divers mécanismes testés ici résultent de théories avec des prédictions divergentes sur certains de ces résultats.
@@ -369,12 +389,21 @@ Les auteurs concluent qu'il est plus probable que $X→M3→Y$ que $X→M1,M2→
 S'ils soutiennent toujours que l'autonomisation individuelle est responsable de la relation entre l'éducation et la démocratie, ils avertissent que l'éducation ne conduit pas toujours à la démocratisation (c'est-à-dire M3→Y mais il est également possible que M3→NON Y).
 Néanmoins, leur approche est une démonstration utile de la façon dont de multiples résultats peuvent éclairer les mécanismes.
 
+<<<<<<< HEAD
+Mechanism | Acceptance of husband's right to beat wives (Y1) | Parent involved in selecting spouse (Y2) | Association with religion, ethnic identity (Y3) | Reads news (Y4)
+------------- | ------------- | ------------- | ------------- | -------------
+(M1) Modernization | $\downarrow$ | $\downarrow$ | $\downarrow$ | No effect
+(M2) Obedience to authority | $\uparrow$ | $\uparrow$ | $\uparrow$ | No effect
+(M3) Individual empowerment | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$
+Actual effect | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$
+=======
 Mécanisme | Acceptation du droit du mari de battre sa femme (Y1) | Parent impliqué dans la sélection du mari (Y2) | Association avec la religion, l'identité ethnique (Y3) | Lit les actualités (Y4)
 ------------- | ------------- | ------------- | ------------- | ------------- 
 (M1) Modernisation | $\downarrow$ | $\downarrow$ | $\downarrow$ | Pas d'effet
 (M2) Obéissance à l'autorité | $\uparrow$ | $\uparrow$ | $\uparrow$ | Pas d'effet
 (M3) Autonomisation individuelle | $\downarrow$ | $\downarrow$ | Pas d'effet | $\uparrow$
 Effet réel | $\downarrow$ | $\downarrow$ | Pas d'effet | $\uparrow$
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Cette étude, comme l'étude de Sarsons, n'essaie pas de quantifier dans quelle mesure l'effet de X sur Y est transmis via M.
 Cependant, grâce à une enquête approfondie sur divers résultats, les auteurs sont en mesure de fournir des preuves suggestives des mécanismes qui semblent les plus plausibles.
@@ -385,9 +414,13 @@ Ensuite, testez si ces prédictions sont étayées par vos données et interpré
 
 # L'élaboration de traitements complexes peut aider à comprendre quelle partie du traitement "produit l'effet".
 
+<<<<<<< HEAD
+Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms. This approach is sometimes called “implicit mediation analysis” because different components of X are thought to *implicitly* manipulate certain mechanisms. This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.
+=======
 Parfois, les chercheurs expérimentaux essaieront de mieux comprendre les mécanismes en ajoutant ou en soustrayant des éléments du traitement qui sont censés déclencher différents mécanismes.
 Cette approche est parfois appelée "analyse de médiation implicite" car différents composants de X sont censés manipuler *implicitement* certains mécanismes.
 Ceci, bien sûr, est une hypothèse : parce que nous ne mesurons pas M directement, nous nous appuyons sur une affirmation théorique selon laquelle le composant A déclenchera M, alors que le composant B ne le fera pas.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Par exemple, de nombreux gouvernements, dont le Mexique, le Brésil, la Tanzanie ou l'Ouganda, ont créé des programmes de transferts monétaires conditionnels pour lutter contre la pauvreté.
 Ces programmes fournissent de l'argent aux personnes pauvres, mais ils sont souvent assortis de conditions telles que la fréquentation d'une école ou un programme de formation professionnelle.

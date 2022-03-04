@@ -11,7 +11,7 @@
 
 
 
-<title>x-cause-y.knit</title>
+<title>eval_conversations.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -374,413 +374,496 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#résumé">Résumé</a></li>
-<li><a href="#randomisation">1. Randomisation</a></li>
-<li><a href="#contrôle-expérimental-homogénéité-unitaire-induite">2.
-Contrôle expérimental (homogénéité unitaire induite)</a></li>
-<li><a href="#expériences-naturelles-randomisation-supposée">3.
-Expériences naturelles (randomisation supposée)</a></li>
-<li><a href="#comparaisons-avantaprès">4. Comparaisons
-avant/après</a></li>
-<li><a href="#contrôle-ex-post-i-régression">5. Contrôle ex post I :
-régression</a></li>
-<li><a href="#contrôle-ex-post-ii-appariement-et-pondération">6.
-Contrôle ex post II: appariement et pondération</a></li>
-<li><a href="#variables-instrumentales">7. Variables
-instrumentales</a></li>
-<li><a href="#la-méthode-de-régression-par-discontinuité-regression-discontinuity-design-rdd">8.
-La méthode de régression par discontinuité (regression discontinuity
-design, RDD)</a></li>
-<li><a href="#traçage-de-processus">9. Traçage de processus</a></li>
-<li><a href="#stratégies-porte-dentrée-argument-basé-sur-les-mécanismes">10.
-Stratégies “porte d’entrée” (argument basé sur les mécanismes)</a></li>
-<li><a href="#section"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUsAAAC/CAYAAAB3w/4lAAAAAXNSR0IArs4c6QAABSl0RVh0bXhmaWxlACUzQ214ZmlsZSUyMGhvc3QlM0QlMjJhcHAuZGlhZ3JhbXMubmV0JTIyJTIwbW9kaWZpZWQlM0QlMjIyMDIyLTAxLTE3VDIwJTNBMzQlM0ExMC44NTJaJTIyJTIwYWdlbnQlM0QlMjI1LjAlMjAoTWFjaW50b3NoJTNCJTIwSW50ZWwlMjBNYWMlMjBPUyUyMFglMjAxMF8xNF82KSUyMEFwcGxlV2ViS2l0JTJGNTM3LjM2JTIwKEtIVE1MJTJDJTIwbGlrZSUyMEdlY2tvKSUyMENocm9tZSUyRjk3LjAuNDY5Mi43MSUyMFNhZmFyaSUyRjUzNy4zNiUyMiUyMGV0YWclM0QlMjIzVnhKdGdCM3FzX3VINkU5NUlXSyUyMiUyMHZlcnNpb24lM0QlMjIxNC45LjIlMjIlMjB0eXBlJTNEJTIyZ29vZ2xlJTIyJTNFJTNDZGlhZ3JhbSUyMGlkJTNEJTIyRUpfbTlPY3ljMU1aZEZKM1JoUEwlMjIlMjBuYW1lJTNEJTIyUGFnZS0xJTIyJTNFelZkZGI1c3dGUDAxZVJ3eU5zYncyQ1RkS2xXYkprWFQycjFVRmpqQkVva3pjQkt5WHo5VGJMNmNLR2xFRlY2UTc3SHZoODg5MkRCQnMzWHhMYVBiNUx1SVdUcUJJQzRtYUQ2QjBNZUJlcGJBc1FJUXhoV3d5bmhjUVc0RExQZyUyRnBrR2cwUjJQV2Q1WktJVklKZDkyd1Voc05peVNIWXhtbVRoMGx5MUYyczI2cFN0bUFZdUlwamI2bThjeXFkQUFnd1olMkZZbnlWbU13dTBETnJhaFpySUU5b0xBNHRDRDFPMEN3VFFsYWpkVEZqYWNtZDRhWHklMkIzcG10aTRzWXh0NWpVUCUyQjV3ZkVmTyUyRm1iMGVKbjNkJTJGRTdDVVgzU1VQVTEzZXNPJTJGZExYeWFDaFFZUlRieXBnZUVpN1pZa3VqY3VhZyUyQnEyd1JLNVRaYmxxU1BOdDFZSWxMNWpLT3RYQldTWlpjYlpxdCUyQlpDYVlpSk5aUFpVUzNSRHNqWDlCbjlhUFBRTk1QVGlrcGFmVEFZMWUxZjFZRWJodFJBayUyRlFC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" /></a></li>
+<li><a href="#abstract">Abstract</a></li>
+<li><a href="#what-is-the-goal-of-the-evaluation">1) What is the goal of
+the evaluation?</a></li>
+<li><a href="#what-is-the-best-method-for-the-evaluation">2) What is the
+best method for the evaluation?</a></li>
+<li><a href="#who-are-the-stakeholders">3) Who are the
+stakeholders?</a></li>
+<li><a href="#how-can-our-evaluation-enable-learning-within-our-organization">4)
+How can our evaluation enable learning within our organization?</a></li>
+<li><a href="#how-might-this-evaluation-connect-to-a-broader-and-shared-learning-agenda">5)
+How might this evaluation connect to a broader and shared learning
+agenda?</a></li>
+<li><a href="#on-what-parts-of-the-project-should-we-collaborate">6) On
+what parts of the project should we collaborate?</a></li>
+<li><a href="#how-will-we-communicate-within-and-across-teams">7) How
+will we communicate within and across teams?</a></li>
+<li><a href="#how-and-where-shall-we-make-the-results-of-this-study-public-i.e.-communicate-externally">8)
+How and where shall we make the results of this study public? (i.e.,
+communicate externally)</a></li>
+<li><a href="#what-if-things-do-not-go-as-expected-or-hoped">9) What if
+things do not go as expected or hoped?</a></li>
+<li><a href="#how-can-our-evaluation-contribute-to-the-social-good">10)
+How can our evaluation contribute to the social good?</a></li>
 </ul>
 </div>
 
-<!-- title: "10 stratégies pour déterminer si X cause Y" -->
-<!-- author: "Auteur du guide des méthodes: Macartan Humphreys" -->
-<div id="résumé" class="section level1">
-<h1>Résumé</h1>
-<p>Les expériences sont un moyen de déterminer si quelque chose cause
-quelque chose d’autre. L’idée de base, c’est d’essayer pour savoir. Ce
-qui est délicat, c’est d’essayer d’une manière qui permette d’avoir
-assez confiance pour croire les effets causaux. L’intervention
-randomisée est une stratégie qui occupe une place de choix dans la boîte
-à outils du chercheur. C’est la stratégie qui est au cœur de la plupart
-des recherches expérimentales menées par les membres de EGAP. Mais il
-existe d’autres stratégies qui sont parfois plus appropriées. Nous
-décrivons ici les dix stratégies les plus importantes pour déterminer
-les effets causaux. <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<!-- 10 Conversations that Implementers and Evaluators Need to Have -->
+<!-- Authors: Jake Bowers and Rebecca Wolfe -->
+<div id="abstract" class="section level1">
+<h1>Abstract</h1>
+<p>If you are a practitioner or official from a governmental or
+non-governmental organization (an &quot;implementer&quot;), this guide is intended
+to help you to take advantage of opportunities to collaborate with
+external researchers (&quot;evaluators&quot;) to evaluate your organization&#39;s
+policies or programs. Researchers working on evaluations can also
+benefit from this guide by understanding how to take implementers&#39; needs
+into account.</p>
+<p>As an implementer, what should you expect or request when
+collaborating with an external evaluator? How can that evaluation be
+designed to help your organization and the broader field to learn and
+innovate? What conversations should you have with an evaluator upfront
+so that the evaluation runs smoothly? How can you work with the
+evaluator to decide on and communicate actionable and convincing
+analyses about the impact of a program? How will you and the evaluator
+share what you learned to improve the practice of your organization and
+others? How can you ensure that what you learn helps the whole community
+of practice so that overall social welfare improves? This short guide
+offers questions to guide conversations with prospective evaluators,
+points to some practices that have worked well elsewhere, and explains
+why they might be important or useful in future evaluations.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 </div>
-<div id="randomisation" class="section level1">
-<h1>1. Randomisation</h1>
-<p>La stratégie utilisée dans les essais randomisés contrôlés
-(interventions randomisées, expériences randomisées) consiste à utiliser
-une forme de loterie pour déterminer qui, dans un groupe, aura ou n’aura
-pas accès à un traitement ou à un programme (ou peut-être qui aura accès
-en premier et qui aura accès plus tard, ou qui aura accès à une version
-et qui aura accès à une autre). L’élégance de l’approche est qu’elle
-utilise le hasard pour déterminer quels sont les effets systématiques
-d’un programme. Le caractère aléatoire réduit le risque qu’une relation
-observée entre le traitement et les résultats soit due à des “facteurs
-de confusion” - i.e. d’autres différences entre les groupes (par
-exemple, on pourrait craindre que les choses s’améliorent dans les zones
-de traitement précisément parce que les programmes choisissent une zone
-qui fonctionne déjà bien, mais savoir que la sélection est aléatoire
-efface complètement cette préoccupation). La randomisation est puissante
-car elle garantit qu’il n’y a pas de relation systématique entre le
-traitement et toutes les autres caractéristiques qui peuvent affecter
-les résultats, que vous en soyez conscient ou non. Pour cette raison,
-c’est souvent considéré comme l’étalon-or. Cependant, la randomisation
-ne peut être utilisée toujours et partout, à la fois pour des raisons
-éthiques et pratiques. Mais elle peut être utilisée dans beaucoup plus
-de situations que les gens ne le pensent. Voir <a href="http://www.columbia.edu/~mh2245/papers1/HW_ARPS09.pdf">Humphreys
-et Weinstein</a> pour une discussion sur les forces et les limites de
-l’approche en économie politique du développement.</p>
+<div id="what-is-the-goal-of-the-evaluation" class="section level1">
+<h1>1) What is the goal of the evaluation?</h1>
+<p>This may seem blatantly straightforward–the evaluation is to see if
+the program worked. Yet most policy evaluation efforts involve multiple
+goals. The program may be in a pilot stage, and you want to gather
+preliminary evidence before expanding the program. The program may have
+worked in one context (country, community), and you would like to know
+how generalizable it is. You may want to know who the program works for.
+Does it work differently for men or women? Marginalized communities or
+wealthy and powerful groups? You may want to know how part of your
+intervention affects other aspects of your existing interventions (e.g.,
+cash vs. cash + training) or what combination of activities are most
+cost effective. You may want to know if you should try to scale the
+program. Or you may want to know not so much whether or not the program
+works, but why it works.</p>
+<p>Additionally, many programs have multiple components. The program may
+not only be delivering a service (e.g., distributing information on how
+to access health services), but it may also be trying to build the
+capacity of a local agency; (e.g., help a public health agency to
+identify households for additional forms of support ). As a result,
+there are potentially both individual-level (i.e., micro) questions–the
+effect of school lunches on children–and more macro questions–how are
+local governments better able to identify vulnerable children?–that need
+answers. While both may be asked in one evaluation, the evaluators need
+to understand how the implementer prioritizes the two questions. This
+prioritization will affect the evaluation design (see the next
+Conversation).</p>
+<p>As implementers, it&#39;s important to be clear on your goal of what you
+want to learn among yourselves and be clear about those goals with the
+evaluation team. The evaluation team or person, particularly if they are
+an academic or publish their work more widely, will also have goals
+about what they want to learn. Without being clear about what you and
+your organization need to learn, the evaluator may not design the most
+appropriate evaluation method. This takes us to the next question.</p>
 </div>
-<div id="contrôle-expérimental-homogénéité-unitaire-induite" class="section level1">
-<h1>2. Contrôle expérimental (homogénéité unitaire induite)</h1>
-<p>Une deuxième stratégie plus utilisée en laboratoire et également en
-sciences physiques consiste à utiliser un contrôle expérimental pour
-s’assurer que deux unités sont identiques à tous les égards pertinents,
-à l’exception du traitement. Par exemple, si vous vouliez voir si une
-balle lourde tombe plus vite qu’une balle plus légère, vous pouvez vous
-assurer qu’elles ont la même forme et la même taille et les laisser
-tomber toutes les deux en même temps, dans les mêmes conditions
-météorologiques, et ainsi de suite. Vous attribuez ensuite toute
-différence de résultats à la caractéristique que vous n’avez pas
-maintenue constante entre les deux unités. Cette stratégie est
-fondamentalement différente de celle utilisée dans les essais
-randomisés. Dans les essais randomisés, vous abandonnez l’idée de tout
-garder fixe et cherchez plutôt à vous assurer que la variation naturelle
-- sur des variables que vous pouvez ou ne pouvez pas observer - ne
-produit pas de biais dans vos estimations ; en outre, vous cherchez à
-évaluer les effets moyens pour une plage de conditions de base plutôt
-que pour un ensemble fixe de conditions de base. Les mérites de
-l’approche du contrôle expérimental dépendent de votre confiance dans le
-contrôle effectif de tous les facteurs pertinents ; si le contrôle n’est
-pas effectif, alors une approche randomisée peut être meilleure.</p>
+<div id="what-is-the-best-method-for-the-evaluation" class="section level1">
+<h1>2) What is the best method for the evaluation?</h1>
+<p>Since evaluation efforts may serve multiple purposes for different
+audiences, no single research design is always best. We suggest that
+evaluation and implementation teams not take for granted any given
+approach: some evaluation teams specialize in human-centered design
+research which is very similar to ethnographic research in the social
+sciences; other teams specialize in randomized controlled trials (RCTs).
+The fact that any given team has expertise in one particular mode of
+research should not outweigh the need to connect purposes to evaluation
+design. We have seen such conversations yield realizations that, in
+fact, an &quot;evaluation&quot; ought to be a multi-step process with learning
+about the context and the intervention occurring along the way –- more
+akin to adding evidence to hone a learning agenda than to report on the
+estimated causal effect of a given intervention in a given place and
+time.</p>
+<p>Openness about the evaluation approach can also prepare teams to
+adapt as new information arises. For example, at the end of an RCT one
+of the authors conducted in Nigeria, we learned that the program
+diffused from direct participants to some non- participants. However, we
+did not know why and could immediately think of competing explanations
+after the fact: Was it a result of non-participants witnessing
+cooperation among direct participants? Did the people who directly
+participated talk about their experience with non-participants? Did
+norms in these communities change? Pairing this work with interviews and
+observations earlier in the process would have helped us understand why
+we found the effect, and then we could have better tested these new
+ideas with follow-up studies.</p>
+<p>RCTs can be used to test insights that are derived from more
+unstructured observation. For example, the Los Angeles-based campaign
+specialist, <a href="https://www.thecampaignworkshop.com/blog/canvassing/deep-canvassing">David
+Fleischer</a>, noticed from his own experience and those of others that
+certain interactions during door-to-door canvassing appeared to be
+particularly compelling for changing people&#39;s minds about sensitive
+topics. Communications between him and a pair of academics led to a <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3532688">series
+of RCTs</a> to verify and unpack the mechanisms behind this phenomenon
+(called &quot;deep canvassing&quot;).</p>
+<p>This conversation about approach, method, and maybe iteration,
+between the evaluator and the implementer, can also help identify
+whether the intervention can be conducted in a way to better answer the
+questions of interest. For example, is there a way to phase in or layer
+parts of the program so you could test mechanisms? How might you recruit
+individuals into the program so that it is more representative of the
+populations you care about, or so that the results will be
+generalizable? Our general theme here (and elsewhere in this guide) is
+that the most useful evaluations often occur when both the evaluation
+and the program design are created collaboratively (see Conversation 6
+below).</p>
 </div>
-<div id="expériences-naturelles-randomisation-supposée" class="section level1">
-<h1>3. Expériences naturelles (randomisation supposée)</h1>
-<p>Parfois, les chercheurs ne sont pas en mesure de randomiser, mais
-l’inférence causale est toujours possible car la nature a fait la
-randomisation pour vous. La caractéristique clé de l’approche
-“expérience naturelle” est que vous avez des raisons de croire que la
-variation de certains traitements naturels est “supposée aléatoire”. Par
-exemple, disons que les places dans une école sont attribuées par tirage
-au sort. Ensuite, vous pourrez peut-être analyser les effets de la
-fréquentation scolaire comme s’il s’agissait d’un essai randomisé
-contrôlé. Une étude intelligente des effets des conflits sur les enfants
-par <a href="http://www.chrisblattman.com/documents/research/2010.Consequences.RESTAT.pdf">Annan
-et Blattman</a> a utilisé le fait que la Lord’s Resistance Army (LRA) en
-Ouganda a enlevé des enfants de façon assez aléatoire. Une autre étude
-intelligente sur les programmes de Désarmement, Démobilisation et
-Réintégration (DDR) par <a href="http://papers.ssrn.com/sol3/papers.cfm?abstract_id=1911968">Gilligan,
-Mvukiyehe et Samii</a> a utilisé le fait que les opérations d’une ONG
-ont été interrompues en raison d’un différend contractuel, ce qui a
-donné lieu à un groupe de contrôle “naturel” d’ex-combattants qui n’ont
-pas bénéficié de programmes de démobilisation. Voir <a href="http://www.cambridge.org/us/academic/subjects/politics-international-relations/research-methods-politics/natural-experiments-social-sciences-design-based-approach">le
-livre de Dunning</a> pour trouver et analyser des expériences
-naturelles.</p>
+<div id="who-are-the-stakeholders" class="section level1">
+<h1>3) Who are the stakeholders?</h1>
+<p>Often there are multiple stakeholders both within the organization
+whose work is subject to the evaluation, but also externally (not to
+mention the evaluator themself, and the audiences they may want to
+influence by publicizing the results). Within an organization, some
+people work across contexts and want to understand how a program may
+vary in its results across those contexts. Some people implement in a
+specific context and want to know how to do it better in that place.
+Then there may be executives who are focused on external influence and
+raising the profile of the organization versus the program managers who
+are trying to use the information to adapt their programming. For
+example, when one of the authors was working on an evaluation related to
+host and refugee relationships, the HQ team cared most about the pooled
+results across Lebanon and Jordan. Such results allowed them to speak to
+the larger issue of host-refugee relations. In contrast, the field teams
+cared more about country-specific data so they could adapt their
+programming. The evaluation team worked with both the field and HQ teams
+to prioritize which results to produce first. In this case, the
+different needs within an organization did not change the evaluation
+design. But one could easily imagine a situation where an evaluation
+designed to be sensitive to the effects of a program in one place would
+be inappropriate in another context. If a multi-context analysis is of
+primary importance, then one will be glad to have had this conversation
+early in the design process rather than discovering that one cannot
+easily combine datasets.</p>
+<p>Both implementers and evaluators who are committed to benefiting the
+larger social good will also want to influence external stakeholders,
+particularly policymakers. Discussing who these people are and what
+questions and information they will find most persuasive needs to happen
+not just after the data is analyzed, but at the design phase. Otherwise,
+the implementing organization may be disappointed that the results are
+not able to speak to certain debates and as a result may be less likely
+to invest in evidence generation in the future. We discuss more about
+publicizing results below.</p>
 </div>
-<div id="comparaisons-avantaprès" class="section level1">
-<h1>4. Comparaisons avant/après</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Often the first thing that people
-look to in order to work out causal effects is the comparison of units
-before and after treatment. Here you use the past as a control for the
-present. The basic idea is very intuitive: you switch the lightswitch
-off and you see the light switch off; attributing the light change to
-the action seems easy even in the absence of any randomization or
-control. But for many social interventions the approach is not that
-reliable, especially in changing environments. The problem is that
-things get better or worse for many reasons unrelated to treatments or
-programs you are interested in. In fact it is possible that because of
-all the other things that are changing, things can get worse in a
-program area even if the programs had a positive effect (so they get
-worse but are still not as bad as they would have been without the
-program!). A more sophisticated approach than simple before/after
-comparison is called “difference in differences” – basically you compare
-the before/after difference in treatment areas with those in control
-areas. This is a good approach but you still need to be sure that you
-have good control groups and in particular that control and treatment
-groups are not likely to change differently for reasons other than the
-treatment. ======= Souvent, la première chose vers laquelle les gens se
-tournent pour déterminer les effets causaux est la comparaison des
-unités avant et après le contrôle. Ici, vous utilisez le passé comme un
-contrôle pour le présent. L’idée de base est très intuitive : vous
-éteignez la lumière et vous voyez la lumière s’éteindre ; attribuer le
-changement de lumière à l’action semble facile même en l’absence de
-toute randomisation ou contrôle. Mais pour de nombreuses interventions
-sociales, l’approche n’est pas si fiable, en particulier dans des
-environnements changeants. Le problème est que les choses s’améliorent
-ou empirent pour de nombreuses raisons sans rapport avec les traitements
-ou les programmes qui vous intéressent. En fait, il est possible qu’en
-raison de toutes les autres choses qui changent, les choses peuvent
-empirer dans un domaine du programme même si les programmes ont eu un
-effet positif (donc les choses empirent mais ne sont toujours pas aussi
-mauvaises qu’elles l’auraient été sans le programme!). Une approche plus
-sophistiquée que la simple comparaison avant/après est appelée “méthode
-des doubles différences” – en gros, vous comparez la différence
-avant/après dans les zones de traitement avec celles dans les zones de
-contrôle. C’est une bonne approche mais vous devez toujours être sûr que
-vous avez de bons groupes de contrôle et en particulier que les groupes
-de contrôle et de traitement ne sont pas susceptibles de changer
-différemment pour des raisons autres que le traitement.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="how-can-our-evaluation-enable-learning-within-our-organization" class="section level1">
+<h1>4) How can our evaluation enable learning within our
+organization?</h1>
+<p>An organization decides to evaluate the performance of a new (or old)
+policy because its members desire to learn how to improve. We state this
+point first and foremost because resistance to evaluation often arises
+from different stakeholders who think of the word &quot;evaluate&quot; and connect
+it with &quot;grade&quot; or &quot;rank&quot; or other attempts to measure that often
+distribute rewards or punishments. An organization that primarily
+evaluates as a form of ranking or grading will quickly run into
+resistance and all of the problems associated with replacing internal
+motivations with external carrots and sticks — carrots and sticks are
+blunt instruments that rarely lead to the best performance from
+anyone.</p>
+<p>If, however, an organization uses evaluations to learn, then the
+structure of an evaluation should take the desire to learn into account.
+Some questions that might well orient any such evaluation include:</p>
+<ul>
+<li>What decisions will the organization make in the short term which
+would change depending on this evaluation?</li>
+<li>What hypothetical results from this evaluation could contribute to
+which pending and consequential decisions by the organization?</li>
+</ul>
+<p>Even when the purpose is to learn, not grade, some within an
+organization may still be fearful of the results, as they believe their
+careers are tied to achieving strong results. If they are not bought
+into the learning agenda, they may resist cooperation with the
+evaluators or refuse to use the results of the evaluation, limiting the
+evaluation&#39;s utility. Ensuring that the questions the team closest to
+the ground wants to learn about are incorporated into the evaluation
+helps ensure the success both in evaluating the program, and that people
+will use the results of the evaluation to learn and improve future
+programs.</p>
 </div>
-<div id="contrôle-ex-post-i-régression" class="section level1">
-<h1>5. Contrôle ex post I : régression</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Perhaps the most common approach to
-causal identification in applied statistical work is the use of multiple
-regression to control for possible confounders. The idea is to try to
-use whatever information you have about why treatment and control areas
-are not readily comparable and adjust for these differences
-statistically. This approach works well to the extent that you can
-figure out and measure the confounders and how they are related to
-treatment, but is not good if you don’t know what the confounders are.
-In general we just don’t know what all the confounders are and that
-exposes this approach to all kinds of biases (indeed if you control for
-the wrong variables it is possible to <em>introduce</em> bias where none
-existed previously). ======= L’approche la plus courante de
-l’identification causale dans les travaux de statistique appliqués est
-peut-être l’utilisation de la régression multiple pour contrôler les
-facteurs de confusion possibles. L’idée est d’essayer d’utiliser toutes
-les informations dont vous disposez sur les raisons pour lesquelles les
-zones de traitement et de contrôle ne sont pas facilement comparables et
-d’ajuster statistiquement ces différences. Cette approche fonctionne
-bien dans la mesure où vous pouvez déterminer et mesurer les facteurs de
-confusion et savoir comment ils sont liés au traitement, mais elle n’est
-pas correcte si vous ne savez pas quels sont les facteurs de confusion.
-En général, nous ne savons tout simplement pas quels sont tous les
-facteurs de confusion et cela expose cette approche à toutes sortes de
-biais (en effet, si vous contrôlez les mauvaises variables, il est
-possible <em>d’introduire</em> un biais là où il n’y en avait pas
-auparavant). &gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="how-might-this-evaluation-connect-to-a-broader-and-shared-learning-agenda" class="section level1">
+<h1>5) How might this evaluation connect to a broader and shared
+learning agenda?</h1>
+<p>One way to think about learning for an organization is to think about
+its high level goals: What is the mission of your organization and what
+part of that mission do you want your programs to contribute to? For
+example, say a county government has an overall goal of reducing racial
+inequality. Next imagine that you are implementing a program which
+provides reduced bus fares with the assumption that reduced bus fares
+increase employment opportunities with higher wages. You want to test
+this assumption, and evaluate whether the subsidies contributed to the
+larger goal of reducing racial inequality. In that case, one might
+imagine a figure or diagram illustrating this theory of change that by
+reducing bus fares, People of Color are better able to commute to jobs
+with higher wages, thus reducing racial inequality. The implementer can
+then work with the evaluator to design the evaluation to learn about (a)
+the effects of reducing bus fares on employment options and (b) about
+how reducing bus fares affects our overall goal of reducing racial
+inequality in our county.&quot;</p>
+<p>By having this type of conversation–about how a specific program or
+policy may contribute to larger change–there is a recognition that one
+evaluation or one program is part of a larger learning agenda. This
+conversation then can shape a deeper collaboration between the
+implementer and evaluator (see the next Conversation). Evaluators are
+often based in academia and bring a passion to engage pressing questions
+of theory to their work with the hope that they uncover some underlying
+and generalizable truths. They also have read extensively in the field,
+and may be able to bring additional evidence to bear on your policy or
+program. If the high level learning goals of a community of evaluators
+and implementers can connect, then one hopes the results of individual
+evaluations more easily connect and cumulate into even more effective
+policy creation and implementation.</p>
 </div>
-<div id="contrôle-ex-post-ii-appariement-et-pondération" class="section level1">
-<h1>6. Contrôle ex post II: appariement et pondération</h1>
-<p>Diverses approches alternatives cherchent à tenir compte des
-variables de confusion en associant soigneusement les unités de
-traitement à une ou plusieurs unités de contrôle. L’appariement présente
-certains avantages par rapport à la régression (par exemple, les
-estimations peuvent être moins sensibles aux choix de la forme
-fonctionnelle), mais l’idée de base est néanmoins similaire. En effet,
-les méthodes d’appariement peuvent être mises en œuvre dans un cadre de
-régression en utilisant des poids appropriés. Comme la régression, cette
-stratégie repose sur la conviction qu’il n’y a pas de variables de
-confusion importantes que le chercheur ignore ou est incapable de
-mesurer. Les méthodes spécifiques comprennent :</p>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD * <a href="http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf">optimal full-
-and pair-matching</a> and see the <a href="https://github.com/markmfredrickson/optmatch">optmatch package</a>
-* <a href="https://projecteuclid.org/euclid.aoas/1396966284">optimal
-pair-matching with fine-balance via mixed integer programming</a>. <a href="https://cran.rstudio.com/web/packages/designmatch">See also the
-designmatch package</a> and the <a href="http://jrzubizarreta.com/evaluation.pdf">paper comparing
-approaches</a> * <a href="https://projecteuclid.org/euclid.aoas/1536652962">optimal
-multi-level matching (for designs with schools and students)</a> * <a href="https://www.stat.berkeley.edu/~spi/software.html">sparse optimal
-matching</a> * <a href="https://arxiv.org/abs/1703.03882">generalized
-full matching</a> * <a href="http://gking.harvard.edu/cem">coarsened
-exact matching</a> * <a href="http://sekhon.berkeley.edu/papers/GenMatch.pdf">genetic
-matching</a> * <a href="http://web.stanford.edu/~jhain/Paper/PA2012.pdf">entropy
-balancing</a> * <a href="http://pan.oxfordjournals.org/content/18/1/36.short">inverse
-propensity weighting</a> * <a href="http://www.columbia.edu/~jz2313/sbw.pdf">stable balancing
-weights</a>, and the use of * <a href="http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf">synthetic
-controls</a>. ======= * <a href="http://dept.stat.lsa.umich.edu/~bbh/hansen2004.pdf">appariement
-complet optimal</a>, voir le <a href="https://github.com/markmfredrickson/optmatch">package optmatch</a>
-* <a href="https://projecteuclid.org/euclid.aoas/1396966284">appariement
-optimal avec équilibrage précis via une programmation mixte en nombres
-entiers</a>, voir aussi <a href="https://cran.rstudio.com/web/packages/designmatch">le package
-designmatch</a> et <a href="http://jrzubizarreta.com/evaluation.pdf">l’article comparant les
-approches</a> * <a href="https://projecteuclid.org/euclid.aoas/1536652962">appariement
-multi-niveaux optimal (pour les conceptions avec des écoles et des
-étudiants)</a> * <a href="https://www.stat.berkeley.edu/~spi/software.html">appariement
-creux optimal</a> * <a href="https://arxiv.org/abs/1703.03882">appariement généralisé
-complet</a> * <a href="http://gking.harvard.edu/cem">appariement
-grossier exact</a> * <a href="http://sekhon.berkeley.edu/papers/GenMatch.pdf">appariement
-génétique</a> * <a href="http://web.stanford.edu/~jhain/Paper/PA2012.pdf">équilibre
-d’entropie</a> * <a href="http://pan.oxfordjournals.org/content/18/1/36.short">pondération
-inverse du score de propension</a> * <a href="http://www.columbia.edu/~jz2313/sbw.pdf">pondération de
-l’équilibre stable</a> * <a href="http://web.stanford.edu/~jhain/Paper/AJPS2015a.pdf">contrôles
-synthétiques</a>. &gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="on-what-parts-of-the-project-should-we-collaborate" class="section level1">
+<h1>6) On what parts of the project should we collaborate?</h1>
+<p>In our experience, when a new policy design arises from a creative
+collaboration between evaluators (who are often academics) and
+implementers, everyone wins. Often, for example, a better evaluation
+design can be incorporated into the implementation if discussed early,
+in a way that creates fewer burdens on the implementer and/or those
+benefiting from the new policy (e.g., aligning data collection or
+phasing in of intervention sites). Another benefit arising from such
+creative co-creation is that different people will bring different
+perspectives and evidence-bases to the table for the design of both the
+program and the evaluation. For example, the U.S. government&#39;s Office of
+Evaluation Sciences (<a href="https://oes.gsa.gov/">OES</a>) has
+institutionalized this process. <a href="https://oes.gsa.gov/projectprocess/">They write</a>:</p>
+<p>Our collaborators, who are civil servants with years of experience
+working to deliver programs across the government, are experts on how
+their programs work and often have the best ideas for how to improve
+them. OES team members support their efforts by bringing diverse
+academic and applied expertise to more deeply understand program
+bottlenecks and offer recommendations drawn from peer-reviewed evidence
+in the social and behavioral sciences.</p>
+<p>The <a href="https://immigrationlab.org/team/">Immigration Policy Lab
+at Stanford</a> uses this co-creation process as a basis for their
+collaboration with implementers. They work with organizations not only
+to research policies and programs but work with the implementer from the
+start. Through this process, evaluators bring the latest evidence
+related to a specific policy issue (e.g., refugee resettlement) and
+co-design the intervention with the implementer utilizing the best
+evidence with on-the-ground experience. Together, they then evaluate the
+intervention, adding to the knowledge on immigration policies.</p>
+<p>Other evaluations involve an evaluator brought on after the fact —
+perhaps the funders and/or the implementer desire a fresh perspective on
+the data and design, or the original implementation was rushed. Either
+way, &quot;how and on which parts should we collaborate&quot; is still a crucial
+conversation to have.</p>
 </div>
-<div id="variables-instrumentales" class="section level1">
-<h1>7. Variables instrumentales</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Another approach to identifying
-causal effects is to look for a feature that explains why a given group
-got a treatment but which is otherwise unrelated to the outcome of
-interest. Such a feature is called an instrument. For example say you
-are interested in the effect of a livelihoods program on employment, and
-say it turned out that most people who got access to the livelihoods
-program did so because they were a relative of a particular program
-officer. Now suppose that being a relative of the program officer does
-not affect job prospects in any way other than through its effect on
-getting access to the livelihoods program. If so, then you can work out
-the effect of the program by understanding the effect of being a
-relative of the program officer on job prospects. This has been a fairly
-popular approach but the enthusiasm for it has died a bit, basically
-because it is hard to find a good instrument. One smart application are
-studies on the effects of poverty on conflict which use rainfall in
-Africa as an instrument for income/growth. While there are worries that
-the correlation between conflict and poverty may be due to the fact that
-conflict causes poverty, it does not seem plausible that conflict causes
-rainfall! So using rainfall as an instrument here gave a lot more
-confidence that really there is a causal, and not just correlational,
-relationship between <a href="http://emiguel.econ.berkeley.edu/research/economic-shocks-and-civil-conflict-an-instrumental-variables-approach">poverty
-and conflict</a>. ======= Une approche très différente pour estimer les
-effets causaux peut être utilisée si les chercheurs peuvent trouver une
-caractéristique qui explique pourquoi un groupe donné a reçu un
-traitement mais qui n’est par ailleurs pas liée au résultat d’intérêt.
-Une telle caractéristique est appelée un instrument. Par exemple, disons
-que vous êtes intéressé par l’effet sur l’emploi d’un programme d’aide à
-la précarité, et que la plupart des personnes ont accédé à ce programme
-parce qu’elles avaient un lien de parenté avec un agent travaillant pour
-ce programme particulier. Ensuite, s’il n’y avait pas d’autres façons
-d’établir une relation entre le lien de parenté de cette personne et ses
-perspectives d’emploi, alors vous pouvez déterminer l’effet du programme
-en calculant l’effet d’être un parent de cette personne sur les
-perspectives d’emploi. Cela a été une approche assez populaire, mais
-l’enthousiasme pour cette approche est un peu retombé, essentiellement
-parce qu’il est difficile de trouver un bon instrument. Une application
-intelligente pour examiner les effets de la pauvreté sur les conflits a
-utilisé les précipitations en Afrique comme instrument de
-revenu/croissance. Bien que l’on s’inquiète que la corrélation entre
-conflit et pauvreté soit due au fait que le conflit pourrait causer la
-pauvreté, il ne semble pas plausible que le conflit provoque des
-précipitations ! Ainsi, l’utilisation des précipitations comme
-instrument ici a augmenté la certitude qu’il existe réellement une
-relation causale, et pas seulement une corrélation, entre <a href="http://emiguel.econ.berkeley.edu/research/economic-shocks-and-civil-conflict-an-instrumental-variables-approach">pauvreté
-et conflit</a>. &gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="how-will-we-communicate-within-and-across-teams" class="section level1">
+<h1>7) How will we communicate within and across teams?</h1>
+<p>Collaboration requires communication. This means that the parties to
+an evaluation agreement must agree to speedy feedback in mutually agreed
+upon forms and processes for how to do so. For example, some complex
+evaluations might create a quick web dashboard so that sample sizes and
+implementation can be easily seen by the whole team. Other, simpler
+projects may agree to use existing tools for project management and
+communication. Not everyone checks email all the time. And many people
+silence their phones as they try to focus. Having this conversation
+about communication allows new partners to avoid misunderstanding email
+or Slack silence.</p>
+<p>Calendars and deadlines are also an important part of this
+conversation. During certain periods, evaluators may be less available
+(e.g, when grades or a grant application is due); the implementer may
+need at least preliminary results for an important donor meeting.
+Knowing these time windows can help understand availability, know when
+responses may be slow, and allow both sides to plan accordingly.</p>
+<p>The communication discussion is also an opportunity to envision the
+final products: the one-pager, the anticipated three challenges and
+hoped for three successes for the external-facing report, the number of
+drafts of the different final projects the team expects to go through,
+and who is expected to take the lead on which ones. This might be a time
+where evaluators and implementers share draft reports or report
+templates that they have liked in the past.</p>
 </div>
-<div id="la-méthode-de-régression-par-discontinuité-regression-discontinuity-design-rdd" class="section level1">
-<h1>8. La méthode de régression par discontinuité (regression
-discontinuity design, RDD)</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD The regression discontinuity
-approach works as follows. Say that some program is going to be made
-available to a set of potential beneficiaries. These potential
-beneficiaries are all ranked on a set of relevant criteria, such as
-prior education levels, employment status, and so on. These criteria can
-be quantitative; but they can also include qualitative information such
-as assessments from interviews. These individual criteria are then
-aggregated into a single score and a threshold is identified. Candidates
-scoring above this threshold are admitted to the program, while those
-below are not. “Project” and “comparison” groups are then identified by
-selecting applicants that are close to this threshold on either side.
-Using this method we can be sure that treated and control units are
-similar, at least around the threshold. Moreover, we have a direct
-measure of the main feature on which they differ (their score on the
-selection criteria). This information provides the key to estimating a
-program effect from comparing outcomes between these two groups. The
-advantage of this approach is that all that is needed is that the
-implementing agency uses a clear set of criteria (which can be turned
-into a score) upon which they make treatment assignment decisions. The
-disadvantage is that really reliable estimates of impact can only be
-made for units right around the threshold. For overviews of RDD, see <a href="http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf">Skovron
-and Titiunik</a> and <a href="http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf">Lee
-and Lemieux</a>; for two interesting applications, see <a href="http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support">Manacorda
-et al. on Uruguay</a> and <a href="http://journals.cambridge.org/action/displayAbstract?fromPage=online&amp;aid=8963107">Samii
-on Burundi</a>. ======= La régression par discontinuité est l’une des
-approches les plus sous-utilisées, mais elle a un potentiel énorme. La
-stratégie fonctionne comme suit. Disons qu’un programme va être mis à la
-disposition d’un ensemble de bénéficiaires potentiels. Ces bénéficiaires
-potentiels sont tous classés selon un ensemble de critères pertinents,
-tels que le niveau d’éducation antérieur, le statut d’emploi, etc. Ces
-critères peuvent être quantitatifs ; mais ils peuvent également inclure
-des informations qualitatives telles que des évaluations issues
-d’entretiens. Ces critères individuels sont ensuite agrégés en un seul
-score et un seuil est identifié. Les candidats dont le score est
-supérieur à ce seuil sont admis au programme, tandis que les autres ne
-le sont pas. Les groupes “projet” et “comparaison” sont ensuite
-identifiés en sélectionnant des candidats proches de ce seuil de part et
-d’autre. En utilisant cette méthode, nous pouvons être sûrs que les
-unités traitées et témoins sont similaires, au moins autour du seuil. De
-plus, nous avons une mesure directe de la principale caractéristique sur
-laquelle ils diffèrent (leur score sur les critères de sélection). Cette
-information fournit la clé pour estimer l’effet d’un programme en
-comparant les résultats entre ces deux groupes. L’avantage de cette
-approche est que tout ce qui est nécessaire est que l’organisme en
-charge utilise un ensemble clair de critères (qui peuvent être
-transformés en un score) sur lesquels ils prennent la décision
-d’assignation au traitement. L’inconvénient est que des estimations
-vraiment fiables de l’impact ne peuvent être faites que pour les unités
-situées juste autour du seuil. Pour un aperçu de la régression par
-discontinuité, voir <a href="http://www-personal.umich.edu/~titiunik/papers/SkovronTitiunik2015.pdf">Skovron
-et Titiunik</a>, <a href="http://econ.sites.olt.ubc.ca/files/2014/02/Lee-Lemieux-rev.pdf">Lee
-et Lemieux</a>. Pour deux applications intéressantes, voir <a href="http://emiguel.econ.berkeley.edu/research/government-transfers-and-political-support">Manacorda
-et al. en Uruguay</a> et <a href="http://journals.cambridge.org/action/displayAbstract?fromPage=online&amp;aid=8963107">Samii
-au Burundi</a>. &gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="how-and-where-shall-we-make-the-results-of-this-study-public-i.e.-communicate-externally" class="section level1">
+<h1>8) How and where shall we make the results of this study public?
+(i.e., communicate externally)</h1>
+<p>A well-done public evaluation report is a gift to humanity.</p>
+<p>Consider who will benefit from a public report of positive, negative,
+or null results:</p>
+<ul>
+<li>Future members of your organization will be able to use the
+information to craft better policies.</li>
+<li>Members of other organizations like yours and funders can also
+learn. If they share their results publically then policy learning can
+occur more quickly than if each organization or funder has to pay for
+and field its own evaluation.</li>
+<li>Scientists and others who focus on theoretical explanations will
+move more quickly and will generate more ideas if they can see whether
+certain ideas work or not (or how they work). Published results and
+analysis plans help spur learning by the originating organization, by
+other organizations, and by science.</li>
+</ul>
+<p>Publishing results of evaluations also helps your organization in two
+important and related ways. 1) It enhances your organization&#39;s influence
+with donors and other policymakers, as you can inform key debates with
+evidence. 2) It enhances your organization&#39;s reputation as trustworthy
+and willing to provide a public good to improve the field. When one of
+the authors of this guide was working inside an implementing
+organization, donors often complimented the organization&#39;s commitment to
+sharing results that contradicted conventional wisdom.</p>
+<p>Moreover, publishing all results helps quell other criticisms that
+can be aimed at organizations that are contributing to knowledge
+generation. For example, some criticize evidence-based policy by calling
+it &quot;policy-based evidence.&quot; The criticism suggests that evaluations
+serve only to add a veneer of respectability to the pre-conceived
+notions of organizational leaders. This idea — that careful research and
+analyses are merely rhetoric — can diminish trust in individual
+organizations and in government and science as institutions. Instead, if
+an organization says, &quot;We publish all of our evaluations and invite
+others to scrutinize our results and join us in learning how to better
+serve the public,&quot; then it is hard for detractors to claim that the
+organization is hiding the truth and hard for others to pressure the
+organization to hide the truth in turn.</p>
+<p>The timelines that implementers and evaluators, especially ones who
+come from academia, have for publishing results are likely different.
+Your organization may want to use or share the results as soon as
+possible, so that you can improve your programming or influence policy.
+However, cleaning and analyzing data takes time. And a review of the
+results before publishing can improve the quality of the presentation
+and analysis. Some academic publications prefer that the results not be
+shared publicly before publication in other formats. Given these
+benefits and constraints, it&#39;s important to talk with the evaluator
+about how to share the results and when and how.</p>
 </div>
-<div id="traçage-de-processus" class="section level1">
-<h1>9. Traçage de processus</h1>
-<p>Dans de nombreux travaux qualitatifs, les chercheurs essaient
-d’établir la causalité en cherchant à savoir si le fait d’être dans un
-programme est associé à de meilleurs résultats, mais aussi (a) en
-recherchant les étapes du processus qui montreraient que le programme a
-eu les effets que vous pensez qu’il a eu (b) et en recherchant des
-preuves d’autres résultats qui devraient être observés si (ou peut-être
-: si et seulement si) le programme était efficace. Par exemple, ils
-veulent savoir si les personnes participant à un programme d’aide à la
-précarité ont obtenu un emploi, mais aussi si elles ont été formées à
-quelque chose d’utile, ont obtenu de l’aide des personnes participant au
-programme pour trouver un employeur dans ce domaine, etc. Si toutes ces
-étapes sont présentes, cela donne l’assurance que la relation est
-causale et non fausse. Si un programme a été mis en œuvre mais que
-personne n’y a réellement participé, cela peut laisser penser que toute
-corrélation entre le traitement et les résultats est fausse. La
-difficulté avec cette approche est qu’il peut être difficile de savoir
-si un élément de preuve au sein du processus a une valeur probante. Par
-exemple, un programme peut avoir des effets positifs (ou négatifs) à
-travers de nombreux processus dont vous ne savez rien et des processus
-que vous jugez importants, peuvent ne pas l’être. Voir <a href="http://www.columbia.edu/%7Emh2245/papers1/BIQQ.pdf">Humphreys et
-Jacobs</a> pour une description de la logique bayésienne sous-jacente au
-traçage des processus et des illustrations sur la façon de le combiner
-avec d’autres approches statistiques.</p>
+<div id="what-if-things-do-not-go-as-expected-or-hoped" class="section level1">
+<h1>9) What if things do not go as expected or hoped?</h1>
+<p>In conducting an evaluation, numerous things may not go according to
+plan. There are many operational issues, and since an evaluation can be
+a multi-month or multi-year process, complications always arise. There
+may be staffing changes, and their commitment to the evaluation may
+vary. Or new staff members are interested in different questions. The
+context may change and the teams have to adapt. The Covid pandemic is a
+good example of this, as programming and how data was collected had to
+change practically overnight. Good communication within the team (see
+above) is essential for navigating these unexpected issues that will
+arise in some form, and ensuring the integrity of the program and
+evaluation.</p>
+<p>In addition to these operational issues, we may find unexpected
+results from the evaluation. The evaluation may find that the program or
+policy had little effect. While null results can be disappointing, in of
+themselves, they can provide important learning. If the results show
+null effects, then the organization can re-evaluate and generate more
+ideas for how to implement the program. Null results can <a href="https://egap.org/resource/learning-and-experiments/">encourage
+more learning than one might think when they are combined with prior
+beliefs</a>. Also, null results can arise for reasons that have more to
+do with sample size or other artifacts of the evaluation (e.g., how the
+outcomes were operationalized) than with the impact of the intervention.
+A null result arising from an intervention that, in theory, really
+should have had a big effect, can be particularly fruitful for science —
+it sends scientists back to the drawing board and forces re-evaluation
+of well-established theories. Perhaps those theories had only been
+tested in the context of university laboratories rather than in the real
+world. Or perhaps the real world in which the theories had been assessed
+in the past has now changed. See for example the handout on <a href="https://oes.gsa.gov/assets/files/unexpected-results-2-pager.pdf">How
+to Use Unexpected and Null Results</a> by the OES and <a href="https://egap.org/resource/10-things-your-null-result-might-mean/">our
+10 Things Your Null Result Might Mean methods guide</a>.</p>
+<p>While nulls or other unintended impacts provide important learning
+for an organization, they can create uncomfortable conversations with
+the evaluator and internally within an organization. As a result,
+thinking through these possibilities ahead of time can be very useful so
+that people are not surprised. There are a couple of tools that help the
+implementer and evaluator think through these together.</p>
+<p>One approach arising from project management in business involves the
+creation of <a href="https://en.wikipedia.org/wiki/Pre-mortem">pre-mortems</a> in which
+the implementer and evaluator begin by imagining that the evaluation has
+returned a null or negative result. What might have led to this result?
+The teams list the possibilities that they can imagine and thereby
+become prepared for those and similar problems.</p>
+<p>Another related approach from public health uses the name <a href="https://jech.bmj.com/content/jech/69/1/95.full.pdf">&#39;Dark
+Logic&#39;</a> to evoke the idea that one uses imagination and logic
+together to create negative scenarios, which in turn may (1) help an
+organization and evaluator avoid worst-case scenarios and (2) prepare an
+organization to react to such scenarios should they occur.</p>
+<p>A third approach that is becoming the norm for experimental research
+in political science, economics, and social psychology is to use a
+pre-analysis plan. People can sometimes disregard an evaluation if the
+results do not confirm their beliefs. A pre-analysis plan helps prevent
+criticism of the results of the evaluation based on methods or analysis
+choices. See <a href="https://egap.org/resource/10-things-to-know-about-pre-analysis-plans/">10
+Things to Know about Pre-Analysis Plans</a> for more on why and how. See
+also <a href="https://oes.gsa.gov/assets/files/preregistration-as-a-tool-in-federal-evaluation.pdf">Preregistration
+as a Tool for Strengthening Federal Evaluation</a> from <a href="https://oes.gsa.gov/">OES</a>.</p>
+<p>A pre-analysis plan also can help stakeholders within an
+organization, perhaps stakeholders with conflicting prior beliefs, think
+through what analyses they would find convincing <strong>before the
+study has been fielded/data have been analyzed.</strong> For example, an
+evaluator could generate hypothetical tables and figures and show them
+to stakeholder meetings asking: &quot;What would your reaction be to a figure
+like this?&quot; This process helps stakeholders begin to assess the
+evaluation questions in more detail, ensure that measures are
+operationalized appropriately, and consider the level of implementation
+that is needed for the desired results. It also helps stakeholders
+become aware of the possibility that we may learn something
+unexpected.</p>
 </div>
-<div id="stratégies-porte-dentrée-argument-basé-sur-les-mécanismes" class="section level1">
-<h1>10. Stratégies “porte d’entrée” (argument basé sur les
-mécanismes)</h1>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD A final approach, conceptually
-close to process tracing, is to make use of mechanisms. Say you know, as
-depicted in the picture below, that <span class="math inline">\(A\)</span> can cause <span class="math inline">\(C\)</span> only through <span class="math inline">\(B\)</span>. Say moreover that you know that no
-third variable causes both <span class="math inline">\(B\)</span> and
-<span class="math inline">\(C\)</span> (other than, perhaps, via <span class="math inline">\(A\)</span>) and no third variable causes both
-<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. Then covariation between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> and between <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> can be used to assess the effect of
-<span class="math inline">\(A\)</span> on <span class="math inline">\(C\)</span>. The advantage is that causality can be
-established even in the presence of confounders — for example even if,
-as in the picture below, unobserved variables cause both <span class="math inline">\(A\)</span> and <span class="math inline">\(C\)</span>. The difficulty however is that the
-strategy requires a lot of confidence in your beliefs about the
-structure of causal relations. For more see <a href="https://books.google.com/books?id=wnGU_TsW3BQC&amp;hl=en">Pearl
-(2000)</a>.</p>
-</div>
-<div id="section" class="section level1">
-<h1><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUsAAAC/CAYAAAB3w/4lAAAAAXNSR0IArs4c6QAABSl0RVh0bXhmaWxlACUzQ214ZmlsZSUyMGhvc3QlM0QlMjJhcHAuZGlhZ3JhbXMubmV0JTIyJTIwbW9kaWZpZWQlM0QlMjIyMDIyLTAxLTE3VDIwJTNBMzQlM0ExMC44NTJaJTIyJTIwYWdlbnQlM0QlMjI1LjAlMjAoTWFjaW50b3NoJTNCJTIwSW50ZWwlMjBNYWMlMjBPUyUyMFglMjAxMF8xNF82KSUyMEFwcGxlV2ViS2l0JTJGNTM3LjM2JTIwKEtIVE1MJTJDJTIwbGlrZSUyMEdlY2tvKSUyMENocm9tZSUyRjk3LjAuNDY5Mi43MSUyMFNhZmFyaSUyRjUzNy4zNiUyMiUyMGV0YWclM0QlMjIzVnhKdGdCM3FzX3VINkU5NUlXSyUyMiUyMHZlcnNpb24lM0QlMjIxNC45LjIlMjIlMjB0eXBlJTNEJTIyZ29vZ2xlJTIyJTNFJTNDZGlhZ3JhbSUyMGlkJTNEJTIyRUpfbTlPY3ljMU1aZEZKM1JoUEwlMjIlMjBuYW1lJTNEJTIyUGFnZS0xJTIyJTNFelZkZGI1c3dGUDAxZVJ3eU5zYncyQ1RkS2xXYkprWFQycjFVRmpqQkVva3pjQkt5WHo5VGJMNmNLR2xFRlY2UTc3SHZoODg5MkRCQnMzWHhMYVBiNUx1SVdUcUJJQzRtYUQ2QjBNZUJlcGJBc1FJUXhoV3d5bmhjUVc0RExQZyUyRnBrR2cwUjJQV2Q1WktJVklKZDkyd1Voc05peVNIWXhtbVRoMGx5MUYyczI2cFN0bUFZdUlwamI2bThjeXFkQUFnd1olMkZZbnlWbU13dTBETnJhaFpySUU5b0xBNHRDRDFPMEN3VFFsYWpkVEZqYWNtZDRhWHklMkIzcG10aTRzWXh0NWpVUCUyQjV3ZkVmTyUyRm1iMGVKbjNkJTJGRTdDVVgzU1VQVTEzZXNPJTJGZExYeWFDaFFZUlRieXBnZUVpN1pZa3VqY3VhZyUyQnEyd1JLNVRaYmxxU1BOdDFZSWxMNWpLT3RYQldTWlpjYlpxdCUyQlpDYVlpSk5aUFpVUzNSRHNqWDlCbjlhUFBRTk1QVGlrcGFmVEFZMWUxZjFZRWJodFJBayUyRlFC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" /></h1>
-<p>Une dernière approche, conceptuellement proche du traçage de
-processus, consiste à argumenter à partir des mécanismes. Supposons que
-vous sachiez que seul <span class="math inline">\(A\)</span> peut causer
-<span class="math inline">\(C\)</span> uniquement via <span class="math inline">\(B\)</span>. De plus, vous savez que rien d’autre
-ne cause à la fois <span class="math inline">\(B\)</span> et <span class="math inline">\(C\)</span> (autre que, peut-être, via <span class="math inline">\(A\)</span>) et que rien d’autre ne cause à la fois
-<span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span>. Ensuite, la covariation entre <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span> et entre <span class="math inline">\(B\)</span> et <span class="math inline">\(C\)</span> peut être utilisée pour évaluer l’effet
-de <span class="math inline">\(A\)</span> sur <span class="math inline">\(C\)</span>. L’avantage est que la causalité peut
-être établie même en présence de facteurs de confusion — par exemple si
-des variables non observées causent à la fois <span class="math inline">\(A\)</span> et <span class="math inline">\(C\)</span>. La difficulté cependant est que la
-stratégie nécessite une confiance forte en vos croyances sur la
-structure des relations causales. Pour en savoir plus, voir <a href="https://books.google.com/books?id=wnGU_TsW3BQC&amp;hl=en">Pearl
-(2000)</a>. &gt;&gt;&gt;&gt;&gt;&gt;&gt;
-3d7c587345ebeff14883428a24a479622c4a78f7</p>
+<div id="how-can-our-evaluation-contribute-to-the-social-good" class="section level1">
+<h1>10) How can our evaluation contribute to the social good?</h1>
+<p>A premise of this guide is that the evaluation will contribute to the
+social good. Yet we think that a conversation about this more generally
+can help implementers and evaluators collaborate more effectively by
+providing a superordinate goal to unite the whole team. Further, we
+encourage this conversation to ensure that all of the evaluation effort
+adds to the overall efforts to improve the world.</p>
+<p>Although we exhort such conversations in general terms, we also think
+that an evaluation can add to the social good fairly directly via
+transparency of methods and, to the extent possible, by sharing data.
+That is, in addition to the evaluation itself, the data you collect as
+part of the evaluation, the plans you make, the code the evaluators
+write, is also a social good. In the social sciences, there is a
+movement towards more openness of data–sharing the data and how it is
+analyzed – as an effort to speed scientific learning. This, in addition
+to a pre-analysis plan or pre-registration, is becoming required of many
+journals. We see this kind of transparency as adding to the impact of an
+evaluation outside of a given organization and providing a net benefit
+for your organization and the field for several reasons.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<ol style="list-style-type: decimal">
+<li><em>Efficiency of time and money</em>: Collecting data is time
+consuming and expensive. The data you collect may be analyzed by others
+in additional ways to answer different questions, and help explore
+potential innovations.</li>
+<li><em>Enhances data quality:</em> In some places, participants in
+programs may suffer from being over-surveyed. By sharing data, it
+reduces the need to ask people the same questions repeatedly. This helps
+reduce survey fatigue and enhances data quality.</li>
+<li><em>Increases confidence in results:</em> Others can replicate your
+findings with the same or different analysis choices. Real world data
+analysis involves many choices, and data flows from the world of
+administrative data, surveys, and interviews into the hands of the
+analyst via a twisting and turning path. Some of the reasonable choices
+made by one analyst may not be the reasonable choices made by another.
+Since both choices may be reasonable, and even correct, it is worth
+having a second team, blind to the results of the first analysis, follow
+the analysis plan following their own interpretation. The OES have
+institutionalized this practice: See &quot;Step 5: Ensure our work meets
+evaluation best practice&quot; of the <a href="https://oes.gsa.gov/projectprocess/">OES Project Process</a> for
+their re-analysis report document and explanation.</li>
+<li><em>Increases the trust in your organization:</em> That your
+organization is willing to share data demonstrates that you have nothing
+to hide and that you are willing to contribute to the public good.</li>
+</ol>
+<p>For more on Open Science, see <a href="https://egap.org/resource/10-things-to-know-about-project-workflow/">10
+Things to Know About Project Workflow</a> which is based on the more fun
+titled paper <a href="http://www.jakebowers.org/PAPERS/11-BOWERS-RCP-363.pdf">&quot;How to
+Improve Your Relationship With Your Future Self.&quot;</a></p>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Auteur d’origine : Macartan Humphreys. Révisions
-mineures : Winston Lin, 30 août 2016. Le guide est un document vivant et
-sujet à une mise à jour par les membres de EGAP à tout moment ; les
-contributeurs répertoriés ne sont pas responsables des modifications
-ultérieures.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Much of this document is inspired by the <a href="https://oes.gsa.gov/projectprocess/">Project Process of the
+OES</a> as well as discussions hosted by the <a href="https://casbs.stanford.edu/programs/causal-inference-social-impact-lab">Causal
+Inference for Social Impact project at CASBS</a> and the <a href="https://egap.org/">Evidence in Governance and Politics</a>
+network. See the MIT Gov Lab <a href="https://mitgovlab.org/results/updated-guide-how-to-have-difficult-conversations/">Guide
+to Difficult Conversations</a> for more guidance about
+academic-practitioner collaborations as well as the <a href="https://www.r4impact.org/our-findings">Research4Impact
+findings</a> about cross-sector collaborations. We anticipate that this
+document will be open source and revised over time based on your
+comments and suggestions. Thanks much to Carrie Cihak, Matt Lisiecki,
+Ruth Ann Moss, Betsy Rajala, Cyrus Samii, Rebecca Thornton,, and folks
+at the organizations listed above for helpful comments.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>We do recognize that some donors may not allow this
+(though many are becoming proponents of it), and the competitive nature
+of fundraising may make sharing data seem risky, especially as a first
+mover.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 

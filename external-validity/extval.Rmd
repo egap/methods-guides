@@ -33,7 +33,11 @@ La validité interne fait référence à la qualité des inférences causales fa
 Comme l'a postulé à l'origine Campbell[^2], la validité interne pose la question suivante : "le stimulus expérimental a-t-il en fait causé une différence significative dans ce cas spécifique ?" Ce concept concorde avec l'approche contrefactuelle de la causalité que les expérimentalistes utilisent généralement, qui demande si les résultats changent en fonction de la présence ou de l'absence d'un traitement.[^3]
 
 [^2]: Campbell, D. T. (1957). Factors relevant to the validity of experiments in social settings. Psychological bulletin, 54(4), 297.
+<<<<<<< HEAD
+[^3]: More details can be found in the causal inference methods guide: https://egap.org/resource/10-things-to-know-about-causal-inference
+=======
 [^3]: Plus de détails disponibles dans le guide des méthodes d'inférence causale: http://egap.org/resource/10-things-to-know-about-causal-inference
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Avant de pouvoir extrapoler un effet causal à une population distincte, il est essentiel que l'effet moyen de traitement original soit basé sur un résultat bien identifié.
 Pour la plupart des expérimentalistes, l'assignation aléatoire fournit la variation d'identification requise, à condition qu'il n'y ait ni attrition, ni interférence, ni débordement ou autres menaces à l'inférence.
@@ -42,12 +46,16 @@ Pour les études observationnelles, des hypothèses d'identification supplément
 3. Faire des compromis entre validité interne et externe
 ==
 
+<<<<<<< HEAD
+On one side of the argument fall advocates of “identification first,” who argue that without internally valid results, a study simply does not contribute useful information, regardless of whether it is a local or general population or context. As put by Imbens,[^4] “without strong internal validity studies have little to contribute to policy debates, whereas [internally valid] studies with very limited external validity often are, and in my view should be, taken seriously in such discussions.”
+=======
 Il y a débat au sein des sciences sociales concernant l'importance relative de l'identification de résultats valides en interne, qui par définition s'appliquent à un échantillon local, et la génération de résultats qui peuvent être extrapolés à des populations d'intérêt plus larges.
 Il est utile de se familiariser avec cette discussion lorsque l'on considère les compromis de conception qui surgissent inévitablement dans les interventions à ressources limitées.
 Des sommités de l'économétrie ont pris partie des deux côtés, ce qui atteste l'importance du sujet.
 
 D'un côté, les partisans de "l'identification d'abord", qui soutiennent que sans des résultats valides en interne, une étude ne fournit tout simplement pas d'informations utiles, qu'il s'agisse d'une population ou d'un contexte local ou général.
 Comme le dit Imbens,[^4] "sans une solide validité interne, les études ont peu à contribuer aux débats politiques, alors que les études [avec validité interne] mais une validité externe très limitée sont souvent, et à mon avis devraient être prises au sérieux dans de telles discussions."
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 [^4]: Imbens, G. (2013). Book Review Feature: Public Policy in an Uncertain World: By Charles F. Manski. The Economic Journal,123(570), F401-F411.
 

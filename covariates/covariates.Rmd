@@ -19,12 +19,16 @@ Merci à Macartan Humphreys et Diana Mutz pour les discussions utiles.
 
 1 Qu'est-ce que l'ajustement de covariable ?
 ==
+<<<<<<< HEAD
+“Covariates” are baseline characteristics of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables that your intervention may affect, e.g. expenditure decisions, attitudes toward democracy, or contributions for a public good in a lab experiment. But it’s also a good idea to collect data on baseline characteristics of subjects before treatment assignment occurs, e.g. gender, level of education, or ethnic group. If you do this you can explore how treatment effects vary with these characteristics (see [10 Things to Know About Heterogeneous Treatment Effects](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)). But doing this also lets you perform covariate adjustment.
+=======
 Les "covariables" sont les caractéristiques de base de vos sujets expérimentaux.
 Lorsque vous menez une expérience, vous êtes principalement intéressé par la collecte de données des variables de résultat que votre intervention peut affecter,
 i.e. les décisions de dépenses, les attitudes envers la démocratie ou les contributions à un bien public dans une expérience de laboratoire.
 Mais c'est aussi une bonne idée de collecter des données sur les caractéristiques de base des sujets avant l'assignation du traitement, i.e. le genre, le niveau d'éducation ou le groupe ethnique.
 Si vous faites cela, vous pouvez explorer comment l'effet du traitement varie en fonction de ces caractéristiques (voir [10 choses à savoir sur les effets de traitement hétérogènes](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)).
 Mais cela vous permet également d'effectuer un ajustement de covariable.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 L'ajustement de covariable est un autre nom pour contrôler les variables de base lors de l'estimation de l'effet du traitement.
 Souvent, cela est fait pour améliorer la précision.
@@ -43,15 +47,23 @@ Par exemple, vous pourriez vous attendre à ce que le genre et le revenu aident 
 La randomisation par bloc peut garantir que les groupes de traitement et de contrôle ont des proportions égales de femmes à revenu élevé, de femmes à faible revenu, d'hommes à revenu élevé et d'hommes à faible revenu.
 Lorsque les variables utilisées pour les blocs aident à prédire les résultats, le découpage par bloc améliore la précision en empêchant les corrélations aléatoires entre l'assignation du traitement et les covariables de base.
 
+<<<<<<< HEAD
+For more information on blocking and how to implement it in R, see [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization). The precision gains from blocking (relative to covariate adjustment without blocking) tend to be greatest when sample sizes are small.^[Miratrix, Luke W., Jasjeet S. Sekhon, and Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
+=======
 Pour plus d'informations sur le découpage par bloc et comment l'implémenter dans R, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization).
 Les gains de précision du découpage par bloc (par rapport à l'ajustement de covariable sans bloc) ont tendance à être plus importants lorsque la taille des échantillons est petite.^[Miratrix, Luke W., Jasjeet S. Sekhon et Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 Lorsque le découpage par bloc est effectué pour améliorer la précision, l'erreur type estimée doit tenir compte du découpage.
 (Sinon, l'erreur type aura tendance à être conservatrice car elle ne vous donnera pas le crédit de l'amélioration de la précision obtenue par le découpage par bloc.)
 Une méthode simple et couramment utilisée consiste à régresser le résultat sur la variable muette d'assignation du traitement ainsi que sur les variables muettes de bloc.
 Lorsque la probabilité d'assignation au traitement est constante d'un bloc à l'autre, l'inclusion des variables muettes de bloc dans la régression ne modifie pas l'effet du traitement estimé, mais tend à donner une estimation plus précise de l'erreur type.^[Voir, e.g., pages 217--219 de Miriam Bruhn et David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
 
+<<<<<<< HEAD
+If the probability of assignment to treatment varies by block, then you need to control for these unequal probabilities in order to get unbiased estimates of average treatment effects. [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization) discusses ways to do this.
+=======
 Si la probabilité d'assignation au traitement varie d'un bloc à l'autre, vous devez alors contrôler ces probabilités inégales afin d'obtenir des estimations non biaisées de l'effet moyen du traitement. [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) l'aborde de manière pratique.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 3 Comment le faire avec une régression ?
 ==
@@ -76,7 +88,11 @@ $$Y_i = \alpha + \beta Z_i + \gamma W_i + \delta Z_i*W_i + \epsilon_i$$
 
 où $W_i = X_i - \overline{X}$ et $\overline{X}$ est la valeur moyenne de $X_i$ pour l'ensemble de l'échantillon.
 
+<<<<<<< HEAD
+If subjects receive different probabilities of assignment to treatment based on their covariates, then our estimation method needs to account for this (again, see [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization) for details).
+=======
 Si les sujets reçoivent différentes probabilités d'assignation au traitement en fonction de leurs covariables, alors notre méthode d'estimation doit en tenir compte (encore une fois, voir [10 choses à savoir sur la randomisation](https://egap.org/resource/10-things-to-know-about-randomization) pour plus de détails).
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 4 Pourquoi le faire ?
 ==
@@ -100,6 +116,9 @@ Pour cette raison, l'ATE estimé est soumis à une "variabilité d'échantillonn
 [^3]: la "variabilité d'échantillonnage" fait référence à la dispersion des estimations qui sera produite simplement en raison des différentes assignations aléatoires qui auraient pu être tirées.
 Lorsque le tirage au sort pour l'assignation aléatoire produit un groupe de traitement avec plus d'As et un groupe de contrôle avec plus de Bs, il est plus difficile de séparer les caractéristiques de base (A et B) de l'assignation de traitement en tant que prédicteur des résultats observés.
 
+<<<<<<< HEAD
+The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates two [potential outcomes](https://egap.org/resource/10-things-to-know-about-causal-inference) (the outcomes that would occur if she were assigned to treatment and if not) for a measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. To figure out whether our estimator is biased or not, we simulate 10,000 replications of our experiment. On each replication, we randomly assign treatment and then regress the observed outcome $Y$ on the treatment indicator $Z$, with and without controlling for covariates. Thus, we are simulating two methods (unadjusted and covariate-adjusted) for estimating the ATE. To estimate the bias of each method, we take the difference between the average of the 10,000 simulated estimates and the "true" treatment effect.
+=======
 Le contrôle des covariables a tendance à améliorer la précision si les covariables sont prédictives des résultats potentiels.
 Voyez l'exemple suivant vaguement basé sur l'expérience de Giné et Mansuri sur le comportement électoral des femmes au Pakistan.^[Giné, Xavier et Ghazala Mansuri (2012).
 ["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)]
@@ -113,6 +132,7 @@ Pour déterminer si notre estimateur est biaisé ou non, nous simulons 10 000 r�
 À chaque répétition, nous assignons le traitement de manière aléatoire, puis régressons le résultat observé $Y$ sur l'indicateur de traitement $Z$, avec et sans contrôle des covariables.
 Ainsi, nous simulons deux méthodes (non ajustée et ajustée par les covariables) pour estimer l'ATE.
 Pour estimer le biais de chaque méthode, nous prenons la différence de la moyenne des 10 000 estimations simulées et le "vrai" effet de traitement.
+>>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())
