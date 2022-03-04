@@ -952,7 +952,7 @@ par exemple, la similarité intra-paire des covariables observées est maximisé
 Imai, King et Nall (2009) recommandent un modèle mixte pour l'estimation par paire post-randomisation et énoncent certaines des hypothèses qui doivent être formulées pour que ces estimations soient valides.
 >>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-6 Pourquoi le découpage par grappe peut avoir de l'importance III : les effets de débordement au sein de la grappe
+6 Pourquoi le découpage par grappe peut avoir de l'importance III : les effets de contamination au sein de la grappe
 ==
 
 <<<<<<< HEAD
@@ -1039,7 +1039,7 @@ baseline <- rnorm(length(ID))
 
 # Le véritable effet du traitement est de 5
 true_ATE <- 5
-# Si une paire ne correspond pas (VM, MV), elle obtient un effet de débordement de -10
+# Si une paire ne correspond pas (VM, MV), elle obtient un effet de contamination de -10
 spillover_or_not <- function(type_i,type_j){
   ifelse(type_i==type_j,yes = 0,no = -10)
 }
@@ -1113,16 +1113,16 @@ treatment, we must assume that $Y_{11}=Y_{1}$ and $Y_{00}=Y_{0}$.
 Comme le montre le graphique ci-dessus, il s'agit d'un estimateur biaisé du véritable effet du traitement au niveau individuel, $Y_{01} - Y_{00}$.
 En espérance, nous estimons un effet proche de 0, obtenant des effets très négatifs dans près de la moitié des simulations de cette expérience.
 Le point clé ici est que le paramètre est modifié :
-plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont compatibles (ne subissent pas d'effets de débordement) $E[Y_{110}-Y_{00x_k}]$,
-et de l'effet combiné du traitement et du débordement pour ceux qui ne sont pas compatibles $E[Y_{111}-Y_{00x_k}]$.
-Mais surtout, nous ne pouvons pas identifier l'impact du débordement, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
+plutôt que l'ATE, nous obtenons une combinaison du véritable effet du traitement parmi ceux qui sont compatibles (ne subissent pas d'effets de contamination) $E[Y_{110}-Y_{00x_k}]$,
+et de l'effet combiné du traitement et de la contamination pour ceux qui ne sont pas compatibles $E[Y_{111}-Y_{00x_k}]$.
+Mais surtout, nous ne pouvons pas identifier l'impact de la contamination, $E[Y_{101}-Y_{00x_k}]$, indépendamment de l'effet direct.
 En effet, c'est une randomisation par grappe :
 il n'est pas possible d'observer $Y_{101}$ dans un schéma randomisé par grappe, car toutes les unités d'une grappe sont toujours traitées.
 De manière générale, ce problème est vrai pour toute étude randomisée par grappe :
 pour affirmer que nous identifions l'effet au niveau individuel du traitement, nous devons supposer que $Y_{11}=Y_{1}$ et $Y_{00}=Y_{0}$.
 >>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
-7 Que faire des effets de débordement intra-grappe
+7 Que faire des effets de contamination intra-grappe
 ==
 
 <<<<<<< HEAD
@@ -1142,14 +1142,14 @@ the researcher can recover the true individual treatment effect
 by forming clusters that are not
 susceptible to spillover.
 =======
-S'il y a de bonnes raisons de croire que des effets de débordement intra-grappe se produisent,
+S'il y a de bonnes raisons de croire que des effets de contamination intra-grappe se produisent,
 les chercheurs peuvent alors adopter des approches différentes selon la manière dont les grappes sont formées.
 Dans certaines études, les chercheurs doivent eux-mêmes trier les unités en grappe à des fins d'expérimentation :
 par exemple, dans une étude portant sur un programme professionnel, le chercheur peut être en mesure de décider qui est recruté dans quelle classe.
-Dans de tels cas, si le chercheur peut faire des hypothèses plausibles sur les effets de débordement, alors l'effet du traitement au niveau individuel peut être récupérable.
+Dans de tels cas, si le chercheur peut faire des hypothèses plausibles sur les effets de contamination, alors l'effet du traitement au niveau individuel peut être récupérable.
 
-Prenons l'exemple d'un chercheur qui a mené l'étude précédente ci-dessus et qui a correctement supposé que des débordements se produiraient entre des paires non compatibles.
-Dans ce cas, le chercheur peut récupérer le véritable effet du traitement individuel en formant des grappes qui ne sont pas sujets aux effets de débordement.
+Prenons l'exemple d'un chercheur qui a mené l'étude précédente ci-dessus et qui a correctement supposé que des contaminations se produiraient entre des paires non compatibles.
+Dans ce cas, le chercheur peut récupérer le véritable effet du traitement individuel en formant des grappes qui ne sont pas sujets aux effets de contamination.
 >>>>>>> 3d7c587345ebeff14883428a24a479622c4a78f7
 
 <style>
@@ -1194,11 +1194,11 @@ abline(v = mean(est_matched_effects,na.rm = T),col = "blue")
 ```
 
 Dans le cas où les chercheurs ne sont pas en mesure de contrôler la formation des grappes,
-ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de débordement possibles.
-Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de débordement.
+ils peuvent encore étudier l'hétérogénéité au niveau de la grappe pour l'effet du traitement comme moyen de comprendre les effets de contamination possibles.
+Cependant, dans les deux cas, des hypothèses doivent être formulées sur la nature des effets de contamination.
 À proprement parler, ceux-ci ne peuvent pas être identifiés de manière causale en raison de l'inobservabilité des résultats $Y_{01}$ et $Y_{10}$.
-En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets de débordement intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
-Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur paramètre et tenir compte du potentiel de débordement intra-grappe.
+En fin de compte, il faudrait combiner des schémas de randomisation avec grappe et sans grappe afin d'estimer les effets de contamination intra-grappe, $Y_{11} - Y_{01}$ et $Y_{01} - Y_{00}$.
+Par conséquent, afin d'interpréter correctement les résultats, les chercheurs doivent être prudents lors de la définition de leur paramètre et tenir compte du potentiel de contamination intra-grappe.
 
 <<<<<<< HEAD
 In the case that researchers are not able to control how clusters are formed,

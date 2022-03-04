@@ -174,15 +174,15 @@ Dans les deux cas où le découpage par bloc se produit, il y a une distribution
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
 <center>_Illustration des patterns pour les unités de traitement et de contrôle que vous pourriez voir sous différents types de conceptions par bloc et par grappe._</center>
 
-5 Vous pouvez randomiser d'une manière qui permet de voir plus facilement s'il y a des effets de débordement
+5 Vous pouvez randomiser d'une manière qui permet de voir plus facilement s'il y a des effets de contamination
 ==
-Lors de la conception de votre expérience, demandez-vous de manière critique si les "effets de débordement" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
-Des débordements surviennent si le résultat d'une unité est affecté par le statut de traitement d'une autre unité.
+Lors de la conception de votre expérience, demandez-vous de manière critique si les "effets de contamination" constituent une menace pour votre capacité à identifier l'effet causal de votre traitement.
+Des contaminations surviennent si le résultat d'une unité est affecté par le statut de traitement d'une autre unité.
 Cela peut être délicat si les unités ont la capacité d'interagir les unes avec les autres : un membre d'un village peut apprendre qu'un autre membre de son village a reçu une subvention en espèces et peut changer son comportement en conséquence.
 
-Une façon de rendre les effets de débordement plus évidents consiste à utiliser la double randomisation.
+Une façon de rendre les effets de contamination plus évidents consiste à utiliser la double randomisation.
 Vous assignez d'abord de manière aléatoire certains groupes au traitement et d'autres au contrôle, et au sein des groupes, vous assignez certains individus au traitement et d'autres au contrôle.
-La comparaison des individus témoins de votre grappe de traitement avec les individus de votre grappe de contrôle vous permettra d'évaluer le rôle des effets de débordement dans votre expérience.
+La comparaison des individus témoins de votre grappe de traitement avec les individus de votre grappe de contrôle vous permettra d'évaluer le rôle des effets de contamination dans votre expérience.
 
 6 Différentes unités peuvent être assignées au traitement avec différentes probabilités
 ==
