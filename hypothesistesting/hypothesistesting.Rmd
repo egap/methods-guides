@@ -1,6 +1,6 @@
 ---
-bibliography: ../../Research-Group-Bibliography/big.bib
-output: 
+bibliography: ../../learningdays-resources/learningdays-book.bib
+output:
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -8,13 +8,10 @@ output:
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
 ---
 
-<!-- title: "10 Things to Know About Hypothesis Testing" -->
-<!-- author: "Methods Guide Author: Jake Bowers" -->
+<!-- title: "10 choses à savoir sur les tests d'hypothèses" -->
+<!-- author: "Auteur du guide des méthodes: Jake Bowers" -->
 
 \newcommand{\bX}{\mathbf{X}}
 \newcommand{\bZ}{\mathbf{Z}}
@@ -51,209 +48,121 @@ library(randomizr)
 library(coin)
 ```
 
+# Les tests d'hypothèse présentent, de manière compacte, les informations contenues dans une conception de recherche et proposent une solution pour évaluer les effets d'un traitement
 
+Lorsque les chercheurs signalent que "l'effet moyen estimé du traitement est de 5 ($p=0,02$)", c'est un raccourci pour dire :
+"Cher lecteur, au cas où vous vous demanderiez si nous pourrions distinguer le signal du bruit dans cette expérience en utilisant des moyennes, et bien nous le pouvons.
+Les résultats expérimentaux ne sont **pas cohérents** avec l'idée que le traitement n'a eu aucun effet."
+Les gens utilisent des tests d'hypothèses dans les études d'observation ainsi que dans les expériences randomisées.
+Ce guide se concentre sur leur utilisation dans les expériences randomisées ou les conceptions de recherche qui tentent d'organiser les données
+de sorte qu'elles paraissent "aléatoires" (comme les conceptions de régression par discontinuité ou d'autres conceptions naturelles ou quasi expérimentales).
 
+La $p$-valeur résume la capacité d'un test donné à distinguer le signal du bruit.
+Comme nous l'avons vu dans [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power),
+le fait qu'une expérience puisse détecter un effet de traitement dépend non seulement de la taille de l'échantillon expérimental, mais aussi de la distribution du résultat
+^[Les résultats avec de grandes valeurs aberrantes ajoutent du bruit ; les résultats qui sont pour la plupart égaux à 0 ont peu de signal ; un découpage par bloc, une pré-stratification ou un ajustement de covariance peuvent réduire le bruit.], la distribution du traitement et la force substantielle de l'intervention elle-même.
+Lorsqu'une chercheuse calcule une $p$-valeur à la suite d'un test d'hypothèse, elle résume tous ces aspects de la conception de recherche en fonction d'une affirmation particulière
+--- généralement l'affirmation selon laquelle le traitement n'a eu aucun effet causal.
 
-# Hypothesis tests summarize information in research designs to help people reason about treatment effects
+Le reste de ce guide explique les étapes d'un test d'hypothèse :
+à partir de l'hypothèse nulle (l'affirmation selon laquelle le traitement n'a eu aucun effet causal),
+vers des statistiques de test résumant les données observées (comme une différence des moyennes),
+jusqu'à la création d'une distribution de probabilité qui permet le calcul d'une $p$-valeur.
+Il aborde également l'idée de rejeter (mais ne pas accepter) une hypothèse et aborde la question de ce qui fait un bon test d'hypothèse
+(un test d'hypothèse idéal devrait rarement mettre en doute la vérité et distinguer même les signaux faibles du bruit).
+Voir également [10 choses à savoir sur l'inférence de randomisation](https://egap.org/resource/10-things-to-know-about-randomization-inference) pour plus de détails sur ces idées.
 
-When researchers report that "The estimated average treatment effect is 5
-($p=.02$)," they are using a shorthand to say, "Dear reader, in case you were
-wondering whether we could distinguish signal from noise in the this
-experiment using averages, in fact, we can. The experimental results are **not
-consistent** with the idea that the treatment had no effects." People do
-hypothesis tests in observational studies as well as in randomized
-experiments. This guide focuses on their use in randomized experiments or
-research designs that try to organize data so that they look
-"as-if-randomized" (such as regression discontinuity designs or other natural or
-quasi-experimental designs).
+# Dans une expérience, une hypothèse est un postulat sur des relations causales non observées
 
-The $p$-value summarizes the ability of a given test to
-distinguish signal from noise. As we saw in [10 Things You Need to Know about
-Statistical
-Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
-whether an experiment can detect a treatment effect depends not
-only on the size of the experimental pool, but also the distribution of the
-outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
-little signal, blocking or pre-stratification or covariance adjustment can
-reduce noise.], the distribution of the treatment, and the substantive strength
-of the intervention itself. When a researcher calculates a $p$-value as the
-result of a hypothesis test, she is summarizing all of these aspects of a
-research design as they bear on a particular claim---usually a claim that
-the treatment had no causal effect.
+Nous menons des expériences pour faire des comparaisons causales interprétables
+[@kinder1993behalf], et nous estimons souvent les effets causaux moyens.
+Qu'est-ce que le test d'hypothèse a à voir avec l'inférence causale?
+Dans cette section, nous expliquons la distinction entre :
+évaluer des assertions sur les effets causaux et faire les meilleures suppositions sur les effets causaux.
 
-The rest of this guide explains the pieces of a hypothesis test piece by piece:
-from null hypothesis (the claim that the treatment had no causal effect), to
-test-statistic summarizing the observed data (like a difference of means), to
-the creation of a probability distribution that allows calculation of a
-$p$-value. It also discusses the idea of rejecting (but not accepting) a
-hypothesis and touches on the question of what makes for a good hypothesis
-test (hint: an ideal hypothesis test should cast doubt on the truth rarely and
-distinguish even faint signals from noise). See also [10 Things You Need to Know about Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference) for more discussion of these ideas.
+## Un aperçu du problème fondamental de l'inférence causale et une introduction à quelques notations
 
-# In an experiment, a hypothesis is a claim about unobserved causal relationships
+Dans [10 choses à savoir sur l'inférence causale](https://egap.org/resource/10-things-to-know-about-causal-inference), souvenez-vous que la conceptualisation contrefactuelle de la causalité utilise l'idée de résultats potentiels pour **définir** la cause et formaliser ce que nous **entendons** lorsque nous disons "X cause Y" ou "Fumer cause le cancer" ou "L'information augmente la conformité fiscale".
+Bien qu'il existe d'autres façons de penser la causalité (@brady2008causation), l'approche contrefactuelle suggère que nous imaginons que chaque personne, $i$, paierait ses impôts, $y_{i}$,
+si on lui donne des informations sur l'usage de ces taxes.
+$Z_i=1$ signifie que l'information a été donnée à la personne et $Z_i=0$ signifie qu'aucune information n'a été donnée.
+Donc $y_{i,Z_i=1}$ désigne le montant des taxes payées par quelqu'un à qui on a donné des informations et $y_{i,Z_i=0}$ désigne le montant des impôts payés par quelqu'un à qui on n'a pas donné d'informations.
+Dans une expérience réelle, nous pourrions [randomiser la fourniture d'informations aux citoyens](http://egap.org/metaketa/metaketa-ii-taxation), afin que certaines personnes aient l'information et d'autres pas.
+On observe les impôts payés par les gens dans les deux conditions mais, pour une même personne, on ne peut observer que les impôts qu'elle paie dans l'une des deux conditions.
+Qu'est-ce que **signifie** "l'effet causal" ?
+Cela signifie souvent que le résultat dans une condition ($y_{i,Z_i=1}$ s'écrit un peu plus simplement $y_{i,1}$) et le résultat dans l'autre condition ($y_{i,Z_i=0 }$ ou $y_{i,0}$) *diffèrent* pour une personne donnée, de sorte que nous écririons $y_{i,Z_i=1} \ne y_{i,Z_i=0}$.
 
-We do experiments to make interpretable causal comparisons
-[@kinder1993behalf], and we often estimate average causal effects. What does
-hypothesis testing have to do with causal inference? In this section we
-explain a bit about the distinction between assessing claims about causal
-effects versus making best guesses about causal effects.
+Nous ne pouvons pas observer *à la fois* $y_{i,1}$ et $y_{i,0}$ pour chaque personne
+--- si nous avons donné des informations sur les impôts à une personne nous observons $y_{i,1}$ et donc nous ne pouvons pas observer comment elle aurait agi si elle n'avait pas reçu cette information ($y_{i,0}$).
+Ainsi, nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur cet effet causal contrefactuel et nous ne pouvons que **faire des inférences**.
+@holland1986statistics appelle cette incapacité à utiliser l'observation directe pour en savoir plus sur la causalité contrefactuelle le "problème fondamental de l'inférence causale".
 
-## A quick overview of the fundamental problem of causal inference and an introduction to some notation
+## Un aperçu des approches basées sur l'estimation de l'inférence causale dans les expériences randomisées.
 
-Recall from [Ten Things to Know about Causal Inference](https://egap.org/resource/10-things-to-know-about-causal-inference) that the counterfactual conceptualization of causality uses the idea of potential
-outcomes to **define** cause and to formalize what we **mean** when we
-say "X causes Y" or "Smoking causes cancer" or "Information increases tax
-compliance."  Although there are other ways to think about causality
-(@brady2008causation), the counterfactual idea suggests that we imagine that
-each person, $i$, would pay their taxes, $y_{i}$,  if given
-information about the use to which those taxes are put. Write $Z_i=1$ to mean
-that information was giving to the person and $Z_i=0$ if no information was
-given so that we can write $y_{i,Z_i=1}$ to refer to the amount of taxes paid
-by someone given information and $y_{i,Z_i=0}$ to refer to the amount of taxes
-paid by someone not given any information in particular. In an actual
-experiment, we might [randomize the provision of information to citizens](http://egap.org/metaketa/metaketa-ii-taxation), so some people will have the information and others
-will not. We observe the taxes paid by people in both conditions but, for any
-one person, we can only observe the taxes that they pay in one of the two
-conditions. What does it **mean** when we say "causal effect"? It often means
-that the outcome in one condition ($y_{i,Z_i=1}$ written slightly more simply
-as $y_{i,1}$) and the outcome in the other condition ($y_{i,Z_i=0}$ or
-$y_{i,0}$) *differ* for a given person, such that we would write $y_{i,Z_i=1}
-\ne y_{i,Z_i=0}$.
+Les sciences statistiques ont abordé ce problème de trois manières principales.
+C'est-à-dire, lorsque nous nous demandons : "Est-ce que l'information amène les gens à payer leurs impôts ?" nous avons tendance à dire : "Nous ne pouvons pas répondre directement à cette question.
+Cependant, nous pouvons répondre à une question connexe."
+[Dix types d'effet de traitement que vous devriez connaître](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) décrit une idée que nous créditons à Jerzy Neyman où un scientifique peut **estimer les effets causaux moyens** dans une expérience randomisée même si les effets causaux individuels ne sont pas observables.
+Le travail de Judea Pearl sur l'estimation de la probabilité conditionnelle d'un résultat basé sur un modèle causal de ce résultat est similaire à cette idée, où l'accent est mis sur les probabilités conditionnelles des $y_{i}$.
+Ces deux approches répondent à la question causale fondamentale en dirigeant la question vers les moyennes ou les probabilités conditionnelles.
+Une approche connexe de Don Rubin commence par **prédire** les résultats potentiels au niveau individuel en utilisant des informations de base et un modèle de probabilité de $Z_i$ (tel que, disons, $Z \sim \text{Bernoulli}(\pi)$) et un modèle de probabilité des deux résultats potentiels tels que, disons,
+$(y_{i,1},y_{i,0}) \sim \text{Normale multivariée}(\bbeta \bX, \bSigma)$ avec un vecteur de coefficients $\bbeta$, une matrice $n \times p$ de variables $\bX$ (contenant à la fois l'assignation du traitement et d'autres variables et une matrice $p \times p$ de variance-covariance $\Sigma$ décrivant comment toutes les colonnes de $\bX$ sont liées).
 
-We cannot observe *both* $y_{i,1}$ and $y_{i,0}$ for each person --- if we
-gave information about taxes to a person we observe $y_{i,1}$ and so we
-cannot observe how they would have acted if they had not been given this
-information ($y_{i,0}$). So, we cannot use direct observation to learn about
-this counterfactual causal effect and we can only **infer** about it.
-@holland1986statistics calls this inability to use direct observation to
-learn about counterfactual causality the "fundamental problem of causal
-inference." 
+La deuxième approche générale commence avec les mêmes modèles de probabilité liant le traitement, d'autres variables et les résultats.
+ Ensuite, à l'aide du théorème de Bayes, elle les combine pour produire des distributions postérieures pour des quantités telles que l'effet du traitement au niveau individuel ou l'effet moyen du traitement (voir [@imbens2007causal] pour plus de détails sur l'approche prédictive bayésienne de l'inférence causale).
+Ainsi, l'approche prédictive change la question fondamentale : on ne se focalise plus sur les moyennes, on se concentre sur les différences dans les résultats potentiels prévus pour chaque personne (bien que la plupart de ces différences prédites au niveau individuel soient résumées en utilisant les caractéristiques des distributions postérieures des modèles de probabilité et des données comme la moyenne des prédictions).
 
+## Le test d'hypothèse est une approche statistique du problème fondamental de l'inférence causale, par le biais de postulats sur des faits non-observés
 
-## An overview of estimation based approaches to causal inference in randomized experiments. 
+La troisième approche de ce problème amène une nouvelle question.
+@fisher:1935[Chapitre 2] nous a appris que nous pouvons poser la question fondamentale de savoir s'il existe un effet causal pour une seule personne, mais nous ne pouvons y répondre qu'en termes de quantité d'information fournie par la conception de recherche et les données.
+C'est-à-dire que l'on peut émettre l'hypothèse que, pour la personne $i$, l'information n'a fait aucune différence pour ses résultats, de sorte que $y_{i,1}=y_{i,0}$ ou $y_{i,1}=y_ {i,0}+\tau_i$ où $\tau_i=0$ pour tout le monde.
+Cependant, la réponse à cette question se présenterait ainsi : "Cette conception de recherche et cet ensemble de données fournissent beaucoup d'informations sur ce modèle, cette idée ou cette hypothèse." ou, comme ci-dessus, "Cette conception de recherche n'est pas cohérente avec cette affirmation." (Voir @rosenbaum2002(Chapitre 2), @rosenbaum2010(chapitre 2) et @rosenbaum2017observation, pour plus de détails sur cette approche.)
 
-There are three main ways that the statistical sciences have engaged with this
-problem. That is, when asked, "Does information cause people to pay their
-taxes?" we tend to say, "We cannot answer that question directly. However, we can
-answer a related question." [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-treatment-effect-you-should-know-about) describes an insight that we credit to Jerzy Neyman
-where a scientist can **estimate average causal effects** in a randomized
-experiment even if individual causal effects are unobservable. Judea
-Pearl's work on estimating the conditional probability of an outcome
-based on a causal model of that outcome is similar to this idea, where a focus
-is on the conditional probabilities of the $y_{i}$'s. That is, those two approaches answer the
-fundamental causal question by changing the question focus on averages
-or conditional probabilities. A related approach, from Don Rubin begins by **predicting** the
-individual level potential outcomes using background information and a
-probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
-probability model of the two potential outcomes such that, say,
-$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). 
+# L'hypothese nulle stricte est un postulat d'absence d'effet du traitement pour chacune des unités inclues dans une experience
 
-The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and 
-combines them using Bayes Rule to produce posterior distributions for
-quantities like the individual level treatment effects or average treatment
-effects (see [@imbens2007causal] for more on what they call the Bayesian
-Predictive approach to causal inference). So, the predictive approach changes
-the fundamental question from one about averages to one that focuses on differences in predicted potential
-outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
+Même si nous ne pouvons pas utiliser l'observation directe pour en savoir plus sur les effets causaux contrefactuels, nous pouvons toujours poser des questions à leur sujet ou créer des modèles théoriques qui lient ensemble une intervention (ou un traitement), des caractéristiques de base et des résultats potentiels.
+Le modèle le plus simple de ce type indique que le résultat serait le même que le résultat pour toutes les unités qu'elles soient dans le groupe de contrôle ou de traitement ; c'est-à-dire que, quelles que soient les caractéristiques de base ou les informations fournies dans les conditions de traitement, chaque personne paierait le même montant d'impôts : $y_{i,1}=y_{i,0}$ pour toutes les unités $i$.
+Pour souligner la nature provisoire et théorique de ce modèle, les gens ont appelé cela une **hypothèse**, l'écrivent souvent comme "l'hypothèse nulle stricte" et utilisent la notation suivante : $H_0 :
+y_{i,1}-y{i,0}=\tau_i$ où $\tau_i=0$ pour toutes les unités $i$.
 
-## Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.
+**Remarque :** Réfléchir à l'hypothèse nulle stricte nous fait réaliser que nous pourrions créer **d'autres modèles liant $y_{i,1}$ et $y_{i,0}$** dans lesquels les résultats potentiels se rapportent de manière non additive ou linéaire, et où l'effet n'a pas besoin d'être nul ou identique pour toutes les unités : par exemple,
+nous pourrions émettre l'hypothèse que $\tau_i=\{5,0,-2\}$ 5 pour l'unité 1, 0 pour l'unité 2 et -2 pour l'unité 3 dans une expérience avec 3 unités.
+Notez également que cette manière d'écrire les résultats potentiels, avec le résultat potentiel pour l'unité $i$ *se référant uniquement à $i$* et non à d'autres unités ($y_{i,Z_i}$), *fait partie du modèle*.
+C'est-à-dire que le modèle de $H_0 : y_{i,1}=y_{i,0}$ implique que le traitement n'a d'effet sur personne --- et aucun effet signifie aussi aucun effet de contamination.
+Nous pourrions être un peu plus précis en écrivant les résultats potentiels comme suit : le résultat potentiel de l'unité $i$ lorsqu'elle est assignée au traitement et lorsque toutes les autres unités sont assignées à un autre ensemble de traitements $\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ peut s'écrire $y_{i,Z_i=1,\bZ_{~i}}$.
+Voir @bowers2013reasoning et @bowers2018models pour en savoir plus sur l'idée qu'une hypothèse est un modèle théorique qui peut être testé avec des données dans le contexte d'hypothèses sur la propagation des effets de traitement à travers un réseau.
 
-The third approach to this problem changes the question again.
-@fisher:1935[Chapter 2] taught us that we can ask the fundamental question
-about whether there is a causal effect for a single person, but the answer can
-only be in terms of how much information the research design and data provide
-about the question. That is, one can hypothesize that, for person $i$, the
-information made no difference to their outcomes, such that $y_{i,1}=y_{i,0}$
-or $y_{i,1}=y_{i,0}+\tau_i$ where $\tau_i=0$ for everyone. However, the answer to this
-question has to be something like "This research design and dataset provide a
-lot of information about this model or idea or hypothesis." or, as above,
-"This research design is not consistent with that claim." (See
-@rosenbaum2002(Chapter 2), @rosenbaum2010(chapter 2), and
-@rosenbaum2017observation, for more details about this approach.)
+# L'hypothese nulle faible est un postulat d'absence d'effet moyen du traitement, au niveau aggregé (entre chacune des unités).
 
-# The Null Hypothesis of No Effects is a precise statement about potential outcomes
+Une expérience peut influencer certaines unités mais n'avoir, en moyenne, aucun effet.
+Pour codifier cette intuition, les chercheurs peuvent écrire une hypothèse nulle sur une *moyenne* de résultats potentiels, ou un autre agrégat de résultats potentiels, plutôt que sur l'ensemble des résultats potentiels.
 
-Even if we cannot use direct observation to learn about counterfactual causal
-effects, we can still ask questions about them, or make theoretical models
-that relate some intervention or treatment, background characteristics, and
-potential outcomes. The simplest such model states that the outcome under
-treatment would be the same as the outcome under control for all units; that
-is, it would say that regardless of background characteristics, or information
-given in the experimental treatment condition, each person would pay the same
-amount in taxes: $y_{i,1}=y_{i,0}$ for all units $i$. To emphasize the
-tentative and theoretical nature of this model, people have called this a
-**hypothesis**, often write it as "the sharp null hypothesis."  and use the following shorthand: $H_0:
-y_{i,1}-y{i,0}=\tau_i$ where $\tau_i=0$ for all units $i$.
+Parce que la plupart des discussions actuelles sur les effets causaux traitent de la *moyenne* des effets, les gens écrivent l'hypothèse nulle faible ainsi $H_0 :
+\bar{\tau}=0$ où $\bar{\tau}=(1/N)\sum_{i=1}^N \tau_i$.
+Encore une fois, l'hypothèse est une déclaration ou un modèle d'une relation entre des résultats potentiels partiellement observés.
+Mais, ici, il s'agit de leur moyenne.
+On pourrait, en principe, articuler des hypothèses sur d'autres agrégats : médianes, centiles, ratios, moyennes tronquées, etc.
+Cependant, faire des hypothèses sur l'effet moyen nous simplifie la tâche : nous connaissons les propriétés d'une moyenne d'observations indépendantes à mesure que la taille de l'échantillon augmente, de sorte que nous pouvons faire appel au théorème central limite pour décrire la distribution de la moyenne pour de grands échantillons --- et ceci, à son tour, rend le calcul des $p$-valeurs rapide et facile pour de grands échantillons.
 
-**Side Note:** Notice that thinking about sharp hypotheses makes us realize
-that we could make **other models relating $y_{i,1}$ and $y_{i,0}$** in which
-the potential outcomes relate in ways that are not additive or linear, and
-where the effect need not be zero or even the same for all units: for example,
-we could hypothesize that $\tau_i=\{5,0,-2\}$ 5 for unit 1, 0 for unit 2, and
--2 for unit 3 in a 3 unit experiment. Notice also that writing potential
-outcomes this way, with the potential outcome for unit $i$ *only referring to
-$i$* and not some other units ($y_{i,Z_i}$), *is part of the model*. That is,
-the particular model of $H_0: y_{i,1}=y_{i,0}$ implies that the treatment has
-no effect on anyone --- and no effects includes no spillover effects. We could
-be a little more specific by writing the potential outcomes like so: The
-potential outcome of unit $i$ when it is assigned to treatment, and when all
-of the other units are assigned to any other set of treatments
-$\bZ_{~i}=\{Z_j,Z_k,\ldots \}$ can be written  $y_{i,Z_i=1,\bZ_{~i}}$. See
-@bowers2013reasoning and @bowers2018models for more on the idea that
-a hypothesis is a theoretical model that can be tested with data in the
-context of hypotheses about the propagation of treatment effects across
-a network.
+# La randomisation nous permet d'utiliser ce que nous observons pour tester des hypothèses sur ce que nous n'observons pas.
 
-
-# The weak null hypothesis of no effects is a statement about aggregated potential outcomes
-
-An experiment may influence some units but, on average, have no effects.
-To codify this intuition, researchers can write a null hypothesis
-about an *average* of potential outcomes, or some other aggregated summary of
-the potential outcomes, rather than about the whole
-collection of potential outcomes.
-
-Because most current discussions about causal effects talks about the
-*average* of the effects, people write the weak null something like $H_0:
-\bar{\tau}=0$ where $\bar{\tau}=(1/N)\sum_{i=1}^N \tau_i$. Again, the
-hypothesis is a statement or model of a relationship among only partially
-observed potential outcomes. But, here it is about the average of them. One
-could, in principle, articulate hypotheses about other aggregates: medians,
-percentiles, ratios, trimmed means, etc. However hypothesizing about average
-effects simplifies the math and statistics: we know the properties of averages
-of independent observations as sample sizes increase, so that we can appeal to
-a Central Limit Theorem to describe the distribution of averages in large
-samples---and this, in turn, makes calculating $p$-values quick and easy in
-large samples.
-
-# Randomization allows us to use what we observe to test hypotheses about what we do not observe.
-
-Whether one hypothesizes about unit-level effects directly or about averages
-of them, we still must confront the problem of distinguishing signal from noise. A hypothesis only refers to potential outcomes. Above,
-assuming no interaction between units, we imagined two potential outcomes per
-person, but we only observe one per person. **How can we use what we observe to
-learn about theoretical models of partially observed quantities?** In this
-simple experiment, we know that we observe one of the two potential outcomes
-per person, depending on which treatment was assigned to that person. So, we
-can link the unobserved counterfactual outcomes to an observed outcome ($Y_i$)
-using treatment assignment ($Z_i$) like so:
+Que l'on émette des hypothèses sur les effets au niveau unitaire directement ou sur leurs moyennes, nous devons encore faire face au problème de la distinction entre le signal et le bruit.
+Une hypothèse se réfère uniquement aux résultats potentiels.
+Ci-dessus, en supposant aucune interaction entre les unités, nous avons imaginé deux résultats potentiels par personne, mais nous n'en observons qu'un par personne.
+**Comment pouvons-nous utiliser ce que nous observons pour en savoir plus sur les modèles théoriques de quantités partiellement observées ?**
+Dans cette expérience simple, nous savons que nous observons l'un des deux résultats potentiels par personne, selon le traitement qui lui a été assigné.
+Ainsi, nous pouvons lier les résultats contrefactuels non observés à un résultat observé ($Y_i$) en utilisant l'assignation de traitement ($Z_i$) comme suit :
 
 $$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
 
-@eq:identity says that our observed outcome, $Y_i$ (here, amount of
-taxes paid by person $i$), is $y_{i,1}$ when the person is assigned to the
-treatment group ($Z_i=1$), and $y_{i,0}$ when the person is assigned to the
-control group.
+@eq:identity signifie que notre résultat observé, $Y_i$ (ici, le montant des impôts payés par la personne $i$), est $y_{i,1}$ lorsque la personne est assignée au groupe de traitement ($Z_i=1$), et $y_{i,0}$ lorsque la personne est assignée au groupe de contrôle.
 
-**How much information does our research design and dataset contain about the
-hypothesis?** Imagine, for now, the hypothesis that treatment adds 5 to the tax
-payments of every single person such that  $H_0: y_{i,1} = y_{i,0} + \tau_i$ where
-$\tau_i=5$ for all $i$.
+**Combien d'informations notre conception de recherche et nos données contiennent-ils sur l'hypothèse ?**
+Imaginez, pour l'instant, l'hypothèse selon laquelle le traitement ajoute 5 au paiement des impôts de chaque personne de telle sorte que $H_0 : y_{i,1} = y_ {i,0} + \tau_i$ où $\tau_i=5$ pour tout $i$.
 
-Let us entertain this model for the sake of argument. What would this
-hypothesis imply for what we observe? We have the equation relating observed
-to unobserved in @eq:identity so, this model or hypothesis would
-imply that:
+Continuons pour les besoins de l'argumentation.
+Qu'impliquerait cette hypothèse pour ce que nous observons ? Nous avons l'équation liant l'observé à l'inobservé dans @eq:identity donc, ce modèle ou cette hypothèse impliquerait que :
 
 $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 & = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
@@ -261,60 +170,48 @@ $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 \end{aligned}
 $$
 
-What we observe, $Y_i$, would be either $y_{i,0}$ in the control condition,
-$Z_i=0$ or $\tau_i + y_{i,0}$ (which would be $5 + y_{i,0}$ in the treatment
-condition).
+Ce que nous observons, $Y_i$, serait soit $y_{i,0}$ dans la condition de contrôle, $Z_i=0$ ou $\tau_i + y_{i,0}$ (ce qui serait $5 + y_{i ,0}$ dans la condition de traitement).
 
-This hypothesis further implies that $y_{i,0} = Y_i - Z_i \tau_i$ or $y_{i,0}
-= Y_i - Z_i 5$. If we subtracted  5 from each observed response in the
-treatment condition, then our hypothesis implies that we would observe
-$y_{i,0}$ for everyone. That is, by subtracting  5, we would make the
-control and the treatment group equivalent in observed outcomes. **This logic gives us an
-observable implication of the hypothesis.**
+Cette hypothèse implique en outre que $y_{i,0} = Y_i - Z_i \tau_i$ ou $y_{i,0} = Y_i - Z_i 5$.
+Si nous soustrayons 5 de chaque réponse observée dans la condition de traitement, alors notre hypothèse implique que nous observerions $y_{i,0}$ pour tout le monde.
+Autrement dit, en soustrayant 5, nous rendrions le groupe de contrôle et le groupe de traitement équivalents en termes de résultats observés.
+**Cette logique nous donne une implication observable de l'hypothèse.**
 
-**The sharp null hypothesis of no effects** specifies that $\tau_i=0$ for all
-$i$. And this in turn implies that $y_{i,0} = Y_i - Z_i \tau_i = Y_i$. That
-is, it implies that what we observe, $Y_i$, is what we would observe if every
-unit were assigned to the control condition. And the implication then, is that
-we should see no differences between the treated and control groups in their
-observable outcomes.
+**L'hypothèse nulle stricte d'absence d'effets** spécifie que $\tau_i=0$ pour tous les $i$.
+Et cela implique à son tour que $y_{i,0} = Y_i - Z_i \tau_i = Y_i$.
+C'est-à-dire que ce que nous observons, $Y_i$, est ce que nous observerions si chaque unité était assignée à la condition de contrôle.
+Alors l'implication est que nous ne devrions voir aucune différence entre les groupes de traitement et de contrôle dans leurs résultats observables.
 
-**The weak null hypothesis of no effects** specifies that
-$\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, and
-we can write a similar identity linking means of unobserved potential outcomes to means
-of observed outcomes in different treatment conditions. 
+**L'hypothèse nulle faible de l'absence d'effet** spécifie que $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, et nous pouvons écrire une égalité similaire liant la moyenne des résultats potentiels non observés à la moyennes de résultats observés dans différentes conditions de traitement.
 
-# Test statistics summarize the relationship between observed outcomes and treatment assignment.
+# Les statistiques de test résument l'effet du traitement sur les résultats.
 
-Given a hypothesis and a mapping from unobserved to observed outcomes, the
-next ingredient in a hypothesis test is a test statistic. A test statistic
-summarizes the relationship between treatment and observed outcomes using a
-single number. In general, we would like our test statistics to take on larger
-values the larger the treatment effect. The code below, for example, shows are two such test
-statistics using an example experiment with 10 units randomized into two
-groups (you can press the "CODE" button to see the R code). 
+Étant donné une hypothèse et un mapping des résultats non observés aux résultats observés, il faut aussi une statistique de test pour un test d'hypothèse.
+Une statistique de test résume la relation entre le traitement et les résultats observés à l'aide d'un seul nombre.
+En général, nous aimerions que nos statistiques de test prennent des valeurs plus importantes plus l'effet du traitement est important.
+Le code ci-dessous, par exemple, montre deux statistiques de test pour une expérience avec 10 unités randomisée en deux groupes (vous pouvez appuyer sur le bouton "Code" pour voir le code R).
 
 ```{r setupdata, results='hide', echo=TRUE}
-## First, create some data, 
-##  y0 is potential outcome to control
+## Tout d'abord, créez des données,
+## y0 est le résultat potentiel à contrôler
 N <- 10
 y0 <- c(0,0,0,0,1,1,4,5,400,500)
-## Different individual level treatment effects
+## Différents effets de traitement au niveau individuel
 ##tau <- c(1,3,2,10,1,2,3,5,1,1)*sd(y0)
 set.seed(12345)
 tau <- round(rnorm(N,mean=sd(y0),sd=2*(sd(y0)))) ##c(10,30,200,90,10,20,30,40,90,20)
 tau <- tau*(tau>0)
-## y1 is potential outcome to treatment
+## y1 est le résultat potentiel du traitement
 y1 <- y0 + tau
 #sd(y0)
 #mean(y1)-mean(y0)
 # mean(tau)
-## Z is treatment assignment
+## Z est l'assignation du traitement
 set.seed(12345)
 Z <- complete_ra(N)
-## Y is observed outcomes
+## Y est les résultats observés
 Y <- Z*y1 + (1-Z)*y0
-## The data
+## Les données
 dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #(mean(y1) - mean(y0))/sd(y0)
 #dat
@@ -322,12 +219,12 @@ dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="less"))
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
-## The mean difference test statistic
+## La statistique de test des différences moyennes
 meanTZ <- function(ys,z){ 
 	mean(ys[z==1]) - mean(ys[z==0])
 }
 
-## The difference of mean ranks test statistic
+## La statistique de test des différence des moyennes selon le rang
 meanrankTZ <- function(ys,z){
 	ranky <- rank(ys)
 	mean(ranky[z==1]) - mean(ranky[z==0])
@@ -337,64 +234,43 @@ observedMeanTZ <- meanTZ(ys=Y,z=Z)
 observedMeanRankTZ <- meanrankTZ(ys=Y,z=Z)
 ```
 
-The first test statistic is the mean difference (`meanTZ`) and returns an
-observed value of `r observedMeanTZ` and the
-second is the mean difference of the rank-transformed outcomes (`meanrankTZ`),
-which returns a value of `r signif(observedMeanRankTZ,2)`.
-One could also use versions of these test statistics standardized by their estimated
-standard error (see @chung2013exact for an argument in favor of this test
-statistic). To test the sharp null hypothesis of no effects, one may choose almost any test statistic such that the values of that function increase as the difference between treated and control outcomes increase (see @rosenbaum:2002, Chapter 2, for a discussion of "effect increasing" test statistics).
+La première statistique de test est la différence des moyennes (`meanTZ`) et renvoie une valeur observée de `r observedMeanTZ`.
+La seconde statistique de test est la différence des moyennes selon le rang (`meanrankTZ`), qui renvoie une valeur de `r signif(observedMeanRankTZ,2)`.
+On pourrait également utiliser des versions de ces statistiques de test standardisées par leur erreur type estimée (voir @chung2013exact pour un argument en faveur de cette statistique de test).
+Pour tester l'hypothèse nulle stricte d'absence d'effet, on peut choisir presque n'importe quelle statistique de test de telle sorte que les valeurs de cette fonction augmentent à mesure que la différence entre les résultats traités et les résultats de contrôle augmente (voir @rosenbaum:2002, chapitre 2, pour une discussion sur statistiques de test à "effet croissant").
 
-Test of the weak null of no effects use the differences of means (perhaps standardized or studentized) as the test statistic.
+Le test de l'hypothèse nulle faible d'absence d'effet utilise la différence des moyennes (peut-être standardisée ou de Student) comme statistique de test.
 
+# La $p$-valeur indique ce que la statistique de test a à nous dire au sujet de l'hypothèse.
 
-# $p$-values encode how much information a research design and test statistic tell us about the hypothesis. Hypothesis tests require distributions of the test statistic under the hypothesis.
+Les tests d'hypothèse nécessitent des distributions de la statistique de test sous l'hypothèse.
 
-Given a claim about the possible results of the experiment (i.e. an hypothesis) and
-a way to summarize the observed data as it bears on the hypothesis (i.e. a test
-statistic that should get bigger as the results diverge from the hypothesis
-as explained above), we now want to move beyond description of the observed
-data to learn how much natural variability we would expect to see in the
-test statistic given the research design entertaining the hypothesis (to get us back to the question of
-signal and noise).
+Étant donné une affirmation sur les résultats possibles de l'expérience (i.e. une hypothèse) et un moyen de résumer les données observées en fonction de l'hypothèse (i.e. une statistique de test qui augmente à mesure que les résultats divergent de l'hypothèse comme expliqué ci-dessus), nous voulons maintenant aller au-delà de la description des données observées pour savoir quelle variabilité naturelle attendre de la statistique de test étant donné la design de recherche et notre hypothèse (pour nous ramener à la question du signal et du bruit).
 
-How much evidence we have about a hypothesis depends on the design of the
-study. A large experiment, for example, should have more information about
-a hypothesis than a small one. So, what do we mean by evidence against the
-hypothesis? How would we formalize or summarize this evidence so that larger
-experiments tend to reveal more and small experiments tend to reveal less
-information? 
+La qunatité des preuves dont nous disposons sur une hypothèse dépend de la conception de l'étude.
+Une grande expérience, par exemple, devrait avoir plus d'informations sur une hypothèse qu'une petite expérience.
+Alors, qu'entendons-nous par preuve contre l'hypothèse?
+Comment formaliser ou résumer ces preuves de sorte que les expériences plus grandes tendent à révéler plus et que les petites expériences tendent à révéler moins d'informations ?
 
-One answer to this question is to refer to the thought experiment of repeating
-the study. Imagine, for the sake of argument, that the hypothesis was correct.
-If we repeated the study and calculated the test statistic we would receive a
-number --- this number would reflect the outcome of the experiment *under the
-hypothesis*. Now, imagine repeating the hypothetical experiment many times,
-recalculating the test statistic each time. The distribution of the test
-statistics would then tell us all of the test statistics that could have occurred
-if the null hypothesis were true. If the test statistic is a sum or mean,
-then in a large experiment, we know that the distribution of those numbers
-will be more closely concentrated around the focal hypothesized value (say,
-$t(Z,y_0)$) than in a small experiment.
+Une réponse à cette question est de se référer à l'expérience de pensée consistant à répéter l'étude.
+Imaginez, pour les besoins de l'argumentation, que l'hypothèse était correcte.
+Si nous répétions l'étude et calculions la statistique de test, nous trouverions un nombre --- ce nombre refléterait le résultat de l'expérience *sous l'hypothèse*.
+Maintenant, imaginez répéter l'expérience hypothétique plusieurs fois, en recalculant la statistique de test à chaque fois.
+La distribution des statistiques de test nous indiquerait alors toutes les statistiques de test qui auraient pu se produire si l'hypothèse nulle était vraie.
+Si la statistique de test est une somme ou une moyenne, alors dans une grande expérience, nous savons que la distribution de ces nombres sera plus étroitement centrée autour de la valeur hypothétique focale (disons, $t(Z,y_0)$) que dans une petite expérience.
 
-When we compare what we actually observe, $t(z,Y)$, to the distribution of
-what we could have observed under the null, we learn that our given study is
-typical or not typical of the null hypothesis. And we encode this typicality
-or extremity with a $p$-value. 
+Lorsque nous comparons ce que nous observons réellement, $t(z,Y)$, à la distribution de ce que nous aurions pu observer sous l'hypothèse nulle, nous apprenons que notre étude donnée est caractéristique ou non de l'hypothèse nulle. Et nous traduisons ce degré de caractéristique avec une $p$-valeur.
 
-Notice that the $p$-value does not tell us about the probability associated
-with the observed data. The observed data is observed. The probability arises
-from the hypothetical, but possible, repetition of the experiment itself, the
-test statistic, and the hypothesis. The one-tailed $p$-value is the probability
-of seeing a value of our test statistic as great or greater than we actually
-observed considering, for the sake of argument, a given hypothesis.
+Notez que la $p$-valeur ne nous renseigne pas sur la probabilité associée aux données observées.
+Les données observées sont observées.
+La probabilité découle de la répétition hypothétique, mais possible, de l'expérience elle-même, de la statistique de test et de l'hypothèse.
+La $p$-valeur unilatérale est la probabilité de voir une valeur de notre statistique de test aussi grande ou plus grande que ce que nous avons réellement observé en considérant une hypothèse donnée.
 
-## An example: Testing the Sharp Null Hypothesis of No Effects
+## Un exemple : tester l'hypothèse nulle stricte d'absence d'effets
 
-Let us test the sharp null hypothesis of no effects. In the case of the
-example experiment, the treatment was assigned to exactly 5 observations out
-of 10 completely at random. To repeat that operation, we need only permute or
-shuffle the given $Z$ vector (you can see the Code by clicking on the "Code" button).
+Testons l'hypothèse nulle stricte d'absence d'effets.
+Dans le cas de cette expérience, le traitement a été assigné à exactement 5 observations sur 10 de manière totalement aléatoire.
+Pour répéter cette opération, il suffit de permuter le vecteur $Z$ donné (vous pouvez voir le code en cliquant sur le bouton "Code").
 
 ```{r}
 repeatExperiment <- function(Z){
@@ -402,12 +278,9 @@ repeatExperiment <- function(Z){
 }
 ```
 
-We already know that $H_0: y_{i,1} = y_{i,0}$ implies that $Y_i=y_{i,0}$. So,
-we can describe all of the ways that the experiment would work out under this
-null by simply repeating the experiment (i.e. re-assigning treatment) and
-recalculating a test statistic each time. The following code repeatedly
-re-assigns treatment following the design and calculates the test statistic
-each time.
+Nous savons déjà que $H_0 : y_{i,1} = y_{i,0}$ implique que $Y_i=y_{i,0}$.
+Ainsi, nous pouvons décrire toutes les itérations possibles de l'expérience sous cette hypothèse nulle en répétant simplement l'expérience (c'est-à-dire en réassignant le traitement) et en recalculant la statistique de test à chaque fois.
+Le code suivant réassigne à plusieurs reprises le traitement suivant la conception et calcule la statistique de test à chaque fois.
 
 ```{r gendists, cache=FALSE}
 set.seed(123457)
@@ -416,12 +289,8 @@ set.seed(123457)
 possibleMeanRankDiffsH0 <- replicate(10000,meanrankTZ(ys=Y,z=repeatExperiment(Z=Z)))
 ```
 
-And these plots show the distributions of the two different test statistics
-that would emerge from the world of the null hypothesis (the curves and short
-ticks at the bottom of the plots). The plots also show the observed values for
-the test statistics that we can use to compare what we observe (the long thick
-lines) with what we hypothesize (the distributions).
-
+Ces graphiques montrent les distributions des deux statistiques de test différentes sous l'hypothèse nulle (courbes et graduations au bas des graphiques).
+Les graphiques montrent également les valeurs observées pour les statistiques de test que nous pouvons utiliser pour comparer les observations (longues lignes verticales) à l'hypothèse (les distributions).
 
 ```{r calcpvalues, results='hide'}
 pMeanTZ <- min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
@@ -434,78 +303,57 @@ pMeanRankTZ
 ```
 
 
-```{r fig.cap="An example of using the design of the experiment to test a hypothesis."}
+```{r fig.cap="Tester une hypothèse en utilisant une conception d'expérience."}
 par(mfrow=c(1,2),mgp=c(1.5,.5,0),mar=c(3,3,0,0),oma=c(0,0,3,0))
 plot(density(possibleMeanDiffsH0),
      ylim=c(0,.04),
      xlim=range(possibleMeanDiffsH0),
      lwd=2,
-     main="",#Mean Difference Test Statistic",
-     xlab="Mean Differences Consistent with H0",cex.lab=0.75)
+     main="",
+     xlab="Différences des moyennes sous H0",cex.lab=0.75)
 rug(possibleMeanDiffsH0)
 rug(observedMeanTZ,lwd=3,ticksize = .51)
-text(observedMeanTZ+8,.022,"Observed Test Statistic")
+text(observedMeanTZ+8,.022,"Statistique de test observée")
 
 plot(density(possibleMeanRankDiffsH0),lwd=2,
      ylim=c(0,.45),
-     xlim=c(-10,10), #range(possibleMeanDiffsH0),
-     main="", #Mean Difference of Ranks Test Statistic",
-     xlab="Mean Difference of Ranks Consistent with H0",cex.lab=0.75)
+     xlim=c(-10,10),
+     main="",
+     xlab="Différences des moyennes selon le rang sous H0",cex.lab=0.75)
 rug(possibleMeanRankDiffsH0)
 rug(observedMeanRankTZ,lwd=3,ticksize = .9)
-text(observedMeanRankTZ,.45,"Observed Test Statistic")
+text(observedMeanRankTZ,.45,"Statistique de test observée")
 
-mtext(side=3,outer=TRUE,text=expression(paste("Distributions of Test Statistics Consistent with the Design and ",H0: y[i1]==y[i0])))
+mtext(side=3,outer=TRUE,text=expression(paste("Distributions des statistiques de test cohérentes avec la conception et ", H0: y[i1]==y[i0])))
 ```
 
-To formalize the comparison between observed and hypothesized, we can
-calculate the proportion of the hypothetical experiments that yield test
-statistics greater than the observed experiment. In the left panel of the
-figure we see that a wide range of
-differences of means between treated and control groups are compatible with
-the treatment having no effects (with the overall range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`).  The right panel shows
-that transforming the outcomes to ranks before taking the difference of means
-reduces the range of the test statistics --- after all the ranks themselves go
-from 1 to 10 rather than from 1 to 280.  
+Pour formaliser la comparaison entre l'observation et l'hypothèse, nous pouvons calculer la proportion des expériences hypothétiques qui donnent des statistiques de test supérieures à celle de l'expérience observée.
+Dans le panneau de gauche de la figure, nous voyons qu'un large éventail des différences de moyennes entre les groupes de traitement et de contrôle est compatible avec un traitement sans effet (avec la plage totale entre `r min(possibleMeanDiffsH0)` et `r max(possibleMeanDiffsH0)`).
+Le panneau de droite montre que remanier les résultats selon le rang avant de prendre la différence des moyennes réduit la plage des statistiques de test --- les rangs eux-mêmes passent de 1 à 10 plutôt que de 1 à 280.
 
-### One-sided $p$-values
+### $p$-valeurs unilatérales
 
-The one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
-test statistic casts a different amount of doubt, or quantifies a different
-amount of surprise, about the same null hypothesis of no effects. The outcome
-itself is so noisy that the mean
-difference of the rank-transformed outcomes does a better job of picking up
-the signal than the simple mean difference. These data were generated with treatment effects built in, so
-the null hypothesis of no effects is false, but the information about the
-effects is noisy --- the sample size is small, and the distribution of the
-outcomes involves some strange outlying points and treatment effects
-themselves vary greatly.
+Les $p$-valeurs unilatérales sont `r pMeanTZ` pour la différence des moyennes simple et `r signif(pMeanRankTZ,2)` pour la différence des moyennes selon le rang.
+Chaque statistique de test jette un degré de doute différent, ou quantifie un degré de surprise différent, pour la même hypothèse nulle d'absence d'effets.
+Le résultat lui-même contient tant de bruit que la différence des moyennes selon le rang permet de mieux capter le signal que la différence des moyennes simple.
+Ces données ont été générées avec des effets de traitement intégrés, donc l'hypothèse nulle d'absence d'effets est fausse, mais les informations sur les effets contiennent du bruit --- la taille de l'échantillon est petite et la distribution des résultats comporte des points aberrants et les effets du traitement varient considérablement.
 
-### Two-sided $p$-values
+### $p$-valeurs bilatérales
 
-Say we did not know in advance whether our experiment would show a negative
-effect or a positive effect. Then we might make two hypothesis tests --- one
-calculating the one-sided upper $p$-value and the other calculating the
-one-sided lower $p$-value. Now, if we did this we would be calculating two
-$p$-values and, if we made a standard practice of this, we would run the risk
-of misleading ourselves. After all, recall from the [10 things about multiple
-comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
-that even if there really is no effect, 100 independent and well operating
-tests of the null of no effects will yield no more than 5 $p$-values less than
-.05. One easy solution to the challenge of summarizing extremity of
-a experiment in either direction rather than just focusing on greater-than or
-less-than is to calculate a two-sided $p$-value. This, by the way, is the
-standard $p$-value produced by most canned software such as `lm()` and
-`t.test()` and `wilcox.test()` in R. The basic idea is to calculate both
-$p$-values and then multiply the smaller $p$-value by 2. (The idea here is
-that you are penalizing  yourself for making  two  tests -- see
-@rosenbaum2010design, Chap 2 and @cox1977role for  more on the idea of
-multiplying the smaller p-value by two.)
+Disons que nous ne sachions pas à l'avance si notre expérience montrerait un effet négatif ou un effet positif.
+Dans ce cas, nous pourrions faire deux tests d'hypothèse --- l'un calculant la $p$-valeur supérieure unilatérale et l'autre calculant la $p$-valeur inférieure unilatérale.
+Si nous faisions cela, nous calculerions deux $p$-valeurs et, si nous le faisions de manière standard, nous prendrions le risque de nous tromper.
+Après tout, rappelons-nous des [10 choses sur les comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) :
+même s'il n'y a vraiment pas d'effet, 100 tests indépendants qui fonctionnent bien pour l'hypothèse nulle d'absence d'effets ne donneront pas plus de 5 $p$-valeurs inférieures à 0,05.
+Une solution facile pour résumer la singularité d'une expérience dans l'une ou l'autre direction est de calculer une $p$-valeur bilatérale.
+Ceci, soit dit en passant, est la $p$-valeur standard produite par la plupart des logiciels prédéfinis tels que `lm()` et `t.test()` et `wilcox.test()` dans R.
+L'idée de base est de calculer les deux $p$-valeurs, puis de multiplier la plus petite $p$-valeur par 2.
+(L'idée ici est que vous vous pénalisez pour avoir effectué deux tests - voir @rosenbaum2010design, Chapitre 2 et @cox1977role pour en savoir plus sur l'idée de multiplier la plus petite p-valeur par deux.)
 
 ```{r twosidedp}
-## Here I use <= and >= rather than < and > because of the discreteness of the
-## randomization distribution with only 10 observations. See discussions of
-## the "mid-p-value" 
+## Ici, j'utilise <= et >= plutôt que < et > en raison du caractère discret
+## de la distribution de randomisation avec seulement 10 observations.
+## Voir les discussions sur la "p-valeur moyenne"
 p2SidedMeanTZ <-     2*min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
 			   mean( possibleMeanDiffsH0 <= observedMeanTZ ))
 
@@ -514,15 +362,14 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 
 ```
 
-In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.  
+Dans ce cas, les $p$-valeurs bilatérales sont `r p2SidedMeanTZ` et `r p2SidedMeanRankTZ` pour, respectivement, la différences des moyennes simple et selon le rang.
+Nous les interprétons en termes de "singularité" --- nous verrions seulement une différence des moyennes observée aussi loin de zéro que celle calculée à partir de nos résultats environ 18% du temps, par exemple.
 
-**As a side note** The test of the sharp null shown here can be done without
-writing the code yourself. The code that you'll see here (by clicking the code
-buttons) shows how  to use different R packages to  test hypotheses  using
-randomization-based inference.
+**Remarque :** le test de l'hypothèse nulle stricte montré ici peut être fait sans écrire le code vous-même.
+Le code que vous verrez ici (en cliquant sur le bouton "code") montre comment utiliser différents packages R pour tester des hypothèses à l'aide d'une inférence de randomisation.
 
 ```{r}
-## using the coin package
+## en utilisant le package coin
 library(coin)
 set.seed(12345)
 pMean2 <- pvalue(oneway_test(Y~factor(Z),data=dat,distribution=approximate(nresample=1000)))
@@ -530,7 +377,7 @@ dat$rankY <- rank(dat$Y)
 pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approximate(nresample=1000)))
 pMean2
 pMeanRank2
-## using a development version of the RItools package 
+## en utilisant la version de développement du package RItools
 library(devtools)
 dev_mode()
 install_github("markmfredrickson/RItools@randomization-distribution")
@@ -544,7 +391,7 @@ pMean4
 pMeanRank4
 dev_mode()
 
-## using the ri2 package
+## en utilisant le package ri2
 library(ri2)
 thedesign <- declare_ra(N=N)
 pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign, 
@@ -555,23 +402,14 @@ pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign,
 summary(pMeanRank4)
 ```
 
+## Un exemple: tester l'hypothèse nulle faible d'absence d'effets
 
-## An example: Testing the weak null of no average effects
-
-The weak null hypothesis is a claim about aggregates, and is nearly always
-stated in terms of averages: $H_0: \bar{y}_{1} = \bar{y}_{0}$ The test
-statistic for this hypothesis nearly always is the difference of means (i.e.
-`meanTZ()` above. The below code shows the use of least squares (`lm()` in R)
-for the purpose of  calculating differences of means as a  test statistic for
-hypotheses about average effects. Notice that the OLS-based $p$-values differ
-from those  calculated by `t.test()`  and `difference_of_means()`. Recall that
-the OLS statistical inference is justified by the assumption of independent
-and identically distributed observations yet, in most experiments, the
-treatment itself changes the variation in the treatment group (thereby
-violating the identical-distribution/homoskedasticity assumption of OLS). This
-is one of a few reasons why best practice in testing the  weak  null
-hypothesis of  no average treatment effects uses tools other than  those
-provided by simple canned OLS procedures.
+L'hypothèse nulle faible est une affirmation sur les agrégats et est presque toujours exprimée en termes de moyennes : $H_0: \bar{y}_{1} = \bar{y}_{0}$.
+La statistique de test pour cette hypothèse est presque toujours la différence des moyennes (i.e. `meanTZ()` ci-dessus).
+Le code ci-dessous montre l'utilisation de la méthode des moindres carrés (MC, `lm()` dans R) pour calculer la différence des moyennes en tant que statistique de test pour les hypothèses sur l'effet moyen.
+Notez que les $p$-valeurs basées sur MC diffèrent de celles calculées par `t.test()` et `difference_of_means()`.
+Rappelons que l'inférence statistique MC est justifiée par l'hypothèse d'observations indépendantes et distribuées de manière identique, mais, dans la plupart des expériences, le traitement lui-même modifie la variation dans le groupe de traitement (violant ainsi l'hypothèse de distribution identique/homoscédasticité de MC).
+C'est l'une des raisons pour lesquelles on préconise, pour tester l'hypothèse nulle faible de l'absence d'effet moyen de traitement, l'utilisation d'outils autres que ceux fournis par de simples méthodes des moindres carrés.
 
 ```{r}
 lm1 <- lm(Y~Z,data=dat)
@@ -584,10 +422,7 @@ ttestPvalue=ttestP1,
 diffOfMeansPvalue=ttestP2$p.value)
 ```
 
-This code produces  the same results without using least squares --- after
-all, we are just calculating differences of means and the variances of those
-means as they might vary across repeated experiments  in the same  pool of
-experimental units.
+Ce code produit les mêmes résultats sans utiliser les moindres carrés --- après tout, nous calculons simplement les différences de moyennes et les variances de ces moyennes car elles peuvent varier au cours d'expériences répétées dans le même échantillon d'unités expérimentales.
 
 ```{r byhand}
 varEstATE <- function(Y,Z){
@@ -601,126 +436,77 @@ c(observedTestStat=observedMeanTZ,stderror=seEstATE,tstat=obsTStat,
   )
 ```
 
-Notice that these tests all assume that the distribution of the test statistic
-across repeated experiments would be well characterized by a $t$-distribution.
-The left-hand panel in the figure above shows the realized distribution of one
-way for the weak null to be true (i.e. if the sharp null is true): there are
-many ways for the weak null to be true --- some of which are compatible with
-large positive effects on some units and large negative effects on other
-units, others are compatible with other patterns of individual level effects.
-In this particular small data set, engineered to have a very skewed outcome
-distribution, however, none of those patterns will produce a reference
-distribution that look like a Normal or $t$-curve if the mean difference is
-used as a test statistic. We will return to this point later when we discuss
-the characteristics of a good test --- one of which is a controlled false
-positive rate.
+Notez que ces tests supposent tous que la distribution de la statistique de test à travers des expériences répétées soit bien caractérisée par une distribution $t$.
+La partie gauche de la figure ci-dessus montre la distribution réalisée d'une manière à ce que l'hypothèse nulle faible soit vraie (i.e. dans ce cas l'hypothèse nulle stricte est vraie aussi) :
+il y a plusieurs façons pour que l'hypothèse nulle faible soit vraie --- certaines sont compatibles avec des effets positifs importants sur certaines unités et des effets négatifs importants sur d'autres unités,
+d'autres sont compatibles avec d'autres modèles d'effets au niveau individuel.
+Pour notre petit ensemble de données, conçu pour avoir une distribution de résultats très asymétrique, aucun de ces modèles ne produira une distribution de référence qui ressemble à une loi normale ou une courbe-$t$ si la différence des moyennes est utilisée comme statistique de test.
+Nous reviendrons sur ce point plus tard lorsque nous discuterons des caractéristiques d'un bon test --- dont l'un est un taux de faux positifs contrôlé.
 
-# In simple hypothesis tests, we do not accept null hypotheses.
+# Dans les tests d'hypothèse simples, nous n'acceptons pas l'hypothèse nulle.
 
-Sometimes people want to make a decision using the $p$-value. Remember that a
-$p$-value uses a test statistic and the idea of repeating the experiment to
-quantifies information from the research design about a hypothesis. It is the
-design, test statistic function and hypothesis which generates a probability
-distribution. And it is the actual data, design, and test statistic function
-that creates a single observed value.
+Parfois, les gens veulent prendre une décision en utilisant la $p$-valeur.
+N'oubliez pas qu'une $p$-valeur utilise une statistique de test et l'idée de répétition de l'expérience pour quantifier les informations de la conception de recherche pour une hypothèse.
+C'est la conception, la fonction de la statistique de test et l'hypothèse qui génèrent une distribution de probabilité.
+Et ce sont les données réelles, la conception et la fonction de la statistique de test qui créent une valeur observée unique.
 
-The $p$-value just tells us how extreme the observed result is from the
-perspective of the hypothesis. Or, we can think of the $p$-value as encoding
-the inconsistency between our observed data and the hypothesis. What if we
-want to make a decision? It turns out that **we can make decisions using
-a $p$-value if we are willing to accept a certain amount of error.** Say, for
-example, we see a one-tailed $p=.01$: this would mean that in only 1 in 100
-hypothetical experiments representing the null hypothesis would we see
-a result as large or larger than our actual result. We might be tempted to
-say, that our observed result is so strange that we want to act as if the null
-were false. This would be ok---after all a $p$-value alone cannot control the
-behavior of an adult human---but the human has to know that in 1/100 cases
-where the null is true, we would still see this result on this same subject
-pool with this same experimental design. That is, if we used a small $p$-value to reject the null, or
-acted as if the null were false we could still be making
-an error. These incorrect rejections are sometimes called false positive errors because the
-null hypothesis is so often zero and the desired effect (say, in medical
-trials) is so often coded as positive.
+La $p$-valeur nous indique simplement le degré de singularité du résultat observé du point de vue de l'hypothèse.
+Ou, nous pouvons penser à la $p$-valeur comme une mesure de l'incohérence entre nos données observées et l'hypothèse.
+Et si on voulait prendre une décision ? Il s'avère que **nous pouvons prendre des décisions en utilisant une $p$-valeur si nous sommes prêts à accepter un certain nombre d'erreurs.**
+Disons, par exemple, que nous voyons une $p$-valeur unilatérale de $0,01$ : ceci signifierait que dans seulement 1 expérience hypothétique sur 100 représentant l'hypothèse nulle, nous verrions un résultat aussi grand ou plus grand que notre résultat réel.
+Nous pourrions être tentés de dire que notre résultat observé est si étrange que nous voulons faire comme si l'hypothèse nulle était fausse.
+Ce serait bien --- après tout, une $p$-valeur à elle seule ne peut pas contrôler le comportement d'un humain adulte --- mais l'humain doit savoir que dans 1% des cas où l'hypothèse nulle est vraie, nous verrions toujours ce résultat pour ce même échantillon de sujets avec cette même conception expérimentale.
+C'est-à-dire que si nous utilisions une petite $p$-valeur pour rejeter l'hypothèse nulle, ou agissons comme si l'hypothèse nulle était fausse, nous pourrions toujours faire une erreur.
+Ces rejets incorrects sont appelés faux positifs car l'hypothèse nulle est souvent zéro et l'effet souhaité (par exemple, dans les essais médicaux) est souvent codé comme positif.
 
-Say we were happy to make 1 false positive error or false rejection in every
-20 experiments. In that case, we should also be happy to reject a null hypothesis if we saw a $p
-\le 1/20$ or  $p \le .05$.  And we would call $p$-values smaller than .05 signals of
-inconsistency with the null hypothesis and thus should only lead us to err in 5% of
-experiments like the one that we are analyzing.
+Supposons que nous acceptons d'avoir un faux positif ou faux rejet toutes les 20 expériences.
+Dans ce cas, nous devrions également accepter de rejeter une hypothèse nulle si nous avons vu que $p \le 1/20$ ou  $p \le .05$.
+Et une $p$-valeur inférieure à 0,05 signale l'incohérence avec l'hypothèse nulle et ne devrait donc nous conduire à nous tromper que dans 5% des expériences comme celle que nous analysons.
 
-## What does it mean to reject a null hypothesis?
+## Que signifie de rejeter une hypothèse nulle ?
 
-Notice that a $p=.01$ only reflects extremity of the observed data compared
-with the hypothesis --- it means that the observed test statistic looks
-extreme when considered from the perspective of the distribution of tests
-statistics that are generated from the null hypothesis and research design.
-So, we think of $p=.01$ (and other small $p$-values) as casting doubt on
-whether the specific hypothesis is a good model of the observed data. Often
-the only model of potential outcomes that is tested is the model of no
-effects, so a small $p$-value should make us doubt the model of no effects.
-The makers of canned regression software tend to print out a $p$-value that
-refers to this hypothesis  automatically,  so that it is difficult to not see
-the results of this test even if you just want to describe differences of
-means in the data but you are using least squares as your difference of means
-calculator.
+Notez que $p=0,01$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- cela signifie que la statistique de test observée semble extrême lorsqu'elle est considérée du point de vue de la distribution des statistiques de tests générée à partir de l'hypothèse nulle et de la conception de recherche.
+Ainsi, nous pensons que $p=0,01$ (comme d'autres petites $p$-valeurs) met en doute le fait que l'hypothèse spécifique est un bon modèle des données observées.
+Souvent, le seul modèle de résultats potentiels qui est testé est le modèle sans effets, donc une petite $p$-valeur devrait nous faire douter du modèle sans effets.
+Les fabricants de logiciels de régression prédéfinis ont tendance à fournir une $p$-valeur qui se réfère automatiquement à cette hypothèse,
+de sorte qu'il est difficile de ne pas voir les résultats de ce test même si vous voulez simplement décrire les différences de moyennes dans les données mais utiliser la méthode des moindres carrés pour calculer la différence des moyennes.
 
-## What does it mean to **not reject** a null hypothesis?
+## Que signifie de **ne pas rejeter** une hypothèse nulle ?
 
-Notice that a $p=.50$ only reflects extremity of the observed data compared
-with the hypothesis---but the observed data, in this case, do not look
-extreme but common from the perspective of the null hypothesis. So, $p=.5$
-(and other large p-values) do not encourage us to doubt the model of the null
-hypothesis. It does not encourage us to accept that model---it is only a
-model after all. We do not know reasonable the model was a priori, for example.
-So, a single large $p$-value is some argument in favor of the null,
-but not a very clear argument.
+Notez que $p=0,50$ ne reflète que la singularité des données observées par rapport à l'hypothèse --- mais les données observées, dans ce cas, ne semblent pas extrêmes mais normales du point de vue de l'hypothèse nulle.
+Ainsi, $p=0,5$ (comme d'autres $p$-valeurs élevées) ne nous incitent pas à douter du modèle de l'hypothèse nulle.
+Cela ne nous encourage pas à accepter ce modèle --- ce n'est qu'un modèle après tout.
+On ne sait pas à quel point le modèle était raisonnable a priori, par exemple.
+Ainsi, une seule grande $p$-valeur est un argument en faveur de l'hypothèse nulle, mais pas un argument très marqué.
 
+# Une fois que vous utilisez des $p$-valeurs pour rejeter une hypothèse, vous ferez des erreurs
 
-# Once you are using $p$-values to reject a hypothesis, you will make errors
+Un bon test rejette rarement les hypothèses vraies (i.e. il a un taux de faux positifs contrôlé) et il détecte facilement le signal du bruit (i.e. il a une bonne puissance statistique, il fait rarement l'erreur de rater le signal dans le bruit).
 
-A good test rejects true hypotheses rarely (i.e. has a controlled false
-positive error rate) and easily detects signal from noise (i.e. has good
-statistical power, a rarely makes the error of missing the signal in the
-noise).  
+## Comment percevoir les risques d'un signal noyé dans le bruit ?
 
-## How to learn about errors of missing the signal in the noise? 
+Le guide [10 choses à savoir sur la puissance statistique](https://egap.org/resource/10-things-to-know-about-statistical-power) explique comment nous voulons que l'hypothèse nulle soit rejetée lorsqu'elle est fausse (i.e. détecter le signal du bruit).
+Lorsque nous pensons à la puissance d'une statistique de test, nous devons considérer l'**hypothèse alternative**.
+Cependant, comme nous l'avons montré ci-dessus, nous pouvons tester des **hypothèses nulles** sans avoir l'idée de les rejeter ou de les accepter, bien que la "puissance statistique" du test soit alors plus difficile à définir et à manipuler.
 
-The [10 Things you need to know about statistical
-power](https://egap.org/resource/10-things-to-know-about-statistical-power)
-guide explains how we want hypotheses to reject false nulls (i.e. detect
-signal from noise). When we think about the power of statistical tests, we
-need to consider the **alternative hypothesis**. However, as we have shown
-above, we can test **null hypotheses** without the idea of rejecting or
-accepting them although then the "power" of a test is harder to define and work with.
+## Comment étudier les faux positifs ?
 
-## How to learn about false positive errors?
+La simulation est le moyen le plus simple d'en savoir plus sur les faux positifs.
+Tout d'abord, nous créons la situation où l'hypothèse nulle est vraie et connue, puis nous testons cette hypothèse nulle pour les cas où elle est vraie.
+Par exemple, dans l'expérience utilisée ici, nous avons 5 unités assignées au traitement sur 10.
+Cela signifie qu'il existe $\binom{10}{5}=252$ différentes manières d'assigner le traitement --- et 252 manières pour que l'expérience n'ait eu aucun effet sur les individus.
 
-The easiest way to learn about false positive errors is by simulation. First,
-we create the situation where the null is true and known, and then we test
-that null under the many ways that it is possible for that null to be true.
-For example, in the example experiment used here, we have 5 units assigned to
-treatment out of 10. This means that there are  $\binom{10}{5}=252$ different
-ways to assign treatment --- and  252 ways for the experiment to have had no
-effects on the individuals.
-
-We demonstrate here setting the sharp or strict null hypothesis to be zero,
-but one could also assess the false positive rate different hypotheses. We
-compare error rates for a few of the approaches used so far, including the
-test of the weak null of no effects. The following plot shows the proportion
-of $p$-values less than any given level of significance (i.e. rejection
-threshold) for each of four tests. That is, this is a plot of false positive
-rates for any given significance threshold. A test that has a controlled or
-known false positive rate would have symbols on or below the line across the
-whole x-axis or range of the plot. As we can see here, the two tests using
-permutations of treatment to assess the sharp null of no effects have this feature. The tests of the
-weak null using the mean difference test statistic and appealing to the large
-sample theory to justify the use of a $t$-distribution do not have
-a controlled false positive rate: the proportion of $p$-values below any given
-rejection threshold can be too high or too low.
+Nous le démontrons ici en définissant l'hypothèse nulle stricte comme égale à zéro, mais on pourrait également évaluer le taux de faux positifs pour différentes hypothèses.
+Nous comparons le taux d'erreur pour quelques-unes des approches utilisées jusqu'à présent, y compris le test de l'hypothèse nulle faible d'absence d'effets.
+Le graphique suivant montre la proportion de $p$-valeurs inférieures à un niveau de signification donné (c'est-à-dire le seuil de rejet) pour chacun des quatre tests.
+C'est-à-dire qu'il s'agit d'un graphique du taux de faux positifs pour un seuil de signification donné.
+Un test qui a un taux de faux positifs contrôlé ou connu aurait des symboles sur ou en dessous de la ligne sur tout l'axe des x ou la plage du tracé.
+Comme nous pouvons le voir ici, les deux tests utilisant des permutations de traitement pour évaluer l'hypothèse nulle stricte d'absence d'effets ont cette caractéristique.
+Les tests pour l'hypothèse nulle faible utilisant comme statistique de test la différence des moyennes et faisant appel à la théorie des grands échantillons pour justifier l'utilisation d'une distribution $t$ n'ont pas un taux de faux positifs contrôlé : la proportion de $p$-valeurs inférieures à une valeur donnée du seuil de rejet peut être trop élevée ou trop basse.
 
 ```{r}
 collectPValues <- function(y,z){
-	## Make Y and Z have no relationship by re-randomizing Z
+	## Faire en sorte que Y et Z n'aient aucune relation en re-randomisant Z
 	newz <- repeatExperiment(z)
         thelm <- lm(y~newz,data=dat)
 	ttestP2 <- difference_in_means(y~newz,data=dat)
@@ -743,61 +529,44 @@ pDist <- replicate(5000,collectPValues(y=dat$Y,z=dat$Z))
 ```{r}
 par(mfrow=c(1,1),mgp=c(1.25,.5,0),oma=rep(0,4),mar=c(3,3,0,0))
 plot(c(0,1),c(0,1),type="n",
-     xlab="p-value=p",ylab="Proportion p-values < p")
+     xlab="p-valeur = p",ylab="Proportion de p-valeurs < p")
 for(i in 1:nrow(pDist)){
 	lines(ecdf(pDist[i,]),pch=i,col=i)
 }
 abline(0,1,col="gray")
-legend("topleft",legend=c("OLS","Neyman","Rand Inf Mean Diff","Rand Inf Mean \n Diff Ranks"),
+legend("topleft",legend=c("Moindre carrés", "Neyman", "Diff des moyennes d'inférence de randomisation", "Diff des moyennes d'inférence de randomisation selon le rang"),
 			  pch=1:5,col=1:5,lty=1,bty="n")
 ```
 
-In this particular case, at the threshold of $\alpha=.05$, all of the tests
-except for the rank based test report less than a 5% false positive rate --
-this is good, it should be 5% of less. However, this is no  guarantee  of good
-performance by the large-sample based tests in other small experiments, or
-experiments with highly skewed  outcomes,  etc... When in doubt it is  easy to
-assess the false positive rate  of a test by using the code in this guide to
-make your own simulation.
+Dans ce cas particulier, pour le seuil de $\alpha=0,05$, tous les tests, à l'exception du test basé sur le rang, ont de moins de 5 % de faux positifs – c'est bien car cela devrait être inférieur à 5%.
+Cependant, cela ne garantit pas de bonnes performances pour des tests basés sur de grands échantillons dans d'autres petites expériences, ou des expériences avec des résultats très asymétriques, etc.
+En cas de doute, il est facile d'évaluer le taux de faux positifs d'un test en utilisant le code de ce guide pour faire votre propre simulation.
 
 ```{r fpr05}
 apply(pDist,1,function(x){ mean(x<.05)})
 ```
 
-# What else to know about hypothesis tests.
+# Que savoir d'autre sur les tests d'hypothèses ?
 
-Here we list a few other important but advanced topics connected to hypothesis
-testing:
+Nous énumérons ici quelques autres sujets importants mais avancés liés aux tests d'hypothèses :
 
- - Even if a given testing procedure controls the false positive rate for
-   a single test, it may not control the rate for a group of multiple tests.
-   See [10 Things you need to know about multiple
-   comparisons](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
-   for a guide to the approaches to controlling such rejection-rates in
-   multiple tests.
- - A $100\alpha$\% confidence interval can be defined as the range of
-   hypotheses where all of the $p$-values are greater than or equal to
-   $\alpha$. This is called inverting the hypothesis test.
-   (@rosenbaum2010design). That is, a **confidence interval is a collection of
-   hypothesis tests**. This  means that criticisms of $p$-values are also
-   criticisms of confidence intervals.
- - A point estimate based on hypothesis testing is called a Hodges-Lehmann
-   point estimate. (@rosenbaum1993hlp,@hodges1963elb)
- - A set of hypothesis tests can be combined into one single hypothesis test.
-   For example, you can test the hypothesis of an effect of  size 1 on
-   outcome 1, an effect  of size 0  on outcome 2 and an effect of -10 on
-   outcome 3. (@hansen:bowers:2008,@caughey2017nonparametric)
- - In equivalence testing, one can hypothesize that two test-statistics are
-   equivalent (i.e. the treatment group is the same as the control group)
-   rather than only about one test-statistic (the difference between the two
-   groups is zero) {@hartman2018equivalence}
- - Since a hypothesis test is a model of potential outcomes, one can use
-   hypothesis testing to learn about complex models, such as models of
-   spillover and propagation of treatment effects across networks
+  - Même si une procédure de test donnée contrôle le taux de faux positifs pour un seul test, elle peut ne pas contrôler le taux pour un groupe de tests multiples.
+    Voir [10 choses à savoir sur les comparaisons multiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)
+    pour un guide des approches pour contrôler ces taux de rejet pour plusieurs tests.
+  - Un intervalle de confiance de $100 - \alpha$ % peut être défini comme la plage d'hypothèses où toutes les $p$-valeurs sont supérieures ou égales à $\alpha$.
+C'est ce qu'on appelle l'inversion du test d'hypothèse. (@rosenbaum2010design).
+Autrement dit, un **intervalle de confiance est un ensemble de tests d'hypothèse**.
+Cela signifie qu'une critique de la $p$-valeur est également une critique de l'intervalle de confiance.
+
+ - Une estimation de position basée sur un test d'hypothèse est appelée une estimation de position de Hodges-Lehmann.
+(@rosenbaum1993hlp, @hodges1963elb)
+
+ - Un ensemble de tests d'hypothèse peut être combiné en un seul test d'hypothèse. Par exemple, vous pouvez tester l'hypothèse d'un effet de taille 1 sur le résultat 1, un effet de taille 0 sur le résultat 2 et un effet de -10 sur le résultat 3.
+(@hansen:bowers:2008,@caughey2017nonparamétrique)
+
+ - Dans les tests d'équivalence, on peut émettre l'hypothèse que deux statistiques de test sont équivalentes (c'est-à-dire que le groupe de traitement est le même que le groupe de contrôle) plutôt qu'une seule (la différence entre les deux groupes est égale à zéro) {@hartman2018equivalence}
+
+  - Étant donné qu'un test d'hypothèse est un modèle de résultats potentiels, on peut utiliser les tests d'hypothèses pour en savoir plus sur des modèles complexes, tels que des modèles de contamination et de propagation des effets de traitement à travers les réseaux (@bowers2013reasoning, @bowers2016research, @bowers2018models)
    (@bowers2013reasoning, @bowers2016research, @bowers2018models)
 
-
-
-# References
-
-
+# Références

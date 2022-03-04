@@ -6,37 +6,41 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things to Know About Measurement in Experiments" -->
-<!-- author: 'Methods Guide Author: Tara Slough' -->
+<!-- title: "10 choses à savoir sur la mesure dans les expériences" -->
+<!-- author: 'Auteur du guide des méthodes: Tara Slough' -->
 
-# 1. The validity of inferences we draw from an experiment depend on the validity of the measures used.
+# 1. La validité des inférences que nous tirons d'une expérience dépend de la validité des mesures utilisées.
 
-We typically experiment in order to estimate the causal effect of a treatment, $Z$, on an outcome, $Y$. Yet, the reason that we care about estimating this causal effect is, in principle, to understand characteristics of the relationship between two theoretical, unobserved, concepts measured by observed variables $Z$ and $Y$. 
+Nous expérimentons généralement afin d'estimer l'effet causal d'un traitement $Z$ sur un résultat $Y$.
+Pourtant, la raison pour laquelle nous nous soucions d'estimer cet effet causal est, en principe, de comprendre les caractéristiques de la relation entre deux concepts théoriques non observés mesurés par les variables observées $Z$ et $Y$.
 
-Following Adcock and Collier (2001), consider the measurement process graphed in Figure 1 in three steps. First, researchers begin with systematized concept, a clearly-defined theoretical construct. From this concept, the researcher develops an indicator mapping the concept onto a scale or a set of categories. Finally, units or cases are scored on the indicator, yielding a measurement of treatment, $Z$ and an outcome $Y$. A measurement is valid if variation in the indicator closely approximates variation in the underlying concept of interest. 
+À la suite d'Adcock et Collier (2001), considérons le processus de mesure représenté graphiquement dans la figure 1 en trois étapes.
+Premièrement, les chercheurs commencent par un concept systématisé, une construction théorique clairement définie.
+À partir de ce concept, le chercheur développe un indicateur matérialisant le concept sur une échelle ou un ensemble de catégories.
+Enfin, les unités ou les cas sont notés en fonction de l'indicateur, ce qui donne une mesure du traitement $Z$ et un résultat $Y$.
+Une mesure est valide si la variation de l'indicateur se rapproche étroitement de la variation du concept d'intérêt sous-jacent.
 
-An experimental research design should allow a researcher to estimate the causal effect of $Z$ on $Y$ under standard assumptions. But if the ultimate goal is to make an inference about causal effect of the concept that $Z$ measures on the concept that $Y$ measures, the inferences that we can hope to make on the basis of our experimental evidence are valid if and only if both measures are valid. 
+Une conception de recherche expérimentale devrait permettre à un chercheur d'estimer l'effet causal de $Z$ sur $Y$ sous des hypothèses standard.
+Mais si le but ultime est de faire une inférence sur l'effet causal du concept que $Z$ mesure sur le concept que $Y$ mesure, les inférences que nous pouvons espérer faire sur la base de nos preuves expérimentales sont valides si et seulement si les deux mesures sont valides.
 
-
-
-```{r, echo = F, warning = F, message = F, fig.cap="The process of measurment in the context of an experimental research design."}
+```{r, echo = F, warning = F, message = F, fig.cap="Le processus de mesure dans le contexte d'une conception de recherche expérimentale."}
 library(ggplot2)
 df1 <- data.frame(xmin = c(0,  0, 0,  3, 3, 3),
          ymin = c(0, 1.5, 3,  0, 1.5, 3),
          xmax = c(2, 2,  2, 5,5,  5),
          ymax = c(1, 2.5, 4,  1, 2.5, 4),
-         r = c("Z", "Treatment \nOperationalization", "(Systematized) Treatment\nConcept",
-                 "Y", "Outcome\nOperationalization", "(Systematized) Outcome\nConcept"),
-         hs = rep(c("Treatment", "Outcome"), each = 3))
+         r = c("Z", "Opérationalisation \ndu traitement", "Concept (systematisé)\ndu traitement",
+               "Y", "Opérationalisation \ndu résultat", "Concept (systematisé)\ndu résultat"),
+         hs = rep(c("Traitement", "Résultat"), each = 3))
 df2 <- data.frame(x = c(1, 1, 4,4, 2,2),
          xend = c(1, 1, 4, 4, 3, 3),
          y = c(3, 1.5, 3, 1.5, .5, 3.5),
          yend = c(2.5, 1, 2.5, 1, .5, 3.5),
-         lty = c("Measurement", "Measurement", "Measurement", "Measurement", "t", "t"))
+         lty = c("Mesure", "Mesure", "Mesure", "Mesure", "t", "t"))
 
 text <- data.frame(x = c(2.5, 2.5),
                    y = c(.6, 3.75),
-                   text = c("Estimate", "Ultimate\nInference"))
+                   text = c("Estimation", "Inférence\nultime"))
 ggplot() +
   scale_x_continuous(name="x") + 
   scale_y_continuous(name="y") +
@@ -58,99 +62,162 @@ ggplot() +
         axis.text = element_blank())
 ```
 
-# 2. Measurement is the link between a researcher’s substantive and/or theoretical argument and an (experimental) research design.
+# 2. La mesure est le lien entre l'argument substantif et/ou théorique d'un chercheur et une conception de recherche (expérimentale).
 
+Lorsque nous considérons la conception d'une expérience, nous avons tendance à nous concentrer sur le processus par lequel le traitement $Z$ est assigné de manière aléatoire et sur la distribution conjointe de $Z$ et du résultat $Y$.
+En d'autres termes, nous avons tendance à séparer les scores de $Z$ et $Y$ des concepts plus larges lorsque nous considérons les propriétés statistiques d'une conception de recherche.
+Dans ce cas, deux expériences complètement différentes avec la même distribution de $Z$ et $Y$ pourraient avoir des propriétés identiques.
 
-When we consider the design of an experiment, we tend to focus on the process by which the randomly assigned treatment, $Z$ is assigned and the joint distribution of $Z$ and an outcome, $Y$. In other words, we tend to divorce scores of $Z$ and $Y$ from broader concepts when considering the statistical properties of a research design. In this telling, two completely separate experiments with the same distribution of $Z$ and $Y$ could have identical properties. 
+Par exemple, un essai clinique sur l'efficacité de l'aspirine sur les maux de tête et une expérience qui fournit des informations sur le niveau de corruption d'un politicien sortant pour demander ensuite à la personne interrogée si elle votera pour le candidat sortant *pourraient* avoir des échantillons de mêmes taille et distribution, des assignations, paramètres et réalisations des résultats (données) identiques.
+Pourtant, caractériser comme "équivalents" ces deux projets de recherche complètement distincts qui cherchent à faire des inférences complètement distinctes peut nous sembler assez étrange ou même troublant.
 
-For example, a clinical trial on the efficacy of aspirin on headaches and an experiment that provides information on an incumbent politician's level of corruption and then asks the respondent if she will vote for the incumbent *could* have identical sized and distributed samples, assignments, estimands, and realizations of outcomes (data). Yet, this characterization of two completely distinct research projects that seek to make completely distinct inferences as "equivalent" may strike us as quite strange or even unsettling.
+Cependant, lorsque nous considérons la mesure comme une composante fondamentale de la conception de recherche, ces expériences sont clairement distinctes.
+Nous observons des mesures de différents concepts dans les données des deux expériences.
+En considérant les indicateurs et les concepts plus larges qui sous-tendent les traitements et les résultats, nous sommes obligés d'examiner les théories ou arguments respectifs des chercheurs.
+Ce faisant, nous pouvons soulever des questions sur la validité des mesures et la relation entre la validité des mesures et la validité des inférences finales et substantielles.
 
-However, when we consider measurement as a fundamental component of research design, clearly these experiments are distinct. We observe measures of different concepts in the data for the two experiments. By considering the indicators and the broader concepts underlying the treatments and outcomes, we are forced to examine the researchers' respective theories or arguments. In so doing, we can raise questions about the validity of the measures and the relationship between the validity of the measures and the validity of final, substantive, inferences.
+# 3. La mesure des traitements comprend l'opérationnalisation du traitement ainsi que la conformité de l'assignation au traitement.
 
+Dans une expérience, les traitements sont généralement conçus ou, au minimum, décrits par le chercheur.
+Les consommateurs de recherche expérimentale devraient s'intéresser aux caractéristiques du traitement et à la façon dont il manipule un concept d'intérêt.
+La plupart des traitements en sciences sociales sont composés ou comprennent un ensemble d'attributs.
+Nous pouvons être intéressés par l'effet de fournir aux électeurs des informations sur la performance de leurs élus.
+Pourtant, fournir des informations inclut également le mode de transmission et qui a fourni les informations.
+Pour comprendre dans quelle mesure le traitement manipule un concept, nous devons également comprendre ce que le traitement pourrait manipuler d'autre.
 
+Cependant, malgré tous les efforts pour opérationnaliser un traitement, dans la recherche expérimentale, le lien entre l'opérationnalisation et l'indicateur de traitement est fondamentalement distinct de la mesure des covariables ou des résultats pour deux raisons.
+Premièrement, en assignant un traitement, les expérimentalistes visent à contrôler les valeurs que prend une unité donnée.
+Deuxièmement, pour l'indicateur de traitement, le score provient de l'assignation de traitement, qui est un produit de la randomisation.
+Un sujet peut ou non avoir reçu le traitement, mais son score sur l'indicateur de traitement est simplement le traitement auquel il a été assigné, et non le traitement qu'il a reçu.
 
+Lorsque les sujets reçoivent des traitements autres que ceux auxquels ils sont assignés, nous cherchons généralement à mesurer la conformité --- si les traitements ont été délivrés et dans quelle mesure.
+Pour ce faire, nous définissons ce qui constitue la conformité de l'assignation de traitement.
+Pour déterminer ce qui constitue la conformité, les chercheurs doivent tenir compte de l'aspect central de la façon dont le traitement manipule le concept d'intérêt.
+A quel moment de l'administration du traitement se produit cette manipulation ? Une fois la conformité opérationnalisée, nous cherchons à coder l'indicateur de conformité de manière fidèle à cette définition.
 
-# 3. Measuring treatments includes the operationalization of treatment as well as compliance with treatment assignment.
+Par exemple, considérons une campagne de démarchage en porte-à-porte qui diffuse des informations sur les performances d'un politicien sortant.
+Les ménages sont assignés à recevoir une visite d'un solliciteur qui partage l'information (traitement) ou non (contrôle).
+L'indicateur de traitement est simplement de savoir si un ménage a été assigné au traitement ou non.
+Cependant, si les résidents d'un ménage ne sont pas à la maison lors de la visite du solliciteur, ils ne reçoivent pas l'information.
+Notre définition de la conformité devrait déterminer ce qui constitue un "traité" sur notre mesure (endogène) : "le fait qu'un ménage ait reçu ou non le traitement", ici l'information.
+Certaines définitions courantes de la conformité peuvent être (a) qu'un membre du ménage a ouvert la porte ; ou (b) qu'un membre du ménage a écouté le script d'information complet.
 
-In an experiment, treatments are typically designed, or at a minimum, described, by the researcher. Consumers of experimental research should be interested the characteristics of the treatment and how it manipulates a concept of interest. Most treatments in social science are compound, or include a bundle of attributes. We may be interested in the effect of providing voters with information on their elected officials' performance. Yet, providing information also includes the mode of delivery and who was delivering the information. To understand the degree to which the treatment manipulates a concept, we must also understand what else the treatment could be manipulating. 
+# 4. La plupart des résultats d'intérêt en sciences sociales sont latents.
 
-However, despite all the effort operationalizing a treatment, in experimental research, the link from the operationalization to the treatment indicator is fundamentally distinct from measurement of covariates or outcomes for two reasons. First, by assigning treatment, experimenters aim to control the values a given unit takes on. Second, for the treatment indicator, the score comes from assignment to treatment, which is a product of the randomization. A subject may or may not have received the treatment, but her score on the treatment indicator is simply the treatment that she was assigned to, not the treatment she received.
+Contrairement à la mesure des indicateurs de traitement et de conformité, la mesure des résultats dans la recherche expérimentale suit de beaucoup plus près le processus décrit dans la figure ci-dessus.
+Nous théorisons comment le traitement peut influencer un concept de résultat.
+Nous opérationnalisons ensuite le concept et enregistrons des scores ou des valeurs pour compléter notre mesure du résultat.
 
-When subjects receive treatments other than those to which they are assigned, we typically seek to measure compliance --- whether the treatments were delivered and to what extent. To do so, we define what constitutes compliance with treatment assignment. In determining what constitutes compliance, researchers should consider the core aspect of how the treatment manipulates the concept of interest. At what point in the administration of the treatment does this manipulation occur? Once compliance is operationalized,we seek to code the compliance indicator in a manner faithful to this definition.
+Un défi particulier dans la mesure des résultats est que bon nombre des résultats d'intérêt les plus courants en sciences sociales sont latents.
+Cela signifie que nous ne pouvons pas observer directement la vraie valeur du concept de résultat.
+En fait, la nature de la vraie valeur peut elle-même être débattue (par exemple, le débat sur la mesure de la "démocratie" est un cas classique où la définition du concept lui-même est contestée).
+Les résultats, y compris les connaissances, les préférences ou les attitudes, sont latents.
+Nous enregistrons ou notons ainsi des indicateurs observables supposés être liés au résultat latent en vue de déduire les caractéristiques de la variable latente.
+Même les résultats comportementaux sont souvent utilisés comme des manifestations de concepts latents plus larges (i.e. le comportement électoral estimé est utilisé pour faire des déductions sur la "responsabilité électorale" à un endroit).
 
-For example, consider a door-to-door canvassing campaign that distributes information about the performance of an incumbent politician. Households are assigned to receive a visit from a canvasser who shares the information (treatment) or no visit (control). The treatment indicator is simply whether a household was assigned to the treatment or not. However, if residents of a household are not home when the canvasser visits, they do not receive the information. Our definition of compliance should determine what constitutes “treated” on our (endogenous) measure of whether a household received the treatment, here the information. Some common definitions of compliance may be (a) that someone from the household answered the door; or (b) that someone from the household listened to the full information script. 
+Étant donné que ces variables sont latentes, il est difficile de concevoir des indicateurs appropriés.
+Une mauvaise opérationnalisation a des conséquences assez drastiques sur la validité de nos inférences sur le concept d'intérêt pour deux raisons.
+Comme dans la section 1 ci-dessus, si ces indicateurs ne mesurent pas conceptuellement le concept d'intérêt, alors les inférences que nous faisons sur la relation entre $Z$ et $Y$ (même avec une conception "parfaite" en termes de puissance statistique et de données manquantes, etc.) peuvent ne pas nous renseigner sur "l'inférence ultime" que nous cherchons.
+De plus, l'erreur de mesure peut miner notre capacité à estimer l'effet de $Z$ et $Y$ conduisant à des inférences incorrectes.
+Le reste de ce guide se concentre sur ce dernier problème.
 
+# 5. Il existe deux types d'erreurs de mesure que nous devrions considérer.
 
+On peut formaliser assez simplement les enjeux de mesure.
+Supposons qu'un traitement $Z_i$ soit supposé changer les préférences pour les normes démocratiques $\nu_i$.
+En principe, la quantité que nous aimerions estimer est $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$, l'ATE sur les préférences pour les normes démocratiques.
+Cependant, $\nu_i$ est une variable latente : on ne peut pas la mesurer directement.
+Au lieu de cela, nous demandons si les unités soutiennent divers comportements pensés correspondre à ces normes.
+Cet indicateur, $Y_i$, peut être décomposé en la variable latente, $\nu_i$ et deux formes d'erreur de mesure :
 
-#4. Most outcomes of interest in social science are latent.
+- *Erreur de mesure non systématique*, $\delta_i$ : cette erreur est indépendante de l'assignation au traitement, $\delta_i \perp Z_i$.
+- *Erreur de mesure systématique*, $\kappa_i$ : cette erreur n'est pas indépendante de l'assignation au traitement, $\kappa_i \not\perp Z_i$.
 
+$$Y_i = \underbrace{\nu_i}_{\text{Résultat latent}} + \underbrace{\delta_i}_{\substack{\text{Erreur de mesure} \\ \text{non-systématique}}} + \underbrace{\kappa_i}_{\substack{\text{Erreur de mesure} \\ \text{systématique}}}$$
 
-In contrast to measuring treatment indicators and compliance, measuring outcomes in experimental research follows much more closely the process outlined in the figure above. We theorize how the treatment may influence an outcome concept. We then operationalize the concept and record scores or values to complete our measurement of the outcome. 
+# 6. L'erreur de mesure réduit la puissance statistique de votre expérience.
 
-One particular challenge in the measurement of outcomes is that many of the most common outcomes of interest in social science are latent. This means that we are unable to observe the true value of the outcome concept directly. In fact, the nature of the true value may itself be under debate (for example, the debate about the measurement of “democracy” is a classic case where the definition of the concept itself is contested). Outcomes including knowledge, preferences, and attitudes are latent. We thus record or score observable indicators assumed to be related to the latent outcome in an effort to infer characteristics of the latent variable. Even behavioral outcomes are often used as manifestations of larger latent concepts (i.e. assessed voting behavior is used to make inferences about "electoral accountability" in a place).
+L'erreur de mesure non systématique, représentée par $\delta_i$ ci-dessus, fait référence au bruit avec lequel nous mesurons la variable latente.
+En l'absence d'erreur de mesure systématique, on mesure :
 
-Because these variables are latent, it is challenging to devise appropriate indicators. Poor operationalization has rather drastic consequences for the validity of our inferences about the concept of interest for two reasons. As in section #1 above, if these indicators do not conceptually measure the concept of interest, then inferences we make about the relationship between $Z$ and $Y$ (even with a "perfect" design in terms of statistical power and missing data,etc.) may not teach us about the "ultimate inference" we are seeking to make. Furthermore, measurement error may undermine our ability to estimate the effect of $Z$ and $Y$ leading to incorrect inferences. The remainder of this guide focuses on the latter problem.
- 
- 
-# 5. There are two types of measurement error that we should consider.
+$$Y_i = \underbrace{\nu_i}_{\text{Résultat latent}} + \underbrace{\delta_i}_{\substack{\text{Erreur de mesure} \\ \text{non-systématique}}}$$
 
-We can formalize measurement challenges quite simply. Suppose a treatment, $Z_i$ is hypothesized to change preferences for democratic norms, $\nu_i$. In principle, the quantity that we would like to estimate is $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$, the ATE of our treatment on preferences for democratic norms. However, $\nu_i$ is a latent variable: we cannot measure it directly. Instead we ask about support for various behaviors thought to correspond to these norms. This indicator, $Y_i$, can be decomposed into the latent variable, $\nu_i$ and two forms of measurement error:
-
-
-- *Non-systematic measurement error*, $\delta_i$: This error is independent of treatment assignment,  $\delta_i \perp Z_i$. 
-- *Systematic measurement error*, $\kappa_i$: This error is not independent of treatment assigniment, $\kappa_i \not\perp Z_i$. 
-
-$$Y_i = \underbrace{\nu_i}_{\text{Latent outcome}} + \underbrace{\delta_i}_{\substack{\text{Non-systematic} \\ \text{measurement error}}} + \underbrace{\kappa_i}_{\substack{\text{Systematic} \\ \text{measurement error}}}$$
-
-# 6. Measurement error reduces the power of your experiment. 
-
-Non-systematic measurement error, represented by $\delta_i$ above, refers to the noise with which we are measuring the latent variable. In the absence of systematic measurement error, we measure:
-
-$$Y_i = \underbrace{\nu_i}_{\text{Latent outcome}} + \underbrace{\delta_i}_{\substack{\text{Non-systematic} \\ \text{measurement error}}}$$
-
-Now, consider the [analytical power formula](https://egap.org/resource/10-things-to-know-about-statistical-power) for a two-armed experiment. We can express $\sigma$, or the standard deviation of the outcome as $\sqrt{Var(Y_i)}$. Note that in the formula below, this term appears in the denominator of the first term. As $\sqrt{Var(Y_i)}$ increases, statistical power decreases. 
+Maintenant, considérons la [formule de puissance analytique](https://egap.org/resource/10-things-to-know-about-statistical-power) pour une expérience à deux bras.
+Nous pouvons exprimer $\sigma$, ou l'écart type du résultat sous la forme $\sqrt{Var(Y_i)}$.
+Notez que dans la formule ci-dessous, ce terme apparaît au dénominateur du premier terme.
+À mesure que $\sqrt{Var(Y_i)}$ augmente, la puissance statistique diminue.
 
 $$\beta = \Phi \left(\frac{|\mu_t− \mu_c| \sqrt{N}}{2 \color{red}{\sqrt{Var(Y_i)}}} − \Phi^{−1}\left(1 − \frac{\alpha}{2}\right)\right)$$
 
-In what way does non-systematic measurement error $\delta_i$ impact power? We can decompose $\sqrt{Var(Y_i)}$ as follows:
+En quoi l'erreur de mesure non systématique $\delta_i$ impacte-t-elle la puissance ? Nous pouvons décomposer $\sqrt{Var(Y_i)}$ comme suit :
 
 $$\sqrt{Var(Y_i)} = \sqrt{Var(\nu_i) + Var(\delta_i) + 2 Cov(\nu_i, \delta_i)}$$
 
-So long as $Cov(\nu_i, \delta_i)\geq 0$ (we often assume $Cov(\nu_i, \delta_i)= 0$), it must be the case that the $Var(Y_i)$ is increasing as measurement error, or $Var(\delta_i)$ increases. This implies that power is decreasing as non-systematic measurement error increases. In other words, the noisier our measures of a latent variable, the lower our ability to detect effects of a treatment on a latent variable.
+Tant que $Cov(\nu_i, \delta_i)\geq 0$ (nous supposons souvent que $Cov(\nu_i, \delta_i)= 0$), $Var(Y_i)$ augmente quand l'erreur de mesure $Var(\delta_i)$ augmente.
+Cela implique que la puissance diminue à mesure que l'erreur de mesure non systématique augmente.
+En d'autres termes, plus nos mesures d'une variable latente sont bruyantes, plus notre capacité à détecter l'effet du traitement sur une variable latente est faible.
 
-What about the case in which $Cov(\nu_i, \delta_i) < 0$? While this reduces $Var(Y_i)$ (holding $Var(\nu_i)$ and $Var(\delta_i)$ constant), it also attenuates the variation that we measure in $Y_i$. In principle, this should attenuate the numerator $|\mu_t-\mu_c|$, which, if sufficient relative to the reduction in variance, will also reduce power.
+Qu'en est-il du cas où $Cov(\nu_i, \delta_i) < 0$ ? Bien que cela réduise $Var(Y_i)$ (en maintenant $Var(\nu_i)$ et $Var(\delta_i)$ constants), cela atténue également la variation que nous mesurons dans $Y_i$. En principe, cela devrait atténuer le numérateur $|\mu_t-\mu_c|$, qui réduira également la puissance, si cela suffit par rapport à la réduction de la variance.
 
-# 7. Systematic measurement error biases estimates of causal effects of interests.
+# 7. L'erreur de mesure systématique biaise les estimations de l'effet causal d'intérêt.
 
-If we are estimating the Average Treatment Effect (ATE) of our treatment $Z_i$, on preferences for democratic norms, $\nu_i$, we are trying to recover the the ATE, or $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$. However, in the presence of **systematic** measurement error, where measurement error is related to the treatment assignment itself (say, the outcome is measured differently in the treatment group than in the control group) a difference-in-means estimator on the observed outcome, $Y_i$, recovers a biased estimate of the ATE. The effect of the treatment now includes the measurement difference as well as the difference between treated and control groups:
+Si nous estimons l'effet moyen de traitement (ATE) de notre traitement $Z_i$, sur les préférences pour les normes démocratiques, $\nu_i$, nous essayons de calculer $E[\nu_i|Z_i = 1] - E[\nu_i|Z_i =0]$.
+Cependant, en présence d'une erreur de mesure **systématique**, où l'erreur de mesure est liée à l'assignation du traitement lui-même (disons, le résultat est mesuré différemment dans les groupes de traitement et de contrôle), un estimateur de la différence des moyennes sur le résultat observé, $Y_i$, renvoie une estimation biaisée de l'ATE.
+L'effet du traitement comprend désormais la différence de mesure ainsi que la différence entre les groupes de traitement et de contrôle :
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] =  E[\nu_i + \delta_i + \kappa_i |Z_i = 1] − E[\nu_i + \delta_i + \kappa_i|Z_i =0]$$
-Because non-systematic measurement error, $\delta_i$ is independent of treatment assignment, $E[\delta_i|Z_i = 1] = E[\delta_i |Z_i = 0]$. Simplifying and rearranging, we can write: 
+
+En raison de l'erreur de mesure non systématique, $\delta_i$ est indépendant de l'assignation du traitement, $E[\delta_i|Z_i = 1] = E[\delta_i |Z_i = 0]$.
+En simplifiant et en réarrangeant, on peut écrire :
 
 $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] = \underbrace{E[\nu_i|Z_i = 1] − E[\nu_i|Z_i =0]}_{ATE} +
-\underbrace{E[\kappa_i|Z_i = 1] - E[\kappa_i|Z_i =0]}_{\text{Bias}}$$
+\underbrace{E[\kappa_i|Z_i = 1] - E[\kappa_i|Z_i =0]}_{\text{Biais}}$$
 
-There are various sources of non-systematic measurement error in experiments. [Demand effects](https://en.wikipedia.org/wiki/Demand_characteristics) and [Hawthorne effects](https://en.wikipedia.org/wiki/Hawthorne_effect) can be motivated as sources of systematic measurement error. Moreover, designs that measure outcomes asymmetrically in treatment and control groups may be prone to systematic measurement error. In all cases, there exists asymmetry across treatment conditions in: (a) the way that subjects respond to being observed; or (b) the way that we observe outcomes that is distinct from any effect of the treatment on the latent variable of interest. The biased estimate of the ATE becomes the net of any effects on the latent variables (the ATE) and the non-systematic measurement error. 
+Il existe diverses sources d'erreur de mesure non systématique dans les expériences.
+[L'effet de demande](https://en.wikipedia.org/wiki/Demand_characteristics) et [l'effet Hawthorne](https://fr.wikipedia.org/wiki/Effet_Hawthorne) peuvent être sources d'erreur de mesure systématique.
+De plus, les conceptions qui mesurent les résultats de manière asymétrique dans les groupes de traitement et de contrôle peuvent être sujettes à une erreur de mesure systématique.
+Dans tous les cas, il existe une asymétrie entre les conditions de traitement dans (a) la manière dont les sujets réagissent à l'observation ; ou (b) la façon dont nous observons les résultats qui est distincte de tout effet du traitement sur la variable latente d'intérêt.
+L'estimation biaisée de l'ATE devient le net de tout effet sur les variables latentes (l'ATE) et l'erreur de mesure non systématique.
 
+# 8. Tirez parti de plusieurs indicateurs pour évaluer la validité d'une mesure, mais soyez conscient des limites de ces tests.
 
-# 8. Leverage multiple indicators to assess the validity of a measure but be aware of the limitations of such tests.
+Au-delà de la considération de la qualité de la correspondance entre un concept et une mesure, nous pouvons souvent évaluer la qualité de la mesure en la comparant à des mesures provenant d'opérationnalisations alternatives du même concept, de concepts étroitement liés ou de concepts distincts.
+Dans les *tests convergents* de la validité d'une mesure, nous évaluons la corrélation entre les mesures alternatives d'un concept.
+Si elles sont codées dans le même sens, nous nous attendons à ce que la corrélation soit positive et que la validité des deux mesures augmente à mesure que l'amplitude de la corrélation augmente.
+Une limitation des tests de validité convergents est que si deux mesures sont faiblement corrélées, en l'absence d'informations supplémentaires, nous ne savons pas si une mesure est valide (et laquelle) ou si les deux mesures sont invalides.
 
-Beyond consideration of the quality of the mapping between a concept and a measure, we can often assess the quality of the measure by comparing it to measures from alternate operationalizations of the same concept, closely related concepts, or distinct concepts. In *convergent tests* of the validity of a measure, we assess the correlation between alternate measures of a concept. If they are coded in the same direction, we expect the correlation to be positive and validity of both measures increases as the magnitude of the correlation increases. One limitation of convergent tests of validity is if two measures are weakly correlated, absent additional information, we do not know whether one measure is valid (and which) or whether both measures are invalid.
+La collecte de plusieurs indicateurs peut également permettre aux chercheurs d'évaluer la *validité prédictive* d'une mesure.
+Dans quelle mesure la mesure d'un concept latent prédit-elle un comportement que l'on pense être façonné par le concept ?
+Par exemple, l'idéologie politique (la variable latente) prédit-elle le choix de vote déclaré pour les partis de gauche ?
+Cela fournit un moyen supplémentaire de valider une mesure.
+Ici, plus la capacité d'un indicateur à prédire le comportement (ou d'autres résultats) est élevée, plus la validité prédictive de l'indicateur est forte.
+Pourtant, nous pensons que la plupart des comportements sont le résultat d'un ensemble complexe de causes.
+Déterminer si une mesure est un prédicteur "assez bon" est une détermination quelque peu arbitraire.
 
-Gathering multiple indicators may also allow for researchers to assess the *predictive validity* of a measure. To what extent does a measure of a latent concept predict behavior believed to be shaped by the concept? For example, does political ideology (the latent variable) predict reported vote choice for left parties? This provides an additional means of validating a measure. Here, the higher the ability of an indicator to predict behavior (or other outcomes), the stronger the predictive validity of the indicator. Yet, we believe that most behaviors are a result of a complex array of causes. Determining whether a measure is a "good enough" predictor is a somewhat arbitrary determination.
+Enfin, nous pouvons vouloir déterminer si nous mesurons le concept d'intérêt isolément plutôt qu'un ensemble de concepts.
+Les tests de *validité discriminante* examinent les indicateurs d'un concept et d'un concept lié mais distinct.
+En principe, nous recherchons des corrélations faibles (corrélations proches de 0) entre les deux indicateurs.
+Une limitation des tests de *validité discriminante* est que nous ne savons pas comment les concepts distincts sous-jacents varient ensemble.
+Il se peut que nous ayons des indicateurs valides des deux concepts, mais ils présentent une forte corrélation (positive ou négative) car les unités avec des niveaux élevés de $A$ ont tendance à avoir des niveaux plus élevés (resp. faibles) de $B$.
 
-Finally, we may want to determine whether we are measuring the concept of interest in isolation rather than a bundle of concepts. Tests of *discriminant validity* look at indicators of a concept and a related but distinct concept. In principle, we look for low correlations (correlations close to 0) between both indicators. One limitation of tests of *discriminant validity* is that we don't know how underlying distinct concepts covary. It may be the case that we have valid indicators of both concepts, but they exhibit strong correlation (positive or negative) because units with high levels of $A$ tend to have higher (resp. low) levels of $B$.
+En somme, l'ajout de plus de mesures peut aider à valider un indicateur, mais ces tests de validation sont limités dans ce qu'ils nous disent lorsqu'ils échouent.
+Dans cette mesure, nous devons rester conscients des limites en plus de l'utilité de collecter des mesures supplémentaires pour simplement valider un indicateur.
 
-In sum, the addition of more measures can help validate an indicator, but these validation tests are limited in what they tell us when they fail. To this extent, we should remain cognizant of the limitations in addition to the utility of collecting additional measures to simply validate an indicator.
+# 9. L'utilisation de plusieurs indicateurs améliore souvent la puissance de votre expérience, mais peut introduire un compromis biais-efficacité.
 
+Regrouper plusieurs indicateurs d'un concept ou d'un résultat peut également améliorer la puissance de votre expérience.
+Si plusieurs indicateurs mesurent le même concept mais sont mesurés avec une erreur (non systématique), nous pouvons améliorer la précision avec laquelle nous mesurons la variable latente en tirant parti de plusieurs mesures.
 
-# 9. The use of multiple indicators often improves the power of your experiment, but may introduce a bias-efficiency tradeoff.
+Il existe plusieurs façons d'agréger plusieurs résultats dans un indice.
+["10 choses à savoir sur les comparaisons multiples"](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) décrit des indices construits à partir de la score-$z$ et d'une pondération inverse de covariance pour des résultats multiples.
+Il existe également de nombreux autres modèles structurels pour estimer les variables latentes à partir de plusieurs mesures.
 
-Gathering multiple indicators of a concept or outcome may also improve the power of your experiment. If multiple indicators measure the same concept but are measured with (non-systematic) error, we can improve the precision with which we measure the latent variable by leveraging multiple measures. 
-
-There are multiple ways to aggregate multiple outcomes into an index. ["10 Things to Know about Multiple Comparisons"](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) describes indices built from $z$-score and inverse covariance weighting of multiple outcomes. There are also many other structural models for estimating latent variables from multiple measures.
-
-Below, we look at simple $z$-score index of two noisy measures of a latent variable. We assume that the latent variables and both indicators "Measure 1" and "Measure 2" are drawn from a multivariate normal distribution and are positively correlated with the latent variable and with each other. For the purposes of simulation, we assume that we know the latent variable, though in practice this is not possible. First, we can show that across many simulations of the data, the correlation between the $z$-score index of the two measures and the latent variable is, on average, higher than the correlation between either of the indicators and the latent variable. When graphing the correlation of the individual measures and the latent variable against ($x$-axes) the correlation of the index and the latent variable ($y$-axis), almost all points are above the 45-degree line. This shows that the index approximates the latent variable with greater precision.
+Ci-dessous, nous examinons un simple indice de score-$z$ pour deux mesures bruitées d'une variable latente.
+Nous supposons que les variables latentes et les deux indicateurs "Mesure 1" et "Mesure 2" sont tirés d'une distribution normale multivariée et sont positivement corrélés avec la variable latente et entre eux.
+Pour les besoins de la simulation, nous supposons que nous connaissons la variable latente, bien qu'en pratique cela ne soit pas possible.
+Premièrement, nous pouvons montrer qu'à travers de nombreuses simulations des données, la corrélation entre l'indice de score-$z$ des deux mesures et la variable latente est, en moyenne, plus élevée que la corrélation entre l'un ou l'autre des indicateurs et la variable latente.
+Lors de la représentation graphique de la corrélation entre mesures individuelles et variable latente (sur l'axe des $x$) par rapport à la corrélation entre indice et variable latente (sur l'axe des $y$), presque tous les points sont au-dessus de la ligne à 45 degrés.
+Cela montre que l'indice se rapproche de la variable latente avec une plus grande précision.
 
 ```{r, warning = F, message = F, echo = T}
 library(mvtnorm)
@@ -201,28 +268,32 @@ sims <- replicate(n = 500, expr = do_sim(N = 200,
 
 data.frame(measures = c(sims["cor_Y1",], sims["cor_Y2",]),
            index = rep(sims["cor_index",], 2),
-           variable = rep(c("Measure 1", "Measure 2"), each = 500)) %>%
+           variable = rep(c("Mesure 1", "Mesure 2"), each = 500)) %>%
   ggplot(aes(x = measures, y = index)) + geom_point() + 
   facet_wrap(~variable) + 
   geom_abline(a = 0, b = 1, col = "red", lwd = 1.25) + 
-  scale_x_continuous("Correlation between measure and latent variable", limits = c(0.1, .6)) +
-  scale_y_continuous("Correlation between index and latent variable", limits = c(0.1, .6)) + 
+  scale_x_continuous("Corrélation entre mesure et variable latente", limits = c(0.1, .6)) +
+  scale_y_continuous("Corrélation entre indice et variable latente", limits = c(0.1, .6)) +
   theme_minimal()
 ```
 
-Now, consider the implications for power. In the simulations, we estimate of the ATE of a treatment on Measure 1, Measure 2, and the index. The following graph visualizes the estimates. The blue lines show 95 percent confidence intervals. The smaller confidence intervals about the index visualize the precision gains from leveraging both measures. We see that this manifests in higher statistical power for the experiment.
-
+Maintenant, considérons les implications pour la puissance statistique.
+Dans les simulations, nous estimons l'ATE d'un traitement sur la Mesure 1, la Mesure 2 et l'indice.
+Le graphique suivant visualise les estimations.
+Les lignes bleues montrent des intervalles de confiance à 95 %.
+Les intervalles de confiance plus petits autour l'indice visualisent les gains de précision résultant de l'utilisation des deux mesures.
+Nous voyons que cela se manifeste par une puissance statistique plus élevée pour l'expérience.
 
 ```{r, warning = F, message = F, echo = T}
 
 data.frame(est = c(sims["est_index",], sims["est_Y1",], sims["est_Y2",]),
            se = c(sims["se_index",], sims["se_Y1",], sims["se_Y2",]),
-           outcome = rep(c("Index", "Measure 1", "Measure 2"), each = 500)) %>%
+           outcome = rep(c("Indice", "Mesure 1", "Mesure 2"), each = 500)) %>%
   mutate(T = est/se, 
          sig = 1 * (abs(T) > 1.96)) %>%
   group_by(outcome) %>%
   mutate(power = sum(sig)/n(),
-          lab = paste0("Power = ", round(power, 2))) %>%
+          lab = paste0("Puissance = ", round(power, 2))) %>%
   arrange(est) %>%
   mutate(order = 1:500/500) %>%
   ggplot(aes(x = order, y = est)) + 
@@ -232,21 +303,40 @@ data.frame(est = c(sims["est_index",], sims["est_Y1",], sims["est_Y2",]),
   facet_wrap(~outcome) +
   geom_text(x = 0.5, y = -.4, aes(label = lab), cex = 4) +
   geom_hline(yintercept = 0, col = "red", lty = 3) + 
-  theme_minimal() + xlab("Percentile of Estimate in 500 simulations") + 
+  theme_minimal() + xlab("Percentile de l'estimation dans 500 simulations") +
   ylab("ATE")
-  
 ```
 
-We have examined an index composed of just two indicators. In principle, there are further efficiency gains to be made by incorporating more indicators into your index. Yet, as we increase the number of indicators, we should consider the degree to which the amalgamation of indicators adheres to the original concept. By adding measures to leverage efficiency gains, we may introduce bias into the measure of the latent concept. Researchers must navigate this tradeoff. Pre-registration of the components of an index provides one principled way to navigate the issue which forces thorough consideration of the concept in the absence of data. This also avoids the ex-post questions about the choice of indicators for an index.
+Nous avons examiné un indice composé de seulement deux indicateurs.
+En principe, il y a d'autres gains d'efficacité à faire en intégrant plus d'indicateurs dans votre indice.
+Pourtant, à mesure que nous augmentons le nombre d'indicateurs, nous devrions considérer dans quelle mesure la fusion des indicateurs adhère au concept original.
+En ajoutant des mesures pour tirer parti des gains d'efficacité, nous pouvons introduire un biais dans la mesure du concept latent.
+Les chercheurs doivent louvoyer avec ce compromis.
+Le pré-enregistrement des composants d'un indice fournit une manière raisonnée de naviguer pour un problème qui oblige un examen approfondi du concept en l'absence de données.
+Cela évite également les questions ex post sur le choix des indicateurs pour un indice.
 
-# 10. While concepts may be global, many indicators are context-specific. 
+# 10. Alors que les concepts peuvent être globaux, de nombreux indicateurs sont spécifiques au contexte.
 
-Many studies in the social sciences focus on concepts that are typically assumed to be latent including preferences, knowledge, and attitudes. To the extent that we work on common concepts, there is a tendency to draw from existing operationalizations from studies on related concepts in different contexts. In studies in multiple contexts, as in EGAP's [Metaketa Initiative](http://egap.org/metaketa), researchers aim to study the same causal relationship in multiple national contexts. But a desire to study common concepts need not imply that the same indicators should be used across contexts. 
+De nombreuses études en sciences sociales se concentrent sur des concepts qui sont généralement supposés être latents, notamment les préférences, les connaissances ou les attitudes.
+Dans la mesure où nous travaillons sur des concepts communs, il existe une tendance à s'inspirer des opérationnalisations existantes à partir d'études sur des concepts connexes dans des contextes différents.
+Dans des études menées dans de multiples contextes, comme dans [l'initiative Metaketa de EGAP](https://egap.org/our-work-0/the-metaketa-initiative/), les chercheurs visent à étudier la même relation causale dans plusieurs contextes nationaux.
+Mais le désir d'étudier des concepts communs n'implique pas nécessairement que les mêmes indicateurs doivent être utilisés dans tous les contextes.
 
-For example, consider a set of studies that seek to measure variation in the concept of political knowledge or sophistication. Political knowledge may be assessed through questions that ask subjects to recall a fact about politics. One question may ask subjects to recall the current executive's (president/prime minister etc.) name, scoring answers as "correct" or "incorrect." In country $A$, 50% of respondents answer the question correctly. In Country $B$, 100% of respondents answer the question correctly. In Country $B$, we are unable to identify any variation in the indicator because everyone could answer the question. This does not imply that there is no variation in political knowledge in Country $B$, just that this indicator is a poor measure of the variation that exists. In Country $A$, however, this question may be a completely appropriate indicator of political knowledge. If political knowledge was the outcome of an experiment, the lack of variation in the outcome in Country $B$ fails to allow us to identify any difference in political knowledge between treatment and control groups.
+Par exemple, considérons un ensemble d'études qui cherchent à mesurer la variation du concept de connaissance ou de sophistication politique.
+Les connaissances politiques peuvent être évaluées par des questions qui demandent aux sujets de se rappeler d'un fait politique.
+Une question peut demander aux sujets de se rappeler le nom de l'exécutif actuel (président, premier ministre, etc.), en notant les réponses comme "correctes" ou "incorrectes".
+Dans le pays $A$, 50% des personnes interrogées répondent correctement à la question.
+Dans le pays $B$, 100 % des personnes interrogées répondent correctement à la question.
+Dans le pays $B$, nous ne pouvons identifier aucune variation dans l'indicateur car tout le monde pouvait répondre à la question.
+Cela ne signifie pas qu'il n'y a pas de variation dans les connaissances politiques dans le pays $B$, juste que cet indicateur est une mauvaise mesure de la variation qui existe.
+Dans le pays $A$, cependant, cette question peut être un indicateur tout à fait approprié pour la connaissance politique.
+Si la connaissance politique était le résultat d'une expérience, l'absence de variation dans le résultat dans le pays $B$ ne nous permet pas d'identifier une différence dans la connaissance politique entre les groupes de traitement et de contrôle.
 
-For this reason, while it may be useful to develop indicators based on existing work or instruments from other contexts, this is not necessarily the best way to develop measures in a new context. Pre-testing can provide insights into whether indicators are appropriate in a given setting. In sum, the mapping between concepts and indicators is site-specific in many cases. Researchers should consider these limitations when operationalizing common concepts in distinct settings. 
+Pour cette raison, s'il peut être utile de développer des indicateurs basés sur des travaux existants ou des instruments provenant d'autres contextes, ce n'est pas nécessairement la meilleure façon de développer des mesures dans un nouveau contexte.
+Les pré-tests peuvent fournir des indications pour savoir si les indicateurs sont appropriés dans un contexte donné.
+En somme, la correspondance entre les concepts et les indicateurs est spécifique au site dans de nombreux cas.
+Les chercheurs devraient tenir compte de ces limites lorsqu'ils opérationnalisent des concepts communs dans des contextes distincts.
 
-# Bibliography
+# Bibliographie
 
-Adcock, Robert and David Collier. "Measurement Validity: A Shared Standard for Qualitative and Quantitative Research." *American Political Science Review.* 95 (3): 529-546.
+Adcock, Robert et David Collier. "Measurement Validity: A Shared Standard for Qualitative and Quantitative Research." *American Political Science Review.* 95 (3): 529-546.

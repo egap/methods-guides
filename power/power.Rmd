@@ -5,70 +5,122 @@ output:
     theme: journal
 ---
 
-<!-- title: "10 Things You Need to Know About Statistical Power" -->
-<!-- author: 'Methods Guide Author: Alexander Coppock' -->
+<!-- title: "10 choses à savoir sur la puissance statistique" -->
+<!-- author: 'Auteur du guide des méthodes: Alexander Coppock' -->
 
-Abstract
+Résumé
 ==
-This guide[^1] will help you assess and improve the power of your experiments. We focus on the big ideas and provide examples and tools that you can use in R and Google Spreadsheets.
+Ce guide[^1] vous aidera à évaluer et à améliorer la puissance statistique de vos expériences.
+Nous nous concentrons sur les grandes idées et fournissons des exemples et des outils que vous pouvez utiliser dans R et Google Spreadsheets.
 
-[^1]: Originating author: Alex Coppock, 20 Nov 2013. The guide is a live document and subject to updating by EGAP members at any time. Coppock is not responsible for subsequent edits to this guide
+[^1]: Auteur : Alex Coppock, 20 novembre 2013.
+Le guide est un document vivant et susceptible d'être mis à jour par les membres de EGAP à tout moment.
+Coppock n'est pas responsable des modifications ultérieures apportées à ce guide.
 
-1 What Power Is
+1 Qu'est-ce qu'est la puissance statistique?
 ==
-Power is the ability to distinguish signal from noise.
+La puissance est la capacité de distinguer le signal du bruit.
 
-The signal that we are interested in is the impact of a treatment on some outcome. Does education increase incomes? Do public health campaigns decrease the incidence of disease? Can international monitoring decrease government corruption?
+Le signal qui nous intéresse est l'impact d'un traitement sur certains résultats.
+L'éducation augmente-t-elle les revenus ? Les campagnes de santé publique diminuent-elles l'incidence des maladies ? Les observateurs internationaux peuvent-ils réduire la corruption gouvernementale ?
 
-The noise that we are concerned about comes from the complexity of the world. Outcomes vary across people and places for myriad reasons. In statistical terms, you can think of this variation as the standard deviation of the outcome variable. For example, suppose an experiment uses rates of a rare disease as an outcome. The total number of affected people isn’t likely to fluctuate wildly day to day, meaning that the background noise in this environment will be low. When noise is low, experiments can detect even small changes in average outcomes. A treatment that decreased the incidence of the disease by 1% percentage points would be easily detected, because the baseline rates are so constant.
+Le bruit qui nous préoccupe provient de la complexité du monde.
+Les résultats varient selon les personnes et les lieux pour une myriade de raisons.
+En termes statistiques, vous pouvez considérer cette variation comme l'écart type de la variable de résultat.
+Par exemple, supposons qu'une expérience utilise les taux d'une maladie rare comme résultat.
+Le nombre total de personnes touchées ne fluctue probablement pas énormément d'un jour à l'autre, ce qui signifie que le bruit de fond dans cet environnement sera faible.
+Lorsque le bruit est faible, les expériences peuvent détecter même de petits changements dans les résultats moyens.
+Un traitement qui réduirait l'incidence de la maladie de 1% serait facilement détecté, car les taux de base sont constants.
 
-Now suppose an experiment instead used subjects’ income as an outcome variable. Incomes can vary pretty widely – in some places, it is not uncommon for people to have neighbors that earn two, ten, or one hundred times their daily wages. When noise is high, experiments have more trouble. A treatment that increased workers’ incomes by 1% would be difficult to detect, because incomes differ by so much in the first place.
+Supposons maintenant qu'une expérience utilise plutôt le revenu des sujets comme variable de résultat.
+Les revenus peuvent varier assez considérablement - dans certains endroits, il n'est pas rare que les gens aient des voisins qui gagnent deux, dix ou cent fois leur salaire quotidien.
+Lorsque le bruit est élevé, les expériences sont plus difficiles.
+Un traitement qui augmenterait les revenus des travailleurs de 1% serait difficile à détecter, car les revenus diffèrent tellement en premier lieu.
 
-A major concern before embarking on an experiment is the danger of a __false negative__. Suppose the treatment really does have a causal impact on outcomes. It would be a shame to go to all the trouble and expense of randomizing the treatment, collecting data on both treatment and control groups, and analyzing the results, just to have the effect be overwhelmed by background noise.
+Une préoccupation majeure avant de se lancer dans une expérience est le danger d'un __faux négatif__.
+Supposons que le traitement ait réellement un impact causal sur les résultats.
+Il serait dommage de se donner autant de peine et de dépenser autant pour randomiser le traitement, collecter des données sur les groupes de traitement et de contrôle et analyser les résultats, pour que l'effet soit finalement noyé par le bruit de fond.
 
-If our experiments are highly-powered, we can be confident that if there truly is a treatment effect, we’ll be able to see it.
+Si nos expériences ont une grande puissance statistique, nous pouvons être sûrs de ceci :
+s'il y a vraiment un effet de traitement, nous pourrons le voir.
 
-2 Why You Need It
+2 Pourquoi vous en avez besoin ?
 ==
-Experimenters often guard against false positives with statistical significance tests. After an experiment has been run, we are concerned about falsely concluding that there is an effect when there really isn’t.
+Les expérimentateurs se prémunissent souvent contre les faux positifs avec des tests de signification statistique.
+Après une expérience, nous craignons de conclure à tort qu'il y a un effet alors qu'il n'y en a pas vraiment.
 
-Power analysis asks the opposite question: supposing there truly is a treatment effect and you were to run your experiment a huge number of times, how often will you get a statistically significant result?
+L'analyse de puissance statistique pose la question inverse : en supposant qu'il y ait vraiment un effet de traitement et que vous deviez exécuter votre expérience un grand nombre de fois, à quelle fréquence obtiendrez-vous un résultat statistiquement significatif ?
 
-Answering this question requires informed guesswork. You’ll have to supply guesses as to how big your treatment effect can reasonably be, how many subjects will answer your survey, how many subjects your organization can realistically afford to treat.
+Répondre à cette question nécessite des conjectures éclairées.
+Vous devrez fournir des suppositions quant à l'ampleur raisonnable de l'effet de votre traitement, combien de sujets répondront à votre enquête, combien de sujets votre organisation peut raisonnablement se permettre de traiter.
 
-Where do these guesses come from? Before an experiment is run, there is often a wealth of baseline data that are available. How old/rich/educated are subjects like yours going to be? How big was the biggest treatment effect ever established for your dependent variable? With power analysis, you can see how sensitive the probability of getting significant results is to changes in your assumptions.
+D'où viennent ces suppositions ? Avant qu'une expérience ne soit menée, il existe souvent une multitude de données de base disponibles.
+Les sujets seront-ils agés, riches, éduqués ? Quelle a été l'ampleur du plus grand effet de traitement jamais établi pour votre variable dépendante ? Avec l'analyse de puissance statistique, vous pouvez voir à quel point la probabilité d'obtenir des résultats significatifs est sensible aux changements de vos hypothèses.
 
-Many disciplines have settled on a target power value of 0.80. Researchers will tweak their designs and assumptions until they can be confident that their experiments will return statistically significant results 80% of the time. While this convention is a useful benchmark, be sure that you are comfortable with the risks associated with an 80% expected success rate.
+De nombreuses disciplines se sont fixées sur une valeur de puissance cible de 0,80.
+Les chercheurs modifieront leurs conceptions et leurs hypothèses jusqu'à ce qu'ils puissent être sûrs que leurs expériences donneront des résultats statistiquement significatifs 80 % du temps.
+Bien que cette convention soit une référence utile, assurez-vous que vous êtes à l'aise avec les risques associés à un taux de réussite attendu de 80 %.
 
-A note of caution: power matters a lot. Negative results from underpowered studies can be hard to interpret: Is there really no effect? Or is the study just not able to figure it out? Positive results from an underpowered study can also be misleading: conditional upon being statistically significant, an estimate from an underpowered study probably overestimates treatment effects. Under powered studies are sometimes based on overly optimistic assumptions; a convincing power analysis makes these assumptions explicit and should protect you from implementing designs that realistically have no chance of answering the questions you want to answer.
+Attention : la puissance statistique compte beaucoup.
+Les résultats nuls d'études de faible puissance peuvent être difficiles à interpréter : n'y a-t-il vraiment aucun effet ? Ou l'étude n'est-elle tout simplement pas en mesure de le mesurer? Les résultats positifs d'une étude de faible puissance peuvent également être trompeurs : à condition d'être statistiquement significative, une estimation d'une étude de faible puissance surestime probablement l'effet du traitement.
+Les études de faible puissance sont parfois basées sur des hypothèses trop optimistes ; une analyse de puissance convaincante rend ces hypothèses explicites et devrait vous protéger de la mise en œuvre de conceptions qui n'ont de manière réaliste aucune chance de répondre aux questions auxquelles vous souhaitez répondre.
 
-3 The Three Ingredients of Statistical Power
+3 Les trois ingrédients de la puissance statistique
 ==
-There are three big categories of things that determine how highly powered your experiment will be. The first two (the strength of the treatment and background noise) are things that you can’t really control – these are the realities of your experimental environment. The last, the experimental design, is the only thing that you have power over – use it!
+Il existe trois grandes catégories de facteurs qui déterminent la puissance de votre expérience.
+Les deux premiers (l'efficacité du traitement et le bruit de fond) sont des choses que vous ne pouvez pas vraiment contrôler – ce sont les réalités de votre environnement expérimental.
+Le dernier facteur, la conception expérimentale, est la seule chose que vous pouvez contrôler – utilisez-le !
 
-* Strength of the treatment. As the strength of your treatment increases, the power of your experiment increases. This makes sense: if your treatment were giving every subject $1,000,000, there is little doubt that we could discern differences in behavior between the treatment and control groups. Many times, however, we are not in control of the strength of our treatments. For example, researchers involved in program evaluation don’t get to decide what the treatment should be, they are supposed to evaluate the program as it is.
-* Background noise. As the background noise of your outcome variables increases, the power of your experiment decreases. To the extent that it is possible, try to select outcome variables that have low variability. In practical terms, this means comparing the standard deviation of the outcome variable to the expected treatment effect size — there is no magic ratio that you should be shooting for, but the closer the two are, the better off your experiment will be. By and large, researchers are not in control of background noise, and picking lower-noise outcome variables is easier said than done. Furthermore, many outcomes we would like to study are inherently quite variable. From this perspective, background noise is something you just have to deal with as best you can.
-* Experimental Design. Traditional power analysis focuses on one (albeit very important) element of experimental design: the number of subjects in each experimental group. Put simply, a larger number of subjects increases power. However, there are other elements of the experimental design that can increase power: how is the randomization conducted? Will other factors be statistically controlled for? How many treatment groups will there be, and can they be combined in some analyses?
+* Efficacité du traitement.
+Au fur et à mesure que l'efficacité de votre traitement augmente, la puissance statistique de votre expérience augmente.
+Cela a du sens : si votre traitement donnait à chaque sujet 1 000 000 $, il ne fait aucun doute que nous pourrions discerner des différences de comportement entre les groupes de traitement et de contrôle.
+Souvent, cependant, nous ne contrôlons pas l'efficacité de nos traitements.
+Par exemple, les chercheurs impliqués dans l'évaluation du programme ne décident pas du traitement, ils sont censés évaluer le programme tel qu'il est.
 
-4 Key Formulas for Calculating Power
+* Bruit de fond.
+À mesure que le bruit de fond de vos variables de résultat augmente, la puissance de votre expérience diminue.
+Dans la mesure du possible, essayez de sélectionner des variables de résultat qui ont une faible variabilité.
+En termes pratiques, cela signifie comparer l'écart type de la variable de résultat à la taille de l'effet de traitement attendu - il n'y a pas de rapport magique à viser, mais plus les deux sont proches, mieux sera votre expérience.
+Dans l'ensemble, les chercheurs ne contrôlent pas le bruit de fond, et choisir des variables de résultat à bruit faible est plus facile à dire qu'à faire.
+De plus, de nombreux résultats que nous aimerions étudier sont intrinsèquement assez variables.
+De ce point de vue, le bruit est simplement à gérer du mieux que vous pouvez.
+
+* Conception expérimentale.
+L'analyse de puissance statistique traditionnelle se concentre sur un élément (bien que très important) de la conception expérimentale : le nombre de sujets dans chaque groupe expérimental.
+En termes simples, un plus grand nombre de sujets augmente la puissance.
+Cependant, il existe d'autres éléments de la conception expérimentale qui peuvent augmenter la puissance : comment la randomisation est-elle menée ? Est-ce que d'autres facteurs seront contrôlés statistiquement? Combien de groupes de traitement y aura-t-il et peuvent-ils être combinés pour certaines analyses ?
+
+4 Formules clés pour calculer la puissance statistique
 ==
-Statisticians have derived formulas for calculating the power of many experimental designs. They can be useful as a back of the envelope calculation of how large a sample you’ll need. Be careful, though, because the assumptions behind the formulas can sometimes be obscure, and worse, they can be wrong.
+Les statisticiens ont dérivé des formules pour calculer la puissance de nombreux modèles expérimentaux.
+Elles peuvent être utiles pour calculer approximativement la taille de l'échantillon dont vous aurez besoin.
+Soyez prudent, cependant, car les hypothèses qui sous-tendent les formules peuvent parfois être obscures, ou pire encore, elles peuvent être fausses.
 
-Here is a common formula used to calculate power[^2]
+Voici une formule courante utilisée pour calculer la puissance[^2]
 
-[^2]:  Reproduced from Gerber and Green 2012, page 93
+[^2]: Formule reproduite de Gerber et Green 2012, page 93
 
 $$\beta = \Phi \left(\frac{|\mu_t-\mu_c|\sqrt{N}}{2\sigma}-\Phi^{-1} \left(1-\frac{\alpha}{2}\right) \right)$$
 
-* $\beta$ is our measure of power. Because it’s the probability of getting a statistically significant result, β will be a number between 0 and 1. 
-* $\Phi$ is the CDF of the normal distribution, and $\Phi^{-1}$ is its inverse. Everything else in this formula, we have to plug in:
-* $\mu_t$ is the average outcome in the treatment group. Suppose it’s 65.
-* $\mu_c$ is the average outcome in the control group. Suppose it’s 60.
-* Together, assumptions about μt and μc define our assumption about the size of the treatment effect: 65-60= 5.
-* $\sigma$ is the standard deviation of outcomes. This is how we make assumptions about how noisy our experiment will be — one of the assumptions we’re making is that sigma is the same for both the treatment and control groups. Suppose $\sigma=20$
-* $\alpha$ is our significance level – the convention in many disciplines is that α should be equal to 0.05. $N$ is the total number of subjects. This is the only variable that is under the direct control of the researcher. This formula assumes that every subject had a 50/50 chance of being in control. Suppose that $N=500$.
+* $\beta$ est notre mesure de puissance statistique.
+Parce que c'est la probabilité d'obtenir un résultat statistiquement significatif, β sera un nombre compris entre 0 et 1.
 
-Working through the formula, we find that under this set of assumptions, $β = 0.80$, meaning that we have an 80% chance of recovering a statistically significant result with this design. Click [here for a google spreadsheet](https://docs.google.com/spreadsheets/d/117R4cqKkhX1MFqPIh7Yg2YzjHykxD7WsSLXqhEbD33I/edit#gid=0){target="_blank"} that includes this formula. You can copy these formulas directly into Excel. If you’re comfortable in R, here is code that will accomplish the same calculation.
+* $\Phi$ est la fonction de répartition de la distribution normale, et $\Phi^{-1}$ est son inverse.
+* $\mu_t$ est le résultat moyen dans le groupe de traitement. Supposons qu'il soit de 65.
+* $\mu_c$ est le résultat moyen dans le groupe de contrôle. Supposons qu'il soit de 60.
+* Ensemble, les hypothèses sur $\mu_t$ et $\mu_c$ définissent notre hypothèse sur la taille de l'effet du traitement : 65-60= 5.
+
+* $\sigma$ est l'écart type des résultats. C'est ainsi que nous émettons des hypothèses sur le niveau de bruit de notre expérience - l'une des hypothèses que nous émettons est que $\sigma$ est le même pour les groupes de traitement et de contrôle. Supposons $\sigma=20$
+* $\alpha$ est notre niveau de signification – la convention dans de nombreuses disciplines est que $\alpha$ doit être égal à 0,05.
+$N$ est le nombre total de sujets.
+C'est la seule variable qui est sous le contrôle direct du chercheur.
+Cette formule suppose que chaque sujet ait 50 % de chances d'être dans le groupe de contrôle.
+Supposons que $N=500$.
+
+En utilisant la formule, nous trouvons que sous cet ensemble d'hypothèses, $\beta = 0,80$, ce qui signifie que nous avons 80 % de chances d'avoir un résultat statistiquement significatif avec cette conception.
+Cliquez [ici pour une Google spreadsheet](https://docs.google.com/spreadsheets/d/117R4cqKkhX1MFqPIh7Yg2YzjHykxD7WsSLXqhEbD33I/edit#gid=0){target="_blank"} qui inclut cette formule.
+Vous pouvez copier ces formules directement dans Excel.
+Si vous êtes à l'aise avec R, voici le code pour le même calcul.
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE}
 power_calculator <- function(mu_t, mu_c, sigma, alpha=0.05, N){ 
@@ -79,114 +131,177 @@ power_calculator <- function(mu_t, mu_c, sigma, alpha=0.05, N){
   } 
 ```
 
-5 When to Believe Your Power Analysis
+5 Quand croire votre analyse de puissance ?
 ==
-From some perspectives the whole idea of power analysis makes no sense. You want to figure out the size of some treatment effect but first you need to do a power analysis which requires that you already know your treatment effect and a lot more besides.
 
-So in most power analyses you are in fact seeing what happens with numbers that are to some extent made up. The good news is that it is easy to find out how much your conclusions depend on your assumptions: simply vary your assumptions and see how the conclusions on power vary.
+D'un certain point de vue, l'idée d'analyser la puissance statistique n'a aucun sens.
+Vous voulez déterminer l'ampleur d'un effet de traitement, mais vous devez d'abord effectuer une analyse de puissance qui nécessite que vous connaissiez déjà l'effet de votre traitement et bien plus encore.
 
-This is most easily seen by thinking about how power varies with the number of subjects. A power analysis that looks at power for different study sizes simply plugs in a range of values in for N and seeing how β changes.
+Ainsi, dans la plupart des analyses de puissance, vous voyez en fait ce qui se passe avec des nombres qui sont dans une certaine mesure inventés.
+La bonne nouvelle, c'est qu'il est facile de découvrir à quel point vos conclusions dépendent de vos hypothèses : faites simplement varier vos hypothèses et voyez comment les conclusions sur la puissance statistique varient.
 
-Using the formula in section 4, you can see how sensitive power is to all of the assumptions: Power will be higher if you assume the treatment effect will be larger, or if you’re willing to accept a higher alpha level, or if you have more or less confidence in the noisiness of your measures.[^3]
+Cela se voit plus facilement en pensant à la façon dont la puissance varie avec le nombre de sujets.
+Une analyse de puissance qui examine la puissance pour différentes tailles d'étude inclue simplement une plage de valeurs pour N et voit comment $\beta$ change.
 
-[^3]: For an additional online power visualization tool, see Kristoffer Magnusson's [R Psychologist blog](http://rpsychologist.com/d3/NHST/){target="_blank"}.
+En utilisant la formule de la section 4, vous pouvez voir à quel point la puissance est sensible à toutes les hypothèses : la puissance sera plus élevée si vous supposez que l'effet du traitement est plus important, ou si vous êtes prêt à accepter un niveau $\alpha$ plus élevé, ou si vous avez plus ou moins confiance dans le bruit de vos mesures.[^3]
+
+[^3]: Pour un outil supplémentaire de visualisation de puissance en ligne, consultez le [blog R Psychologist](http://rpsychologist.com/d3/NHST/){target="_blank"} de Kristoffer Magnusson.
 
 <iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850"></iframe>
 
-6 How to Use Simulation to Estimate Power
+6 Comment utiliser la simulation pour estimer la puissance ?
 ==
-Power is a measure of how often, given assumptions, we would obtain statistically significant results, if we were to conduct our experiment thousands of times. The power calculation formula takes assumptions and return an analytic solution. However, due to advances in modern computing, we don’t have to rely on analytic solutions for power analysis. We can tell our computers to literally run the experiment thousands of times and simply count how frequently our experiment comes up significant.
+La puissance est une mesure de la fréquence pour laquelle, compte tenu des hypothèses, nous obtiendrions des résultats statistiquement significatifs si nous devions mener notre expérience des milliers de fois.
+La formule de calcul de puissance se base sur des hypothèses et renvoie une solution analytique.
+Cependant, en raison des progrès de l'informatique moderne, nous n'avons pas à nous fier à des solutions analytiques pour l'analyse de puissance.
+Nous pouvons dire à nos ordinateurs d'exécuter littéralement l'expérience des milliers de fois et simplement compter la fréquence à laquelle notre expérience est significative.
 
-The code block below shows how to conduct this simulation in R.
+Le code ci-dessous montre comment effectuer cette simulation dans R.
 
 ```{r, message=FALSE, error=FALSE, warning=FALSE}
-possible.ns <- seq(from=100, to=2000, by=40) # The sample sizes we'll be considering
-stopifnot(all( (possible.ns %% 2)==0 )) ## require even number of experimental pool
-powers <- rep(NA, length(possible.ns)) # Empty object to collect simulation estimates 
-alpha <- 0.05 # Standard significance level 
-sims <- 500 # Number of simulations to conduct for each N 
-#### Outer loop to vary the number of subjects #### 
-for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Pick the jth value for N 
-  Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
-  tau <- 5 # Hypothesize treatment effect 
-  Y1 <- Y0 + tau # treatment potential outcome                                   
-  significant.experiments <- rep(NA, sims) # Empty object to count significant experiments 
-                                  
-  #### Inner loop to conduct experiments "sims" times over for each N #### 
-        Y0 <- rnorm(n=N, mean=60, sd=20) # control potential outcome 
-        tau <- 5 # Hypothesize treatment effect 
-        Y1 <- Y0 + tau # treatment potential outcome 
-  for (i in 1:sims){ 
-        ## Z.sim <- rbinom(n=N, size=1, prob=.5) # Do a random assignment  by coin flip
-        Z.sim <- sample(rep(c(0,1),N/2)) ## Do a random assignment ensuring equal sized groups
-        Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Reveal outcomes according to assignment 
-        fit.sim <- lm(Y.sim ~ Z.sim) # Do analysis (Simple regression) 
-        p.value <- summary(fit.sim)$coefficients[2,4] # Extract p-values 
-        significant.experiments[i] <- (p.value <= alpha) # Determine significance according to p <= 0.05
+possible.ns <- seq(from=100, to=2000, by=40) # Les tailles d'échantillon que nous considérerons
+stopifnot(all( (possible.ns %% 2)==0 )) ## On nécessite un nombre pair d'échantillons expérimentaux
+powers <- rep(NA, length(possible.ns)) # objet vide pour collecter les estimations de simulation
+alpha <- 0.05 # Niveau de signification standard
+sims <- 500 # Nombre de simulations à réaliser pour chaque N
+#### Boucle externe pour varier le nombre de sujets ####
+for (j in 1:length(possible.ns)){ N <- possible.ns[j] # Choisit la jième valeur pour N
+  Y0 <- rnorm(n=N, mean=60, sd=20) # résultat potentiel pour le contrôle
+  tau <- 5 # hypothèse de l'effet du traitement
+  Y1 <- Y0 + tau # résultat potentiel pour le traitement
+  significant.experiments <- rep(NA, sims) # objet vide pour compter les expériences significatives
+
+  #### Boucle interne pour mener des expériences "sims" fois pour chaque N ####
+        Y0 <- rnorm(n=N, mean=60, sd=20) # résultat potentiel pour le contrôle
+        tau <- 5 # Hypothèse de l'effet du traitement
+        Y1 <- Y0 + tau # résultat potentiel pour le traitement
+  for (i in 1:sims){
+        ## Z.sim <- rbinom(n=N, size=1, prob=.5) # Faire une assignation aléatoire par tirage au sort
+        Z.sim <- sample(rep(c(0,1),N/2)) # Faire une assignation aléatoire par tirage au sort en s'assurant de groupes de taille égale
+        Y.sim <- Y1*Z.sim + Y0*(1-Z.sim) # Révéler les résultats selon l'assignation
+        fit.sim <- lm(Y.sim ~ Z.sim) # Faire l'analyse (une simple régression)
+        p.value <- summary(fit.sim)$coefficients[2,4] # Extraire les p-valeurs
+        significant.experiments[i] <- (p.value <= alpha) # Determiner la signification en accord avec p <= 0.05
         }
-  powers[j] <- mean(significant.experiments) # store average success rate (power) for each N 
-  } 
-powers 
+  powers[j] <- mean(significant.experiments) # stocker le taux de réussite moyen (puissance) pour chaque N
+  }
+powers
 ```
 
-The code for this simulation and others is available [here](https://egap.org/resource/script-power-analysis-simulations-in-r/){target="_blank"}. Simulation is a far more flexible, and far more intuitive way to think about power analysis. Even the smallest tweaks to an experimental design are difficult to capture in a formula (adding a second treatment group, for example), but are relatively straightforward to include in a simulation.
+Le code de cette simulation est disponible [ici](https://egap.org/resource/script-power-analysis-simulations-in-r/){target="_blank"}.
+La simulation est un moyen beaucoup plus flexible et beaucoup plus intuitif de penser à l'analyse de puissance.
+Même les plus petits ajustements d'une conception expérimentale sont difficiles à capturer dans une formule (ajout d'un deuxième groupe de traitement, par exemple), mais sont relativement simples à inclure dans une simulation.
 
-In addition to counting up how often your experiments come up statistically significant, you can directly observe the distribution of p-values you’re likely to get. The graph below shows that under these assumptions, you can get expect to get quite a few p-values in the 0.01 range, but that 80% will be below 0.05.
+En plus de compter la fréquence à laquelle vos expériences sont statistiquement significatives, vous pouvez observer directement la distribution des p-valeurs que vous êtes susceptible d'obtenir.
+Le graphique ci-dessous montre que sous ces hypothèses, vous pouvez vous attendre à obtenir quelques p-valeurs dans la plage de 0.01, mais que 80% seront inférieures à 0.05.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/power/simulatedpvals.png)
 
-7 How to Change your Design to Improve Your Power
+7 Comment changer votre conception pour améliorer votre puissance ?
 ==
-When it comes to statistical power, the only thing that that’s under your control is the design of the experiment. As we’ve seen above, an obvious design choice is the number of subjects to include in the experiment. The more subjects, the higher the power.
+En ce qui concerne la puissance statistique, la seule chose que vous contrôlez est la conception de l'expérience.
+Comme nous l'avons vu ci-dessus, un choix de conception évident est le nombre de sujets à inclure dans l'expérience.
+Plus il y a de sujets, plus la puissance est élevée.
 
-However, the number of subjects is not the only design choice that has consequences for power. There are two broad classes of design choices that are especially important in this regard.
+Cependant, le nombre de sujets n'est pas le seul choix de conception qui a des conséquences sur la puissance.
+Il existe deux grandes catégories de choix de conception qui sont particulièrement importantes à cet égard.
 
-* Choice of estimator. Are you using difference-in-means? Will you be doing some transformation, such as a logit or a probit? Will you be controlling for covariates? Will you be using some kind of robust standard error estimator? All of these choices will make a difference for the statistical significance of your results, and therefore for the power of your experiment. One easy way to think about this is to imagine what command you’ll be running in R or Stata after the experiment has come back; that’s your estimator!
-* Randomization Protocol. What kind of randomization will you be employing? Simple randomization gives all subjects an equal probability of being in the treatment group, and then performs a (possibly weighted) coin flip for each. Complete randomization is similar, but it ensures that exactly a certain number will be assigned to treatment. Block randomization is even more powerful — it ensures that a certain number within a subgroup will be assigned to treatment. A restricted random assignment rejects some random assignments based on some set of criteria — lack of balance perhaps. These various types of random assignment can dramatically increase the power of an experiment at no extra cost. Read up on randomization protocols [here](https://egap.org/resource/10-things-to-know-about-randomization/).
+* Choix de l'estimateur.
+Utilisez-vous la différence des moyennes ? Allez-vous effectuer une transformation, comme un logit ou un probit ?
+Contrôlerez-vous les covariables ? Utiliserez-vous un estimateur robuste pour l'erreur type ?
+Tous ces choix feront une différence pour la signification statistique de vos résultats, et donc pour la puissance de votre expérience.
+Une façon simple d'y penser est d'imaginer quelle commande vous exécuterez dans R ou Stata après l'expérience ; c'est votre estimateur !
 
-There are too many choices to cover in this short article, but check out the Simulation for Power Analysis code page for some ways to get started. But to give a flavor of the simulation approach, consider how you would conduct a power analysis if you wanted to include covariates in your analysis.
+* Protocole de randomisation.
+Quel type de randomisation utiliserez-vous ? La randomisation simple donne à tous les sujets une probabilité égale d'être dans le groupe de traitement, puis effectue un tirage au sort (éventuellement pondéré) pour chacun.
+La randomisation complète est similaire, mais elle garantit qu'un nombre exact d'unités seront assignées au traitement.
+La randomisation par bloc est encore plus puissante : elle garantit qu'un certain nombre d'unités au sein d'un sous-groupe seront assignés au traitement.
+Une assignation aléatoire restreinte rejette certaines assignations aléatoires sur la base d'un certain ensemble de critères — un manque d'équilibre par exemple.
+Ces différents types d'assignation aléatoire peuvent augmenter considérablement la puissance d'une expérience sans frais supplémentaires.
+Renseignez-vous sur les protocoles de randomisation [ici](https://egap.org/resource/10-things-to-know-about-randomization/).
 
-If the covariates you include as control variables are strongly related to the outcome, then you’ve dramatically increased the power of your experiment.Unfortunately, the extra power that comes with including control variables is very hard to capture in a compact formula. Almost none of the power formulas found in textbooks or floating around on the internet can provide guidance on what the inclusion of covariates will do for your power.
+Il y a trop de choix à couvrir dans ce court article, mais consultez le code de simulation pour l'analyse de puissance pour savoir comment commencer.
+Pour vous donner une idée de l'approche de simulation, réfléchissez à la manière dont vous effectueriez une analyse de puissance si vous vouliez inclure des covariables dans votre analyse.
 
-The answer is simulation.
+Si les covariables que vous incluez en tant que variables de contrôle sont fortement liées au résultat, alors vous avez considérablement augmenté la puissance de votre expérience.
+Malheureusement, la puissance supplémentaire qui accompagne l'inclusion des variables de contrôle est très difficile à capturer dans une formule compacte.
+Quasiment aucune des formules de puissance trouvées dans les manuels ou sur internet ne peut fournir des conseils sur ce que l'inclusion de covariables fera pour votre puissance.
 
-* Suppose we’re studying the effect of an educational intervention on income
-* Suppose we have good data on the relationship between two covariates and income: age and gender. In this economy, men earn more than women, and older people earn more than younger people.
-* Run a regression of income on age and gender and record the coefficients, using pre-existing survey data (better yet: use baseline data from future participants in your experiment!) *Generate fake covariate data — N total subjects, but broken up by age and gender in a way that reflects your experimental subject pool.
-* Generate fake control data — where the outcome is a function of age and gender according to your regression estimates
-* Hypothesize a treatment effect to generate fake treatment data
-* Run the experiment 10,000 times, and record how often, using a regression with controls, your experiment turns up significant.
+La réponse est la simulation.
 
-Here’s a graph that compares the power of an experiment that does control for background attributes to one that does. The R-square of the regression relating income to age and gender is pretty high — around .66 — meaning that the covariates that we have gathered (generated) are highly predictive. For a rough comparison, sigma, the level of background noise that the unadjusted model is dealing with, is around 33. This graph shows that at any N, the covariate-adjusted model has more power — so much so that the unadjusted model would need 1500 subjects to achieve what the covariate-adjusted model can do with 500.
+* Supposons que nous étudions l'effet d'une intervention éducative sur le revenu
+* Supposons que nous ayons de bonnes données sur la relation entre deux covariables et le revenu : l'âge et le sexe.
+Dans cette économie, les hommes gagnent plus que les femmes et les personnes âgées gagnent plus que les jeunes.
+* Exécutez une régression du revenu sur l'âge et le sexe et enregistrez les coefficients, en utilisant des données d'enquête préexistantes (mieux encore : utilisez les données de référence des futurs participants à votre expérience !)
+* Générez de fausses données de covariables - N sujets au total, mais ventilés par âge et par sexe d'une manière qui reflète votre groupe de sujets expérimentaux.
+* Générez de fausses données de contrôle - où le résultat est fonction de l'âge et du sexe selon vos estimations de régression
+* Faire l'hypothèse d'un effet de traitement pour générer de fausses données de traitement
+* Exécutez l'expérience 10 000 fois et enregistrez la fréquence à laquelle, à l'aide d'une régression avec contrôles, votre expérience s'avère significative.
+
+Voici un graphique qui compare la puissance d'expériences avec et sans contrôle par les attributs de base.
+Le R² de la régression reliant le revenu à l'âge et au sexe est assez élevé - environ 0,66 - ce qui signifie que les covariables que nous avons rassemblées (générées) sont hautement prédictives.
+Pour une comparaison approximative, sigma, le niveau de bruit de fond auquel le modèle non ajusté est confronté, est d'environ 33.
+Ce graphique montre que pour n'importe quel N, le modèle ajusté par les covariables a plus de puissance, à tel point que le modèle non ajusté aurait besoin de 1500 sujets pour réaliser ce que le modèle ajusté peut faire avec 500 sujets.
 
 ![](https://raw.githubusercontent.com/egap/methods-guides/master/power/powergraph21.png)
 
-This approach doesn’t rely on a formula to come up with the probability of getting a statistically significant result: it relies on brute force! And because simulation lets you specify every step of the experimental design, you do a far more nuanced power analysis than simply considering the number of subjects.
+Cette approche ne repose pas sur une formule pour trouver la probabilité d'obtenir un résultat statistiquement significatif : elle repose sur la force brute ! Et parce que la simulation vous permet de spécifier chaque étape de la conception expérimentale, vous effectuez une analyse de puissance beaucoup plus nuancée que la simple considération du nombre de sujets.
 
-8 Power Analysis for Multiple Treatments
+8 Analyse de puissance pour plusieurs traitements
 ==
-Many experiments employ multiple treatments which are compared both to each other and to a control group. This added complication changes what we mean when we say the “power” of an experiment. In the single treatment group case, power is just the probability of getting a statistically significant result. In the multiple treatment case, it can mean a variety of things: A) the probability of at least one of the treatments turning up significant, B) the probability of all the treatments turning up significant (versus control) or C) the probability that the treatments will be ranked in the hypothesized order, and that those ranks will be statistically significant.
 
-This question of multiple treatment arms is related to the problem of multiple comparisons. Standard significance testing is based on the premise that you’re conducting a single test for statistical significance, and the p-values derived from these tests reflect the probability under the null of seeing such a larger (or larger) treatment effect. If, however, you are conducting multiple tests, this probability is no longer correct. Within a suite of tests, the probability that at least one of the tests will turn up significant even when the true effect is zero is higher, essentially because you have more attempts. A commonly cited (if not commonly used) solution is to use the Bonferroni correction: specify the number of comparisons you will be making in advance, then divide your significance level (alpha) by that number.
+De nombreuses expériences emploient plusieurs traitements qui sont comparés à la fois les uns aux autres et à un groupe de contrôle.
+Cette complication supplémentaire change ce que nous entendons lorsque nous disons la "puissance" d'une expérience.
+Dans le cas d'un seul groupe de traitement, la puissance est simplement la probabilité d'obtenir un résultat statistiquement significatif.
+Dans le cas des traitements multiples, cela peut signifier plusieurs choses :
+A) la probabilité qu'au moins un des traitements soit significatif,
+B) la probabilité que tous les traitements soient significatifs (par rapport au contrôle)
+ou C) la probabilité que les traitements soient classés dans un certain ordre hypothétique et que ce classement soit statistiquement significatif.
 
-If you are going to be using a Bonferroni correction, then standard power calculators will be more complicated to use: you’ll have to specify your Bonferroni-corrected alpha levels and calculate the power of each separate comparison. To calculate the probability that all the tests are significant, multiply all the separate powers together. To calculate the probability that at least one of the tests is significant, calculate the probability that none are, then subtract from one.
+Cette question des bras de traitement multiples est liée au problème des comparaisons multiples.
+Les tests de signification standard sont basés sur l'hypothèse que vous effectuez un seul test de signification statistique, et les p-valeurs  dérivées de ces tests reflètent la probabilité sous l'hypothèse nulle de voir un effet de traitement aussi important (ou plus important).
+Si, toutefois, vous effectuez plusieurs tests, cette probabilité n'est plus correcte.
+Dans une série de tests, la probabilité qu'au moins un des tests soit significatif même lorsque l'effet réel est nul est plus élevée, essentiellement parce que vous avez plus de tentatives.
+Une solution couramment citée (sinon couramment utilisée) consiste à utiliser la correction de Bonferroni : spécifiez le nombre de comparaisons que vous effectuerez à l'avance, puis divisez votre niveau de signification $\alpha$ par ce nombre.
 
-Or you can use simulation. An example of a power calculation done in R is available on the simulations page.
+Si vous allez utiliser une correction de Bonferroni, les calculateurs de puissance standard seront plus compliqués à utiliser : vous devrez spécifier vos niveaux $\alpha$ corrigés de Bonferroni et calculer la puissance séparée de chaque comparaison.
+Pour calculer la probabilité que tous les tests soient significatifs, multipliez toutes les puissances séparées ensemble.
+Pour calculer la probabilité qu'au moins un des tests soit significatif, calculez la probabilité qu'aucun ne le soit, puis soustrayez de un.
 
-9 How to Think About Power for Clustered Designs
+Ou vous pouvez utiliser la simulation.
+Un exemple de calcul de puissance fait dans R est disponible sur la page des simulations.
+
+
+9 Comment penser la puissance pour les conceptions par grappe (cluster) ?
 ==
-When an experiment has to assign whole groups of people to treatment rather than individually, we say that the experiment is clustered. This is common in educational experiments, where whole classrooms of children are assigned to treatment or control, or in development economics, where whole villages of individuals are assigned to treatment or control.
 
-As a general rule, clustering decreases your power. If you can avoid clustering your treatments, that is preferable for power. Unless you face concerns related to spillover, logistics, or ethics, take the variation down to the lowest level that you can.
+Lorsqu'une expérience doit assigner des groupes entiers de personnes à un traitement plutôt qu'individuellement, nous avons une expérience par grappe.
+Ceci est courant pour les expériences éducatives, où des classes entières d'enfants sont assignées au traitement ou au contrôle, ou dans l'économie du développement, où des villages entiers d'individus sont assignés au traitement ou au contrôle.
 
-The best case scenario for a cluster-level design is when which cluster a subject is in provides very little information about their outcomes. Suppose subjects were randomly assigned to clusters — the cluster wouldn’t help to predict outcomes at all. If the cluster is not predictive of the outcome, then we haven’t lost too much power to clustering.
+En règle générale, le découpage par grappe diminue votre puissance.
+Si vous pouvez éviter de regrouper vos traitements en grappe, c'est préférable pour la puissance.
+À moins que vous ne soyez confronté à des problèmes liés aux effets de contamination, à la logistique ou à l'éthique, réduisez la variation au niveau le plus bas possible.
 
-Where clustering really causes trouble is when there is a strong relationship between the cluster and the outcome. To take the villages example, suppose that some villages are, as a whole, much richer than others. Then the clusters might be quite predictive of educational attainment. Clustering can reduce your effective sample size from the total number of individuals to the total number of clusters.
+Le meilleur scénario pour une conception par grappe est lorsque la grappe dans laquelle se trouve un sujet fournit très peu d'informations sur leurs résultats.
+Supposons que les sujets soient assignés de manière aléatoire à des grappes - le grappe n'aiderait pas du tout à prédire les résultats.
+Si la grappe n'est pas prédictive du résultat, alors nous n'avons pas perdu trop de puissance à cause du découpage par grappe.
 
-There are formulas that can help you understand the consequences of clustering — see Gelman/Hill page 447-449 for an extended discussion. While these formulas can be useful, they can also be quite cumbersome to work with. The core insight however is a simple one: you generally get more power from increasing the number of clusters than you do from increasing the number of subjects within clusters. Better to have 100 clusters with 10 subjects in each than 10 clusters with 100 subjects in each.
+Là où le découpage par grappe cause vraiment des problèmes, c'est lorsqu'il existe une relation forte entre la grappe et le résultat.
+Pour prendre l'exemple des villages, supposons que certains villages soient, dans l'ensemble, beaucoup plus riches que d'autres.
+Les grappes pourraient alors être assez prédictives du niveau d'instruction.
+Le découpage par grappe peut réduire la taille effective de votre échantillon du nombre total d'individus au nombre total de grappes.
 
-Again, a more flexible approach to power analysis when dealing with clusters is simulation. See the simulations page [Link here] for starter code, or continue reading Gelman/Hill page 450-453 for another simulation approach.
+Il existe des formules qui peuvent vous aider à comprendre les conséquences du découpage par grappe — voir Gelman/Hill page 447-449 pour une discussion approfondie.
+Bien que ces formules puissent être utiles, elles peuvent également être assez lourdes à utiliser.
+L'idée principale est cependant simple : vous obtenez généralement plus de puissance en augmentant le nombre de grappes qu'en augmentant le nombre de sujets au sein des grappes.
+Mieux vaut avoir 100 grappes de 10 sujets que 10 grappes avec 100 sujets.
 
-10 Good Power Analysis Makes Preregistration Easy
+Encore une fois, une approche plus flexible de l'analyse de puissance lorsqu'il s'agit de grappes est la simulation.
+Voir la page de simulations [ici](https://TODO), ou lisez Gelman/Hill page 450-453 pour une autre approche de simulation.
+
+10 Une bonne analyse de puissance facilite le pré-enregistrement
 ==
-When you deal with power you focus on what you cannot control (noise) and what you can control (design). If you use the simulation approach to power analysis then you will be forced to imagine how your data will look and how you will handle it when it comes in. You will get a chance to specify all of your hunches and best guesses in advance, so that you can launch your experiments with clear expectations of what they can and cannot show. That’s some work but the good news is that if you really do it you are most of the way to putting together a comprehensive and registerable pre-analysis plan.
+Lorsque vous traitez de puissance statistique, vous vous concentrez sur ce que vous ne pouvez pas contrôler (le bruit) et ce que vous pouvez contrôler (la conception).
+Si vous utilisez l'approche de simulation pour l'analyse de puissance, vous serez obligé d'imaginer à quoi ressembleront vos données et comment vous allez les gérer.
+Vous aurez la possibilité de spécifier à l'avance toutes vos intuitions et vos meilleures suppositions, afin de pouvoir lancer vos expériences avec des attentes claires sur ce qu'elles peuvent et ne peuvent pas montrer.
+C'est du travail, mais la bonne nouvelle est que si vous le faites vraiment, vous êtes sur la bonne voie pour mettre en place un plan de pré-analyse complet et enregistrable.
