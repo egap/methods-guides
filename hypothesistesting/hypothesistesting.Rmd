@@ -5,6 +5,8 @@ output:
     number_sections: true
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
