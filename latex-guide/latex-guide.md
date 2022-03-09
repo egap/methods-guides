@@ -26,11 +26,11 @@ walk you through 10 aspects of writing a scientific article using
 [LaTeX](https://en.wikipedia.org/wiki/LaTeX) to format your work and save you
 time.  We emphasize typing commands at the [unix command
 line](https://en.wikipedia.org/wiki/Unix_shell) in this guide as a way for you
-to peek under the hood of the LaTeX engine. This will allow you (the author!)
+to peek under the hood of the LaTeX engine. This will give you (the author!)
 power over the production of your own academic documents.^[We have decided to
 write this guide in a very opinionated way. And we emphasize the nitty gritty of
 technical document creation. If these opinions inspire a reader to write a 10
-Things Guide on using Markdown or Google Docs please do write one! As an
+Things Guide on using Markdown or Google Docs, please do write one! As an
 open-source document, we are also happy to receive pull requests for
 improvements to this guide.]
 
@@ -39,7 +39,7 @@ on typesetting. Here we have hand-selected 10 topics to help lower the barrier t
 more efficient and higher quality paper writing workflow. Specifically we focus on
 
 1. The **structure** of a document
-1. **What** are all of these tools? `tex`, `latex`, `pdflatex`, `xelatex`, `lualatex`, etc
+1. **What** are all of these tools? `tex`, `latex`, `pdflatex`, `xelatex`, `lualatex`, etc.
 1. LaTeX **happy workflows** for your paper
 1. git and **version control**
 1. Journal **style**
@@ -56,6 +56,8 @@ session, through [Binder](https://mybinder.org/).  Here you can follow along, pr
 documents in a terminal session. You can start this environment here:
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bowers-illinois-edu/egap-latex-guide/HEAD?urlpath=lab).
 
+<!--AW: This link does not seem to work, it gives me the following error: "Could not resolve ref for gh:bowers-illinois-edu/egap-latex-guide/HEAD. Double check your URL. GitHub recently changed default branches from "master" to "main"."-->
+
 To use LaTeX on your own computer, you will need to [install it](https://www.latex-project.org/get/#tex-distributions) (we highly recommend following the links therein to TeX Live on each system).
 
 # 1. Structure and Markup
@@ -70,6 +72,7 @@ Once you have a plain text document with markup, you then process it using a set
 
 </center>
 
+<!--AW: I find the errors from "Preamble" and "Document text" a little confusing because they seem to go to specific lines, but really they refer to a collection of lines. Would it be possible to annotate this with curly braces that show the entire part of the file that makes up the preamble, and, respectively, the document text? Plus, it may make sense to also have errors going to the \begin{document} and \end{document} lines specifically to show that this is where the document text starts and ends.  -->
 
 Imagine we have a document called `example.tex`. After processing that document via, say, the command `latexmk -pdflatex example.tex`, one can see
 a pdf file like the following image:
@@ -89,11 +92,11 @@ a pdf file like the following image:
 
 ## Takeaways
 
-- A LaTeX document contains mainly two sections: a preamble, which defines the
-  styling and defines title and author, and the document text.
+- A LaTeX document contains mainly two sections: 1) a preamble, which defines the
+  styling and defines title and author, and 2) the document text.
 - The LaTeX system separates concerns having to do with writing from concerns
   having to do with format. It allows you to focus on writing content
-  in a plain text document, following by processing to make a nice pdf file
+  in a plain text document, followed by processing to make a nice pdf file
   including automatically formatted citations, bibliography, cross-references,
   figures, tables, etc.
 - Processing the typed document delivers a layout that automatically handles
@@ -104,11 +107,11 @@ a pdf file like the following image:
 What does `example.tex` look like when compiled to a pdf document? Can you add
 a title or author? Can you make some text bold?^[Try out `\title{Some Paper}`
 and `\author{Some Person}` *in the preamble* and `\maketitle` just after the
-`\begin{document}` line.] You can practice by following these steps (and similar ones) later sections:
+`\begin{document}` line.] You can practice by following these steps (and similar ones) in later sections:
 
 1. select the directory `1_structure` in the JupyterLab window that launches when you clink on `launch
 binder` from the `readme.md` file in the [associated github
-repository](https://github.com/bowers-illinois-edu/egap-latex-guide)
+repository](https://github.com/bowers-illinois-edu/egap-latex-guide) <!-- AW: this link does not seem to work --> 
 2. Then clicking on the `Terminal` icon in the JupyterLab pane
 3. Once you are there, try typing `latexmk -pdflatex example.tex` and then looking at the pdf.
 
@@ -153,14 +156,14 @@ Here is a list of the common programs that one might use to create a pdf file fr
   (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F)).
 
 For example, at the command prompt in the Terminal, you might type
-`pdflatex example.tex` to create an `example.pdf` file (if you only do it once,
-the citation will show up as a `?` and no bibliography will be printed).
+`pdflatex example.tex` to create an `example.pdf` file.
+<!-- AW: Moved the parentheses below since it seems related to the first bullet point -->
 
 Notice also:
 
 - `pdflatex` (or `xelatex` or `lualatex`) takes several passes --- it must be run
    more than one time --- if your document involves citations or other more
-   complex features (like cross-references, tables of contents, etc.).
+   complex features (like cross-references, tables of contents, etc.). In the example above, if you only create `example.pdf` once, the citation will show up as a `?` and no bibliography will be printed.
 - Tools like `latexmk` or `latexrun` automate this process of multiple passes
    by a latex processing program and a bibliography creation program.
 
@@ -175,13 +178,14 @@ Notice also:
 
 You can replace those multiple lines with a single call to `latexmk -pdflatex example.tex`.
 
+<!-- AW: The second arrow in the figure seems not in the very best place --> 
 ## Takeaways
 
 - Always use LaTeX markup: very rarely (if ever) should you need to dip into
    plain TeX
 - Always use PDF output (`pdflatex`) and PDF figures (or PNG ... more on this
    later) rather than DVI or PS format for sharing generated documents
-- We recommend using tools like `latexmk` to automate the process repeatedly using both
+- We recommend using tools like `latexmk` to automate the process of repeatedly using both
   `pdflatex` and `bibtex` (or `biber` for those using `biblatex`) to process a
   file.
 
@@ -260,7 +264,7 @@ related data is then clear.
 
 ## On Directory Structure
 
-Here are two examples of directory structures have have worked for us:
+Here are two examples of directory structures which have worked for us:
 
 In this example,
 we use [Matt West's directory structure](https://lagrange.mechse.illinois.edu/latex_quick_ref/),
@@ -353,8 +357,8 @@ Feel free to play with the directory `3_workflows` and the `readme.md` file ther
 
 # 4. On collaboration
 
-Often your writing is often interleaved with edits and contributions from co-authors.
-How do you track changes and version in your LaTeX document?
+Often your writing is interleaved with edits and contributions from co-authors.
+How do you track changes and versions in your LaTeX document?
 
 ## Collaborating asychronously: git version control
 
@@ -432,7 +436,7 @@ whereas others, e.g. are included with your TeX distribution and available in
 deviating from the expected format will accelerate your time-to-publication by
 not slowing down the copy editing at the journal. The style files will provide
 macros for author formats, custom figure environments, and almost certainly the
-preferred style for the bibilography. In addition, most journal provide a *style
+preferred style for the bibilography. In addition, most journals provide a *style
 guide* that will detail the expectations on punctuation, hyphens, commas, etc.
 
 ## Takeaways
@@ -477,14 +481,14 @@ research than to just fill a gap in the literature.
 ## Tips and Tricks
 
 There are many fantastic tips and guides to improving your writing, from
-reading paragraphs and sentences out loud to "edit by ear" @howardsbecker1986a
+reading paragraphs and sentences out loud to "edit by ear" [@howardsbecker1986a]
 to guides specific to academic writing: @gopen1990science and @howardsbecker1986a.
 Here, we offer a few directions that improve your writing specifically in LaTeX:
 
 - Linters such as [alex](https://alexjs.com), [proselint](http://proselint.com),
   and [write-good](https://github.com/btford/write-good) can be integrated into
   many text editors (such as [vim](https://www.vim.org/) to highlight your
-  `.tex` document on-the-fly.
+  `.tex` document on-the-fly).
 - In general, avoid the urge to constantly re-compile your document to view its
   output (figures/diagrams are a different case). Your first task is writing not
   reading.
@@ -546,7 +550,7 @@ help improve your overall LaTeX workflow:
 ```tex
 \newcommand{\Hcurl}{\vec{H}(\text{curl},\Omega)}
 ```
-- Macros are useful when notation might change that might change.
+- Macros are useful when notation might change.
 ```tex
 \renewcommand{\vec}[1]{\boldsymbol #1}
 ```
@@ -658,7 +662,7 @@ BibTeX file for this essay:
 
 - Use BibTex to organize your bibliography.
 - You will only need to add a BibTeX entry to your bibliography database (your `.bib` file) once. (And you can use tools like [Zotero](https://guides.library.iit.edu/c.php?g=720120&p=6296986) and [BibDesk](https://bibdesk.sourceforge.io) to make managing those collections of bibliographic information easier.)
-- Clean bibliographic entries reduce error and accelerate the process.
+- Clean bibliographic entries to reduce error and accelerate the process.
 
 ## Practice
 
