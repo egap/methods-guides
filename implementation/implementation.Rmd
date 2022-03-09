@@ -3,10 +3,10 @@ output:
   html_document:
     toc: yes
     theme: journal
+    includes:
+      after_body: ../linking_script.html
   pdf_document:
     toc: yes
-  includes:
-    after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Steps to Implementing a Survey" -->
