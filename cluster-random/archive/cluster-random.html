@@ -536,7 +536,7 @@ simEstAte&lt;-function(Z,y1,y0){
 set.seed(12345)
 simpleResults&lt;-replicate(100000,simEstAte(Z=Zrealized,y1=y1,y0=y0))
 sd(simpleResults) ## The standard error of the estimate of the ATE.</code></pre>
-<pre><code>## [1] 0.2000898</code></pre>
+<pre><code>## [1] 0.1574625</code></pre>
 <p>Although this preceding standard error is intuitive (it is merely the
 standard deviation of the distribution arising from repeating the
 experiment), more statistics-savvy readers will recognize closed-form
@@ -586,7 +586,7 @@ NeymanSE&lt;-sqrt(diag(vcovHC(lm1,type=&quot;HC2&quot;)))[[&quot;Zrealized&quot;
 
 c(simSE=sd(simpleResults),feasibleSE=estSEEstATE, trueSE=seEstATE, olsIIDSE=iidSE, NeymanDesignSE=NeymanSE)</code></pre>
 <pre><code>##          simSE     feasibleSE         trueSE       olsIIDSE NeymanDesignSE 
-##      0.2000898      0.2007330      0.2017447      0.1997268      0.1997268</code></pre>
+##      0.1574625      0.1587259      0.1579678      0.1579302      0.1579302</code></pre>
 <p>We see that the feasible SE (also known as the conservative SE) and
 the true SE are the same to 3 digits here, where as the OLS versions are
 a bit smaller and the simulated standard error is also very close. These
