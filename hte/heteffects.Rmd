@@ -1,12 +1,10 @@
 ---
 output:
   html_document:
-    toc: yes
+    toc: true
     theme: journal
     includes:
-    	after_body: ../linking_script.html
-  pdf_document:
-    toc: yes
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Heterogeneous Effects" -->
