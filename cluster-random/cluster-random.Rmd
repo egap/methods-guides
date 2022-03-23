@@ -589,14 +589,14 @@ abline(v = mean(SATE_estimate_no_weights), col = "blue")
 abline(v = true_SATE, col = "red")
 ```
 
-The histogram shows the sampling distribution of the estimator, with the
-true SATE in red and the unweighted estimate thereof in blue.
-The estimator is biased: in expectation, we do not recover the true SATE, instead
-underestimating it.
-Intuitively, one might correctly expect that the problem is related to the relative weight of
-the clusters in the calculation of the treatment effect.
-However, in this situation, taking the difference in the weighted average of the outcome among
-treated and control clusters is not enough to provide an unbiased estimator.
+The histogram shows the sampling distribution of the estimator, with the true
+SATE in red and the unweighted estimate thereof in blue. The estimator is
+biased: in expectation, we do not recover the true SATE, instead underestimating
+it. Intuitively, one might correctly expect that the problem is related to the
+relative weight of the clusters in the calculation of the treatment effect.
+However, in this situation, taking the difference in the weighted average of the
+outcome among treated and control clusters is not enough to provide an unbiased
+estimator (see the code below).
 
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
@@ -677,6 +677,12 @@ to 0.
 
 # 5 What to do about different cluster sizes
 
+Two other approaches work to alleviate this problem of bias from the correlation
+of cluster size and treatment effect: (1) condition on cluster size directly and
+(2) use the Horvitz-Thompson estimator. This [DeclareDesign Blog
+Post](https://declaredesign.org/blog/bias-cluster-randomized-trials.html)
+discusses both options. Here we demonstrate a pairing approach to conditioning
+on cluster-size given the example data that we generated above.
 
 As the above expression suggests, in order to reduce the bias from unequal
 cluster sizes to almost 0, it is sufficient to put clusters into pairs that
@@ -793,7 +799,10 @@ randomization, whereby, for example, the within-pair similarity of
 observed covariates is maximized. @imai2009essential
 recommend a mixture model for post-randomization pair-matched
 estimation, and spell out some of the assumptions that must be
-made for such estimates to be valid.
+made for such estimates to be valid. And this  [DeclareDesign Blog
+Post](https://declaredesign.org/blog/bias-cluster-randomized-trials.html)
+demonstrates conditioning on cluster-size without strict pairing.
+
 
 # 6 Why clustering can matter III: within-cluster spillovers
 
@@ -1006,7 +1015,7 @@ using probability distributions to characterize our uncertainty about
 unknown quantities, such as the true treatment effect or the true mean of the outcome at the
 cluster level.
 Such approaches are referred to as 'model-based', because they depict causal relationships as arising from interrelated probability distributions. Often, such approaches use
-'multilevel models', in which unknown parameters - such as differences between clusters - are themselves understood as arising from probability distributions.
+'multilevel models', in which unknown parameters --- such as differences between clusters --- are themselves understood as arising from probability distributions.
 Thus, for example, there might be a model for individual-level outcomes,
 whose intercept and/or coefficients vary from one cluster to another.
 In this manner, it is possible to model the 'effect of being a unit in cluster A',
@@ -1047,7 +1056,7 @@ kable(round(data.frame(
 ), 3))
 ```
 
-The confidence intervals differ even though the estimates are the same — and
+The confidence intervals differ even though the estimates are the same --- and
 there is more than one way to calculate confidence intervals and hypothesis
 tests for multilevel models. The software in R [@bates_et_al_2014lme4] includes
 three methods by default and @gelman2006data recommend MCMC sampling from the
@@ -1316,8 +1325,8 @@ test_H0_and_Htrue <- function(J = J, n = n, treatment_effect = treatment_effect,
 ```
 
 We can now analyze how power is affected when the number of clusters and the size of clusters vary, holding the ICC constant at .01 and the treatment effect constant at .2.
-We look both at the power - how often we correctly reject the null of no effect when there really is one -
-as well as at the error - how often we incorrectly reject the null of no effect when there really isn't an effect. Typically we want the power to be around .8 and the error rate to
+We look both at the power --- how often we correctly reject the null of no effect when there really is one -
+as well as at the error --- how often we incorrectly reject the null of no effect when there really isn't an effect. Typically we want the power to be around .8 and the error rate to
 be around .5 (when using a 95% confidence level).
 
 <style>
@@ -1487,7 +1496,7 @@ statistical power of the study, even with many large clusters.
 
 # 10 How to check balance in clustered designs
 
-Randomization checks in clustered designs follow the same form as the preceding discussion. A valid test for a treatment effect is a valid test for placebo or covariate balance. The only difference from our preceding discussion is that one uses a background covariate or baseline outcome — some variable putatively uninfluenced by the treatment — in place of the outcome itself. So, randomization tests with small numbers of clusters may be too quick to declare an experiment ill-randomized if the analyst is not aware of the methods of error-rate analysis that we described above.
+Randomization checks in clustered designs follow the same form as the preceding discussion. A valid test for a treatment effect is a valid test for placebo or covariate balance. The only difference from our preceding discussion is that one uses a background covariate or baseline outcome --- some variable putatively uninfluenced by the treatment --- in place of the outcome itself. So, randomization tests with small numbers of clusters may be too quick to declare an experiment ill-randomized if the analyst is not aware of the methods of error-rate analysis that we described above.
 
 One new problem does arise in the context of randomization tests. Often one has many covariates which could be used to detect unlucky imbalances or field problems with the randomization itself. And, if one uses hypothesis tests, then, of course, a valid test which encourages us to declare “imbalance” when $p<.05$ would do so falsely for one in every twenty variables tested. For this reason, we recommend using one-by-one testing as an exploratory tool and using omnibus tests (like the Hotelling T-test or an F-test or the @hansen2008covariate $d^2$ test), which can combine information across many dependent tests into one test statistic to make balance tests directly. However, these tests must account for the clustered nature of the design: a simple F-test without accounting for the clustered-design will likely mislead an analyst into declaring a design unbalanced and perhaps charging the field staff with a randomization failure.
 
