@@ -1,6 +1,6 @@
 ---
 bibliography: cluster_random.bib
-output: 
+output:
   html_document:
     toc: true
     theme: journal
@@ -27,8 +27,7 @@ library(knitr)
 library(lme4)
 ```
 
-1 What clustering is 
-==
+# 1 What clustering is
 
 Cluster randomized[^1] experiments allocate treatments to groups, but measure
 outcomes at the level of the individuals that compose the groups. It is this
@@ -315,8 +314,8 @@ use the following formula for the standard error:
 $$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^{n_j} (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
 where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^{n_j} (Y_{ij} - \bar{Y}_{ij})^2$ (following @arceneaux2009modeling ).
-This adjustment to the IID standard error 
-is commonly known as the “Robust Clustered Standard Error” or RCSE. 
+This adjustment to the IID standard error
+is commonly known as the “Robust Clustered Standard Error” or RCSE.
 
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
