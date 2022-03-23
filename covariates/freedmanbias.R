@@ -2,7 +2,7 @@ rm(list=ls())
 
 set.seed(20140903)
 
-&nbsp;
+# &nbsp;
 
 avg.bhat = function(Y0,Y1,X,T, sims = 1000) {
   
@@ -20,7 +20,7 @@ avg.bhat = function(Y0,Y1,X,T, sims = 1000) {
   
 }
 
-&nbsp;
+# &nbsp;
 
 avg.abs.bias = function(n, sims2 = 100){
   
@@ -34,13 +34,13 @@ avg.abs.bias = function(n, sims2 = 100){
   
 }
 
-&nbsp;
+# &nbsp;
 
 n = 4:10
 
 bias = sapply(n, avg.abs.bias) # this step may take a while
 
-&nbsp;
+# &nbsp;
 
 plot(n, bias[1,], col="red", type="b", ylab="Expected absolute bias", xlim=c(3,10))
 

@@ -3,6 +3,8 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Controlling for Covariates in RCTs” -->
@@ -16,7 +18,7 @@ This guide[^1] will help you think through when it makes sense to try to “cont
 
 1 What is covariate adjustment?
 ==
-“Covariates” are baseline characteristics of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables that your intervention may affect, e.g. expenditure decisions, attitudes toward democracy, or contributions for a public good in a lab experiment. But it’s also a good idea to collect data on baseline characteristics of subjects before treatment assignment occurs, e.g. gender, level of education, or ethnic group. If you do this you can explore how treatment effects vary with these characteristics (see [10 Things to Know About Heterogeneous Treatment Effects](http://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)). But doing this also lets you perform covariate adjustment.
+“Covariates” are baseline characteristics of your experimental subjects. When you run an experiment, you are primarily interested in collecting data on outcome variables that your intervention may affect, e.g. expenditure decisions, attitudes toward democracy, or contributions for a public good in a lab experiment. But it’s also a good idea to collect data on baseline characteristics of subjects before treatment assignment occurs, e.g. gender, level of education, or ethnic group. If you do this you can explore how treatment effects vary with these characteristics (see [10 Things to Know About Heterogeneous Treatment Effects](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects)). But doing this also lets you perform covariate adjustment.
 
 Covariate adjustment is another name for controlling for baseline variables when estimating treatment effects. Often this is done to improve precision. Subjects' outcomes are likely to have some correlation with variables that can be measured before random assignment. Accounting for variables like gender will allow you to set aside the variation in outcomes that is predicted by these baseline variables, so that you can isolate the effect of treatment on outcomes with greater precision and power.
 
@@ -26,11 +28,11 @@ Covariate adjustment can be a cheaper route to improved precision than increasin
 ==
 The best way to control for covariates is to use block randomization to do it at the design stage even before you start your experiment. Block randomization enables you to create treatment and control groups that are balanced on certain covariates. For example, you might expect that gender and income help predict the outcome variable. Block randomization can ensure that the treatment and control groups have equal proportions of female/high-income, female/low-income, male/high-income, and male/low-income populations. When the blocking variables help predict outcomes, blocking improves precision by preventing chance correlations between treatment assignment and baseline covariates.
 
-For more information on blocking and how to implement it in R, see [10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization). The precision gains from blocking (relative to covariate adjustment without blocking) tend to be greatest when sample sizes are small.^[Miratrix, Luke W., Jasjeet S. Sekhon, and Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
+For more information on blocking and how to implement it in R, see [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization). The precision gains from blocking (relative to covariate adjustment without blocking) tend to be greatest when sample sizes are small.^[Miratrix, Luke W., Jasjeet S. Sekhon, and Bin Yu (2013). "Adjusting Treatment Effect Estimates by Post-Stratification in Randomized Experiments." _Journal of the Royal Statistical Society, Series B_ 75: 369--396.]
 
 When blocking is done to improve precision, estimated standard errors should take the blocking into account. (Otherwise, the SEs will tend to be conservative because they won't give you credit for the precision improvement that blocking achieved.) One simple and commonly used method is to regress the outcome on the treatment assignment dummy variable as well as block dummies. When the probability of assignment to treatment is constant across blocks, including the block dummies in the regression doesn't change the estimated treatment effect, but tends to give a more accurate estimate of the SE.^[See, e.g., pages 217--219 of Miriam Bruhn and David McKenzie (2009), "In Pursuit of Balance: Randomization in Practice in Development Field Experiments," _American Economic Journal: Applied Economics_ 1 (4): 200--232.]
 
-If the probability of assignment to treatment varies by block, then you need to control for these unequal probabilities in order to get unbiased estimates of average treatment effects. [10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization) discusses ways to do this.
+If the probability of assignment to treatment varies by block, then you need to control for these unequal probabilities in order to get unbiased estimates of average treatment effects. [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization) discusses ways to do this.
 
 3 How to do it in a regression
 ==
@@ -48,7 +50,7 @@ $$Y_i = \alpha + \beta Z_i + \gamma W_i + \delta Z_i*W_i + \epsilon_i$$
 
 where $W_i = X_i - \overline{X}$ and $\overline{X}$ is the mean value of $X_i$ for the entire sample.
 
-If subjects receive different probabilities of assignment to treatment based on their covariates, then our estimation method needs to account for this (again, see [10 Things You Need to Know About Randomization](http://egap.org/resource/10-things-to-know-about-randomization) for details).
+If subjects receive different probabilities of assignment to treatment based on their covariates, then our estimation method needs to account for this (again, see [10 Things You Need to Know About Randomization](https://egap.org/resource/10-things-to-know-about-randomization) for details).
 
 4 Why to do it
 ==
@@ -60,7 +62,7 @@ In large samples, random assignment tends to produce treatment and control group
 
 Controlling for these covariates tends to improve precision if the covariates are predictive of potential outcomes. Take a look at the following example, which is loosely based on the Giné and Mansuri experiment on female voting behavior in Pakistan.^[Giné, Xavier, and Ghazala Mansuri (2012). ["Together We Will: Experimental Evidence on Female Voting Behavior in Pakistan."](http://siteresources.worldbank.org/DEC/Resources/gine_mansuri_voting_ReStat.pdf)] In this experiment, the authors randomized an information campaign to women in Pakistan to study its effects on their turnout behavior, the independence of their candidate choice, and their political knowledge. They carried out a baseline survey which provided them with several covariates.
 
-The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates two [potential outcomes](http://egap.org/resource/10-things-to-know-about-causal-inference) (the outcomes that would occur if she were assigned to treatment and if not) for a measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. To figure out whether our estimator is biased or not, we simulate 10,000 replications of our experiment. On each replication, we randomly assign treatment and then regress the observed outcome $Y$ on the treatment indicator $Z$, with and without controlling for covariates. Thus, we are simulating two methods (unadjusted and covariate-adjusted) for estimating the ATE. To estimate the bias of each method, we take the difference between the average of the 10,000 simulated estimates and the "true" treatment effect.
+The following code imitates this experiment by creating fake data for four of the covariates they collect: whether the woman owns an identification card, whether the woman has formal schooling, the woman’s age, and whether the woman has access to TV. It also creates two [potential outcomes](https://egap.org/resource/10-things-to-know-about-causal-inference) (the outcomes that would occur if she were assigned to treatment and if not) for a measure of the extent to which a woman’s choice of candidate was independent of the opinions of the men in her family. The potential outcomes are correlated with all four covariates, and the built-in “true” treatment effect on the independence measure here is 1. To figure out whether our estimator is biased or not, we simulate 10,000 replications of our experiment. On each replication, we randomly assign treatment and then regress the observed outcome $Y$ on the treatment indicator $Z$, with and without controlling for covariates. Thus, we are simulating two methods (unadjusted and covariate-adjusted) for estimating the ATE. To estimate the bias of each method, we take the difference between the average of the 10,000 simulated estimates and the "true" treatment effect.
 
 ```{r , error=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 rm(list=ls())

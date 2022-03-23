@@ -4,6 +4,8 @@ output:
     number_sections: true
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
     extensions: +implicit_figure
     code_folding: show
     fig_caption: true
@@ -102,7 +104,7 @@ How would we do this? Using equation 1, we can regress M on X to obtain the dire
 
 The problem is that this arithmetic only works under some very strong assumptions. One of these assumptions is that the error terms in regressions 1 and 3 are unrelated to each other—in other words, M can’t be predicted by unobservable factors that also predict Y. We described this problem intuitively in point 3 when we introduced Q, a confounding variable that contributes both to M and to Y and therefore engenders a very strong relationship between them, even if X’s effect on Y is not operating through M at all. Now let’s describe this problem using a simulation.
 
-In the following code, we start by creating this Q variable for each individual and defining the “true” effects of X on M, M on Y, and X on Y. Next, we create hypothetical potential outcomes for M—that is, for each individual, we define what value of M they would reveal if they were treated, and what value of M they would reveal if they were untreated. These values are related not only to the “true” effect of X on M, but also to Q. Then we can also define hypothetical potential outcomes for Y. We do this for four scenarios, all of which assume constant effects, an assumption we will relax later. Two of these are simple potential outcomes of Y: the Y exhibited by the individual who is untreated and reveals her untreated M potential outcome, and the Y exhibited by the individual who is treated and reveals her treated M potential outcome. However, we also define two complex potential outcomes of Y: the Y exhibited by the individual who is untreated but reveals her treated M potential outcome, and the Y exhibited by the individual who is treated but reveals her untreated M potential outcomes. While these potential outcomes bend the mind a bit, they are important to define in the hypothetical so that we can calculate the “true” (but inherently unobservable) direct and indirect effects to compare our decomposition analysis to.
+In the following code, we start by creating this Q variable for each individual and defining the “true” effects of X on M, M on Y, and X on Y. Next, we create hypothetical potential outcomes for M—that is, for each individual, we define what value of M they would reveal if they were treated, and what value of M they would reveal if they were untreated. These values are related not only to the “true” effect of X on M, but also to Q. Then we can also define hypothetical potential outcomes for Y. We do this for four scenarios, all of which assume constant effects, an assumption we will relax later. Two of these are simple potential outcomes of Y: the Y exhibited by the individual who is untreated and reveals her untreated M potential outcome, and the Y exhibited by the individual who is treated and reveals her treated M potential outcome. However, we also define two complex potential outcomes of Y: the Y exhibited by the individual who is untreated but reveals her treated M potential outcome, and the Y exhibited by the individual who is treated but reveals her untreated M potential outcome. While these potential outcomes bend the mind a bit, they are important to define in the hypothetical so that we can calculate the “true” (but inherently unobservable) direct and indirect effects to compare our decomposition analysis to.
 
 In the second half of the code, we conduct a random assignment of treatment and proceed with the decomposition of effects analysis described above, using the data we “observe.” Under the (strong) assumptions that the error terms are uncorrelated and effects are constant across subjects, $a*b$ = ACME, $d$ = ACDE, and $c$ = ATE. However, the simulation reveals that $a*b$ > ACME and $d$ < ACDE; that is, we overestimated the average indirect or mediated effect (ACME) and underestimated the average direct effect (ACDE). Our decomposition of effects analysis was biased because the first assumption – uncorrelated error terms – did not hold: unobserved variable Q predicted both M and Y, and this led us to overestimate the role of the mechanism M.
 
@@ -169,7 +171,7 @@ ATE <- mean(Y_1 - Y_0)
 
 ATE
 ACDE + ACME # note that the direct and indirect effects sum to the total
-ACDE 
+ACDE
 ACME
 ATE_M
 
@@ -232,7 +234,7 @@ One strategy is to use subgroup analysis, or treatment-by-covariate interactions
 
 [^7]: Heather Sarsons, “Rainfall and Conflict: A Cautionary Tale.” Journal of Development Economics 115 (2015): 62-72.
 
-- X$\rightarrow$Y in places where X is known to affect M [Rainfall shocks will increase riots in areas where rainfall shocks will negatively affect income (upstream of dam).] 
+- X$\rightarrow$Y in places where X is known to affect M [Rainfall shocks will increase riots in areas where rainfall shocks will negatively affect income (upstream of dam).]
 - X has no effect on Y in places where X has no effect on M [Rainfall shocks will have no effect on riots in areas where income is not sensitive to rainfall (downstream of dam).]
 
 However, she found that the relationship between rainfall shocks and riot incidence held just as tightly in the downstream districts where income was not sensitive to rainfall. She interprets this finding as “suggestive” evidence *against* the income mechanism. To be clear, Sarsons did not conduct any mediation analysis: she did not measure the income of each village and quantify the direct effect of rainfall shocks on riots and the indirect effect of rainfall shocks on riots through income. Instead, she looked for the heterogeneous treatment effects the theory would have implied and, finding no evidence of them, concluded that the income channel may be less important than previously thought.
@@ -246,7 +248,7 @@ Again, while it’s difficult to quantify evidence of a mechanism at work, we ca
 For example, many social scientists are interested in how mass education influences democracy. Several theories of democratization expect different mechanisms would connect education and democracy. First, according to modernization theory, education could facilitate the smooth functioning of democracy by undermining group attachments (such as ethnicity or religion) in favor of merit.[^8]  Second, according to social theorists of oppression, education could undermine democracy by reinforcing obedience to authority, which is inherent in a classroom structure.[^9]  Third, according to many political scientists and psychologists, education can encourage democratic participation by empowering individuals with the ability to acquire and act on knowledge.[^10]  Friedman et al. (2011)[^11]  decide to tease apart these mechanisms by investigating the results of a field experiment in which Kenyan girls were randomly assigned to receive an education subsidy.  They followed up with the students five years after the program and asked them several questions designed to test which of these three mechanisms were at work: Did the girls accept a husband’s right to beat his wife? Was a parent involved in selecting their spouse? How strongly did the girl identify with her religious or ethnic group? Did the girl regularly read news?
 
 [^8]: Marion Joseph Levy, Modernization and the Structure of Societies, Princeton University Press, 1966.
-[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999. 
+[^9]: Frantz Fanon, The Wretched of the Earth, Grove Press, 1964. John Lott, Jr., “Public Schooling, Indoctrination and Totalitarianism,” Journal of Political Economy 107(6), 1999.
 [^10]: Gabriel Almond and Sidney Verba, The Civic Culture: Political Attitudes and Democracy in Five Nations, Sage Publications, 1963. Robert Mattes and Michael Bratton, “Learning about Democracy in Africa: Awareness, Performance, and Experience,” American Journal of Political Science, 51(1), 2007.
 [^11]: Willa Friedman, Michael Kremer, Edward Miguel, and Rebecca Thornton, “Education as Liberation?” NBER Working Paper 16939, 2011.
 
@@ -255,11 +257,11 @@ The following table outlines the direction of the effects that each theory would
 [^12]: In the actual study, the authors were surprised to uncover evidence that education also increased individuals’ acceptance of political violence. While they still argue that individual empowerment is responsible for the relationship between education and democracy, they caution that education does not always lead to democratization (that is, M3→Y but it is also possible that M3→NOT Y). Nonetheless, their approach is a useful demonstration of how multiple outcomes may shed light on mechanisms.
 
 Mechanism | Acceptance of husband's right to beat wives (Y1) | Parent involved in selecting spouse (Y2) | Association with religion, ethnic identity (Y3) | Reads news (Y4)
-------------- | ------------- | ------------- | ------------- | ------------- 
-(M1) Modernization | $\downarrow$ | $\downarrow$ | $\downarrow$ | No effect 
-(M2) Obedience to authority | $\uparrow$ | $\uparrow$ | $\uparrow$ | No effect 
+------------- | ------------- | ------------- | ------------- | -------------
+(M1) Modernization | $\downarrow$ | $\downarrow$ | $\downarrow$ | No effect
+(M2) Obedience to authority | $\uparrow$ | $\uparrow$ | $\uparrow$ | No effect
 (M3) Individual empowerment | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$
-Actual effect | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$ 
+Actual effect | $\downarrow$ | $\downarrow$ | No effect | $\uparrow$
 
 This study, like Sarsons’s study, is not trying to quantify how much of the effect of X on Y is conveyed via M. However, through thoughtful investigation of various outcomes, the authors are able to provide suggestive evidence of which mechanisms seem most plausible.
 
@@ -267,7 +269,7 @@ This study, like Sarsons’s study, is not trying to quantify how much of the ef
 
 #  Designing complex treatments can help narrow our understanding of what part of the treatment is “doing the work.”
 
-Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms. This approach is sometimes called “implicit mediation analysis” because different components are X are thought to *implicitly* manipulate certain mechanisms. This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.
+Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms. This approach is sometimes called “implicit mediation analysis” because different components of X are thought to *implicitly* manipulate certain mechanisms. This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.
 
 For example, many governments including Mexico, Brazil, Tanzania, and Uganda have created conditional cash transfer programs to address poverty. These programs provide cash to poor individuals, but they frequently come with conditions such as attending school or a job training program. Until recently, we knew only that these programs (X) successfully reduced poverty (Y) and that X caused Y either via cash or via the required attendance at school or job programs. To distinguish between these mechanisms, Baird et al. (2011)[^13] conducted an experiment in Malawi, where they assigned one group of families to receive a *conditional* cash transfer for the regular school attendance of their girls, another group of families to receive the cash *unconditionally*, and a control group to receive no transfer. This design “implicitly” manipulated M: while girls in the unconditional transfer group could also seek out education, school attendance (the condition under study) would likely be higher in the group that was required to seek it out. Unsurprisingly, school attendance and test performance was better for the group receiving conditional cash transfers. However, their measures of Y--the rate at which the girls became pregnant or married--were actually better (lower) in the group receiving the unconditional cash transfers. The authors concluded that attendance requirements associated with conditional cash transfers were not probably not the mechanism responsible for the success of these programs in reducing the symptoms of poverty.
 

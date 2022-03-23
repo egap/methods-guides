@@ -3,6 +3,8 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Survey Design" -->
@@ -18,7 +20,7 @@ At a minimum, all that is needed to estimate a treatment effect after an experim
 Baseline surveys should produce data that describe the experimental subject population as they were before the treatment is delivered. This is accomplished through the measurement of covariates, which are observed pre-treatment characteristics of experimental subjects. Using covariate data you can: 1) describe the subject population, 2) improve the precision with which you estimate treatment effects, 3) report balance, and 4) estimate heterogeneous treatment effects.
 
 ## Covariates
-Covariates improve the precision with which you can estimate treatment effects by reducing variance in three ways; covariates can be used to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. collected sometime before treatment is delivered. See the guide on [covariate adjustment](http://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
+Covariates improve the precision with which you can estimate treatment effects by reducing variance in three ways; covariates can be used to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. collected sometime before treatment is delivered. See the guide on [covariate adjustment](https://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
 
 [^1]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012.
 
@@ -78,7 +80,7 @@ It is now standard practice in experimental social science research to register 
 
 If you plan on developing a PAP, there are good reasons, beyond the normative value in increasing the level of transparency in your work, to develop your survey(s) at the same time. Early development of survey instruments is an opportunity to increase confidence in your power calculations, and to enhance precision by including measures of all possible predictive covariates.
 
-Power is the overall probability that your design will detect an effect if an effect exists. Calculating [power](http://egap.org/resource/10-things-to-know-about-statistical-power) involves making assumptions about the range of possible effect sizes, the range of possible values of predictive covariates, how many subjects you will include in your experiment, and how many subjects will answer your survey. Developing your instrument and sampling procedure can significantly improve the accuracy of these assumptions by setting the range of possible values for covariates and outcome measures. 
+Power is the overall probability that your design will detect an effect if an effect exists. Calculating [power](https://egap.org/resource/10-things-to-know-about-statistical-power) involves making assumptions about the range of possible effect sizes, the range of possible values of predictive covariates, how many subjects you will include in your experiment, and how many subjects will answer your survey. Developing your instrument and sampling procedure can significantly improve the accuracy of these assumptions by setting the range of possible values for covariates and outcome measures.
 
 The best PAPs include a mapping between survey measures (questions) and each equation of interest that will eventually be estimated. Completing this exercise as you develop your survey ensures you have included necessary survey-based covariates and alternative outcome measures.[^4]
 
@@ -157,5 +159,5 @@ It is absolutely essential to pre-test your survey instrument after you have des
 5. That you have included all relevant response categories (and you won’t get a lot of non-response)
 6. The instrument is not too long
 
-The [survey implementation](http://egap.org/resource/10-things-to-know-about-survey-implementation) guide explains about how to set up and carry out a pre-test. 
+The [survey implementation](https://egap.org/resource/10-things-to-know-about-survey-implementation) guide explains about how to set up and carry out a pre-test.
 

@@ -3,6 +3,8 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things You Need to Know About Causal Inference" -->
@@ -53,7 +55,7 @@ If causal effects are statements about the difference between what happened and 
 
 6. You can estimate average causal effects even though you cannot observe any individual causal effects.
 ==
-Even though you cannot observe whether $X$ causes $Y$ for any given unit, it can still be possible to figure out whether $X$ causes $Y$ on average. The key insight here is that the average causal effect equals the difference between the average outcome across all units if all units were in the control condition and the average outcome across all units if all units were in the treatment condition. Many strategies for causal identification (see [10 Strategies for Figuring Out If X Caused Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)) focus on ways to learn about these average potential outcomes.^[__Technical Note:__ The key technical insight is that the difference of averages is the same as the average of differences. That is, using the "expectations operator," $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$. The terms inside the expectations operator in the second quantity cannot be estimated, but the terms inside the expectations operators in the third quantity can be.[^3] See illustration [here](https://raw.githubusercontent.com/egap/methods-guides/master/causal-inference/PO.jpg).]
+Even though you cannot observe whether $X$ causes $Y$ for any given unit, it can still be possible to figure out whether $X$ causes $Y$ on average. The key insight here is that the average causal effect equals the difference between the average outcome across all units if all units were in the control condition and the average outcome across all units if all units were in the treatment condition. Many strategies for causal identification (see [10 Strategies for Figuring Out If X Caused Y](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)) focus on ways to learn about these average potential outcomes.^[__Technical Note:__ The key technical insight is that the difference of averages is the same as the average of differences. That is, using the "expectations operator," $𝔼(τ_i)=𝔼(Y_i(1)−Y_i(0))=𝔼(Y_i(1))−𝔼(Y_i(0))$. The terms inside the expectations operator in the second quantity cannot be estimated, but the terms inside the expectations operators in the third quantity can be.[^3] See illustration [here](https://raw.githubusercontent.com/egap/methods-guides/master/causal-inference/PO.jpg).]
 
 [10 Things to Know About Hypothesis Testing](https://egap.org/resource/10-things-to-know-about-hypothesis-testing/) describes how one can learn about individual causal effects rather than average causal effects given the fundamental problem of causal inference.
 
@@ -61,7 +63,7 @@ Even though you cannot observe whether $X$ causes $Y$ for any given unit, it can
 
 7. Estimating average causal effects does not require that treatment and control groups are identical.
 ==
-One strategy that people use to learn about average causal effects is to create treatment and control groups through randomization (see [10 Strategies for Figuring Out If X Caused Y](http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)). When doing so, researchers sometimes worry if they find that the resulting treatment and control groups do not look the same along relevant dimensions. 
+One strategy that people use to learn about average causal effects is to create treatment and control groups through randomization (see [10 Strategies for Figuring Out If X Caused Y](https://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y)). When doing so, researchers sometimes worry if they find that the resulting treatment and control groups do not look the same along relevant dimensions.
 
 The good news is that the argument for why differences in average outcomes across randomly assigned treatment and control groups capture average treatment effects (in expectation across repeated randomizations within the same pool of units) does *not* rely on treatment and control groups being similar in their observed characteristics. It relies only on the idea that, on average, the outcomes in the treated and control groups will capture the average outcomes for all units in the experimental pool if they were, respectively, in treatment or in control. In practice actual treatment and control groups will not be identical.[^10]
 

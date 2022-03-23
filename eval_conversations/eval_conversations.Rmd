@@ -3,6 +3,8 @@ output:
   html_document:
     theme: journal
     toc: true
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- 10 Conversations that Implementers and Evaluators Need to Have -->

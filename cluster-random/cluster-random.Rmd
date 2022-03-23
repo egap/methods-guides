@@ -1,9 +1,11 @@
 ---
 bibliography: cluster_random.bib
-output:
+output: 
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <style>
@@ -25,7 +27,7 @@ library(knitr)
 library(lme4)
 ```
 
-1 What clustering is
+1 What clustering is 
 ==
 
 Cluster randomized[^1] experiments allocate treatments to groups, but measure
@@ -103,55 +105,55 @@ code. You can copy and paste this into your own `R` program to see how it works.
 ```{r,cache=T}
 set.seed(12345)
 # Define the sample average treatment effect (SATE)
-treatment_effect <- 1
+treatment_effect     <- 1
 # Define the individual ids (i)
-person <- 1:10
+person               <- 1:10
 # Define the cluster indicator (j)
-hair_color <- c(rep("black", 5), rep("brown", 5))
+hair_color           <- c(rep("black",5),rep("brown",5))
 # Define the control outcome (Y0)
 outcome_if_untreated <- rnorm(n = 10)
 # Define the treatment outcome (Y1)
-outcome_if_treated <- outcome_if_untreated + treatment_effect
+outcome_if_treated   <- outcome_if_untreated + treatment_effect
 
 # Version 1 - Not cluster randomized
 # Generate all possible non-clustered assignments of treatment (Z)
-non_clustered_assignments <- combn(x = unique(person), m = 5)
+non_clustered_assignments <- combn(x = unique(person),m = 5)
 # Estimate the treatment effect
 treatment_effects_V1 <-
-  apply(
-    X = non_clustered_assignments,
-    MARGIN = 2,
-    FUN = function(assignment) {
-      treated_outcomes <- outcome_if_treated[person %in% assignment]
-      untreated_outcomes <- outcome_if_untreated[!person %in% assignment]
-      mean(treated_outcomes) - mean(untreated_outcomes)
-    }
-  )
+     apply(
+          X = non_clustered_assignments,
+          MARGIN = 2,
+          FUN = function(assignment) {
+               treated_outcomes   <- outcome_if_treated[person %in% assignment]
+               untreated_outcomes <- outcome_if_untreated[!person %in% assignment]
+               mean(treated_outcomes) - mean(untreated_outcomes)
+          }
+     )
 # Estimate the true standard error
 standard_error_V1 <- sd(treatment_effects_V1)
 # Plot the histogram of all possible estimates of the treatment effect
-hist(treatment_effects_V1, xlim = c(-1, 2.5), breaks = 20)
+hist(treatment_effects_V1,xlim = c(-1,2.5),breaks = 20)
 ```
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Version 2 - Cluster randomized
 # Generate all possible assignments of treatment when clustering by hair color (Z)
-clustered_assignments <- combn(x = unique(hair_color), m = 1)
+clustered_assignments     <- combn(x = unique(hair_color),m = 1)
 # Estimate the treatment effect
 treatment_effects_V2 <-
-  sapply(
-    X = clustered_assignments,
-    FUN = function(assignment) {
-      treated_outcomes <- outcome_if_treated[person %in% person[hair_color == assignment]]
-      untreated_outcomes <- outcome_if_untreated[person %in% person[!hair_color == assignment]]
-      mean(treated_outcomes) - mean(untreated_outcomes)
-    }
-  )
+     sapply(
+          X = clustered_assignments,
+          FUN = function(assignment) {
+               treated_outcomes   <- outcome_if_treated[person %in% person[hair_color==assignment]]
+               untreated_outcomes <- outcome_if_untreated[person %in% person[!hair_color==assignment]]
+               mean(treated_outcomes) - mean(untreated_outcomes)
+          }
+     )
 # Estimate the true standard error
 standard_error_V2 <- sd(treatment_effects_V2)
 # Plot the histogram of all possible estimates of the treatment effect
-hist(treatment_effects_V2, xlim = c(-1, 2.5), breaks = 20)
+hist(treatment_effects_V2,xlim = c(-1,2.5),breaks = 20)
 ```
 
 As the histograms show, clustering provides a much 'coarser' view of the
@@ -165,7 +167,7 @@ the estimator.
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r}
 # Compare the standard errors
-kable(round(data.frame(standard_error_V1, standard_error_V2), 2))
+kable(round(data.frame(standard_error_V1,standard_error_V2),2))
 ```
 
 While the sampling distribution for the non-clustered estimate of the treatment
@@ -251,22 +253,22 @@ from a simple cluster-randomized design.
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
-make_clustered_data <- function(J = 10, n = 100, treatment_effect = .25, ICC = .1) {
-  ## Inspired by Mathieu et al, 2012, Journal of Applied Psychology
-  if (J %% 2 != 0 | n %% 2 != 0) {
-    stop(paste("Number of clusters (J) and size of clusters (n) must be even."))
-  }
-  Y0_j <- rnorm(J, 0, sd = (1 + treatment_effect)^2 * sqrt(ICC))
-  fake_data <- expand.grid(i = 1:n, j = 1:J)
-  fake_data$Y0 <- rnorm(n * J, 0, sd = (1 + treatment_effect)^2 * sqrt(1 - ICC)) + Y0_j[fake_data$j]
-  fake_data$Y1 <- with(fake_data, mean(Y0) + treatment_effect + (Y0 - mean(Y0)) * (2 / 3))
-  fake_data$Z <- ifelse(fake_data$j %in% sample(1:J, J / 2) == TRUE, 1, 0)
-  fake_data$Y <- with(fake_data, Z * Y1 + (1 - Z) * Y0)
-  return(fake_data)
+make_clustered_data <- function(J = 10, n = 100, treatment_effect = .25, ICC = .1){
+     ## Inspired by Mathieu et al, 2012, Journal of Applied Psychology
+     if (J %% 2 != 0 | n %% 2 !=0) {
+          stop(paste("Number of clusters (J) and size of clusters (n) must be even."))
+     }
+     Y0_j         <- rnorm(J,0,sd = (1 + treatment_effect) ^ 2 * sqrt(ICC))
+     fake_data    <- expand.grid(i = 1:n,j = 1:J)
+     fake_data$Y0 <- rnorm(n * J,0,sd = (1 + treatment_effect) ^ 2 * sqrt(1 - ICC)) + Y0_j[fake_data$j]
+     fake_data$Y1 <- with(fake_data,mean(Y0) + treatment_effect + (Y0 - mean(Y0)) * (2 / 3))
+     fake_data$Z  <- ifelse(fake_data$j %in% sample(1:J,J / 2) == TRUE, 1, 0)
+     fake_data$Y  <- with(fake_data, Z * Y1 + (1 - Z) * Y0)
+     return(fake_data)
 }
 
 set.seed(12345)
-pretend_data <- make_clustered_data(J = 10, n = 100, treatment_effect = .25, ICC = .1)
+pretend_data <- make_clustered_data(J = 10,n = 100,treatment_effect = .25,ICC = .1)
 ```
 
 Because we have created the data ourselves, we can calculate the true standard
@@ -280,21 +282,21 @@ error of the estimator.
 # Define the number of clusters
 J <- length(unique(pretend_data$j))
 # Generate all possible ways of combining clusters into a treatment group
-all_treatment_groups <- with(pretend_data, combn(x = 1:J, m = J / 2))
+all_treatment_groups <- with(pretend_data,combn(x = 1:J,m = J/2))
 # Create a function for estimating the effect
-clustered_ATE <- function(j, Y1, Y0, treated_clusters) {
-  Z_sim <- (j %in% treated_clusters) * 1
-  Y <- Z_sim * Y1 + (1 - Z_sim) * Y0
-  estimate <- mean(Y[Z_sim == 1]) - mean(Y[Z_sim == 0])
-  return(estimate)
+clustered_ATE <- function(j,Y1,Y0,treated_clusters) {
+     Z_sim    <- (j %in% treated_clusters)*1
+     Y        <- Z_sim * Y1 + (1 - Z_sim) * Y0
+     estimate <- mean(Y[Z_sim == 1]) - mean(Y[Z_sim == 0])
+     return(estimate)
 }
 
 set.seed(12345)
 # Apply the function through all possible treatment assignments
 cluster_results <- apply(
   X = all_treatment_groups, MARGIN = 2,
-  FUN = clustered_ATE,
-  j = pretend_data$j, Y1 = pretend_data$Y1,
+                         FUN = clustered_ATE,
+                         j  = pretend_data$j,Y1 = pretend_data$Y1,
   Y0 = pretend_data$Y0
 )
 
@@ -313,44 +315,44 @@ use the following formula for the standard error:
 $$\text{Var}_\text{clustered}(\hat{\tau})=\frac{\sigma^2}{\sum_{j=1}^J \sum_{i=1}^{n_j} (Z_{ij}-\bar{Z})^2} (1-(n-1)\rho)$$
 
 where $\sigma^2=\sum_{j=1}^J \sum_{i=1}^{n_j} (Y_{ij} - \bar{Y}_{ij})^2$ (following @arceneaux2009modeling ).
-This adjustment to the IID standard error
-is commonly known as the “Robust Clustered Standard Error” or RCSE.
+This adjustment to the IID standard error 
+is commonly known as the “Robust Clustered Standard Error” or RCSE. 
 
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T, error=FALSE, message=FALSE, warning=FALSE}
 
-ATE_estimate <- lm(Y ~ Z, data = pretend_data)
+ATE_estimate <- lm(Y ~ Z,data = pretend_data)
 
 IID_SE <- function(model) {
-  return(sqrt(diag(vcov(model)))[["Z"]])
+     return(sqrt(diag(vcov(model)))[["Z"]])
 }
 
-RCSE <- function(model, cluster, return_cov = FALSE) {
+RCSE <- function(model, cluster,return_cov = FALSE){
   require(sandwich)
   require(lmtest)
   M <- length(unique(cluster))
   N <- length(cluster)
   K <- model$rank
-  dfc <- (M / (M - 1)) * ((N - 1) / (N - K))
+  dfc <- (M/(M - 1)) * ((N - 1)/(N - K))
   uj <- apply(estfun(model), 2, function(x) tapply(x, cluster, sum))
-  rcse.cov <- dfc * sandwich(model, meat = crossprod(uj) / N)
+  rcse.cov <- dfc * sandwich(model, meat = crossprod(uj)/N)
   rcse.se <- as.matrix(coeftest(model, rcse.cov))
-  if (return_cov) {
+  if(return_cov){
     return(rcse.cov)
-  } else {
+  }else{
     return(rcse.se)
   }
 }
 
 IID_SE_estimate <- IID_SE(model = ATE_estimate)
 
-RCSE_estimate <- RCSE(model = ATE_estimate, cluster = pretend_data$j)
+RCSE_estimate   <- RCSE(model = ATE_estimate,cluster = pretend_data$j)
 
 knitr::kable(round(
   data.frame(
-    true_SE         = true_SE,
-    IID_SE_estimate = IID_SE_estimate,
+     true_SE         = true_SE,
+     IID_SE_estimate = IID_SE_estimate,
     RCSE_estimate   = RCSE_estimate["Z", "Std. Error"]
   ),
   2
@@ -371,39 +373,39 @@ the treatment to the IID and RC standard errors.
 ```{r,cache=T}
 
 compare_SEs <- function(data) {
-  simulated_SE <- sd(replicate(
-    5000,
-    clustered_ATE(
-      j = data$j,
-      Y1 = data$Y1,
-      Y0 = data$Y0,
-      treated_clusters = sample(unique(data$j), length(unique(data$j)) / 2)
+     simulated_SE <- sd(replicate(
+          5000,
+          clustered_ATE(
+               j = data$j,
+               Y1 = data$Y1,
+               Y0 = data$Y0,
+               treated_clusters = sample(unique(data$j),length(unique(data$j))/2)
     )
   ))
-  ATE_estimate <- lm(Y ~ Z, data)
-  IID_SE_estimate <- IID_SE(model = ATE_estimate)
-  RCSE_estimate <- RCSE(model = ATE_estimate, cluster = data$j)["Z", "Std. Error"]
-  return(round(c(
-    simulated_SE = simulated_SE,
-    IID_SE = IID_SE_estimate,
-    RCSE = RCSE_estimate
-  ), 3))
+     ATE_estimate <- lm(Y ~ Z,data)
+     IID_SE_estimate <- IID_SE(model = ATE_estimate)
+     RCSE_estimate <- RCSE(model = ATE_estimate,cluster = data$j)["Z", "Std. Error"]
+     return(round(c(
+          simulated_SE = simulated_SE,
+          IID_SE = IID_SE_estimate,
+          RCSE = RCSE_estimate
+     ),3))
 }
 
-J_4_clusters <- make_clustered_data(J = 4)
-J_10_clusters <- make_clustered_data(J = 10)
-J_30_clusters <- make_clustered_data(J = 30)
-J_100_clusters <- make_clustered_data(J = 100)
+J_4_clusters    <- make_clustered_data(J = 4)
+J_10_clusters   <- make_clustered_data(J = 10)
+J_30_clusters   <- make_clustered_data(J = 30)
+J_100_clusters  <- make_clustered_data(J = 100)
 J_1000_clusters <- make_clustered_data(J = 1000)
 
 set.seed(12345)
 
 knitr::kable(rbind(
-  c(J = 4, compare_SEs(J_4_clusters)),
-  c(J = 30, compare_SEs(J_30_clusters)),
-  c(J = 100, compare_SEs(J_100_clusters)),
-  c(J = 1000, compare_SEs(J_1000_clusters))
-))
+  c(J = 4,compare_SEs(J_4_clusters)),
+  c(J = 30,compare_SEs(J_30_clusters)),
+  c(J = 100,compare_SEs(J_100_clusters)),
+  c(J = 1000,compare_SEs(J_1000_clusters))
+  ))
 ```
 
 As these simple examples illustrate, the clustered estimate of the standard
@@ -433,9 +435,9 @@ treatment to another.
 ```{r,cache=T}
 # Aggregate the unit-level data to the cluster level
 # Sum outcome to cluster level
-Yj <- tapply(pretend_data$Y, pretend_data$j, sum)
+Yj <- tapply(pretend_data$Y,pretend_data$j,sum)
 # Aggregate assignment indicator to cluster level
-Zj <- tapply(pretend_data$Z, pretend_data$j, unique)
+Zj <- tapply(pretend_data$Z,pretend_data$j,unique)
 # Calculate unique cluster size
 n_j <- unique(as.vector(table(pretend_data$j)))
 # Calculate total sample size (our units are now clusters)
@@ -446,11 +448,11 @@ j <- 1:N
 J_treated <- sum(Zj)
 
 # Make a function for the cluster-level difference in means estimator (See Hansen & Bowers 2008)
-cluster_difference <- function(Yj, Zj, n_j, J_treated, N) {
-  ones <- rep(1, length(Zj))
-  ATE_estimate <- crossprod(Zj, Yj) * (N / (n_j * J_treated * (N - J_treated))) -
-    crossprod(ones, Yj) / (n_j * (N - J_treated))
-  return(ATE_estimate)
+cluster_difference <- function(Yj,Zj,n_j,J_treated,N){
+     ones <- rep(1, length(Zj))
+     ATE_estimate <- crossprod(Zj,Yj)*(N/(n_j*J_treated*(N-J_treated))) -
+          crossprod(ones,Yj)/(n_j*(N-J_treated))
+     return(ATE_estimate)
 }
 
 # Given equal sized clusters and no blocking, this is identical to the
@@ -458,12 +460,12 @@ cluster_difference <- function(Yj, Zj, n_j, J_treated, N) {
 
 ATEs <- colMeans(data.frame(
   cluster_level_ATE =
-    cluster_difference(Yj, Zj, n_j, J_treated, N),
-  unit_level_ATE =
+               cluster_difference(Yj,Zj,n_j,J_treated,N),
+          unit_level_ATE =
     with(pretend_data, mean(Y[Z == 1]) - mean(Y[Z == 0]))
 ))
 
-knitr::kable(data.frame(ATEs), align = "c")
+knitr::kable(data.frame(ATEs),align = "c")
 ```
 
 In order to characterize uncertainty about the cluster-level ATE, we can
@@ -478,20 +480,20 @@ that the sampling distribution follows a normal distribution.
 ```{r,cache=T}
 # Approximating variance using normality assumptions
 normal_sampling_variance <-
-  (N / (n_j * J_treated * (N - J_treated))) * (var(Yj) / n_j)
+     (N/(n_j*J_treated*(N-J_treated)))*(var(Yj)/n_j)
 # Approximating variance using permutations
 set.seed(12345)
-sampling_distribution <- replicate(10000, cluster_difference(Yj, sample(Zj), n_j, J_treated, N))
+sampling_distribution <- replicate(10000,cluster_difference(Yj,sample(Zj),n_j,J_treated,N))
 
 ses <- data.frame(
   sampling_variance = c(sqrt(normal_sampling_variance), sd(sampling_distribution)),
   p_values = c(
     2 * (1 - pnorm(abs(ATEs[1]) / sqrt(normal_sampling_variance), mean = 0)),
-    2 * min(mean(sampling_distribution >= ATEs[1]), mean(sampling_distribution <= ATEs[1]))
+                               2*min(mean(sampling_distribution>=ATEs[1]),mean(sampling_distribution<=ATEs[1]))
   )
 )
 
-rownames(ses) <- c("Assuming Normality", "Permutations")
+rownames(ses) <- c("Assuming Normality","Permutations")
 
 knitr::kable(ses)
 ```
@@ -530,7 +532,7 @@ set.seed(1000)
 J <- 20
 
 # Employees per firm
-n_j <- rep(2^(0:(J / 2 - 1)), rep(2, J / 2))
+n_j <- rep(2^(0:(J/2-1)),rep(2,J/2))
 
 # Total number of employees
 N <- sum(n_j)
@@ -540,10 +542,10 @@ N <- sum(n_j)
 i <- 1:N
 
 # Unique firm (cluster) ID
-j <- rep(1:length(n_j), n_j)
+j <- rep(1:length(n_j),n_j)
 
 # Firm specific treatment effects
-cluster_ATE <- n_j^2 / 10000
+cluster_ATE <- n_j^2/10000
 
 # Untreated productivity
 Y0 <- rnorm(N)
@@ -552,13 +554,13 @@ Y0 <- rnorm(N)
 Y1 <- Y0 + cluster_ATE[j]
 
 # True sample average treatment effect
-(true_SATE <- mean(Y1 - Y0))
+(true_SATE <- mean(Y1-Y0))
 ```
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Correlation between firm size and effect size
-cor(n_j, cluster_ATE)
+cor(n_j,cluster_ATE)
 ```
 
 As we see, there is high correlation in the treatment effect and cluster size.
@@ -572,21 +574,21 @@ an estimate of the sample average treatment effect.
 set.seed(1234)
 # Unweighted SATE
 SATE_estimate_no_weights <- NA
-for (i in 1:1000) {
-  # Clustered random assignment of half of the firms
-  Z <- (j %in% sample(1:J, J / 2)) * 1
-  # Reveal outcomes
-  Y <- Z * Y1 + (1 - Z) * Y0
-  # Estimate SATE
-  SATE_estimate_no_weights[i] <- mean(Y[Z == 1]) - mean(Y[Z == 0])
-}
+for(i in 1:1000){
+     # Clustered random assignment of half of the firms
+     Z <- (j %in% sample(1:J,J/2))*1
+     # Reveal outcomes
+     Y <- Z*Y1 + (1-Z)*Y0
+     # Estimate SATE
+     SATE_estimate_no_weights[i] <- mean(Y[Z==1])-mean(Y[Z==0])
+     }
 
 # Generate histogram of estimated effects
-hist(SATE_estimate_no_weights, xlim = c(true_SATE - 2, true_SATE + 2), breaks = 100)
+hist(SATE_estimate_no_weights,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
 # Add the expected estimate of the SATE using this estimator
-abline(v = mean(SATE_estimate_no_weights), col = "blue")
+abline(v=mean(SATE_estimate_no_weights),col="blue")
 # And add the true SATE
-abline(v = true_SATE, col = "red")
+abline(v=true_SATE,col="red")
 ```
 
 The histogram shows the sampling distribution of the estimator, with the true
@@ -604,33 +606,33 @@ estimator (see the code below).
 set.seed(1234)
 # Weighted cluster-averages
 SATE_estimate_weighted <- NA
-for (i in 1:1000) {
-  # Define the clusters put into treatment
-  treated_clusters <- sample(1:J, J / 2, replace = F)
-  # Generate unit-level assignment vector
-  Z <- (j %in% treated_clusters) * 1
-  # Reveal outcomes
-  Y <- Z * Y1 + (1 - Z) * Y0
-  # Calculate the cluster weights
-  treated_weights <- n_j[1:J %in% treated_clusters] / sum(n_j[1:J %in% treated_clusters])
-  control_weights <- n_j[!1:J %in% treated_clusters] / sum(n_j[!1:J %in% treated_clusters])
-  # Calculate the means of each cluster
-  treated_means <- tapply(Y, j, mean)[1:J %in% treated_clusters]
-  control_means <- tapply(Y, j, mean)[!1:J %in% treated_clusters]
-  # Calculate the cluster-weighted estimate of the SATE
-  SATE_estimate_weighted[i] <-
-    weighted.mean(treated_means, treated_weights) -
-    weighted.mean(control_means, control_weights)
+for(i in 1:1000){
+     # Define the clusters put into treatment
+     treated_clusters <- sample(1:J,J/2,replace = F)
+     # Generate unit-level assignment vector
+     Z <- (j %in% treated_clusters)*1
+     # Reveal outcomes
+     Y <- Z*Y1 + (1-Z)*Y0
+     # Calculate the cluster weights
+     treated_weights <- n_j[1:J%in%treated_clusters]/sum(n_j[1:J%in%treated_clusters])
+     control_weights <- n_j[!1:J%in%treated_clusters]/sum(n_j[!1:J%in%treated_clusters])
+     # Calculate the means of each cluster
+     treated_means <- tapply(Y,j,mean)[1:J%in%treated_clusters]
+     control_means <- tapply(Y,j,mean)[!1:J%in%treated_clusters]
+     # Calculate the cluster-weighted estimate of the SATE
+     SATE_estimate_weighted[i] <-
+          weighted.mean(treated_means,treated_weights) -
+          weighted.mean(control_means,control_weights)
 }
 
 # Generate histogram of estimated effects
-hist(SATE_estimate_weighted, xlim = c(true_SATE - 2, true_SATE + 2), breaks = 100)
+hist(SATE_estimate_weighted,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
 # Add the expected estimate of the unweighted SATE
-abline(v = mean(SATE_estimate_no_weights), col = "blue")
+abline(v=mean(SATE_estimate_no_weights),col="blue")
 # Add the expected estimate of the weighted SATE
-abline(v = mean(SATE_estimate_weighted), col = "green")
+abline(v=mean(SATE_estimate_weighted),col="green")
 # And add the true SATE
-abline(v = true_SATE, col = "red")
+abline(v=true_SATE,col="red")
 ```
 
 The histogram shows the sampling distribution of the weighted estimator, with the
@@ -704,56 +706,56 @@ e.nextSibling.nextSibling.style.display="block";
 ```{r,cache=T}
 set.seed(1234)
 # Make a function that matches pairs based on size
-pair_sizes <- function(j, n_j) {
-  # Find all of the unique sizes
-  unique_sizes <- unique(n_j)
-  # Find the number of unique sizes
-  N_unique_sizes <- length(unique_sizes)
-  # Generate a list of candidates for pairing at each cluster size
+pair_sizes <- function(j,n_j){
+     # Find all of the unique sizes
+     unique_sizes <- unique(n_j)
+     # Find the number of unique sizes
+     N_unique_sizes <- length(unique_sizes)
+     # Generate a list of candidates for pairing at each cluster size
   possible_pairs <- lapply(unique_sizes, function(size) {
     which(n_j == size)
   })
-  # Find the number of all possible pairs (m)
-  m_pairs <- length(unlist(possible_pairs)) / 2
-  # Generate a vector with unique pair-level identifiers
-  pair_indicator <- rep(1:m_pairs, rep(2, m_pairs))
-  # Randomly assign units of the same cluster size into pairs
-  pair_assignment <-
-    unlist(lapply(
-      possible_pairs,
-      function(pair_list) {
+     # Find the number of all possible pairs (m)
+     m_pairs <- length(unlist(possible_pairs))/2
+     # Generate a vector with unique pair-level identifiers
+     pair_indicator <- rep(1:m_pairs,rep(2,m_pairs))
+     # Randomly assign units of the same cluster size into pairs
+     pair_assignment <-
+          unlist(lapply(
+               possible_pairs,
+               function(pair_list){
         sample(pair_indicator[unlist(possible_pairs) %in% pair_list])
       }
     ))
-  # Generate a vector indicating the k'th pair for each i unit
-  pair_assignment <- pair_assignment[match(x = j, table = unlist(possible_pairs))]
-  return(pair_assignment)
+     # Generate a vector indicating the k'th pair for each i unit
+     pair_assignment <- pair_assignment[match(x = j,table = unlist(possible_pairs))]
+     return(pair_assignment)
 }
 
-pair_indicator <- pair_sizes(j = j, n_j = n_j)
+pair_indicator <- pair_sizes(j = j , n_j = n_j)
 
 SATE_estimate_paired <- NA
-for (i in 1:1000) {
-  # Now loop through the vector of paired assignments
-  pair_ATEs <- sapply(unique(pair_indicator), function(pair) {
-    # For each pair, randomly assign one to treatment
-    Z <- j[pair_indicator == pair] %in% sample(j[pair_indicator == pair], 1) * 1
-    # Reveal the potential outcomes of the pair
-    Y <- Z * Y1[pair_indicator == pair] + (1 - Z) * Y0[pair_indicator == pair]
-    clust_weight <- length(j[pair_indicator == pair]) / N
-    clust_ATE <- mean(Y[Z == 1]) - mean(Y[Z == 0])
-    return(c(weight = clust_weight, ATE = clust_ATE))
-  })
+for(i in 1:1000){
+     # Now loop through the vector of paired assignments
+     pair_ATEs <- sapply(unique(pair_indicator),function(pair){
+          # For each pair, randomly assign one to treatment
+          Z <- j[pair_indicator==pair] %in% sample(j[pair_indicator==pair],1)*1
+          # Reveal the potential outcomes of the pair
+          Y <- Z*Y1[pair_indicator==pair] + (1-Z)*Y0[pair_indicator==pair]
+          clust_weight <- length(j[pair_indicator==pair])/N
+          clust_ATE <- mean(Y[Z==1])-mean(Y[Z==0])
+          return(c(weight = clust_weight, ATE = clust_ATE))
+     })
 
-  SATE_estimate_paired[i] <- weighted.mean(x = pair_ATEs["ATE", ], w = pair_ATEs["weight", ])
+     SATE_estimate_paired[i] <- weighted.mean(x = pair_ATEs["ATE",],w = pair_ATEs["weight",])
 }
 
 # Generate histogram of estimated effects
-hist(SATE_estimate_paired, xlim = c(true_SATE - 2, true_SATE + 2), breaks = 100)
+hist(SATE_estimate_paired,xlim = c(true_SATE-2,true_SATE+2),breaks = 100)
 # Add the expected estimate of the paired SATE
-abline(v = mean(SATE_estimate_paired), col = "purple")
+abline(v=mean(SATE_estimate_paired),col="purple")
 # And add the true SATE
-abline(v = true_SATE, col = "red")
+abline(v=true_SATE,col="red")
 ```
 
 <style>
@@ -773,7 +775,7 @@ kable(round(data.frame(
   paired_SATE = mean(SATE_estimate_paired),
   weighted_SATE = mean(SATE_estimate_weighted),
   unweighted_SATE = mean(SATE_estimate_no_weights)
-), 2))
+),2))
 ```
 
 In spite of unequal cluster sizes, the bias is completely eliminated
@@ -858,56 +860,56 @@ e.nextSibling.nextSibling.style.display="block";
 ```{r,cache = T}
 # Create experimental data
 N <- 10
-types <- c(rep("V", .4 * N), rep("M", .6 * N))
+types <- c(rep("V",.4*N),rep("M",.6*N))
 ID <- 1:length(types)
 baseline <- rnorm(length(ID))
 
 # The true treatment effect is 5
 true_ATE <- 5
 # If a pair is mismatched (VM, MV), they get a spillover of -10
-spillover_or_not <- function(type_i, type_j) {
-  ifelse(type_i == type_j, yes = 0, no = -10)
+spillover_or_not <- function(type_i,type_j){
+  ifelse(type_i==type_j,yes = 0,no = -10)
 }
 
 # A function for forming pairs
-form_pairs <- function(ID, types) {
+form_pairs <- function(ID,types){
   N <- length(ID)
-  k <- rep(1:(N / 2), 2)
-  pair_place <- rep(c(1, 2), c(N / 2, N / 2))
+  k <- rep(1:(N/2),2)
+  pair_place <- rep(c(1,2),c(N/2,N/2))
   ID_draw <- sample(ID)
   type_i <- types[ID_draw]
-  pair_1 <- type_i[pair_place == 1]
-  pair_2 <- type_i[pair_place == 2]
-  ID_j_1 <- ID_draw[pair_place == 1]
-  ID_j_2 <- ID_draw[pair_place == 2]
-  type_j <- c(pair_2, pair_1)
-  j <- c(ID_j_2, ID_j_1)
-  return(data.frame(i = ID_draw, j = j, k = k, type_i = type_i, type_j = type_j))
+  pair_1 <- type_i[pair_place==1]
+  pair_2 <- type_i[pair_place==2]
+  ID_j_1 <- ID_draw[pair_place==1]
+  ID_j_2 <- ID_draw[pair_place==2]
+  type_j <- c(pair_2,pair_1)
+  j <- c(ID_j_2,ID_j_1)
+  return(data.frame(i = ID_draw,j = j,k = k, type_i = type_i, type_j = type_j))
 }
 
 
 # A function for assigning treatment and revealing the outcome
-assign_reveal_est <- function(k, i, effect, spillover) {
-  Z <- (k %in% sample(k, N / 2)) * 1
-  Y <- baseline[i] + Z * effect + Z * spillover
-  mean(Y[Z == 1]) - mean(Y[Z == 0])
+assign_reveal_est <- function(k,i,effect,spillover){
+  Z <- (k %in% sample(k,N/2))*1
+  Y <- baseline[i] + Z*effect + Z*spillover
+  mean(Y[Z==1])-mean(Y[Z==0])
 }
 
 # A function for simulating the experiment
-simulate_exp <- function() {
-  data <- form_pairs(ID, types)
-  spillover <- spillover_or_not(data$type_i, data$type_j)
-  estimate <- assign_reveal_est(k = data$k, effect = true_ATE, spillover = spillover, i = data$i)
+simulate_exp <- function(){
+  data <- form_pairs(ID,types)
+  spillover <- spillover_or_not(data$type_i,data$type_j)
+  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i)
   return(estimate)
 }
 
 # Estimate the effects one thousand times
-est_effects <- replicate(n = 1000, expr = simulate_exp())
+est_effects <- replicate(n = 1000,expr = simulate_exp())
 
 # Plot the estimates as bars, the expected ATE in blue, and the true ATE in red
-hist(est_effects, breaks = 100, xlim = c(-7, 7))
-abline(v = true_ATE, col = "red")
-abline(v = mean(est_effects, na.rm = T), col = "blue")
+hist(est_effects,breaks = 100,xlim = c(-7,7))
+abline(v = true_ATE,col = "red")
+abline(v = mean(est_effects,na.rm = T),col = "blue")
 ```
 
 As the plot above shows, this is a biased estimator of the true
@@ -958,34 +960,34 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
-form_matched_pairs <- function(ID, types) {
-  pair_list <- lapply(unique(types), function(type) {
+form_matched_pairs <- function(ID,types){
+  pair_list <- lapply(unique(types),function(type){
     ID <- ID[types == type]
     types <- types[types == type]
     draw_ID <- 1:length(types)
-    matched_pairs <- form_pairs(ID = draw_ID, types = types)
+    matched_pairs <- form_pairs(ID = draw_ID,types = types)
     matched_pairs$i <- ID[matched_pairs$i]
     matched_pairs$j <- ID[matched_pairs$j]
-    matched_pairs$k <- paste0(type, "_", matched_pairs$k)
+    matched_pairs$k <- paste0(type,"_",matched_pairs$k)
     return(matched_pairs)
   })
-  data <- rbind(pair_list[[1]], pair_list[[2]])
+  data <- rbind(pair_list[[1]],pair_list[[2]])
   return(data)
 }
 
-simulate_matched_exp <- function() {
-  data <- form_matched_pairs(ID, types)
-  spillover <- spillover_or_not(data$type_i, data$type_j)
-  estimate <- assign_reveal_est(k = data$k, effect = true_ATE, spillover = spillover, i = data$i)
+simulate_matched_exp <- function(){
+  data <- form_matched_pairs(ID,types)
+  spillover <- spillover_or_not(data$type_i,data$type_j)
+  estimate <- assign_reveal_est(k = data$k,effect = true_ATE,spillover = spillover,i = data$i)
   return(estimate)
 }
 
 # Estimate the effects one thousand times
-est_matched_effects <- replicate(n = 1000, expr = simulate_matched_exp())
+est_matched_effects <- replicate(n = 1000,expr = simulate_matched_exp())
 
-hist(est_matched_effects, breaks = 100, xlim = c(-7, 7))
-abline(v = true_ATE, col = "red")
-abline(v = mean(est_matched_effects, na.rm = T), col = "blue")
+hist(est_matched_effects,breaks = 100,xlim = c(-7,7))
+abline(v = true_ATE,col = "red")
+abline(v = mean(est_matched_effects,na.rm = T),col = "blue")
 ```
 
 
@@ -1044,16 +1046,16 @@ e.nextSibling.nextSibling.style.display="block";
 ```{r,cache = T, error=FALSE, warning=FALSE, message=FALSE}
 library(lme4)
 
-simple_OLS <- lm(Y ~ Z, data = J_30_clusters)
+simple_OLS <- lm(Y ~ Z,data = J_30_clusters)
 multilevel <- lmer(Y ~ Z + (1 | j),
-  data = J_30_clusters,
+                   data = J_30_clusters,
   control = lmerControl(optimizer = "bobyqa"),
   REML = TRUE
 )
 
 kable(round(data.frame(
-  OLS = coef(simple_OLS)["Z"], Multilevel = fixef(multilevel)["Z"]
-), 3))
+  OLS=coef(simple_OLS)["Z"],Multilevel=fixef(multilevel)["Z"]
+  ),3))
 ```
 
 The confidence intervals differ even though the estimates are the same --- and
@@ -1075,9 +1077,9 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T, error=FALSE, message=FALSE, warning=FALSE}
 # This function calculates confidence intervals for linear models
-# with custom variance-covariance marices
-confint_HC <- function(coefficients, df, level = 0.95, vcov_mat, ...) {
-  a <- (1 - level) / 2
+# with custom variance-covariance matrices
+confint_HC<-function (coefficients, df, level = 0.95, vcov_mat, ...) {
+  a <- (1 - level)/2
   a <- c(a, 1 - a)
   fac <- qt(a, df)
   ses <- sqrt(diag(vcov_mat))
@@ -1089,7 +1091,7 @@ simple_OLS_CI <-
     coefficients = coef(simple_OLS),
     vcov_mat = RCSE(
       model = simple_OLS,
-      cluster = J_30_clusters$j,
+                             cluster = J_30_clusters$j,
       return_cov = TRUE
     ),
     df = simple_OLS$df.residual
@@ -1109,7 +1111,7 @@ knitr::kable(round(rbind(
   Design_Based_CI = simple_OLS_CI,
   Model_Based_Wald_CI = multi_wald_CI,
   Model_Based_Profile_CI = multi_profile_CI
-), 3))
+),3))
 ```
 
 We can calculate an estimate of the ICC directly from the model quantities (the variance of the Normal prior that represents the cluster-to-cluster differences in the intercept over the total variance of the Normal posterior).
@@ -1126,7 +1128,7 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 VC <- as.data.frame(lme4:::VarCorr.merMod(multilevel))
-round(c(ICC = VC$vcov[1] / sum(VC$vcov)), 2)
+round(c(ICC = VC$vcov[1] / sum(VC$vcov)),2)
 ```
 
 In order to assess the performance of this model-based approach, as opposed to the
@@ -1155,7 +1157,7 @@ e.nextSibling.nextSibling.style.display="block";
 # Make a function for checking whether 0 is in the confidence interval of
 # the RCSE, cluster-aggregated, and multilevel estimation approaches
 
-sim_0_ate <- function(J, Y) {
+sim_0_ate <- function(J,Y) {
   #   Make the true relationship between treatment and outcomes equal zero by
   #   shuffling Z but not revealing new potential outcomes
   z.sim <- sample(1:max(J), max(J) / 2)
@@ -1165,12 +1167,12 @@ sim_0_ate <- function(J, Y) {
   linear_fit <- lm(Y ~ Z_new)
   linear_RCSE <- RCSE(
     model = linear_fit,
-    cluster = J,
+                  cluster = J,
     return_cov = TRUE
   )
   linear_CI <- confint_HC(
     coefficients = coef(linear_fit),
-    vcov_mat = linear_RCSE,
+                      vcov_mat = linear_RCSE,
     df = linear_fit$df.residual
   )["Z_new", ]
   # Check if the confidence interval bounds 0
@@ -1180,14 +1182,14 @@ sim_0_ate <- function(J, Y) {
   Yj <- tapply(Y, J, sum)
   Zj <- tapply(Z_new, J, mean)
   m0 <- unique(table(J))
-  n <- length(Zj)
+  n  <- length(Zj)
   nt <- sum(Zj)
   # Do Hansen and Bowers 2008 based test for difference of means
   # with cluster-level assignment (assuming same size clusters)
   ones <- rep(1, length(Yj))
-  dp <- crossprod(Zj, Yj) * (n / (m0 * nt * (n - nt))) -
-    crossprod(ones, Yj) / (m0 * (n - nt))
-  obs_ATE <- dp[1, 1]
+  dp   <- crossprod(Zj,Yj) * (n / (m0 * nt * (n - nt))) -
+    crossprod(ones,Yj) / (m0 * (n - nt))
+  obs_ATE <- dp[1,1]
   # Two tailed p-value for the test of the null of no effects
   Vdp <- (n / (m0 * nt * (n - nt))) * (var(Yj) / m0)
   HB_pval <- 2 * (1 - pnorm(abs(obs_ATE) / sqrt(Vdp)))
@@ -1220,36 +1222,36 @@ sim_0_ate <- function(J, Y) {
 # Now simulate each of the estimates 1000 times
 
 J_4_comparison <- replicate(1000, sim_0_ate(J = J_4_clusters$j, Y = J_4_clusters$Y))
-J_4_error_rates <- apply(J_4_comparison, 1, mean)
-J_4_error_rates[-1] <- 1 - J_4_error_rates[-1]
+J_4_error_rates <- apply(J_4_comparison,1,mean)
+J_4_error_rates[-1] <- 1-J_4_error_rates[-1]
 
 J_10_comparison <- replicate(1000, sim_0_ate(J = J_10_clusters$j, Y = J_10_clusters$Y))
-J_10_error_rates <- apply(J_10_comparison, 1, mean)
-J_10_error_rates[-1] <- 1 - J_10_error_rates[-1]
+J_10_error_rates <- apply(J_10_comparison,1,mean)
+J_10_error_rates[-1] <- 1-J_10_error_rates[-1]
 
 J_30_comparison <- replicate(1000, sim_0_ate(J = J_30_clusters$j, Y = J_30_clusters$Y))
-J_30_error_rates <- apply(J_30_comparison, 1, mean)
-J_30_error_rates[-1] <- 1 - J_30_error_rates[-1]
+J_30_error_rates <- apply(J_30_comparison,1,mean)
+J_30_error_rates[-1] <- 1-J_30_error_rates[-1]
 
 J_100_comparison <- replicate(1000, sim_0_ate(J = J_100_clusters$j, Y = J_100_clusters$Y))
-J_100_error_rates <- apply(J_100_comparison, 1, mean)
-J_100_error_rates[-1] <- 1 - J_100_error_rates[-1]
+J_100_error_rates <- apply(J_100_comparison,1,mean)
+J_100_error_rates[-1] <- 1-J_100_error_rates[-1]
 
 error_comparison <- data.frame(round(rbind(
   J_4_error_rates,
   J_10_error_rates,
   J_30_error_rates,
   J_100_error_rates
-), 3))
+),3))
 
 colnames(error_comparison) <- c(
   "Estimated ATE",
-  "OLS + RCSE",
-  "Cluster-Level",
+                                "OLS + RCSE",
+                                "Cluster-Level",
   "Multi-Level"
 )
 
-kable(error_comparison, align = "c")
+kable(error_comparison,align = "c")
 ```
 
 In our simple setup, the individual-level approaches behave about the same way: neither the design-based nor the model-based approach produces valid statistical inferences until the number of clusters is at least 30. This makes sense: both approaches rely on central limit theorems so that a Normal law can describe the distribution of the test statistic under the null hypothesis. The cluster-level approach is always valid, but sometimes produces overly large confidence intervals (when the number of clusters is small). When the number of clusters is large (say, 100), then all approaches are equivalent in terms of their error rates. Designs with few clusters should consider either the cluster-level approach using the normal approximation shown here or even direct permutation based approaches to statistical inference.
@@ -1274,21 +1276,21 @@ e.nextSibling.nextSibling.style.display="block";
 ```{r,cache = T}
 
 # A function to test the null hypothesis and the true hypothesis
-test_H0_and_Htrue <- function(J = J, n = n, treatment_effect = treatment_effect, ICC = ICC) {
+test_H0_and_Htrue <- function(J = J,n = n,treatment_effect = treatment_effect,ICC = ICC) {
   # Make data:
   data <- make_clustered_data(
     J = J,
-    n = n,
-    treatment_effect = treatment_effect,
+                      n = n,
+                      treatment_effect = treatment_effect,
     ICC = ICC
   )
-  linear_fit <- lm(Y ~ Z, data = data)
+  linear_fit <- lm(Y ~ Z,data = data)
 
   RCSE_CI <- confint_HC(
     coefficients = coef(linear_fit),
     vcov_mat = RCSE(
       model = linear_fit,
-      cluster = data$j,
+                             cluster = data$j,
       return_cov = TRUE
     ),
     df = linear_fit$df.residual
@@ -1300,22 +1302,22 @@ test_H0_and_Htrue <- function(J = J, n = n, treatment_effect = treatment_effect,
   # Test null of true taus (first attempt is use true, second is to make 0 true)
   # Reassign village level treatment so that Y is indep of Z --- so true effect is 0
 
-  data$Z_new <- ifelse(data$j %in% sample(1:J, max(J) / 2), 1, 0)
+  data$Z_new <- ifelse(data$j %in% sample(1:J, max(J)/2), 1, 0)
 
-  linear_fit_true <- lm(Y ~ Z_new, data = data)
+  linear_fit_true <-lm(Y ~ Z_new,data = data)
 
   RCSE_CI_true <- confint_HC(
     coefficients = coef(linear_fit_true),
     vcov_mat = RCSE(
       model = linear_fit_true,
-      cluster = data$j,
+                                             cluster = data$j,
       return_cov = TRUE
     ),
     df = linear_fit$df.residual
   )["Z_new", ]
 
   # Zero should be in this CI very often as the null of 0 is true here
-  false_positive <- !((0 >= RCSE_CI_true[1]) & (0 <= RCSE_CI_true[2]))
+  false_positive <-  !((0 >= RCSE_CI_true[1]) & (0 <= RCSE_CI_true[2]))
 
   return(c(
     correct_reject = correct_reject,
@@ -1341,9 +1343,9 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # The numbers of clusters we will consider
-Js <- c(8, 20, 40, 80, 160, 320)
+Js <- c(8,20,40,80,160,320)
 # The cluster sizes we will consider
-n_js <- c(8, 20, 40, 80, 160, 320)
+n_js <- c(8,20,40,80,160,320)
 
 # Create an empty matrix to store the results
 # The first stores the power and the second stores the error
@@ -1352,40 +1354,40 @@ power_J_n <- error_J_n <- matrix(
   nrow = length(Js),
   ncol = length(n_js),
   dimnames = list(
-    paste("J =", Js),
-    paste("n_j =", n_js)
+    paste("J =",Js),
+    paste("n_j =",n_js)
   )
 )
 # Set the number of simulations
 sims <- 100
 
 # Loop through the different cluster numbers
-for (j in 1:length(Js)) {
+for( j in 1:length(Js)){
   # Loop through the different cluster sizes
-  for (n in 1:length(n_js)) {
+  for(n in 1:length(n_js)){
     # Estimate the power and error rate for each combination
     test_sims <- replicate(
       n = sims,
       expr = test_H0_and_Htrue(
         J = Js[j],
-        n = n_js[n],
-        treatment_effect = .25,
+                                       n = n_js[n],
+                                       treatment_effect = .25,
         ICC = .01
       )
     )
     power_error <- rowMeans(test_sims)
     # Store them in the matrices
-    power_J_n[j, n] <- power_error[1]
-    error_J_n[j, n] <- power_error[2]
+    power_J_n[j,n] <- power_error[1]
+    error_J_n[j,n] <- power_error[2]
   }
 }
 
 # Plot the power under the different scenarios
-matplot(power_J_n, type = c("b"), pch = 1, axes = F, ylim = c(0, 1.5), ylab = "power")
-axis(side = 1, labels = rownames(power_J_n), at = 1:6)
-axis(side = 2, at = seq(0, 1, .25))
-abline(h = .8)
-legend("top", legend = colnames(power_J_n), col = 1:6, pch = 1, horiz = TRUE)
+matplot(power_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "power")
+axis(side = 1,labels = rownames(power_J_n),at = 1:6)
+axis(side = 2,at = seq(0,1,.25))
+abline(h=.8)
+legend("top", legend = colnames(power_J_n),col = 1:6 ,pch=1,horiz = TRUE)
 ```
 
 <style>
@@ -1400,11 +1402,11 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Plot the error rate under the different scenarios
-matplot(error_J_n, type = c("b"), pch = 1, axes = F, ylim = c(0, .5), ylab = "error rate")
-axis(side = 1, labels = rownames(error_J_n), at = 1:6)
-axis(side = 2, at = seq(0, 1, .25))
-abline(h = .05)
-legend("top", legend = colnames(error_J_n), col = 1:6, pch = 1, horiz = TRUE)
+matplot(error_J_n, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
+axis(side = 1,labels = rownames(error_J_n),at = 1:6)
+axis(side = 2,at = seq(0,1,.25))
+abline(h=.05)
+legend("top", legend = colnames(error_J_n),col = 1:6 ,pch=1,horiz = TRUE)
 ```
 
 We see that power is always low when the number of clusters is low, regardless of how
@@ -1429,47 +1431,47 @@ e.nextSibling.nextSibling.style.display="block";
 
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
-J_njs <- c(80, 160)
-ICCs <- seq(0, .6, .1) + c(.01, 0, 0, 0, 0, 0, 0)
+J_njs <- c(80,160)
+ICCs <- seq(0,.6,.1)+c(.01,0,0,0,0,0,0)
 power_ICC <- error_ICC <- matrix(
   data = NA,
   nrow = length(ICCs),
   ncol = length(J_njs),
   dimnames = list(
-    paste("ICC =", ICCs),
-    paste("J =", J_njs, "n_j = ", J_njs)
+    paste("ICC =",ICCs),
+    paste("J =",J_njs,"n_j = ",J_njs)
   )
 )
 # Set the number of simulations
 sims <- 100
 
-# Loop through the different cluster numbers
-for (i in 1:length(ICCs)) {
+# Loop through the different ICCs
+for( i in 1:length(ICCs)){
   # Loop through the different cluster sizes
-  for (j in 1:length(J_njs)) {
+  for(j in 1:length(J_njs)){
     # Estimate the power and error rate for each combination
     test_sims <- replicate(
       n = sims,
       expr = test_H0_and_Htrue(
         J = J_njs[j],
-        n = J_njs[j],
-        treatment_effect = .25,
+                                       n = J_njs[j],
+                                       treatment_effect = .25,
         ICC = ICCs[i]
       )
     )
     power_error <- rowMeans(test_sims)
     # Store them in the matrices
-    power_ICC[i, j] <- power_error[1]
-    error_ICC[i, j] <- power_error[2]
+    power_ICC[i,j] <- power_error[1]
+    error_ICC[i,j] <- power_error[2]
   }
 }
 
 # Plot the power under the different scenarios
-matplot(power_ICC, type = c("b"), pch = 1, axes = F, ylim = c(0, 1.5), ylab = "power (high ICC)")
-axis(side = 1, labels = rownames(power_ICC), at = 1:7)
-axis(side = 2, at = seq(0, 1, .25))
-abline(h = .8)
-legend("top", legend = colnames(power_ICC), col = 1:2, pch = 1, horiz = TRUE)
+matplot(power_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,1.5),ylab = "power (high ICC)")
+axis(side = 1,labels = rownames(power_ICC),at = 1:7)
+axis(side = 2,at = seq(0,1,.25))
+abline(h=.8)
+legend("top", legend = colnames(power_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 ```
 
 <style>
@@ -1484,11 +1486,11 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # Plot the error rate under the different scenarios
-matplot(error_ICC, type = c("b"), pch = 1, axes = F, ylim = c(0, .5), ylab = "error rate")
-axis(side = 1, labels = rownames(error_ICC), at = 1:7)
-axis(side = 2, at = seq(0, 1, .25))
-abline(h = .05)
-legend("top", legend = colnames(error_ICC), col = 1:2, pch = 1, horiz = TRUE)
+matplot(error_ICC, type = c("b"),pch=1,axes = F,ylim = c(0,.5),ylab = "error rate")
+axis(side = 1,labels = rownames(error_ICC),at = 1:7)
+axis(side = 2,at = seq(0,1,.25))
+abline(h=.05)
+legend("top", legend = colnames(error_ICC),col = 1:2 ,pch=1,horiz = TRUE)
 ```
 
 As this example illustrates, high ICC can severely diminish the
@@ -1516,19 +1518,19 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache = T}
 library(RItools)
-options(digits = 3)
+options(digits=3)
 
 # Make a village level dataset
-villages <- aggregate(pretend_data, by = list(village = pretend_data$j), mean)
+villages <- aggregate(pretend_data,by = list(village = pretend_data$j), mean)
 
 # Generate 10 fake covariates
 set.seed(12345)
-villages[paste("x", 1:10, sep = "")] <- matrix(rnorm(nrow(villages) * 10), ncol = 10)
-balance_formula <- reformulate(paste("x", 1:10, sep = ""), response = "Z")
+villages[paste("x",1:10,sep="")] <- matrix(rnorm(nrow(villages)*10), ncol=10)
+balance_formula <- reformulate(paste("x",1:10,sep=""), response="Z")
 # Do a design-based, large sample balance test
-balance_test <- xBalance(balance_formula,
-  strata = list(noblocks = NULL),
-  data = villages,
+balance_test <-xBalance(balance_formula,
+                        strata=list(noblocks=NULL),
+                        data=villages,
   report = c(
     "std.diffs", "z.scores", "adj.means",
     "adj.mean.diffs", "chisquare.test", "p.values"
@@ -1536,7 +1538,7 @@ balance_test <- xBalance(balance_formula,
 )
 
 # The results of the 1-by-1 balance tests
-kable(round(balance_test$results, 2), align = "c")
+kable(round(balance_test$results,2),align = "c")
 ```
 
 <style>
@@ -1551,7 +1553,7 @@ e.nextSibling.nextSibling.style.display="block";
 <div class="hidecode" onclick="doclick(this);">[Click to show code]</div>
 ```{r,cache=T}
 # The overall omnibus p-value
-kable(round(balance_test$overall, 2), align = "c")
+kable(round(balance_test$overall,2),align = "c")
 ```
 
 In this case, we cannot reject the omnibus hypotheses of balance even though, as we expected, we have a few covariates with falsely low $p$-values. One way to interpret this omnibus result is to say that such imbalances on a few covariates would not appreciably change any statistical inferences we make about treatment effects as long as these covariates did not strongly predict outcomes in the control group. Alternatively, we could say that any large experiment can tolerant chance imbalance on a few covariates (no more than roughly 5% if we are using $\alpha=.05$ as our threshold to reject hypotheses).

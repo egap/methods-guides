@@ -32,6 +32,21 @@ sed -i.bak 's|href="http|target="_blank" href="http|g' *.html
 
 ```
 
+## To recreate all of the guides 
+
+We have a `Makefile` so you can type `make -n all` to see what guides would need to be recompiled (i.e. might haven't been compiled in a while.) And the type `make all` to recompile them all.
+
+If you have opened the `methods-guides.Rproj` in Rstudio you might see a "build" tab (near "Environment", "History", etc..) And there is a button called `Build All` which does the same thing. (NOte for now: This *almost* works for all guides. Still working on it for some guides.)
+
+Here is a one liner if you've installed the `fd` utility for OS X using homebrew
+or on linux:
+
+```
+for X in `fd  Rmd .`;do Rscript -e "rmarkdown::render('$X')"; done
+```
+
+
+
 ## When writing new guides
 
 To ensure that links are opened in a new tab write links like this `[Hello, world!](http://example.com/){target="_blank"}`
