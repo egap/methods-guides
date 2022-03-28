@@ -117,10 +117,109 @@ The degree to which clustering reduces your power depends on the extent to which
 
 A frequently asked question is how cluster randomization differs from block randomization. Block randomization is conducted in order to achieve balance based on pre-treatment covariates. For example, an education intervention might block randomize on the previous year’s test scores in order to track the progress of both low- and high-performing students. Cluster randomization is when multiple units are treated as a group–they all receive treatment or control status together. For example, the same education intervention might randomize at the level of the classroom, so the classrooms constitute the clusters. It is possible to block and cluster randomize simultaneously. In our example, you might calculate the average test score for each classroom and block randomize based on the classroom’s average score.
 
-The following graphic demonstrates what your data might look like in the cases of block, cluster, and block + cluster randomization, relative to a simple case of randomization with no blocking or clustering. In both cases where clustering occurs, you can tell that treatment assignment (depicted by color) appears in small groups. In both cases where blocking occurs, there is an even distribution of colors in the four quadrants of the plot, the blocks of this random assignment.
+The following graphic demonstrates what your data might look like in the cases of block, cluster, and block + cluster randomization, relative to a simple case of randomization with no blocking or clustering. The example imagines that we conduct an experiment in four schools, where each school comprises four classrooms with four students in each classroom. The top left panel represents simple random assignment. Note that the number of students assigned to treatment (tiles shaded in blue) varies across schools. For example, in school 1, 9 students are assigned to treatment but in school 4, the treatment group comprises only 6 students. The top right panel represents a random assignment procedure that uses schools as blocks. This procedure ensures that exactly eight students are assigned to treatment in each school. The bottom left panel shows cluster random assignment. The idea is that the four students in each quadrant of a school are in the same classroom, and we assign entire classrooms to treatment. Note again that, because there is no blocking involved, the number of classrooms assigned to treatment varies across schools. For example, school 1 assigns three classrooms to treatment while school 3 assigns all classrooms to control. Finally, the bottom right panel corresponds to assignment that is both blocked by school and clustered by classroom. Blocking ensures that exactly two classrooms per school are assigned to treatment. 
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
-<center>_Illustration of the patterns of treatment and control units you might see under different types of blocked and clustered designs._</center>
+
+```{r, echo = FALSE, message=F, fig.height=7.5, fig.width=7.5, fig.cap="Illustration of patterns of assignments you might see under different types of blocked and clustered designs. (Colors indicate treatment assignment)", fig.align='center'}
+
+library(ggplot2)
+library(gridExtra)
+
+set.seed(123456789)
+
+data <- data.frame(studentID = rep(1:16, 4),
+                   placementIDy = rep(rep(c(1,1,2,2,3,3,4,4), 2),4),
+                   placementIDx = rep(c(rep(1:2, 4), rep(3:4, 4)), 4),
+                   classroomID = rep(1:16, each = 4),
+                   schoolID = rep(c(1,2,3,4), each = 16),
+                   schoolID_label = rep(c("School 1", "School 2", "School 3", "School 4"), each = 16), 
+                   Z_simple = simple_ra(N = 16*4, conditions = c("Treatment", "Control")))
+
+data <- data %>%
+  mutate(Zblock = block_ra(blocks = schoolID, m = 8, 
+                           conditions = c("Treatment", "Control")),
+         Zcluster =  cluster_ra(clusters = classroomID, 
+                                conditions = c("Treatment", "Control")),
+         Zblock_cluster =  block_and_cluster_ra(blocks = schoolID,
+                                                clusters = classroomID, 
+                                                conditions = c("Treatment", "Control")))
+
+             
+
+
+simple <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Z_simple))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label))  +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Simple", x="", y = "")
+
+block <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Zblock))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +  labs(title="Block", x="", y = "")
+
+cluster <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), 
+                    fill = as.factor(Zcluster))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Cluster", x="", y = "") 
+
+block_cluster <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Zblock_cluster))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Bock and Cluster", x="", y = "") 
+
+grid.arrange(simple, block, cluster, block_cluster, nrow = 2, ncol = 2)
+
+
+```
 
 5 You can randomize in a way that makes it easier to see if there are spillovers
 ==
