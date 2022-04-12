@@ -1,4 +1,3 @@
-
 ---
 output: 
   html_document:
@@ -50,36 +49,28 @@ Suppose we would like to block on gender. Based on our data, blockTools will gen
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
 rm(list = ls())
-
 library(blockTools)
 library(dplyr)
 library(randomizr)
-
 dat <-
   tibble(
     id = seq(1:60),
     female = c(rep(0, 36), rep(1, 24)),
     age = sample(18:65, size = 60, replace = TRUE)
   )
-
 # one covariate block
-
 dat <-
   dat %>%
   mutate(Z_block_1 = block_ra(female))
-
 with(dat, table(female, Z_block_1))
-
 # matched quartets
 out <- block(dat, n.tr = 4, id.vars = "id", 
              block.vars = c("female", "age"))
-
 dat <-
   dat %>%
   mutate(
     block_id = createBlockIDs(out, dat, id.var = "id"),
     Z_block_2 = block_ra(block_id))
-
 with(dat, table(Z_block_2, block_id))
 ```
 
@@ -101,7 +92,6 @@ dat <-
     Z_loan = complete_ra(80, 40),
     Z_training = block_ra(blocks = Z_loan)
   )
-
 with(dat, table(Z_loan, Z_training))
 ```
 
@@ -142,7 +132,6 @@ The second way is inverse probability weighting (IPW). In IPW, weights are defin
 N <- 100000
 dat <- tibble(Y0 = 1:N,
               Y1 = Y0 + 10000)
-
 dat <-
   dat %>%
   mutate(

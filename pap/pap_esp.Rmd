@@ -1,0 +1,263 @@
+---
+output:
+  html_document:
+    theme: journal
+    toc: yes
+  pdf_document:
+    toc: yes
+  word_document:
+    toc: yes
+bibliography: pap.bib
+---
+
+<style>
+.comment{
+background-color: #DBDBDB;
+padding: 10px;
+border: 1px solid black;
+margin-left: 25px;
+border-radius: 5px;
+color: black;
+}
+
+</style>
+
+<!-- title: "10 Things to Know About Pre-Analysis Plans" -->
+<!-- author: "Methods Guide Authors: Nuole (Lula) Chen and Christopher Grady" -->
+
+
+
+
+Resumen
+==
+
+Esta guía explica qué es un Plan de Análisis Previo (PAP) y para qué se usa, presenta preguntas orientativas para facilitar la redacción de planes de preanálisis para sus estudios y ofrece un modelo de PAP. Al final de este documento se incluyen enlaces a registros de PAP aprobados que pueden servir como ejemplos prácticos.
+
+1. ¿Qué es un Plan de Análisis Previo (PAP)?
+==
+
+Un PAP es un documento que declara y formaliza el plan de diseño y análisis de un estudio.  Se redacta antes de realizar el análisis y suele registrarse en un sitio web de terceros.[^TOP]
+
+[^TOP]: Los PAP son promovidos como parte de las pautas para la promoción de la transparencia y apertura (TOP)(https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) (Nosek et al. 2015), publicadas en la revista Science. Al firmar dicho documento, las principales revistas de ciencias sociales se comprometen a aplicar las pautas TOP.
+
+
+Los objetivos del PAP son: mejorar las opciones de diseño de la investigación, aumentar la transparencia en la investigación y permitir que otros académicos repliquen el análisis. Por ello, recomendamos enfocar el PAP en detalles que ayuden a analizar su estudio y permitan a otros investigadores replicar su análisis. Puede incluirse una breve sección sobre teoría que ayude a articular las hipótesis, pero no es necesario incluir una sección detallada de teoría y literatura. No es necesario que el PAP incluya tampoco la primera parte de un artículo académico, si esta no sirve para clarificar su análisis, o si no ayuda a que los lectores repliquen su análisis.
+En las siguientes seciones proporcionaremos información y ejemplos sobre los detalles que se deben incluir en los PAP. También recomendamos incluir la mayor cantidad posible de código y análisis de datos simulados. Si bien muchos PAPs no podrán incluir todo lo que aparece en nuestra lista, todo PAP debería incluir, como mínimo, la lista completa de hipótesis que se pretenden evaluar, la forma en que se medirán las variables relevantes para operacionalizar dichas hipótesis y un sello de tiempo verificable.
+
+[^DD]: Recursos como el proyecto DeclareDesign pueden ayudarle a simular y analizar datos falsos que imitan los datos reales que su proyecto recogerá. El [análisis de poder](https://egap.org/resource/10-cosas-que-debe-saber-sobre-el-poder-estadistico), un componente importante de un PAP, requiere datos simulados.
+
+
+2. ¿Qué incluye un PAP? Resumen del diseño de investigación.
+==
+
+La primera sección de un PAP debe presentar un breve resumen del diseño de su investigación. Si el estudio es un experimento, describa el procedimiento de aleatorización y la intervención o procedimiento experimental. Si el estudio no es un experimento, describa los datos. Estas descripciones deben incluir: (1) unidad de análisis, población y criterios de inclusión/exclusión, (2) tipo de método (observacional, experimental, cuasi-experimental), (3) intervención experimental o variable explicativa y (4) variables de resultado de interés.
+
+<p class="comment">
+**Ejemplo:** 
+Utilicemos una versión simplificada de una intervención experimental en Malawi como ejemplo práctico. <br><br>
+Utilizamos un experimento de aleatorización en bloque para evaluar el efecto de la información y la prestación de servicios públicos (variable explicativa) sobre el cumplimiento fiscal (variable de resultado) en Malawi, donde la prestación de servicios públicos es baja y el incumplimiento en el pago de impuestos es alto. <br><br>
+Nuestra unidad de análisis es el hogar habitado por su propietario en una ciudad de Malawi. Excluimos a los inquilinos porque sólo los propietarios pagan los impuestos municipales pertinentes para nuestro estudio. Agrupamos los hogares en 80 vecindarios, compuestos de aproximadamente 20 hogares cada uno. Cada vecindario es un bloque por lo que 10 hogares de cada vecindario se asignan al tratamiento y 10 hogares al control.<br><br>
+Nuestra intervención consistió en el suministro de información y de servicios públicos. Proporcionamos gratuitamente dos rondas de recojo de basura por hogar. Estos fueron seguidos por la visita de un encuestador al hogar para explicar ¿al propietario? cómo el pago de impuestos financia los servicios de la ciudad, como por ejemplo el recojo de residuos, y distribuimos un folleto con más información sobre el pago de impuestos.<br><br>
+Antes y después de la intervención realizamos una encuesta y recogemos datos administrativos sobre el pago de impuestos. Nuestra principal variable de resultado es el cumplimiento fiscal (pagos de impuestos municipales). 
+</p>
+
+
+3. ¿Qué incluye un PAP? Hipótesis.
+==
+
+El PAP debe especificar sus hipótesis; es decir, cuále(s) es(son) la(s) relación(es) que se espera observar entre variables. La formulación de una hipótesis debe dejar claro si se trabaja con pruebas de una o dos colas (por ejemplo, predecir un aumento, una disminución o un cambio en la variable de resultado).
+Hay dos tipos de hipótesis que debe considerar en su PAP: confirmatorias y exploratorias. Las hipótesis confirmatorias son el objetivo principal de la mayoría de los estudios; son las hipótesis que su estudio está diseñado para comprobar. Las pruebas de análisis sobre estas hipótesis tendrán un gran poder estadístico y, por lo general, tendrán una teoría sólida que conduce a estas hipótesis a priori.
+
+**Las hipótesis exploratorias** son hipótesis que se desean probar, pero que no son el objetivo principal del estudio. Suelen ser hipótesis secundarias sobre mecanismos, subgrupos, efectos heterogéneos o variables de resultado descendentes. Puede que los análisis guiados por estas hipótesis no tengan un buen poder y que su teoría no se enfoque en estos efectos, pero el análisis de estas hipótesis puede llevar a descubrimientos sorprendentes.
+
+Algunas personas prefieren enumerar pocas hipótesis y otras prefieren enumerar muchas. Como norma, debe intentar incluir solo las hipótesis que se relacionan con su teoría o intervención.  Puede tratarse de una sola variable de resultado, pero si su intervención experimental o teoría hace predicciones sobre 8 variables de resultado, debe enumerar las hipótesis para esas 8 variables de resultado. Si su intervención o teoría experimental presenta mecanismos específicos a través de los cuales la variable explicativa afecta a una o varias variables de resultado, esos mecanismos deben quedar claros también en la sección de hipótesis.
+
+[^FisherQuote]: Como dijo R.A. Fisher, a menudo citado: "Haz que tus teorías sean elaboradas... cuando construyas una hipótesis causal debes prever tantas consecuencias diferentes de la verdad como sea posible", (Cochran, 1965; citado en @rosenbaum2010, pp. 327).  Aunque esto se dijo sobre la determinación de la causalidad en estudios observacionales, dicha lógica también se aplica a los estudios experimentales.
+
+Tenga en cuenta que al tener más de una hipótesis, tendrá que especificar un procedimiento para manejar múltiples hipótesis en la sección de criterios de inferencia de su PAP, ya sea corrigiendo pruebas múltiples o agregando todas las hipótesis en un índice o una prueba ómnibus.^[Para un ejemplo de una prueba ómnibus, véase @caughey2017npc.] Si utiliza una prueba ómnibus, podría enumerar todas las variables de resultado bajo una sola hipótesis.  Consulte nuestra sección sobre [criterios de inferencia](#infcrit) para obtener más información sobre la corrección de pruebas múltiples.
+
+<ul class="comment">
+**Ejemplo:** Hipótesis<br><br> 
+Especificamos nuestra hipótesis confirmatoria de la siguiente manera: 
+<ul>
+<li>H: El tratamiento aumentará el cumplimiento fiscal entre los hogares de tratamiento vs. los hogares de control.</li>
+</ul><br>
+A través de las siguientes hipótesis exploratorias, nos gustaría explorar qué asuntos pueden estar mostrando cambios de actitud:
+<ul>
+<li>H: El tratamiento aumentará la creencia de que la ciudad merece recaudar impuestos entre los hogares de tratamiento vs. los hogares de control.</li>
+<li>H: El tratamiento aumentará la creencia en la capacidad de servicio de la ciudad entre los hogares de tratamiento vs. los hogares de control.</li>
+<li>H: El tratamiento aumentará la creencia en la capacidad de hacer cumplir las leyes tributarias de la ciudad entre los hogares de tratamiento vs. los hogares de control.</li>
+<!--También podríamos enumerar las hipótesis exploratorias sobre el mecanismo a través del cual el tratamiento afecta al cumplimiento fiscal, como por ejemplo (1) aumento de la creencia en la capacidad de servicio de la ciudad, (2) aumento de la creencia en la capacidad de ejecución de la ciudad, (3) aumento de la creencia de que la ciudad merece recaudar impuestos, (4) aumento del conocimiento sobre la conexión entre impuestos y servicios, y (5) aumento de la satisfacción con el gobierno de la ciudad. Por ejemplo, "los hogares en los que el tratamiento aumenta su satisfacción con el gobierno de la ciudad, tienen más probabilidades de aumentar el cumplimiento fiscal". "Cuanto mayor sea el aumento de la satisfacción de los hogares con el gobierno de la ciudad, más probable será que el hogar aumente el cumplimiento fiscal.”-->
+</ul>
+
+4. ¿Qué incluye un PAP? Construcción de índices y mediciones.
+== 
+
+El PAP debe especificar la forma en que se mide u operacionalizan las variables de interés, incluidos las variables de resultados, las covariables y las variables explicativas. Estas operacionalizaciones pueden ser incluidas en una sección propia, o luego de la presentación de la hipótesis para la que cada variable es relevante.
+
+El PAP debe precisar también la forma en que se mide cada variable (como preguntas de encuestas o entrevistas, datos administrativos, mediciones de comportamiento/observación, etc.) y con qué hipótesis se relaciona. Los detalles de estas mediciones, como la redacción precisa de las preguntas de la encuesta, deben incluirse en esta sección o en un apéndice. Si se utilizan índices o factores, o si se combinan variables de resultado de otra forma, se debe especificar cómo se construirán estas variables de resultado combinadas. Si de alguna manera se manipulan o transforman las variables de resultado (como calculando el logaritmo de una variable), describa el proceso de manipulación o transformación.
+Recomendamos que se incluya en su PAP código, para demostrar cómo planea ejecutar la transformación de datos.
+
+<p class="comment">
+**Ejemplo:** Construcción de índices y mediciones<br><br>
+Medimos nuestra variable de resultado principal, el *cumplimiento fiscal*, utilizando datos administrativos sobre el pago de impuestos de los ciudadanos. La medición de cumplimiento fiscal toma el valor de $0$ si el hogar no pagó impuestos y $1$ si el hogar pagó impuestos.<br><br>
+Nuestra variable explicativa es la asignación al tratamiento, en donde a los individuos asignados al tratamiento se les asigna $1$ y a los individuos asignados al control se les asigna $0$.<br><br>
+También creamos un índice de "actitudes hacia el gobierno" utilizando ponderaciones de covarianza inversa (Inverse Covariance Weights, ICW) de 6 preguntas de la encuesta, en donde los valores más altos significan actitudes más positivas hacia el gobierno. El índice ICW pondera las preguntas de la línea de base por la covarianza de las respuestas en el grupo de control de base, y pondera las preguntas de la línea final por la covarianza de las respuestas en el grupo de control de la línea final. A continuación estandarizamos la escala de ICW por una desviación estándar, de modo que un 1 en la línea de base significa 1 desviación estándar (DE) por encima de la media de la línea de base, y un 1 en la línea final significa 1 DE por encima de la media de la línea final.</p>
+
+
+5. ¿Qué incluye un PAP? Procedimiento de estimación.
+==
+
+Una vez que ha especificado el diseño del estudio, las hipótesis y las variables, está listo para discutir los procedimientos de pruebas y estimaciones.
+Esta sección debe especificar de manera clara lo que se está estimando (es decir, el estimando) y cómo se pretende estimarlo (es decir, el estimador). Por ejemplo, muchos estudios estiman el efecto promedio del tratamiento de una intervención experimental utilizando la regresión lineal de mínimos cuadrados ordinarios como estimador.. 
+En esta sección, establezca claramente la especificación de su modelo, incluyendo sus variables de resultado, las variables explicativas y las covariables, así como la prueba de significancia a aplicar.
+Recomendamos incluir código para el modelo estadístico o la forma funcional del modelo estadístico en el PAP.
+
+<p class="comment">
+**Ejemplo:** Procedimiento de estimación<br><br>
+Procedimiento de estimación. Estimamos el efecto de la campaña de información y del servicio de recojo de basura sobre el pago de los impuestos municipales entre los residentes con un análisis de intención de tratar. Nuestro estimando es el efecto promedio del tratamiento.br><br>
+Si tenemos balance entre las variables de resultado de la línea inicial y final, podremos usar el siguiente estimador para estimar el efecto promedio de tratamiento: <br><br>
+$Y_{i,j} = \beta_0 + \beta_1Z_{i,j} + X_{i,j}+ \epsilon_{i,j}$<br><br>
+donde $i$ es el individuo en el vecindario $j$, $Z$ es el indicador del tratamiento, y $Y$ la variable de resultado. $X$ es la variable de resultado de referencia inicial para el individuo $i$. Utilizaremos pesos de regresión proporcionales al tamaño de los vecindarios $j$. Si las variables de resultado de referencia inicial y final no están balanceadas, utilizaremos la puntuación de cambio, $Y_i = Y_{i,endline} - Y_{i,baseline}$ y no usaremos $X$. 
+</p>
+
+6. ¿Qué incluye un PAP? Criterios de Inferencia{#infcrit}
+==
+
+Los criterios de inferencia son reglas de decisión que determinan la detectabilidad de los efectos (es decir, si una variable explicativa afecta realmente a una variable de resultado). Se requiere tomar varias decisiones para establecer  criterios de inferencia, respecto a cuándo aceptar que el efecto estimado es "estadísticamente y significativamente diferente" con respecto a las hipótesis nulas. Se recomienda especificar y justificar de manera clara las respuestas a las siguientes preguntas:
+
+1. ¿Qué tipo de errores estándar va a utilizar? ¿Por qué utilizará este tipo de errores estándar? ^[Por ejemplo, se podrían calcular los errores estándar y los valores $p$ utilizando métodos de permutación (“inferencia por aleatorización”)  (https://egap.org/resource/10-things-to-know-about-randomization-inference). O se podrían aproximar los errores estándar y los valores $p$ utilizando métodos analíticos [@samii2012]].
+2. ¿Se piensa hacer una prueba de una cola o de dos colas?  
+3. ¿A qué nivel $\alpha$ se rechazará la hipótesis nula de un valor $p$?  
+4. ¿Se tienen varias hipótesis?  Si es así, ¿qué procedimiento se utilizará para ajustar las [comparaciones múltiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons)?  
+
+Puede optar por utilizar varios procedimientos para los criterios de inferencia. Por ejemplo, puede utilizar tanto los ajustes FWER como FDR para las comparaciones múltiples, y comparar entre ambos. O podría querer utilizar los valores $p$ de la inferencia por aleatorización como una comprobación de los valores $p$ de una distribución nula que se supone como normal. Si decide utilizar varios procedimientos, debe especificar cómo interpretará estos resultados, si los distintos procedimientos llegan a conclusiones diferentes.
+
+<p class="comment">
+**Ejemplo:**<br><br>
+Utilizamos los errores estándar HC2 con nuestro experimento aleatorio en bloque, porque es equivalente al estimador de varianza de Neyman basado en la aleatorización [@samii2012]. Esperamos que el grupo de tratamiento pague más impuestos municipales que el grupo de control, por lo tanto utilizamos una prueba de una cola en la que $H_1 > H_0$. Establecemos $\alpha = 0,05$ y rechazamos la hipótesis nula cuando el valor $p$ es inferior a 0,05. Como sólo tenemos una hipótesis confirmatoria, no ajustamos para comparaciones múltiples.
+<br><br>
+Como comprobación de los errores estándar  HC2, también calculamos los valores $p$ utilizando directamente la [inferencia por aleatorización](https://egap.org/resource/10-things-to-know-about-randomization-inference), con la diferencia de medias como prueba estadística.
+</p>
+
+7. ¿Qué incluye un PAP? Procedimientos para Problemas de Datos
+==
+
+A veces los experimentos y la recopilación de datos no resultan como uno espera. Los PAP le dan la oportunidad de reflexionar sobre cuáles pueden ser esos problemas, y especificar de qué manera piensa resolverlos.
+
+Dos problemas de datos comunes son (1) puntos de datos extremos y (2) datos faltantes. Los puntos extremos pueden representar un verdadero valor atípico (una unidad con variables de resultado mucho mayores o menores que los de otras unidades) o pueden deberse también a errores en el recojo de datos. Las tabletas de encuesta, los equipos de grabación, los raspadores web y otras herramientas de recopilación de datos pueden registrar puntos extremos debido a fallas técnicas. Puede ser difícil saber si los puntos extremos representan datos recogidos veraces, o si se deben a errores en la ingesta de datos, pero es importante especificar en el PAP cuándo se espera ver errores en la recopilación de datos y cuáles serán los procedimientos para trabajar con puntos extremos.
+
+**Los datos faltantes** pueden presentarse de dos formas: covariables faltantes y variables de resultados faltantes. También es importante especificar en el PAP cuándo se espera ver variables de resultado o covariables faltantes y cuales serán los procedimientos para tratarlos. Los puntos extremos y los puntos faltantes que son aleatorios serán menos problemáticos que los puntos faltantes o extremos que parecen seguir un patrón.
+
+Los procedimientos más habituales para trabajar los datos faltantes o los puntos extremos son: 1) análisis de límites; 2) imputación; 3) eliminación de observaciones. Le recomendamos que tenga en cuenta las siguientes preguntas a la hora de determinar qué procedimiento desea utilizar:
+
+- ¿Qué dificultades pueden causar estos puntos de datos extremos/covariables ausentes/variables de resultado faltantes? ¿Cómo puede adelantarse para mitigar estos problemas de datos?
+  - ¿Cómo evaluaría si los datos extremos/faltantes son plausiblemente aleatorios (es decir, los puntos de datos extremos/faltantes se correlacionan con el tratamiento, covariables/subgrupos específicos o variables de resultados)? 
+  - ¿Qué procedimientos utilizaría para tratar los puntos extremos/falta de datos y cómo justificaría el uso de esos procedimientos?  
+      - Si los datos extremos o faltantes no son aleatorios, recomendamos incluir algún tipo de análisis de límites para determinar los límites de su estimación con puntos extremos o faltantes. Por ejemplo, los límites de valor extremo pueden ayudarle a determinar el rango de un efecto promedio del tratamiento, estableciendo todas las variables de resultado ausentes en el grupo de tratamiento con la mayor variable de resultado posible, y estableciendo todas las variables de resultado ausentes en el mismo grupo de control con el menor resultado posible [@gerber2012field].
+      - Si los datos extremos o faltantes son aleatorios, recomendamos imputar los puntos extremos o los datos faltantes. También se pueden descartar estos datos si los datos extremos o faltantes son aleatorios, y en este caso se debería especificar las condiciones bajo las cuales se decide descartar dichos datos. Por ejemplo, considere la posibilidad de establecer un umbral para una covariable faltante, de modo que si el porcentaje de datos faltantes de la covariable excede el umbral, se pueda eliminar dicha covariable.
+
+Le recomendamos incluir código para mostrar sus procedimientos para solucionar problemas de datos.
+
+<ol class="comment">
+**Ejemplo:** Resultados faltantes de las preguntas de encuesta<br><br>
+Algunos encuestados no responderán a una o más preguntas que miden una variable de resultado. Si durante la sesión piloto observamos que las tasas de no-respuesta a las preguntas parecen altas ($\geq 10\%$), pediremos explicaciones tanto a los encuestados como a los entrevistadores para poder cambiar las preguntas.
+
+Si al realizar nuestra encuesta los encuestados no responden a una o más preguntas que miden una variable de resultado, nuestro procedimiento será el siguiente:
+<ol>
+<li>Evaluaremos la relación entre las variables de resultado faltantes y la asignación del tratamiento mediante una prueba de hipótesis y reportaremos estos resultados.</li>
+<li>Si $p < ,05$ para la evaluación de la relación entre el tratamiento y las variables de resultado faltantes, presentaremos un análisis de límites de valores extremos, en el que fijamos todas las variables de resultado faltantes para el tratamiento en el máximo del bloque, y todas las variables de resultado faltantes para el control en el mínimo del bloque.</li>
+<li>Si $p \geq 0,5$ para la evaluación de la relación entre el tratamiento y las variables de resultado faltantes, imputaremos las variables de resultado faltantes utilizando la media de la subcategoría de asignación por bloques.</li>
+</ol>
+Si aún tenemos preguntas sobre la variable de resultado, con tasas particularmente altas de no-respuesta (>10 por ciento), entonces debemos:
+<ol>
+<li> Describir la relación entre la no-respuesta a esta pregunta y otros datos en las personas vía </li>
+  <ul>
+  <li>Exploraciones bivariadas de tablas y/o gráficas</li>
+  <li>Selección de variables mediante modelos adaptativos elásticos de red
+ con parámetros de ajuste elegidos por validación cruzada de 10 veces dentro del subgrupo de diseño.li>
+  </ul>
+<li>Considerar el descartar estas variables de resultado y justificar las razones de esta decisión.</li>
+</ol>
+</ol>
+
+8. ¿Qué incluye un PAP? Análisis de poder.
+==
+
+En los PAP se suele incluir un [análisis de poder](https://egap.org/resource/10-cosas-que-debe-saber-sobre-el-poder-estadistico).  El poder estadístico es la probabilidad de que su estudio pueda detectar un efecto, si es que hay un efecto que detectar.
+
+Existen [herramientas](https://egap.shinyapps.io/Power_Calculator/) que ayudan a calcular el poder, aunque también puede elaborar su propio análisis de poder de manera computacional.  Una de las ventajas del análisis de poder computacional, es que el análisis de poder se convierte también en el código de análisis final, o al menos en una plantilla del código de análisis final.
+
+En muchos sentidos, el análisis de poder computacional implementa en el código todas las especificaciones que se hicieron en el PAP previamente. De hecho, se puede combinar el código para un análisis de poder computacional con el código escrito para otras secciones del PAP, y así crear un PAP computacional. Esta herramienta, que puede implementarse con un software como [DeclareDesign](https://declaredesign.org), puede ayudar a diagnosticar problemas potenciales, enseñarle más sobre su diseño y reforzar su PAP.
+
+9.¿Por qué hacer un PAP?
+==
+
+Es posible que  haya escuchado argumentos a favor y en contra de los PAP. Este debate ofrece algunas reflexiones que abordan los beneficios y los costes de los PAP.
+
+*1. Los PAP ayudan a contrarrestar la crisis de replicación*.
+
+La falta de transparencia en las investigaciones ha provocado varios problemas, entre ellos la crisis de replicación.
+
+La crisis de replicación consiste en que muchos estudios académicos son difíciles o imposibles de replicar. Los PAP reducen el número de estudios que no son replicables debido a malas prácticas de datos, como la extracción de datos en busca de relaciones espurias o el hackeo inadvertido de los valores $p$. Los PAP también aumentan el número de estudios que elaboran los procedimientos necesarios para la replicación, permitiendo que se hagan intentos de replicar dichos estudios.
+
+<!--La transparencia en la investigación también impide la extracción de datos. Incluso los investigadores bien intencionados pueden sentir la tentación de manipular los datos buscando aumentar los tamaños de los efectos y minimizar los valores $p$, por ejemplo, al incluir/excluir variables de control, construir un índice de una u otra forma, o al ejecutar un modelo en vez de otro. Se puede justificar fácilmente el uso de un método efectivo que produzca los resultados más positivos, si el método no está especificado de antemano.--> <!--Esto es especialmente útil para cualquier asociación en la que una de las partes tiene un incentivo para obtener resultados positivos, lo cual es común en las colaboraciones académico-políticas.-->
+
+*2. Los PAPS ayudan a contrarrestar el sesgo en las publicaciones.*
+
+La falta de transparencia en la investigación también contribuye al sesgo en las publicaciones.
+
+El sesgo de publicación sucede cuando las revistas publican estudios en función de sus resultados, en lugar publicarlos por la calidad de su investigación. Este sesgo puede llevar a afirmaciones erróneas sobre una conexión entre las variables $X$ y $Y$, porque las revistas sólo publican estudios que muestran que $X$ afecta a $Y$, y no publican estudios en los que $X$ no afecta a $Y$, aunque esos estudios sean más numerosos.
+
+Los registros de PAPs funcionan como depósitos de estudios que han sido intentados, tanto publicados como no publicados. Estos registros permiten identificar a académicos y profesionales si los efectos publicados sobre un tema representan con exactitud los efectos encontrados en estudios no publicados, o si los efectos publicados difieren de los estudios no publicados.  
+
+El registro previo de los estudios como exploratorios o confirmatorios permite a los investigadores saber si futuras investigaciones deben basarse en el estudio, o si las investigaciones futuras deben corroborar el estudio. _No hay nada malo en la investigación exploratoria_. Muchas relaciones importantes pero desconocidas pueden descubrirse mediante análisis exploratorios.  Es importante reconocer cuándo los hallazgos son exploratorios y necesitan ser confirmados en otros estudios. Los detalles en los registros de los PAPs permiten a los académicos hacer este reconocimiento.
+
+*3. Los PAP fomentan la investigación de calidad*.
+
+La creación de un PAP obliga al investigador a elaborar y construir las numerosas decisiones de diseño que hay hacer al realizar un estudio. Cambiar estas decisiones de diseño en un momento posterior, no es un problema en el caso de los estudios observacionales. Pero en el caso de los estudios experimentales o de otros estudios que incluyen el recojo de datos originales, el investigador tiene una sola oportunidad para recoger los datos necesarios para su estudio. Los PAP ayudan a garantizar que el investigador recoja los datos correctos y piense a profundidad todas las decisiones en su estudio.
+
+*4. Los PAP fomentan la investigación de impacto*.
+
+Los PAP aumentan la transparencia de las investigaciones, y una investigación transparente siempre será más confiable que una investigación no transparente, porque las decisiones del estudio y las razones de esas decisiones se toman antes de que se conozcan los resultados del estudio. La transparencia garantiza a las comunidades académicas, políticas y de otro tipo que los resultados de una investigación pueden utilizarse como base para más investigaciones, para programas políticos y para otras aplicaciones en el mundo real.
+
+*5. Los PAP pueden disminuir el tiempo de proceso de publicación.*
+
+Los PAP requieren una mayor inversión de tiempo previa al inicio de la investigación, pero disminuyen considerablemente el tiempo de análisis posterior a la investigación, porque el código y las decisiones analíticas se escriben por adelantado. Los PAP _deberían_ también acortar el proceso de revisión que lleva a la publicación. Las revistas suelen exigir numerosas comprobaciones de solidez antes de aceptar los resultados de un estudio. Los revisores pueden solicitar menos análisis alternativos a partir de un trabajo preespecificado, ya que queda claro para los revisores que las decisiones de análisis preespecificadas no se vieron influidas por los resultados del estudio. Esto es particularmente útil cuando el investigador quiere utilizar una prueba estadística no convencional más poderosa, que puede parecer sospechosa sin la especificación previa, como lo pueden ser las pruebas unilaterales o las estadísticas de prueba distintas a las de diferencia de medias.
+
+**¿Por qué no hacer un PAP?**
+
+*1. La investigación es impredecible y los PAP hacen que la investigación sea inflexible.*
+
+Algunas personas afirman que un PAP puede confinar al estudio a un diseño particular, a una intervención y una estrategia de estimación determinado; aunque los detalles del diseño, la intervención y la estrategia de estimación puedan cambiar durante la realización del estudio. En los estudios experimentales, las dificultades imprevistas a menudo pueden cambiar aspectos de la aleatorización o la intervención, o una nueva medida de la variable de resultado puede no superar las pruebas de validez. Y en los estudios observacionales, la reflexión futura sobre cómo se aplica una teoría a sus datos puede revelar la necesidad de nuevas variables de control, mediadoras y/o moderadoras.
+
+¡Los investigadores deben recordar que *cualquier Plan de Análisis Previo puede ser revisado*! Su primer PAP no le obliga a adoptar un diseño de investigación, una variable de resultado o una especificación de modelo concretos. *El PAP hace que el proceso de investigación sea transparente, no inflexible*. Las revisiones pueden hacerse presentando un nuevo PAP, o a través de una enmienda que describa los cambios respecto al PAP anterior.<!--Describa los pros y los contras -->.  <!--Por ejemplo, en el estudio de Malawi fue imposible demarcar barrios de exactamente 20 hogares, por lo que el PAP cambió para dar cabida a grupos de diferentes tamaños. Otros estudios pueden no entender la importancia de su variable independiente en una variable de resultado, acaso hasta después de realizar el estudio.--> ¡Los análisis exploratorios están bien! El objetivo de un PAP no es evitar estos análisis imprevistos, sino formalizar y explicar el proceso que condujo a dichos análisis.
+
+<!--
+*2. Los PAP aumentan el tiempo de ejecución del estudio.*
+
+Al inicio del proceso, los PAP _son_ una inversión de tiempo considerable, pero los PAP también pueden reducir el tiempo de análisis y publicación. Tanto porque el código de análisis principal ya está escrito, como porque los revisores de las revistas pueden no solicitar tantas comprobaciones de robustez, ya que se ha especificado por adelantado el modelo estadístico.-->
+
+En el capítulo 19 de @rosenbaum2010 y en @olken2015 se pueden encontrar más discusiones sobre los pros y los contras de los PAP.
+
+10. ¿Cómo y dónde se registran los PAP?
+==
+
+¡Su PAP ya está completo y listo para registrarse!  En el caso de los estudios experimentales, la fecha límite para registrar el PAP es antes de que se recojan los datos finales. En el caso de los estudios observacionales, lo más tarde que debe registrar el PAP es antes de realizar cualquier análisis, incluyendo la revisión de las estadísticas descriptivas. En cualquier momento puede ajustar un PAP mediante una enmienda.
+
+Hay varios sitios de terceros en los que puede registrar su PAP. A continuación enumeramos los sitios más comunes para los PAP de ciencias sociales. Puede incluir su PAP en múltiples sitios; algunas revistas exigen que los artículos potenciales registren sus PAP en un sitio específico.^[Tenga en cuenta que algunas organizaciones no utilizan sitios de terceros. Por ejemplo, el [proceso de la Oficina de Ciencias de la Evaluación de la Administración de Servicios Generales de EE.UU.](https://oes.gsa.gov/methods/) utiliza Github, que tiene marcas de tiempo que verifican que el PAP fue creado antes de que se realizara el análisis].
+
+- [Registro EGAP](http://egap.org/content/registration)
+- [Registro AEA](https://www.socialscienceregistry.org) (para ensayos controlados y  aleatorizados, RCTs)
+- [Registro OSF](http://help.osf.io/m/registrations)
+
+<!--# Cosas para Chris yLula
+
+https://blogs.worldbank.org/impactevaluations/a-pre-analysis-plan-checklist
+
+-->
+
+¡Feliz Planeación de Análisis Previo!
+
+# Referencias
+

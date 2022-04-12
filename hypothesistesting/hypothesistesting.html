@@ -480,38 +480,38 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#hypothesis-tests-summarize-information-in-research-designs-to-help-people-reason-about-treatment-effects"><span class="toc-section-number">1</span> Hypothesis tests summarize information in research designs to help people reason about treatment effects</a></li>
-<li><a href="#in-an-experiment-a-hypothesis-is-a-claim-about-unobserved-causal-relationships"><span class="toc-section-number">2</span> In an experiment, a hypothesis is a claim about unobserved causal relationships</a>
+<li><a href="#hypothesis-tests-summarize-information-in-research-designs-to-help-people-reason-about-treatment-effects" id="toc-hypothesis-tests-summarize-information-in-research-designs-to-help-people-reason-about-treatment-effects"><span class="toc-section-number">1</span> Hypothesis tests summarize information in research designs to help people reason about treatment effects</a></li>
+<li><a href="#in-an-experiment-a-hypothesis-is-a-claim-about-unobserved-causal-relationships" id="toc-in-an-experiment-a-hypothesis-is-a-claim-about-unobserved-causal-relationships"><span class="toc-section-number">2</span> In an experiment, a hypothesis is a claim about unobserved causal relationships</a>
 <ul>
-<li><a href="#a-quick-overview-of-the-fundamental-problem-of-causal-inference-and-an-introduction-to-some-notation"><span class="toc-section-number">2.1</span> A quick overview of the fundamental problem of causal inference and an introduction to some notation</a></li>
-<li><a href="#an-overview-of-estimation-based-approaches-to-causal-inference-in-randomized-experiments."><span class="toc-section-number">2.2</span> An overview of estimation based approaches to causal inference in randomized experiments.</a></li>
-<li><a href="#hypothesis-testing-is-a-statistical-approach-to-the-fundamental-problem-of-causal-inference-using-claims-about-the-unobserved."><span class="toc-section-number">2.3</span> Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.</a></li>
+<li><a href="#a-quick-overview-of-the-fundamental-problem-of-causal-inference-and-an-introduction-to-some-notation" id="toc-a-quick-overview-of-the-fundamental-problem-of-causal-inference-and-an-introduction-to-some-notation"><span class="toc-section-number">2.1</span> A quick overview of the fundamental problem of causal inference and an introduction to some notation</a></li>
+<li><a href="#an-overview-of-estimation-based-approaches-to-causal-inference-in-randomized-experiments." id="toc-an-overview-of-estimation-based-approaches-to-causal-inference-in-randomized-experiments."><span class="toc-section-number">2.2</span> An overview of estimation based approaches to causal inference in randomized experiments.</a></li>
+<li><a href="#hypothesis-testing-is-a-statistical-approach-to-the-fundamental-problem-of-causal-inference-using-claims-about-the-unobserved." id="toc-hypothesis-testing-is-a-statistical-approach-to-the-fundamental-problem-of-causal-inference-using-claims-about-the-unobserved."><span class="toc-section-number">2.3</span> Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.</a></li>
 </ul></li>
-<li><a href="#the-null-hypothesis-of-no-effects-is-a-precise-statement-about-potential-outcomes"><span class="toc-section-number">3</span> The Null Hypothesis of No Effects is a precise statement about potential outcomes</a></li>
-<li><a href="#the-weak-null-hypothesis-of-no-effects-is-a-statement-about-aggregated-potential-outcomes"><span class="toc-section-number">4</span> The weak null hypothesis of no effects is a statement about aggregated potential outcomes</a></li>
-<li><a href="#randomization-allows-us-to-use-what-we-observe-to-test-hypotheses-about-what-we-do-not-observe."><span class="toc-section-number">5</span> Randomization allows us to use what we observe to test hypotheses about what we do not observe.</a></li>
-<li><a href="#test-statistics-summarize-the-relationship-between-observed-outcomes-and-treatment-assignment."><span class="toc-section-number">6</span> Test statistics summarize the relationship between observed outcomes and treatment assignment.</a></li>
-<li><a href="#p-values-encode-how-much-information-a-research-design-and-test-statistic-tell-us-about-the-hypothesis.-hypothesis-tests-require-distributions-of-the-test-statistic-under-the-hypothesis."><span class="toc-section-number">7</span> <span class="math inline">\(p\)</span>-values encode how much information a research design and test statistic tell us about the hypothesis. Hypothesis tests require distributions of the test statistic under the hypothesis.</a>
+<li><a href="#the-null-hypothesis-of-no-effects-is-a-precise-statement-about-potential-outcomes" id="toc-the-null-hypothesis-of-no-effects-is-a-precise-statement-about-potential-outcomes"><span class="toc-section-number">3</span> The Null Hypothesis of No Effects is a precise statement about potential outcomes</a></li>
+<li><a href="#the-weak-null-hypothesis-of-no-effects-is-a-statement-about-aggregated-potential-outcomes" id="toc-the-weak-null-hypothesis-of-no-effects-is-a-statement-about-aggregated-potential-outcomes"><span class="toc-section-number">4</span> The weak null hypothesis of no effects is a statement about aggregated potential outcomes</a></li>
+<li><a href="#randomization-allows-us-to-use-what-we-observe-to-test-hypotheses-about-what-we-do-not-observe." id="toc-randomization-allows-us-to-use-what-we-observe-to-test-hypotheses-about-what-we-do-not-observe."><span class="toc-section-number">5</span> Randomization allows us to use what we observe to test hypotheses about what we do not observe.</a></li>
+<li><a href="#test-statistics-summarize-the-relationship-between-observed-outcomes-and-treatment-assignment." id="toc-test-statistics-summarize-the-relationship-between-observed-outcomes-and-treatment-assignment."><span class="toc-section-number">6</span> Test statistics summarize the relationship between observed outcomes and treatment assignment.</a></li>
+<li><a href="#p-values-encode-how-much-information-a-research-design-and-test-statistic-tell-us-about-the-hypothesis.-hypothesis-tests-require-distributions-of-the-test-statistic-under-the-hypothesis." id="toc-p-values-encode-how-much-information-a-research-design-and-test-statistic-tell-us-about-the-hypothesis.-hypothesis-tests-require-distributions-of-the-test-statistic-under-the-hypothesis."><span class="toc-section-number">7</span> <span class="math inline">\(p\)</span>-values encode how much information a research design and test statistic tell us about the hypothesis. Hypothesis tests require distributions of the test statistic under the hypothesis.</a>
 <ul>
-<li><a href="#an-example-testing-the-sharp-null-hypothesis-of-no-effects"><span class="toc-section-number">7.1</span> An example: Testing the Sharp Null Hypothesis of No Effects</a>
+<li><a href="#an-example-testing-the-sharp-null-hypothesis-of-no-effects" id="toc-an-example-testing-the-sharp-null-hypothesis-of-no-effects"><span class="toc-section-number">7.1</span> An example: Testing the Sharp Null Hypothesis of No Effects</a>
 <ul>
-<li><a href="#one-sided-p-values"><span class="toc-section-number">7.1.1</span> One-sided <span class="math inline">\(p\)</span>-values</a></li>
-<li><a href="#two-sided-p-values"><span class="toc-section-number">7.1.2</span> Two-sided <span class="math inline">\(p\)</span>-values</a></li>
+<li><a href="#one-sided-p-values" id="toc-one-sided-p-values"><span class="toc-section-number">7.1.1</span> One-sided <span class="math inline">\(p\)</span>-values</a></li>
+<li><a href="#two-sided-p-values" id="toc-two-sided-p-values"><span class="toc-section-number">7.1.2</span> Two-sided <span class="math inline">\(p\)</span>-values</a></li>
 </ul></li>
-<li><a href="#an-example-testing-the-weak-null-of-no-average-effects"><span class="toc-section-number">7.2</span> An example: Testing the weak null of no average effects</a></li>
+<li><a href="#an-example-testing-the-weak-null-of-no-average-effects" id="toc-an-example-testing-the-weak-null-of-no-average-effects"><span class="toc-section-number">7.2</span> An example: Testing the weak null of no average effects</a></li>
 </ul></li>
-<li><a href="#in-simple-hypothesis-tests-we-do-not-accept-null-hypotheses."><span class="toc-section-number">8</span> In simple hypothesis tests, we do not accept null hypotheses.</a>
+<li><a href="#in-simple-hypothesis-tests-we-do-not-accept-null-hypotheses." id="toc-in-simple-hypothesis-tests-we-do-not-accept-null-hypotheses."><span class="toc-section-number">8</span> In simple hypothesis tests, we do not accept null hypotheses.</a>
 <ul>
-<li><a href="#what-does-it-mean-to-reject-a-null-hypothesis"><span class="toc-section-number">8.1</span> What does it mean to reject a null hypothesis?</a></li>
-<li><a href="#what-does-it-mean-to-not-reject-a-null-hypothesis"><span class="toc-section-number">8.2</span> What does it mean to <strong>not reject</strong> a null hypothesis?</a></li>
+<li><a href="#what-does-it-mean-to-reject-a-null-hypothesis" id="toc-what-does-it-mean-to-reject-a-null-hypothesis"><span class="toc-section-number">8.1</span> What does it mean to reject a null hypothesis?</a></li>
+<li><a href="#what-does-it-mean-to-not-reject-a-null-hypothesis" id="toc-what-does-it-mean-to-not-reject-a-null-hypothesis"><span class="toc-section-number">8.2</span> What does it mean to <strong>not reject</strong> a null hypothesis?</a></li>
 </ul></li>
-<li><a href="#once-you-are-using-p-values-to-reject-a-hypothesis-you-will-make-errors"><span class="toc-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to reject a hypothesis, you will make errors</a>
+<li><a href="#once-you-are-using-p-values-to-reject-a-hypothesis-you-will-make-errors" id="toc-once-you-are-using-p-values-to-reject-a-hypothesis-you-will-make-errors"><span class="toc-section-number">9</span> Once you are using <span class="math inline">\(p\)</span>-values to reject a hypothesis, you will make errors</a>
 <ul>
-<li><a href="#how-to-learn-about-errors-of-missing-the-signal-in-the-noise"><span class="toc-section-number">9.1</span> How to learn about errors of missing the signal in the noise?</a></li>
-<li><a href="#how-to-learn-about-false-positive-errors"><span class="toc-section-number">9.2</span> How to learn about false positive errors?</a></li>
+<li><a href="#how-to-learn-about-errors-of-missing-the-signal-in-the-noise" id="toc-how-to-learn-about-errors-of-missing-the-signal-in-the-noise"><span class="toc-section-number">9.1</span> How to learn about errors of missing the signal in the noise?</a></li>
+<li><a href="#how-to-learn-about-false-positive-errors" id="toc-how-to-learn-about-false-positive-errors"><span class="toc-section-number">9.2</span> How to learn about false positive errors?</a></li>
 </ul></li>
-<li><a href="#what-else-to-know-about-hypothesis-tests."><span class="toc-section-number">10</span> What else to know about hypothesis tests.</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#what-else-to-know-about-hypothesis-tests." id="toc-what-else-to-know-about-hypothesis-tests."><span class="toc-section-number">10</span> What else to know about hypothesis tests.</a></li>
+<li><a href="#references" id="toc-references">References</a></li>
 </ul>
 </div>
 
@@ -541,8 +541,7 @@ research designs that try to organize data so that they look
 quasi-experimental designs).</p>
 <p>The <span class="math inline">\(p\)</span>-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in <a href="https://egap.org/resource/10-things-to-know-about-statistical-power">10 Things You Need to Know about
-Statistical
-Power</a>,
+Statistical Power</a>,
 whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, the distribution of the treatment, and the substantive strength
