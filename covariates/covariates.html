@@ -374,27 +374,31 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#what-is-covariate-adjustment">1 What is covariate
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#what-is-covariate-adjustment" id="toc-what-is-covariate-adjustment">1 What is covariate
 adjustment?</a></li>
-<li><a href="#controlling-for-covariates-at-the-design-stage-blocking">2
+<li><a href="#controlling-for-covariates-at-the-design-stage-blocking" id="toc-controlling-for-covariates-at-the-design-stage-blocking">2
 Controlling for covariates at the design stage (blocking)</a></li>
-<li><a href="#how-to-do-it-in-a-regression">3 How to do it in a
+<li><a href="#how-to-do-it-in-a-regression" id="toc-how-to-do-it-in-a-regression">3 How to do it in a
 regression</a></li>
-<li><a href="#why-to-do-it">4 Why to do it</a></li>
-<li><a href="#when-will-it-help">5 When will it help?</a></li>
-<li><a href="#control-for-prognostic-covariates-regardless-of-whether-they-show-imbalances">6
+<li><a href="#why-to-do-it" id="toc-why-to-do-it">4 Why to do
+it</a></li>
+<li><a href="#when-will-it-help" id="toc-when-will-it-help">5 When will
+it help?</a></li>
+<li><a href="#control-for-prognostic-covariates-regardless-of-whether-they-show-imbalances" id="toc-control-for-prognostic-covariates-regardless-of-whether-they-show-imbalances">6
 Control for prognostic covariates regardless of whether they show
 imbalances</a></li>
-<li><a href="#when-not-to-do-it">7 When not to do it</a></li>
-<li><a href="#concerns-about-small-sample-bias">8 Concerns about
-small-sample bias</a></li>
-<li><a href="#how-to-make-your-covariate-adjustment-decisions-transparent">9
+<li><a href="#when-not-to-do-it" id="toc-when-not-to-do-it">7 When not
+to do it</a></li>
+<li><a href="#concerns-about-small-sample-bias" id="toc-concerns-about-small-sample-bias">8 Concerns about small-sample
+bias</a></li>
+<li><a href="#how-to-make-your-covariate-adjustment-decisions-transparent" id="toc-how-to-make-your-covariate-adjustment-decisions-transparent">9
 How to make your covariate adjustment decisions transparent</a></li>
-<li><a href="#covariates-can-help-you-investigate-the-integrity-of-the-random-assignment">10
+<li><a href="#covariates-can-help-you-investigate-the-integrity-of-the-random-assignment" id="toc-covariates-can-help-you-investigate-the-integrity-of-the-random-assignment">10
 Covariates can help you investigate the integrity of the random
 assignment</a></li>
-<li><a href="#for-further-reading">For further reading</a></li>
+<li><a href="#for-further-reading" id="toc-for-further-reading">For
+further reading</a></li>
 </ul>
 </div>
 
@@ -549,14 +553,11 @@ covariate-adjusted) for estimating the ATE. To estimate the bias of each
 method, we take the difference between the average of the 10,000
 simulated estimates and the “true” treatment effect.</p>
 <pre class="r"><code>rm(list=ls())
-
 set.seed(20140714)
 N = 2000
 N.treated = 1000
 Replications = 10000
-
 true.treatment.effect = 1
-
 # Create pre-treatment covariates
 owns.id.card = rbinom(n = N, size = 1, prob = .18)
 has.formal.schooling = rbinom(n = N, size = 1, prob = .6)
@@ -565,43 +566,33 @@ age[age&lt;18] = 18
 age[age&gt;65] = 65
 TV.access = rbinom(n = N, size = 1, prob = .7)
 epsilon = rnorm(n = N, mean = 0, sd = 2)
-
 # Create potential outcomes correlated with pre-treatment covariates
 Y0 = round(owns.id.card + 2*has.formal.schooling + 3*TV.access + log(age) + epsilon)
 Y1 = Y0 + true.treatment.effect
-
 # Assign treatment repeatedly
 Z.mat = replicate(Replications, ifelse(1:N %in% sample(1:N, N.treated), 1, 0))
-
 # Generate observed outcomes
 Y.mat = Y1 * Z.mat + Y0 * (1 - Z.mat)
-
 diff.in.means = function(Y, Z) {
   coef(lm(Y ~ Z))[2]
 }
-
 ols.adjust = function(Y, Z) {
   coef(lm(Y ~ Z + owns.id.card + has.formal.schooling + age + TV.access))[2]
 }
-
 unadjusted.estimates = rep(NA, Replications)
 adjusted.estimates   = rep(NA, Replications)
-
 for (i in 1:Replications) {
   unadjusted.estimates[i]  =  diff.in.means(Y.mat[,i], Z.mat[,i])
   adjusted.estimates[i]    =  ols.adjust(Y.mat[,i], Z.mat[,i])
 }
-
 # Estimated variability (standard deviation) of each estimator
 sd.of.unadj = sd(unadjusted.estimates)
 sd.of.unadj
 sd.of.adj   = sd(adjusted.estimates)
 sd.of.adj
-
 # Estimated bias of each estimator
 mean(unadjusted.estimates) - true.treatment.effect
 mean(adjusted.estimates) - true.treatment.effect
-
 # Margin of error (at 95% confidence level) for each estimated bias
 1.96 * sd.of.unadj / sqrt(Replications)
 1.96 * sd.of.adj   / sqrt(Replications)</code></pre>
@@ -643,25 +634,20 @@ be small, and covariate adjustment should help us reduce it.</p>
 library(MASS)  # for mvrnorm()
 set.seed(1234567)
 num.reps = 10000
-
 # True treatment effect is 0 for every unit
-
 adj.est = function(n, cov.matrix, treated) {
     Y.and.X  =  mvrnorm(n, mu = c(0, 0), Sigma = cov.matrix)
     Y   =  Y.and.X[, 1]  
     X   =  Y.and.X[, 2]
     coef(lm(Y ~ treated + X))[2]
 }
-
 unadj.est = function(n, treated) {
     Y = rnorm(n)
     coef(lm(Y ~ treated))[2]
 }
-
 rmse = function(half.n, rho = 0, control = TRUE) {
     treated  =  rep(c(0, 1), half.n)
     n = 2 * half.n
-
     if (control) {
         cov.matrix  =  matrix(c(1, rho, rho, 1), nrow = 2, ncol = 2)
         return( sqrt(mean(replicate(num.reps, adj.est(n, cov.matrix, treated)) ^ 2)) )
@@ -670,14 +656,12 @@ rmse = function(half.n, rho = 0, control = TRUE) {
         return( sqrt(mean(replicate(num.reps, unadj.est(n, treated)) ^ 2)) )
     }
 }
-
 half.n = c(5, 7, 11, 19, 35, 67, 131)
 n = 2 * half.n 
 E  = sapply(half.n, rmse, control = FALSE)
 E0 = sapply(half.n, rmse, rho = 0)
 E1 = sapply(half.n, rmse, rho = 0.5)
 E2 = sapply(half.n, rmse, rho = 0.9)
-
 plot(n, E, type = &quot;l&quot;, ylab = &quot;RMSE&quot;, xlim = c(min(n),max(n)), ylim = c(0,.75))
 lines(n, E0, col = &quot;yellow&quot;)
 lines(n, E1, col = &quot;orange&quot;)
@@ -880,20 +864,15 @@ rallies1 = rallies0 + 2
 rallies.mat = rallies1 * Z.mat + rallies0 * (1-Z.mat)
  
 # Estimate ATE with new model that includes the post-treatment covariate
-
 adjust.for.post = function(Y, Z, X) {
   coef(lm(Y ~ Z + X + owns.id.card + has.formal.schooling + age + TV.access))[2]
 }
-
 post.adjusted.estimates = rep(NA, Replications)
-
 for (i in 1:Replications) {
   post.adjusted.estimates[i]  =  adjust.for.post(Y.mat[,i], Z.mat[,i], rallies.mat[,i])
 }
-
 # Estimated bias of the new estimator
 mean(post.adjusted.estimates) - true.treatment.effect
-
 # Margin of error (at 95% confidence level) for the estimated bias
 1.96 * sd(post.adjusted.estimates) / sqrt(Replications)</code></pre>
 <p>Just because you should not adjust for post-treatment covariates does
