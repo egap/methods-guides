@@ -374,33 +374,33 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#some-ways-are-better-than-others">1 Some ways are better
-than others</a></li>
-<li><a href="#block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced">2
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#some-ways-are-better-than-others" id="toc-some-ways-are-better-than-others">1 Some ways are better than
+others</a></li>
+<li><a href="#block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced" id="toc-block-randomization-you-can-fix-it-so-that-treatment-and-control-groups-are-balanced">2
 Block randomization: You can fix it so that treatment and control groups
 are balanced</a></li>
-<li><a href="#factorial-designs-you-can-randomize-multiple-treatments-at-the-same-time-without-using-up-power">3
+<li><a href="#factorial-designs-you-can-randomize-multiple-treatments-at-the-same-time-without-using-up-power" id="toc-factorial-designs-you-can-randomize-multiple-treatments-at-the-same-time-without-using-up-power">3
 Factorial designs: You can randomize multiple treatments at the same
 time without using up power</a></li>
-<li><a href="#you-can-randomize-whole-clusters-together-but-the-bigger-your-clusters-the-weaker-your-power">4
+<li><a href="#you-can-randomize-whole-clusters-together-but-the-bigger-your-clusters-the-weaker-your-power" id="toc-you-can-randomize-whole-clusters-together-but-the-bigger-your-clusters-the-weaker-your-power">4
 You can randomize whole clusters together (but the bigger your clusters,
 the weaker your power!)</a></li>
-<li><a href="#you-can-randomize-in-a-way-that-makes-it-easier-to-see-if-there-are-spillovers">5
+<li><a href="#you-can-randomize-in-a-way-that-makes-it-easier-to-see-if-there-are-spillovers" id="toc-you-can-randomize-in-a-way-that-makes-it-easier-to-see-if-there-are-spillovers">5
 You can randomize in a way that makes it easier to see if there are
 spillovers</a></li>
-<li><a href="#different-units-can-be-assigned-to-treatment-with-different-probabilities">6
+<li><a href="#different-units-can-be-assigned-to-treatment-with-different-probabilities" id="toc-different-units-can-be-assigned-to-treatment-with-different-probabilities">6
 Different units can be assigned to treatment with different
 probabilities</a></li>
-<li><a href="#restricted-randomization-if-you-dont-like-what-you-get-you-can-start-over">7
+<li><a href="#restricted-randomization-if-you-dont-like-what-you-get-you-can-start-over" id="toc-restricted-randomization-if-you-dont-like-what-you-get-you-can-start-over">7
 Restricted randomization: If you don’t like what you get you can start
 over</a></li>
-<li><a href="#write-randomization-code-that-lets-you-simulate-many-possible-randomizations">8
+<li><a href="#write-randomization-code-that-lets-you-simulate-many-possible-randomizations" id="toc-write-randomization-code-that-lets-you-simulate-many-possible-randomizations">8
 Write randomization code that lets you simulate many possible
 randomizations</a></li>
-<li><a href="#you-can-do-randomization-as-you-go-along">9 You can do
+<li><a href="#you-can-do-randomization-as-you-go-along" id="toc-you-can-do-randomization-as-you-go-along">9 You can do
 randomization as you go along</a></li>
-<li><a href="#randomization-can-sometimes-be-an-ethical-way-of-assigning-a-treatment-but-sometimes-it-isnt">10
+<li><a href="#randomization-can-sometimes-be-an-ethical-way-of-assigning-a-treatment-but-sometimes-it-isnt" id="toc-randomization-can-sometimes-be-an-ethical-way-of-assigning-a-treatment-but-sometimes-it-isnt">10
 Randomization can sometimes be an ethical way of assigning a treatment,
 but sometimes it isn’t</a></li>
 </ul>
@@ -489,36 +489,28 @@ blockTools will generate the smallest possible blocks, each a grouping
 of two units with the same gender, one of which will be assigned to
 treatment, and one to control.</p>
 <pre class="r"><code>rm(list = ls())
-
 library(blockTools)
 library(dplyr)
 library(randomizr)
-
 dat &lt;-
   tibble(
     id = seq(1:60),
     female = c(rep(0, 36), rep(1, 24)),
     age = sample(18:65, size = 60, replace = TRUE)
   )
-
 # one covariate block
-
 dat &lt;-
   dat %&gt;%
   mutate(Z_block_1 = block_ra(female))
-
 with(dat, table(female, Z_block_1))
-
 # matched quartets
 out &lt;- block(dat, n.tr = 4, id.vars = &quot;id&quot;, 
              block.vars = c(&quot;female&quot;, &quot;age&quot;))
-
 dat &lt;-
   dat %&gt;%
   mutate(
     block_id = createBlockIDs(out, dat, id.var = &quot;id&quot;),
     Z_block_2 = block_ra(block_id))
-
 with(dat, table(Z_block_2, block_id))</code></pre>
 <p>You can check the mean of the variable on which you blocked for
 treatment and control to see that treatment and control groups are in
@@ -548,7 +540,6 @@ design.</p>
     Z_loan = complete_ra(80, 40),
     Z_training = block_ra(blocks = Z_loan)
   )
-
 with(dat, table(Z_loan, Z_training))</code></pre>
 </div>
 <div id="you-can-randomize-whole-clusters-together-but-the-bigger-your-clusters-the-weaker-your-power" class="section level1">
@@ -660,7 +651,6 @@ assignment.</p>
 <pre class="r"><code>N &lt;- 100000
 dat &lt;- tibble(Y0 = 1:N,
               Y1 = Y0 + 10000)
-
 dat &lt;-
   dat %&gt;%
   mutate(
