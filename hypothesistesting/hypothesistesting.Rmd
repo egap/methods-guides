@@ -71,8 +71,7 @@ quasi-experimental designs).
 
 The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
-Statistical
-Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
+Statistical Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
 whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
