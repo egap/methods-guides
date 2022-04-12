@@ -1,4 +1,3 @@
-base
 knitr
 Matrix
 lme4
@@ -8,3 +7,4 @@ lmtest
 SparseM
 dgof
 RItools
+rmarkdown

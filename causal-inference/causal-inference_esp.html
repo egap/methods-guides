@@ -374,16 +374,30 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#resumen">Resumen</a></li>
-<li><a href="#una-afirmación-causal-es-un-enunciado-sobre-lo-que-no-sucedió">1. Una afirmación causal es un enunciado sobre lo que no sucedió</a></li>
-<li><a href="#no-hay-relación-causal-sin-manipulación.">2. No hay relación causal sin manipulación.</a></li>
-<li><a href="#las-causas-no-tienen-por-qué-ser-rivales.">3. Las causas no tienen por qué ser rivales.</a></li>
-<li><a href="#x-puede-causar-y-incluso-si-x-no-es-una-condición-necesaria-o-una-condición-suficiente-para-que-y-ocurra.">4. <span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria o una condición suficiente para que <span class="math inline">\(Y\)</span> ocurra.</a></li>
-<li><a href="#existe-un-problema-fundamental-de-la-inferencia-causal">5. Existe un problema fundamental de la inferencia causal</a></li>
-<li><a href="#usted-puede-estimar-el-efecto-causal-promedio-aun-cuando-no-pueda-observar-ningún-efecto-causal-individual.">6. Usted puede estimar el efecto causal promedio aun cuando no pueda observar ningún efecto causal individual.</a></li>
-<li><a href="#la-estimación-del-efecto-causal-promedio-no-requiere-que-los-grupos-de-tratamiento-y-control-sean-idénticos.">7. La estimación del efecto causal promedio no requiere que los grupos de tratamiento y control sean idénticos.</a></li>
-<li><a href="#correlación-no-es-igual-a-causalidad.">8. Correlación no es igual a causalidad.</a></li>
-<li><a href="#es-más-fácil-aprender-sobre-los-efectos-de-las-causas-que-aprender-sobre-las-causas-de-los-efectos.">10. Es más fácil aprender sobre los “efectos de las causas” que aprender sobre las “causas de los efectos”.</a></li>
+<li><a href="#resumen" id="toc-resumen">Resumen</a></li>
+<li><a href="#una-afirmación-causal-es-un-enunciado-sobre-lo-que-no-sucedió" id="toc-una-afirmación-causal-es-un-enunciado-sobre-lo-que-no-sucedió">1.
+Una afirmación causal es un enunciado sobre lo que no sucedió</a></li>
+<li><a href="#no-hay-relación-causal-sin-manipulación." id="toc-no-hay-relación-causal-sin-manipulación.">2. No hay relación
+causal sin manipulación.</a></li>
+<li><a href="#las-causas-no-tienen-por-qué-ser-rivales." id="toc-las-causas-no-tienen-por-qué-ser-rivales.">3. Las causas no
+tienen por qué ser rivales.</a></li>
+<li><a href="#x-puede-causar-y-incluso-si-x-no-es-una-condición-necesaria-o-una-condición-suficiente-para-que-y-ocurra." id="toc-x-puede-causar-y-incluso-si-x-no-es-una-condición-necesaria-o-una-condición-suficiente-para-que-y-ocurra.">4.
+<span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria o una
+condición suficiente para que <span class="math inline">\(Y\)</span>
+ocurra.</a></li>
+<li><a href="#existe-un-problema-fundamental-de-la-inferencia-causal" id="toc-existe-un-problema-fundamental-de-la-inferencia-causal">5.
+Existe un problema fundamental de la inferencia causal</a></li>
+<li><a href="#usted-puede-estimar-el-efecto-causal-promedio-aun-cuando-no-pueda-observar-ningún-efecto-causal-individual." id="toc-usted-puede-estimar-el-efecto-causal-promedio-aun-cuando-no-pueda-observar-ningún-efecto-causal-individual.">6.
+Usted puede estimar el efecto causal promedio aun cuando no pueda
+observar ningún efecto causal individual.</a></li>
+<li><a href="#la-estimación-del-efecto-causal-promedio-no-requiere-que-los-grupos-de-tratamiento-y-control-sean-idénticos." id="toc-la-estimación-del-efecto-causal-promedio-no-requiere-que-los-grupos-de-tratamiento-y-control-sean-idénticos.">7.
+La estimación del efecto causal promedio no requiere que los grupos de
+tratamiento y control sean idénticos.</a></li>
+<li><a href="#correlación-no-es-igual-a-causalidad." id="toc-correlación-no-es-igual-a-causalidad.">8. Correlación no es
+igual a causalidad.</a></li>
+<li><a href="#es-más-fácil-aprender-sobre-los-efectos-de-las-causas-que-aprender-sobre-las-causas-de-los-efectos." id="toc-es-más-fácil-aprender-sobre-los-efectos-de-las-causas-que-aprender-sobre-las-causas-de-los-efectos.">10.
+Es más fácil aprender sobre los “efectos de las causas” que aprender
+sobre las “causas de los efectos”.</a></li>
 </ul>
 </div>
 
@@ -391,71 +405,287 @@ pre code {
 <!-- author: "Methods Guide Author: Macartan Humphreys" -->
 <div id="resumen" class="section level1">
 <h1>Resumen</h1>
-<p>El filósofo David Lewis describió la causalidad como “algo que marca la diferencia, y esa diferencia que hace, debe ser la diferencia entre lo que fue y lo que hubiera sido sin ese algo”.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Esta es la interpretación que dan a la causalidad la mayoría de los experimentalistas. Aunque la definición parece simple, tiene muchas implicaciones sutiles. Aquí les presentamos diez ideas implícitas en esta noción de causalidad que son importantes para el diseño de investigación.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>El filósofo David Lewis describió la causalidad como “algo que marca
+la diferencia, y esa diferencia que hace, debe ser la diferencia entre
+lo que fue y lo que hubiera sido sin ese algo”.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Esta es la
+interpretación que dan a la causalidad la mayoría de los
+experimentalistas. Aunque la definición parece simple, tiene muchas
+implicaciones sutiles. Aquí les presentamos diez ideas implícitas en
+esta noción de causalidad que son importantes para el diseño de
+investigación.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 </div>
 <div id="una-afirmación-causal-es-un-enunciado-sobre-lo-que-no-sucedió" class="section level1">
-<h1>1. Una afirmación causal es un enunciado sobre lo que no sucedió</h1>
-<p>Para la mayoría de investigadores que realizan experimentos, el enunciado “<span class="math inline">\(X\)</span> causó <span class="math inline">\(Y\)</span>” significa que <span class="math inline">\(Y\)</span> ocurrió <em>y</em> que no habría ocurrido si <span class="math inline">\(X\)</span> no hubiera estado presente. Esta definición requiere que tengamos una noción de lo que podría haber sucedido, pero no sucedió.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> De manera similar, el “efecto” de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> se considera la diferencia entre el valor que <span class="math inline">\(Y\)</span> habría tomado dado un valor de <span class="math inline">\(X\)</span> y el valor que <span class="math inline">\(Y\)</span> habría tomado dado otro valor de <span class="math inline">\(X\)</span>. Debido al enfoque en la diferencia de los resultados, este enfoque a veces se conoce como el enfoque de causalidad basado en “hacer diferencias” o en lo “contrafactual”.</p>
-<p><strong>Nota técnica:</strong> Los estadísticos emplean el marco de “resultados potenciales” para describir las relaciones contrafactuales. En este marco, dejamos que <span class="math inline">\(Y_i(1)\)</span> denote el valor que la unidad <span class="math inline">\(i\)</span> tomaría bajo la condición uno (por ejemplo, si la unidad <span class="math inline">\(i\)</span> recibió un tratamiento) y <span class="math inline">\(Y_i(0)\)</span> el valor que habría sido observado en otra condición (por ejemplo, si la unidad <span class="math inline">\(i\)</span> no recibió el tratamiento). Un efecto causal del tratamiento para la unidad <span class="math inline">\(i\)</span> puede ser una simple diferencia de los resultados potenciales <span class="math inline">\(\tau_i = Y_i(1)-Y_(0)\)</span>. Un tratamiento tiene un efecto causal (positivo o negativo) en <span class="math inline">\(Y\)</span> para la unidad <span class="math inline">\(i\)</span> si <span class="math inline">\(Y_i (1) \neq Y_i (0)\)</span>.</p>
+<h1>1. Una afirmación causal es un enunciado sobre lo que no
+sucedió</h1>
+<p>Para la mayoría de investigadores que realizan experimentos, el
+enunciado “<span class="math inline">\(X\)</span> causó <span class="math inline">\(Y\)</span>” significa que <span class="math inline">\(Y\)</span> ocurrió <em>y</em> que no habría
+ocurrido si <span class="math inline">\(X\)</span> no hubiera estado
+presente. Esta definición requiere que tengamos una noción de lo que
+podría haber sucedido, pero no sucedió.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> De manera similar, el
+“efecto” de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> se considera la diferencia entre el
+valor que <span class="math inline">\(Y\)</span> habría tomado dado un
+valor de <span class="math inline">\(X\)</span> y el valor que <span class="math inline">\(Y\)</span> habría tomado dado otro valor de <span class="math inline">\(X\)</span>. Debido al enfoque en la diferencia de
+los resultados, este enfoque a veces se conoce como el enfoque de
+causalidad basado en “hacer diferencias” o en lo “contrafactual”.</p>
+<p><strong>Nota técnica:</strong> Los estadísticos emplean el marco de
+“resultados potenciales” para describir las relaciones contrafactuales.
+En este marco, dejamos que <span class="math inline">\(Y_i(1)\)</span>
+denote el valor que la unidad <span class="math inline">\(i\)</span>
+tomaría bajo la condición uno (por ejemplo, si la unidad <span class="math inline">\(i\)</span> recibió un tratamiento) y <span class="math inline">\(Y_i(0)\)</span> el valor que habría sido observado
+en otra condición (por ejemplo, si la unidad <span class="math inline">\(i\)</span> no recibió el tratamiento). Un efecto
+causal del tratamiento para la unidad <span class="math inline">\(i\)</span> puede ser una simple diferencia de los
+resultados potenciales <span class="math inline">\(\tau_i =
+Y_i(1)-Y_(0)\)</span>. Un tratamiento tiene un efecto causal (positivo o
+negativo) en <span class="math inline">\(Y\)</span> para la unidad <span class="math inline">\(i\)</span> si <span class="math inline">\(Y_i (1)
+\neq Y_i (0)\)</span>.</p>
 </div>
 <div id="no-hay-relación-causal-sin-manipulación." class="section level1">
 <h1>2. No hay relación causal sin manipulación.</h1>
-<p>La definición “contrafactual” de causalidad requiere que uno sea capaz de pensar qué valores podemos observar en diferentes condiciones. ¿Cómo serían las cosas si se eligiera un partido en lugar de otro? Las declaraciones causales cotidianas a menudo no cumplen con este requisito en alguna de estas dos formas:</p>
+<p>La definición “contrafactual” de causalidad requiere que uno sea
+capaz de pensar qué valores podemos observar en diferentes condiciones.
+¿Cómo serían las cosas si se eligiera un partido en lugar de otro? Las
+declaraciones causales cotidianas a menudo no cumplen con este requisito
+en alguna de estas dos formas:</p>
 <ul>
-<li><p>Primero, algunas declaraciones no especifican condiciones contrafactuales claras. Por ejemplo, la afirmación de que “la recesión fue causada por Wall Street” no apunta a un contrafactual obvio: ¿debemos considerar si habría habido una recesión si Wall Street no existiera? ¿O es la afirmación realmente una afirmación sobre acciones particulares que Wall Street podría haber tomado pero no lo hizo? Si es así, ¿qué acciones? Es difícil evaluar la validez de tales declaraciones. Además, puede depender de qué condiciones contrafactuales estén implícitas en una afirmación.</p></li>
-<li><p>En segundo lugar, algunos enunciados implican condiciones contrafactuales que no son posibles de imaginar. Por ejemplo, la afirmación de que Peter consiguió el trabajo porque es Peter implica una consideración de lo que habría sucedido si Peter no fuera Peter. Alternativamente, la afirmación de que Peter consiguió el trabajo porque es un hombre requiere considerar a Peter como algo diferente de un hombre. El problema es que los contrafactuales en estos casos implican un cambio no solo en la condición que enfrenta un individuo sino en el propio individuo.</p></li>
+<li><p>Primero, algunas declaraciones no especifican condiciones
+contrafactuales claras. Por ejemplo, la afirmación de que “la recesión
+fue causada por Wall Street” no apunta a un contrafactual obvio:
+¿debemos considerar si habría habido una recesión si Wall Street no
+existiera? ¿O es la afirmación realmente una afirmación sobre acciones
+particulares que Wall Street podría haber tomado pero no lo hizo? Si es
+así, ¿qué acciones? Es difícil evaluar la validez de tales
+declaraciones. Además, puede depender de qué condiciones contrafactuales
+estén implícitas en una afirmación.</p></li>
+<li><p>En segundo lugar, algunos enunciados implican condiciones
+contrafactuales que no son posibles de imaginar. Por ejemplo, la
+afirmación de que Peter consiguió el trabajo porque es Peter implica una
+consideración de lo que habría sucedido si Peter no fuera Peter.
+Alternativamente, la afirmación de que Peter consiguió el trabajo porque
+es un hombre requiere considerar a Peter como algo diferente de un
+hombre. El problema es que los contrafactuales en estos casos implican
+un cambio no solo en la condición que enfrenta un individuo sino en el
+propio individuo.</p></li>
 </ul>
-<p>Para evitar estos problemas, algunos estadísticos instan a restringir las afirmaciones causales a los tratamientos que pueden manipularse, al menos en la imaginación, y no necesariamente en la práctica.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Por ejemplo, si bien podríamos tener dificultades con la afirmación de que Peter consiguió el trabajo porque es hombre, no tendríamos las mismas dificultades con la afirmación de que Peter consiguió el trabajo porque la agencia de contratación pensó que era hombre</p>
+<p>Para evitar estos problemas, algunos estadísticos instan a restringir
+las afirmaciones causales a los tratamientos que pueden manipularse, al
+menos en la imaginación, y no necesariamente en la práctica.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Por
+ejemplo, si bien podríamos tener dificultades con la afirmación de que
+Peter consiguió el trabajo porque es hombre, no tendríamos las mismas
+dificultades con la afirmación de que Peter consiguió el trabajo porque
+la agencia de contratación pensó que era hombre</p>
 </div>
 <div id="las-causas-no-tienen-por-qué-ser-rivales." class="section level1">
 <h1>3. Las causas no tienen por qué ser rivales.</h1>
-<p>Aunque nos podemos centrar en el efecto de una sola causa <span class="math inline">\(X\)</span> en un variable de resultado <span class="math inline">\(Y\)</span>, generalmente no esperamos que <span class="math inline">\(Y\)</span> tenga solo una causa.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> Además, si sumamos los efectos causales de diferentes causas, no hay razón para esperar que sumen el 100%. Por lo tanto, no tiene mucho sentido tratar de “distribuir” los resultados entre diferentes factores causales. En otras palabras, las causas no tienen por qué ser rivales. La Asociación Nacional del Rifle de Estados Unidos sostiene, por ejemplo, que las armas no matan a la gente, la gente mata a la gente. Esa afirmación no tiene mucho sentido en el marco hipotético. Quita las armas y no tendrás muertes por heridas de bala. Entonces las armas son una causa. Quita a la gente y tampoco tendrás muertes por heridas de bala, por lo que las personas también son una causa. Dicho de otra manera, estos dos factores son simultáneamente causas de los mismos resultados.</p>
+<p>Aunque nos podemos centrar en el efecto de una sola causa <span class="math inline">\(X\)</span> en un variable de resultado <span class="math inline">\(Y\)</span>, generalmente no esperamos que <span class="math inline">\(Y\)</span> tenga solo una causa.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> Además, si sumamos los
+efectos causales de diferentes causas, no hay razón para esperar que
+sumen el 100%. Por lo tanto, no tiene mucho sentido tratar de
+“distribuir” los resultados entre diferentes factores causales. En otras
+palabras, las causas no tienen por qué ser rivales. La Asociación
+Nacional del Rifle de Estados Unidos sostiene, por ejemplo, que las
+armas no matan a la gente, la gente mata a la gente. Esa afirmación no
+tiene mucho sentido en el marco hipotético. Quita las armas y no tendrás
+muertes por heridas de bala. Entonces las armas son una causa. Quita a
+la gente y tampoco tendrás muertes por heridas de bala, por lo que las
+personas también son una causa. Dicho de otra manera, estos dos factores
+son simultáneamente causas de los mismos resultados.</p>
 </div>
 <div id="x-puede-causar-y-incluso-si-x-no-es-una-condición-necesaria-o-una-condición-suficiente-para-que-y-ocurra." class="section level1">
-<h1>4. <span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria o una condición suficiente para que <span class="math inline">\(Y\)</span> ocurra.</h1>
-<p>A menudo hablamos de relaciones causales en términos deterministas. Incluso la cita de Lewis en la parte superior de esta página parece sugerir una relación determinista entre causas y efectos. A veces se piensa que las relaciones causales implican condiciones necesarias (para <span class="math inline">\(Y\)</span> que ocurra, <span class="math inline">\(X\)</span> tiene que suceder ); a veces se piensa que tales relaciones implican condiciones suficientes (si ocurre <span class="math inline">\(X\)</span>, entonces ocurre <span class="math inline">\(Y\)</span>). Pero una vez que hablamos de múltiples unidades, hay al menos dos formas en las que podemos pensar en que <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria ni suficiente para <span class="math inline">\(Y.\)</span> La primera es reinterpretar todo en términos probabilísticos: que <span class="math inline">\(X\)</span> cause <span class="math inline">\(Y\)</span>, simplemente quiere decir que la probabilidad de <span class="math inline">\(Y\)</span> es mayor cuando <span class="math inline">\(X\)</span> está presente. Otra forma es permitir contingencias. Por ejemplo, <span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> si la condición <span class="math inline">\(Z\)</span> está presente, pero no de otra manera.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
+<h1>4. <span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria o una
+condición suficiente para que <span class="math inline">\(Y\)</span>
+ocurra.</h1>
+<p>A menudo hablamos de relaciones causales en términos deterministas.
+Incluso la cita de Lewis en la parte superior de esta página parece
+sugerir una relación determinista entre causas y efectos. A veces se
+piensa que las relaciones causales implican condiciones necesarias (para
+<span class="math inline">\(Y\)</span> que ocurra, <span class="math inline">\(X\)</span> tiene que suceder ); a veces se piensa
+que tales relaciones implican condiciones suficientes (si ocurre <span class="math inline">\(X\)</span>, entonces ocurre <span class="math inline">\(Y\)</span>). Pero una vez que hablamos de
+múltiples unidades, hay al menos dos formas en las que podemos pensar en
+que <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> incluso si <span class="math inline">\(X\)</span> no es una condición necesaria ni
+suficiente para <span class="math inline">\(Y.\)</span> La primera es
+reinterpretar todo en términos probabilísticos: que <span class="math inline">\(X\)</span> cause <span class="math inline">\(Y\)</span>, simplemente quiere decir que la
+probabilidad de <span class="math inline">\(Y\)</span> es mayor cuando
+<span class="math inline">\(X\)</span> está presente. Otra forma es
+permitir contingencias. Por ejemplo, <span class="math inline">\(X\)</span> puede causar <span class="math inline">\(Y\)</span> si la condición <span class="math inline">\(Z\)</span> está presente, pero no de otra
+manera.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 </div>
 <div id="existe-un-problema-fundamental-de-la-inferencia-causal" class="section level1">
 <h1>5. Existe un problema fundamental de la inferencia causal</h1>
-<p>Si los efectos causales son enunciados sobre la diferencia entre lo que sucedió y lo que podría haber sucedido, entonces no los podemos medir. Malas noticias. De manera prospectiva, puede organizar las cosas para que pueda observar lo que sucede si alguien recibe un tratamiento o lo que sucede si no recibe el tratamiento. Sin embargo, para la misma persona nunca podrá observar ambos resultados y, por lo tanto, tampoco la diferencia entre ellos. Esta incapacidad para observar efectos causales a nivel de la unidad de estudio a menudo se denomina “problema fundamental de la inferencia causal”.</p>
+<p>Si los efectos causales son enunciados sobre la diferencia entre lo
+que sucedió y lo que podría haber sucedido, entonces no los podemos
+medir. Malas noticias. De manera prospectiva, puede organizar las cosas
+para que pueda observar lo que sucede si alguien recibe un tratamiento o
+lo que sucede si no recibe el tratamiento. Sin embargo, para la misma
+persona nunca podrá observar ambos resultados y, por lo tanto, tampoco
+la diferencia entre ellos. Esta incapacidad para observar efectos
+causales a nivel de la unidad de estudio a menudo se denomina “problema
+fundamental de la inferencia causal”.</p>
 </div>
 <div id="usted-puede-estimar-el-efecto-causal-promedio-aun-cuando-no-pueda-observar-ningún-efecto-causal-individual." class="section level1">
-<h1>6. Usted puede estimar el efecto causal promedio aun cuando no pueda observar ningún efecto causal individual.</h1>
-<p>Aunque no pueda observar si <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> para una unidad determinada, sí es posible determinar si <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> en promedio. La idea clave aquí es que el efecto causal promedio es igual a la diferencia entre la variable de resultado promedio para todas las unidades, si todas están en la condición de control y la variable de resultado promedio para todas las unidades si todas están en la condición de tratamiento. Muchas estrategias para la identificación causal (ver <a href="http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y">10 estrategias para determinar si X causó Y</a>) se enfocan en formas de aprender acerca de estas resultados potenciales promedio.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
-<p><a href="https://egap.org/resource/10-things-to-know-about-hypothesis-testing/">10 cosas que debe saber sobre las pruebas de hipótesis</a> nos muestra cómo podemos aprender acerca de efectos causales individuales en vez de efectos promediodato el problema fundamental de la inferencia causal.</p>
+<h1>6. Usted puede estimar el efecto causal promedio aun cuando no pueda
+observar ningún efecto causal individual.</h1>
+<p>Aunque no pueda observar si <span class="math inline">\(X\)</span>
+causa <span class="math inline">\(Y\)</span> para una unidad
+determinada, sí es posible determinar si <span class="math inline">\(X\)</span> causa <span class="math inline">\(Y\)</span> en promedio. La idea clave aquí es que
+el efecto causal promedio es igual a la diferencia entre la variable de
+resultado promedio para todas las unidades, si todas están en la
+condición de control y la variable de resultado promedio para todas las
+unidades si todas están en la condición de tratamiento. Muchas
+estrategias para la identificación causal (ver <a href="http://egap.org/resource/10-strategies-for-figuring-out-if-x-caused-y">10
+estrategias para determinar si X causó Y</a>) se enfocan en formas de
+aprender acerca de estas resultados potenciales promedio.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p><a href="https://egap.org/resource/10-things-to-know-about-hypothesis-testing/">10
+cosas que debe saber sobre las pruebas de hipótesis</a> nos muestra cómo
+podemos aprender acerca de efectos causales individuales en vez de
+efectos promediodato el problema fundamental de la inferencia
+causal.</p>
 </div>
 <div id="la-estimación-del-efecto-causal-promedio-no-requiere-que-los-grupos-de-tratamiento-y-control-sean-idénticos." class="section level1">
-<h1>7. La estimación del efecto causal promedio no requiere que los grupos de tratamiento y control sean idénticos.</h1>
-<p>Una estrategia que la gente usa para aprender acerca del efecto causal promedio es crear grupos de tratamiento y control a través de la aleatorización (ver <a href="http://egap.org/resource/10-strategies-for-%20determinar-si-x-causó-y">10 estrategias para determinar si X causó Y</a>). Es común que algunos investigadores se preocupen por que los grupos de tratamiento y control resultantes no sean similares en dimensiones relevantes.</p>
-<p>La buena noticia es que la razón por la cual las diferencias en los resultados promedio entre los grupos de control y tratamiento asignados aleatoriamente capturan los efectos promedio del tratamiento (en valor esperado a través de aleatorizaciones repetidas dentro del mismo grupo de unidades) <em>no</em> se basa en que los grupos de tratamiento y control sean similares en las características observadas. Sino que se basa únicamente en la idea de que, en promedio, los resultados en los grupos tratados y de control capturarán los resultados promedio para todas las unidades en el grupo experimental si estuvieran, respectivamente, en tratamiento o en control. En la práctica, los grupos de tratamiento y de control no serán idénticos.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<h1>7. La estimación del efecto causal promedio no requiere que los
+grupos de tratamiento y control sean idénticos.</h1>
+<p>Una estrategia que la gente usa para aprender acerca del efecto
+causal promedio es crear grupos de tratamiento y control a través de la
+aleatorización (ver <a href="http://egap.org/resource/10-strategies-for-%20determinar-si-x-causó-y">10
+estrategias para determinar si X causó Y</a>). Es común que algunos
+investigadores se preocupen por que los grupos de tratamiento y control
+resultantes no sean similares en dimensiones relevantes.</p>
+<p>La buena noticia es que la razón por la cual las diferencias en los
+resultados promedio entre los grupos de control y tratamiento asignados
+aleatoriamente capturan los efectos promedio del tratamiento (en valor
+esperado a través de aleatorizaciones repetidas dentro del mismo grupo
+de unidades) <em>no</em> se basa en que los grupos de tratamiento y
+control sean similares en las características observadas. Sino que se
+basa únicamente en la idea de que, en promedio, los resultados en los
+grupos tratados y de control capturarán los resultados promedio para
+todas las unidades en el grupo experimental si estuvieran,
+respectivamente, en tratamiento o en control. En la práctica, los grupos
+de tratamiento y de control no serán idénticos.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
 </div>
 <div id="correlación-no-es-igual-a-causalidad." class="section level1">
 <h1>8. Correlación no es igual a causalidad.</h1>
-<p>Una correlación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> es un enunciado sobre las relaciones entre los valores reales de estas variables y no sobre la relación entre los valores reales y los valores contrafactuales. Entonces las afirmaciones sobre causas y correlaciones no tienen mucho que ver entre sí. Las correlaciones positivas pueden ser consistentes con efectos causales positivos, efectos causales nulos o incluso con efectos causales negativos. Por ejemplo, tomar medicamentos para la tos se correlaciona positivamente con la tos, pero es de esperar que tenga un efecto causal negativo sobre la tos.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>Una correlación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> es un enunciado sobre las relaciones
+entre los valores reales de estas variables y no sobre la relación entre
+los valores reales y los valores contrafactuales. Entonces las
+afirmaciones sobre causas y correlaciones no tienen mucho que ver entre
+sí. Las correlaciones positivas pueden ser consistentes con efectos
+causales positivos, efectos causales nulos o incluso con efectos
+causales negativos. Por ejemplo, tomar medicamentos para la tos se
+correlaciona positivamente con la tos, pero es de esperar que tenga un
+efecto causal negativo sobre la tos.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
 <ol start="9" style="list-style-type: decimal">
-<li>Si usted sabe que, en promedio, <span class="math inline">\(A\)</span> causa $ B $ y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, esto no significa que, en promedio, <span class="math inline">\(A\)</span> cause <span class="math inline">\(C\)</span>.</li>
+<li>Si usted sabe que, en promedio, <span class="math inline">\(A\)</span> causa $ B $ y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, esto no significa que, en promedio,
+<span class="math inline">\(A\)</span> cause <span class="math inline">\(C\)</span>.</li>
 </ol>
-<p>== Se podría esperar que si <span class="math inline">\(A\)</span> causa <span class="math inline">\(B\)</span> y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, entonces <span class="math inline">\(A\)</span> causa <span class="math inline">\(C\)</span>.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> Pero no hay razón para creer que las relaciones causales promedio sean transitivas. Para entender por qué, imagine que <span class="math inline">\(A\)</span> causó <span class="math inline">\(B\)</span> en los hombres pero no en las mujeres y <span class="math inline">\(B\)</span> causó <span class="math inline">\(C\)</span> en las mujeres pero no en los hombres. Entonces, en promedio, <span class="math inline">\(A\)</span> causa <span class="math inline">\(B\)</span> y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, pero es posible que no haya nadie para quien <span class="math inline">\(A\)</span> tenga un efecto en <span class="math inline">\(C\)</span> mediado por <span class="math inline">\(B\)</span>.</p>
+<p>== Se podría esperar que si <span class="math inline">\(A\)</span>
+causa <span class="math inline">\(B\)</span> y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, entonces <span class="math inline">\(A\)</span> causa <span class="math inline">\(C\)</span>.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> Pero no hay razón para creer que las
+relaciones causales promedio sean transitivas. Para entender por qué,
+imagine que <span class="math inline">\(A\)</span> causó <span class="math inline">\(B\)</span> en los hombres pero no en las mujeres y
+<span class="math inline">\(B\)</span> causó <span class="math inline">\(C\)</span> en las mujeres pero no en los hombres.
+Entonces, en promedio, <span class="math inline">\(A\)</span> causa
+<span class="math inline">\(B\)</span> y <span class="math inline">\(B\)</span> causa <span class="math inline">\(C\)</span>, pero es posible que no haya nadie para
+quien <span class="math inline">\(A\)</span> tenga un efecto en <span class="math inline">\(C\)</span> mediado por <span class="math inline">\(B\)</span>.</p>
 </div>
 <div id="es-más-fácil-aprender-sobre-los-efectos-de-las-causas-que-aprender-sobre-las-causas-de-los-efectos." class="section level1">
-<h1>10. Es más fácil aprender sobre los “efectos de las causas” que aprender sobre las “causas de los efectos”.</h1>
-<p>Aunque puedan parecer dos formas de decir exactamente lo mismo, existe una diferencia entre comprender cuál es el efecto de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> (los “efectos de una causa”) y si <em>el valor que tomó <span class="math inline">\(Y\)</span></em> se debió a <span class="math inline">\(X\)</span> (la “causa de un efecto”).<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> Considere el siguiente ejemplo. Supongamos que realizamos un experimento con una muestra que contiene el mismo número de hombres y mujeres. El experimento asigna aleatoriamente a hombres y mujeres a un tratamiento binario <span class="math inline">\(X\)</span> y mide una variable de resultado binaria <span class="math inline">\(Y\)</span>. Además suponga que <span class="math inline">\(X\)</span> tiene un efecto positivo de 1 para todos los hombres, es decir, el resultado potencial del control de los hombres es cero (<span class="math inline">\(Y_i(0) = 0\)</span>) y la salida potencial cuando son tratados es uno (<span class="math inline">\(Y_i(1) = 1\)</span>). Para todas las mujeres, <span class="math inline">\(X\)</span> tiene un efecto negativo de <span class="math inline">\(-1\)</span>, es decir, la salida potencial de las mujeres bajo el control es uno (<span class="math inline">\(Y_i (0) = 1\)</span>) y su salida potencial cuando son tratadas es cero (<span class="math inline">\(Y_i (1) = 0\)</span>) En este ejemplo, el efecto promedio de <span class="math inline">\(X\)</span> en $ Y $ es cero. Pero la razón para que los participantes en el grupo de tratamiento tengan <span class="math inline">\(Y= 1\)</span>, es <em>porque</em> <span class="math inline">\(X = 1\)</span>. De manera similar, todos los participantes en el grupo de tratamiento con <span class="math inline">\(Y = 0\)</span>, tienen <span class="math inline">\(Y = 0\)</span> <em>porque</em> <span class="math inline">\(X = 1\)</span>. Los experimentos nos permiten obtener una respuesta exacta a la pregunta sobre los “efectos de una causa”, pero en general no es posible obtener una respuesta exacta a la pregunta sobre la “causa de un efecto”.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<h1>10. Es más fácil aprender sobre los “efectos de las causas” que
+aprender sobre las “causas de los efectos”.</h1>
+<p>Aunque puedan parecer dos formas de decir exactamente lo mismo,
+existe una diferencia entre comprender cuál es el efecto de <span class="math inline">\(X\)</span> en <span class="math inline">\(Y\)</span> (los “efectos de una causa”) y si
+<em>el valor que tomó <span class="math inline">\(Y\)</span></em> se
+debió a <span class="math inline">\(X\)</span> (la “causa de un
+efecto”).<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> Considere el siguiente ejemplo.
+Supongamos que realizamos un experimento con una muestra que contiene el
+mismo número de hombres y mujeres. El experimento asigna aleatoriamente
+a hombres y mujeres a un tratamiento binario <span class="math inline">\(X\)</span> y mide una variable de resultado
+binaria <span class="math inline">\(Y\)</span>. Además suponga que <span class="math inline">\(X\)</span> tiene un efecto positivo de 1 para
+todos los hombres, es decir, el resultado potencial del control de los
+hombres es cero (<span class="math inline">\(Y_i(0) = 0\)</span>) y la
+salida potencial cuando son tratados es uno (<span class="math inline">\(Y_i(1) = 1\)</span>). Para todas las mujeres,
+<span class="math inline">\(X\)</span> tiene un efecto negativo de <span class="math inline">\(-1\)</span>, es decir, la salida potencial de las
+mujeres bajo el control es uno (<span class="math inline">\(Y_i (0) =
+1\)</span>) y su salida potencial cuando son tratadas es cero (<span class="math inline">\(Y_i (1) = 0\)</span>) En este ejemplo, el efecto
+promedio de <span class="math inline">\(X\)</span> en $ Y $ es cero.
+Pero la razón para que los participantes en el grupo de tratamiento
+tengan <span class="math inline">\(Y= 1\)</span>, es <em>porque</em>
+<span class="math inline">\(X = 1\)</span>. De manera similar, todos los
+participantes en el grupo de tratamiento con <span class="math inline">\(Y = 0\)</span>, tienen <span class="math inline">\(Y = 0\)</span> <em>porque</em> <span class="math inline">\(X = 1\)</span>. Los experimentos nos permiten
+obtener una respuesta exacta a la pregunta sobre los “efectos de una
+causa”, pero en general no es posible obtener una respuesta exacta a la
+pregunta sobre la “causa de un efecto”.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>Lewis, David. “Causation.” The journal of philosophy (1973): 556-567.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Autor: Macartan Humphreys. Revisiones menores: Winston Lin y Donald P. Green, 24 de junio de 2016. Revisiones MH 6 de enero de 2020. Revisiones Anna Wilke de mayo de 2021. Esta guía es un documento dinámico y está sujeta a actualización por parte de los miembros de EGAP; los colaboradores enumerados no son responsables de las ediciones posteriores.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Holland, Paul W. “Statistics and causal inference.” Journal of the American Statistical Association 81.396 (1986): 945-960.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Holland, Paul W. “Statistics and causal inference.” Journal of the American Statistical Association 81.396 (1986): 945-960.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>Esto se conoce a veces como el “Problema de las causas excesivas”.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>De acuerdo a Mackie, a veces se invoca la idea de condiciones “INUS” para capturar la dependencia de las causas de otras causas. Según esta explicación, una causa puede ser parte Insuficiente pero Necesaria de una condición que en sí misma es Innecesaria pero Suficiente. Por ejemplo, marcar un número de teléfono es una causa de contacto con alguien, ya que tener una conexión y marcar un número es suficiente (S) para hacer una llamada telefónica, mientras que marcar solo sin una conexión no sería suficiente (I), ni tener una conexión (N). Por supuesto, hay otras formas de contactar a alguien sin hacer llamadas telefónicas (U). Mackie, John L. “El cemento del universo”. Londres: Oxford Uni (1974).<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p><strong>Nota técnica:</strong> La idea técnica clave es que la diferencia de promedios es la misma que el promedio de diferencias. Es decir, usando el “operador de expectativas”, <span class="math inline">\(\text{E}(\tau_i) = \text{E}(Y_i (1) -Y_i (0)) = \text{E}(Y_i (1)) - \text{E}(Y_i (0))\)</span>. Los términos dentro del operador de esperanzas en la segunda cantidad no se pueden estimar, pero los términos dentro de los operadores de expectativas en la tercera cantidad si se pueden ser estimados<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Vea la ilustración [aquí] (<a href="https://raw.githubusercontent.com/egap/" class="uri">https://raw.githubusercontent.com/egap/</a> guías-métodos / maestro / inferencia-causal / PO.jpg).<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Por esta razón usar las pruebas <span class="math inline">\(t\)</span> para verificar si “la asignación aleatoria funcionó bien” no tiene mucho sentido, al menos si se sabe que se siguió una procedimiento aleatorio: por simple chance, 1 de cada 20 de esas pruebas mostrará diferencias estadísticamente detectables entre los grupos tratados y de control. Si existen dudas sobre si la asignación aleatoria se realizó correctamente, estas pruebas se pueden utilizar para probar la hipótesis de que los datos se generaron efectivamente mediante un procedimiento aleatorio. Esta última razón para las pruebas de aleatorización puede ser especialmente importante en experimentos de campo donde las cadenas de comunicación entre la persona que crea los números aleatorios y la persona que implementa la asignación del tratamiento son largas y complejas.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p><strong>Nota técnica:</strong> Sea <span class="math inline">\(D_i\)</span> un indicador de si la unidad <span class="math inline">\(i\)</span> ha recibido un tratamiento o no. Entonces la diferencia en los resultados promedio entre los que reciben el tratamiento y los que no lo reciben se puede escribir como <span class="math inline">\(\frac{\sum_i D_i × Y_i (1)} {\sum_iD_i} - \frac {\sum_i(1 - D_i) \times Y_i (0)}{\sum_i (1 - D_i)}\)</span>. Sin información sobre cómo se asignó el tratamiento, no hay mucho por decir sobre si esta diferencia es un buen estimador del efecto promedio del tratamiento. Es decir, de la diferencia en los resultados potenciales promedio de las unidades en el grupo de tratamiento y control para todas las unidades. Lo que importa es si <span class="math inline">\(\frac{\sum_i D_i × Y_i (1)} {\sum_iD_i}\)</span> es una buena estimación de <span class="math inline">\(\frac{\sum_i 1 × Y_i (1)} {\sum_i1}\)</span> y si <span class="math inline">\(\frac{\sum_i (1 - D_i) × Y_i (0)}{\sum_i(1 - D_i)}\)</span> es una buena estimación de <span class="math inline">\(\frac{\sum_i 1 × Y_i (0)} {\sum_i1}\)</span>. Este puede ser el caso si los que recibieron tratamiento son una muestra representativa de todas las unidades, pero de lo contrario no hay razón para esperar que así sea.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
-<li id="fn10"><p>Entiéndase la expresión “<span class="math inline">\(A\)</span> causa <span class="math inline">\(B\)</span>, en promedio” como “el efecto promedio de <span class="math inline">\(A\)</span> sobre <span class="math inline">\(B\)</span> es positivo”.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>A veces se reinterpreta la pregunta “causas de los efectos” en el sentido de: ¿cuáles son las causas que tienen efectos sobre las variable de resultado? Véase Andrew Gelman and Guido Imbens, “Why ask why? Forward causal inference and reverse causal questions”, NBER Working Paper No. 19614 (Nov. 2013).<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>Ver, por ejemplo, Tian, J., Pearl, J. 2000. “Probabilities of Causation: Bounds and Identification.” Annals of Mathematics and Artificial Intelligence 28:287–313. .<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>Lewis, David. “Causation.” The journal of philosophy
+(1973): 556-567.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Autor: Macartan Humphreys. Revisiones menores: Winston
+Lin y Donald P. Green, 24 de junio de 2016. Revisiones MH 6 de enero de
+2020. Revisiones Anna Wilke de mayo de 2021. Esta guía es un documento
+dinámico y está sujeta a actualización por parte de los miembros de
+EGAP; los colaboradores enumerados no son responsables de las ediciones
+posteriores.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Holland, Paul W. “Statistics and causal inference.”
+Journal of the American Statistical Association 81.396 (1986):
+945-960.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Holland, Paul W. “Statistics and causal inference.”
+Journal of the American Statistical Association 81.396 (1986):
+945-960.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Esto se conoce a veces como el “Problema de las causas
+excesivas”.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>De acuerdo a Mackie, a veces se invoca la idea de
+condiciones “INUS” para capturar la dependencia de las causas de otras
+causas. Según esta explicación, una causa puede ser parte Insuficiente
+pero Necesaria de una condición que en sí misma es Innecesaria pero
+Suficiente. Por ejemplo, marcar un número de teléfono es una causa de
+contacto con alguien, ya que tener una conexión y marcar un número es
+suficiente (S) para hacer una llamada telefónica, mientras que marcar
+solo sin una conexión no sería suficiente (I), ni tener una conexión
+(N). Por supuesto, hay otras formas de contactar a alguien sin hacer
+llamadas telefónicas (U). Mackie, John L. “El cemento del universo”.
+Londres: Oxford Uni (1974).<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><strong>Nota técnica:</strong> La idea técnica clave es
+que la diferencia de promedios es la misma que el promedio de
+diferencias. Es decir, usando el “operador de expectativas”, <span class="math inline">\(\text{E}(\tau_i) = \text{E}(Y_i (1) -Y_i (0)) =
+\text{E}(Y_i (1)) - \text{E}(Y_i (0))\)</span>. Los términos dentro del
+operador de esperanzas en la segunda cantidad no se pueden estimar, pero
+los términos dentro de los operadores de expectativas en la tercera
+cantidad si se pueden ser estimados<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> Vea la ilustración [aquí] (<a href="https://raw.githubusercontent.com/egap/" class="uri">https://raw.githubusercontent.com/egap/</a> guías-métodos /
+maestro / inferencia-causal / PO.jpg).<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Por esta razón usar las pruebas <span class="math inline">\(t\)</span> para verificar si “la asignación
+aleatoria funcionó bien” no tiene mucho sentido, al menos si se sabe que
+se siguió una procedimiento aleatorio: por simple chance, 1 de cada 20
+de esas pruebas mostrará diferencias estadísticamente detectables entre
+los grupos tratados y de control. Si existen dudas sobre si la
+asignación aleatoria se realizó correctamente, estas pruebas se pueden
+utilizar para probar la hipótesis de que los datos se generaron
+efectivamente mediante un procedimiento aleatorio. Esta última razón
+para las pruebas de aleatorización puede ser especialmente importante en
+experimentos de campo donde las cadenas de comunicación entre la persona
+que crea los números aleatorios y la persona que implementa la
+asignación del tratamiento son largas y complejas.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><strong>Nota técnica:</strong> Sea <span class="math inline">\(D_i\)</span> un indicador de si la unidad <span class="math inline">\(i\)</span> ha recibido un tratamiento o no.
+Entonces la diferencia en los resultados promedio entre los que reciben
+el tratamiento y los que no lo reciben se puede escribir como <span class="math inline">\(\frac{\sum_i D_i × Y_i (1)} {\sum_iD_i} - \frac
+{\sum_i(1 - D_i) \times Y_i (0)}{\sum_i (1 - D_i)}\)</span>. Sin
+información sobre cómo se asignó el tratamiento, no hay mucho por decir
+sobre si esta diferencia es un buen estimador del efecto promedio del
+tratamiento. Es decir, de la diferencia en los resultados potenciales
+promedio de las unidades en el grupo de tratamiento y control para todas
+las unidades. Lo que importa es si <span class="math inline">\(\frac{\sum_i D_i × Y_i (1)} {\sum_iD_i}\)</span>
+es una buena estimación de <span class="math inline">\(\frac{\sum_i 1 ×
+Y_i (1)} {\sum_i1}\)</span> y si <span class="math inline">\(\frac{\sum_i (1 - D_i) × Y_i (0)}{\sum_i(1 -
+D_i)}\)</span> es una buena estimación de <span class="math inline">\(\frac{\sum_i 1 × Y_i (0)} {\sum_i1}\)</span>. Este
+puede ser el caso si los que recibieron tratamiento son una muestra
+representativa de todas las unidades, pero de lo contrario no hay razón
+para esperar que así sea.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Entiéndase la expresión “<span class="math inline">\(A\)</span> causa <span class="math inline">\(B\)</span>, en promedio” como “el efecto promedio
+de <span class="math inline">\(A\)</span> sobre <span class="math inline">\(B\)</span> es positivo”.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>A veces se reinterpreta la pregunta “causas de los
+efectos” en el sentido de: ¿cuáles son las causas que tienen efectos
+sobre las variable de resultado? Véase Andrew Gelman and Guido Imbens,
+“Why ask why? Forward causal inference and reverse causal questions”,
+NBER Working Paper No. 19614 (Nov. 2013).<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Ver, por ejemplo, Tian, J., Pearl, J. 2000.
+“Probabilities of Causation: Bounds and Identification.” Annals of
+Mathematics and Artificial Intelligence 28:287–313. .<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
