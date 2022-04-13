@@ -968,8 +968,51 @@ pMean2</code></pre>
 <pre class="r"><code>## using a development version of the RItools package
 ## library(devtools)
 ## dev_mode()
-remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;)
-library(RItools)
+remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;)</code></pre>
+<pre><code>polynom (1.4-0 -&gt; 1.4-1) [CRAN]
+evd     (2.3-4 -&gt; 2.3-6) [CRAN]
+svd     (0.5   -&gt; 0.5.1) [CRAN]
+
+  There is a binary version available but the source version is later:
+    binary source needs_compilation
+evd  2.3-5  2.3-6              TRUE
+
+
+The downloaded binary packages are in
+    /var/folders/2w/fjqf7k2s1r5cj0jtxk4dr95c0000gp/T//RtmpaOFVbE/downloaded_packages
+  
+   checking for file ‘/private/var/folders/2w/fjqf7k2s1r5cj0jtxk4dr95c0000gp/T/RtmpaOFVbE/remotes16cb17a9ce51d/markmfredrickson-RItools-1b7ef7c/DESCRIPTION’ ...
+  
+✔  checking for file ‘/private/var/folders/2w/fjqf7k2s1r5cj0jtxk4dr95c0000gp/T/RtmpaOFVbE/remotes16cb17a9ce51d/markmfredrickson-RItools-1b7ef7c/DESCRIPTION’
+
+  
+─  preparing ‘RItools’:
+
+  
+   checking DESCRIPTION meta-information ...
+  
+✔  checking DESCRIPTION meta-information
+
+  
+─  excluding invalid files
+
+  
+   Subdirectory &#39;man&#39; contains invalid file names:
+     ‘AVOID-EDITING-Rd-FILES.md’
+
+  
+─  checking for LF line-endings in source and make files and shell scripts
+
+  
+─  checking for empty or unneeded directories
+
+  
+─  building ‘RItools_0.2.0.9004.tar.gz’
+
+  
+   
+</code></pre>
+<pre class="r"><code>library(RItools)
 thedesignA &lt;- simpleRandomSampler(total = N, z = dat$Z, b = rep(1, N))
 pMean4 &lt;- RItest(
   y = dat$Y, z = dat$Z, samples = 1000, test.stat = meanTZ,
