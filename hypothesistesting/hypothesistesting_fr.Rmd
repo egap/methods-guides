@@ -1,5 +1,5 @@
 ---
-bibliography: ../../learningdays-resources/learningdays-book.bib
+bibliography: ./hypothesistesting.bib
 output:
   bookdown::html_document2:
     number_sections: true
@@ -47,6 +47,7 @@ opts_chunk$set(strip.white=TRUE,
                results='markup')
 library(randomizr)
 library(coin)
+library(here)
 ```
 
 # Les tests d'hypothèse présentent, de manière compacte, les informations contenues dans une conception de recherche et proposent une solution pour évaluer les effets d'un traitement
@@ -221,7 +222,7 @@ dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 ## La statistique de test des différences moyennes
-meanTZ <- function(ys,z){ 
+meanTZ <- function(ys,z){
 	mean(ys[z==1]) - mean(ys[z==0])
 }
 ## La statistique de test des différence des moyennes selon le rang
@@ -373,7 +374,8 @@ pMean2
 pMeanRank2
 ## en utilisant la version de développement du package RItools
 library(devtools)
-dev_mode()
+dir.create(here("R-dev"))
+dev_mode(on = TRUE,path=here("R-dev"))
 install_github("markmfredrickson/RItools@randomization-distribution")
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
@@ -383,14 +385,18 @@ pMeanRank4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
 		     sampler = thedesignA)
 pMean4
 pMeanRank4
-dev_mode()
+dev_mode(on=FALSE,path=here("R-dev"))
+```
+
 ## en utilisant le package ri2
+
+```{r}
 library(ri2)
 thedesign <- declare_ra(N=N)
-pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign, 
+pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMean4)
-pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign, 
+pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMeanRank4)
 ```

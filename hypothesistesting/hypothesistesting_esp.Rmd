@@ -1,6 +1,6 @@
 ---
 bibliography: hypothesistesting.bib
-output: 
+output:
   bookdown::pdf_document2:
     number_sections: true
     toc: true
@@ -127,7 +127,7 @@ que podríamos hacer **otros modelos relacionados con $y_{i, 1}$ y $y_{i, 0}$** 
 
 # La hipótesis nula débil de que no hay efectos es una afirmación sobre los resultados potenciales agregados
 
-Un experimento puede influir en algunas unidades pero, en promedio, puede no tener ningún efecto. Para codificar esta intuición, podemos escribir una hipótesis nula del  *promedio* de los resultados potenciales, o algún otra cantidad que sea un resumen agregado de los resultados potenciales, en lugar de la 
+Un experimento puede influir en algunas unidades pero, en promedio, puede no tener ningún efecto. Para codificar esta intuición, podemos escribir una hipótesis nula del  *promedio* de los resultados potenciales, o algún otra cantidad que sea un resumen agregado de los resultados potenciales, en lugar de la
 recopilación total de resultados potenciales.
 
 Debido a que la mayoría de las discusiones actuales sobre los efectos causales se refieren al *promedio* de los efectos,  expresamos a menudo la hipótesis nula débil como $H_0: \bar {\tau} = 0$ donde $\bar{\tau} = (1/N) \sum_{i = 1}^N \tau_i$. De nuevo, la hipótesis es una afirmación o modelo de una relación entre resultados potenciales parcialmente observados. Pero, en este caso se trata del promedio de ellos. Uno podría, en principio, articular hipótesis sobre otros agregados: medianas, percentiles, proporciones, medias recortadas, etc. Sin embargo plantear hipótesis sobre efectos promedio simplifica las matemáticas y las estadísticas: conocemos las propiedades de los promedios de observaciones independientes a medida que aumenta el tamaño de la muestra, de modo que podamos apelar al teorema del límite central para describir la distribución de promedios para grandes muestras. Esto, a su vez, hace que el cálculo de los valores de $p$ sea rápido y fácil para  muestras grandes.
@@ -199,11 +199,11 @@ dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 ## The mean difference test statistic
-meanTZ <- function(ys,z){ 
+meanTZ <- function(ys,z){
 	mean(ys[z==1]) - mean(ys[z==0])
 }
 
-## La estadística de prueba de diferencia de medias de rangos 
+## La estadística de prueba de diferencia de medias de rangos
 meanrankTZ <- function(ys,z){
 	ranky <- rank(ys)
 	mean(ranky[z==1]) - mean(ranky[z==0])
@@ -315,9 +315,9 @@ Supongamos que no sabemos de antemano si nuestro experimento mostrará un efecto
 
 
 ```{r twosidedp}
-## Aquí usamos <= y >= en vez de < and > porque la distribución aleatoría es discreta 
+## Aquí usamos <= y >= en vez de < and > porque la distribución aleatoría es discreta
 ## con solo  10 observaciones. Ver discusiones sobre
-## el "mid-p-value" 
+## el "mid-p-value"
 p2SidedMeanTZ <-     2*min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
 			   mean( possibleMeanDiffsH0 <= observedMeanTZ ))
 
@@ -332,7 +332,7 @@ En este caso, los valores  $p$ de dos colas son `r p2SidedMeanTZ` y `r p2SidedMe
 
 
 ```{r}
-## usando el paquete coin 
+## usando el paquete coin
 library(coin)
 set.seed(12345)
 pMean2 <- pvalue(oneway_test(Y~factor(Z),data=dat,distribution=approximate(nresample=1000)))
@@ -340,7 +340,7 @@ dat$rankY <- rank(dat$Y)
 pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approximate(nresample=1000)))
 pMean2
 pMeanRank2
-## usando la versión en desarrollo del paquete RItools 
+## usando la versión en desarrollo del paquete RItools
 library(devtools)
 dir.create(here("R-dev"))
 dev_mode(on = TRUE,path=here("R-dev"))
@@ -353,15 +353,16 @@ pMeanRank4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
 		     sampler = thedesignA)
 pMean4
 pMeanRank4
-dev_mode(on=FALSE)
+dev_mode(on=FALSE,path=here("R-dev"))
+```
 
 ## utilizando el paqute ri2
 library(ri2)
 thedesign <- declare_ra(N=N)
-pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign, 
+pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMean4)
-pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign, 
+pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMeanRank4)
 ```
@@ -483,7 +484,7 @@ legend("topleft",legend=c("OLS","Neyman","Rand Inf Mean Diff","Rand Inf Mean \n 
 ```
 
 En este caso particular, en el umbral de $\alpha = .05$, todas las pruebas
-excepto para la  prueba basada en rangos reportan una tasa de falsos positivos inferior al 5%. Esto es un buen indicador; debería ser un 5% o menos. Sin embargo, para los experimentos con un $N$ pequeño un buen resultado en las pruebas basadas en muestras grandes no es garantía de nada. Lo mismo pasa con experimentos en los que la distribución de la variable de resultado es muy asimétrica, etc ... En caso de duda, puede evaluar la tasa de falsos positivos de una prueba utilizando el código presentado en esta guía para hacer su propia simulación. 
+excepto para la  prueba basada en rangos reportan una tasa de falsos positivos inferior al 5%. Esto es un buen indicador; debería ser un 5% o menos. Sin embargo, para los experimentos con un $N$ pequeño un buen resultado en las pruebas basadas en muestras grandes no es garantía de nada. Lo mismo pasa con experimentos en los que la distribución de la variable de resultado es muy asimétrica, etc ... En caso de duda, puede evaluar la tasa de falsos positivos de una prueba utilizando el código presentado en esta guía para hacer su propia simulación.
 
 
 
@@ -498,12 +499,12 @@ pruebas:
 
  - Incluso si un procedimiento de prueba determinada controla la tasa de falsos positivos para una sola prueba, puede que no controle la tasa para un conjunto de   múltiples pruebas. Consulte [10 cosas que necesita saber sobre comparaciones múltiples](https://egap.org/resource/10-things-to-know-about-multiple-comparisons) para aprender más sobre los enfoques para controlar tales tasas de rechazo en  pruebas múltiples.
  - Un intervalo de confianza de $100\alpha$\% se puede definir como el rango de una hipótesis donde todos los valores de $p$  son mayores o iguales que $\alpha$. A esto se le llama invertir la prueba de hipótesis. (@rosenbaum2010design). Es decir, un **intervalo de confianza es una colección de pruebas de hipótesis**. Esto significa que valores críticos de $p$ también son críticos para  los intervalos de confianza.
- 
+
  - Una estimación puntual basada en pruebas de hipótesis se denomina estimación puntual de Hodges-Lehmann. (@rosenbaum1993hlp, @hodges1963elb)
  - Un conjunto de pruebas de hipótesis se puede combinar en una sola prueba de hipótesis. Por ejemplo, puede probar la hipótesis de un efecto de tamaño 1 en el resultado 1, un efecto de tamaño 0 en el resultado 2 y un efecto de -10 en el resultado 3. (@hansen:bowers:2008, @caughey2017nonparametric)
  - En las pruebas de equivalencia, se puede plantear la hipótesis de que dos estadísticas de prueba sean equivalentes (es decir, el grupo de tratamiento es el mismo que el grupo de control) en lugar de solo una estadística de prueba (la diferencia entre dos grupos es cero) (@hartman2018equivalence)
  - Dado que una prueba de hipótesis es un modelo de resultados potenciales, se puede usar la prueba de hipótesis para aprender sobre modelos complejos, como los modelos de derrame y propagación de los efectos del tratamiento a través de  redes (@bowers2013reasoning, @bowers2016research, @bowers2018models).
- 
+
 
 # Referencias
 
