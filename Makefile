@@ -80,7 +80,7 @@ hte/heteffects.html: hte/heteffects.Rmd
 
 ## this guide uses its own local renv package setup.
 hypothesistesting/hypothesistesting.html:  hypothesistesting/hypothesistesting.Rmd
-	cd hypothesistesting; Rscript -e "install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting.Rmd')"
+	Rscript -e "setwd('hypothesistesting'); install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting.Rmd')"
 
 implementation/implementation.html:  implementation/implementation.Rmd
 	Rscript -e "rmarkdown::render('./implementation/implementation.Rmd')"
