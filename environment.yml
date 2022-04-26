@@ -1,0 +1,9 @@
+name: egap-latex
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pip
+  - numpy
+  - matplotlib
+  - jupyterlab

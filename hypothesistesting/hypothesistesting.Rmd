@@ -533,6 +533,7 @@ pMeanRank2
 library(devtools)
 dir.create(here("R-dev"))
 dev_mode(on = TRUE,path=here("R-dev"))
+renv::install("dgof")
 remotes::install_github("markmfredrickson/RItools@randomization-distribution")
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
