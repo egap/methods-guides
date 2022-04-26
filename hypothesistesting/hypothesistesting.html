@@ -697,8 +697,8 @@ simple experiment, we know that we observe one of the two potential outcomes
 per person, depending on which treatment was assigned to that person. So, we
 can link the unobserved counterfactual outcomes to an observed outcome (<span class="math inline">\(Y_i\)</span>)
 using treatment assignment (<span class="math inline">\(Z_i\)</span>) like so:</p>
-<p><span id="eq:identity"><span class="math display">\[ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} \qquad(1)\]</span></span></p>
-<p>eq. 1 says that our observed outcome, <span class="math inline">\(Y_i\)</span> (here, amount of
+<p><span class="math display">\[ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} \]</span> {#eq:identity}</p>
+<p><span class="citation">(<strong>eq:identity?</strong>)</span> says that our observed outcome, <span class="math inline">\(Y_i\)</span> (here, amount of
 taxes paid by person <span class="math inline">\(i\)</span>), is <span class="math inline">\(y_{i,1}\)</span> when the person is assigned to the
 treatment group (<span class="math inline">\(Z_i=1\)</span>), and <span class="math inline">\(y_{i,0}\)</span> when the person is assigned to the
 control group.</p>
@@ -708,7 +708,7 @@ payments of every single person such that <span class="math inline">\(H_0: y_{i,
 <span class="math inline">\(\tau_i=5\)</span> for all <span class="math inline">\(i\)</span>.</p>
 <p>Let us entertain this model for the sake of argument. What would this
 hypothesis imply for what we observe? We have the equation relating observed
-to unobserved in eq. 1 so, this model or hypothesis would
+to unobserved in <span class="citation">(<strong>eq:identity?</strong>)</span> so, this model or hypothesis would
 imply that:</p>
 <p><span class="math display">\[ \begin{aligned}  Y_i &amp; = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
 &amp; = Z_i  y_{i,0} + Z_i \tau_i + y_{i,0} - Z_i y_{i,0} \\
@@ -970,7 +970,35 @@ pMean2</code></pre>
 library(devtools)
 dir.create(here(&quot;R-dev&quot;))
 dev_mode(on = TRUE, path = here(&quot;R-dev&quot;))
-remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;)
+renv::install(&quot;dgof&quot;)</code></pre>
+<pre><code>Installing dgof [1.2] ...
+    OK [copied cache]</code></pre>
+<pre class="r"><code>renv::install(&quot;hexbin&quot;)</code></pre>
+<pre><code>Installing hexbin [1.28.2] ...
+    OK [copied cache]</code></pre>
+<pre class="r"><code>renv::install(&quot;kSamples&quot;)</code></pre>
+<pre><code>Installing kSamples [1.2-9] ...
+    OK [copied cache]</code></pre>
+<pre class="r"><code>renv::install(&quot;ddst&quot;)</code></pre>
+<pre><code>Retrieving &#39;https://cloud.r-project.org/bin/macosx/big-sur-arm64/contrib/4.1/ddst_1.4.tgz&#39; ...
+    OK [downloaded 163.3 Kb in 0.2 secs]
+Retrieving &#39;https://cloud.r-project.org/bin/macosx/big-sur-arm64/contrib/4.1/orthopolynom_1.0-5.tgz&#39; ...
+    OK [downloaded 329.8 Kb in 0.2 secs]
+Retrieving &#39;https://cloud.r-project.org/bin/macosx/big-sur-arm64/contrib/4.1/evd_2.3-6.tgz&#39; ...
+    OK [downloaded 1.7 Mb in 0.4 secs]
+Installing orthopolynom [1.0-5] ...
+    OK [installed binary]
+Copying orthopolynom [1.0-5] into the cache ...
+    OK [copied to cache in 16 milliseconds]
+Installing evd [2.3-6] ...
+    OK [installed binary]
+Copying evd [2.3-6] into the cache ...
+    OK [copied to cache in 17 milliseconds]
+Installing ddst [1.4] ...
+    OK [installed binary]
+Copying ddst [1.4] into the cache ...
+    OK [copied to cache in 11 milliseconds]</code></pre>
+<pre class="r"><code>remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;, dependencies = TRUE)
 library(RItools)
 thedesignA &lt;- simpleRandomSampler(total = N, z = dat$Z, b = rep(1, N))
 pMean4 &lt;- RItest(
