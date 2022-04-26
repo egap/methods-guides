@@ -172,7 +172,7 @@ hte/heteffects_fr.html: hte/heteffects_fr.Rmd
 
 ## this guide uses its own local renv package setup.
 hypothesistesting/hypothesistesting_fr.html:  hypothesistesting/hypothesistesting_fr.Rmd
-	cd hypothesistesting; Rscript -e "install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting_fr.Rmd')"
+	Rscript -e "setwd('hypothesistesting'); install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting_fr.Rmd')"
 
 implementation/implementation_fr.html:  implementation/implementation_fr.Rmd
 	Rscript -e "rmarkdown::render('./implementation/implementation_fr.Rmd')"
@@ -261,7 +261,7 @@ hte/heteffects_esp.html: hte/heteffects_esp.Rmd
 
 ## this guide uses its own local renv package setup.
 hypothesistesting/hypothesistesting_esp.html:  hypothesistesting/hypothesistesting_esp.Rmd
-	cd hypothesistesting; Rscript -e "install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting_esp.Rmd')"
+	Rscript -e "setwd('hypothesistesting');install.packages('renv'); renv::restore(); rmarkdown::render('hypothesistesting_esp.Rmd')"
 
 implementation/implementation_esp.html:  implementation/implementation_esp.Rmd
 	Rscript -e "rmarkdown::render('./implementation/implementation_esp.Rmd')"
