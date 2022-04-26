@@ -1,6 +1,4 @@
 ---
-title: '10 Things to Know About Writing Academic Papers in LaTeX'
-author: Jake Bowers and Luke Olson
 link-citations: true
 numbersections: true
 colorlinks: true
@@ -19,12 +17,15 @@ html_document:
   pandoc_args: ["--from= markdown+autolink_bare_uris+tex_math_single_backslash+inline_code_attributes"]
 ---
 
+<!-- title: '10 Things to Know About Writing Academic Papers in LaTeX' -->
+<!-- author: Jake Bowers and Luke Olson -->
+
 Writing is a time-consuming process; writing high-quality publications requires
 attention to detail at every step of the way, from the actual prose on paper to
 its layout in the document to the presentation of figures.  In this guide we
 walk you through 10 aspects of writing a scientific article using
 [LaTeX](https://en.wikipedia.org/wiki/LaTeX) to format your work and save you
-time.  We emphasize typing commands at the [unix command
+time. This is not an introduction to LaTeX.^[We suggest the [Free online introduction to LaTeX](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_1)) if you are just getting started with LaTeX.] We emphasize typing commands at the [unix command
 line](https://en.wikipedia.org/wiki/Unix_shell) in this guide as a way for you
 to peek under the hood of the LaTeX engine. This will give you (the author!)
 power over the production of your own academic documents.^[We have decided to
@@ -34,7 +35,7 @@ Things Guide on using Markdown or Google Docs, please do write one! As an
 open-source document, we are also happy to receive pull requests for
 improvements to this guide.]
 
-This guide could be extremely long. There are *many*, *many* fantastic resources
+This guide could be even longer than it is. There are *many*, *many* fantastic resources
 on typesetting. Here we have hand-selected 10 topics to help lower the barrier to a
 more efficient and higher quality paper writing workflow. Specifically we focus on
 
@@ -145,15 +146,15 @@ Here is a list of the common programs that one might use to create a pdf file fr
 - `pdflatex`: a program that generates a PDF from LaTeX
 - `bibtex`: a program to take bibliographic information from a `.aux` file
   (created by a run of `latex` or `pdflatex` etc.) and generates a
-  bibliography.
+  bibliography
 - `biber`: a program like bibtex but with more database management
-  capabilities.
+  capabilities
 - `xelatex`: support for a wide variety of fonts and characters (you can type
   `xelatex example.tex` after [changing the
   font](https://www.overleaf.com/learn/latex/XeLaTeX) to one that is installed
-  on your system).
+  on your system)
 - `lualatex`: extends latex so that more programming can be done within it
-  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F)).
+  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F))
 
 For example, at the command prompt in the Terminal, you might type
 `pdflatex example.tex` to create an `example.pdf` file.
@@ -260,7 +261,8 @@ predictable naming convention.  For example, each output like a table or figure
 uses one script with the same name:`temp_vs_time.pdf <—> temp_vs_time.py` and
 that LaTeX labelling follow this convention `\label{fig:temp_vs_time}`.  When
 editing the document, the path from figure to the associated plotting script and
-related data is then clear.
+related data is then clear. For a high level discussion of project workflow see
+[10 Things to Know About Project Workflow](https://egap.org/resource/10-things-to-know-about-project-workflow/).
 
 ## On Directory Structure
 
@@ -392,9 +394,9 @@ when working with co-authors on a LaTeX document. We recommend the following rec
    - hard wrapping at say 80 characters?
    - nothing, free for all (plus or minus pre-commit automatic reformatting or
      checking of files)?
-- Commit changes *often*
+- Commit changes *often*!
 - Avoid merge conflicts in large edits by working in specific sections at a time
-  or even by breaking the paper into sub-files and working a file at a time.
+  or even by breaking the paper into sub-files and working a file at a timea.
 - Before you commit and push, remove the intermediate files that LaTeX has
   created, for example using `latexmk myfile.tex -C`, and recompile to verify
   there are **no** errors.
@@ -414,9 +416,9 @@ There are other systems for editing plain text at the same time such as [Teletyp
 
 ## Takeaways
 
-- Agree on a tracking strategy with your collaborators
-- Do not add generated files such as log files to the repository
-- Do add files (such as figures, even though generated) to make building the paper easier
+- Agree on a tracking strategy with your collaborators.
+- Do not add generated files such as log files to the repository.
+- Do add files (such as figures, even though generated) to make building the paper easier.
 - Use git and GitHub for version control.
 
 ## Practice
@@ -568,7 +570,7 @@ help improve your overall LaTeX workflow:
 - `align` should be used for multiple equations that require alignment.
 - `split` is used for a *single* equation that requires alignment when split.
 - `multline` is used for a *single* equation where no alignment is needed.
-- `subequations` may be used around `align` to retain a single equation numbering
+- `subequations` may be used around `align` to retain a single equation numbering.
 
 See `example.tex` in `7_dos` for examples of use.
 
@@ -588,8 +590,8 @@ See `example.tex` in `7_dos` for examples of use.
   A x = b
 \end{equation}
 ```
-- Label sections with `\label{sec:i_can_remember_this_section_name}`
-- Label tables with `\label{tab:what_a_great_table_name}`
+- Label sections with `\label{sec:i_can_remember_this_section_name}`.
+- Label tables with `\label{tab:what_a_great_table_name}`.
 
 ### DON'T mess with LaTeX spacing and placement
 
@@ -601,9 +603,9 @@ muscle your own spacing.
 
 ## Takeaways
 
-- Keep your `.tex` document readable
-- Use macros strategically and sparingly
-- Packages can help provide more consistent formatting
+- Keep your `.tex` document readable.
+- Use macros strategically and sparingly.
+- Packages can help provide more consistent formatting.
 
 ## Practice
 
@@ -651,10 +653,10 @@ BibTeX file for this essay:
 
 - Typically you do not need to write your own `.bib` entry. Grab the full citation online at  the citation’s journal and/or Google Scholar [see
   instructions here for getting BibTeX formatted entries from Google
-  Scholar](https://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/)
+  Scholar](https://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/).
 - Clean up entry (removing abstracts or other fields).  Align as desired for readability.
-- Format cleanly.  Use `{ }` instead of `“ “`
-- `{ }` also force capitalization: for example `title = {All about {Krylov} methods}`
+- Format cleanly.  Use `{ }` instead of `“ “`.
+- `{ }` also force capitalization: for example `title = {All about {Krylov} methods}`.
 - *Important*: some journals require specific fields in certain `.bib` entries.  This can generate warnings.
 
 
@@ -704,8 +706,8 @@ Figures are central to the overall feel of your article.  Here are a few general
 for working with LaTeX and figures:
 
 - Fonts in figures should match the fonts in the float/article.  Notably, using `\includegraphics` to scale a figure will also change the font sizes; you should attempt to generate unscaled figures.
-  - Options for font matching in pdf figures using R with [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice) and [`extrafont`](https://cran.r-project.org/web/packages/extrafont)
-  - Using Python and Matplotlib, you can specify your font through `rcparams` [here](https://matplotlib.org/stable/tutorials/introductory/customizing.html)
+  - Options for font matching in pdf figures using R with [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice) and [`extrafont`](https://cran.r-project.org/web/packages/extrafont).
+  - Using Python and Matplotlib, you can specify your font through `rcparams` [here](https://matplotlib.org/stable/tutorials/introductory/customizing.html).
 - Let's repeat that last point: *fonts in figures* should match the fonts of the article.
 - Insert graphics the `\includegraphics[]{}` command. For
 example, if we wanted to include a figure but scale it to 1/3 of the width of
@@ -723,10 +725,10 @@ Figure~\ref{fig:vaccine_by_pop} shows that opposition to vaccination peaks at a 
   \caption{Vaccination opposition by population}\label{fig:vaccine_by_pop}
 \end{figure}
 ```
-- Generally use `\begin{figure}[!ht]` or `\begin{table}[!ht]`
-  - `!` tex will ignore area restrictions
-  - `h` place it “here” if it fits in the area
-  - `t` place it at the “top” otherwise and if it fits otherwise create a new page
+- Generally use `\begin{figure}[!ht]` or `\begin{table}[!ht]`.
+  - `!` tex will ignore area restrictions.
+  - `h` place it “here” if it fits in the area.
+  - `t` place it at the “top” otherwise and if it fits otherwise create a new page.
 - Use consistent color schemes in all figures throughout the paper.
 - A reader should not have to hunt in the text to understand a figure:
   - Do not introduce new notation in a figure or its caption.
