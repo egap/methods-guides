@@ -1,5 +1,5 @@
 ---
-bibliography: ../../../Research-Group-Bibliography/big.bib
+bibliography: ./hypothesistesting.bib
 output:
   bookdown::html_document2:
     number_sections: true
@@ -51,6 +51,7 @@ opts_chunk$set(strip.white=TRUE,
 
 library(randomizr)
 library(coin)
+library(here)
 ```
 
 
@@ -532,8 +533,9 @@ pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approxima
 pMean2
 pMeanRank2
 ## using a development version of the RItools package
-##library(devtools)
-## dev_mode()
+library(devtools)
+dir.create(here("R-dev"))
+dev_mode(on = TRUE,path=here("R-dev"))
 remotes::install_github("markmfredrickson/RItools@randomization-distribution")
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
@@ -543,9 +545,11 @@ pMeanRank4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
 		     sampler = thedesignA)
 pMean4
 pMeanRank4
-## dev_mode()
-
+dev_mode(on=FALSE,path=here("R-dev"))
+```
 ## using the ri2 package
+
+```{r}
 library(ri2)
 thedesign <- declare_ra(N=N)
 pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign,

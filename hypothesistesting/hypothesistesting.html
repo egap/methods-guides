@@ -498,7 +498,8 @@ pre code {
 <li><a href="#one-sided-p-values" id="toc-one-sided-p-values"><span class="toc-section-number">7.1.1</span> One-sided <span class="math inline">\(p\)</span>-values</a></li>
 <li><a href="#two-sided-p-values" id="toc-two-sided-p-values"><span class="toc-section-number">7.1.2</span> Two-sided <span class="math inline">\(p\)</span>-values</a></li>
 </ul></li>
-<li><a href="#an-example-testing-the-weak-null-of-no-average-effects" id="toc-an-example-testing-the-weak-null-of-no-average-effects"><span class="toc-section-number">7.2</span> An example: Testing the weak null of no average effects</a></li>
+<li><a href="#using-the-ri2-package" id="toc-using-the-ri2-package"><span class="toc-section-number">7.2</span> using the ri2 package</a></li>
+<li><a href="#an-example-testing-the-weak-null-of-no-average-effects" id="toc-an-example-testing-the-weak-null-of-no-average-effects"><span class="toc-section-number">7.3</span> An example: Testing the weak null of no average effects</a></li>
 </ul></li>
 <li><a href="#in-simple-hypothesis-tests-we-do-not-accept-null-hypotheses." id="toc-in-simple-hypothesis-tests-we-do-not-accept-null-hypotheses."><span class="toc-section-number">8</span> In simple hypothesis tests, we do not accept null hypotheses.</a>
 <ul>
@@ -631,7 +632,7 @@ or <span class="math inline">\(y_{i,1}=y_{i,0}+\tau_i\)</span> where <span class
 question has to be something like “This research design and dataset provide a
 lot of information about this model or idea or hypothesis.” or, as above,
 “This research design is not consistent with that claim.” (See
-<span class="citation">Paul R. Rosenbaum (2002a)</span>(Chapter 2), <span class="citation">Paul R. Rosenbaum (2010)</span>(chapter 2), and
+<span class="citation">Paul R. Rosenbaum (2002)</span>(Chapter 2), <span class="citation">Paul R. Rosenbaum (2010)</span>(chapter 2), and
 <span class="citation">Paul R. Rosenbaum (2017)</span>, for more details about this approach.)</p>
 </div>
 </div>
@@ -788,7 +789,7 @@ second is the mean difference of the rank-transformed outcomes (<code>meanrankTZ
 which returns a value of 2.2.
 One could also use versions of these test statistics standardized by their estimated
 standard error (see <span class="citation">Chung, Romano, et al. (2013)</span> for an argument in favor of this test
-statistic). To test the sharp null hypothesis of no effects, one may choose almost any test statistic such that the values of that function increase as the difference between treated and control outcomes increase (see <span class="citation">Paul R. Rosenbaum (2002b)</span>, Chapter 2, for a discussion of “effect increasing” test statistics).</p>
+statistic). To test the sharp null hypothesis of no effects, one may choose almost any test statistic such that the values of that function increase as the difference between treated and control outcomes increase (see <span class="citation">(<strong>rosenbaum:2002?</strong>)</span>, Chapter 2, for a discussion of “effect increasing” test statistics).</p>
 <p>Test of the weak null of no effects use the differences of means (perhaps standardized or studentized) as the test statistic.</p>
 </div>
 <div id="p-values-encode-how-much-information-a-research-design-and-test-statistic-tell-us-about-the-hypothesis.-hypothesis-tests-require-distributions-of-the-test-statistic-under-the-hypothesis." class="section level1" number="7">
@@ -966,8 +967,9 @@ pMean2</code></pre>
 99 percent confidence interval:
  0.2440542 0.3180731 </code></pre>
 <pre class="r"><code>## using a development version of the RItools package
-## library(devtools)
-## dev_mode()
+library(devtools)
+dir.create(here(&quot;R-dev&quot;))
+dev_mode(on = TRUE, path = here(&quot;R-dev&quot;))
 remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;)
 library(RItools)
 thedesignA &lt;- simpleRandomSampler(total = N, z = dat$Z, b = rep(1, N))
@@ -991,10 +993,12 @@ Observed Test Statistic   102 0.2024</code></pre>
 
                         Value Pr(&gt;x)
 Observed Test Statistic   2.2 0.1508</code></pre>
-<pre class="r"><code>## dev_mode()
-
-## using the ri2 package
-library(ri2)
+<pre class="r"><code>dev_mode(on = FALSE, path = here(&quot;R-dev&quot;))</code></pre>
+</div>
+</div>
+<div id="using-the-ri2-package" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> using the ri2 package</h2>
+<pre class="r"><code>library(ri2)
 thedesign &lt;- declare_ra(N = N)
 pMean4 &lt;- conduct_ri(Y ~ Z,
   declaration = thedesign,
@@ -1011,9 +1015,8 @@ summary(pMeanRank4)</code></pre>
 <pre><code>  term estimate two_tailed_p_value
 1    Z      2.2          0.3015873</code></pre>
 </div>
-</div>
-<div id="an-example-testing-the-weak-null-of-no-average-effects" class="section level2" number="7.2">
-<h2><span class="header-section-number">7.2</span> An example: Testing the weak null of no average effects</h2>
+<div id="an-example-testing-the-weak-null-of-no-average-effects" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> An example: Testing the weak null of no average effects</h2>
 <p>The weak null hypothesis is a claim about aggregates, and is nearly always
 stated in terms of averages: <span class="math inline">\(H_0: \bar{y}_{1} = \bar{y}_{0}\)</span> The test
 statistic for this hypothesis nearly always is the difference of means (i.e.
@@ -1296,16 +1299,13 @@ Kinder, D. R., and T. R. Palfrey. 1993. <span>“On Behalf of an Experimental Po
 Rosenbaum, P R. 2010. <span>“<span class="nocase">Design of observational studies</span>.”</span> <em>Springer Series in Statistics</em>.
 </div>
 <div id="ref-rosenbaum2002" class="csl-entry">
-Rosenbaum, Paul R. 2002a. <span>“<span class="nocase">Attributing Effects to Treatment in Matched Observational Studies</span>.”</span>
+Rosenbaum, Paul R. 2002. <span>“<span class="nocase">Attributing Effects to Treatment in Matched Observational Studies</span>.”</span>
 </div>
 <div id="ref-rosenbaum2017observation" class="csl-entry">
 ———. 2017. <em>Observation and Experiment: An Introduction to Causal Inference</em>. Harvard University Press.
 </div>
 <div id="ref-rosenbaum1993hlp" class="csl-entry">
 Rosenbaum, Paul R. 1993. <span>“Hodges-Lehmann Point Estimates of Treatment Effect in Observational Studies.”</span> <em>Journal of the American Statistical Association</em> 88 (424): 1250–53.
-</div>
-<div id="ref-rosenbaum:2002" class="csl-entry">
-———. 2002b. <em>Observational Studies</em>. Second. Springer-Verlag.
 </div>
 <div id="ref-rosenbaum2010" class="csl-entry">
 ———. 2010. <span>“<span class="nocase">Design Sensitivity and Efficiency in Observational Studies</span>.”</span>

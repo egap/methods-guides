@@ -1,0 +1,2 @@
+ - Which fonts does this use? try `pdffonts paper_randnoise.pdf`
+ - How wide is the text area? add `Column width: \the\columnwidth`

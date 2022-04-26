@@ -1,0 +1,2 @@
+- I have a `.DS_Store` file.  Should I check that in?  What should I do?
+- Why do we not track `paper_randnoise.pdf`?

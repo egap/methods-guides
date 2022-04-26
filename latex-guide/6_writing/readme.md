@@ -1,0 +1,3 @@
+- run `chktex example.tex`.  Which warnings do you see?
+- fix the warnings and rerun
+- Find the TODOs
