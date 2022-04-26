@@ -22,17 +22,20 @@ html_document:
 
 Writing is a time-consuming process; writing high-quality publications requires
 attention to detail at every step of the way, from the actual prose on paper to
-its layout in the document to the presentation of figures.  In this guide we
-walk you through 10 aspects of writing a scientific article using
+its layout in the document to the presentation of figures. In this guide we walk
+you through 10 aspects of writing a scientific article using
 [LaTeX](https://en.wikipedia.org/wiki/LaTeX) to format your work and save you
-time. This is not an introduction to LaTeX.^[We suggest the [Free online introduction to LaTeX](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_1)) if you are just getting started with LaTeX.] We emphasize typing commands at the [unix command
-line](https://en.wikipedia.org/wiki/Unix_shell) in this guide as a way for you
-to peek under the hood of the LaTeX engine. This will give you (the author!)
-power over the production of your own academic documents.^[We have decided to
-write this guide in a very opinionated way. And we emphasize the nitty gritty of
-technical document creation. If these opinions inspire a reader to write a 10
-Things Guide on using Markdown or Google Docs, please do write one! As an
-open-source document, we are also happy to receive pull requests for
+time. This is not an introduction to LaTeX.^[We suggest the [Free online
+introduction to
+LaTeX](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_1))
+if you are brand new to LaTeX.] We emphasize typing commands at the [unix
+command line](https://en.wikipedia.org/wiki/Unix_shell) in this guide as a way
+for you to peek under the hood of the LaTeX engine. This will give you (the
+author!) power over the production of your own academic documents.^[We have
+decided to write this guide in a very opinionated way. And we emphasize the
+nitty gritty of technical document creation. If these opinions inspire a reader
+to write a 10 Things Guide on using Markdown or Google Docs, please do write
+one! As an open-source document, we are also happy to receive pull requests for
 improvements to this guide.]
 
 This guide could be even longer than it is. There are *many*, *many* fantastic resources
@@ -55,9 +58,9 @@ more efficient and higher quality paper writing workflow. Specifically we focus 
 To help people **practice** these commands we have hands-on examples ready in a [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)
 session, through [Binder](https://mybinder.org/).  Here you can follow along, processing
 documents in a terminal session. You can start this environment here:
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/bowers-illinois-edu/egap-latex-guide/HEAD?urlpath=lab).
 
-<!--AW: This link does not seem to work, it gives me the following error: "Could not resolve ref for gh:bowers-illinois-edu/egap-latex-guide/HEAD. Double check your URL. GitHub recently changed default branches from "master" to "main"."-->
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/https%3A%2F%2Fmybinder.org%2Fv2%2Fgh%2Fegap%2Fmethods-guides%2Flatex-guide%2FHEAD%3Furlpath%3Dlab/HEAD)
+
 
 To use LaTeX on your own computer, you will need to [install it](https://www.latex-project.org/get/#tex-distributions) (we highly recommend following the links therein to TeX Live on each system).
 
@@ -73,7 +76,7 @@ Once you have a plain text document with markup, you then process it using a set
 
 </center>
 
-<!--AW: I find the errors from "Preamble" and "Document text" a little confusing because they seem to go to specific lines, but really they refer to a collection of lines. Would it be possible to annotate this with curly braces that show the entire part of the file that makes up the preamble, and, respectively, the document text? Plus, it may make sense to also have errors going to the \begin{document} and \end{document} lines specifically to show that this is where the document text starts and ends.  -->
+<!--AW: I find the arrows from "Preamble" and "Document text" a little confusing because they seem to go to specific lines, but really they refer to a collection of lines. Would it be possible to annotate this with curly braces that show the entire part of the file that makes up the preamble, and, respectively, the document text? Plus, it may make sense to also have arrows going to the \begin{document} and \end{document} lines specifically to show that this is where the document text starts and ends.  -->
 
 Imagine we have a document called `example.tex`. After processing that document via, say, the command `latexmk -pdflatex example.tex`, one can see
 a pdf file like the following image:
@@ -107,12 +110,12 @@ a pdf file like the following image:
 
 What does `example.tex` look like when compiled to a pdf document? Can you add
 a title or author? Can you make some text bold?^[Try out `\title{Some Paper}`
-and `\author{Some Person}` *in the preamble* and `\maketitle` just after the
+and `\author{Some Person}` *in the preamble* and `\maketitle`  right after the
 `\begin{document}` line.] You can practice by following these steps (and similar ones) in later sections:
 
 1. select the directory `1_structure` in the JupyterLab window that launches when you clink on `launch
 binder` from the `readme.md` file in the [associated github
-repository](https://github.com/bowers-illinois-edu/egap-latex-guide) <!-- AW: this link does not seem to work --> 
+repository](https://github.com/egap/methods-guides/latex-guide)
 2. Then clicking on the `Terminal` icon in the JupyterLab pane
 3. Once you are there, try typing `latexmk -pdflatex example.tex` and then looking at the pdf.
 
@@ -158,7 +161,6 @@ Here is a list of the common programs that one might use to create a pdf file fr
 
 For example, at the command prompt in the Terminal, you might type
 `pdflatex example.tex` to create an `example.pdf` file.
-<!-- AW: Moved the parentheses below since it seems related to the first bullet point -->
 
 Notice also:
 
