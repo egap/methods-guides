@@ -12,6 +12,7 @@ all: adaptive/adaptive.html \
 	hypothesistesting/hypothesistesting.html \
 	implementation/implementation.html \
 	late/late.html \
+	latex-guide/latex-guide.html \
 	measurement/measurement.html \
 	mechanisms/10thingsaboutmechanisms.html \
 	meta-analysis/meta-analysis.html \
@@ -86,6 +87,9 @@ implementation/implementation.html:  implementation/implementation.Rmd
 
 late/late.html:  late/late.Rmd
 	Rscript -e "rmarkdown::render('./late/late.Rmd')"
+
+latex-guide/latex-guide.html:  latex-guide/latex-guide.md
+	Rscript -e "rmarkdown::render('./latex-guide/latex-guide.md')"
 
 measurement/measurement.html:  measurement/measurement.Rmd
 	Rscript -e "rmarkdown::render('./measurement/measurement.Rmd')"
