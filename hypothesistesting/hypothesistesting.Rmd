@@ -5,14 +5,11 @@ output:
     number_sections: true
     toc: true
     theme: journal
-    includes:
-        after_body: ../linking_script.html
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
