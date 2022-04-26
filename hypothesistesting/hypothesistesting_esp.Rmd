@@ -1,15 +1,6 @@
 ---
-bibliography: hypothesistesting.bib
+bibliography: ./hypothesistesting.bib
 output:
-  bookdown::pdf_document2:
-    number_sections: true
-    toc: true
-    extensions: +implicit_figure
-    fig_caption: true
-    keep_tex: true
-    citation_package: biblatex
-    biblio-style: authoryear-comp
-    biblatexoptions: [backend=biber, maxbibnames=999]
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -17,6 +8,8 @@ output:
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
