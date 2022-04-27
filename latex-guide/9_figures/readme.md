@@ -1,0 +1,8 @@
+ - Which fonts does this use? try `pdffonts paper_randnoise.pdf`
+ - How wide is the text area? add `Column width: \the\columnwidth`
+ - Use `set_figure(fontsize=10, columnwidth=400, height=250)` in the figure.  Notice the difference in font.
+ - Attempt to modify
+    - axis labels
+    - a grid
+    - use math in the legend
+- What else?  Jazz up the figure.

@@ -1,9 +1,10 @@
-
 ---
 output: 
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things You Need to Know About Randomization" -->
@@ -16,7 +17,7 @@ This guide will help you design and execute different types of randomization in 
 
 1 Some ways are better than others
 ==
-There are many ways to randomize. The simplest is to flip a coin each time you want to determine whether a given subject gets treatment or not. This ensures that each subject has a .5 probability of receiving the treatment and a .5 probability of not receiving it. Done this way, whether one subject receives the treatment in no way affects whether the next subject receives the treatment, every subject has an equal chance of getting the treatment, and the treatment will be uncorrelated with all confounding factors — at least in expectation.
+There are many ways to randomize. The simplest is to flip a coin each time you want to determine whether a given subject gets treatment or not. This ensures that each subject has a .5 probability of receiving the treatment and a .5 probability of not receiving it. Done this way, whether one subject receives the treatment in no way affects whether the next subject receives the treatment, every subject has an equal chance of getting the treatment, and the treatment will be independent from all confounding factors — at least in expectation.
 
 This is not a bad approach but it has shortcomings. First, using this method, you cannot know in advance how many units will be in treatment and how many in control. If you want to know this, you need some way to do selections so that the different draws are not statistically independent from each other (like drawing names from a hat). Second, you may want to assert control over the exact share of units assigned to treatment and control.  That’s hard to do with a coin. Third, you might want to be able to replicate your randomization to show that there was no funny business. That’s hard to do with coins and hats. Finally, as we show below, there are all sorts of ways to do randomization to improve power and ensure balance in various ways that are very hard to achieve using coins and hats. 
 
@@ -32,15 +33,17 @@ set.seed(343)
 complete_ra(100, 34)
 ```
 
-2 Block randomization: You can fix it so that treatment and control groups are balanced
+2 Block randomization: You can ensure that treatment and control groups are balanced
 ==
-It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group and maintain random assignment.
+It is possible, when randomizing, to specify the balance of particular factors you care about between treatment and control groups, even though it is not possible to specify which particular units are selected for either group.
 
-This means that it is possible to specify, for example, that your treatment and control groups contain equal ratios of men to women. In other words, this avoids any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.
+For example, you can specify that treatment and control groups contain equal ratios of men to women. In doing so, you avoid any randomization that might produce a distinctly male treatment group and a distinctly female control group, or vice-versa.
 
 Why is this desirable? Not because our estimate of the average treatment effect would otherwise be biased, but because it could be really noisy. Suppose that a random assignment happened to generate a very male treatment group and a very female control group. We would observe a correlation between gender and treatment status. If we were to estimate a treatment effect, that treatment effect would still be unbiased because gender did not cause treatment status. However, it would be more difficult to reject the null hypothesis that it was not our treatment but gender that was producing the effect. In short, the imbalance produces a noisy estimate, which makes it more difficult for us to be confident in our estimates.
 
 Block (sometimes called stratified) randomization helps us to rig our experiment so that our treatment and control groups are balanced along important dimensions but are still randomly assigned. Essentially, this type of randomization design constructs multiple mini-experiments: for example, it might take women and randomly assign half to treatment and half to control, and then it would assign half of men to treatment and half to control. This guarantees a gender balance when treatment and control groups are pooled.
+
+Another advantage of block randomization is that it ensures that we will be able to estimate treatment effects for subgroups of interest. For example, imagine that we are interested in estimating the effect of the treatment among women. If we do not block on gender, we may, by chance, end up with a random assignment that puts only few women into the treatment group. Our estimate of the treatment effect among women would then be very noisy. However, if we assign treatment separately among women and among men, we can ensure that we will have enough women in, respectively, the treatment and control group to obtain a precise estimate among this subgroup.
 
 The [blockTools package](https://cran.r-project.org/web/packages/blockTools/index.html) is a useful package for conducting block randomization. Let’s start by generating a fake data set for 60 subjects, 36 of whom are male and 24 of whom are female.
 
@@ -48,36 +51,28 @@ Suppose we would like to block on gender. Based on our data, blockTools will gen
 
 ```{r, results='hide', error=FALSE, message=FALSE, warning=FALSE}
 rm(list = ls())
-
 library(blockTools)
 library(dplyr)
 library(randomizr)
-
 dat <-
   tibble(
     id = seq(1:60),
     female = c(rep(0, 36), rep(1, 24)),
     age = sample(18:65, size = 60, replace = TRUE)
   )
-
 # one covariate block
-
 dat <-
   dat %>%
   mutate(Z_block_1 = block_ra(female))
-
 with(dat, table(female, Z_block_1))
-
 # matched quartets
 out <- block(dat, n.tr = 4, id.vars = "id", 
              block.vars = c("female", "age"))
-
 dat <-
   dat %>%
   mutate(
     block_id = createBlockIDs(out, dat, id.var = "id"),
     Z_block_2 = block_ra(block_id))
-
 with(dat, table(Z_block_2, block_id))
 ```
 
@@ -99,24 +94,122 @@ dat <-
     Z_loan = complete_ra(80, 40),
     Z_training = block_ra(blocks = Z_loan)
   )
-
 with(dat, table(Z_loan, Z_training))
 ```
 
-4 You can randomize whole clusters together (but the bigger your clusters, the weaker your power!)
+4 You can randomize whole clusters together (but the bigger your clusters, the weaker tends to be your power)
 ==
 Sometimes it is impossible to randomize at the level of the individual. For example, a radio appeal to get individuals to a polling station must inherently be broadcast to a whole media market; it is impossible to broadcast just to some individuals but not others. Whether it is by necessity or by choice, sometimes you will randomize clusters instead of individuals.
 
-The disadvantage of cluster randomization is that it reduces your power, since the number of randomly assigned units now reflects the number of clusters and not simply your total number of subjects. If you had two randomly assigned clusters of 1,000 individuals each, the functional number of units might be closer to 2, not 2,000. For this reason, it is preferable to make clusters as small as possible.
+The disadvantage of cluster randomization is that it reduces your power, since the number of randomly assigned units now reflects the number of clusters and not simply your total number of subjects. If your sample consisted of two clusters of 1,000 individuals each, the functional number of units might be closer to 2, not 2,000. For this reason, it is preferable to make clusters as small as possible.
 
-Similarly, it is also desirable to have heterogeneity within your clusters so that they are as representative as possible of your broader population. If the individuals within individual clusters are very similar to each other, they may have similar potential outcomes, and that group with similar potential outcomes is going to be assigned to treatment or control as a group. Overall, this will increase your variance if that cluster had particularly high or low potential outcomes because it increases the overall correlation between potential outcomes and treatment assignment. In brief, if your clusters are more representative of the broader population, your estimates of the average treatment effect will be more precise.
+The degree to which clustering reduces your power depends on the extent to which units in the same cluster resemble each other. It is desirable to have heterogeneity within your clusters so that they are as representative as possible of your broader population. If the individuals within clusters are very similar to each other, they may have similar potential outcomes, which means that groups of individuals with similar potential outcomes will all be assigned to treatment or control together. If a cluster has particularly high or low potential outcomes, this assignment procedure will increase the overall correlation between potential outcomes and treatment assignment. As a result, your estimates become more variable. In brief, if your clusters are more representative of the broader population, your estimates of the average treatment effect will be more precise. See our [guide on cluster random assignment](https://egap.org/resource/10-things-to-know-about-cluster-randomization/) for more details. 
 
 A frequently asked question is how cluster randomization differs from block randomization. Block randomization is conducted in order to achieve balance based on pre-treatment covariates. For example, an education intervention might block randomize on the previous year’s test scores in order to track the progress of both low- and high-performing students. Cluster randomization is when multiple units are treated as a group–they all receive treatment or control status together. For example, the same education intervention might randomize at the level of the classroom, so the classrooms constitute the clusters. It is possible to block and cluster randomize simultaneously. In our example, you might calculate the average test score for each classroom and block randomize based on the classroom’s average score.
 
-The following graphic demonstrates what your data might look like in the cases of block, cluster, and block + cluster randomization, relative to a simple case of randomization with no blocking or clustering. In both cases where clustering occurs, you can tell that treatment assignment (depicted by color) appears in small groups. In both cases where blocking occurs, there is an even distribution of colors in the four quadrants of the plot, the blocks of this random assignment.
+The following graphic demonstrates what your data might look like in the cases of block, cluster, and block + cluster randomization, relative to a simple case of randomization with no blocking or clustering. The example imagines that we conduct an experiment in four schools, where each school comprises four classrooms with four students in each classroom. The top left panel represents simple random assignment. Note that the number of students assigned to treatment (tiles shaded in blue) varies across schools. For example, in school 1, 9 students are assigned to treatment but in school 4, the treatment group comprises only 6 students. The top right panel represents a random assignment procedure that uses schools as blocks. This procedure ensures that exactly eight students are assigned to treatment in each school. The bottom left panel shows cluster random assignment. The idea is that the four students in each quadrant of a school are in the same classroom, and we assign entire classrooms to treatment. Note again that, because there is no blocking involved, the number of classrooms assigned to treatment varies across schools. For example, school 1 assigns three classrooms to treatment while school 3 assigns all classrooms to control. Finally, the bottom right panel corresponds to assignment that is both blocked by school and clustered by classroom. Blocking ensures that exactly two classrooms per school are assigned to treatment. 
 
-![](https://raw.githubusercontent.com/egap/methods-guides/master/randomization/randomizations1.png)
-<center>_Illustration of the patterns of treatment and control units you might see under different types of blocked and clustered designs._</center>
+
+```{r, echo = FALSE, message=F, fig.height=7.5, fig.width=7.5, fig.cap="Illustration of patterns of assignments you might see under different types of blocked and clustered designs. (Colors indicate treatment assignment)", fig.align='center'}
+
+library(ggplot2)
+library(gridExtra)
+
+set.seed(123456789)
+
+data <- data.frame(studentID = rep(1:16, 4),
+                   placementIDy = rep(rep(c(1,1,2,2,3,3,4,4), 2),4),
+                   placementIDx = rep(c(rep(1:2, 4), rep(3:4, 4)), 4),
+                   classroomID = rep(1:16, each = 4),
+                   schoolID = rep(c(1,2,3,4), each = 16),
+                   schoolID_label = rep(c("School 1", "School 2", "School 3", "School 4"), each = 16), 
+                   Z_simple = simple_ra(N = 16*4, conditions = c("Treatment", "Control")))
+
+data <- data %>%
+  mutate(Zblock = block_ra(blocks = schoolID, m = 8, 
+                           conditions = c("Treatment", "Control")),
+         Zcluster =  cluster_ra(clusters = classroomID, 
+                                conditions = c("Treatment", "Control")),
+         Zblock_cluster =  block_and_cluster_ra(blocks = schoolID,
+                                                clusters = classroomID, 
+                                                conditions = c("Treatment", "Control")))
+
+             
+
+
+simple <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Z_simple))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label))  +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Simple", x="", y = "")
+
+block <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Zblock))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +  labs(title="Block", x="", y = "")
+
+cluster <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), 
+                    fill = as.factor(Zcluster))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Cluster", x="", y = "") 
+
+block_cluster <- data %>% ggplot(aes(x = as.factor(placementIDx), y = as.factor(placementIDy), fill = as.factor(Zblock_cluster))) + 
+  geom_tile(colour = "white") + 
+  facet_wrap(. ~ as.factor(schoolID_label)) +
+  theme(axis.line=element_blank(),
+        axis.text.x=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks=element_blank(),
+        panel.background=element_blank(),
+        panel.border=element_blank(),
+        panel.grid.major=element_blank(),
+        panel.grid.minor=element_blank(),
+        plot.background=element_blank(),
+        text = element_text(size=8),
+        axis.text = element_text(size=5),
+        legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) + labs(title="Bock and Cluster", x="", y = "") 
+
+grid.arrange(simple, block, cluster, block_cluster, nrow = 2, ncol = 2)
+
+
+```
 
 5 You can randomize in a way that makes it easier to see if there are spillovers
 ==
@@ -134,13 +227,12 @@ When subjects have differing probabilities of assignment to treatment, however, 
 
 The first way is to estimate the average treatment effect block by block and then to average the treatment effects, each weighted by the size of the block relative to the entire sample.
 
-The second way is inverse probability weighting (IPW). In IPW, weights are defined as the 1/p for treated units and 1/(1-p) for control units, where p refers to the probability of assignment to treatment. This method allows you to run a weighted regression of Y on treatment assignment.
+The second way is inverse probability weighting (IPW). In IPW, weights are defined as the 1/p for treated units and 1/(1-p) for control units, where p refers to the probability of assignment to treatment. This method allows you to run a weighted regression of your outcome on treatment assignment.
 
 ```{r, results='hide'}
 N <- 100000
 dat <- tibble(Y0 = 1:N,
               Y1 = Y0 + 10000)
-
 dat <-
   dat %>%
   mutate(
@@ -158,17 +250,17 @@ dat %>%
 
 7 Restricted randomization: If you don’t like what you get you can start over
 ==
-It might seem inconsistent with the whole idea of randomization that you throw out  a random assignment because you don’t like what is chosen. But sometimes this makes sense.  Sometimes you might want to make sure that randomization does not produce particular types of pattern (for example, too many people who know each other all being in treatment).  But the patterns you care about might be too hard to set up in advance. What you can then do is take a random draw and then see whether the draw meets the criteria you care about or not, if it doesn’t, then draw again.  Be warned, though, that if you do this, you create a couple of complications: (1)  each unit will not necessarily be assigned with the same probability, (2) units may not be independently assigned to treatment.  You need to take into account both of these facts in your analysis, for example, by generating inverse probability weights as we did in point 6 but using the same restricted randomization code to figure out how likely it is that each subject is assigned to treatment under these restrictions. Next, you use the distribution of possible treatment assignments to implement randomization inference. These analyses are complex so proceed with caution.
+Sometimes you might want to make sure that randomization does not produce particular types of pattern (for example, too many people who know each other all being in treatment).  But the patterns you care about might be too hard to set up in advance. What you can do is take a random draw and then check whether the draw meets the criteria you care about. If it doesn’t, then draw again.  Be warned, though, that if you do this, you create a couple of complications: (1)  each unit will not necessarily be assigned to treatment with the same probability, (2) units may not be independently assigned to treatment.  You need to take into account both of these facts in your analysis. You can do so by generating inverse probability weights as we did in point 6. Here, you will need to use the same restricted randomization code that you used to assign treatment to figure out how likely it is that each subject is assigned to treatment under these restrictions. You simply run the code a large number of times and calculate the proportion of times that a given unit is assigned to treatment across all repetitions. Next, you use the distribution of possible treatment assignments to implement randomization inference. These analyses are complex so proceed with caution.
 
 8 Write randomization code that lets you simulate many possible randomizations
 ==
 A benefit of using R code to randomize is that you can perform thousands of possible randomizations in seconds. Why is this beneficial?
 
 1. It can be useful as a way to check whether your randomization code worked. For example, if one or more subjects in your experiment never received treatment over 10,000 possible random assignments, then you would suspect a flaw in your randomization code.
-2. You can use re-randomization to calculate the exact probability of assignment to treatment for each individual in your experiment. This is especially helpful if your randomization code is more complex. Perhaps you employ both block and cluster randomization, resulting in greatly different probabilities of assignment to treatment for individuals in a large experiment. These probabilities would be difficult to calculate by hand, but an easy solution is to run your original randomization code many times and generate a variable representing each individual’s proportion of times they were assigned to treatment: this represents his or her individual probability of assignment to treatment. This variable can then be used in a weighted regression when calculating the average treatment effect.
-3. Simulating possible randomizations is a design-based approach to calculating statistical significance. This approach, called randomization inference, generates an exact p-value by calculating possible average treatment effects that would be observed under hypothetical random assignments if in fact the treatment had no effect. The p-value is then the proportion of the estimated treatment effects that is at least as large in magnitude as the one that your experiment observed. This approach is preferable to standard calculations of statistical significance when the distribution of your data is not normal because randomization inference avoids making distributional assumptions and instead uses distribution of data observed in your experiment. For more information on randomization inference, including sample code, visit the [10 Things to Know About Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference/) Methods Guide.
+2. You can use re-randomization to calculate the exact probability of assignment to treatment for each individual in your experiment. This is especially helpful if your randomization code is more complex. Perhaps you employ both block and cluster randomization or a restricted randomization procedure, resulting probabilities of assignment to treatment that vary greatly across individuals in a large experiment. These probabilities would be difficult to calculate by hand, but an easy solution is to run your original randomization code many times and generate a variable representing each individual’s proportion of times they were assigned to treatment: this represents his or her individual probability of assignment to treatment. The inverse of this variable can then be used in a weighted regression when estimating the average treatment effect.
+3. Simulating possible randomizations is a design-based approach to calculating statistical significance. This approach, called randomization inference, generates an exact $p$-value by calculating possible average treatment effects that would be observed under hypothetical random assignments if in fact the treatment had no effect. The $p$-value is then the proportion of the estimated treatment effects that is at least as large in magnitude as the one that your experiment observed. Randomization inference avoids making distributional assumptions and instead uses the distribution of data observed in your experiment. This approach is preferable to standard calculations of statistical significance when the sampling distribution is not normal -- a problem that is more likely to arise when your experimental sample is small and when your outcomes do not follow a normal distribution. For more information on randomization inference, including sample code, visit the [10 Things to Know About Randomization Inference](https://egap.org/resource/10-things-to-know-about-randomization-inference/) Methods Guide.
 
-9 You can do randomization as you go along
+9 You can randomize as you go along
 ==
 In many experiments, you may not know the entirety of your sample at the beginning of the experiment; some subjects may join over time. This presents a complication when we want to use a simple blocking algorithm because the addition of subjects to our pool may change the composition of our blocks and therefore their probabilities of assignment to treatment.
 

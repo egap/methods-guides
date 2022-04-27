@@ -4,6 +4,8 @@ output:
     code_folding: show
     toc: yes
     theme: journal
+    includes:
+        after_body: ../linking_script.html
   pdf_document:
     toc: yes
 ---

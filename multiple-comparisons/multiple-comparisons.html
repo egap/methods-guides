@@ -374,33 +374,34 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#abstract">Abstract</a></li>
-<li><a href="#almost-every-social-science-experiment-faces-a-multiple-comparisons-problem">1:
+<li><a href="#abstract" id="toc-abstract">Abstract</a></li>
+<li><a href="#almost-every-social-science-experiment-faces-a-multiple-comparisons-problem" id="toc-almost-every-social-science-experiment-faces-a-multiple-comparisons-problem">1:
 Almost every social science experiment faces a multiple comparisons
 problem</a></li>
-<li><a href="#why-multiple-comparisons-are-a-problem">2: Why multiple
+<li><a href="#why-multiple-comparisons-are-a-problem" id="toc-why-multiple-comparisons-are-a-problem">2: Why multiple
 comparisons are a problem</a></li>
-<li><a href="#dont-mix-up-the-fwer-and-fdr">3: Don’t mix up the FWER and
+<li><a href="#dont-mix-up-the-fwer-and-fdr" id="toc-dont-mix-up-the-fwer-and-fdr">3: Don’t mix up the FWER and
 FDR!</a></li>
-<li><a href="#control-the-fwer-with-bonferroni-style-corrections-including-the-holm-correction">4:
+<li><a href="#control-the-fwer-with-bonferroni-style-corrections-including-the-holm-correction" id="toc-control-the-fwer-with-bonferroni-style-corrections-including-the-holm-correction">4:
 Control the FWER with Bonferroni-style corrections (including the Holm
 correction)</a></li>
-<li><a href="#control-the-fdr-with-benjamini-hochberg">5: Control the
-FDR with Benjamini-Hochberg</a></li>
-<li><a href="#its-easy-to-implement-these-procedures">6: It’s easy to
+<li><a href="#control-the-fdr-with-benjamini-hochberg" id="toc-control-the-fdr-with-benjamini-hochberg">5: Control the FDR with
+Benjamini-Hochberg</a></li>
+<li><a href="#its-easy-to-implement-these-procedures" id="toc-its-easy-to-implement-these-procedures">6: It’s easy to
 implement these procedures</a></li>
-<li><a href="#a-better-way-to-control-the-fwer-is-simulation">7: A
-better way to control the FWER is simulation</a></li>
-<li><a href="#alternative-ways-to-control-fdr-and-variants-of-fdr">8:
+<li><a href="#a-better-way-to-control-the-fwer-is-simulation" id="toc-a-better-way-to-control-the-fwer-is-simulation">7: A better way
+to control the FWER is simulation</a></li>
+<li><a href="#alternative-ways-to-control-fdr-and-variants-of-fdr" id="toc-alternative-ways-to-control-fdr-and-variants-of-fdr">8:
 Alternative ways to control FDR and variants of FDR</a></li>
-<li><a href="#creating-an-index-is-a-way-to-get-a-single-comparison-out-of-many">9:
+<li><a href="#creating-an-index-is-a-way-to-get-a-single-comparison-out-of-many" id="toc-creating-an-index-is-a-way-to-get-a-single-comparison-out-of-many">9:
 Creating an index is a way to get a single comparison out of many</a>
 <ul>
-<li><a href="#mean-effects-index">Mean Effects Index</a></li>
-<li><a href="#inverse-covariance-weighted-index">Inverse Covariance
-Weighted Index</a></li>
+<li><a href="#mean-effects-index" id="toc-mean-effects-index">Mean
+Effects Index</a></li>
+<li><a href="#inverse-covariance-weighted-index" id="toc-inverse-covariance-weighted-index">Inverse Covariance Weighted
+Index</a></li>
 </ul></li>
-<li><a href="#use-design-based-approaches">10: Use Design Based
+<li><a href="#use-design-based-approaches" id="toc-use-design-based-approaches">10: Use Design Based
 approaches</a></li>
 </ul>
 </div>
@@ -732,7 +733,7 @@ is the most lenient.</p>
 <p>Instead of R, you can also use this calculator to adjust your
 p-values.</p>
 <p>This calculator works best in Firefox. To use full-screen, go <a href="https://egap.shinyapps.io/multiple-comparisons-app/">here</a>.</p>
-<iframe height="500" src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%3Cbase%20href%3D%22%5Fw%5F62509796%2F%22%3E%0A%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%28function%28%29%20%7B%0A%20%20var%20workerId%20%3D%20%27%5Fw%5F62509796%27%3B%0A%20%20%2F%2F%20remove%20base%20href%20if%20worker%20ID%20is%20in%20url%0A%20%20if%20%28window%2Elocation%2Ehref%2EindexOf%28workerId%29%20%3E%200%29%20%7B%0A%20%20%20%20document%2EquerySelector%28%27base%27%29%2EremoveAttribute%28%27href%27%29%3B%0A%20%20%7D%0A%7D%29%28%29%3B%0A%3C%2Fscript%3E%0A%0A%20%20%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%20%20%20%20%20%20var%20%5F%5Fconnect%20%3D%20%7B%0A%20%20%20%20%20%20%20%20shinyPre101%3A%20true%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%3C%2Fscript%3E%0A%20%20%20%20%20%20%0A%20%20%3Cmeta%20http%2Dequiv%3D%22Content%2DType%22%20content%3D%22text%2Fhtml%3B%20charset%3Dutf%2D8%22%2F%3E%0A%20%20%3Cscript%20type%3D%22application%2Fshiny%2Dsingletons%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20type%3D%22application%2Fhtml%2Ddependencies%22%3Ejson2%5B2014%2E02%2E04%5D%3Bjquery%5B1%2E11%2E0%5D%3Bshiny%5B0%2E11%2E1%5D%3Bselectize%5B0%2E11%2E2%5D%3Bbootstrap%5B3%2E3%2E1%5D%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fjson2%2Dmin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fjquery%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fshiny%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fshiny%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fselectize%2Fcss%2Fselectize%2Ebootstrap3%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3C%21%2D%2D%5Bif%20lt%20IE%209%5D%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Fjs%2Fes5%2Dshim%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3C%21%5Bendif%5D%2D%2D%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Fjs%2Fselectize%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice%2Dwidth%2C%20initial%2Dscale%3D1%22%20%2F%3E%0A%3Clink%20href%3D%22shared%2Fbootstrap%2Fcss%2Fbootstrap%2Emin%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fjs%2Fbootstrap%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fshim%2Fhtml5shiv%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fshim%2Frespond%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%20%20%3Ctitle%3EMultiple%20Comparisons%20Corrections%3C%2Ftitle%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fsockjs%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fshiny%2Dserver%2Dclient%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%3EpreShinyInit%28%7Breconnect%3Atrue%2CreconnectTimeout%3A15000%2CdisableProtocols%3A%5B%22htmlfile%22%2C%22xdr%2Dstreaming%22%2C%22xdr%2Dpolling%22%2C%22websocket%22%5D%2Ctoken%3Atrue%2CworkerId%3Atrue%2CsubappTag%3Atrue%2CextendSession%3Atrue%2CfixupInternalLinks%3Atrue%7D%29%3B%3C%2Fscript%3E%0A%3Clink%20rel%3D%22stylesheet%22%20type%3D%22text%2Fcss%22%20href%3D%22%5F%5Fassets%5F%5F%2Frstudio%2Dconnect%2Ecss%22%2F%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fiframe%2Dresizer%2Fjs%2FiframeResizer%2EcontentWindow%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Eframe%2Econtent%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Ejs%22%3E%3C%2Fscript%3E%0A%20%20%3Cdiv%20class%3D%22container%2Dfluid%22%3E%0A%20%20%20%20%3Ch2%3EMultiple%20Comparisons%20Corrections%3C%2Fh2%3E%0A%20%20%20%20%3Cdiv%20class%3D%22row%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D4%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20Pick%20your%20alpha%20level%20and%20desired%20correction%0A%20%20%20%20%20%20%20%20%20%20%3Chr%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22form%2Dgroup%20shiny%2Dinput%2Dcontainer%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22control%2Dlabel%22%20for%3D%22alpha%22%3ESignificance%20Level%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22alpha%22%3E%3Coption%20value%3D%22Alpha%20%3D%200%2E01%22%3EAlpha%20%3D%200%2E01%3C%2Foption%3E%0A%3Coption%20value%3D%22Alpha%20%3D%200%2E05%22%20selected%3EAlpha%20%3D%200%2E05%3C%2Foption%3E%0A%3Coption%20value%3D%22Alpha%20%3D%200%2E10%22%3EAlpha%20%3D%200%2E10%3C%2Foption%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cscript%20type%3D%22application%2Fjson%22%20data%2Dfor%3D%22alpha%22%20data%2Dnonempty%3D%22%22%3E%7B%7D%3C%2Fscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22form%2Dgroup%20shiny%2Dinput%2Dcontainer%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22control%2Dlabel%22%20for%3D%22cor%5Fmethod%22%3ECorrection%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22cor%5Fmethod%22%3E%3Coption%20value%3D%22None%22%3ENone%3C%2Foption%3E%0A%3Coption%20value%3D%22Bonferroni%22%20selected%3EBonferroni%3C%2Foption%3E%0A%3Coption%20value%3D%22Holm%22%3EHolm%3C%2Foption%3E%0A%3Coption%20value%3D%22Benjamini%20and%20Hochberg%22%3EBenjamini%20and%20Hochberg%3C%2Foption%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cscript%20type%3D%22application%2Fjson%22%20data%2Dfor%3D%22cor%5Fmethod%22%20data%2Dnonempty%3D%22%22%3E%7B%7D%3C%2Fscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20Enter%20your%20p%2Dvalues%0A%20%20%20%20%20%20%20%20%20%20%3Chr%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P1%22%3E1%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P1%22%20type%3D%22number%22%20value%3D%220%2E005%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P2%22%3E2%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P2%22%20type%3D%22number%22%20value%3D%220%2E01%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P3%22%3E3%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P3%22%20type%3D%22number%22%20value%3D%220%2E025%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P4%22%3E4%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P4%22%20type%3D%22number%22%20value%3D%220%2E05%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P5%22%3E5%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P5%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P6%22%3E6%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P6%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P7%22%3E7%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P7%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P8%22%3E8%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P8%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P9%22%3E9%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P9%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P10%22%3E10%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P10%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D8%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ptable%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Bonferroni%20correction%20is%20very%20extreme%2E%20It%20divides%20the%20unadjusted%20p%2Dvalues%20by%20the%20total%20number%20of%20tests%2E%20The%20Bonferroni%20correction%20controls%20the%20family%2Dwise%20error%20rate%20%28FWER%29%20under%20the%20worst%2Dcase%20scenario%3A%20when%20all%20the%20tests%20are%20independent%20of%20one%20another%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Holm%20correction%20also%20controls%20the%20FWER%2C%20but%20is%20slightly%20less%20extreme%2E%20It%20proceeds%20as%20follows%3A%20Order%20your%20m%20p%2Dvalues%20from%20smallest%20to%20largest%2E%20Find%20the%20smallest%20p%2Dvalue%20that%20satisfies%20this%20condition%3A%20p%5Fk%20%26gt%3B%20alpha%2F%28m%20%2B%201%20%2D%20k%29%2C%20where%20k%20is%20the%20p%2Dvalue%E2%80%99s%20index%2E%20This%20and%20all%20larger%20p%2Dvalues%20are%20insignificant%3B%20all%20smaller%20p%2Dvalues%20are%20significant%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Benjamini%E2%80%93Hochberg%20procedure%20controls%20the%20FDR%2E%20Like%20the%20Holm%20correction%2C%20you%20also%20begin%20by%20ordering%20m%20p%2Dvalues%2E%20Then%20you%20find%20the%20largest%20p%2Dvalue%20that%20satisfies%3A%20p%5Fk%20%26lt%3B%3D%20%28k%2Fm%29%2Aalpha%2E%20This%20test%2C%20and%20all%20tests%20with%20smaller%20p%2Dvalues%20are%20declared%20significant%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20For%20more%20information%20about%20multiple%20comparisons%2C%20head%20over%20to%20this%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22http%3A%2F%2Fegap%2Eorg%2Fresources%2Fguides%2F10%2Dthings%2Dyou%2Dneed%2Dto%2Dknow%2Dabout%2Dmultiple%2Dcomparisons%2F%22%3EEGAP%20Methods%20Guide%2E%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" width="850">
+<iframe height="500" src="data:text/html; charset=UTF-8;charset=utf-8,%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%3Cbase%20href%3D%22%5Fw%5Fa0df33be%2F%22%3E%0A%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%28function%28%29%20%7B%0A%20%20var%20workerId%20%3D%20%27%5Fw%5Fa0df33be%27%3B%0A%20%20%2F%2F%20remove%20base%20href%20if%20worker%20ID%20is%20in%20url%0A%20%20if%20%28window%2Elocation%2Ehref%2EindexOf%28workerId%29%20%3E%200%29%20%7B%0A%20%20%20%20document%2EquerySelector%28%27base%27%29%2EremoveAttribute%28%27href%27%29%3B%0A%20%20%7D%0A%7D%29%28%29%3B%0A%3C%2Fscript%3E%0A%0A%20%20%20%20%20%20%3Cscript%20type%3D%22text%2Fjavascript%22%3E%0A%20%20%20%20%20%20var%20%5F%5Fconnect%20%3D%20%7B%0A%20%20%20%20%20%20%20%20shinyPre101%3A%20true%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%3C%2Fscript%3E%0A%20%20%20%20%20%20%0A%20%20%3Cmeta%20http%2Dequiv%3D%22Content%2DType%22%20content%3D%22text%2Fhtml%3B%20charset%3Dutf%2D8%22%2F%3E%0A%20%20%3Cscript%20type%3D%22application%2Fshiny%2Dsingletons%22%3E%3C%2Fscript%3E%0A%20%20%3Cscript%20type%3D%22application%2Fhtml%2Ddependencies%22%3Ejson2%5B2014%2E02%2E04%5D%3Bjquery%5B1%2E11%2E0%5D%3Bshiny%5B0%2E11%2E1%5D%3Bselectize%5B0%2E11%2E2%5D%3Bbootstrap%5B3%2E3%2E1%5D%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fjson2%2Dmin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fjquery%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fshiny%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fshiny%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Clink%20href%3D%22shared%2Fselectize%2Fcss%2Fselectize%2Ebootstrap3%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3C%21%2D%2D%5Bif%20lt%20IE%209%5D%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Fjs%2Fes5%2Dshim%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3C%21%5Bendif%5D%2D%2D%3E%0A%3Cscript%20src%3D%22shared%2Fselectize%2Fjs%2Fselectize%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice%2Dwidth%2C%20initial%2Dscale%3D1%22%20%2F%3E%0A%3Clink%20href%3D%22shared%2Fbootstrap%2Fcss%2Fbootstrap%2Emin%2Ecss%22%20rel%3D%22stylesheet%22%20%2F%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fjs%2Fbootstrap%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fshim%2Fhtml5shiv%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22shared%2Fbootstrap%2Fshim%2Frespond%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%20%20%3Ctitle%3EMultiple%20Comparisons%20Corrections%3C%2Ftitle%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fsockjs%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20src%3D%22%5F%5Fassets%5F%5F%2Fshiny%2Dserver%2Dclient%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%3EpreShinyInit%28%7Breconnect%3Atrue%2CreconnectTimeout%3A15000%2CdisableProtocols%3A%5B%22htmlfile%22%2C%22xdr%2Dstreaming%22%2C%22xdr%2Dpolling%22%2C%22websocket%22%5D%2Ctoken%3Atrue%2CworkerId%3Atrue%2CsubappTag%3Atrue%2CextendSession%3Atrue%2CfixupInternalLinks%3Atrue%7D%29%3B%3C%2Fscript%3E%0A%3Clink%20rel%3D%22stylesheet%22%20type%3D%22text%2Fcss%22%20href%3D%22%5F%5Fassets%5F%5F%2Frstudio%2Dconnect%2Ecss%22%2F%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Fcomponents%2Fiframe%2Dresizer%2Fjs%2FiframeResizer%2EcontentWindow%2Emin%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Eframe%2Econtent%2Ejs%22%3E%3C%2Fscript%3E%0A%3Cscript%20type%3D%22text%2Fjavascript%22%20src%3D%22%2F%5F%5Fstatic%5F%5F%2Ffrontend%2Fscripts%2Fshinyapps%2Ejs%22%3E%3C%2Fscript%3E%0A%20%20%3Cdiv%20class%3D%22container%2Dfluid%22%3E%0A%20%20%20%20%3Ch2%3EMultiple%20Comparisons%20Corrections%3C%2Fh2%3E%0A%20%20%20%20%3Cdiv%20class%3D%22row%22%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D4%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20Pick%20your%20alpha%20level%20and%20desired%20correction%0A%20%20%20%20%20%20%20%20%20%20%3Chr%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22form%2Dgroup%20shiny%2Dinput%2Dcontainer%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22control%2Dlabel%22%20for%3D%22alpha%22%3ESignificance%20Level%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22alpha%22%3E%3Coption%20value%3D%22Alpha%20%3D%200%2E01%22%3EAlpha%20%3D%200%2E01%3C%2Foption%3E%0A%3Coption%20value%3D%22Alpha%20%3D%200%2E05%22%20selected%3EAlpha%20%3D%200%2E05%3C%2Foption%3E%0A%3Coption%20value%3D%22Alpha%20%3D%200%2E10%22%3EAlpha%20%3D%200%2E10%3C%2Foption%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cscript%20type%3D%22application%2Fjson%22%20data%2Dfor%3D%22alpha%22%20data%2Dnonempty%3D%22%22%3E%7B%7D%3C%2Fscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22form%2Dgroup%20shiny%2Dinput%2Dcontainer%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20class%3D%22control%2Dlabel%22%20for%3D%22cor%5Fmethod%22%3ECorrection%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cselect%20id%3D%22cor%5Fmethod%22%3E%3Coption%20value%3D%22None%22%3ENone%3C%2Foption%3E%0A%3Coption%20value%3D%22Bonferroni%22%20selected%3EBonferroni%3C%2Foption%3E%0A%3Coption%20value%3D%22Holm%22%3EHolm%3C%2Foption%3E%0A%3Coption%20value%3D%22Benjamini%20and%20Hochberg%22%3EBenjamini%20and%20Hochberg%3C%2Foption%3E%3C%2Fselect%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%3Cscript%20type%3D%22application%2Fjson%22%20data%2Dfor%3D%22cor%5Fmethod%22%20data%2Dnonempty%3D%22%22%3E%7B%7D%3C%2Fscript%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20Enter%20your%20p%2Dvalues%0A%20%20%20%20%20%20%20%20%20%20%3Chr%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P1%22%3E1%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P1%22%20type%3D%22number%22%20value%3D%220%2E005%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P2%22%3E2%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P2%22%20type%3D%22number%22%20value%3D%220%2E01%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P3%22%3E3%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P3%22%20type%3D%22number%22%20value%3D%220%2E025%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P4%22%3E4%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P4%22%20type%3D%22number%22%20value%3D%220%2E05%22%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P5%22%3E5%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P5%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P6%22%3E6%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P6%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P7%22%3E7%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P7%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P8%22%3E8%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P8%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P9%22%3E9%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P9%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20style%3D%22display%3Ainline%2Dblock%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Clabel%20for%3D%22P10%22%3E10%3C%2Flabel%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cinput%20id%3D%22P10%22%20type%3D%22number%22%20value%20class%3D%22input%2Dsmall%22%20min%3D%220%22%20max%3D%221%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3Cdiv%20class%3D%22col%2Dsm%2D8%22%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cdiv%20id%3D%22ptable%22%20class%3D%22shiny%2Dhtml%2Doutput%22%3E%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%20%20%3Cdiv%20class%3D%22well%22%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Bonferroni%20correction%20is%20very%20extreme%2E%20It%20divides%20the%20unadjusted%20p%2Dvalues%20by%20the%20total%20number%20of%20tests%2E%20The%20Bonferroni%20correction%20controls%20the%20family%2Dwise%20error%20rate%20%28FWER%29%20under%20the%20worst%2Dcase%20scenario%3A%20when%20all%20the%20tests%20are%20independent%20of%20one%20another%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Holm%20correction%20also%20controls%20the%20FWER%2C%20but%20is%20slightly%20less%20extreme%2E%20It%20proceeds%20as%20follows%3A%20Order%20your%20m%20p%2Dvalues%20from%20smallest%20to%20largest%2E%20Find%20the%20smallest%20p%2Dvalue%20that%20satisfies%20this%20condition%3A%20p%5Fk%20%26gt%3B%20alpha%2F%28m%20%2B%201%20%2D%20k%29%2C%20where%20k%20is%20the%20p%2Dvalue%E2%80%99s%20index%2E%20This%20and%20all%20larger%20p%2Dvalues%20are%20insignificant%3B%20all%20smaller%20p%2Dvalues%20are%20significant%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3EThe%20Benjamini%E2%80%93Hochberg%20procedure%20controls%20the%20FDR%2E%20Like%20the%20Holm%20correction%2C%20you%20also%20begin%20by%20ordering%20m%20p%2Dvalues%2E%20Then%20you%20find%20the%20largest%20p%2Dvalue%20that%20satisfies%3A%20p%5Fk%20%26lt%3B%3D%20%28k%2Fm%29%2Aalpha%2E%20This%20test%2C%20and%20all%20tests%20with%20smaller%20p%2Dvalues%20are%20declared%20significant%2E%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%20%20%3Cp%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20For%20more%20information%20about%20multiple%20comparisons%2C%20head%20over%20to%20this%20%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Ca%20href%3D%22http%3A%2F%2Fegap%2Eorg%2Fresources%2Fguides%2F10%2Dthings%2Dyou%2Dneed%2Dto%2Dknow%2Dabout%2Dmultiple%2Dcomparisons%2F%22%3EEGAP%20Methods%20Guide%2E%3C%2Fa%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fp%3E%0A%20%20%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%20%20%3C%2Fdiv%3E%0A%20%20%20%20%3C%2Fdiv%3E%0A%20%20%3C%2Fdiv%3E%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E" width="850">
 </iframe>
 </div>
 <div id="a-better-way-to-control-the-fwer-is-simulation" class="section level1">
@@ -1345,6 +1346,1310 @@ by 0.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
+<script>/*
+ * File: iframeResizer.contentWindow.js
+ * Desc: Include this file in any page being loaded into an iframe
+ *       to force the iframe to resize to the content size.
+ * Requires: iframeResizer.js on host page.
+ * Doc: https://github.com/davidjbradshaw/iframe-resizer
+ * Author: David J. Bradshaw - dave@bradshaw.net
+ *
+ */
+
+// eslint-disable-next-line sonarjs/cognitive-complexity, no-shadow-restricted-names
+;(function (undefined) {
+  if (typeof window === 'undefined') return // don't run for server side render
+
+  var autoResize = true,
+    base = 10,
+    bodyBackground = '',
+    bodyMargin = 0,
+    bodyMarginStr = '',
+    bodyObserver = null,
+    bodyPadding = '',
+    calculateWidth = false,
+    doubleEventList = { resize: 1, click: 1 },
+    eventCancelTimer = 128,
+    firstRun = true,
+    height = 1,
+    heightCalcModeDefault = 'bodyOffset',
+    heightCalcMode = heightCalcModeDefault,
+    initLock = true,
+    initMsg = '',
+    inPageLinks = {},
+    interval = 32,
+    intervalTimer = null,
+    logging = false,
+    mouseEvents = false,
+    msgID = '[iFrameSizer]', // Must match host page msg ID
+    msgIdLen = msgID.length,
+    myID = '',
+    resetRequiredMethods = {
+      max: 1,
+      min: 1,
+      bodyScroll: 1,
+      documentElementScroll: 1
+    },
+    resizeFrom = 'child',
+    sendPermit = true,
+    target = window.parent,
+    targetOriginDefault = '*',
+    tolerance = 0,
+    triggerLocked = false,
+    triggerLockedTimer = null,
+    throttledTimer = 16,
+    width = 1,
+    widthCalcModeDefault = 'scroll',
+    widthCalcMode = widthCalcModeDefault,
+    win = window,
+    onMessage = function () {
+      warn('onMessage function not defined')
+    },
+    onReady = function () {},
+    onPageInfo = function () {},
+    customCalcMethods = {
+      height: function () {
+        warn('Custom height calculation function not defined')
+        return document.documentElement.offsetHeight
+      },
+      width: function () {
+        warn('Custom width calculation function not defined')
+        return document.body.scrollWidth
+      }
+    },
+    eventHandlersByName = {},
+    passiveSupported = false
+
+  function noop() {}
+
+  try {
+    var options = Object.create(
+      {},
+      {
+        passive: {
+          get: function () {
+            passiveSupported = true
+          }
+        }
+      }
+    )
+    window.addEventListener('test', noop, options)
+    window.removeEventListener('test', noop, options)
+  } catch (error) {
+    /* */
+  }
+
+  function addEventListener(el, evt, func, options) {
+    el.addEventListener(evt, func, passiveSupported ? options || {} : false)
+  }
+
+  function removeEventListener(el, evt, func) {
+    el.removeEventListener(evt, func, false)
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
+
+  // Based on underscore.js
+  function throttle(func) {
+    var context,
+      args,
+      result,
+      timeout = null,
+      previous = 0,
+      later = function () {
+        previous = Date.now()
+        timeout = null
+        result = func.apply(context, args)
+        if (!timeout) {
+          // eslint-disable-next-line no-multi-assign
+          context = args = null
+        }
+      }
+
+    return function () {
+      var now = Date.now()
+
+      if (!previous) {
+        previous = now
+      }
+
+      var remaining = throttledTimer - (now - previous)
+
+      context = this
+      args = arguments
+
+      if (remaining <= 0 || remaining > throttledTimer) {
+        if (timeout) {
+          clearTimeout(timeout)
+          timeout = null
+        }
+
+        previous = now
+        result = func.apply(context, args)
+
+        if (!timeout) {
+          // eslint-disable-next-line no-multi-assign
+          context = args = null
+        }
+      } else if (!timeout) {
+        timeout = setTimeout(later, remaining)
+      }
+
+      return result
+    }
+  }
+
+  function formatLogMsg(msg) {
+    return msgID + '[' + myID + '] ' + msg
+  }
+
+  function log(msg) {
+    if (logging && 'object' === typeof window.console) {
+      // eslint-disable-next-line no-console
+      console.log(formatLogMsg(msg))
+    }
+  }
+
+  function warn(msg) {
+    if ('object' === typeof window.console) {
+      // eslint-disable-next-line no-console
+      console.warn(formatLogMsg(msg))
+    }
+  }
+
+  function init() {
+    readDataFromParent()
+    log('Initialising iFrame (' + window.location.href + ')')
+    readDataFromPage()
+    setMargin()
+    setBodyStyle('background', bodyBackground)
+    setBodyStyle('padding', bodyPadding)
+    injectClearFixIntoBodyElement()
+    checkHeightMode()
+    checkWidthMode()
+    stopInfiniteResizingOfIFrame()
+    setupPublicMethods()
+    setupMouseEvents()
+    startEventListeners()
+    inPageLinks = setupInPageLinks()
+    sendSize('init', 'Init message from host page')
+    onReady()
+  }
+
+  function readDataFromParent() {
+    function strBool(str) {
+      return 'true' === str
+    }
+
+    var data = initMsg.substr(msgIdLen).split(':')
+
+    myID = data[0]
+    bodyMargin = undefined !== data[1] ? Number(data[1]) : bodyMargin // For V1 compatibility
+    calculateWidth = undefined !== data[2] ? strBool(data[2]) : calculateWidth
+    logging = undefined !== data[3] ? strBool(data[3]) : logging
+    interval = undefined !== data[4] ? Number(data[4]) : interval
+    autoResize = undefined !== data[6] ? strBool(data[6]) : autoResize
+    bodyMarginStr = data[7]
+    heightCalcMode = undefined !== data[8] ? data[8] : heightCalcMode
+    bodyBackground = data[9]
+    bodyPadding = data[10]
+    tolerance = undefined !== data[11] ? Number(data[11]) : tolerance
+    inPageLinks.enable = undefined !== data[12] ? strBool(data[12]) : false
+    resizeFrom = undefined !== data[13] ? data[13] : resizeFrom
+    widthCalcMode = undefined !== data[14] ? data[14] : widthCalcMode
+    mouseEvents = undefined !== data[15] ? Boolean(data[15]) : mouseEvents
+  }
+
+  function depricate(key) {
+    var splitName = key.split('Callback')
+
+    if (splitName.length === 2) {
+      var name =
+        'on' + splitName[0].charAt(0).toUpperCase() + splitName[0].slice(1)
+      this[name] = this[key]
+      delete this[key]
+      warn(
+        "Deprecated: '" +
+          key +
+          "' has been renamed '" +
+          name +
+          "'. The old method will be removed in the next major version."
+      )
+    }
+  }
+
+  function readDataFromPage() {
+    function readData() {
+      var data = window.iFrameResizer
+
+      log('Reading data from page: ' + JSON.stringify(data))
+      Object.keys(data).forEach(depricate, data)
+
+      onMessage = 'onMessage' in data ? data.onMessage : onMessage
+      onReady = 'onReady' in data ? data.onReady : onReady
+      targetOriginDefault =
+        'targetOrigin' in data ? data.targetOrigin : targetOriginDefault
+      heightCalcMode =
+        'heightCalculationMethod' in data
+          ? data.heightCalculationMethod
+          : heightCalcMode
+      widthCalcMode =
+        'widthCalculationMethod' in data
+          ? data.widthCalculationMethod
+          : widthCalcMode
+    }
+
+    function setupCustomCalcMethods(calcMode, calcFunc) {
+      if ('function' === typeof calcMode) {
+        log('Setup custom ' + calcFunc + 'CalcMethod')
+        customCalcMethods[calcFunc] = calcMode
+        calcMode = 'custom'
+      }
+
+      return calcMode
+    }
+
+    if (
+      'iFrameResizer' in window &&
+      Object === window.iFrameResizer.constructor
+    ) {
+      readData()
+      heightCalcMode = setupCustomCalcMethods(heightCalcMode, 'height')
+      widthCalcMode = setupCustomCalcMethods(widthCalcMode, 'width')
+    }
+
+    log('TargetOrigin for parent set to: ' + targetOriginDefault)
+  }
+
+  function chkCSS(attr, value) {
+    if (-1 !== value.indexOf('-')) {
+      warn('Negative CSS value ignored for ' + attr)
+      value = ''
+    }
+    return value
+  }
+
+  function setBodyStyle(attr, value) {
+    if (undefined !== value && '' !== value && 'null' !== value) {
+      document.body.style[attr] = value
+      log('Body ' + attr + ' set to "' + value + '"')
+    }
+  }
+
+  function setMargin() {
+    // If called via V1 script, convert bodyMargin from int to str
+    if (undefined === bodyMarginStr) {
+      bodyMarginStr = bodyMargin + 'px'
+    }
+
+    setBodyStyle('margin', chkCSS('margin', bodyMarginStr))
+  }
+
+  function stopInfiniteResizingOfIFrame() {
+    document.documentElement.style.height = ''
+    document.body.style.height = ''
+    log('HTML & body height set to "auto"')
+  }
+
+  function manageTriggerEvent(options) {
+    var listener = {
+      add: function (eventName) {
+        function handleEvent() {
+          sendSize(options.eventName, options.eventType)
+        }
+
+        eventHandlersByName[eventName] = handleEvent
+
+        addEventListener(window, eventName, handleEvent, { passive: true })
+      },
+      remove: function (eventName) {
+        var handleEvent = eventHandlersByName[eventName]
+        delete eventHandlersByName[eventName]
+
+        removeEventListener(window, eventName, handleEvent)
+      }
+    }
+
+    if (options.eventNames && Array.prototype.map) {
+      options.eventName = options.eventNames[0]
+      options.eventNames.map(listener[options.method])
+    } else {
+      listener[options.method](options.eventName)
+    }
+
+    log(
+      capitalizeFirstLetter(options.method) +
+        ' event listener: ' +
+        options.eventType
+    )
+  }
+
+  function manageEventListeners(method) {
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Animation Start',
+      eventNames: ['animationstart', 'webkitAnimationStart']
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Animation Iteration',
+      eventNames: ['animationiteration', 'webkitAnimationIteration']
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Animation End',
+      eventNames: ['animationend', 'webkitAnimationEnd']
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Input',
+      eventName: 'input'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Mouse Up',
+      eventName: 'mouseup'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Mouse Down',
+      eventName: 'mousedown'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Orientation Change',
+      eventName: 'orientationchange'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Print',
+      eventName: ['afterprint', 'beforeprint']
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Ready State Change',
+      eventName: 'readystatechange'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Touch Start',
+      eventName: 'touchstart'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Touch End',
+      eventName: 'touchend'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Touch Cancel',
+      eventName: 'touchcancel'
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Transition Start',
+      eventNames: [
+        'transitionstart',
+        'webkitTransitionStart',
+        'MSTransitionStart',
+        'oTransitionStart',
+        'otransitionstart'
+      ]
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Transition Iteration',
+      eventNames: [
+        'transitioniteration',
+        'webkitTransitionIteration',
+        'MSTransitionIteration',
+        'oTransitionIteration',
+        'otransitioniteration'
+      ]
+    })
+    manageTriggerEvent({
+      method: method,
+      eventType: 'Transition End',
+      eventNames: [
+        'transitionend',
+        'webkitTransitionEnd',
+        'MSTransitionEnd',
+        'oTransitionEnd',
+        'otransitionend'
+      ]
+    })
+    if ('child' === resizeFrom) {
+      manageTriggerEvent({
+        method: method,
+        eventType: 'IFrame Resized',
+        eventName: 'resize'
+      })
+    }
+  }
+
+  function checkCalcMode(calcMode, calcModeDefault, modes, type) {
+    if (calcModeDefault !== calcMode) {
+      if (!(calcMode in modes)) {
+        warn(
+          calcMode + ' is not a valid option for ' + type + 'CalculationMethod.'
+        )
+        calcMode = calcModeDefault
+      }
+      log(type + ' calculation method set to "' + calcMode + '"')
+    }
+
+    return calcMode
+  }
+
+  function checkHeightMode() {
+    heightCalcMode = checkCalcMode(
+      heightCalcMode,
+      heightCalcModeDefault,
+      getHeight,
+      'height'
+    )
+  }
+
+  function checkWidthMode() {
+    widthCalcMode = checkCalcMode(
+      widthCalcMode,
+      widthCalcModeDefault,
+      getWidth,
+      'width'
+    )
+  }
+
+  function startEventListeners() {
+    if (true === autoResize) {
+      manageEventListeners('add')
+      setupMutationObserver()
+    } else {
+      log('Auto Resize disabled')
+    }
+  }
+
+  //   function stopMsgsToParent() {
+  //     log('Disable outgoing messages')
+  //     sendPermit = false
+  //   }
+
+  //   function removeMsgListener() {
+  //     log('Remove event listener: Message')
+  //     removeEventListener(window, 'message', receiver)
+  //   }
+
+  function disconnectMutationObserver() {
+    if (null !== bodyObserver) {
+      /* istanbul ignore next */ // Not testable in PhantonJS
+      bodyObserver.disconnect()
+    }
+  }
+
+  function stopEventListeners() {
+    manageEventListeners('remove')
+    disconnectMutationObserver()
+    clearInterval(intervalTimer)
+  }
+
+  //   function teardown() {
+  //     stopMsgsToParent()
+  //     removeMsgListener()
+  //     if (true === autoResize) stopEventListeners()
+  //   }
+
+  function injectClearFixIntoBodyElement() {
+    var clearFix = document.createElement('div')
+    clearFix.style.clear = 'both'
+    // Guard against the following having been globally redefined in CSS.
+    clearFix.style.display = 'block'
+    clearFix.style.height = '0'
+    document.body.appendChild(clearFix)
+  }
+
+  function setupInPageLinks() {
+    function getPagePosition() {
+      return {
+        x:
+          window.pageXOffset !== undefined
+            ? window.pageXOffset
+            : document.documentElement.scrollLeft,
+        y:
+          window.pageYOffset !== undefined
+            ? window.pageYOffset
+            : document.documentElement.scrollTop
+      }
+    }
+
+    function getElementPosition(el) {
+      var elPosition = el.getBoundingClientRect(),
+        pagePosition = getPagePosition()
+
+      return {
+        x: parseInt(elPosition.left, 10) + parseInt(pagePosition.x, 10),
+        y: parseInt(elPosition.top, 10) + parseInt(pagePosition.y, 10)
+      }
+    }
+
+    function findTarget(location) {
+      function jumpToTarget(target) {
+        var jumpPosition = getElementPosition(target)
+
+        log(
+          'Moving to in page link (#' +
+            hash +
+            ') at x: ' +
+            jumpPosition.x +
+            ' y: ' +
+            jumpPosition.y
+        )
+        sendMsg(jumpPosition.y, jumpPosition.x, 'scrollToOffset') // X&Y reversed at sendMsg uses height/width
+      }
+
+      var hash = location.split('#')[1] || location, // Remove # if present
+        hashData = decodeURIComponent(hash),
+        target =
+          document.getElementById(hashData) ||
+          document.getElementsByName(hashData)[0]
+
+      if (undefined !== target) {
+        jumpToTarget(target)
+      } else {
+        log(
+          'In page link (#' +
+            hash +
+            ') not found in iFrame, so sending to parent'
+        )
+        sendMsg(0, 0, 'inPageLink', '#' + hash)
+      }
+    }
+
+    function checkLocationHash() {
+      var hash = window.location.hash
+      var href = window.location.href
+
+      if ('' !== hash && '#' !== hash) {
+        findTarget(href)
+      }
+    }
+
+    function bindAnchors() {
+      function setupLink(el) {
+        function linkClicked(e) {
+          e.preventDefault()
+
+          /* jshint validthis:true */
+          findTarget(this.getAttribute('href'))
+        }
+
+        if ('#' !== el.getAttribute('href')) {
+          addEventListener(el, 'click', linkClicked)
+        }
+      }
+
+      Array.prototype.forEach.call(
+        document.querySelectorAll('a[href^="#"]'),
+        setupLink
+      )
+    }
+
+    function bindLocationHash() {
+      addEventListener(window, 'hashchange', checkLocationHash)
+    }
+
+    function initCheck() {
+      // Check if page loaded with location hash after init resize
+      setTimeout(checkLocationHash, eventCancelTimer)
+    }
+
+    function enableInPageLinks() {
+      /* istanbul ignore else */ // Not testable in phantonJS
+      if (Array.prototype.forEach && document.querySelectorAll) {
+        log('Setting up location.hash handlers')
+        bindAnchors()
+        bindLocationHash()
+        initCheck()
+      } else {
+        warn(
+          'In page linking not fully supported in this browser! (See README.md for IE8 workaround)'
+        )
+      }
+    }
+
+    if (inPageLinks.enable) {
+      enableInPageLinks()
+    } else {
+      log('In page linking not enabled')
+    }
+
+    return {
+      findTarget: findTarget
+    }
+  }
+
+  function setupMouseEvents() {
+    if (mouseEvents !== true) return
+
+    function sendMouse(e) {
+      sendMsg(0, 0, e.type, e.screenY + ':' + e.screenX)
+    }
+
+    function addMouseListener(evt, name) {
+      log('Add event listener: ' + name)
+      addEventListener(window.document, evt, sendMouse)
+    }
+
+    addMouseListener('mouseenter', 'Mouse Enter')
+    addMouseListener('mouseleave', 'Mouse Leave')
+  }
+
+  function setupPublicMethods() {
+    log('Enable public methods')
+
+    win.parentIFrame = {
+      autoResize: function autoResizeF(resize) {
+        if (true === resize && false === autoResize) {
+          autoResize = true
+          startEventListeners()
+        } else if (false === resize && true === autoResize) {
+          autoResize = false
+          stopEventListeners()
+        }
+        sendMsg(0, 0, 'autoResize', JSON.stringify(autoResize))
+        return autoResize
+      },
+
+      close: function closeF() {
+        sendMsg(0, 0, 'close')
+        // teardown()
+      },
+
+      getId: function getIdF() {
+        return myID
+      },
+
+      getPageInfo: function getPageInfoF(callback) {
+        if ('function' === typeof callback) {
+          onPageInfo = callback
+          sendMsg(0, 0, 'pageInfo')
+        } else {
+          onPageInfo = function () {}
+          sendMsg(0, 0, 'pageInfoStop')
+        }
+      },
+
+      moveToAnchor: function moveToAnchorF(hash) {
+        inPageLinks.findTarget(hash)
+      },
+
+      reset: function resetF() {
+        resetIFrame('parentIFrame.reset')
+      },
+
+      scrollTo: function scrollToF(x, y) {
+        sendMsg(y, x, 'scrollTo') // X&Y reversed at sendMsg uses height/width
+      },
+
+      scrollToOffset: function scrollToF(x, y) {
+        sendMsg(y, x, 'scrollToOffset') // X&Y reversed at sendMsg uses height/width
+      },
+
+      sendMessage: function sendMessageF(msg, targetOrigin) {
+        sendMsg(0, 0, 'message', JSON.stringify(msg), targetOrigin)
+      },
+
+      setHeightCalculationMethod: function setHeightCalculationMethodF(
+        heightCalculationMethod
+      ) {
+        heightCalcMode = heightCalculationMethod
+        checkHeightMode()
+      },
+
+      setWidthCalculationMethod: function setWidthCalculationMethodF(
+        widthCalculationMethod
+      ) {
+        widthCalcMode = widthCalculationMethod
+        checkWidthMode()
+      },
+
+      setTargetOrigin: function setTargetOriginF(targetOrigin) {
+        log('Set targetOrigin: ' + targetOrigin)
+        targetOriginDefault = targetOrigin
+      },
+
+      size: function sizeF(customHeight, customWidth) {
+        var valString =
+          '' + (customHeight || '') + (customWidth ? ',' + customWidth : '')
+        sendSize(
+          'size',
+          'parentIFrame.size(' + valString + ')',
+          customHeight,
+          customWidth
+        )
+      }
+    }
+  }
+
+  function initInterval() {
+    if (0 !== interval) {
+      log('setInterval: ' + interval + 'ms')
+      intervalTimer = setInterval(function () {
+        sendSize('interval', 'setInterval: ' + interval)
+      }, Math.abs(interval))
+    }
+  }
+
+  // Not testable in PhantomJS
+  /* istanbul ignore next */
+  function setupBodyMutationObserver() {
+    function addImageLoadListners(mutation) {
+      function addImageLoadListener(element) {
+        if (false === element.complete) {
+          log('Attach listeners to ' + element.src)
+          element.addEventListener('load', imageLoaded, false)
+          element.addEventListener('error', imageError, false)
+          elements.push(element)
+        }
+      }
+
+      if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+        addImageLoadListener(mutation.target)
+      } else if (mutation.type === 'childList') {
+        Array.prototype.forEach.call(
+          mutation.target.querySelectorAll('img'),
+          addImageLoadListener
+        )
+      }
+    }
+
+    function removeFromArray(element) {
+      elements.splice(elements.indexOf(element), 1)
+    }
+
+    function removeImageLoadListener(element) {
+      log('Remove listeners from ' + element.src)
+      element.removeEventListener('load', imageLoaded, false)
+      element.removeEventListener('error', imageError, false)
+      removeFromArray(element)
+    }
+
+    function imageEventTriggered(event, type, typeDesc) {
+      removeImageLoadListener(event.target)
+      sendSize(type, typeDesc + ': ' + event.target.src)
+    }
+
+    function imageLoaded(event) {
+      imageEventTriggered(event, 'imageLoad', 'Image loaded')
+    }
+
+    function imageError(event) {
+      imageEventTriggered(event, 'imageLoadFailed', 'Image load failed')
+    }
+
+    function mutationObserved(mutations) {
+      sendSize(
+        'mutationObserver',
+        'mutationObserver: ' + mutations[0].target + ' ' + mutations[0].type
+      )
+
+      // Deal with WebKit / Blink asyncing image loading when tags are injected into the page
+      mutations.forEach(addImageLoadListners)
+    }
+
+    function createMutationObserver() {
+      var target = document.querySelector('body'),
+        config = {
+          attributes: true,
+          attributeOldValue: false,
+          characterData: true,
+          characterDataOldValue: false,
+          childList: true,
+          subtree: true
+        }
+
+      observer = new MutationObserver(mutationObserved)
+
+      log('Create body MutationObserver')
+      observer.observe(target, config)
+
+      return observer
+    }
+
+    var elements = [],
+      MutationObserver =
+        window.MutationObserver || window.WebKitMutationObserver,
+      observer = createMutationObserver()
+
+    return {
+      disconnect: function () {
+        if ('disconnect' in observer) {
+          log('Disconnect body MutationObserver')
+          observer.disconnect()
+          elements.forEach(removeImageLoadListener)
+        }
+      }
+    }
+  }
+
+  function setupMutationObserver() {
+    var forceIntervalTimer = 0 > interval
+
+    // Not testable in PhantomJS
+    /* istanbul ignore if */ if (
+      window.MutationObserver ||
+      window.WebKitMutationObserver
+    ) {
+      if (forceIntervalTimer) {
+        initInterval()
+      } else {
+        bodyObserver = setupBodyMutationObserver()
+      }
+    } else {
+      log('MutationObserver not supported in this browser!')
+      initInterval()
+    }
+  }
+
+  // document.documentElement.offsetHeight is not reliable, so
+  // we have to jump through hoops to get a better value.
+  function getComputedStyle(prop, el) {
+    var retVal = 0
+    el = el || document.body // Not testable in phantonJS
+
+    retVal = document.defaultView.getComputedStyle(el, null)
+    retVal = null !== retVal ? retVal[prop] : 0
+
+    return parseInt(retVal, base)
+  }
+
+  function chkEventThottle(timer) {
+    if (timer > throttledTimer / 2) {
+      throttledTimer = 2 * timer
+      log('Event throttle increased to ' + throttledTimer + 'ms')
+    }
+  }
+
+  // Idea from https://github.com/guardian/iframe-messenger
+  function getMaxElement(side, elements) {
+    var elementsLength = elements.length,
+      elVal = 0,
+      maxVal = 0,
+      Side = capitalizeFirstLetter(side),
+      timer = Date.now()
+
+    for (var i = 0; i < elementsLength; i++) {
+      elVal =
+        elements[i].getBoundingClientRect()[side] +
+        getComputedStyle('margin' + Side, elements[i])
+      if (elVal > maxVal) {
+        maxVal = elVal
+      }
+    }
+
+    timer = Date.now() - timer
+
+    log('Parsed ' + elementsLength + ' HTML elements')
+    log('Element position calculated in ' + timer + 'ms')
+
+    chkEventThottle(timer)
+
+    return maxVal
+  }
+
+  function getAllMeasurements(dimensions) {
+    return [
+      dimensions.bodyOffset(),
+      dimensions.bodyScroll(),
+      dimensions.documentElementOffset(),
+      dimensions.documentElementScroll()
+    ]
+  }
+
+  function getTaggedElements(side, tag) {
+    function noTaggedElementsFound() {
+      warn('No tagged elements (' + tag + ') found on page')
+      return document.querySelectorAll('body *')
+    }
+
+    var elements = document.querySelectorAll('[' + tag + ']')
+
+    if (elements.length === 0) noTaggedElementsFound()
+
+    return getMaxElement(side, elements)
+  }
+
+  function getAllElements() {
+    return document.querySelectorAll('body *')
+  }
+
+  var getHeight = {
+      bodyOffset: function getBodyOffsetHeight() {
+        return (
+          document.body.offsetHeight +
+          getComputedStyle('marginTop') +
+          getComputedStyle('marginBottom')
+        )
+      },
+
+      offset: function () {
+        return getHeight.bodyOffset() // Backwards compatability
+      },
+
+      bodyScroll: function getBodyScrollHeight() {
+        return document.body.scrollHeight
+      },
+
+      custom: function getCustomWidth() {
+        return customCalcMethods.height()
+      },
+
+      documentElementOffset: function getDEOffsetHeight() {
+        return document.documentElement.offsetHeight
+      },
+
+      documentElementScroll: function getDEScrollHeight() {
+        return document.documentElement.scrollHeight
+      },
+
+      max: function getMaxHeight() {
+        return Math.max.apply(null, getAllMeasurements(getHeight))
+      },
+
+      min: function getMinHeight() {
+        return Math.min.apply(null, getAllMeasurements(getHeight))
+      },
+
+      grow: function growHeight() {
+        return getHeight.max() // Run max without the forced downsizing
+      },
+
+      lowestElement: function getBestHeight() {
+        return Math.max(
+          getHeight.bodyOffset() || getHeight.documentElementOffset(),
+          getMaxElement('bottom', getAllElements())
+        )
+      },
+
+      taggedElement: function getTaggedElementsHeight() {
+        return getTaggedElements('bottom', 'data-iframe-height')
+      }
+    },
+    getWidth = {
+      bodyScroll: function getBodyScrollWidth() {
+        return document.body.scrollWidth
+      },
+
+      bodyOffset: function getBodyOffsetWidth() {
+        return document.body.offsetWidth
+      },
+
+      custom: function getCustomWidth() {
+        return customCalcMethods.width()
+      },
+
+      documentElementScroll: function getDEScrollWidth() {
+        return document.documentElement.scrollWidth
+      },
+
+      documentElementOffset: function getDEOffsetWidth() {
+        return document.documentElement.offsetWidth
+      },
+
+      scroll: function getMaxWidth() {
+        return Math.max(getWidth.bodyScroll(), getWidth.documentElementScroll())
+      },
+
+      max: function getMaxWidth() {
+        return Math.max.apply(null, getAllMeasurements(getWidth))
+      },
+
+      min: function getMinWidth() {
+        return Math.min.apply(null, getAllMeasurements(getWidth))
+      },
+
+      rightMostElement: function rightMostElement() {
+        return getMaxElement('right', getAllElements())
+      },
+
+      taggedElement: function getTaggedElementsWidth() {
+        return getTaggedElements('right', 'data-iframe-width')
+      }
+    }
+
+  function sizeIFrame(
+    triggerEvent,
+    triggerEventDesc,
+    customHeight,
+    customWidth
+  ) {
+    function resizeIFrame() {
+      height = currentHeight
+      width = currentWidth
+
+      sendMsg(height, width, triggerEvent)
+    }
+
+    function isSizeChangeDetected() {
+      function checkTolarance(a, b) {
+        var retVal = Math.abs(a - b) <= tolerance
+        return !retVal
+      }
+
+      currentHeight =
+        undefined !== customHeight ? customHeight : getHeight[heightCalcMode]()
+      currentWidth =
+        undefined !== customWidth ? customWidth : getWidth[widthCalcMode]()
+
+      return (
+        checkTolarance(height, currentHeight) ||
+        (calculateWidth && checkTolarance(width, currentWidth))
+      )
+    }
+
+    function isForceResizableEvent() {
+      return !(triggerEvent in { init: 1, interval: 1, size: 1 })
+    }
+
+    function isForceResizableCalcMode() {
+      return (
+        heightCalcMode in resetRequiredMethods ||
+        (calculateWidth && widthCalcMode in resetRequiredMethods)
+      )
+    }
+
+    function logIgnored() {
+      log('No change in size detected')
+    }
+
+    function checkDownSizing() {
+      if (isForceResizableEvent() && isForceResizableCalcMode()) {
+        resetIFrame(triggerEventDesc)
+      } else if (!(triggerEvent in { interval: 1 })) {
+        logIgnored()
+      }
+    }
+
+    var currentHeight, currentWidth
+
+    if (isSizeChangeDetected() || 'init' === triggerEvent) {
+      lockTrigger()
+      resizeIFrame()
+    } else {
+      checkDownSizing()
+    }
+  }
+
+  var sizeIFrameThrottled = throttle(sizeIFrame)
+
+  function sendSize(triggerEvent, triggerEventDesc, customHeight, customWidth) {
+    function recordTrigger() {
+      if (!(triggerEvent in { reset: 1, resetPage: 1, init: 1 })) {
+        log('Trigger event: ' + triggerEventDesc)
+      }
+    }
+
+    function isDoubleFiredEvent() {
+      return triggerLocked && triggerEvent in doubleEventList
+    }
+
+    if (!isDoubleFiredEvent()) {
+      recordTrigger()
+      if (triggerEvent === 'init') {
+        sizeIFrame(triggerEvent, triggerEventDesc, customHeight, customWidth)
+      } else {
+        sizeIFrameThrottled(
+          triggerEvent,
+          triggerEventDesc,
+          customHeight,
+          customWidth
+        )
+      }
+    } else {
+      log('Trigger event cancelled: ' + triggerEvent)
+    }
+  }
+
+  function lockTrigger() {
+    if (!triggerLocked) {
+      triggerLocked = true
+      log('Trigger event lock on')
+    }
+    clearTimeout(triggerLockedTimer)
+    triggerLockedTimer = setTimeout(function () {
+      triggerLocked = false
+      log('Trigger event lock off')
+      log('--')
+    }, eventCancelTimer)
+  }
+
+  function triggerReset(triggerEvent) {
+    height = getHeight[heightCalcMode]()
+    width = getWidth[widthCalcMode]()
+
+    sendMsg(height, width, triggerEvent)
+  }
+
+  function resetIFrame(triggerEventDesc) {
+    var hcm = heightCalcMode
+    heightCalcMode = heightCalcModeDefault
+
+    log('Reset trigger event: ' + triggerEventDesc)
+    lockTrigger()
+    triggerReset('reset')
+
+    heightCalcMode = hcm
+  }
+
+  function sendMsg(height, width, triggerEvent, msg, targetOrigin) {
+    function setTargetOrigin() {
+      if (undefined === targetOrigin) {
+        targetOrigin = targetOriginDefault
+      } else {
+        log('Message targetOrigin: ' + targetOrigin)
+      }
+    }
+
+    function sendToParent() {
+      var size = height + ':' + width,
+        message =
+          myID +
+          ':' +
+          size +
+          ':' +
+          triggerEvent +
+          (undefined !== msg ? ':' + msg : '')
+
+      log('Sending message to host page (' + message + ')')
+      target.postMessage(msgID + message, targetOrigin)
+    }
+
+    if (true === sendPermit) {
+      setTargetOrigin()
+      sendToParent()
+    }
+  }
+
+  function receiver(event) {
+    var processRequestFromParent = {
+      init: function initFromParent() {
+        initMsg = event.data
+        target = event.source
+
+        init()
+        firstRun = false
+        setTimeout(function () {
+          initLock = false
+        }, eventCancelTimer)
+      },
+
+      reset: function resetFromParent() {
+        if (!initLock) {
+          log('Page size reset by host page')
+          triggerReset('resetPage')
+        } else {
+          log('Page reset ignored by init')
+        }
+      },
+
+      resize: function resizeFromParent() {
+        sendSize('resizeParent', 'Parent window requested size check')
+      },
+
+      moveToAnchor: function moveToAnchorF() {
+        inPageLinks.findTarget(getData())
+      },
+      inPageLink: function inPageLinkF() {
+        this.moveToAnchor()
+      }, // Backward compatability
+
+      pageInfo: function pageInfoFromParent() {
+        var msgBody = getData()
+        log('PageInfoFromParent called from parent: ' + msgBody)
+        onPageInfo(JSON.parse(msgBody))
+        log(' --')
+      },
+
+      message: function messageFromParent() {
+        var msgBody = getData()
+
+        log('onMessage called from parent: ' + msgBody)
+        // eslint-disable-next-line sonarjs/no-extra-arguments
+        onMessage(JSON.parse(msgBody))
+        log(' --')
+      }
+    }
+
+    function isMessageForUs() {
+      return msgID === ('' + event.data).substr(0, msgIdLen) // ''+ Protects against non-string messages
+    }
+
+    function getMessageType() {
+      return event.data.split(']')[1].split(':')[0]
+    }
+
+    function getData() {
+      return event.data.substr(event.data.indexOf(':') + 1)
+    }
+
+    function isMiddleTier() {
+      return (
+        (!(typeof module !== 'undefined' && module.exports) &&
+          'iFrameResize' in window) ||
+        ('jQuery' in window && 'iFrameResize' in window.jQuery.prototype)
+      )
+    }
+
+    function isInitMsg() {
+      // Test if this message is from a child below us. This is an ugly test, however, updating
+      // the message format would break backwards compatibity.
+      return event.data.split(':')[2] in { true: 1, false: 1 }
+    }
+
+    function callFromParent() {
+      var messageType = getMessageType()
+
+      if (messageType in processRequestFromParent) {
+        processRequestFromParent[messageType]()
+      } else if (!isMiddleTier() && !isInitMsg()) {
+        warn('Unexpected message (' + event.data + ')')
+      }
+    }
+
+    function processMessage() {
+      if (false === firstRun) {
+        callFromParent()
+      } else if (isInitMsg()) {
+        processRequestFromParent.init()
+      } else {
+        log(
+          'Ignored message of type "' +
+            getMessageType() +
+            '". Received before initialization.'
+        )
+      }
+    }
+
+    if (isMessageForUs()) {
+      processMessage()
+    }
+  }
+
+  // Normally the parent kicks things off when it detects the iFrame has loaded.
+  // If this script is async-loaded, then tell parent page to retry init.
+  function chkLateLoaded() {
+    if ('loading' !== document.readyState) {
+      window.parent.postMessage('[iFrameResizerChild]Ready', '*')
+    }
+  }
+
+  addEventListener(window, 'message', receiver)
+  addEventListener(window, 'readystatechange', chkLateLoaded)
+  chkLateLoaded()
+
+  
+})()
+</script>
 
 
 

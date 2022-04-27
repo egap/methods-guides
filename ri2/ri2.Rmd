@@ -3,6 +3,8 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Randomization Inference Procedures with ri2" -->
@@ -191,10 +193,10 @@ plot(ri_out)
 
 In a three-arm trial, the research might wish to compare each treatment to control separately. To do this, we must change the null hypothesis in a subtle way: we are going to assume the sharp null for each *pairwise* comparison. For example, when comparing treatment 1 to control, we exclude the subjects assigned to treatment 2 and pretend we simply have a two arm trial conducted among the subjects assigned to control and treatment 1.
 
-```{r}
+```{r three_arm_example, eval=TRUE, warn=FALSE}
 three_arm_dat <- read.csv("three_arm_dat.csv")
 three_arm_dec <- declare_ra(N = 200, 
-                            condition_names = c("Control", "Treatment 1", "Treatment 2"))
+                            conditions = c("Control", "Treatment 1", "Treatment 2"))
 
 ri_out <-
     conduct_ri(
@@ -206,7 +208,7 @@ ri_out <-
 
 
 summary(ri_out)
-plot(ri_out)
+## plot(ri_out)
 ```
 
 # 7. Randomization inference for joint significance

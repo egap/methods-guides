@@ -3,6 +3,8 @@ output:
   html_document:
     toc: yes
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things You Need to Know About External Validity" -->

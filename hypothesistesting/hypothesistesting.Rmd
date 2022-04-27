@@ -1,6 +1,6 @@
 ---
-bibliography: ../../Research-Group-Bibliography/big.bib
-output: 
+bibliography: ./hypothesistesting.bib
+output:
   bookdown::html_document2:
     number_sections: true
     toc: true
@@ -8,9 +8,8 @@ output:
     extensions: +implicit_figure
     code_folding: hide
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Hypothesis Testing" -->
@@ -49,6 +48,7 @@ opts_chunk$set(strip.white=TRUE,
 
 library(randomizr)
 library(coin)
+library(here)
 ```
 
 
@@ -69,8 +69,7 @@ quasi-experimental designs).
 
 The $p$-value summarizes the ability of a given test to
 distinguish signal from noise. As we saw in [10 Things You Need to Know about
-Statistical
-Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
+Statistical Power](https://egap.org/resource/10-things-to-know-about-statistical-power),
 whether an experiment can detect a treatment effect depends not
 only on the size of the experimental pool, but also the distribution of the
 outcome^[Outcomes with big outliers add noise, outcomes that are mostly 0 have
@@ -127,10 +126,10 @@ information ($y_{i,0}$). So, we cannot use direct observation to learn about
 this counterfactual causal effect and we can only **infer** about it.
 @holland1986statistics calls this inability to use direct observation to
 learn about counterfactual causality the "fundamental problem of causal
-inference." 
+inference."
 
 
-## An overview of estimation based approaches to causal inference in randomized experiments. 
+## An overview of estimation based approaches to causal inference in randomized experiments.
 
 There are three main ways that the statistical sciences have engaged with this
 problem. That is, when asked, "Does information cause people to pay their
@@ -146,9 +145,9 @@ or conditional probabilities. A related approach, from Don Rubin begins by **pre
 individual level potential outcomes using background information and a
 probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
 probability model of the two potential outcomes such that, say,
-$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). 
+$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another).
 
-The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and 
+The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and
 combines them using Bayes Rule to produce posterior distributions for
 quantities like the individual level treatment effects or average treatment
 effects (see [@imbens2007causal] for more on what they call the Bayesian
@@ -282,7 +281,7 @@ observable outcomes.
 **The weak null hypothesis of no effects** specifies that
 $\bar{\tau}=\bar{y}_{1} - \bar{y}_0 = 0$, and
 we can write a similar identity linking means of unobserved potential outcomes to means
-of observed outcomes in different treatment conditions. 
+of observed outcomes in different treatment conditions.
 
 # Test statistics summarize the relationship between observed outcomes and treatment assignment.
 
@@ -292,10 +291,10 @@ summarizes the relationship between treatment and observed outcomes using a
 single number. In general, we would like our test statistics to take on larger
 values the larger the treatment effect. The code below, for example, shows are two such test
 statistics using an example experiment with 10 units randomized into two
-groups (you can press the "CODE" button to see the R code). 
+groups (you can press the "CODE" button to see the R code).
 
 ```{r setupdata, results='hide', echo=TRUE}
-## First, create some data, 
+## First, create some data,
 ##  y0 is potential outcome to control
 N <- 10
 y0 <- c(0,0,0,0,1,1,4,5,400,500)
@@ -323,7 +322,7 @@ dat <- data.frame(Y=Y,Z=Z,y0=y0,tau=tau,y1=y1)
 #pvalue(oneway_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 #pvalue(wilcox_test(Y~factor(Z),data=dat,distribution=exact(),alternative="greater"))
 ## The mean difference test statistic
-meanTZ <- function(ys,z){ 
+meanTZ <- function(ys,z){
 	mean(ys[z==1]) - mean(ys[z==0])
 }
 
@@ -363,7 +362,7 @@ study. A large experiment, for example, should have more information about
 a hypothesis than a small one. So, what do we mean by evidence against the
 hypothesis? How would we formalize or summarize this evidence so that larger
 experiments tend to reveal more and small experiments tend to reveal less
-information? 
+information?
 
 One answer to this question is to refer to the thought experiment of repeating
 the study. Imagine, for the sake of argument, that the hypothesis was correct.
@@ -380,7 +379,7 @@ $t(Z,y_0)$) than in a small experiment.
 When we compare what we actually observe, $t(z,Y)$, to the distribution of
 what we could have observed under the null, we learn that our given study is
 typical or not typical of the null hypothesis. And we encode this typicality
-or extremity with a $p$-value. 
+or extremity with a $p$-value.
 
 Notice that the $p$-value does not tell us about the probability associated
 with the observed data. The observed data is observed. The probability arises
@@ -466,7 +465,7 @@ differences of means between treated and control groups are compatible with
 the treatment having no effects (with the overall range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`).  The right panel shows
 that transforming the outcomes to ranks before taking the difference of means
 reduces the range of the test statistics --- after all the ranks themselves go
-from 1 to 10 rather than from 1 to 280.  
+from 1 to 10 rather than from 1 to 280.
 
 ### One-sided $p$-values
 
@@ -505,7 +504,7 @@ multiplying the smaller p-value by two.)
 ```{r twosidedp}
 ## Here I use <= and >= rather than < and > because of the discreteness of the
 ## randomization distribution with only 10 observations. See discussions of
-## the "mid-p-value" 
+## the "mid-p-value"
 p2SidedMeanTZ <-     2*min( mean( possibleMeanDiffsH0 >= observedMeanTZ ),
 			   mean( possibleMeanDiffsH0 <= observedMeanTZ ))
 
@@ -514,7 +513,7 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 
 ```
 
-In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.  
+In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.
 
 **As a side note** The test of the sharp null shown here can be done without
 writing the code yourself. The code that you'll see here (by clicking the code
@@ -530,10 +529,15 @@ dat$rankY <- rank(dat$Y)
 pMeanRank2 <- pvalue(oneway_test(rankY~factor(Z),data=dat,distribution=approximate(nresample=1000)))
 pMean2
 pMeanRank2
-## using a development version of the RItools package 
+## using a development version of the RItools package
 library(devtools)
-dev_mode()
-install_github("markmfredrickson/RItools@randomization-distribution")
+dir.create(here("R-dev"))
+dev_mode(on = TRUE,path=here("R-dev"))
+renv::install("dgof")
+renv::install("hexbin")
+renv::install("kSamples")
+renv::install("ddst")
+remotes::install_github("markmfredrickson/RItools@randomization-distribution",dependencies=TRUE)
 library(RItools)
 thedesignA <- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
 pMean4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanTZ ,
@@ -542,15 +546,17 @@ pMeanRank4 <- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanrankTZ ,
 		     sampler = thedesignA)
 pMean4
 pMeanRank4
-dev_mode()
-
+dev_mode(on=FALSE,path=here("R-dev"))
+```
 ## using the ri2 package
+
+```{r}
 library(ri2)
 thedesign <- declare_ra(N=N)
-pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign, 
+pMean4 <- conduct_ri( Y ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMean4)
-pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign, 
+pMeanRank4 <- conduct_ri( rankY ~ Z, declaration = thedesign,
 		     sharp_hypothesis = 0, data = dat, sims = 1000)
 summary(pMeanRank4)
 ```
@@ -683,7 +689,7 @@ positive error rate) and easily detects signal from noise (i.e. has good
 statistical power, it rarely makes the error of missing the signal in the
 noise).
 
-## How to learn about errors of missing the signal in the noise? 
+## How to learn about errors of missing the signal in the noise?
 
 The [10 Things you need to know about statistical
 power](https://egap.org/resource/10-things-to-know-about-statistical-power)

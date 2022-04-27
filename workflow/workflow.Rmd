@@ -3,6 +3,8 @@ output:
   html_document:
     theme: journal
     toc: true
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things You Need to Know About Project Workflow" -->
