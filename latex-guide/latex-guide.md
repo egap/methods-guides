@@ -116,12 +116,16 @@ and `\author{Some Person}` *in the preamble* and `\maketitle`  right after the
 `\begin{document}` line.] You can practice by following these steps (and similar ones) in later sections:
 
 1. select the directory `1_structure` in the JupyterLab window that launches when you clink on `launch
-binder` from the `readme.md` file in the [associated github
-repository](https://github.com/egap/methods-guides/latex-guide)
+binder` above or here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide)
 2. Then clicking on the `Terminal` icon in the JupyterLab pane
-3. Once you are there, try typing `latexmk -pdflatex example.tex` and then looking at the pdf.
+3. Type `ls`. If you see a list of directories like `adaptive`, you need to
+   change directories to the `latex-guide/1_struture` so you should type (or
+   paste) `cd latex-guide/1_structure`. Now try `ls` again. You should should
+   see files like `example.tex`. 
+3. Once you are there, try typing `latexmk -pdf example.tex` and then looking at the pdf (you can click on it in the right-hand sidebar).
 
-You can also copy the GitHub repository to your own local machine and launch
+You can also copy the GitHub repository for the EGAP methods guides or just the
+subdirectory for `latex-guide` to your own local machine and launch
 the Terminal to see a Unix command prompt if you are using a
 [Mac](https://support.apple.com/guide/terminal/welcome/mac) or Linux
 machine. Windows machines also offer a Unix command prompt, but it is a [bit
@@ -198,7 +202,10 @@ You can replace those multiple lines with a single call to `latexmk -pdflatex ex
 
 See the directory `2_texflavors` and the `readme.md` file therein. Can you
 change the font and use `xelatex` to make a pdf, say, trying `latexmk -xelatex
-example.tex`?
+example.tex`? You may need to use the unix `cd` (change directory) command to
+move from `1_structure` to `2_texflavors` by typing `cd ../2_texflavors` (this
+means "change directory to `2_texflavors` which is one above my current
+directory in the directory hierarchy".
 
 # 3. LaTeX workflows
 
