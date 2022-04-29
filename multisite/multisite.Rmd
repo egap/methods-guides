@@ -1,21 +1,19 @@
 ---
-title: "10 things to know about multisite trials"
-author: "Kristen Hunter"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
-bibliography: refs.bib
-header-includes:
-  - \usepackage{setspace}
-output: 
-  html_document:
+bibliography: ./refs.bib
+output:
+  bookdown::html_document2:
+    number_sections: true
     toc: true
     theme: journal
+    extensions: +implicit_figure
+    code_folding: hide
+    fig_caption: true
     includes:
         after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things to Know About Multisite Trials" -->
 <!-- author: "Methods Guide Author: Kristen Hunter" -->
-\doublespacing
 
 # Introduction
 
