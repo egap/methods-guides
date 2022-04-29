@@ -1,22 +1,25 @@
 ---
+bibliography: ./latex-guide.bib
 link-citations: true
 numbersections: true
 colorlinks: true
 secnumdepth: 2
 number-sections: true
-bibliography: latex-guide.bib
 linkReferences: true
 listings: true
-html_document:
-  toc: true
-  toc_depth: 1
-  number-sections: true
-  listings: true
-  theme: journal
-  highlight: pygment
-  pandoc_args: ["--from= markdown+autolink_bare_uris+tex_math_single_backslash+inline_code_attributes"]
+output:
+  html_document:
+   toc: true
+   toc_depth: 1
+   number-sections: true
+   listings: true
+   theme: journal
+   highlight: pygment
+   includes:
+       after_body: ../linking_script.html
 ---
 
+<!--   pandoc_args: ["--from= markdown+autolink_bare_uris+tex_math_single_backslash+inline_code_attributes"] -->
 <!-- title: '10 Things to Know About Writing Academic Papers in LaTeX' -->
 <!-- author: Jake Bowers and Luke Olson -->
 
