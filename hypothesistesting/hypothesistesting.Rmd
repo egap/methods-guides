@@ -454,8 +454,8 @@ mtext(side=3,outer=TRUE,text=expression(paste("Distributions of Test Statistics 
 ```
 
 To formalize the comparison between observed and hypothesized, we can
-calculate the proportion of the hypothetical experiments that yield test
-statistics greater than the observed experiment. In the left panel of the
+calculate a $p$-value, i.e., the proportion of the hypothetical experiments that yield test
+statistics greater  than or equal to the observed experiment. In the left panel of the
 figure we see that a wide range of
 differences of means between treated and control groups are compatible with
 the treatment having no effects (with the overall range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`).  The right panel shows
@@ -465,7 +465,7 @@ from 1 to 10 rather than from 1 to 280.
 
 ### One-sided $p$-values
 
-The one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
+One-sided $p$-values capture the probability that a test statistic is at least as big or bigger (upper $p$-value) or at least as smaller or smaller (lower $p$-value) than the observed test statistic. Here, the one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
 test statistic casts a different amount of doubt, or quantifies a different
 amount of surprise, about the same null hypothesis of no effects. The outcome
 itself is so noisy that the mean
@@ -511,7 +511,7 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 
 In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.
 
-**As a side note** The test of the sharp null shown here can be done without
+**As a side note:** The test of the sharp null shown here can be done without
 writing the code yourself. The code that you'll see here (by clicking the code
 buttons) shows how  to use different R packages to  test hypotheses  using
 randomization-based inference.
