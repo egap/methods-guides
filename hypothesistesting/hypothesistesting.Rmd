@@ -131,29 +131,25 @@ inference."
 
 ## An overview of estimation based approaches to causal inference in randomized experiments.
 
-There are three main ways that the statistical sciences have engaged with this
-problem. That is, when asked, "Does information cause people to pay their
+There are three main ways that the statistical sciences have engaged with the fundamental
+problem of causal inference. All of these ways involve changing the target of inference. That is, when asked, "Does information cause people to pay their
 taxes?" we tend to say, "We cannot answer that question directly. However, we can
-answer a related question." [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) describes an insight that we credit to Jerzy Neyman
-where a scientist can **estimate average causal effects** in a randomized
-experiment even if individual causal effects are unobservable. Judea
-Pearl's work on estimating the conditional probability of an outcome
-based on a causal model of that outcome is similar to this idea, where a focus
-is on the conditional probabilities of the $y_{i}$'s. That is, those two approaches answer the
-fundamental causal question by changing the question focus on averages
-or conditional probabilities. A related approach, from Don Rubin begins by **predicting** the
-individual level potential outcomes using background information and a
-probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
-probability model of the two potential outcomes such that, say,
-$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another).
+answer a related question."
 
-The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and
-combines them using Bayes Rule to produce posterior distributions for
+The first approach changes the question from whether information causes a particular person to pay her taxes to whether information causes people to pay their taxes *on average*. [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) describes how a scientist can **estimate average causal effects** in a randomized experiment even though individual causal effects are unobservable. This insight is credited to Jerzy Neyman. Judea
+Pearl's work on estimating the conditional probability distribution of an outcome based on a causal model of that outcome is similar to this idea. Both approaches address the
+fundamental problem of causal inference by changing the question to focus on averages
+or conditional probabilities rather than individuals.
+
+A related approach that is due to Don Rubin involves **predicting** the
+individual level potential outcomes. The predictions are based on a
+probability model of treatment assignment $Z_i$ (for example, $Z \sim \text{Bernoulli}(\pi)$) and a
+probability model of the two potential outcomes (for example,
+$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other background information) and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). The probability models relate treatment, background information, and outcomes to one another. The approach combines these models with data using Bayes' Rule to produce posterior distributions for
 quantities like the individual level treatment effects or average treatment
 effects (see [@imbens2007causal] for more on what they call the Bayesian
-Predictive approach to causal inference). So, the predictive approach changes
-the fundamental question from one about averages to one that focuses on differences in predicted potential
-outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
+Predictive approach to causal inference). So, this predictive approach focuses not on averages but on differences in predicted potential
+outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions, like the average of the predictions.)
 
 ## Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.
 
