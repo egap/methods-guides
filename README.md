@@ -1,9 +1,10 @@
-# methods-guides
-EGAP methods guides
+# EGAP methods guides
 
 ## How to contribute.
 
 For now, please make an issue and/or fork and a pull request specifying the methods guide in question.
+
+When you make a pull request with a change in one language, we will try to incorporate those changes in the other languages. 
 
 ## Style Guide
 
