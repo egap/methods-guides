@@ -4,7 +4,7 @@
 
 For now, please make an issue and/or fork and a pull request specifying the methods guide in question.
 
-When you make a pull request with a change in one language, we will try to incorporate those changes in the other languages. 
+When you make a pull request with a change in one language, we will try to incorporate those changes in the other languages. If it is easy to make the change in other languages please do so as well.
 
 ## Style Guide
 
