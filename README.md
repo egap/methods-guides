@@ -12,6 +12,8 @@ We use plain R+markdown for these guides. Since they are served in iFrames on <h
 
 ## How to make webpages from these files.
 
+Open RStudio. If not already loaded, load methods-guides.Rproj file before proceeding.
+
 In RStudio, click "Knit to HTML".
 
 At the R console do:
