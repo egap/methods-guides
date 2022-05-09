@@ -233,9 +233,11 @@ per person, depending on which treatment was assigned to that person. So, we
 can link the unobserved counterfactual outcomes to an observed outcome ($Y_i$)
 using treatment assignment ($Z_i$) like so:
 
-$$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
+\begin{equation}
+Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} (\#eq:identity)
+\end{equation}
 
-@eq:identity says that our observed outcome, $Y_i$ (here, amount of
+\@ref(eq:identity) says that our observed outcome, $Y_i$ (here, amount of
 taxes paid by person $i$), is $y_{i,1}$ when the person is assigned to the
 treatment group ($Z_i=1$), and $y_{i,0}$ when the person is assigned to the
 control group.
@@ -247,7 +249,7 @@ $\tau_i=5$ for all $i$.
 
 Let us entertain this model for the sake of argument. What would this
 hypothesis imply for what we observe? We have the equation relating observed
-to unobserved in @eq:identity so, this model or hypothesis would
+to unobserved in \@ref(eq:identity) so, this model or hypothesis would
 imply that:
 
 $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
