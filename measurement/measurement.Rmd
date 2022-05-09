@@ -133,6 +133,7 @@ $$E[Y_i|Z_i = 1]−E[Y_i|Z_i = 0] = \underbrace{E[\nu_i|Z_i = 1] − E[\nu_i|Z_i
 
 There are various sources of non-systematic measurement error in experiments. [Demand effects](https://en.wikipedia.org/wiki/Demand_characteristics) and [Hawthorne effects](https://en.wikipedia.org/wiki/Hawthorne_effect) can be motivated as sources of systematic measurement error. Moreover, designs that measure outcomes asymmetrically in treatment and control groups may be prone to systematic measurement error. In all cases, there exists asymmetry across treatment conditions in: (a) the way that subjects respond to being observed; or (b) the way that we observe outcomes that is distinct from any effect of the treatment on the latent variable of interest. The biased estimate of the ATE becomes the net of any effects on the latent variables (the ATE) and the non-systematic measurement error. 
 
+When designing an experiment, researchers can take various steps to limit systematic measurement error. First and foremost, they can attempt to use identical measurement strategies across all experimental groups. To limit demand and Hawthorne effects, researchers often aim to design treatments and measurement strategies that are as naturalistic and unobtrusive as possible. For example, sometimes it can be beneficial to avoid baseline surveys at the outset of an experiment that would reveal the purpose of a study to participants. Researchers may also want to separate treatment from outcome measurement phases to limit the apparent connection between the two. Ensuring that study staff are blind towards the treatment status of study participants can also help maintain measurement symmetry across treatment conditions. The use of placebo treatments sometimes helps to hide their treatment status even from study participants themselves. Finally, researchers sometimes supplement outcome measures such as survey questions that are particularly susceptible to demand effects with behavioral measures for which experimenter demand may be less of a concern. See de Quidt et al. (2018) for a way to assess the robustness of your experimental results to demand effects.  
 
 # 8. Leverage multiple indicators to assess the validity of a measure but be aware of the limitations of such tests.
 
@@ -251,3 +252,5 @@ For this reason, while it may be useful to develop indicators based on existing 
 # Bibliography
 
 Adcock, Robert and David Collier. "Measurement Validity: A Shared Standard for Qualitative and Quantitative Research." *American Political Science Review.* 95 (3): 529-546.
+
+de Quidt, Jonathan, Johannes Haushofer, and Christopher Roth. 2018. "Measuring and Bounding Experimenter Demand." *American Economic Review.* 108 (11): 3266-3302.
