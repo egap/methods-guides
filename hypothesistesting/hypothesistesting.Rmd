@@ -131,29 +131,25 @@ inference."
 
 ## An overview of estimation based approaches to causal inference in randomized experiments.
 
-There are three main ways that the statistical sciences have engaged with this
-problem. That is, when asked, "Does information cause people to pay their
+There are three main ways that the statistical sciences have engaged with the fundamental
+problem of causal inference. All of these ways involve changing the target of inference. That is, when asked, "Does information cause people to pay their
 taxes?" we tend to say, "We cannot answer that question directly. However, we can
-answer a related question." [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) describes an insight that we credit to Jerzy Neyman
-where a scientist can **estimate average causal effects** in a randomized
-experiment even if individual causal effects are unobservable. Judea
-Pearl's work on estimating the conditional probability of an outcome
-based on a causal model of that outcome is similar to this idea, where a focus
-is on the conditional probabilities of the $y_{i}$'s. That is, those two approaches answer the
-fundamental causal question by changing the question focus on averages
-or conditional probabilities. A related approach, from Don Rubin begins by **predicting** the
-individual level potential outcomes using background information and a
-probability model of $Z_i$ (such that, say, $Z \sim \text{Bernoulli}(\pi)$) and a
-probability model of the two potential outcomes such that, say,
-$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other variables and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another).
+answer a related question."
 
-The second general approach starts with such probability models relating treatment, other variables, and outcomes to each other, and
-combines them using Bayes Rule to produce posterior distributions for
+The first approach changes the question from whether information causes a particular person to pay her taxes to whether information causes people to pay their taxes *on average*. [Ten Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/) describes how a scientist can **estimate average causal effects** in a randomized experiment even though individual causal effects are unobservable. This insight is credited to Jerzy Neyman. Judea
+Pearl's work on estimating the conditional probability distribution of an outcome based on a causal model of that outcome is similar to this idea. Both approaches address the
+fundamental problem of causal inference by changing the question to focus on averages
+or conditional probabilities rather than individuals.
+
+A related approach that is due to Don Rubin involves **predicting** the
+individual level potential outcomes. The predictions are based on a
+probability model of treatment assignment $Z_i$ (for example, $Z \sim \text{Bernoulli}(\pi)$) and a
+probability model of the two potential outcomes (for example,
+$(y_{i,1},y_{i,0}) \sim \text{Multivariate Normal}(\bbeta \bX, \bSigma)$ with a vector of coefficients $\bbeta$, an $n \times p$ matrix of variables $\bX$ (containing both treatment assignment and other background information) and a $p \times p$ variance-covariance matrix $\Sigma$ describing how all of the columns in $\bX$ relate to one another). The probability models relate treatment, background information, and outcomes to one another. The approach combines these models with data using Bayes' Rule to produce posterior distributions for
 quantities like the individual level treatment effects or average treatment
 effects (see [@imbens2007causal] for more on what they call the Bayesian
-Predictive approach to causal inference). So, the predictive approach changes
-the fundamental question from one about averages to one that focuses on differences in predicted potential
-outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions implied by the probability models and the data like the average of the predictions.)
+Predictive approach to causal inference). So, this predictive approach focuses not on averages but on differences in predicted potential
+outcomes for each person (although mostly these individual predicted differences are summarized using characteristics of the posterior distributions, like the average of the predictions.)
 
 ## Hypothesis testing is a statistical approach to the fundamental problem of causal inference using claims about the unobserved.
 
@@ -237,9 +233,11 @@ per person, depending on which treatment was assigned to that person. So, we
 can link the unobserved counterfactual outcomes to an observed outcome ($Y_i$)
 using treatment assignment ($Z_i$) like so:
 
-$$ Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} $$ {#eq:identity}
+\begin{equation}
+Y_i = Z_i y_{i,1} + (1 - Z_i) y_{i,0} (\#eq:identity)
+\end{equation}
 
-@eq:identity says that our observed outcome, $Y_i$ (here, amount of
+\@ref(eq:identity) says that our observed outcome, $Y_i$ (here, amount of
 taxes paid by person $i$), is $y_{i,1}$ when the person is assigned to the
 treatment group ($Z_i=1$), and $y_{i,0}$ when the person is assigned to the
 control group.
@@ -251,7 +249,7 @@ $\tau_i=5$ for all $i$.
 
 Let us entertain this model for the sake of argument. What would this
 hypothesis imply for what we observe? We have the equation relating observed
-to unobserved in @eq:identity so, this model or hypothesis would
+to unobserved in \@ref(eq:identity) so, this model or hypothesis would
 imply that:
 
 $$ \begin{aligned}  Y_i & = Z_i ( y_{i,0} + \tau_i ) + ( 1 - Z_i) y_{i,0} \\
@@ -458,8 +456,8 @@ mtext(side=3,outer=TRUE,text=expression(paste("Distributions of Test Statistics 
 ```
 
 To formalize the comparison between observed and hypothesized, we can
-calculate the proportion of the hypothetical experiments that yield test
-statistics greater than the observed experiment. In the left panel of the
+calculate a $p$-value, i.e., the proportion of the hypothetical experiments that yield test
+statistics greater  than or equal to the observed experiment. In the left panel of the
 figure we see that a wide range of
 differences of means between treated and control groups are compatible with
 the treatment having no effects (with the overall range between `r min(possibleMeanDiffsH0)` and `r max(possibleMeanDiffsH0)`).  The right panel shows
@@ -469,7 +467,7 @@ from 1 to 10 rather than from 1 to 280.
 
 ### One-sided $p$-values
 
-The one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
+One-sided $p$-values capture the probability that a test statistic is at least as big or bigger (upper $p$-value) or at least as smaller or smaller (lower $p$-value) than the observed test statistic. Here, the one-sided $p$-values are `r pMeanTZ` for the simple mean difference and `r signif(pMeanRankTZ,2)` for the mean difference of the rank-transformed outcomes. Each
 test statistic casts a different amount of doubt, or quantifies a different
 amount of surprise, about the same null hypothesis of no effects. The outcome
 itself is so noisy that the mean
@@ -515,7 +513,7 @@ mean( possibleMeanRankDiffsH0 <= observedMeanRankTZ ))
 
 In this case the two-sided $p$-values are `r p2SidedMeanTZ` and `r p2SidedMeanRankTZ` for the simple mean differences and means differences of ranks respectively. We interpret them in terms of "extremity" --- we would only see an observed mean difference as far away from zero as the one manifest in our results roughly 18% of the time, for example.
 
-**As a side note** The test of the sharp null shown here can be done without
+**As a side note:** The test of the sharp null shown here can be done without
 writing the code yourself. The code that you'll see here (by clicking the code
 buttons) shows how  to use different R packages to  test hypotheses  using
 randomization-based inference.
