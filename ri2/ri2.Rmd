@@ -234,7 +234,7 @@ plot(ri_out)
 
 # 9. Randomization inference under noncompliance
 
-Some experiments encounter noncompliance, the slippage between treatment as assigned and treatment as delivered. The Complier Average Causal Effect ($CACE$) can be shown (under standard assumptions plus monotonicity) to be the ratio of the effect of assignment on the outcome -- the "Intention-to-Treat" ($ITT_y$) and the effect of assignment on treatment receipt the ($ITT_D$). Because the $CACE$ is just a rescaled, $ITT_y$, a hypothesis test with respect to the $ITT_y$ is a valid test for the $CACE$. In practice, researchers can simply conduct a randomization inference test exactly as they would for the ATE, ignoring noncompliance altogether.
+Some experiments encounter noncompliance, the slippage between treatment as assigned and treatment as delivered. The Complier Average Causal Effect ($CACE$) can be shown (under standard assumptions plus monotonicity) to be the ratio of the effect of assignment on the outcome -- the "Intention-to-Treat" ($ITT_y$) and the effect of assignment on treatment receipt the ($ITT_D$). (The $CACE$ is also called Local Average Treatment Effect. See our guide [10 Things to Know About the Local Average Treatment Effect](https://egap.org/resource/10-things-to-know-about-the-local-average-treatment-effect/) for more details.) Because the $CACE$ is just a rescaled, $ITT_y$, a hypothesis test with respect to the $ITT_y$ is a valid test for the $CACE$. In practice, researchers can simply conduct a randomization inference test exactly as they would for the ATE, ignoring noncompliance altogether.
 
 ```{r}
 ITT_y = with(complete_dat, mean(Y[Z == 1]) - mean(Y[Z == 0])) 

@@ -287,7 +287,7 @@ FDR control tends to be less conservative than FWER control and is popular in fi
 
 8 Use a Pre-Analysis Plan To Reduce the Number of Hypothesis Tests
 ==
-You can also reduce the numbers of CATEs and interactions under consideration for hypothesis testing by pre-specifying the tests of primary interest in a registered pre-analysis plan (PAP). Additional subgroup analyses can be conceptualized and specified as exploratory or descriptive analyses in the PAP. Another bonus is that if you prefer a one-sided test, you can commit to that choice in the PAP before seeing the outcome data, so that you "cannot be justly accused of cherry-picking the test after the fact" (Olken 2015).^[Benjamin A. Olken (2015), "Promises and Perils of Pre-Analysis Plans," _Journal of Economic Perspectives_ 29(3): 61--80.]
+You can also reduce the numbers of CATEs and interactions under consideration for hypothesis testing by pre-specifying the tests of primary interest in a registered pre-analysis plan (PAP). Additional subgroup analyses can be conceptualized and specified as exploratory or descriptive analyses in the PAP. Another bonus is that if you prefer a one-sided test, you can commit to that choice in the PAP before seeing the outcome data, so that you "cannot be justly accused of cherry-picking the test after the fact" (Olken 2015).^[Benjamin A. Olken (2015), "Promises and Perils of Pre-Analysis Plans," _Journal of Economic Perspectives_ 29(3): 61--80.] See our guide [10 Things to Know About Pre-Analysis Plans](https://egap.org/resource/10-things-to-know-about-pre-analysis-plans/) for more on pre-registration.
 
 9 Automate the Search for Interactions
 ==
