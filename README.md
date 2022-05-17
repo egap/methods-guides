@@ -1,15 +1,18 @@
-# methods-guides
-EGAP methods guides
+# EGAP methods guides
 
 ## How to contribute.
 
 For now, please make an issue and/or fork and a pull request specifying the methods guide in question.
+
+When you make a pull request with a change in one language, we will try to incorporate those changes in the other languages. If it is easy to make the change in other languages please do so as well.
 
 ## Style Guide
 
 We use plain R+markdown for these guides. Since they are served in iFrames on <http://egap.org> links do not work so well. Because of that, we recommend using `[Hello, world!](http://example.com/){target="_blank"}` when you insert links.
 
 ## How to make webpages from these files.
+
+Open RStudio. If not already loaded, load methods-guides.Rproj file before proceeding.
 
 In RStudio, click "Knit to HTML".
 
