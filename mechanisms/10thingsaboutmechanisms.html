@@ -240,6 +240,8 @@ window.initializeCodeFolding = function(show) {
   // select all R code blocks
   var rCodeBlocks = $('pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan, pre.julia, pre.foldable');
   rCodeBlocks.each(function() {
+    // skip if the block has fold-none class
+    if ($(this).hasClass('fold-none')) return;
 
     // create a collapsable div to wrap the code in
     var div = $('<div class="collapse r-code-collapse"></div>');
@@ -255,7 +257,9 @@ window.initializeCodeFolding = function(show) {
     showCodeButton.append(showCodeText);
     showCodeButton
         .attr('data-toggle', 'collapse')
+        .attr('data-bs-toggle', 'collapse') // BS5
         .attr('data-target', '#' + id)
+        .attr('data-bs-target', '#' + id)   // BS5
         .attr('aria-expanded', showThis)
         .attr('aria-controls', id);
 
@@ -339,6 +343,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -359,6 +364,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -444,7 +452,7 @@ pre code {
 <div id="header">
 
 <div class="btn-group pull-right float-right">
-<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
 <ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
 <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
 <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
@@ -558,7 +566,7 @@ pre code {
 <p>The problem is that this arithmetic only works under some very strong assumptions. One of these assumptions is that the error terms in regressions 1 and 3 are unrelated to each other—in other words, M can’t be predicted by unobservable factors that also predict Y. We described this problem intuitively in point 3 when we introduced Q, a confounding variable that contributes both to M and to Y and therefore engenders a very strong relationship between them, even if X’s effect on Y is not operating through M at all. Now let’s describe this problem using a simulation.</p>
 <p>In the following code, we start by creating this Q variable for each individual and defining the “true” effects of X on M, M on Y, and X on Y. Next, we create hypothetical potential outcomes for M—that is, for each individual, we define what value of M they would reveal if they were treated, and what value of M they would reveal if they were untreated. These values are related not only to the “true” effect of X on M, but also to Q. Then we can also define hypothetical potential outcomes for Y. We do this for four scenarios, all of which assume constant effects, an assumption we will relax later. Two of these are simple potential outcomes of Y: the Y exhibited by the individual who is untreated and reveals her untreated M potential outcome, and the Y exhibited by the individual who is treated and reveals her treated M potential outcome. However, we also define two complex potential outcomes of Y: the Y exhibited by the individual who is untreated but reveals her treated M potential outcome, and the Y exhibited by the individual who is treated but reveals her untreated M potential outcome. While these potential outcomes bend the mind a bit, they are important to define in the hypothetical so that we can calculate the “true” (but inherently unobservable) direct and indirect effects to compare our decomposition analysis to.</p>
 <p>In the second half of the code, we conduct a random assignment of treatment and proceed with the decomposition of effects analysis described above, using the data we “observe.” Under the (strong) assumptions that the error terms are uncorrelated and effects are constant across subjects, <span class="math inline">\(a*b\)</span> = ACME, <span class="math inline">\(d\)</span> = ACDE, and <span class="math inline">\(c\)</span> = ATE. However, the simulation reveals that <span class="math inline">\(a*b\)</span> &gt; ACME and <span class="math inline">\(d\)</span> &lt; ACDE; that is, we overestimated the average indirect or mediated effect (ACME) and underestimated the average direct effect (ACDE). Our decomposition of effects analysis was biased because the first assumption – uncorrelated error terms – did not hold: unobserved variable Q predicted both M and Y, and this led us to overestimate the role of the mechanism M.</p>
-<pre class="r"><code>rm(list = ls())
+<pre class="r"><code>rm(list=ls())
 
 set.seed(20160301)
 
@@ -577,18 +585,18 @@ tau_X_on_Y &lt;- 0.5 # total effect of X on Y (ATE), both through M and not thro
 # build the potential outcomes (POs) for the mediator
 # individual reveals M_1 if treated; M_0 if untreated
 # M is a function of both treatment and the unobserved characteristic
-M_0 &lt;- 0 * tau_X_on_M + Q_i
-M_1 &lt;- 1 * tau_X_on_M + Q_i
+M_0 &lt;- 0*tau_X_on_M + Q_i
+M_1 &lt;- 1*tau_X_on_M + Q_i
 
 # we can estimate the unbiased Average Treatment Effect (ATE) of X on M
 ATE_M &lt;- mean(M_1 - M_0)
 ATE_M</code></pre>
 <pre><code>[1] 0.2</code></pre>
 <pre class="r"><code># build POs for the outcome variable
-Y_M0_X0 &lt;- tau_M_on_Y * (M_0) + tau_X_on_Y * 0 + Q_i
-Y_M1_X1 &lt;- tau_M_on_Y * (M_1) + tau_X_on_Y * 1 + Q_i
-Y_M0_X1 &lt;- tau_M_on_Y * (M_0) + tau_X_on_Y * 1 + Q_i # this is a &quot;complex&quot; PO
-Y_M1_X0 &lt;- tau_M_on_Y * (M_1) + tau_X_on_Y * 0 + Q_i # this is a &quot;complex&quot; PO
+Y_M0_X0 &lt;- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
+Y_M1_X1 &lt;- tau_M_on_Y*(M_1) + tau_X_on_Y*1 + Q_i
+Y_M0_X1 &lt;- tau_M_on_Y*(M_0) + tau_X_on_Y*1 + Q_i # this is a &quot;complex&quot; PO
+Y_M1_X0 &lt;- tau_M_on_Y*(M_1) + tau_X_on_Y*0 + Q_i # this is a &quot;complex&quot; PO
 # some of these POs are &quot;complex&quot; because we are imagining what Y we would
 # observe if we assigned treatment but observed the untreated M PO or
 # if we assigned control but observed the treated M PO
@@ -600,7 +608,7 @@ Y_M1_X0 &lt;- tau_M_on_Y * (M_1) + tau_X_on_Y * 0 + Q_i # this is a &quot;comple
 # this is the &quot;indirect effect&quot;
 ACME_X0 &lt;- mean(Y_M1_X0 - Y_M0_X0)
 ACME_X1 &lt;- mean(Y_M1_X1 - Y_M0_X1)
-ACME &lt;- mean(((Y_M1_X1 - Y_M0_X1) + (Y_M1_X0 - Y_M0_X0)) / 2)
+ACME &lt;- mean(((Y_M1_X1 - Y_M0_X1) + (Y_M1_X0 - Y_M0_X0))/2)
 
 # we can estimate the unbiased Average Controlled Direct Effect (ACDE)
 # we estimate the effects of X holding M constant
@@ -608,11 +616,11 @@ ACME &lt;- mean(((Y_M1_X1 - Y_M0_X1) + (Y_M1_X0 - Y_M0_X0)) / 2)
 # this is the &quot;direct effect&quot;
 ACDE_M0 &lt;- mean(Y_M0_X1 - Y_M0_X0)
 ACDE_M1 &lt;- mean(Y_M1_X1 - Y_M1_X0)
-ACDE &lt;- mean(((Y_M0_X1 - Y_M0_X0) + (Y_M1_X1 - Y_M1_X0)) / 2)
+ACDE &lt;- mean(((Y_M0_X1 - Y_M0_X0)+(Y_M1_X1 - Y_M1_X0))/2)
 
 # now we build the simple POs for Y
-Y_1 &lt;- tau_M_on_Y * (M_1) + tau_X_on_Y * 1 + Q_i
-Y_0 &lt;- tau_M_on_Y * (M_0) + tau_X_on_Y * 0 + Q_i
+Y_1 &lt;- tau_M_on_Y*(M_1) + tau_X_on_Y*1 + Q_i
+Y_0 &lt;- tau_M_on_Y*(M_0) + tau_X_on_Y*0 + Q_i
 
 # we estimate the true ATE of X on Y
 # this is the &quot;total effect&quot;
@@ -631,10 +639,10 @@ ATE</code></pre>
 <pre class="r"><code># Random Assignment, Revelation of POs, Attempt to Decompose Effects ---------------------------------
 
 # we assign half of our sample to treatment and half to control
-X &lt;- sample(c(rep(1, (N / 2)), rep(0, (N / 2))))
+X &lt;- sample(c(rep(1,(N/2)),rep(0,(N/2))))
 # we reveal POs for M and Y based on treatment assignment
-M &lt;- X * M_1 + (1 - X) * M_0
-Y &lt;- X * Y_1 + (1 - X) * Y_0
+M &lt;- X*M_1 + (1-X)*M_0
+Y &lt;- X*Y_1 + (1-X)*Y_0
 
 model1 &lt;- lm(M ~ X)
 a &lt;- coef(model1)[2] # extract the coefficient to get the effect of X on M
@@ -651,7 +659,7 @@ d &lt;- coef(model3)[2] # extract this coefficient to get the effect of X on Y c
 b &lt;- coef(model3)[3] # extract this coefficient to get the effect of M on Y controlling for X
 
 # some would now multiply the average effect of X on M and the average effect of M on Y to get the average indirect/mediated effect of X on Y via M (ACME)
-a * b</code></pre>
+a*b</code></pre>
 <pre><code>       X 
 0.220142 </code></pre>
 <pre class="r"><code># but when we compare this to the true ACME, we see that this is biased
@@ -677,7 +685,7 @@ a</code></pre>
 0.520142 </code></pre>
 <pre class="r"><code>ATE</code></pre>
 <pre><code>[1] 0.52</code></pre>
-<p>Let’s tie this exercise back to the issue raised in point 3. This simulation illustrated that quantifying the mediated effect proves difficult when background predictive variables confound the relationship between M and Y. Because M is not randomly assigned, it is important for us to think about how likely it is that our M and our Y are both affected by unobserved variables. In principle, if there are no confounding variables in this relationship, then a decomposition of effects analysis may be unbiased, but this is assumption is strong and usually hard to prove.</p>
+<p>Let’s tie this exercise back to the issue raised in point 3. This simulation illustrated that quantifying the mediated effect proves difficult when background predictive variables confound the relationship between M and Y. Because M is not randomly assigned, it is important for us to think about how likely it is that our M and our Y are both affected by unobserved variables. In principle, if there are no confounding variables in this relationship, then a decomposition of effects analysis may be unbiased, but this assumption is strong and usually hard to prove.</p>
 <p>While we did not demonstrate it in this simulation, it is also possible to show that decomposition of effects also breaks down when treatment effects are heterogeneous (we introduced the intuition for this in point 4). The technical reason for this comes from our law of expectations, which is: <span class="math inline">\(E[a*b]\)</span> = <span class="math inline">\(E[a]E[b]+cov(a,b)\)</span>. If we have constant treatment effects, then <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> do not covary, the covariance term drops out, and we can simply multiply <span class="math inline">\(a*b\)</span> to get the ACME. However, if the covariance term is non-zero, then we are not able to estimate this indirect effect from these two coefficients obtained from separate regressions. We constructed constant treatment effects in order to be able to demonstrate the process of decomposing effects, but if we were to re-do the simulation with heterogeneous treatment effects that covary, then we would not even be able to calculate the ACME or ACDE using the potential outcomes approach at the beginning of our code.</p>
 <p><strong>What you can do…</strong> Before you embark on a decomposition of effects analysis, ask yourself:</p>
 <ul>
@@ -756,7 +764,7 @@ a</code></pre>
 <div id="designing-complex-treatments-can-help-narrow-our-understanding-of-what-part-of-the-treatment-is-doing-the-work." class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Designing complex treatments can help narrow our understanding of what part of the treatment is “doing the work.”</h1>
 <p>Sometimes experimental researchers will try to better understand mechanisms by adding or subtracting elements of the treatment that are thought to trigger different mechanisms. This approach is sometimes called “implicit mediation analysis” because different components of X are thought to <em>implicitly</em> manipulate certain mechanisms. This, of course, is an assumption: because we are not measuring M directly, we are relying on a theoretical claim that component A will trigger M, whereas component B will not.</p>
-<p>For example, many governments including Mexico, Brazil, Tanzania, and Uganda have created conditional cash transfer programs to address poverty. These programs provide cash to poor individuals, but they frequently come with conditions such as attending school or a job training program. Until recently, we knew only that these programs (X) successfully reduced poverty (Y) and that X caused Y either via cash or via the required attendance at school or job programs. To distinguish between these mechanisms, Baird et al. (2011)<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> conducted an experiment in Malawi, where they assigned one group of families to receive a <em>conditional</em> cash transfer for the regular school attendance of their girls, another group of families to receive the cash <em>unconditionally</em>, and a control group to receive no transfer. This design “implicitly” manipulated M: while girls in the unconditional transfer group could also seek out education, school attendance (the condition under study) would likely be higher in the group that was required to seek it out. Unsurprisingly, school attendance and test performance was better for the group receiving conditional cash transfers. However, their measures of Y–the rate at which the girls became pregnant or married–were actually better (lower) in the group receiving the unconditional cash transfers. The authors concluded that attendance requirements associated with conditional cash transfers were not probably not the mechanism responsible for the success of these programs in reducing the symptoms of poverty.</p>
+<p>For example, many governments including Mexico, Brazil, Tanzania, and Uganda have created conditional cash transfer programs to address poverty. These programs provide cash to poor individuals, but they frequently come with conditions such as attending school or a job training program. Until recently, we knew only that these programs (X) successfully reduced poverty (Y) and that X caused Y either via cash or via the required attendance at school or job programs. To distinguish between these mechanisms, Baird et al. (2011)<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> conducted an experiment in Malawi, where they assigned one group of families to receive a <em>conditional</em> cash transfer for the regular school attendance of their girls, another group of families to receive the cash <em>unconditionally</em>, and a control group to receive no transfer. This design “implicitly” manipulated M: while girls in the unconditional transfer group could also seek out education, school attendance (the condition under study) would likely be higher in the group that was required to seek it out. Unsurprisingly, school attendance and test performance was better for the group receiving conditional cash transfers. However, their measures of Y–the rate at which the girls became pregnant or married–were actually better (lower) in the group receiving the unconditional cash transfers. The authors concluded that attendance requirements associated with conditional cash transfers were probably not the mechanism responsible for the success of these programs in reducing the symptoms of poverty.</p>
 <p>Studies like these help not only social scientists to learn more about the channels through which X causes Y, but also policymakers to explore and discover new treatments. After several other studies joined Baird et al. in demonstrating the remarkable effects of unconditional cash transfers, many governments and organizations have begun to implement unconditional cash transfer programs.</p>
 <p><strong>What you can do…</strong> In future projects, ask yourself: Can my treatment be “unpacked” into multiple treatment arms, some that implicitly manipulate M, and some that do not? Consider using a factorial design to identify the effects of different treatment arms. If you have ample power, comparing the various treatment arms will provide you with suggestive evidence for or against M.</p>
 </div>

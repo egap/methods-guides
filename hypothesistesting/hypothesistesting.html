@@ -968,7 +968,7 @@ renv::install(&quot;dgof&quot;)</code></pre>
 <pre class="r"><code>renv::install(&quot;ddst&quot;)</code></pre>
 <pre><code>Installing ddst [1.4] ...
     OK [copied cache]</code></pre>
-<pre class="r"><code>remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;,dependencies=TRUE)
+<pre class="r"><code>remotes::install_github(&quot;markmfredrickson/RItools@randomization-distribution&quot;, dependencies = TRUE)
 library(RItools)
 thedesignA &lt;- simpleRandomSampler(total=N,z=dat$Z,b=rep(1,N))
 pMean4 &lt;- RItest(y=dat$Y,z=dat$Z,samples=1000, test.stat= meanTZ ,

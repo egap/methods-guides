@@ -27,10 +27,10 @@ Writing is a time-consuming process; writing high-quality publications requires
 attention to detail at every step of the way, from the actual prose on paper to
 its layout in the document to the presentation of figures. In this guide we walk
 you through 10 aspects of writing a scientific article using
-[LaTeX](https://en.wikipedia.org/wiki/LaTeX) to format your work and save you
+[LaTeX](https://en.wikipedia.org/wiki/LaTeX){target="_blank"} to format your work and save you
 time. This is not an introduction to LaTeX.^[We suggest the [Free online
 introduction to
-LaTeX](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_1))
+LaTeX](https://www.overleaf.com/learn/latex/Free_online_introduction_to_LaTeX_(part_1)){target="_blank"}
 if you are brand new to LaTeX.] We emphasize typing commands at the [unix
 command line](https://en.wikipedia.org/wiki/Unix_shell) in this guide as a way
 for you to peek under the hood of the LaTeX engine. This will give you (the
@@ -58,20 +58,20 @@ more efficient and higher quality paper writing workflow. Specifically we focus 
 
 <!-- We provide a pile of links to graphical interfaces to LaTeX at the end of the document, however emphasizing that value of  -->
 
-To help people **practice** these commands we have hands-on examples ready in a [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/)
-session, through [Binder](https://mybinder.org/).  Here you can follow along, processing
+To help people **practice** these commands we have hands-on examples ready in a [JupyterLab](https://jupyterlab.readthedocs.io/en/stable/){target="_blank"}
+session, through [Binder](https://mybinder.org/){target="_blank"}.  Here you can follow along, processing
 documents in a terminal session. You can start this environment here:
 
 
 <!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/main) -->
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide){target="_blank"}
 
 
-To use LaTeX on your own computer, you will need to [install it](https://www.latex-project.org/get/#tex-distributions) (we highly recommend following the links therein to TeX Live on each system).
+To use LaTeX on your own computer, you will need to [install it](https://www.latex-project.org/get/#tex-distributions){target="_blank"} (we highly recommend following the links therein to TeX Live on each system).
 
 # 1. Structure and Markup
 
-A LaTeX document (or a `.tex` file) is a [plain text](https://en.wikipedia.org/wiki/Plain_text) document that contains commands that tell the LaTeX processing program how to create a beautiful pdf. These commands can be "markup" like `\textbf{this is bold}` for **bold text** or `$\alpha + \beta \frac{1}{x^2}$` for math like $\alpha + \beta \frac{1}{x^2}$ or commands that tell LaTeX about document structure like `\section{Introduction}` or even commands to identify a bibliography like `\bibliography{refs_example.bib}`.
+A LaTeX document (or a `.tex` file) is a [plain text](https://en.wikipedia.org/wiki/Plain_text){target="_blank"} document that contains commands that tell the LaTeX processing program how to create a beautiful pdf. These commands can be "markup" like `\textbf{this is bold}` for **bold text** or `$\alpha + \beta \frac{1}{x^2}$` for math like $\alpha + \beta \frac{1}{x^2}$ or commands that tell LaTeX about document structure like `\section{Introduction}` or even commands to identify a bibliography like `\bibliography{refs_example.bib}`.
 
 Once you have a plain text document with markup, you then process it using a set of programs to create a publishable output like a `.pdf` file.  This figure shows an example of a LaTeX document and highlights different parts of the document and their role.
 
@@ -119,7 +119,7 @@ and `\author{Some Person}` *in the preamble* and `\maketitle`  right after the
 `\begin{document}` line.] You can practice by following these steps (and similar ones) in later sections:
 
 1. select the directory `1_structure` in the JupyterLab window that launches when you clink on `launch
-binder` above or here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide)
+binder` above or here: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide){target="_blank"}
 2. Then clicking on the `Terminal` icon in the JupyterLab pane
 3. Type `ls`. If you see a list of directories like `adaptive`, you need to
    change directories to the `latex-guide/1_struture` so you should type (or
@@ -130,10 +130,10 @@ binder` above or here: [![Binder](https://mybinder.org/badge_logo.svg)](https://
 You can also copy the GitHub repository for the EGAP methods guides or just the
 subdirectory for `latex-guide` to your own local machine and launch
 the Terminal to see a Unix command prompt if you are using a
-[Mac](https://support.apple.com/guide/terminal/welcome/mac) or Linux
+[Mac](https://support.apple.com/guide/terminal/welcome/mac){target="_blank"} or Linux
 machine. Windows machines also offer a Unix command prompt, but it is a [bit
 more involved to install
-it](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+it](https://docs.microsoft.com/en-us/windows/wsl/install-win10){target="_blank"}.
 
 
 # 2. Flavors and Programs: `tex`, `latex`,  `pdflatex`, etc
@@ -142,9 +142,9 @@ Although the most basic program that parses markup is called `latex`, in
 current daily use, you will mostly find yourself using `pdflatex` or even `xelatex`
 or maybe `lualatex`.
 
-When [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth) created this
+When [Donald Knuth](https://en.wikipedia.org/wiki/Donald_Knuth){target="_blank"} created this
 approach to making beautiful scientific documents, he started with the `tex`
-program but [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)
+program but [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport){target="_blank"}
 built `latex` by combining multiple `tex` commands into fewer and simpler
 macros. Both originally created documents in `dvi` or `postscript` format.
 Nowadays, `pdf` files are the best way to make a document that looks the same
@@ -166,7 +166,7 @@ Here is a list of the common programs that one might use to create a pdf file fr
   font](https://www.overleaf.com/learn/latex/XeLaTeX) to one that is installed
   on your system)
 - `lualatex`: extends latex so that more programming can be done within it
-  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F))
+  (via Lua for more complicate document designs and workflows. See [here for more on lualatex](https://www.overleaf.com/learn/latex/Articles/An_Introduction_to_LuaTeX_(Part_1)%3A_What_is_it%E2%80%94and_what_makes_it_so_different%3F){target="_blank"})
 
 For example, at the command prompt in the Terminal, you might type
 `pdflatex example.tex` to create an `example.pdf` file.
@@ -255,7 +255,7 @@ file called `vaccine_by_pop.R`. This R file relies on data that is cleaned by
 `vaccine_data_cleaning.py`. The data themselves may also require code to
 download, clean, and merge with other files.
 
-So how do we organize the data, the files, and the overall workflow? There are many possibilities, but we're reminded by a slice of the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2):
+So how do we organize the data, the files, and the overall workflow? There are many possibilities, but we're reminded by a slice of the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2){target="_blank"}:
 
 > Simple is better than complex. <br>
 > Complex is better than complicated. <br>
@@ -276,14 +276,14 @@ uses one script with the same name:`temp_vs_time.pdf <—> temp_vs_time.py` and
 that LaTeX labelling follow this convention `\label{fig:temp_vs_time}`.  When
 editing the document, the path from figure to the associated plotting script and
 related data is then clear. For a high level discussion of project workflow see
-[10 Things to Know About Project Workflow](https://egap.org/resource/10-things-to-know-about-project-workflow/).
+[10 Things to Know About Project Workflow](https://egap.org/resource/10-things-to-know-about-project-workflow/){target="_blank"}.
 
 ## On Directory Structure
 
 Here are two examples of directory structures which have worked for us:
 
 In this example,
-we use [Matt West's directory structure](https://lagrange.mechse.illinois.edu/latex_quick_ref/),
+we use [Matt West's directory structure](https://lagrange.mechse.illinois.edu/latex_quick_ref/){target="_blank"},
 where the versions of the paper are kept in their own directories:
 
 ```{bash}
@@ -365,7 +365,7 @@ paper_topic_name_dir_name              | string used for repo, tex, and bib file
 - Separate data from processing from presentation.
 - Create consistent labels in the LaTeX to script that generates it to the associated data.
 - Commit to a workflow!  Anything is better than nothing and
-from the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2) recall that `Now is better than never.`
+from the [Zen of Python](https://www.python.org/dev/peps/pep-0020/#id2){target="_blank"}recall that `Now is better than never.`
 
 ## Practice
 
@@ -378,7 +378,7 @@ How do you track changes and versions in your LaTeX document?
 
 ## Collaborating asychronously: git version control
 
-We strongly recommend [git version control via github](https://github.com/git-guides),
+We strongly recommend [git version control via github](https://github.com/git-guides){target="_blank"},
 either when working along on a document or when multiple authors are involved.
 We do not describe git and github in-depth here, but instead offer the following high-level
 *best* practices.
@@ -423,10 +423,10 @@ Fewer tools allow collaborators to edit plain text documents at the same time.
 We nearly always rely on asychronous collaboration, even if we have broken up a
 task and the whole team is working on it at the same time, even in the same room.
 
-[Overleaf](https://www.overleaf.com) is designed for this task. It compiles
-LaTeX and syncs with github. See also the online versions of LaTeX listed [here](https://www.latex-project.org/get/).
+[Overleaf](https://www.overleaf.com){target="_blank"} is designed for this task. It compiles
+LaTeX and syncs with github. See also the online versions of LaTeX listed [here](https://www.latex-project.org/get/){target="_blank"}.
 
-There are other systems for editing plain text at the same time such as [Teletype for Atom](https://teletype.atom.io).
+There are other systems for editing plain text at the same time such as [Teletype for Atom](https://teletype.atom.io){target="_blank"}.
 
 ## Takeaways
 
@@ -444,11 +444,11 @@ See the directory `4_git` and the `readme.md` file therein.
 The overarching *style* of your document is often decided by the journal.  With
 this in mind, it is best to typeset your document with the journal's style file.
 For example here is the style file for [Political
-Analysis](https://www.overleaf.com/latex/templates/template-for-submission-to-political-analysis/csxqmspqzntv).
+Analysis](https://www.overleaf.com/latex/templates/template-for-submission-to-political-analysis/csxqmspqzntv){target="_blank"}.
 The Society for Industrial and Applied Mathematics (SIAM) provides [style files
-directly](https://www.siam.org/publications/journals/about-siam-journals/information-for-authors#dnn_ctr2112_ContentPane)
+directly](https://www.siam.org/publications/journals/about-siam-journals/information-for-authors#dnn_ctr2112_ContentPane){target="_blank"}
 whereas others, e.g. are included with your TeX distribution and available in
-[CTAN](https://ctan.org/pkg/amsart?lang=en). In any case, committing and not
+[CTAN](https://ctan.org/pkg/amsart?lang=en){target="_blank"}. In any case, committing and not
 deviating from the expected format will accelerate your time-to-publication by
 not slowing down the copy editing at the journal. The style files will provide
 macros for author formats, custom figure environments, and almost certainly the
@@ -480,7 +480,7 @@ Other linters can look for issues with **style**. Consider the following terribl
 
 > More research is needed to fill the gap created in extant literature in order to impact policy with very important findings.
 
-One linter, the [write-good](https://github.com/btford/write-good), highlights several potential problems:
+One linter, the [write-good](https://github.com/btford/write-good){target="_blank"}, highlights several potential problems:
 
 ```{bash}
 col 16 error| [write-good] "is needed" may be passive voice [E]
@@ -501,9 +501,9 @@ reading paragraphs and sentences out loud to "edit by ear" [@howardsbecker1986a]
 to guides specific to academic writing: @gopen1990science and @howardsbecker1986a.
 Here, we offer a few directions that improve your writing specifically in LaTeX:
 
-- Linters such as [alex](https://alexjs.com), [proselint](http://proselint.com),
-  and [write-good](https://github.com/btford/write-good) can be integrated into
-  many text editors (such as [vim](https://www.vim.org/) to highlight your
+- Linters such as [alex](https://alexjs.com){target="_blank"}, [proselint](http://proselint.com){target="_blank"},
+  and [write-good](https://github.com/btford/write-good){target="_blank"} can be integrated into
+  many text editors (such as [vim](https://www.vim.org/){target="_blank"} to highlight your
   `.tex` document on-the-fly).
 - In general, avoid the urge to constantly re-compile your document to view its
   output (figures/diagrams are a different case). Your first task is writing not
@@ -667,7 +667,7 @@ BibTeX file for this essay:
 
 - Typically you do not need to write your own `.bib` entry. Grab the full citation online at  the citation’s journal and/or Google Scholar [see
   instructions here for getting BibTeX formatted entries from Google
-  Scholar](https://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/).
+  Scholar](https://texblog.org/2014/04/22/using-google-scholar-to-download-bibtex-citations/){target="_blank"}.
 - Clean up entry (removing abstracts or other fields).  Align as desired for readability.
 - Format cleanly.  Use `{ }` instead of `“ “`.
 - `{ }` also force capitalization: for example `title = {All about {Krylov} methods}`.
@@ -677,7 +677,7 @@ BibTeX file for this essay:
 ## Takeaways
 
 - Use BibTex to organize your bibliography.
-- You will only need to add a BibTeX entry to your bibliography database (your `.bib` file) once. (And you can use tools like [Zotero](https://guides.library.iit.edu/c.php?g=720120&p=6296986) and [BibDesk](https://bibdesk.sourceforge.io) to make managing those collections of bibliographic information easier.)
+- You will only need to add a BibTeX entry to your bibliography database (your `.bib` file) once. (And you can use tools like [Zotero](https://guides.library.iit.edu/c.php?g=720120&p=6296986){target="_blank"} and [BibDesk](https://bibdesk.sourceforge.io){target="_blank"} to make managing those collections of bibliographic information easier.)
 - Clean bibliographic entries to reduce error and accelerate the process.
 
 ## Practice
@@ -720,8 +720,8 @@ Figures are central to the overall feel of your article.  Here are a few general
 for working with LaTeX and figures:
 
 - Fonts in figures should match the fonts in the float/article.  Notably, using `\includegraphics` to scale a figure will also change the font sizes; you should attempt to generate unscaled figures.
-  - Options for font matching in pdf figures using R with [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice) and [`extrafont`](https://cran.r-project.org/web/packages/extrafont).
-  - Using Python and Matplotlib, you can specify your font through `rcparams` [here](https://matplotlib.org/stable/tutorials/introductory/customizing.html).
+  - Options for font matching in pdf figures using R with [tikzDevice](https://cran.r-project.org/web/packages/tikzDevice){target="_blank"} and [`extrafont`](https://cran.r-project.org/web/packages/extrafont){target="_blank"}.
+  - Using Python and Matplotlib, you can specify your font through `rcparams` [here](https://matplotlib.org/stable/tutorials/introductory/customizing.html){target="_blank"}.
 - Let's repeat that last point: *fonts in figures* should match the fonts of the article.
 - Insert graphics the `\includegraphics[]{}` command. For
 example, if we wanted to include a figure but scale it to 1/3 of the width of
@@ -764,7 +764,7 @@ Figure~\ref{fig:vaccine_by_pop} shows that opposition to vaccination peaks at a 
 
 Math fonts should work with the main font of the article. For examples of good
 math and text font pairings see the [LaTeX Font
-Catalogue](https://tug.org/FontCatalogue/mathfonts.html).
+Catalogue](https://tug.org/FontCatalogue/mathfonts.html){target="_blank"}.
 
 ## Takeaways
 
@@ -798,24 +798,24 @@ you will consider the following "bad" figure and how to improve it in your LaTeX
 - cleveref: `\cref{}` referencing for all
 - hyperref: hyper linkes to figures, etc
 - backref: add page numbers to the bib
-- microtype: [[http://www.khirevich.com/latex/microtype/]{.ul}](http://www.khirevich.com/latex/microtype/)
+- microtype: [[http://www.khirevich.com/latex/microtype/]{.ul}](http://www.khirevich.com/latex/microtype/){target="_blank"}
 - enumitem: full control of itemize environments
 
 ### Ways to type a document using LaTeX markup
 
 A LaTeX document is a [plain text
-file](https://en.wikipedia.org/wiki/Plain_text). This means that you can use any [text
-editor](https://en.wikipedia.org/wiki/Text_editor) to write a LaTeX document. However, a text editor that (1) recognizes
+file](https://en.wikipedia.org/wiki/Plain_text){target="_blank"}. This means that you can use any [text
+editor](https://en.wikipedia.org/wiki/Text_editor){target="_blank"} to write a LaTeX document. However, a text editor that (1) recognizes
 that `\textbf{}` is a LaTeX command or that (2) keeps track of matching braces
 and parentheses makes it easier to write LaTeX markup. To that end, we use
-[neovim](http://neovim.io) (sometimes with the [vimr
-gui](https://github.com/qvacua/vimr)) with
-[vimtex](https://github.com/lervag/vimtex) plugins but we know that there are
+[neovim](http://neovim.io){target="_blank"} (sometimes with the [vimr
+gui](https://github.com/qvacua/vimr){target="_blank"}) with
+[vimtex](https://github.com/lervag/vimtex){target="_blank"} plugins but we know that there are
 many other approaches to typing a plain text document using LaTeX markup.
 
 ## Information about this document
 
-We wrote this document using [pandoc flavored markdown]() and turned it from plain text into HTML via the following command at the unix command line on our OS X laptops:
+We wrote this document using [pandoc flavored markdown](https://pandoc.org){target="_blank"} and turned it from plain text into HTML via the following command at the unix command line on our OS X laptops:
 
 ```
 pandoc latex-guide.md --to html4 --from markdown+yaml_metadata_block+autolink_bare_uris+tex_math_single_backslash+inline_code_attributes --output latex-guide.html  --self-contained --variable bs3=TRUE --standalone --section-divs --template latex-guide-template.html   --include-in-header latex-guide-header.html --number-sections --table-of-contents --toc-depth=1  --variable theme=bootstrap --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' --citeproc
