@@ -62,8 +62,8 @@ To help people **practice** these commands we have hands-on examples ready in a 
 session, through [Binder](https://mybinder.org/){target="_blank"}.  Here you can follow along, processing
 documents in a terminal session. You can start this environment here:
 
-
 <!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/main) -->
+
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/egap/methods-guides/HEAD?urlpath=lab/tree/latex-guide){target="_blank"}
 
 
