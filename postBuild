@@ -1,3 +1,10 @@
 #!/bin/bash
 
+## Try to start jupyter lab within the latex-guide directory
+## probably will need to to do something fancier like add the following to the 
+## jupyter config.py file in ~/.jupyter or something
+##
+## import os
+## c.NotebookApp.notebook_dir = os.path.expanduser('~/latex-guide')"
+
 cd latex-guide
