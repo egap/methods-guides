@@ -1,7 +1,7 @@
 # Trying this approach with a pre-build Docker image
 # following https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
 # Note that there must be a tag
-FROM jwbowers/methods-guides:b092b6f52487
+FROM jwbowers/methods-guides:d177a56ed870
 
 ARG NB_USER=jovyan
 ARG NB_UID=1000
