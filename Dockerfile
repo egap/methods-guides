@@ -1,7 +1,6 @@
 # Trying this approach with a pre-build Docker image
 # following https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html
 # Note that there must be a tag
-RUN python3 -m pip install --no-cache-dir notebook jupyterlab
 FROM jwbowers/methods-guides:b092b6f52487
 
 ARG NB_USER=jovyan
@@ -20,3 +19,5 @@ COPY . ${HOME}
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
+
+RUN python3 -m pip install --no-cache-dir notebook jupyterlab
