@@ -74,7 +74,7 @@ Researchers often seek to investigate systematic sources of treatment effect het
 
 A second-best approach is to compare studies that differ on one or more of these dimensions (subjects, treatments, context, or outcomes).   The drawback of this approach is that it is essentially descriptive rather than causal – the researcher is basically characterizing the features of studies that contribute to especially large or small effect sizes.  That said, this exercise can be conducted via meta-regression: the estimated effect size is the dependent variable, while study attributes (e.g., whether outcomes were measured through direct observation or via survey self-reports) constitute the independent variables.  Note that meta-regression is a generalization of random effects meta-analysis, with measured predictors of effect sizes as well as unmeasured sources of heterogeneity.
 
-Since meta-analysis is a technique for combining information across different studies, we do not here discuss the detection or modeling of heterogeneous treatment effects within any single study.
+Since meta-analysis is a technique for combining information across different studies, we do not here discuss the detection or modeling of heterogeneous treatment effects within any single study. See our guide [10 Things to Know About Heterogeneous Treatment Effects](https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects/) for more on this topic.
 
 10.	Methods for assessing the accuracy of meta-analytic results
 ==
