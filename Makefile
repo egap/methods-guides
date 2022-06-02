@@ -18,6 +18,7 @@ all: adaptive/adaptive.html \
 	meta-analysis/meta-analysis.html \
 	missing_data/missing_data.html \
 	multiple-comparisons/multiple-comparisons.html \
+	multisite/multisite.html \
 	null/null_results.html \
 	pap/pap.html \
 	pilots/10_things_to_know_about_pilots.html \
@@ -105,6 +106,9 @@ missing_data/missing_data.html:  missing_data/missing_data.Rmd
 
 multiple-comparisons/multiple-comparisons.html:  multiple-comparisons/multiple-comparisons.Rmd
 	Rscript -e "rmarkdown::render('./multiple-comparisons/multiple-comparisons.Rmd')"
+
+multisite/multisite.html:  multisite/multisite.Rmd
+	Rscript -e "rmarkdown::render('./multisite/multisite.Rmd')"
 
 null/null_results.html:  null/null_results.Rmd
 	Rscript -e "rmarkdown::render('./null/null_results.Rmd')"
