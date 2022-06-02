@@ -266,6 +266,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -286,6 +287,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -600,13 +604,13 @@ would be the case if studies were published only if they showed
 statistically significant results; to reach the significance bar, small
 studies (with large standard errors) would need to generate larger
 effect estimates. Unfortunately, this test often produces ambiguous
-results (CITE), and methods to correct publication bias in the wake of
-such diagnostic tests (e.g., the trim-and-fill method) may do little to
-reduce bias. Given growing criticism of statistical tests for
-publication bias and accompanying statistical correctives, there is an
-increasing sense that the quality of a meta-analysis hinges on whether
-research reports in a given domain can be assembled in a comprehensive
-manner.</p>
+results (Bürkner and Doebler 2014),<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> and methods to correct publication bias in
+the wake of such diagnostic tests (e.g., the trim-and-fill method) may
+do little to reduce bias. Given growing criticism of statistical tests
+for publication bias and accompanying statistical correctives, there is
+an increasing sense that the quality of a meta-analysis hinges on
+whether research reports in a given domain can be assembled in a
+comprehensive manner.</p>
 </div>
 <div id="modeling-inter-study-heterogeneity-using-meta-regression" class="section level1">
 <h1>9. Modeling inter-study heterogeneity using meta-regression</h1>
@@ -638,7 +642,10 @@ effects meta-analysis, with measured predictors of effect sizes as well
 as unmeasured sources of heterogeneity.</p>
 <p>Since meta-analysis is a technique for combining information across
 different studies, we do not here discuss the detection or modeling of
-heterogeneous treatment effects within any single study.</p>
+heterogeneous treatment effects within any single study. See our guide
+<a href="https://egap.org/resource/10-things-to-know-about-heterogeneous-treatment-effects/">10
+Things to Know About Heterogeneous Treatment Effects</a> for more on
+this topic.</p>
 </div>
 <div id="methods-for-assessing-the-accuracy-of-meta-analytic-results" class="section level1">
 <h1>10. Methods for assessing the accuracy of meta-analytic results</h1>
@@ -668,9 +675,9 @@ The resulting analysis found that exposure to the meta-analysis led to
 greater accuracy in predicting the effect in the left-out study in
 comparison to the external study (which, as a reminder, was not part of
 the meta-analysis in any way). For more on this Metaketa round, along
-with a more substantial discussion of this “evidence summit” look for
-the upcoming book Information, Accountability, and Cumulative Learning:
-Lessons from Metaketa I.</p>
+with a more substantial discussion of this “evidence summit” see the
+book Information, Accountability, and Cumulative Learning: Lessons from
+Metaketa I.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
 </div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
@@ -691,6 +698,13 @@ University Press.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>Lau, R.R., Sigelman, L., &amp; Rovner, I.B. (2007). The
 Effects of Negative Political Campaigns: A Meta‐Analytic Reassessment.
 <em>The Journal of Politics, 69(4)</em>, 1176-1209.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Bürkner, P. C., &amp; Doebler, P. (2014). Testing for
+publication bias in diagnostic meta‐analysis: a simulation study.
+<em>Statistics in Medicine, 33(18)</em>, 3061-3077.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Dunning, T., Grossman, G., Humphreys, M., Hyde, S. D.,
+McIntosh, C., &amp; Nellis, G. (Eds.). (2019). <em>Information,
+accountability, and cumulative learning: Lessons from Metaketa I.</em>
+Cambridge: Cambridge University Press.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
