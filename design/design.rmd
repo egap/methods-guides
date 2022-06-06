@@ -20,23 +20,24 @@ At a minimum, all that is needed to estimate a treatment effect after an experim
 ## Baseline surveys 
 Baseline surveys should produce data that describe the experimental subject population as they were before the treatment is delivered. This is accomplished through the measurement of covariates, which are observed pre-treatment characteristics of experimental subjects. Using covariate data you can: 1) describe the subject population, 2) improve the precision with which you estimate treatment effects, 3) report balance, and 4) estimate heterogeneous treatment effects.
 
-## Covariates
-Covariates improve the precision with which you can estimate treatment effects by reducing variance in three ways; covariates can be used to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. collected sometime before treatment is delivered. See the guide on [covariate adjustment](https://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
+Covariates improve the precision with which you can estimate treatment effects. You can use covariates in three ways: to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. ideally collected some  time before treatment is delivered. See the guide on [covariate adjustment](https://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
 
 [^1]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012.
 
-The greater the predictive power of included covariates, the greater increase in the power of your design and the precision with which you can estimate effects. If you believe covariates will likely predict outcomes in your experiment, then that is grounds to include them in your survey. For example, if the intervention involves providing a service at a cost to treated users, income will likely explain some variation in outcomes and is therefore a useful covariate to measure at the baseline stage. 
+The greater the predictive power of included covariates, the greater the increase in the power of your design and the precision with which you can estimate effects. If you believe covariates will likely predict outcomes in your experiment, then that is grounds to include them in your survey. For example, if the intervention involves providing a service at a cost to treated users, income will likely explain some variation in outcomes and is therefore a useful covariate to measure at the baseline stage. 
+
+Often, baseline measures of your outcome can be very predictive. The procedure that uses pre-measures to re-scale the outcomes is referred to as the difference-in-differences estimator. As with other covariates, the difference-in-differences estimator will improve precision only when the pre-measure strongly predicts the outcome.[^2]
+
+[^2]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012. See equation 4.2.
 
 Because pre-treatment covariates can improve precision, conducting a baseline becomes more important when the sample size is limited. 
 
 Covariates also allow you to conduct sub-group analyses. Heterogeneous effects are not causal, and so interpretation is limited. Still, understanding how treatment effects vary by subejcts’ attributes can provide you with important clues about mechanisms. The implication for design is to include covariates for which you would like to report heterogeneous effects.
 Covariate data will also be used to show “balance”, or the extent to which the treatment and control populations resemble each other. Although random assignment alone ensures that outcomes across the treatment and control group are in expectation the same, it is standard practice to show that random assignment resulted in two groups that are “balanced” on covariates of interest. If, for example, the treatment group included 25% more men than the control group, we might worry that random assignment failed in some way. Collecting pre-treatment covariate data allows us to evaluate and report balance. 
 
-## Pre-treatment measurement of outcomes
+One consideration that can speak against a baseline survey is the risk that the baseline survey may induce experimenter demand. If you think that being aware that they are part of an experiment or knowing about the goals of the project may alter respondents' behavior in systematic ways, you may want to keep your experimental procedures as unobtrusive as possible. One way to do so is to dispense with a baseline survey all together. Alternatively, you could implement a baseline survey to collect demographic information but limit the number of questions that concern the study topic and hence may allow respondents to guess the study purpose.
 
-The baseline provides an opportunity to measure the outcome before the experiment was conducted, later allowing you to use change scores as your outcome and the difference-in-differences estimator. The difference-in-differences estimator will improve precision only when a covariate strongly predicts outcomes.[^2]
 
-[^2]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012. See equation 4.2.
 
 ## Endline Surveys
 

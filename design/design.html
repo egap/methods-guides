@@ -431,27 +431,28 @@ observed pre-treatment characteristics of experimental subjects. Using
 covariate data you can: 1) describe the subject population, 2) improve
 the precision with which you estimate treatment effects, 3) report
 balance, and 4) estimate heterogeneous treatment effects.</p>
-</div>
-<div id="covariates" class="section level2">
-<h2>Covariates</h2>
 <p>Covariates improve the precision with which you can estimate
-treatment effects by reducing variance in three ways; covariates can be
-used to rescale your dependent variable, as controls when using
-regression to estimate treatment effects, and to construct blocks in
-order to conduct blocked random assignment.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In order for covariate
-data to be used to reduce variance in our estimates of treatment
-effects, they need to be unaffected by treatment assignment,
-i.e. collected sometime before treatment is delivered. See the guide on
-<a href="https://egap.org/resource/10-things-to-know-about-covariate-adjustment">covariate
+treatment effects. You can use covariates in three ways: to rescale your
+dependent variable, as controls when using regression to estimate
+treatment effects, and to construct blocks in order to conduct blocked
+random assignment.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In order for covariate data to be used to
+reduce variance in our estimates of treatment effects, they need to be
+unaffected by treatment assignment, i.e. ideally collected some time
+before treatment is delivered. See the guide on <a href="https://egap.org/resource/10-things-to-know-about-covariate-adjustment">covariate
 adjustment</a> for more about how to use covariate data.</p>
 <p>The greater the predictive power of included covariates, the greater
-increase in the power of your design and the precision with which you
-can estimate effects. If you believe covariates will likely predict
+the increase in the power of your design and the precision with which
+you can estimate effects. If you believe covariates will likely predict
 outcomes in your experiment, then that is grounds to include them in
 your survey. For example, if the intervention involves providing a
 service at a cost to treated users, income will likely explain some
 variation in outcomes and is therefore a useful covariate to measure at
 the baseline stage.</p>
+<p>Often, baseline measures of your outcome can be very predictive. The
+procedure that uses pre-measures to re-scale the outcomes is referred to
+as the difference-in-differences estimator. As with other covariates,
+the difference-in-differences estimator will improve precision only when
+the pre-measure strongly predicts the outcome.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>Because pre-treatment covariates can improve precision, conducting a
 baseline becomes more important when the sample size is limited.</p>
 <p>Covariates also allow you to conduct sub-group analyses.
@@ -469,14 +470,16 @@ example, the treatment group included 25% more men than the control
 group, we might worry that random assignment failed in some way.
 Collecting pre-treatment covariate data allows us to evaluate and report
 balance.</p>
-</div>
-<div id="pre-treatment-measurement-of-outcomes" class="section level2">
-<h2>Pre-treatment measurement of outcomes</h2>
-<p>The baseline provides an opportunity to measure the outcome before
-the experiment was conducted, later allowing you to use change scores as
-your outcome and the difference-in-differences estimator. The
-difference-in-differences estimator will improve precision only when a
-covariate strongly predicts outcomes.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>One consideration that can speak against a baseline survey is the
+risk that the baseline survey may induce experimenter demand. If you
+think that being aware that they are part of an experiment or knowing
+about the goals of the project may alter respondents’ behavior in
+systematic ways, you may want to keep your experimental procedures as
+unobtrusive as possible. One way to do so is to dispense with a baseline
+survey all together. Alternatively, you could implement a baseline
+survey to collect demographic information but limit the number of
+questions that concern the study topic and hence may allow respondents
+to guess the study purpose.</p>
 </div>
 <div id="endline-surveys" class="section level2">
 <h2>Endline Surveys</h2>
