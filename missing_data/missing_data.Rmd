@@ -266,6 +266,8 @@ coef(lower)[2]
 
 Our interval estimate of the ATE using Manski bounds is thus [`r round(coef(lower)[2], 2)`, `r round(coef(upper)[2], 2)`].
 
+Manski bounds are often relatively wide. See Lee (2009) on how to calculate bounds that may be tighter but require additional assumptions.
+
 10. Multiple imputation for missing outcomes allows for point estimation of ATEs, but relies on stronger assumptions than bounding.
 ==
 The methods in #8 and #9 describe methods of single imputation, where a single value is substituted for missing values. In multiple imputation, we impute missing values of the dataset multiple times according to an assumed stochastic data generating process. Different methods for multiple imputation impose different structures and assumptions about the probability distributions governing the data generating processes used to impute missing values.  In general, multiple imputation proceeds via three stages:
@@ -281,6 +283,8 @@ Multiple imputation is implemented in many software packages and relatively stra
 References:
 ==
 Gerber, Alan S. and Donald P. Green. (2013). *Field Experiments: Design, Analysis, and Interpretation.* New York: W.W. Norton.
+
+Lee, David S. (2009). "Training, wages, and sample selection: Estimating sharp bounds on treatment effects." *The Review of Economic Studies* 76 (3): 1071-1102.
 
 Lin, Winston, Donald P. Green, and Alexander Coppock. (2016). "Standard Operating Procedures for Don Green's Lab at Columbia." Available at [https://alexandercoppock.com/Green-Lab-SOP/Green_Lab_SOP.html](https://alexandercoppock.com/Green-Lab-SOP/Green_Lab_SOP.html).
 
