@@ -266,6 +266,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -286,6 +287,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -374,47 +378,31 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#the-design-of-baseline-and-endline-surveys-differ-in-key-ways">1
-The design of baseline and endline surveys differ in key ways</a>
-<ul>
-<li><a href="#baseline-surveys">Baseline surveys</a></li>
-<li><a href="#covariates">Covariates</a></li>
-<li><a href="#pre-treatment-measurement-of-outcomes">Pre-treatment
-measurement of outcomes</a></li>
-<li><a href="#endline-surveys">Endline Surveys</a></li>
-</ul></li>
-<li><a href="#there-are-benefits-and-drawbacks-of-surveys-as-measurement-tools">2
+<li><a href="#the-design-of-baseline-and-endline-surveys-differ-in-key-ways" id="toc-the-design-of-baseline-and-endline-surveys-differ-in-key-ways">1
+The design of baseline and endline surveys differ in key ways</a></li>
+<li><a href="#there-are-benefits-and-drawbacks-of-surveys-as-measurement-tools" id="toc-there-are-benefits-and-drawbacks-of-surveys-as-measurement-tools">2
 There are benefits and drawbacks of surveys as measurement
 tools</a></li>
-<li><a href="#develop-your-survey-before-or-in-tandem-with-your-pre-analysis-plan">3
+<li><a href="#develop-your-survey-before-or-in-tandem-with-your-pre-analysis-plan" id="toc-develop-your-survey-before-or-in-tandem-with-your-pre-analysis-plan">3
 Develop your survey before or in tandem with your pre-analysis
 plan</a></li>
-<li><a href="#use-standard-measures-in-order-to-make-out-of-sample-comparisons">4
+<li><a href="#use-standard-measures-in-order-to-make-out-of-sample-comparisons" id="toc-use-standard-measures-in-order-to-make-out-of-sample-comparisons">4
 Use standard measures in order to make out-of-sample
 comparisons</a></li>
-<li><a href="#behavioral-measures-are-almost-always-better">5 Behavioral
-measures are almost always better</a>
-<ul>
-<li><a href="#gathering-behavioral-data-doesnt-have-to-be-expensive.-here-is-how-to-develop-low-cost-measures">Gathering
-behavioral data doesn’t have to be expensive. Here is how to develop
-low-cost measures:</a></li>
-</ul></li>
-<li><a href="#there-are-survey-methods-that-measure-sensitive-behaviors-and-attitudes-in-risky-environments-while-protecting-respondents">6
+<li><a href="#behavioral-measures-are-almost-always-better" id="toc-behavioral-measures-are-almost-always-better">5 Behavioral
+measures are almost always better</a></li>
+<li><a href="#there-are-survey-methods-that-measure-sensitive-behaviors-and-attitudes-in-risky-environments-while-protecting-respondents" id="toc-there-are-survey-methods-that-measure-sensitive-behaviors-and-attitudes-in-risky-environments-while-protecting-respondents">6
 There are survey methods that measure sensitive behaviors and attitudes
 in risky environments while protecting respondents</a></li>
-<li><a href="#if-social-desirability-bias-andor-risk-to-respondents-are-not-concerns-then-use-attitudinal-measures-with-these-qualities">7
+<li><a href="#if-social-desirability-bias-andor-risk-to-respondents-are-not-concerns-then-use-attitudinal-measures-with-these-qualities" id="toc-if-social-desirability-bias-andor-risk-to-respondents-are-not-concerns-then-use-attitudinal-measures-with-these-qualities">7
 If social desirability bias and/or risk to respondents are not concerns:
-then use attitudinal measures with these qualities</a>
-<ul>
-<li><a href="#how-do-you-construct-questions-that-accomplish-these-goals">How
-do you construct questions that accomplish these goals?</a></li>
-</ul></li>
-<li><a href="#question-ordering-instrument-length-matter">8 Question
-ordering &amp; instrument length matter</a></li>
-<li><a href="#make-sure-response-rates-do-not-differ-as-a-function-of-treatment-assignment">9
+then use attitudinal measures with these qualities</a></li>
+<li><a href="#question-ordering-instrument-length-matter" id="toc-question-ordering-instrument-length-matter">8 Question ordering
+&amp; instrument length matter</a></li>
+<li><a href="#make-sure-response-rates-do-not-differ-as-a-function-of-treatment-assignment" id="toc-make-sure-response-rates-do-not-differ-as-a-function-of-treatment-assignment">9
 Make sure response rates do not differ as a function of treatment
 assignment</a></li>
-<li><a href="#pilot">10 Pilot!</a></li>
+<li><a href="#pilot" id="toc-pilot">10 Pilot!</a></li>
 </ul>
 </div>
 
@@ -443,27 +431,28 @@ observed pre-treatment characteristics of experimental subjects. Using
 covariate data you can: 1) describe the subject population, 2) improve
 the precision with which you estimate treatment effects, 3) report
 balance, and 4) estimate heterogeneous treatment effects.</p>
-</div>
-<div id="covariates" class="section level2">
-<h2>Covariates</h2>
 <p>Covariates improve the precision with which you can estimate
-treatment effects by reducing variance in three ways; covariates can be
-used to rescale your dependent variable, as controls when using
-regression to estimate treatment effects, and to construct blocks in
-order to conduct blocked random assignment.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In order for covariate
-data to be used to reduce variance in our estimates of treatment
-effects, they need to be unaffected by treatment assignment,
-i.e. collected sometime before treatment is delivered. See the guide on
-<a href="https://egap.org/resource/10-things-to-know-about-covariate-adjustment">covariate
+treatment effects. You can use covariates in three ways: to rescale your
+dependent variable, as controls when using regression to estimate
+treatment effects, and to construct blocks in order to conduct blocked
+random assignment.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> In order for covariate data to be used to
+reduce variance in our estimates of treatment effects, they need to be
+unaffected by treatment assignment, i.e. ideally collected some time
+before treatment is delivered. See the guide on <a href="https://egap.org/resource/10-things-to-know-about-covariate-adjustment">covariate
 adjustment</a> for more about how to use covariate data.</p>
 <p>The greater the predictive power of included covariates, the greater
-increase in the power of your design and the precision with which you
-can estimate effects. If you believe covariates will likely predict
+the increase in the power of your design and the precision with which
+you can estimate effects. If you believe covariates will likely predict
 outcomes in your experiment, then that is grounds to include them in
 your survey. For example, if the intervention involves providing a
 service at a cost to treated users, income will likely explain some
 variation in outcomes and is therefore a useful covariate to measure at
 the baseline stage.</p>
+<p>Often, baseline measures of your outcome can be very predictive. The
+procedure that uses pre-measures to re-scale the outcomes is referred to
+as the difference-in-differences estimator. As with other covariates,
+the difference-in-differences estimator will improve precision only when
+the pre-measure strongly predicts the outcome.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>Because pre-treatment covariates can improve precision, conducting a
 baseline becomes more important when the sample size is limited.</p>
 <p>Covariates also allow you to conduct sub-group analyses.
@@ -481,20 +470,24 @@ example, the treatment group included 25% more men than the control
 group, we might worry that random assignment failed in some way.
 Collecting pre-treatment covariate data allows us to evaluate and report
 balance.</p>
-</div>
-<div id="pre-treatment-measurement-of-outcomes" class="section level2">
-<h2>Pre-treatment measurement of outcomes</h2>
-<p>The baseline provides an opportunity to measure the outcome before
-the experiment was conducted, later allowing you to use change scores as
-your outcome and the difference-in-differences estimator. The
-difference-in-differences estimator will improve precision only when a
-covariate strongly predicts outcomes.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>One consideration that can speak against a baseline survey is the
+risk that the baseline survey may induce experimenter demand. If you
+think that being aware that they are part of an experiment or knowing
+about the goals of the project may alter respondents’ behavior in
+systematic ways, you may want to keep your experimental procedures as
+unobtrusive as possible. One way to do so is to dispense with a baseline
+survey all together. Alternatively, you could implement a baseline
+survey to collect demographic information but limit the number of
+questions that concern the study topic and hence may allow respondents
+to guess the study purpose.</p>
 </div>
 <div id="endline-surveys" class="section level2">
 <h2>Endline Surveys</h2>
 <p>Endline surveys, conducted after the treatment is delivered, are
 primarily used to measure outcomes. Including questions about
-implementation can improve analysis and interpretation greatly.</p>
+implementation can improve analysis and interpretation greatly – though
+you may want to avoid doing so or place these questions at the end of
+the questionnaire if you are worried about experimenter demand.</p>
 <p>Surveys conducted after treatments are delivered are one way to
 understand if there were compliance issues or other implementation
 issues that may have consequences for analysis. Survey data can help to
@@ -513,7 +506,10 @@ group.</p>
 data collected after implementation are less useful for improving
 precision. Ordinarily, covariates collected after treatment assignment
 are considered suspect, as they could conceivably be affected by
-treatment.</p>
+treatment. With the exception of characteristics such as age or gender
+that are plausibly unaffected by many treatments, your analysis
+procedure should not condition on measures that have been collected
+post-treatment.</p>
 <table>
 <colgroup>
 <col width="56%" />
@@ -599,7 +595,9 @@ concern is that if you choose your tests <em>after</em> you see the
 data, you can get whatever results you like, or at least you can
 accentuate the tests that bolster a pet hypothesis.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Pre-registering a
 design and analysis plan, therefore, is a solution that prevents
-“fishing”: data mining and specification searching.</p>
+“fishing”: data mining and specification searching. Our guide <a href="https://egap.org/resource/10-things-to-know-about-pre-analysis-plans/">10
+Things to Know About Pre-Analysis Plans</a> provides more
+information.</p>
 <p>If you plan on developing a PAP, there are good reasons, beyond the
 normative value in increasing the level of transparency in your work, to
 develop your survey(s) at the same time. Early development of survey
@@ -715,6 +713,22 @@ for at least a sample of the subset to be able to capture the level of
 reporting bias across direct and list/endorsement/randomized response
 measures.</p>
 <p>LINKS TO LIST EXPERIMENT RESOURCES: <a href="http://imai.princeton.edu/projects/sensitive.html" class="uri">http://imai.princeton.edu/projects/sensitive.html</a></p>
+<p>Social-desirability bias in experiments is a particularly important
+concern if you suspect that such bias could be induced by your
+treatment. The awareness of being part of a study as well as
+respondents’ perception of what the goal of the study is may influence
+what respondents perceive as socially desirable and hence how they
+answer survey questions. For example, respondents may want to please the
+researchers and hence act in accordance with what they think the
+researchers’ hypothesis is. Such treatment-induced experimenter demand
+can bias treatment effect estimates. In addition to using the above
+techniques to address all kinds of social desirability bias, researchers
+can limit concerns about experimenter demand by designing their
+experiments in unobtrusive ways. For example, they may avoid a baseline
+survey or implement the endline survey in such a way that respondents
+are not immediately aware that the endline survey is linked to the
+treatment. See de Quidt et al. (2018) for an approach to measuring
+experimenter demand.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 </div>
 <div id="if-social-desirability-bias-andor-risk-to-respondents-are-not-concerns-then-use-attitudinal-measures-with-these-qualities" class="section level1">
 <h1>7 If social desirability bias and/or risk to respondents are not
@@ -787,13 +801,19 @@ accounting for differential response rates would yield data that was
 biased away from the true treatment effect—we lack data on those with
 the highest potential outcomes, those subjects who have been exposed to
 the strongest version of the treatment.</p>
-<p>One way to deal with this in the design of your survey (not the
-design of the treatment or in analysis alone [e.g., using bounded
-treatment effects<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>]), is to track a subsample of individuals
-from the hard-to-reach group. Choose a subset of missing respondents and
-invest in tracking and reaching them. At the analysis stage you have the
-option of weighting the data from this subsample in order to account for
-attrition.</p>
+<p>Our guide <a href="https://egap.org/resource/10-things-to-know-about-missing-data/">10
+Things to Know About Missing Data</a> provides details on how to deal
+with problems of attrition in your analysis, e.g., by placing bounds on
+treatment effects.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> You can also deal with attrition through
+the design of your survey, by tracking a random subsample of individuals
+from the hard-to-reach group. Choose a random subset of missing
+respondents and invest in tracking and reaching them. At the analysis
+stage you can combine data from this subsample with the data from your
+main sample through a weighted average in order to obtain an estimate of
+the average outcome in the sample as a whole. This approach is often
+referred to as “double sampling.” See Lohr (2009, chap. 8.3)<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> and our
+guide <a href="https://egap.org/resource/10-things-to-know-about-sampling/">10
+Things to Know About Sampling</a> for details.</p>
 </div>
 <div id="pilot" class="section level1">
 <h1>10 Pilot!</h1>
@@ -830,10 +850,15 @@ accounting for multiple comparisons etc. to avoid cherry-picking
 measures post-hoc.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>Young, Lauren. The psychology of political risk in
 autocracy. Working paper, Columbia University, September 2015.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>This approach involves estimating the upper and lower
-“bounds,” which are the largest and smallest ATEs we would obtain if the
-missing information were filled in with the highest and lowest outcomes
-that appear in the data we have.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>De Quidt, Jonathan, Johannes Haushofer, and Christopher
+Roth. “Measuring and bounding experimenter demand.” <em>American
+Economic Review</em> 108 (11) (2018): 3266-3302.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>This approach involves estimating the upper and lower
+“bounds,” which are the largest and smallest treatment effect estimates
+that we would obtain if the missing information was equal to the highest
+and lowest possible values of our outcomes.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Lohr, Sharon L. 2009. <em>Sampling: Design and
+Analysis.</em> 2nd ed. Boston: Brooks/Cole Cengage Learning.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
