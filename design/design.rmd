@@ -119,6 +119,10 @@ In the case that you use one of these methods, you may also want to include dire
 LINKS TO LIST EXPERIMENT RESOURCES:
 http://imai.princeton.edu/projects/sensitive.html
 
+Social-desirability bias in experiments is a particularly important concern if you suspect that such bias could be induced by your treatment. The awareness of being part of a study as well as respondents' perception of what the goal of the study is may influence what respondents perceive as socially desirable and hence how they answer survey questions. For example, respondents may want to please the researchers and hence act in accordance with what they think the researchers' hypothesis is. Such treatment-induced experimenter demand can bias treatment effect estimates. In addition to using the above techniques to address all kinds of social desirability bias, researchers can limit concerns about experimenter demand by designing their experiments in unobtrusive ways. For example, they may avoid a baseline survey or implement the endline survey in such a way that respondents are not immediately aware that the endline survey is linked to the treatment. See de Quidt et al. (2018) for an approach to measuring experimenter demand.[^6]
+
+[^6]: De Quidt, Jonathan, Johannes Haushofer, and Christopher Roth. "Measuring and bounding experimenter demand." *American Economic Review* 108 (11) (2018): 3266-3302.
+
 7 If social desirability bias and/or risk to respondents are not concerns: then use attitudinal measures with these qualities
 ==
 High-quality measures share two main characteristics; they are valid and reliable. A valid measure measures the underlying concept it is intended to capture. A reliable measure produces the same measurements when a given quantity is assessed repeatedly.
@@ -146,9 +150,9 @@ Start your questionnaire with an introduction that makes the respondent feel inf
 ==
 If response rates are related to treatment status, your survey data can yield biased estimates. For example, let’s say you are conducting a study of an intervention that involves testing study participants for health problems and informing those in the treatment group of their diagnosis. This is a sensitive intervention and may cause people in the treatment group to become more apprehensive about answering a survey than those in the control group. Simply analyzing the data without accounting for differential response rates would yield data that was biased away from the true treatment effect—we lack data on those with the highest potential outcomes, those subjects who have been exposed to the strongest version of the treatment.
 
-One way to deal with this in the design of your survey (not the design of the treatment or in analysis alone [e.g., using bounded treatment effects[^6]]), is to track a subsample of individuals from the hard-to-reach group. Choose a subset of missing respondents and invest in tracking and reaching them. At the analysis stage you have the option of weighting the data from this subsample in order to account for attrition.
+One way to deal with this in the design of your survey (not the design of the treatment or in analysis alone [e.g., using bounded treatment effects[^7]]), is to track a subsample of individuals from the hard-to-reach group. Choose a subset of missing respondents and invest in tracking and reaching them. At the analysis stage you have the option of weighting the data from this subsample in order to account for attrition.
 
-[^6]: This approach involves estimating the upper and lower "bounds," which are the largest and smallest ATEs we would obtain if the missing information were filled in with the highest and lowest outcomes that appear in the data we have.
+[^7]: This approach involves estimating the upper and lower "bounds," which are the largest and smallest ATEs we would obtain if the missing information were filled in with the highest and lowest outcomes that appear in the data we have.
 
 10 Pilot!
 ==
