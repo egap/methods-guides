@@ -2,6 +2,7 @@
 output: 
   html_document:
     toc: true
+    toc_depth: 1
     theme: journal
     includes:
         after_body: ../linking_script.html
