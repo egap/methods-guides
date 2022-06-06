@@ -76,7 +76,7 @@ Collecting original data usually means more options. As a researcher you are abl
 
 3 Develop your survey before or in tandem with your pre-analysis plan 
 ==
-It is now standard practice in experimental social science research to register a **pre-analysis plan** (PAP), which lays out in advance exactly what effects will be estimated and how. The key concern is that if you choose your tests *after* you see the data, you can get whatever results you like, or at least you can accentuate the tests that bolster a pet hypothesis.[^3] Pre-registering a design and analysis plan, therefore, is a solution that prevents "fishing": data mining and specification searching.
+It is now standard practice in experimental social science research to register a **pre-analysis plan** (PAP), which lays out in advance exactly what effects will be estimated and how. The key concern is that if you choose your tests *after* you see the data, you can get whatever results you like, or at least you can accentuate the tests that bolster a pet hypothesis.[^3] Pre-registering a design and analysis plan, therefore, is a solution that prevents "fishing": data mining and specification searching. Our guide [10 Things to Know About Pre-Analysis Plans](https://egap.org/resource/10-things-to-know-about-pre-analysis-plans/) provides more information.
 
 [^3]: Link to fishing article: http://www.columbia.edu/~mh2245/papers1/PA_2012b.pdf. Link to Casey et al: http://qje.oxfordjournals.org/content/127/4/1755.full.pdf+html
 
