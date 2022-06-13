@@ -151,7 +151,7 @@ Two common data issues are (1) extreme data points and (2) missing data.  **Extr
 
 **Missing data** can come in two forms: missing covariates and missing outcomes.  It is also important to specify when you expect to see missing outcomes or covariate and the procedures to deal with them in your PAP.  Extreme points/missingness that are random will be less problematic than extreme points/missingess that seem to have a pattern.
 
-Common procedures to address missing data or extreme points are 1) bounds analysis; 2) imputation; 3) dropping observations.  We recommend considering the following questions when determining which procedure you would like to use: 
+Common procedures to address missing data or extreme points are 1) bounds analysis; 2) imputation; 3) dropping observations. See our guide [10 Things to Know About Missing Data](https://egap.org/resource/10-things-to-know-about-missing-data/) for details.  We recommend considering the following questions when determining which procedure you would like to use: 
 
   - What issues may cause these extreme data points/missing covariates/missing outcomes? What can you do ahead of time to mitigate these data issues?
   - How would you assess if the extreme/missing data are plausibly random (i.e. do the extreme data points/missingness correlate with treatment, specific covariates/subgroups, or outcomes)? 
