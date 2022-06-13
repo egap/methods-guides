@@ -35,7 +35,7 @@ This guide introduces the idea of a pre-analysis plan (PAP), offers a model and 
 1 What is a Pre-Analysis Plan (PAP)
 ==
 
-A PAP is a document that formalizes and declares the design and analysis plan for your study.  It is written before the analysis is conducted and is generally registered on a third-party website.[^TOP]
+A PAP is a document that formalizes and declares the design and analysis plan for your study.  It is written, ideally, before outcome data are collected, or at least before the analysis is conducted and is generally registered on a third-party website.[^TOP]
 
 [^TOP]:PAPs are encouraged as part of the [Transparency and Openness Promotion (TOP) Guidelines](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], published in [Science](http://science.sciencemag.org/content/348/6242/1422.full), with leading social science journals committing to implementing TOP Guidelines. 
 
