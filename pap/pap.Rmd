@@ -250,7 +250,7 @@ There are several third-party sites on which you can register your PAP.  We list
 
 - [EGAP Registry](https://egap.org/registry-0/)
 - [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
-- [OSF Registry](http://help.osf.io/m/registrations)
+- [OSF Registry](https://osf.io/registries)
 
 <!--# Stuff for Chris and Lula
 
