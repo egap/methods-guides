@@ -1,0 +1,541 @@
+---
+bibliography: ./refs.bib
+link-citations: true
+numbersections: false
+colorlinks: true
+secnumdepth: 2
+number-sections: false
+linkReferences: true
+output:
+  bookdown::html_document2:
+    number_sections: false
+    toc: true
+    theme: journal
+    extensions: +implicit_figure
+    code_folding: hide
+    fig_caption: true
+    includes:
+        after_body: ../linking_script.html
+---
+
+<!-- title: "10 Things to Know About Multisite or Block-Randomized Trials" -->
+<!-- author: "Methods Guide Author: Kristen Hunter" -->
+
+# 1. What is a multisite or block randomized trial?
+
+A multisite or block-randomized trial is a randomized experiment "in which sample members are randomly assigned to a program or a control group *within* each of a number of sites" (@Raudenbush2015).
+
+This guide focuses on multisite educational trials for illustration, although multisite trials are not unique to education.
+Multisite trials are a subset of multilevel randomized controlled trials (RCTs), in which units are nested within hierarchical structures, such as students nested within schools nested within districts.
+This guide uses as an illustrative example the case where each site is a school, although they could also be districts or classrooms; thus the term "site" and "school" are used interchangeably.
+
+An advantage of multisite trials is that they allow a researcher to study average impact across
+units or sites, while also getting a sense of heterogeneity across sites (@Raudenbush2015).
+However, the opportunities provided by multisite trials also come with their own challenges.
+Much of the rest of this guide will discuss the choices that researchers must make when analyzing multisite trials, and the consequences of these choices.
+
+## Preliminaries: estimands, estimators, and estimates
+Before diving in, let's introduce the definitions of estimand, estimator, and estimate.
+These concepts are sometimes conflated, but disentangling them increases clarity and understanding.
+The main distinction is that the *estimand* is the goal, while the *estimator* is the analysis we do in order to reach that goal.
+
+An **estimand** is an unobserved quantity of interest about which the researcher wishes to learn.
+In this guide, the only type of estimand considered is the overall average treatment effect (ATE).
+Other options include focusing on treatment effect for only a subgroup, or calculating a different summary, such as an odds ratio.
+After choosing an estimand, the researcher chooses an **estimator**, which is a method used to calculate the final **estimate** which should tell the researcher something about the estimand.
+Finally, the researcher must also choose a standard error estimator if she wants to summarize how the estimates might vary if the research design or underlying data generating process were repeated.
+
+First, to provide context, let's consider an example.
+The researcher decides their *estimand* will be the average treatment effect for the pool of subjects in the experiment.
+In this example, the researchers observe all of the subjects for whom they want to estimate an effect.
+As with any causal analysis, the researchers do not observe the control outcomes of the subjects assigned to the active treatment, or the treated outcomes of the subjects assigned to the control treatment.
+Thus, causal inference is sometimes referenced as a missing data problem, because it is impossible to observe both potential outcomes (the potential outcome given active treatment and the potential outcome given control treatment).
+See [10 Things to Know About Causal Inference](https://egap.org/resource/10-things-to-know-about-causal-inference/){target="_blank"}
+and [10 Types of Treatment Effect You Should Know About](https://egap.org/resource/10-types-of-treatment-effect-you-should-know-about/){target="_blank"}
+for a discussion of other common estimands.
+
+Given an estimand, the researchers choose their *estimator* to be the coefficient from an OLS regression of the observed outcome on site-specific fixed effects and the treatment indicator.
+To calculate standard errors, they use Huber-White robust standard errors.
+All these choices result in a point *estimate* (e.g. the program increased reading scores by $5$ points) and a measure of uncertainty (e.g. a standard error of $2$ points).
+
+We'll also need some notation.
+This guide follows the Neyman-Rubin potential outcomes notation (@Neyman1923, @Imbens2015).
+The observed outcomes are $Y_{ij}$ for unit $i$ in site $j$.
+The potential outcomes are $Y_{ij}(1)$, the outcome given active treatment, and $Y_{ij}(0)$, the outcome given control treatment.
+The quantity $B_{ij}$ is the unit-level intention-to-treat effect (ITT) $B_{ij} =  Y_{ij}(1) - Y_{ij}(0)$.
+If there is no noncompliance, the ITT is the ATE, as defined above.
+Then $B_j$ is the average impact at site $j$, $B_j = 1/N_j \sum_{i = 1}^{N_j} B_{ij}$ where $N_j$ is the number of units at site $j$.
+Finally, $N = \sum_{j = 1}^{J} N_j$.
+
+This guide is structured around the choices an analyst must make concerning estimand and estimators, and the resulting consequences.
+The choice of estimand impacts the substantive conclusion that a researcher makes.
+The choice of estimator and standard error estimator results in different statistical properties, including a potential trade off between bias and variance.
+This guide summarizes material using the framework provided by @Miratrix2020.
+
+# 2. A multisite trial is a type of a blocked or stratified randomized experiment.
+
+## A multisite trial is fundamentally a blocked or stratified RCT.
+
+A multisite trial is a blocked RCT with 2 levels: randomization occurs at the student level (level 1) within blocks defined by sites/schools (level 2).
+For example, in a study of a new online math tool for high school students, randomization occurs at the student level within blocks defined by sites/schools.
+Perhaps half of students at each school are assigned to the status quo / control treatment (no additional math practice),
+and half are assigned to the active treatment (an offer of additional math practice at home using an online tool).
+
+Because of the direct correspondence between multisite trials and blocked experiments, statistical properties of blocked experiments also translate directly to multisite experiments.
+The main difference between a traditional blocked RCT and a multisite experiment is that in many blocked RCTs, the researcher is able to choose the blocks.
+For example, in a clinical trial, a researcher may decide to block based on gender or specific age categories.
+Blocking can help increase statistical power overall or ensure statistical power to assess effects within subgroups (such as those defined by time of entering the study, or defined by other important covariates that might predict the outcome) [@moore2012multivariate;@moore2013;@bowers2011mem].
+@Pashley2021 makes the distinction between **fixed blocks**, where the number and covariate distribution of blocks is chosen by the researcher, and **structural blocks**, where natural groupings determine the number of blocks and their covariate distributions.
+Multisite experiments have structural blocks, such as districts, schools, or classrooms.
+The type of block can impact variance estimation, as shown in @Pashley2021 and @Pashley2022.
+
+The [EGAP Metaketa Projects](https://egap.org/our-work-0/the-metaketa-initiative/){target="_blank"}
+are also multisite trials: the 5 to 7 countries that contain sites for each study are fixed and chosen in advance by the different research teams.
+
+## A multisite trial is not a cluster-randomized trial
+
+A different type of RCT is a [cluster-randomized
+design](https://egap.org/resource/10-things-to-know-about-cluster-randomization/){target="_blank"},
+in which entire schools are assigned to either the active treatment or control
+treatment.
+[This video explains the difference between cluster and
+block-randomized designs](https://youtu.be/bL2U9z8hX1k){target="_blank"}.
+In a multisite trial, treatment is assigned **within a block to individual units**.
+In a cluster-randomized trial, treatment is assigned to **groups** of units.
+Some designs [combine cluster- and
+block-randomization](https://declaredesign.org/r/designlibrary/reference/block_cluster_two_arm_designer.html){target="_blank"}.
+
+Another design that is not a multisite or block-randomized trial is an experiment that takes place in only one school and assigns individual students to active treatment and control treatment.
+This type of study has only one site and thus differences
+between sites do not matter in this design.
+
+## Why choose a multisite or block-randomized trial design?
+
+In most contexts, blocking reduces estimation error over an unblocked (completely randomized) experiment [@moore2012multivariate; @gerber2012field].
+Thus, blocked experiments generally offer higher statistical power than unblocked experiments.
+Blocking is most helpful in increasing precision and statistical power in the setting where there is variation in the outcome, and where the blocks are related to this variation.
+
+In multisite trials as compared to block-randomized trials, the researcher typically cannot purposely construct blocks to reduce variation, because they are defined by pre-existing sites.
+However, the researcher can hope, and often expect, that sites naturally explain some between-site variation.
+For example, if some schools tend to have higher outcomes than others, then blocked randomization using the school as a block improves efficiency over complete randomization.
+
+Randomizing with purposefully created blocks or pre-existing sites also helps analysts learn about how treatment effects may vary across the sites or groups of people categorized into the blocks.
+If a new treatment should help the lowest performing students most, but in any given study most students are not the lowest performing, then researchers may prefer to create blocks of students within schools with the students divided by their previous performance.
+This blocking within site would allow comparisons of the treatment effects on the relatively rare lowest performing students with the treatment effects on the relatively rare highest performing students.
+
+## Why not block?
+
+Often, in a multisite trial with treatment administered by site administrators (like principals of schools), an analyst has no choice but to randomize within site.
+In other studies, the construction and choice of blocking criteria is a choice.
+@Pashley2022 shows that blocking is generally beneficial, but also explores settings in which it may be harmful.
+Blocking does result in fewer degrees of freedom, but in practice this reduction is rarely an issue, unless an experiment is very small [@Imai2008].
+Any use of blocking requires that an analyst keep track of the blocks and also that an analyst reflect the blocks in subsequent analysis: in many circumstances estimating average treatment effects from a block-randomized experiment while ignoring the blocks will yield biased estimates of the underlying targeted estimands (see ["The trouble with 'controlling for blocks'"](https://declaredesign.org/blog/biased-fixed-effects.html)  and ["Estimating Average Treatment Effects in Block Randomized Experiments"](https://egap.org/resource/sd-block-rand) for demonstrations of bias arising from different approaches to weighting by blocks).
+
+# 3. Analysis can either target the population in the experiment, or a broader population.
+
+The first choice a researcher must make in defining their estimand is the population of interest.
+The researcher may want to focus on the **finite population**: only those units in the experimental pool or sample.
+Alternatively, they can expand their estimand to consider the **super population**.
+A super population framework considers the units in the experiment to be a sample from a broader, unobserved population, and targets the impact in this larger population.
+
+A researcher might be interested in a finite population framework if most or all of the population is included in the study.
+For example, a state-level policymaker considering results from a statewide trial may only be interested in the impact on schools in their own state.
+Similarly, if an organization is evaluating itself and includes all of its own sites, they would use a finite population framework.
+An additional common case of a finite population framework is for proof-of-concept or pilot studies.
+A researcher may be running a small study to test whether an intervention is worth exploring in a larger trial.
+They may have even specifically selected a set of units assumed to be a worst case scenario to see whether there is still a measurable impact in such a group.
+Finally, many field experiments use a finite population framework out of necessity.
+The units and sites available for study may not arrive via any known or replicable sampling process, sometimes called a "convenience sample."
+
+A super population framework is of interest when a researcher plans to report estimates of the effect on units not included in the given study.
+For many trials, the end goal is not to study the units at hand, but rather to provide predictions of the likely impacts if the intervention were expanded.
+For example, a state-level policymaker with access to a trial performed on only a subset of schools in their state might prefer a super population framework.
+However, one challenge of the super population framework is that it assumes that sites are randomly sampled from the broader population of interest.
+As noted above, sites are often selected based on availability rather than a random sampling approach.
+Thus, when taking a super population framework when sites are not randomly sampled, the population we are making inference about becomes fuzzy.
+We may not be able to generalize to the whole population of interest, but instead can only generalize to a broader population of units that could have feasibly included in the study.
+
+One of the main consequences of the choice of population framework is the amount of uncertainty in the final estimates.
+This topic will be discussed in more detail later in the guide.
+When accounting for sites randomly sampled via a known sampling process from a super population, we naturally have an additional source of uncertainty deriving from which units were selected for the study at hand: randomization to
+treatment is one source of randomness, and sampling from the population is another source of randomness.
+Although the point estimates from either perspective will often be the same, the breadth of intervals will generally be larger for super population studies.
+
+For more discussion of the consequence of the super population and finite population frameworks, see @Schochet2016 and @Pashley2021.
+
+# 4. The average site effect is not the same as the average person effect.
+
+The second choice a researcher makes is the target of inference: is the researcher interested in the **average student**, or
+the **average site** (@Miratrix2020)?
+
+When we consider the average student impact, we weigh each student equally.
+Thus, larger sites have a larger impact on the outcome.
+For example, if one very large site is an outlier, the impact at that site will heavily drive the final results.
+Taking this approach makes sense from a utilitarian perspective, i.e., if the benefit of the intervention is equal to the total sum of benefits across all people.
+Average student impact might be of interest to a high-level policymaker, such as a state official.
+The average student impact is
+\[
+\frac{1}{N} \sum_{j = 1}^{J} \sum_{i = 1}^{N_j} B_{ij} = \sum_{j = 1}^{J} \frac{N_j}{N} B_j.
+\]
+
+When we consider the average site impact, we weigh each site equally.
+Thus, larger sites will be equally weighted to smaller sites.
+A site-level decision maker, such as a school principal, might be more interested in the average site impact, so that site size does not influence the final answer.
+The average site impact is
+\[
+\frac{1}{J} \sum_{j = 1}^{J} B_j.
+\]
+Note that in the case where all sites are of the same size, or all sites have the same impact, then these two estimands are the same.
+
+To summarize, this section and the prior section have given two axes of choices: the population of interest (FP or SP for finite and super population), and the target of inference (persons or sites).
+These choices result in four possible estimands: FP-persons, SP-persons, FP-sites, and SP-sites.
+
+# 5. There are many widely-used estimators that target the same estimands, including design-based, linear regression, and multilevel models.
+
+After choosing an *estimand*, the researcher must then choose an *estimator*, a process to arrive at the estimate of interest.
+There are three main categories of estimators: **design based**, **linear regression**, and **multilevel modeling**.
+Linear regression and multilevel modeling are both model-based approaches to statistical inference.^[
+Linear regression can be used as a tool in both design-based approaches (to calculate the difference in means)
+and model-based approaches (to estimate the parameters of a Normal data-generating process).
+In general, this guide considers linear regression as used in a model-based approach.]
+In model-based approaches, the researcher estimates the parameter in a likelihood function that is chosen to represent the natural stochastic process that generates the outcomes in the study.
+See @rubin:1990b for more discussion of the differences between design- and model-based approaches to statistical inference.
+
+The different categories of estimator differ both philosophically and practically.
+Each category assumes a different source of randomness, and thus has a different statistical justification.
+
+**Design-based** estimators specifically target the four estimands outlined above.
+The main source of uncertainty is assumed to be the treatment assignment: which units happened to be assigned to the active treatment, and which happened to be assigned to the control treatment.
+This assumption is the reason for their name; the uncertainty in the estimates is by design, from the purposeful randomization of units.
+Using design-based estimators is also sometimes called Neymanian inference, as the estimators and properties were first introduced by Neyman (@Neyman1923).
+Design-based estimators can also incorporate uncertainty from sampling when using a super population framework.
+
+**Linear regression** estimators are the most familiar to many researchers.
+With these estimators, the observed outcomes are assumed to be a linear function of the treatment assignment, (optionally) site-specific effects, (optionally) covariates, and random error.
+In standard regression theory, the only source of randomness is the error term.
+The covariates, which in the case of RCTs includes the treatment indicator, are considered fixed.
+This assumption is in direct contrast to the design-based framework, in which the treatment assignment is considered random.
+In econometric theory, the randomness in the error term in regression models is sometimes viewed as deriving from sampling from a larger population.
+
+**Multilevel model** estimators are a generalization of linear regression.
+When assuming *fixed effects*, as in a standard regression model, each site's parameter is considered to be fixed and independent.
+When assuming *random effects*, as in a multilevel model, each site's parameter is assumed to be drawn from a shared  distribution of site impacts.
+Most standard statistical software assumes a Normal distribution to model the site-specific impacts.
+Multilevel models can incorporate both random site-level intercepts, and random site-level coefficients (in our cases, these are site-specific treatment impacts).
+Now, uncertainty stems both from the individual-level random error term, and from the additional uncertainty of site-level parameters being considered random.
+In general, multilevel models naturally lend themselves to a super population framework, because they already incorporate the assumption that sites are being randomly drawn from a broader, unobserved population.
+Multilevel models are also called mixed effects models or mixed models, where a mixed model has a combination of fixed and random effects.
+For a more comprehensive look at multilevel models, see @Raudenbush2015.
+
+Let's examine a few popular models among linear regression and multilevel models in more detail.
+Note that these models as presented do not include covariates, but covariates can easily be incorporated to increase power if the analyst is willing to increase bias by a small amount in exchange (often a very small amount if the experiment is large enough) [@lin2013agnostic].
+
+## Common linear regression models
+
+**Fixed effects with a constant treatment (FE)**
+
+With this model, the researcher assumes that there are site-specific fixed effects (intercepts), but a common overall ATE.
+The assumed model is
+\[
+Y_{ij} = \sum_{k = 1}^{J} \alpha_k \text{Site}_{k,ij} + \beta T_{ij} + e_{ij},
+\]
+where $\text{Site}_{k,ij}$ is an indicator for unit $ij$ being in site $k$ (out of $J$ sites), $T_{ij}$ is a treatment indicator, and $e_{ij}$ is an $iid$ error term.
+For more discussion, see @Raudenbush2015.
+
+**Fixed effects with interactions (FE-inter)**
+
+With this model, the researcher assumes site-specific heterogeneous treatment effects, so in addition to fitting a separate fixed effect for the *intercepts* for each site, a separate treatment impact *coefficient* is found for each site.
+\[
+Y_{ij} = \sum_{k = 1}^{J} \alpha_k \text{Site}_{k,ij} +
+\sum_{k = 1}^{J} \beta_k \text{Site}_{k,ij} T_{ij} + e_{ij}
+\]
+Given a series of site-specific treatment estimates $\hat{\beta}_j$, these estimates are then averaged, with weights by either simple weighting (see @Clark2011) or by site size.
+
+## Common multilevel models
+
+Once an analyst selects multilevel modeling, for site intercepts and site impacts they must decide: what is considered random, and what is considered fixed?
+
+**Fixed intercept, random treatment coefficient (FIRC)**
+
+This model is similar to the fixed effects models above, but assumes that the site impact $\beta_j$ is drawn from a shared distribution.
+The FIRC model was more recently designed to handle bias issues that arise when the proportion of units treated varies across sites.
+
+\begin{align*}
+\text{Level 1}\qquad & Y_{ij} = \sum_{k = 1}^{J} \alpha_k
+\text{Site}_{k,ij} + \beta_j T_{ij} + e_{ij}\\
+\text{Level 2}\qquad & \beta_j = \beta + b_j
+\end{align*}
+See @Raudenbush2015 and @Bloom2017.
+
+**Random intercept, random treatment coefficient (RIRC)**
+
+This model is an older version of multilevel models, and assumes that both the site intercept and site impact are drawn from shared distributions.
+\begin{align*}
+\text{Level 1}\qquad & Y_{ij} = A_j + \beta_j T_{ij} + e_{ij}\\
+\text{Level 2}\qquad & \beta_j = \beta + b_j\\
+& A_j = \alpha + a_j
+\end{align*}
+
+**Random intercept, constant treatment coefficient (RICC)**
+
+Finally, this model assumes that the site intercepts are drawn from a shared distribution, but the treatment impact is shared.
+\begin{align*}
+\text{Level 1}\qquad & Y_{ij} = A_j + \beta T_{ij} + e_{ij}\\
+\text{Level 2}\qquad & A_j = \alpha + a_j\\
+\end{align*}
+As noted previously, the multilevel framework generally naturally corresponds to the super population perspective.
+However, for RICC models, the site *impacts* are not assumed to be drawn from a super population; only the site *intercepts* are assumed to be random.
+Thus, when it comes to estimating treatment impacts, RICC models actually take a finite population perspective.
+
+There are also weighted versions of both traditional regressions and multilevel models.
+For example, a fixed-effects model can weigh each person by their inverse chance of treatment to help increase precision.
+Weighted regression for traditional regression is discussed in @Miratrix2020, and weighted regression for multilevel models is discussed in @Raudenbush2020.
+
+
+# 6. Some estimators attempt to reduce variance by increasing bias.
+
+Each category of estimator (design, regression, and multilevel) results in a different estimation approach.
+One way to characterize the categories is the weights induced by the choice of estimator.
+The properties of each estimator also result in different consequences for bias and variance.
+Design-based estimators are generally unbiased, but may not always afford the most precise estimates.
+In general, model-based estimators trade bias for variance.
+Thus, they can sometimes have a lower mean squared error than design-based estimators.
+One way that model-based estimators increase precision is through the easy incorporation of covariates.
+Covariate adjustment methods that incorporate covariates result in the equivalent to a weighted regression approach.
+
+
+## Design-based estimators
+
+Design-based estimators are the most straightforward, as they are composed of simple weighted combinations of means.
+First, the site-specific treatment impact estimates $\hat{B_j}$ are calculated by taking differences in means between the active treatment and control treatment groups for each site.
+Then, the overall estimate is a weighted combination of these estimates, weighted by either person or site weighting.
+
+The design-based estimators are
+\begin{align*}
+\hat{\beta}_{DB-persons} &= \sum_{j = 1}^{J} \frac{N_j}{N} \hat{B_j} \\
+\hat{\beta}_{DB-sites} &= \sum_{j = 1}^{J} \frac{1}{J} \hat{B_j}.
+\end{align*}
+Design-based estimators are generally *unbiased* for their corresponding estimands (person-weighted or site-weighted).
+Unbiasedness does not hold for one super population model; see @Pashley2022 for more details.
+
+
+## Linear regression estimators
+
+Consider the FE model (fixed effects with a constant treatment).
+This regression model results in a *precision-weighted* estimate, in which each site impact is weighted by the estimated precision of estimating that site's impact.
+The estimator is
+\[
+\hat{\beta}_{FE} = \sum_{j = 1}^{J} \frac{N_j p_j (1 - p_j)}{Z} \hat{B_j},
+\]
+where $p_j$ is the proportion treated at site $j$.
+The quantity $Z$ is a normalizing constant, so $Z$ is defined as $\sum_{j = 1}^{J} N_j p_j (1-p_j)$ to ensure the weights sum to one.
+The weights are $N_j p_j (1 - p_j)$, which is the inverse of $Var(\hat{\beta_j})$, so the weights are related to the precision of the estimate for each site.
+This expression shows that sites with larger $N_j$, or that have $p_j$ closer to $0.5$, have larger weights.
+
+The FE estimator is not generally unbiased for either person-weighted or site-weighted estimands.
+If the impact size $B_j$ is related to the weights ($N_j p_j (1 - p_j)$), then the estimator could be biased.
+For example, if sites that treat a higher proportion of treated units also experience a larger  treatment impact, then $B_j$ can be related to $p_j (1- p_j)$.
+This setting is plausible for example if sites with more resources to intervene on more students also implement the intervention more effectively.
+If larger sites are more effective, then $B_j$ can be related to $N_j p_j (1- p_j)$.
+
+Instead, the FE estimator is unbiased for an estimand that weights the site impacts by $N_j p_j (1- p_j)$.
+However, this estimand does not have a natural substantive interpretation.
+Although the FE estimator is generally biased for the estimands of interest, it may have increased precision and thus a lower mean squared error.
+
+In contrast, the FE-inter model ends up with weights identical to the design-based estimators, depending on if the estimated site impacts are weighted equally or by size.
+
+## Multilevel model estimators
+
+Multilevel models also result in precision weighting, but in these models the estimated precision also takes into account the assumed underlying variance in site impacts.
+For example, the FIRC model can be expressed roughly as:
+\[
+\hat{\beta}_{ML-FIRC*} = \sum_{j = 1}^{J} \frac{1}{Z}
+\left(\frac{\sigma^2}{N_j p_j ( 1 - p_j)} + \tau^2\right)^{-1} \hat{B_j},
+\]
+where $Z$ is again a normalizing constant, $Z = \sum_{j = 1}^{J} \left(\frac{\sigma^2}{N_j p_j ( 1 - p_j)} + \tau^2\right)^{-1}$.
+This equation assumes that the $b_j$ have known variance $\tau^2$, and the $e_{ij}$ have known variance $\sigma^2$.
+In general, we do not know these quantities, and instead must estimate them.
+However, we can see that the implied precision weights incorporate the additional uncertainty assumed in the value of $b_j$.
+
+The RIRC model imposes the same structure on the site impacts, and thus the weights are similar to the FIRC model.
+The RICC model assumes a constant treatment impact, and thus is essentially equivalent to the precision-weighted fixed effects with constant treatment model (FE) when it comes to estimating the site impacts.
+
+We summarize the weights in the table below.
+The following table includes additional estimators that are not discussed in this guide;
+for more information about these additional estimators, see @Miratrix2020.
+
+| Weight name                       | Weight                          | Estimators |
+| -----                             | -----                           | -----      |
+| Unbiased person-weighting         | $w_j \propto N_j$               | $\hat{\beta}_{DB-FP-person}$, $\hat{\beta}_{DB-SP-person}$, $\hat{\beta}_{FE-weight-person}$, $\hat{\beta}_{FE-inter-person}$ |
+| Fixed-effect precision-weighting  | $w_j \propto N_j p_j (1 - p_j)$ | $\hat{\beta}_{FE}$, $\hat{\beta}_{FE-HW}$, $\hat{\beta}_{FE-CR}$, $\hat{\beta}_{ML-RICC}$ (approximately) |
+| Random-effect precision-weighting | $w_j \propto \left[\hat{\tau} + N_j p_j (1 - p_j)\right]^{-1}$ \ (approximately) | $\hat{\beta}_{ML-FIRC}$, $\hat{\beta}_{ML-RIRC}$ |
+| Unbiased site-weighting           | $w_j \propto 1$                 | $\hat{\beta}_{DB-FP-site}$, $\hat{\beta}_{DB-SP-site}$, $\hat{\beta}_{FE-weight-site}$, $\hat{\beta}_{FE-inter-site}$ |
+
+# 7. For each estimator that achieves a point estimator, there may be multiple options for estimating standard errors.
+
+The difference between the finite population and super population framework comes into focus when calculating the standard error of various estimators.
+In general, the super population framework results in larger estimates of error because of the additional uncertainty induced by assuming the sites observed are randomly drawn from a larger population.
+In general, variation in the control outcome can be broken down into *within site* variation and *between site* variation.
+In the finite population framework, estimators calculate variation *within* sites, and then estimators average this variation across sites.
+In the super population framework, estimators look at the variation *between* sites to "capture both any within-site estimation error along with the uncertainty associated with sampling sites from a larger population" (@Miratrix2020).
+For both approaches, modeling assumptions can stabilize uncertainty estimation procedures, but also risk inducing bias if the modeling assumptions are wrong.
+
+For design-based estimators, for the finite population framework Neyman developed a conservative estimator for the standard error using the observed outcomes.
+First, within-site uncertainty is estimated for each site, and then these estimates are averaged with weights according to the target estimand.
+The super population framework induces more complicated expressions that take into account the additional population variance.
+The details of standard errors for super population design-based estimators are beyond the scope of this guide.
+
+For linear regression estimators, the traditional way to calculate standard errors is using classical regression theory.
+We term this a model-based standard error approach, as they rely on the assumed model of $iid$ standard errors.
+Alternatively, heteroscedastically robust standard errors (Huber-White) or cluster robust standard errors relax this $iid$
+assumption (see @Weiss2019 and @Richburg-Hayes2008).
+Robust standard errors fall into a design-based approach instead of a model-based approach [@lin2013agnostic; Chapter 3 of @gerber2012field].
+Huber-White standard errors correspond to the finite population framework, while the asymptotic theory justifying traditional cluster robust standard errors corresponds to the super population framework in regards the clusters. In a [cluster-randomized trial](https://egap.org/resource/10-things-to-know-about-cluster-randomization/), treatment is assigned to clusters, so there is also a finite-population-of-clusters perspective on cluster robust standard errors that is approximated in what are commonly known as CR2 standard errors [@Pustejovsky2018].
+
+To briefly summarize the correspondence between standard error estimators and the assumed population, first consider the motivation behind robust standard error estimators.
+In the FE model, treatment effects are assumed to be constant across sites.
+Thus, if there is truly treatment effect heterogeneity, units in different sites will have different amounts of variation, and this variation will be incorporated into the error term.
+The assumption of $iid$ standard errors will be broken.
+Huber-White standard errors allow for heteroscedasticity in the residuals while still assuming that sites are fixed,
+which fits into a finite population framework: in fact @lin2013agnostic shows that the standard error derived by @Neyman1923 on finite-population and design-based principles is the same as the HC2 standard error.
+
+In contrast, for cluster robust standard errors, "the conventional adjustments, often implicitly, assume that the clusters in the sample are only a small fraction of the clusters in the population of interest" (@Abadie2017).
+Using cluster robust standard errors accounts for both correlation of individuals within sites, and different amounts of variation across sites.
+This strategy generally results in larger standard errors.
+For more discussion of cluster robust standard errors, see @Abadie2017 and @Pustejovsky2018.
+
+Finally, the details for standard error estimation for multilevel modeling are outside the scope of this guide.
+Generally, maximum likelihood theory is applied, which "requires a complete model for both the random effects and the residual variances" (@Miratrix2020).
+FIRC and RIRC models naturally produce standard errors under the super population framework, while RICC essentially takes a
+finite population framework because the treatment impacts are not assumed to be drawn from a super population, as they are assumed to be consistent across sites.
+
+# 8. The analyst's choices of estimand, estimator, and standard error estimator matter in some cases, and matter less in others.
+
+After discussing the different choices a researcher can make in analyzing a multisite trial, a big question remains: how do these choices impact empirical results?
+Which of these choices have a substantial impact on the conclusion we reach, and which do not matter as much?
+@Miratrix2020 conducted an empirical study to investigate these questions using 12 large multisite trials, backed up by simulation studies in certain cases.
+
+## Point estimates
+
+First, they consider the impact of choices on point estimates.
+The authors ask, "to what extent can the choice of estimator of the overall average treatment effect result in a different impact estimate?"
+In general, the authors find that the choice of estimator can substantially impact the point estimates, although the degree of impact depends on the choice.
+The authors reach the following conclusions.
+
+**Person-weighted estimands can result in a different conclusion than site-weighted estimands.**
+
+In some trials, estimates resulting from person-weighted estimands differed substantially from estimates resulting from site-weighted estimands.
+These discrepancies could be due to a difference in the true underlying values of the estimands, but they could also be due to estimation error from the estimation procedure.
+Through empirical exploration, they found that the difference is likely due to the estimands themselves being different.
+They found that "the range of estimates across all estimators is rarely meaningfully larger than the range between the person- and site-weighted estimates alone."
+
+**For person-weighted estimands, the choice of estimator generally does not matter.**
+
+The unbiased design-based estimator and the precision-weighted fixed effect estimate both target the person-weighted estimand.
+There was little difference in estimates between these estimators.
+Most likely, "this implies that the potential bias in the bias-precision trade off to the fixed effect estimators is negligible in practice."
+Other [authors](https://egap.org/resource/sd-block-rand/){target="_blank"} have been able to create situations in which the bias-precision trade off is more severe.
+
+**For site-weighted estimands, the choice of estimator can matter.**
+
+FIRC estimates did differ from the unbiased design-based site estimator.
+FIRC can be seen as an adaptive estimator: when there is little estimated variation in impacts between sites, it tends to be more similar to the person-weighted estimate instead of the site-weighted estimate.
+
+**Different estimators have different bias-variance trade offs.**
+
+Finally, the authors consider the empirical bias-variance trade off of different estimators, and find:
+
+- FE estimators have little bias, but also do not improve precision much over design-based estimators.
+- FIRC tends to have lower mean squared error than design-based estimators.
+- Larger site impact heterogeneity results in more biased estimates for FIRC.
+- Even with more site impact heterogeneity, the mean squared error for FIRC estimators is still generally lower.
+- Coverage for design-based estimators is more reliable, especially when site size is variable and site size is correlated with impact.
+
+## Standard errors
+
+The second question concerns the choice of standard error estimators.
+The authors ask, "to what extent can the choice of estimator of the standard error of the overall average treatment effect result in a different estimated standard error?"
+
+The choice of standard error estimator can substantially impact the estimated standard error.
+The authors reach the following conclusions.
+
+**The choice of estimand impacts the standard error.**
+
+Super population estimators generally have larger standard errors than finite population estimators.
+Site-weighted estimators generally have larger standard errors than person-weighted estimators.
+
+**Given a particular estimand, the choice of estimator matters in some contexts and not others.**
+
+For finite population estimands (including both person and site-weighted estimands) or super population person-weighted estimands, the choice of standard error estimator generally does not matter.
+In practice, @Miratrix2020 found that estimators that attempt to improve precision by trading bias may not actually result in gains in precision in practice.
+The use of robust standard errors also does not differ much from non-robust standard errors in practice.
+
+For super population site-weighted estimands, the choice of standard error estimator can matter a lot.
+In most cases, standard error estimates differed substantially between the design-based super population estimator and FIRC.
+The authors further conclude that for super population site-weighted estimands, the wide-ranging standard error estimates stem from instability in estimation.
+Through a simulation study, they find that super population standard errors can underestimate the true error.
+The design-based super population standard error estimator is particularly prone to underestimate the standard error compared to multilevel models, and can be unstable, in that it estimates a wide range of different values across simulations.
+
+# 9. The choice of estimator impacts power.
+
+Given the discussion thus far, it is not surprising that modeling choices made by the analyst also impacts statistical power.
+
+To further understand power, we define an important quantity in power calculations: the intraclass correlation coefficient (ICC).
+Broadly, variation in the observed control outcomes can be categorized into *within*-site variation, and *between*-site variation.
+In educational trials, the ICC is the proportion of variation in the outcome that lies *between* sites (@Schochet2016).
+The ICC is defined as the ratio of the variance at the site level divided by the overall variance of the individual outcomes.
+This quantity plays a different role in block-randomized trial power analysis depending on the target of inference chosen by the analyst.
+ICC is also used in the design and analysis of cluster-randomized trials.
+
+We consider two different estimators and how they impact power.
+First, consider a version of the finite population FE model that has been expanded to include level 1 (student) covariates.
+The standard error for the ATE estimator is
+
+\[
+SE = \sqrt{\frac{(1-\text{ICC})(1-R^2_{1})}{\bar{T}(1 - \bar{T}) J \bar{n}}},
+\]
+
+where $ICC$ is the intraclass correlation, $R_1^2$ is the proportion of variation explained by level 1 (student) covariates, $\bar{T}$ is the average number of treated units per site, $J$ is the number of sites, and $\bar{n}$ is the average number of students per site.
+For more information about this standard error expression, see the technical appendix of @Hunter2022.
+
+In contrast, consider the super population RIRC model.
+The standard error for the ATE estimator is
+\[
+SE = \sqrt{\frac{\text{ICC} \omega}{J} + \frac{(1-\text{ICC})(1-R^2_{1})}{\bar{T}(1 - \bar{T}) J \bar{n}}},
+\]
+where $\omega$ is the ratio between the cross-site impact variation and the control outcome variation.
+We can see that in doing super population inference, the standard error has an additional term which is non-negative, so it will be as least as large as the standard error from finite population inference.
+A larger standard error will result in lower power.
+
+Examining these standard error formulae also gives a better understanding of what factors impact power.
+For example, having more explanatory power of student-level covariates (higher $R_1^2$) decreases the standard error, and thus increases power.
+Additionally, the individual-level covariates do not impact the super population term; they only help to reduce the component of standard error corresponding to the finite population.
+However, site-level covariates, which would be denoted $R_2^2$, do not impact power.
+Site-level covariates are not useful in these models because there are already site-level effects, so the addition of covariates at that level does not provide more information.
+
+To calculate power for multisite trials, users can use the PowerUpR! package (@Dong2013).
+The package also calculates sample size requirements and minimum detectable effect size.
+The newly-developed PUMP package (@Hunter2022) extends the functionality of PowerUpR! to experiments with multiple outcomes, in addition to providing user-friendly tools for exploring the sensitivity of power to different assumptions.
+
+
+# 10. Takeaway advice for researchers on multisite trials
+
+Many research plans and analyses do not clearly specify an estimand.
+This lack of clarity can both obscure the goal, and result in poor analysis choices.
+For example, different estimands imply different power analyses, but the choice is often not taken into account; super population estimands in particular result in larger standard errors, and thus often require larger sample sizes to be adequately powered.
+Additionally, different estimands require different estimators, so not defining an estimand makes it difficult for readers to judge the validity of the analysis.
+@Miratrix2020 shows that the choice of estimand, estimator, and standard error estimator can matter (albeit in some cases more than others), in that the choice can impact the final conclusion reached by a study.
+
+This guide did not focus on the problem of model misspecification.
+For the empirical estimates from the multisite trials considered, model-based and design-based approaches did not result in substantially different answers.
+However, it is conceivable that there are contexts when these estimators could differ, and further investigation into this area is warranted.
+
+Though this guide set up analyzing an RCT as a series of dichotomous choices, one way forward is for researchers to report more than one estimand.
+Presenting a finite population person-weighted estimand is almost always compelling.
+Then, the researcher may choose to also present a site-weighed estimand, or to expand their conclusion to a super population estimand.
+In some cases, different estimands may result in the same conclusion.
+However, it is possible that for some studies, there is evidence of a significant effect in the finite population, but the additional uncertainty of the super population estimation means there is insufficient evidence concerning the impact in a broader population.
+In these cases, only reporting one of the finite population or super population estimands does not portray the full nuance of the results.
+
+
+# References
