@@ -53,7 +53,9 @@ all: adaptive/adaptive.html \
 	mechanisms/10thingsaboutmechanisms_fr.html \
 	pap/pap_fr.html \
 	power/power_fr.html \
-	randomization/randomization_fr.html
+	randomization/randomization_fr.html \
+	x-cause-y/x-cause-y_fr.html \
+	x-cause-y/x-cause-y_esp.html
 
 adaptive/adaptive.html:  adaptive/adaptive.Rmd
 	Rscript -e "rmarkdown::render('./adaptive/adaptive.Rmd')"
