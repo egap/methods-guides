@@ -266,6 +266,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -286,6 +287,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -406,7 +410,7 @@ forget time</a></li>
 navigating the practical, theoretical and inferential pitfalls of
 experimental social science research, your experiment has finally been
 completed. Comparing the treatment and control groups, you find a
-substantively and statistically significant result on an outcome of
+substantively and statistically significant effect on an outcome of
 theoretical interest. Before you can pop the champagne in celebration of
 an intervention well evaluated, a friendly colleague asks: “But what
 does this tell us about the world?”</p>
@@ -427,7 +431,7 @@ recommendations that come from research. Extrapolating causal effects
 from one or more studies to a given policy context requires careful
 consideration of both theory and empirical evidence. This methods guide
 discusses some key concepts, pitfalls to avoid, and useful references to
-consider when going from a Local Average Treatment Effect to the larger
+consider when going from a Sample Average Treatment Effect to the larger
 world.</p>
 </div>
 <div id="how-is-this-different-than-internal-validity" class="section level1">
@@ -440,13 +444,12 @@ dovetails with the counterfactual approach to causality that
 experimentalists typically use, which asks whether outcomes change
 depending on the presence or absence of a treatment.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <p>Before you can extrapolate a causal effect to a distinct population,
-it is vital that the original Average Treatment Effect be based on a
-well-identified result. For most experimentalists, random assignment
-provides the requisite identifying variation, provided no attrition,
-interference, spillovers, or other threats to inference. For
-observational studies, additional identifying assumptions are needed,
-such as conditional independence of the treatment from potential
-outcomes.</p>
+it is vital that the original Average Treatment Effect be
+well-identified. Observational studies often require identifying
+assumptions such as conditional independence of the treatment from
+potential outcomes. In an experiment, random assignment ensures that
+most of these assumptions are guaranteed to hold, at least absent
+attrition, interference, spillovers, or other threats to inference.</p>
 </div>
 <div id="navigating-the-trade-offs-between-internal-and-external-validity" class="section level1">
 <h1>3. Navigating the trade-offs between internal and external
@@ -474,7 +477,7 @@ that “what matters is the informativeness of a study for policy making,
 which depends jointly on internal and external validity.” With data from
 a broad but a poorly identified study, Manski argues, bounds on the
 estimand of interest can be generated that, while not as useful as a
-precise point estimate, still moves science forward.</p>
+precise point estimate, still move science forward.</p>
 </div>
 <div id="theory-and-generalization" class="section level1">
 <h1>4. Theory and generalization</h1>
@@ -485,8 +488,10 @@ generalization, taking the relevant existing evidence and making
 predictions for other contexts in a principled fashion. Theories boil
 down complex problems into more parsimonious representations, and help
 to elucidate what factors matter. Just as theory guides the content of
-interventions and research designs, theoretical propositions can tell
-you which scope conditions are relevant for extrapolating a result. What
+interventions and research designs, theoretical propositions can shed
+light on the scope conditions that are relevant for extrapolating a
+result given the theory’s assumptions. See Pearl and Bareinboim (2014)
+for details on how theoretical models can be used in this way.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> What
 covariates matter? What contextual information matters?</p>
 </div>
 <div id="how-can-i-determine-where-my-results-apply" class="section level1">
@@ -502,7 +507,7 @@ cannot pin down whether the treatment-effect heterogeneity is caused by
 that pre-treatment variable. The concern—endemic to observational
 research—is that the non-randomized covariate may be correlated with an
 unobserved variable, and it is this “unseen” factor that in fact is
-responsible for the heterogeneous impacts of the treatment.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> Ideally,
+responsible for the heterogeneous impacts of the treatment.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> Ideally,
 therefore, we want to leverage exogenous variation in the moderator of
 interest, thereby ruling out the possibility of such confounding. A
 factorial experimental design in which the researcher assigns the
@@ -514,14 +519,14 @@ approach in practice.</p>
 where we can expect a causal relationship similar to one observed
 locally, extrapolating heterogeneous effects based on similar covariates
 is often reasonable, provided theory does not indicate sources of
-confounding.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> Nonetheless, the strongest evidence for the
-generalizability of a result comes from a well-identified interaction
-between an exogenous moderator and the treatment, then projected across
-the covariate profile of a target population. Indeed, with some strong
-assumptions extrapolation can provide as good or better results than
-carrying out a second experiment in situ.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> The calculation of
+confounding.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> Nonetheless, the strongest evidence for
+the generalizability of a result comes from a well-identified
+interaction between an exogenous moderator and the treatment, then
+projected across the covariate profile of a target population. Indeed,
+with some strong assumptions extrapolation can provide as good or better
+results than carrying out a second experiment in situ.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> The calculation of
 an extrapolated estimate can often be best performed using machine
-learning, although linear regression also performs reasonably well.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+learning, although linear regression also performs reasonably well.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
 </div>
 <div id="strategic-behavior-can-scuttle-your-extrapolations" class="section level1">
 <h1>6. Strategic behavior can scuttle your extrapolations</h1>
@@ -531,23 +536,25 @@ to generalize effects. A randomized experimental manipulation in a local
 area generates a “partial equilibrium effect.” Strategic dynamics,
 including compensatory behavior or backlashes, outside the local context
 of an experimental intervention can complicate efforts to generalize a
-result. Suppose, for example, that an unconditional cash transfer
-intervention is shown to increase welfare, entrepreneurship, and
-employment in a sample of 200 villages. What would happen if the
-intervention were extended to encompass 1000 villages? At this point,
-one could imagine that regions excluded from the program are more likely
-to learn about it. Untreated units may start to demand other types of
-transfers from the government, giving rise to effects similar to those
-produced by the direct cash transfer. In a similar vein, sometimes
-causal relationships only work when they are applied to some people. For
-example, imagine a job skills program that functions very well (as
-compared to those who did not receive it), what would happen if it were
-extended to all workers? Even if there are positive effects across all
-participants, there could be reduced or no average effects as higher
-skilled jobs are already filled by the first batch and the second batch
-is forced to remain in their previous jobs, now overqualified. In short,
-under general equilibrium conditions we might expect different results
-even where the covariate profile matches.</p>
+result – especially towards an intervention at much larger scale.
+Suppose, for example, that an unconditional cash transfer intervention
+is shown to increase welfare, entrepreneurship, and employment in a
+sample of 200 villages. What would happen if the intervention were
+extended to encompass 1000 villages? At this point, one could imagine
+that regions excluded from the program are more likely to learn about
+it. Untreated units may start to demand other types of transfers from
+the government, giving rise to effects similar to those produced by the
+direct cash transfer. In a similar vein, causal relationships sometimes
+operate for only a certain number of people. For example, imagine a job
+skills program that is tested with a small group of workers and is shown
+to increase the likelihood that workers enter higher skilled jobs. What
+would happen if the program were extended to all workers? Even if there
+are positive effects on skills across all participants, there could be
+reduced or no average effects on job placement. If there is a limited
+supply of high skilled jobs, high-skilled workers may be forced to
+remain in their previous jobs, now overqualified. In short, under
+general equilibrium conditions we might expect different results even
+where covariate profiles match.</p>
 </div>
 <div id="dont-confuse-external-validity-with-construct-validity-or-ecological-validity" class="section level1">
 <h1>7. Don’t confuse external validity with construct validity or
@@ -555,19 +562,20 @@ ecological validity</h1>
 <p>Internal and external validity are not the only ‘validity’ concerns
 that can be leveled at experimental work, and though relevant, they are
 also distinct. Ecological validity, as defined by Shadish, Cook and
-Campbell<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> concerns whether an intervention appears
+Campbell<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> concerns whether an intervention appears
 artificial or out of place when deployed in a new context. For example,
 does an information workshop in a rural town carried out by
 experimenters resemble the kinds of information sharing that the
 population may experience in regular life? Similarly, if the same
 workshop were held in a large city, would it appear out of place?</p>
-<p>Construct validity considers whether a theoretical concept being
-tested in a study is appropriately operationalized by the treatment(s).
-If your experiment is testing the effect of anger on political
-reciprocity and you are in fact manipulating fear or trust in your
-treatment, construct validity may be violated. Both construct and
-ecological validity are relevant for generalizations, and thus useful
-for making claims about external validity.</p>
+<p>Construct validity considers whether a theoretical concept is
+appropriately operationalized by the treatment(s). (See our guide <a href="https://egap.org/resource/10-things-to-know-about-measurement-in-experiments/">10
+Things to Know About Measurement in Experiments</a> for more on
+constructs and measurement). If your experiment is testing the effect of
+anger on political reciprocity and you are in fact manipulating fear or
+trust in your treatment, construct validity may be violated. Both
+construct and ecological validity are relevant for generalizations, and
+thus useful for making claims about external validity.</p>
 </div>
 <div id="extrapolation-across-treatments-and-outcomes" class="section level1">
 <h1>8. Extrapolation across treatments and outcomes</h1>
@@ -600,7 +608,7 @@ generalized as appropriate. At the same time, it is important to
 directly replicate existing studies under conditions that are as close
 as possible to the original in order to verify that local effects one
 may be interested in extrapolating are indeed reliable. The Open Science
-Collaboration<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> found, for example, that when reproducing
+Collaboration<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a> found, for example, that when reproducing
 100 major psychology experiments, just 47% of the original reported
 effect sizes fell within the 95% confidence interval of the effect size
 shown in the replication.</p>
@@ -638,25 +646,28 @@ Research.” Journal of Politics 78(3):941–955.<a href="#fnref6" class="footno
 <li id="fn7"><p>Rosenbaum, Paul R. (1999). “Choice as an Alternative to
 Control in Observational Studies” (with discussion). Statistical Science
 14(3): 259–304.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>Gerber, A. S., &amp; Green, D. P. (2012). Field
-experiments: Design, analysis, and interpretation. WW Norton.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
-<li id="fn9"><p>Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches
-&amp; Cyrus Samii. (2016). “Local Instruments, Global Extrapolation:
-External Validity of the Labor Supply-Fertility Local Average Treatment
-Effect.” Journal of Labor Economics<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>Pearl, Judea, and Elias Bareinboim. 2014. “External
+Validity: From Do-Calculus to Transportability Across Populations.”
+Statistical Science 29 (4): 579–95.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Gerber, A. S., &amp; Green, D. P. (2012). Field
+experiments: Design, analysis, and interpretation. WW Norton.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches
 &amp; Cyrus Samii. (2016). “Local Instruments, Global Extrapolation:
 External Validity of the Labor Supply-Fertility Local Average Treatment
 Effect.” Journal of Labor Economics<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>Kern, H. L., Stuart, E. A., Hill, J., &amp; Green, D.
+<li id="fn11"><p>Bisbee, James; Rajeev Dehejia; Cristian Pop-Eleches
+&amp; Cyrus Samii. (2016). “Local Instruments, Global Extrapolation:
+External Validity of the Labor Supply-Fertility Local Average Treatment
+Effect.” Journal of Labor Economics<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p>Kern, H. L., Stuart, E. A., Hill, J., &amp; Green, D.
 P. (2016). Assessing methods for generalizing experimental impact
 estimates to target populations. Journal of Research on Educational
-Effectiveness, 9(1), 103-127.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>Shadish, W. R., Cook, T. D., &amp; Campbell, D. T.
+Effectiveness, 9(1), 103-127.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>Shadish, W. R., Cook, T. D., &amp; Campbell, D. T.
 (2002). Experimental and quasi-experimental designs for generalized
-causal inference. Houghton, Mifflin and Company.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>Open Science Collaboration. (2015). Estimating the
-reproducibility of psychological science. Science, 349(6251), aac4716.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+causal inference. Houghton, Mifflin and Company.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Open Science Collaboration. (2015). Estimating the
+reproducibility of psychological science. Science, 349(6251), aac4716.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
