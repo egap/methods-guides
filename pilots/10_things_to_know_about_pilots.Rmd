@@ -23,29 +23,40 @@ Fortunately, as depicted in the table below, pilots can be useful for a wide ran
 
 In the sections below, we review these many benefits. First, we consider how pilots can assist with a study's theory and measurement approach, evaluate its logistical feasibility, and provide information about the sample size needed to test hypotheses. In addition, we discuss how piloting may help you secure research funding and institutional support, gather feedback, and incorporate best practices in research ethics. Finally, we offer recommendations on how to use pilots to inform your main study design, reveal important unknowns, and contribute to your broader research agenda.
 
+| **Theory Development** | **Research Design** |
+|:---:|:---:|
+| Refining your research questions and hypotheses | Evaluating suitability of study context for answering research questions |
+| Determining initial plausibility of theorized mechanisms | Determining construction and strength of treatments |
+| Identifying additional research questions of interest | Determining number, levels, and timing of treatments |
+| Exploring unknowns related to your research questions and hypotheses | Considering alternative and/or multiple measures of participant response to treatment |
 
-```{r echo = F, warning = F, message = F}
-require(pander)
+| **Measurement** | **Sample** |
+|:---:|:---:|
+| Testing alternative treatments and outcomes to improve clarity, validity, and reliability | Determining power and sample size needed for main study |
+| Uncovering issues related to asymmetry in delivery and measurement of treatments and/or outcomes | Evaluating recruitment procedures and eligibility criteria |
+| Considering covariate measurement approach | Testing participant understanding of research tools and procedures |
+| Ensuring successful data collection and data entry | Assessing participant compliance and treatment uptake |
+| Identifying additional information that may need to be collected | Assessing participant response rate, quality, and attrition |
+| Considering the use of combined measures such as scales and indices |  |
 
-tab <- data.frame(
-  `Theory Development` = c("* Refining your research questions and hypotheses\ \n* Determining initial plausibility of theorized mechanisms\ \n* Identifying additional research questions of interest\ \n* Exploring unknowns related to your research questions and hypotheses"),
-  `Research Design` = c("* Evaluating suitability of study context for answering research questions\ \n* Determining construction and strength of treatments\ \n* Determining number, levels, and timing of treatments\ \n* Considering alternative and/or multiple measures of participant response to treatment"),
-  `Measurement` = c("* Testing alternative treatments and outcomes to improve clarity, validity, and reliability\ \n*	Uncovering issues related to asymmetry in delivery and measurement of treatments and/or outcomes\ \n*	Considering covariate measurement approach\ \n*	Ensuring successful data collection and data entry\ \n*	Identifying additional information that may need to be collected\ \n*	Considering the use of combined measures such as scales and indices"),
-  `Sample` = c("* Determining power and sample size needed for main study\ \n* Evaluating recruitment procedures and eligibility criteria\ \n*	Testing participant understanding of research tools and procedures\ \n*	Assessing participant compliance and treatment uptake\ \n*	Assessing participant response rate, quality, and attrition"),
-  `Logistics` = c("* Determining time and resources needed to conduct main study\ \n*	Evaluating randomization procedure\ \n*	Assessing research team understanding of protocols and procedures\ \n*	Determining partner capacity and willingness\ \n*	Training research team members and partners\ \n* Assessing inter-researcher reliability in data collection, procedures, and analysis"),
-  `Analysis` = c("* Considering feasibility of software, statistical techniques, or other analytic tools given preliminary data\ \n*	Preparing analysis procedures for main study\ \n*	Considering feasibility of incorporating data from partners or other sources\ \n* Considering responses to missingness in data"),
-  `Ethics` = c( "* Ensuring participant safety and well-being\ \n*	Evaluating consent procedures\ \n*	Assessing participant time and burdens\ \n*	Ensuring normative acceptability of study elements in given context\ \n*	Assessing privacy and confidentiality procedures\ \n*	Assessing security of data and other study materials"),
-  `Communicating Research` = c(    "* Collecting preliminary data to share externally\ \n*	Soliciting feedback on research design\ \n*	Leveraging pilot results transparently to explain design choices for main study\ \n*	Demonstrating research team capacity and competence\ \n*	Persuading funders, ethics committees, and other stakeholders of study feasibility and value\ \n*	Informing interested scholars and other stakeholders\ \n*	Educating students about research practices")
-  )
-names(tab) <- c("Theory Development", "Research Design", "Measurement", "Sample", 
-              "Logistics", "Analysis", "Ethics", "Communicating Research")
+| **Logistics** | **Analysis** |
+|:---:|:---:|
+| Determining time and resources needed to conduct main study | Considering feasibility of software, statistical techniques, or other analytic tools given preliminary data |
+| Evaluating randomization procedure | Preparing analysis procedures for main study |
+| Assessing research team understanding of protocols and procedures | Considering feasibility of incorporating data from partners or other sources |
+| Determining partner capacity and willingness | Considering responses to missingness in data |
+| Training research team members and partners |  |
+| Assessing inter-researcher reliability in data collection, procedures, and analysis |  |
 
-panderOptions("table.continues", "")
-panderOptions("table.continues.affix", "")
-caption <- pandoc.strong.return(paste('<font size="5">', " \n Pilots can be useful for:"))
-pander::pander(tab, keep.line.breaks = T, style = "grid", justify = "left", caption = caption)
-```
-
+| **Ethics** | **Communicating Research** |
+|:---:|:---:|
+| Ensuring participant safety and well-being | Collecting preliminary data to share externally |
+| Evaluating consent procedures | Soliciting feedback on research design |
+| Assessing participant time and burdens | Leveraging pilot results transparently to explain design choices for main study |
+| Ensuring normative acceptability of study elements in given context | Demonstrating research team capacity and competence |
+| Assessing privacy and confidentiality procedures | Persuading funders, ethics committees, and other stakeholders of study feasibility and value |
+| Assessing security of data and other study materials | Informing interested scholars and other stakeholders |
+|  | Educating students about research practices |
 
 # 2. Pilots are useful for improving your study’s measurement approach in relation to your theory
 
