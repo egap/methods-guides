@@ -147,19 +147,12 @@ As noted, it's helpful to pre-identify a set of questions about logistics, measu
 
 The table below is a simple illustrative example of how one could transparently present lessons learned from a hypothetical pilot, for example, in a pre-analysis plan or research proposal. The first column indicates the question the pilot is intended to help answer, in this case questions related to logistical adequacy, manipulation checks, delivery of treatments, and measurement of outcomes. The second column presents the associated findings from the pilot, and the third column discusses how the lessons learned will inform design choices for the main study. 
 
-```{r echo=FALSE, warning=FALSE, message=FALSE}
-require(pander)
-
-tab3 <- data.frame(
-  Questions = c("Can participants hear the video treatments?", "Can participants identify the politician party, indicating successful treatment?", "Which video treatments from the available options are best to use?", "What is the best way to measure uncertainty as an outcome?"),
-  Pilot = c("10% reported difficulty.", "75% correctly identified the politician party.", "Participants were more familiar with some politicians in the videos than others.", "Respondents appear to have been confused by bidirectional scales and questions with reversed scales."),
-  Design = c("We will add subtitles to the video treatments.", "We will mention the politician party additional times to make this treatment component more memorable to participants.", "We will randomize subjects to a more familiar or less familiar politician and may explore heterogeneous effects by politician familiarity.", "We will use unidirectional scales and also consider the distribution (variance) of other key outcome measures.")
-  )
-names(tab3) <- c("Question", "Pilot Results", "Design Decision")
-
-panderOptions("table.continues", "")
-pander::pander(tab3, keep.line.breaks = T, style = "grid", justify = "left", split.table = c("20%", "20%", "20%"))
-```
+| **Questions** | **Pilot Results** | **Design Decision** |
+|:---:|:---:|:---:|
+| Can participants hear the video treatments? | 10% reported difficulty. | We will add subtitles to the video treatments. |
+| Can participants identify the politician party, indicating successful treatment? | 75% correctly identified the politician party. | We will mention the politician party additional times to make this treatment component more memorable to participants. |
+| Which video treatments from the available options are best to use? | Participants were more familiar with some politicians in the videos than others. | We will randomize subjects to a more familiar or less familiar politician and may explore heterogeneous effects by politician familiarity. |
+| What is the best way to measure uncertainty as an outcome? | Respondents appear to have been confused by bidirectional scales and questions with reversed scales. | We will use unidirectional scales and also consider the distribution (variance) of other key outcome measures. |
 
 # 9. Explore unknowns
 
