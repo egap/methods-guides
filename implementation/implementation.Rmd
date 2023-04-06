@@ -19,7 +19,7 @@ If you will not be present during survey administration, you will need to either
 
 If you will be present during enumeration but you have a small budget, or do not feel you could manage the entire implementation (administration and design) yourself, a good alternative is to hire a field coordinator from a survey or research firm on a consultant basis. This person can help with administration while you take on the design-related work. Additionally, hiring someone for administration locally can do a lot to help with cross-cultural management. The types of management procedures that might work to motivate or sanction employees in the US may not work in another context, so someone who knows what is acceptable and effective can add a lot of value.
 
-##Contracts with local firms
+## Contracts with local firms
 When setting up contracts with local firms it is important to get the incentives right—thorough and good work should also be the most profitable for the firm. You can do a lot to set expectations and incentives in the contract. For example, pay on delivery where possible (although it is customary to pay some costs upfront to cover fixed expenses like transport and early salaries). You can also choose to impose financial penalties for late or low-quality data, but be sure to make these requirements clear up front and provide specific rules for what constitutes low-quality work and how late penalties will be assigned. 
 
 In addition to direct costs, it is reasonable for a local firm to charge overhead. This can vary from context to context, and it is best to check against the budgets of other similar projects to make sure the rate is reasonable. 
@@ -30,26 +30,26 @@ As you prepare to begin survey implementation, the first and most important part
 
 The total cost of a survey is the sum of fixed costs, like transportation and equipment costs, and variable expenses like salaries, per diems, and administration costs. See the attached [budget template](INSERT LINK) for an overview of typical costs and notes on how to estimate them.
 
-##Salaries
+## Salaries
 Estimating total salary costs before drawing the sample (needed in order to determine the teams and route plans) requires a bit of guesswork. One approach is to estimate the work-hours needed to conduct the survey (survey length x sample size) and divide by some estimated number of enumerators to come up with the number of enumerator days you will need to pay. The per diem may need to cover food and lodging, and make this clear to enumerators so they can plan accordingly. For surveys that will require long fieldwork, it is good practice to pay salary on a rest day each week although some enumerators prefer to work continuously in order to finish sooner and return home. This choice is context-specific. 
 
-##Per Diems
+## Per Diems
 Per diems cover enumerator’s expenses associated with doing fieldwork. This means lodging for overnight stays, all meals, and sometimes also transportation. Per diems should also be paid on rest days that fall in between work days. In the case that the variation in lodging and food costs is low, it is not important to change the per diem rate according to location. Teams will know when to save and when to spend. 
 
-####Quick calculator:
+#### Quick calculator:
 ((survey time to complete * sample size)/workable hours in a day)/# of enumerators = number of days
 
 number of days * (daily rate + per diem) + supervisors = approx. total salary cost
 
-##Transportation
+## Transportation
 It’s important to, ex ante, be as accurate as possible in estimating the full cost of transportation as this is frequently both least flexible and most variable cost. Typically, it is good practice to build in contingency on the cost of fuel, as the price can change over the several months it takes to go from the grant application stage to the implementation stage. If you are budgeting before drawing your sample, pay particular attention to hard-to-reach areas in your population (islands, places without road access) and pad your transport line for the possibility you randomly sample enumeration areas that carry these higher costs.
 
-##Equipment
+## Equipment
 Later on in this guide we present the benefits of using personal digital assistants (PDAs) or tablets for data collection (see section 3). PDAs/tablets can be either purchased using survey funds or leased from a research firm, university, or other researchers. 
 
 3 Should you use PDAs or tablets instead of paper?[^1] 
 ==
-##Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)
+## Why Personal Digital Assistants [PDAs] or Tablets are better (if you have the budget)
 Use of a PDA/tablet allows the collection of more accurate and detailed data (Goldstein, 2012) because of:
 
 [^1]: Thanks to [Brandon de la Cuesta](https://www.princeton.edu/politics/people/display_person.xml?netid=bjmiller&display=All) for help with this section
@@ -69,7 +69,7 @@ PDAs/tablets have lower error rates than paper-based surveys (Caeyers, 2010) and
 * Real-time validation checks to make sure numerical questions don't have answers that are nonsensical
 * The ability to generate several orthogonal treatments within a single survey (either for multiple experiments or for conjoint experiments) 
 
-##Tips for PDA or tablet use
+## Tips for PDA or tablet use
 * Always buy extra equipment – chargers, battery packs, power strips, and tablets can go missing, be stolen, or get broken. In many countries you can’t buy extra equipment, even in capital cities, and it’s often more expensive and lower quality than what you can get at your home base. Buying 10-20% more equipment than you need can be expensive, but it is usually far cheaper than the salaries that you will have to pay for enumerators with equipment problems who do not have backups.
 * Pay close attention to battery life when you buy your equipment. If you want full days of enumeration, some of the cheaper tablets will not work. 
 * Budget for extra battery packs for your enumerators to carry in the field, particularly if they will travel to rural areas where they may not always be able to charge the tablets every night.
@@ -87,7 +87,7 @@ PDAs/tablets have lower error rates than paper-based surveys (Caeyers, 2010) and
 
 Parallel reporting chains can greatly improve the reliability of data by providing incentives to declare errors and mistakes. Under a parallel structure, oversight staff reports directly to survey manager, while surveying staff reports to field coordinator. The aim is to use the auditing and back checking reports in order to cleanly identify problems, and field supervision to then correct any issues.
 
-##Surveying
+## Surveying
 Field teams are made up of enumerators and a team leader. Team leaders report to a field manager, or in a case of a large survey, a regional supervisor. 
 
 1. The enumerator’s role is sampling and selecting households and respondents within enumeration areas, gain consent, and conduct the interview. The enumerator’s tasks include:
@@ -106,7 +106,7 @@ Field teams are made up of enumerators and a team leader. Team leaders report to
     + Data Quality. Team Leaders check all questionnaires in the field and at the end of the day. If PDAs/tablets are used either the team leader or an RA will check data. The team leader ensures that data errors are fixed by revisiting respondents.
     + 
 
-##Oversight
+## Oversight
 Enumeration teams and field management can quite easily deviate from important protocols—these deviations can range from replacing sampled households based on the ease of getting respondents to creating fake data. In many cases, cutting corners is not easy to detect and can save money and time for the enumerators, field managers, and even the survey research firm. PDAs/tablets can reduce the number of total possible types of fraud, but some level of field supervision is always necessary. A parallel reporting structure, with independent oversight, can help guard against these deviations. 
 
 On the oversight side, there are two types of checks that should be conducted-- audits and backchecks:
@@ -120,13 +120,13 @@ Auditors and backcheckers must report directly to survey management. Imagine an 
 
 5 Recruit enumerators
 ==
-##Sources
+## Sources
 If you are working alone, recruit experienced enumerators through contacts at survey firms, NGOs, or universities. It is important that enumerators are experienced, literate, educated, and able to build rapport with subjects. Hiring enumerators who are connected, in some way, with the survey leaders or local coordinator, e.g. through a youth organization or other social tie, can help immensely with oversight as the enumerators have bigger reputational costs if they shirk their duties. 
 
-##Languages
+## Languages
 The foremost requirement is that the enumerators speak the required local languages. We know that coethnicity between enumerators and subjects can reduce bias, so recruitment of coethnic interviewers, and balancing across the sample if using treatment and control groups, is important.
 
-##Gender parity
+## Gender parity
 Having a team of mostly male enumerators interview a sample with equal numbers of men and women there can introduce response bias. For sensitive questions, such as questions on sexual behavior or violence, it is strongly recommended that women interview other women. If it is difficult to recruit experienced women enumerators, it usually makes sense to hold a special training for women candidates with less experience in order to ensure teams are balanced in the end. 
 
 6 You must pre-test! 
@@ -139,13 +139,13 @@ There are several different and necessary phases of pre-testing:
 
 7 Training
 ==
-##Standards
+## Standards
 Trainings establish consistent standards for data collection. If you are contracting a survey firm and are not on the ground yourself, training is the most important part of the process to personally attend. It’s a key moment to communicate quality standards, expectations, the intended meaning of each question, and teach important procedures that may be more technical than what the firm is used to, such as a list experiment. It is also a key moment to motivate the team, by communicating the project’s goals and importance. In order to ensure that the each member of the team is prepared to a certain standard, it is a good idea to test each team member at the end of the training period. There should be an expectation that some team members will be asked not to proceed any further with the project as a result of the test, which will emphasize the importance of taking training to heart and taking the test seriously.
 
-##Assessment
+## Assessment
 Trainings are a key moment for assessment as well. If you train teams together it is easy to spot management issues and leadership capabilities. A good practice is to train teams together, and select team leaders at the end of training—this gives you a few days to gauge skills and also incentivizes trainees to perform during the training.
 
-##Participation
+## Participation
 Trainings set the tone for the rest of fieldwork. Beyond communicating standards and expectations, this is also a key moment to create a culture of participation. Encouraging trainees to speak out about issues with the survey can show that you are open to feedback and increase the chances that they will report adverse events or challenges during the actual data collection. 
 
 Training sections:
@@ -186,7 +186,7 @@ Data from mock surveys must be individually assessed and feedback given to each 
 ==
 To a large extent, the quality of the data collected is determined by the behavior the enumerators. Throughout the hiring, training, and field stages of the survey it is important to get the incentives right so that enumerators are motivated to do high quality work.
 
-##Expectations and Quality Control
+## Expectations and Quality Control
 Expectations should be laid out clearly during training, in a manual, and reiterated in clearly worded contracts (signed after training).
 
 Basic expectations of enumerators:
@@ -198,10 +198,10 @@ Basic expectations of enumerators:
 * Accurately recording responses
 * Communication with supervisors
 
-##Contracts and Payment
+## Contracts and Payment
 As much as possible, make payment dependent on delivery. Enumerators have less and less incentive to stick with the project towards the end of fieldwork. The marginal returns are lower and they may be concerned about finding new work. In order to offset this, it is good practice to withhold a portion of their total salary (+/- 30%) until the end of fieldwork, and sometimes until data has been thoroughly reviewed if using paper instruments that need to be entered manually. At the same time, enumerators are often living paycheck to paycheck and may have expenses to cover during their long absence in the field.  It is important to pay an advance up front to allow enumerators to take care of personal expenses that may otherwise make them anxious and unhappy during fieldwork. Having a strong local manager who understands the enumerators financial situations can help you create incentives while still making sure that they perceive the compensation structure as fair and adequate.    
 
-##Soft Incentives
+## Soft Incentives
 Soft incentives help to keep teams happy and motivated throughout work. Some examples are:
 
 * *Performance-based bonuses*: Allowing managers to give performance-based bonuses for exceptional performance on a daily or weekly basis. 
@@ -222,11 +222,11 @@ Write code to clean data and check for errors, and run it on available data as s
 
 If you are using tablets or PDAs, you should begin to run the cleaning and error script on the incoming data as soon as interviewing begins. If you are not using PDAs/tablets, you’ll need to develop a procedure for checking the paper instruments in the field (the job of the team leader), and also begin checking and cleaning of entered data as soon as possible. 
 
-##Checking data entered from paper instruments
+## Checking data entered from paper instruments
 After interviewing the team leader needs to review all instruments for completeness and accuracy. If there are missing data or other inconsistencies, the team leader should send the enumerator back to revisit the respondent to correct all problems before leaving the area.
 
 Once instruments are collected, data entry should commence as soon as possible. All data should be entered twice, and any discrepancies should be checked by a supervisor against the paper instrument. 
 
-##Checking data gathered using PDAs or tablets
+## Checking data gathered using PDAs or tablets
 When using tablets or PDAs, checking the data is the responsibility of the RA and PIs. 
 In addition to using a script that checks for patterns and outliers, it is also best practice to record selected portions of the interview and listen to a subsample of responses, both for errors and quality.
