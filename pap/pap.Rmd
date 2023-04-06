@@ -248,7 +248,7 @@ Your PAP is now complete and you are ready to register it!  For experimental stu
 
 There are several third-party sites on which you can register your PAP.  We list common sites for social science PAPs below.  You can list your PAP on multiple sites, and certain journals require potential articles to register PAPs with a specific site.^[Note that some organizations do not use third party sites.  For example, the [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) uses Github, which has timestamps that verify the PAP was created before the analysis was conducted.]
 
-- [EGAP Registry](https://egap.org/registry-0/)
+- [EGAP Registry](https://egap.org/registry/)
 - [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
 - [OSF Registry](http://help.osf.io/m/registrations)
 
