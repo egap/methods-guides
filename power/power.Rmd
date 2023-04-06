@@ -93,8 +93,6 @@ Using the formula in section 4, you can see how sensitive power is to all of the
 
 [^3]: For an additional online power visualization tool, see Kristoffer Magnusson's [R Psychologist blog](http://rpsychologist.com/d3/NHST/){target="_blank"}.
 
-<iframe height="500" src="https://egap.shinyapps.io/Power_Calculator/" width="850"></iframe>
-
 6 How to Use Simulation to Estimate Power
 ==
 Power is a measure of how often, given assumptions, we would obtain statistically significant results, if we were to conduct our experiment thousands of times. The power calculation formula takes assumptions and return an analytic solution. However, due to advances in modern computing, we don’t have to rely on analytic solutions for power analysis. We can tell our computers to literally run the experiment thousands of times and simply count how frequently our experiment comes up significant.
