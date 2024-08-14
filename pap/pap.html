@@ -313,6 +313,9 @@ display: list-item;
 details > summary > p:only-child {
 display: inline;
 }
+details > summary > p:only-child {
+  display: inline;
+}
 pre code {
 padding: 0;
 }
@@ -435,18 +438,21 @@ document.</p>
 <div id="what-is-a-pre-analysis-plan-pap" class="section level1">
 <h1>1 What is a Pre-Analysis Plan (PAP)</h1>
 <p>A PAP is a document that formalizes and declares the design and
-analysis plan for your study. It is written before the analysis is
-conducted and is generally registered on a third-party website.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<p>The objectives of the PAP are to improve research design choices,
-increase research transparency, and allow other scholars to replicate
-your analysis. As a result, we recommend focusing the PAP on analytic
-details that will help you analyze your study and allow other
-researchers to replicate your analysis. A brief section on theory should
-be included insofar as it helps articulate hypotheses, but a detailed
-theory and literature review need not be included. The PAP does not need
-to include the front-end of an academic paper if these sections do not
-help you think about your analysis or help readers replicate your
-analysis.</p>
+analysis plan for your study. It is written, ideally, before outcome
+data are collected, or at least before the analysis is conducted and is
+generally registered on a third-party website.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The objectives of the PAP are to limit practices like data-mining or
+<span class="math inline">\(p\)</span>-hacking that researchers use to
+overstate the evidence in favor of their claims, as well as to improve
+research design choices, increase research transparency, and allow other
+scholars to replicate your analysis. As a result, we recommend focusing
+the PAP on analytic details that will help you analyze your study and
+allow other researchers to replicate your analysis. A brief section on
+theory should be included insofar as it helps articulate hypotheses, but
+a detailed theory and literature review need not be included. The PAP
+does not need to include the front-end of an academic paper if these
+sections do not help you think about your analysis or help readers
+replicate your analysis.</p>
 <p>In the following sections, we provide guidelines for the details you
 should include in PAPs, including example text. We also recommend that
 you include as much code and analysis of simulated data as possible.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Many PAPs
@@ -685,7 +691,9 @@ deal with them in your PAP. Extreme points/missingness that are random
 will be less problematic than extreme points/missingess that seem to
 have a pattern.</p>
 <p>Common procedures to address missing data or extreme points are 1)
-bounds analysis; 2) imputation; 3) dropping observations. We recommend
+bounds analysis; 2) imputation; 3) dropping observations. See our guide
+<a href="https://egap.org/resource/10-things-to-know-about-missing-data/">10
+Things to Know About Missing Data</a> for details. We recommend
 considering the following questions when determining which procedure you
 would like to use:</p>
 <ul>
@@ -897,7 +905,7 @@ articles to register PAPs with a specific site.<a href="#fn7" class="footnote-re
 <li><a href="https://egap.org/registry/">EGAP Registry</a></li>
 <li><a href="https://www.socialscienceregistry.org">AEA Registry</a>
 (for RCTs only)</li>
-<li><a href="http://help.osf.io/m/registrations">OSF Registry</a></li>
+<li><a href="https://osf.io/registries">OSF Registry</a></li>
 </ul>
 <!--# Stuff for Chris and Lula
 
