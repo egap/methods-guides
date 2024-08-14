@@ -35,11 +35,11 @@ This guide introduces the idea of a pre-analysis plan (PAP), offers a model and 
 1 What is a Pre-Analysis Plan (PAP)
 ==
 
-A PAP is a document that formalizes and declares the design and analysis plan for your study.  It is written before the analysis is conducted and is generally registered on a third-party website.[^TOP]
+A PAP is a document that formalizes and declares the design and analysis plan for your study.  It is written, ideally, before outcome data are collected, or at least before the analysis is conducted and is generally registered on a third-party website.[^TOP]
 
 [^TOP]:PAPs are encouraged as part of the [Transparency and Openness Promotion (TOP) Guidelines](https://osf.io/4kdbm/?_ga=2.259736077.62256863.1547257566-317545181.1501862097) [@nosek2015], published in [Science](http://science.sciencemag.org/content/348/6242/1422.full), with leading social science journals committing to implementing TOP Guidelines. 
 
-The objectives of the PAP are to improve research design choices, increase research transparency, and allow other scholars to replicate your analysis.  As a result, we recommend focusing the PAP on analytic details that will help you analyze your study and allow other researchers to replicate your analysis.  A brief section on theory should be included insofar as it helps articulate hypotheses, but a detailed theory and literature review need not be included.  The PAP does not need to include the front-end of an academic paper if these sections do not help you think about your analysis or help readers replicate your analysis.
+The objectives of the PAP are to limit practices like data-mining or $p$-hacking that researchers use to overstate the evidence in favor of their claims, as well as to improve research design choices, increase research transparency, and allow other scholars to replicate your analysis.  As a result, we recommend focusing the PAP on analytic details that will help you analyze your study and allow other researchers to replicate your analysis.  A brief section on theory should be included insofar as it helps articulate hypotheses, but a detailed theory and literature review need not be included.  The PAP does not need to include the front-end of an academic paper if these sections do not help you think about your analysis or help readers replicate your analysis.
 
 In the following sections, we provide guidelines for the details you should include in PAPs, including example text.  We also recommend that you include as much code and analysis of simulated data as possible.[^DD]  Many PAPs will not be able to include everything on our list, but a PAP should, at a minimum, include the full list of hypotheses that you intend to test, how you will measure variables relevant to those hypotheses, and a verifiable time stamp.
 
@@ -151,7 +151,7 @@ Two common data issues are (1) extreme data points and (2) missing data.  **Extr
 
 **Missing data** can come in two forms: missing covariates and missing outcomes.  It is also important to specify when you expect to see missing outcomes or covariate and the procedures to deal with them in your PAP.  Extreme points/missingness that are random will be less problematic than extreme points/missingess that seem to have a pattern.
 
-Common procedures to address missing data or extreme points are 1) bounds analysis; 2) imputation; 3) dropping observations.  We recommend considering the following questions when determining which procedure you would like to use: 
+Common procedures to address missing data or extreme points are 1) bounds analysis; 2) imputation; 3) dropping observations. See our guide [10 Things to Know About Missing Data](https://egap.org/resource/10-things-to-know-about-missing-data/) for details.  We recommend considering the following questions when determining which procedure you would like to use: 
 
   - What issues may cause these extreme data points/missing covariates/missing outcomes? What can you do ahead of time to mitigate these data issues?
   - How would you assess if the extreme/missing data are plausibly random (i.e. do the extreme data points/missingness correlate with treatment, specific covariates/subgroups, or outcomes)? 
@@ -248,9 +248,9 @@ Your PAP is now complete and you are ready to register it!  For experimental stu
 
 There are several third-party sites on which you can register your PAP.  We list common sites for social science PAPs below.  You can list your PAP on multiple sites, and certain journals require potential articles to register PAPs with a specific site.^[Note that some organizations do not use third party sites.  For example, the [U.S. General Services Administration Office of Evaluation Sciences process](https://oes.gsa.gov/methods/) uses Github, which has timestamps that verify the PAP was created before the analysis was conducted.]
 
-- [EGAP Registry](https://egap.org/registry-0/)
+- [EGAP Registry](https://egap.org/registry/)
 - [AEA Registry](https://www.socialscienceregistry.org) (for RCTs only)
-- [OSF Registry](http://help.osf.io/m/registrations)
+- [OSF Registry](https://osf.io/registries)
 
 <!--# Stuff for Chris and Lula
 

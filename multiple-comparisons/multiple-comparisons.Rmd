@@ -179,11 +179,7 @@ g
 
 Of the 25 null hypotheses that would be rejected if no correction were made, the Bonferroni correction only rejects 8, the Holm procedure rejects 11, and the Benjamini–Hochberg procedure rejects 22 (or tags 22 hypotheses as promising for future exploration). Of these three corrections, Bonferroni is the most stringent while Benjamini–Hochberg is the most lenient.
 
-Instead of R, you can also use this calculator to adjust your p-values.
-
-This calculator works best in Firefox. To use full-screen, go [here](https://egap.shinyapps.io/multiple-comparisons-app/).
-
-<iframe height="500" src="https://egap.shinyapps.io/multiple-comparisons-app/" width="850"></iframe>
+Instead of R, you can also use [this calculator](https://egap.shinyapps.io/multiple-comparisons-app/) to adjust your p-values.
 
 
 7: A better way to control the FWER is simulation

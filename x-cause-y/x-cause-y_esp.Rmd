@@ -3,25 +3,12 @@ output:
   html_document:
     toc: true
     theme: journal
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Strategies for Figuring out if X Causes Y" -->
 <!-- author: "Methods Guide Author: Macartan Humphreys" -->
-
-
-10 estrategias para entender si X causó Y
-
-Resumen
-1. Aleatorización
-2. Experimento controlado (homogeneidad inducida al nivel de la unidad)
-3. Experimentos naturales (o “como si fueran” aleatorizados)
-4. Comparaciones antes/después
-5. Controlando ex post I: Regresión
-6. Controlando ex post: II: Emparejar y Ponderar
-7. Variables instrumentales (Instrumental Variables, IV)
-8. Diseños de regresión discontinua (Regression discontinuity design, RDD)
-9. Rastreo de procesos
-10. Estrategias de entrada (Front-door strategies) (Argumento de mecanismos)
 
 Resumen
 ==

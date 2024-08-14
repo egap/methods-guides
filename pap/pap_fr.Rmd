@@ -25,7 +25,7 @@ color: black;
 </style>
 
 <!-- title: "10 choses à savoir sur les plans de pré-analyse" -->
-<!-- author: "Auteur du guide des méthodess: Nuole (Lula) Chen et Christopher Grady" -->
+<!-- author: "Auteur du guide des méthodes: Nuole (Lula) Chen et Christopher Grady" -->
 
 Résumé
 ==
