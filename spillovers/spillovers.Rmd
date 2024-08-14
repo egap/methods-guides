@@ -198,12 +198,9 @@ There are two very important things to remember when using IPW:
 ==
 You might be tempted to simply construct a model for a particular type of spillover and estimate it. But unfortunately, just as spillovers can produce biased estimates of treatment effects, incorrectly modeled spillovers can create biased estimates of spillover effects (as well as treatment effects).
 
-To get some intuition for the problem, the simulator below lets you pick an interference assumption: the radius beyond which spillovers cannot occur. As in section 4, we assume there are only 4 potential outcomes. The three causal effects that interest us are the average differences between $Y_{00}$ and the other three potential outcomes. The tension in the simulator is between the true (in principle, unknown) spillover network that generates outcomes and the assumed spillover network used for estimation.
+To get some intuition for the problem, the [this simulator app](https://egap.shinyapps.io/spillover-app/)^[You can download [R code for the above Shiny App from github here](https://github.com/egap/shiny/tree/master/gotv-app).] lets you pick an interference assumption: the radius beyond which spillovers cannot occur. As in section 4, we assume there are only 4 potential outcomes. The three causal effects that interest us are the average differences between $Y_{00}$ and the other three potential outcomes. The tension in the simulator is between the true (in principle, unknown) spillover network that generates outcomes and the assumed spillover network used for estimation.
 
 The causal effect estimates are only correct when the spillover assumption is correct. The potential outcomes were generated under a true radius of 5km. When any radius other than 5km is selected, some if not all of the estimates are biased. This simulator underlines a discouraging point about spillover analysis: it is generally not possible to know if you’ve got the “correct” model of spillovers. Short of doing so, the answers yielded by the model will be incorrect.
-
-<iframe height="500" src="https://egap.shinyapps.io/spillover-app/" width="850"></iframe>
-[Download R code for the above Shiny App](https://github.com/egap/shiny/tree/master/gotv-app) from github
 
 Applied researchers often favor two responses to the “unknowability” of the spillover process. First, they specify “theoretically-driven” models of spillover. Usually, this involves the careful application of qualitative information from the experimental context. Second, researchers conduct robustness checks: they present estimates under a series of spillover assumptions, for example the estimates under increasing radii.
 

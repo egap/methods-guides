@@ -26,9 +26,7 @@ Independent and dependent variables have many synonyms, so it helps to be famili
 
 A positive relationship in a regression means that high values of the independent variable are associated with high values of the dependent variable. A negative relationship means that units which have high values on the independent variable tend to have low values on the dependent variable, and vice versa. Regressions can be run to estimate or test many different relationships. You might run a regression to predict how much more money people earn on average for every additional year of education, or to predict the likelihood of success based on hours practiced in a given sport.
 
-Use the app below to get a feel for what a regression is and what it does. Below we will talk through the output of the regression table. Fill in values for x and for y and then look to see how the line of best fit changes to capture the average relationship between x and y. As the line changes, so too does the key information in the regression table.
-
-<iframe height="500" src="https://egap.shinyapps.io/Regression101/" width="850"></iframe>
+Use the app [linked here](https://egap.shinyapps.io/Regression101/) get a feel for what a regression is and what it does. Below we will talk through the output of the regression table. Fill in values for x and for y and then look to see how the line of best fit changes to capture the average relationship between x and y. As the line changes, so too does the key information in the regression table.
 
 2 What is a regression equation?
 ==

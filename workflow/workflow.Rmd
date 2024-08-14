@@ -39,14 +39,12 @@ please-close-pdf()
 
 Coding has other benefits. It saves time by systematically completing repetitive tasks that could be done manually but with greater time investment. It leads to smoother collaboration by communicating progress and next steps. Finally, it helps researchers avoid making mistakes by combining multiple steps into one file where the order of steps and the relationships among steps is clear.
 
-3.	Coding is communication 1: to your self, to co-investigators, and to the future
+3.	Coding is communication: to yourself, to co-investigators, and to the future
 ==
 Data analysis requires a series of decisions, large and small. These decisions will be made both by individual researchers and by research teams. The why and how questions that will arise when you or others attempt to reproduce your work can only be answered if you can remember and communicate about these decisions.
 
 One way to record decisions made during the coding process is to use the **comment** feature of whichever analysis software you are using (for example, lines beginning with * in Stata, # in R are not executed but are understood as notes). Comments are unexecuted text within the script, and can explain the purpose of each line or section to your collaborators or future self. You can see some commented code in the chunk of R code in point 2.
 
-4. Coding is communication 2: to yourself, to co-investigators, and to the future
-==
 Coding and communication can be linked even tighter by combining them in the same file. Using markup systems  like R Markdown (see section 4 below) or R+LaTeX[^2], you can place a code chunk that produces a table or figure right where that table/figure will be in the document. If you make a change to the code that produces that table/figure, it appears in the document without any additional work. The R code in point 2 starts with ` ```{r codechunk1}` which tells R+markdown that the next bit of text is R code to be executed and ends with ` ``` ` which tells R+markdown to go back to interpreting the text as prose. For example, in markdown one uses two asterisks to make text **bold** (```**like this**```) but two asterisks would confuse R (there is no R command with two asterisks), so the idea of a code chunk allows two or more kinds of text to be mixed in a single document. Coauthors and editors can also review the manuscript together with the tables and figures, rather than scrolling back and forth between the two. When it comes time to produce the final version of the document, the code chunks can be hidden to display only the relevant table/figure.[^3] The idea is to type the document in plain text but that external programs (including R) can compile so that they end up looking like nice, formatted PDFs. You can use Markdown on Windows and Mac OSX, and you can also edit the file in an ordinary text editor. Jupyter notebooks are another recent open source approach to mixing prose text and code text which emphasize the python language but which can also include R.[^4]
 
 [^2]: Called, anachronistically, Sweave

@@ -192,8 +192,8 @@ knitr::kable(data.frame(Xobs, Z, Yobs))
 
 Just as the consequences of missingness vary by the type of variable that is missing, the imputation methods advocated to address missingness also vary. Importantly, these methods vary in the strength of the assumptions about missingness that are invoked to identify causal effects in the presence of missingness. We review three common approaches to imputation in #8-#10.
 
-##8. How do we address missingness of pre-treatment covariates and why does this matter?
-
+8. How do we address missingness of pre-treatment covariates and why does this matter?
+==
 As mentioned in #4, we should never "drop" observations on account of missing pre-treatment data. In order to estimate a model with covariate adjustment, thus, we need to "fill in" missing values to avoid dropping observations. We outline two forms of imputation advocated for missing pre-treatment covariates. The most common approach to address missingness of pre-treatment covariates is to create indicators for missingness and include these as covariates. To do this form of imputation:
 
 1. Substitute a numerical value for the `NA` (as necessary). In the dataset below, we impute a `0` for all values of `Xobs` that are `NA`s. The new variable is named `Ximputed`.
