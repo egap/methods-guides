@@ -262,6 +262,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 /* for pandoc --citeproc since 2.11 */
 div.csl-bib-body { }
@@ -308,6 +309,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -486,15 +490,18 @@ challenges.</p>
 </div>
 <div id="what-is-a-survey-experiment" class="section level1">
 <h1>1 What is a Survey Experiment</h1>
-<p>A survey experiment is an experiment conducted within a survey. In an
-experiment, a researcher randomly assigns participants to at least two
-experimental conditions. The researcher then treats each condition
-differently. Due to random assignment, the researcher can assume that
-the only difference between conditions is the difference in treatment.
-For example, a medical experiment may learn about the effect of a pill
-by creating two experimental conditions and giving the pill to
-participants in only one condition. In a survey experiment, the
-randomization and treatment occur within a survey questionnaire.</p>
+<p>A survey experiment is an experiment conducted within a survey. (For
+more general information on surveys, see our guides on <a href="https://egap.org/resource/10-things-to-know-about-survey-design/">survey
+design</a> and <a href="https://egap.org/resource/10-things-to-know-about-survey-implementation/">survey
+implementation</a>.) In an experiment, a researcher randomly assigns
+participants to at least two experimental conditions. The researcher
+then treats each condition differently. Due to random assignment, the
+researcher can assume that the only difference between conditions is the
+difference in treatment. For example, a medical experiment may learn
+about the effect of a pill by creating two experimental conditions and
+giving the pill to participants in only one condition. In a survey
+experiment, the randomization and treatment occur within a survey
+questionnaire.</p>
 <p>There are two types of survey experiments. One type is used to
 measure sensitive attitudes or behaviors and the other is used to learn
 about causal relationships. By sensitive attitudes and behaviors, we
