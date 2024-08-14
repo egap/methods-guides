@@ -53,7 +53,9 @@ all: adaptive/adaptive.html \
 	mechanisms/10thingsaboutmechanisms_fr.html \
 	pap/pap_fr.html \
 	power/power_fr.html \
-	randomization/randomization_fr.html
+	randomization/randomization_fr.html \
+	x-cause-y/x-cause-y_fr.html \
+	x-cause-y/x-cause-y_esp.html
 
 adaptive/adaptive.html:  adaptive/adaptive.Rmd
 	Rscript -e "rmarkdown::render('./adaptive/adaptive.Rmd')"
@@ -107,7 +109,7 @@ missing_data/missing_data.html:  missing_data/missing_data.Rmd
 multiple-comparisons/multiple-comparisons.html:  multiple-comparisons/multiple-comparisons.Rmd
 	Rscript -e "rmarkdown::render('./multiple-comparisons/multiple-comparisons.Rmd')"
 
-multisite/multisite.html:  multisite/multisite.Rmd
+multisite/multisite.html:  multisite/multisite.Rmd multisite/refs.bib
 	Rscript -e "rmarkdown::render('./multisite/multisite.Rmd')"
 
 null/null_results.html:  null/null_results.Rmd

@@ -80,7 +80,7 @@ The use of adaptive designs introduces additional decisions, which ideally shoul
 ==
 Many of the applications to date have taken place in commercial settings, such as website design for high-volume e-commerce, or in settings such as on-line fundraising. Relatively few applications have been written up in detail for a scholarly audience.  Surprisingly rare are applications in biomedical research. As Villar et al. (2015, p.200) note, “Despite this apparent near-perfect fit between a real-world problem and a mathematical theory, the MABP has yet to be applied to an actual clinical trial.”
 
-Putting aside the use of multi-arm bandit approaches, the use of adaptive trials is gradually winning acceptance in biomedical research. For details, see Chin (2016).
+Putting aside the use of multi-arm bandit approaches, the use of adaptive trials is gradually winning acceptance in biomedical research. See Chin (2016) for details and [https://www.remapcap.org/](https://www.remapcap.org/) for a prominent example. 
 
 10. What other considerations should inform the decision to use adaptive design?
 ==

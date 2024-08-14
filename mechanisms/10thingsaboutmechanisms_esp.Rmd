@@ -7,9 +7,8 @@ output:
     extensions: +implicit_figure
     code_folding: show
     fig_caption: true
-    pandoc_args: [
-           --filter, pandoc-crossref
-        ]
+    includes:
+        after_body: ../linking_script.html
 ---
 
 <!-- title: "10 Things about Mechanisms" -->

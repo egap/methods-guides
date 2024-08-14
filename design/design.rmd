@@ -2,6 +2,7 @@
 output: 
   html_document:
     toc: true
+    toc_depth: 1
     theme: journal
     includes:
         after_body: ../linking_script.html
@@ -19,33 +20,34 @@ At a minimum, all that is needed to estimate a treatment effect after an experim
 ## Baseline surveys 
 Baseline surveys should produce data that describe the experimental subject population as they were before the treatment is delivered. This is accomplished through the measurement of covariates, which are observed pre-treatment characteristics of experimental subjects. Using covariate data you can: 1) describe the subject population, 2) improve the precision with which you estimate treatment effects, 3) report balance, and 4) estimate heterogeneous treatment effects.
 
-## Covariates
-Covariates improve the precision with which you can estimate treatment effects by reducing variance in three ways; covariates can be used to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. collected sometime before treatment is delivered. See the guide on [covariate adjustment](https://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
+Covariates improve the precision with which you can estimate treatment effects. You can use covariates in three ways: to rescale your dependent variable, as controls when using regression to estimate treatment effects, and to construct blocks in order to conduct blocked random assignment.[^1] In order for covariate data to be used to reduce variance in our estimates of treatment effects, they need to be unaffected by treatment assignment, i.e. ideally collected some  time before treatment is delivered. See the guide on [covariate adjustment](https://egap.org/resource/10-things-to-know-about-covariate-adjustment) for more about how to use covariate data.
 
 [^1]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012.
 
-The greater the predictive power of included covariates, the greater increase in the power of your design and the precision with which you can estimate effects. If you believe covariates will likely predict outcomes in your experiment, then that is grounds to include them in your survey. For example, if the intervention involves providing a service at a cost to treated users, income will likely explain some variation in outcomes and is therefore a useful covariate to measure at the baseline stage. 
+The greater the predictive power of included covariates, the greater the increase in the power of your design and the precision with which you can estimate effects. If you believe covariates will likely predict outcomes in your experiment, then that is grounds to include them in your survey. For example, if the intervention involves providing a service at a cost to treated users, income will likely explain some variation in outcomes and is therefore a useful covariate to measure at the baseline stage. 
+
+Often, baseline measures of your outcome can be very predictive. The procedure that uses pre-measures to re-scale the outcomes is referred to as the difference-in-differences estimator. As with other covariates, the difference-in-differences estimator will improve precision only when the pre-measure strongly predicts the outcome.[^2]
+
+[^2]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012. See equation 4.2.
 
 Because pre-treatment covariates can improve precision, conducting a baseline becomes more important when the sample size is limited. 
 
 Covariates also allow you to conduct sub-group analyses. Heterogeneous effects are not causal, and so interpretation is limited. Still, understanding how treatment effects vary by subejcts’ attributes can provide you with important clues about mechanisms. The implication for design is to include covariates for which you would like to report heterogeneous effects.
 Covariate data will also be used to show “balance”, or the extent to which the treatment and control populations resemble each other. Although random assignment alone ensures that outcomes across the treatment and control group are in expectation the same, it is standard practice to show that random assignment resulted in two groups that are “balanced” on covariates of interest. If, for example, the treatment group included 25% more men than the control group, we might worry that random assignment failed in some way. Collecting pre-treatment covariate data allows us to evaluate and report balance. 
 
-## Pre-treatment measurement of outcomes
+One consideration that can speak against a baseline survey is the risk that the baseline survey may induce experimenter demand. If you think that being aware that they are part of an experiment or knowing about the goals of the project may alter respondents' behavior in systematic ways, you may want to keep your experimental procedures as unobtrusive as possible. One way to do so is to dispense with a baseline survey all together. Alternatively, you could implement a baseline survey to collect demographic information but limit the number of questions that concern the study topic and hence may allow respondents to guess the study purpose.
 
-The baseline provides an opportunity to measure the outcome before the experiment was conducted, later allowing you to use change scores as your outcome and the difference-in-differences estimator. The difference-in-differences estimator will improve precision only when a covariate strongly predicts outcomes.[^2]
 
-[^2]: Gerber, Alan S., and Donald P. Green. Field Experiments: Design, Analysis, and Interpretation. New York: W.W. Norton, 2012. See equation 4.2.
 
 ## Endline Surveys
 
-Endline surveys, conducted after the treatment is delivered, are primarily used to measure outcomes. Including questions about implementation can improve analysis and interpretation greatly. 
+Endline surveys, conducted after the treatment is delivered, are primarily used to measure outcomes. Including questions about implementation can improve analysis and interpretation greatly -- though you may want to avoid doing so or place these questions at the end of the questionnaire if you are worried about experimenter demand.
 
 Surveys conducted after treatments are delivered are one way to understand if there were compliance issues or other implementation issues that may have consequences for analysis. Survey data can help to determine the scope of non-compliance with the assigned treatment, and the underlying causes. This is an opportunity to ask subjects directly about reasons for noncompliance. Subjects may have understood the treatment differently than the researchers, and survey data can be used to both show this and speculate why this may have happened. 
 
 In the endline, you can learn about spillover by asking subjects in the control condition about their knowledge and access to the treatment. Interviews with treated subjects are useful for understanding spillover as well, because survey data can be used to understand the networks through which the treatment could have "spilled-over" into the control group.
 
-Describing the population is important here as well, but covariate data collected after implementation are less useful for improving precision. Ordinarily, covariates collected after treatment assignment are considered suspect, as they could conceivably be affected by treatment.
+Describing the population is important here as well, but covariate data collected after implementation are less useful for improving precision. Ordinarily, covariates collected after treatment assignment are considered suspect, as they could conceivably be affected by treatment. With the exception of  characteristics such as age or gender that are plausibly unaffected by many treatments, your analysis procedure should not condition on measures that have been collected post-treatment. 
 
 Baseline checklist                  |Endline checklist
 ------------------------------------|----------------------------
@@ -74,7 +76,7 @@ Collecting original data usually means more options. As a researcher you are abl
 
 3 Develop your survey before or in tandem with your pre-analysis plan 
 ==
-It is now standard practice in experimental social science research to register a **pre-analysis plan** (PAP), which lays out in advance exactly what effects will be estimated and how. The key concern is that if you choose your tests *after* you see the data, you can get whatever results you like, or at least you can accentuate the tests that bolster a pet hypothesis.[^3] Pre-registering a design and analysis plan, therefore, is a solution that prevents "fishing": data mining and specification searching.
+It is now standard practice in experimental social science research to register a **pre-analysis plan** (PAP), which lays out in advance exactly what effects will be estimated and how. The key concern is that if you choose your tests *after* you see the data, you can get whatever results you like, or at least you can accentuate the tests that bolster a pet hypothesis.[^3] Pre-registering a design and analysis plan, therefore, is a solution that prevents "fishing": data mining and specification searching. Our guide [10 Things to Know About Pre-Analysis Plans](https://egap.org/resource/10-things-to-know-about-pre-analysis-plans/) provides more information.
 
 [^3]: Link to fishing article: http://www.columbia.edu/~mh2245/papers1/PA_2012b.pdf. Link to Casey et al: http://qje.oxfordjournals.org/content/127/4/1755.full.pdf+html
 
@@ -117,6 +119,10 @@ In the case that you use one of these methods, you may also want to include dire
 LINKS TO LIST EXPERIMENT RESOURCES:
 http://imai.princeton.edu/projects/sensitive.html
 
+Social-desirability bias in experiments is a particularly important concern if you suspect that such bias could be induced by your treatment. The awareness of being part of a study as well as respondents' perception of what the goal of the study is may influence what respondents perceive as socially desirable and hence how they answer survey questions. For example, respondents may want to please the researchers and hence act in accordance with what they think the researchers' hypothesis is. Such treatment-induced experimenter demand can bias treatment effect estimates. In addition to using the above techniques to address all kinds of social desirability bias, researchers can limit concerns about experimenter demand by designing their experiments in unobtrusive ways. For example, they may avoid a baseline survey or implement the endline survey in such a way that respondents are not immediately aware that the endline survey is linked to the treatment. See de Quidt et al. (2018) for an approach to measuring experimenter demand.[^6]
+
+[^6]: De Quidt, Jonathan, Johannes Haushofer, and Christopher Roth. "Measuring and bounding experimenter demand." *American Economic Review* 108 (11) (2018): 3266-3302.
+
 7 If social desirability bias and/or risk to respondents are not concerns: then use attitudinal measures with these qualities
 ==
 High-quality measures share two main characteristics; they are valid and reliable. A valid measure measures the underlying concept it is intended to capture. A reliable measure produces the same measurements when a given quantity is assessed repeatedly.
@@ -144,9 +150,10 @@ Start your questionnaire with an introduction that makes the respondent feel inf
 ==
 If response rates are related to treatment status, your survey data can yield biased estimates. For example, let’s say you are conducting a study of an intervention that involves testing study participants for health problems and informing those in the treatment group of their diagnosis. This is a sensitive intervention and may cause people in the treatment group to become more apprehensive about answering a survey than those in the control group. Simply analyzing the data without accounting for differential response rates would yield data that was biased away from the true treatment effect—we lack data on those with the highest potential outcomes, those subjects who have been exposed to the strongest version of the treatment.
 
-One way to deal with this in the design of your survey (not the design of the treatment or in analysis alone [e.g., using bounded treatment effects[^6]]), is to track a subsample of individuals from the hard-to-reach group. Choose a subset of missing respondents and invest in tracking and reaching them. At the analysis stage you have the option of weighting the data from this subsample in order to account for attrition.
+Our guide [10 Things to Know About Missing Data](https://egap.org/resource/10-things-to-know-about-missing-data/) provides details on how to deal with problems of attrition in your analysis, e.g., by placing bounds on treatment effects.[^7] You can also deal with attrition through the design of your survey, by tracking a random subsample of individuals from the hard-to-reach group. Choose a random subset of missing respondents and invest in tracking and reaching them. At the analysis stage you can combine data from this subsample with the data from your main sample through a weighted average in order to obtain an estimate of the average outcome in the sample as a whole. This approach is often referred to as "double sampling." See Lohr (2009, chap. 8.3)[^8] and our guide [10 Things to Know About Sampling](https://egap.org/resource/10-things-to-know-about-sampling/) for details. 
 
-[^6]: This approach involves estimating the upper and lower "bounds," which are the largest and smallest ATEs we would obtain if the missing information were filled in with the highest and lowest outcomes that appear in the data we have.
+[^7]: This approach involves estimating the upper and lower "bounds," which are the largest and smallest treatment effect estimates that we would obtain if the missing information was equal to the highest and lowest possible values of our outcomes.
+[^8]: Lohr, Sharon L. 2009. *Sampling: Design and Analysis.* 2nd ed. Boston: Brooks/Cole Cengage Learning.
 
 10 Pilot!
 ==
