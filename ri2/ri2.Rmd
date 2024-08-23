@@ -1,5 +1,5 @@
 ---
-output: 
+output:
   html_document:
     toc: true
     theme: journal
@@ -12,7 +12,7 @@ output:
 <!-- date: "February 24, 2018" -->
 
 ```{r, echo=FALSE}
-knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 set.seed(343)
 ```
 
@@ -29,7 +29,7 @@ Follow the links below to download the four datasets we'll use in the examples:
 
 # 1. Randomization inference for the Average Treatment Effect
 
-We'll start with the most common randomization inference task: testing an observed average treatment effect estimate against the sharp null hypothesis of no effect for any unit. 
+We'll start with the most common randomization inference task: testing an observed average treatment effect estimate against the sharp null hypothesis of no effect for any unit.
 
 In `ri2`, you always "declare" the random assignment procedure so the computer knows how treatments were assigned. In the first design we'll consider, exactly half of the 200 students were assigned to treatment using complete random assignment.
 
@@ -89,7 +89,7 @@ A very similar syntax accommodates a cluster randomized trial.
 
 ```{r}
 clustered_dat <- read.csv("clustered_dat.csv")
-clustered_dec <- declare_ra(clusters =  clustered_dat$schools)
+clustered_dec <- declare_ra(clusters = clustered_dat$schools)
 
 ri_out <-
   conduct_ri(
@@ -156,14 +156,14 @@ The null hypothesis we're testing against in this example is the sharp hypothesi
 ate_obs <- with(complete_dat, mean(Y[Z == 1]) - mean(Y[Z == 0]))
 
 ri_out <-
-    conduct_ri(
-      model_1 = Y ~ Z + high_quality,
-      model_2 = Y ~ Z + high_quality + Z * high_quality,
-      declaration = complete_dec,
-      sharp_hypothesis = ate_obs,
-      data = complete_dat, 
-      sims = sims
-    )
+  conduct_ri(
+    model_1 = Y ~ Z + high_quality,
+    model_2 = Y ~ Z + high_quality + Z * high_quality,
+    declaration = complete_dec,
+    sharp_hypothesis = ate_obs,
+    data = complete_dat,
+    sims = sims
+  )
 summary(ri_out)
 plot(ri_out)
 ```
@@ -174,16 +174,16 @@ Another way to investigate treatment effect heterogeneity is to consider whether
 
 ```{r}
 d_i_v <- function(dat) {
-    with(dat, var(Y[Z == 1]) - var(Y[Z == 0]))
-  }
+  with(dat, var(Y[Z == 1]) - var(Y[Z == 0]))
+}
 
 ri_out <-
-    conduct_ri(
-      test_function = d_i_v,
-      declaration = complete_dec,
-      data = complete_dat, 
-      sims = sims
-    )
+  conduct_ri(
+    test_function = d_i_v,
+    declaration = complete_dec,
+    data = complete_dat,
+    sims = sims
+  )
 
 summary(ri_out)
 plot(ri_out)
@@ -195,16 +195,18 @@ In a three-arm trial, the research might wish to compare each treatment to contr
 
 ```{r three_arm_example, eval=TRUE, warn=FALSE}
 three_arm_dat <- read.csv("three_arm_dat.csv")
-three_arm_dec <- declare_ra(N = 200, 
-                            conditions = c("Control", "Treatment 1", "Treatment 2"))
+three_arm_dec <- declare_ra(
+  N = 200,
+  conditions = c("Control", "Treatment 1", "Treatment 2")
+)
 
 ri_out <-
-    conduct_ri(
-      formula = Y ~ Z,
-      declaration = three_arm_dec,
-      data = three_arm_dat,
-      sims = sims
-    )
+  conduct_ri(
+    formula = Y ~ Z,
+    declaration = three_arm_dec,
+    data = three_arm_dat,
+    sims = sims
+  )
 
 
 summary(ri_out)
@@ -221,12 +223,12 @@ F_statistic <- function(data) {
 }
 
 ri_out <-
-   conduct_ri(
-     test_function = F_statistic,
-     declaration = three_arm_dec,
-     data = three_arm_dat,
-     sims = sims
-   )
+  conduct_ri(
+    test_function = F_statistic,
+    declaration = three_arm_dec,
+    data = three_arm_dat,
+    sims = sims
+  )
 
 summary(ri_out)
 plot(ri_out)
@@ -237,10 +239,10 @@ plot(ri_out)
 Some experiments encounter noncompliance, the slippage between treatment as assigned and treatment as delivered. The Complier Average Causal Effect ($CACE$) can be shown (under standard assumptions plus monotonicity) to be the ratio of the effect of assignment on the outcome -- the "Intention-to-Treat" ($ITT_y$) and the effect of assignment on treatment receipt the ($ITT_D$). (The $CACE$ is also called Local Average Treatment Effect. See our guide [10 Things to Know About the Local Average Treatment Effect](https://egap.org/resource/10-things-to-know-about-the-local-average-treatment-effect/) for more details.) Because the $CACE$ is just a rescaled, $ITT_y$, a hypothesis test with respect to the $ITT_y$ is a valid test for the $CACE$. In practice, researchers can simply conduct a randomization inference test exactly as they would for the ATE, ignoring noncompliance altogether.
 
 ```{r}
-ITT_y = with(complete_dat, mean(Y[Z == 1]) - mean(Y[Z == 0])) 
-ITT_d = with(complete_dat, mean(D[Z == 1]) - mean(D[Z == 0])) 
+ITT_y <- with(complete_dat, mean(Y[Z == 1]) - mean(Y[Z == 0]))
+ITT_d <- with(complete_dat, mean(D[Z == 1]) - mean(D[Z == 0]))
 CACE <- ITT_y / ITT_d
-           
+
 ri_out <-
   conduct_ri(
     Y ~ Z, # notice we do inference on the ITT_y
@@ -258,7 +260,7 @@ plot(ri_out)
 `ri2` can accommodate *any* scalar test statistic. A favorite among some analysts is the Wilcox rank-sum statistic, which can be extracted from the `wilcox.test()` function:
 
 ```{r}
-wilcox_fun <- function(data){
+wilcox_fun <- function(data) {
   wilcox_out <- with(data, wilcox.test(Y ~ Z))
   wilcox_out$statistic
 }
